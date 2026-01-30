@@ -247,7 +247,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @param serverName  name of called server
      * @param platformGUID unique identifier of the platform
-     * @return a list of platforms
+     * @return  list of platforms
      * InvalidParameterException  one of the parameters is null or invalid.
      * PropertyServerException    a problem retrieving information from the property server(s).
      * UserNotAuthorizedException the requesting user is not authorized to issue this request.
@@ -287,6 +287,68 @@ public class RuntimeManagerRESTServices extends TokenController
                 omagServerPlatformConnector.setDelegatingUserId(userId);
                 omagServerPlatformConnector.start();
                 response.setElement(omagServerPlatformConnector.getPlatformReport());
+                omagServerPlatformConnector.disconnect();
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response.toString());
+        return response;
+    }
+
+
+    /**
+     * Return the connector type for the requested connector provider after validating that the
+     * connector provider is available on the OMAGServerPlatform's class path.  This method is for tools that are configuring
+     * connectors into an Egeria server.  It does not validate that the connector will load and initialize.
+     *
+     * @param serverName  name of called server
+     * @param platformGUID unique identifier of the platform
+     * @param connectorProviderClassName name of the connector provider class
+     * @return ConnectorType bean or exceptions that occur when trying to create the connector:
+     * InvalidParameterException  one of the parameters is null or invalid.
+     * PropertyServerException    a problem retrieving information from the property server(s).
+     * UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public OCFConnectorTypeResponse getConnectorType(String serverName,
+                                                     String platformGUID,
+                                                     String connectorProviderClassName)
+    {
+        final String methodName = "getConnectorType";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        OCFConnectorTypeResponse response = new OCFConnectorTypeResponse();
+        AuditLog                 auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            ConnectedAssetClient connectedAssetClient = instanceHandler.getConnectedAssetClient(userId, serverName, methodName);
+            AssetHandler         platformHandler      = instanceHandler.getSoftwarePlatformHandler(userId, serverName, methodName);
+
+            OpenMetadataRootElement asset = platformHandler.getAssetByGUID(userId, platformGUID, null);
+
+            Connector     connector = connectedAssetClient.getConnectorForAsset(userId, platformGUID, auditLog);
+
+            if (connector instanceof OMAGServerPlatformConnector omagServerPlatformConnector)
+            {
+                if ((asset != null) && (asset.getProperties() instanceof AssetProperties assetProperties))
+                {
+                    omagServerPlatformConnector.setPlatformName(assetProperties.getResourceName());
+                }
+
+                omagServerPlatformConnector.setDelegatingUserId(userId);
+                omagServerPlatformConnector.start();
+                response.setConnectorType(omagServerPlatformConnector.getConnectorType(connectorProviderClassName));
                 omagServerPlatformConnector.disconnect();
             }
         }

@@ -14,7 +14,7 @@ import org.odpi.openmetadata.frameworks.integration.connectors.IntegrationConnec
  */
 public class BabbageAnalyticalEngineProvider extends IntegrationConnectorProvider
 {
-    private static final String connectorClassName = BabbageAnalyticalEngineService.class.getName();
+    private static final String connectorClassName = BabbageAnalyticalEngineConnector.class.getName();
 
 
     /**

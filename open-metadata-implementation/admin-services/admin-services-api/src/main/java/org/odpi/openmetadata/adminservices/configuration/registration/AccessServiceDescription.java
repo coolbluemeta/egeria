@@ -32,7 +32,7 @@ public enum AccessServiceDescription implements Serializable
                                       "open-governance-service",
                                       "Support open governance services.",
                                       "https://egeria-project.org/services/gaf-metadata-management",
-                                      null),
+                                      ServiceOperationalStatus.ENABLED),
 
     /**
      * Provides generic open metadata retrieval and management services for the Open Frameworks and Open Metadata Access Services (OMASs).

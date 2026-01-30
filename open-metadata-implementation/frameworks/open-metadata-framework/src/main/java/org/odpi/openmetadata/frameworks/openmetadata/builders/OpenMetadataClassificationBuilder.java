@@ -5,8 +5,6 @@ package org.odpi.openmetadata.frameworks.openmetadata.builders;
 
 import org.odpi.openmetadata.frameworks.openmetadata.enums.ActivityType;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.KeyPattern;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.LatestChangeAction;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.LatestChangeTarget;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataAssetEncodingProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataScopeProperties;
@@ -386,43 +384,6 @@ public class OpenMetadataClassificationBuilder
                 elementProperties = propertyHelper.addDateMapProperty(elementProperties,
                                                                       OpenMetadataProperty.DATES.name,
                                                                       governanceMeasurementsProperties.getDates());
-            }
-            else if (properties instanceof LatestChangeProperties latestChangeProperties)
-            {
-                if (latestChangeProperties.getChangeTarget() != null)
-                {
-                    elementProperties = propertyHelper.addEnumProperty(elementProperties,
-                                                                       OpenMetadataProperty.CHANGE_TARGET.name,
-                                                                       LatestChangeTarget.getOpenTypeName(),
-                                                                       latestChangeProperties.getChangeTarget().getName());
-                }
-
-                if (latestChangeProperties.getChangeAction() != null)
-                {
-                    elementProperties = propertyHelper.addEnumProperty(elementProperties,
-                                                                       OpenMetadataProperty.CHANGE_ACTION.name,
-                                                                       LatestChangeAction.getOpenTypeName(),
-                                                                       latestChangeProperties.getChangeAction().getName());
-                }
-
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.CLASSIFICATION_NAME.name,
-                                                                     latestChangeProperties.getClassificationName());
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.ATTACHMENT_GUID.name,
-                                                                     latestChangeProperties.getAttachmentGUID());
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.ATTACHMENT_TYPE.name,
-                                                                     latestChangeProperties.getAttachmentTypeName());
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.RELATIONSHIP_TYPE.name,
-                                                                     latestChangeProperties.getRelationshipTypeName());
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.USER_ID.name,
-                                                                     latestChangeProperties.getUserId());
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.DESCRIPTION.name,
-                                                                     latestChangeProperties.getDescription());
             }
             else if (properties instanceof OwnershipProperties ownershipProperties)
             {

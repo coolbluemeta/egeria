@@ -11,7 +11,6 @@ import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorBroker;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorProvider;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.*;
-import org.odpi.openmetadata.repositoryservices.auditlog.OMRSAuditingComponent;
 import org.odpi.openmetadata.repositoryservices.connectors.omrstopic.OMRSTopicConnector;
 import org.odpi.openmetadata.repositoryservices.connectors.omrstopic.OMRSTopicListener;
 import org.odpi.openmetadata.repositoryservices.connectors.openmetadatatopic.OpenMetadataTopicConnector;
@@ -43,7 +42,7 @@ public abstract class AccessServiceAdmin
      * @param localServerSecretsStoreProvider secrets store connector for bearer token
      * @param localServerSecretsStoreLocation secrets store location for bearer token
      * @param localServerSecretsStoreCollection secrets store collection for bearer token
-     * @param maxPageSize max number of results to return on single request.
+     * @param maxPageSize max results to return on a single request.
      * @throws OMAGConfigurationErrorException invalid parameters in the configuration properties.
      */
     public abstract void initialize(AccessServiceConfig     accessServiceConfig,
@@ -155,53 +154,6 @@ public abstract class AccessServiceAdmin
                                                       methodName);
         }
     }
-
-
-    /**
-     * Return the name of the topic extracted from the endpoint of the topic's Connection.
-     *
-     * @param connection connection object
-     * @return topic name
-     */
-    protected String getTopicName(Connection connection)
-    {
-        String      topicName = null;
-
-        if (connection != null)
-        {
-            Endpoint topicEndpoint = connection.getEndpoint();
-
-            if (topicEndpoint != null)
-            {
-                topicName = topicEndpoint.getNetworkAddress();
-            }
-        }
-
-        return topicName;
-    }
-
-
-    /**
-     * Create the event bus connector for this access services' Out Topic.
-     *
-     * @param outTopicEventBusConnection connection from the configuration properties - the event bus
-     * @param accessServiceName name of the calling access service
-     * @param parentAuditLog audit log from the admin component
-     * @return connector to access the topic
-     * @throws OMAGConfigurationErrorException problem creating connector
-     */
-    protected OpenMetadataTopicConnector getOutTopicEventBusConnector(Connection   outTopicEventBusConnection,
-                                                                      String       accessServiceName,
-                                                                      AuditLog     parentAuditLog) throws OMAGConfigurationErrorException
-    {
-        final String  methodName = "getOutTopicConnector";
-
-        return this.getTopicConnector(outTopicEventBusConnection,
-                                      parentAuditLog.createNewAuditLog(OMRSAuditingComponent.METADATA_ACCESS_SERVER_OUT_TOPIC),
-                                      accessServiceName,
-                                      methodName);
-    }
-
 
 
     /**

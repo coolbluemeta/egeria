@@ -11,6 +11,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.enums.ActivityStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataEventListener;
 import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataEventType;
 import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataOutTopicEvent;
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.ElementHeader;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.OpenMetadataRootElement;
@@ -136,7 +137,20 @@ public class GovernanceActionOpenLineageIntegrationConnector extends Integration
                         publishOpenLineageEvent(currentActionStatus, event.getEventTime(), engineAction);
                     }
                 }
+            }
+            catch (InvalidParameterException | UserNotAuthorizedException error)
+            {
+                if (auditLog != null)
+                {
+                    String stringEvent = event.toString();
 
+                    auditLog.logMessage(methodName,
+                                        OpenLineageIntegrationConnectorAuditCode.UNEXPECTED_EXCEPTION.getMessageDefinition(connectorName,
+                                                                                                                           error.getClass().getName(),
+                                                                                                                           methodName,
+                                                                                                                           error.getMessage()),
+                                        stringEvent);
+                }
             }
             catch (Exception error)
             {

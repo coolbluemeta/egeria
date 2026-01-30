@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  * OpenMetadataOMRSTopicListener received details of each OMRS event from the cohorts that the local server
- * is connected to.  It passes NEW_ENTITY_EVENTs to the publisher.
+ * is connected to.
  */
 public class OpenMetadataOMRSTopicListener extends OMRSTopicListenerBase
 {

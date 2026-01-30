@@ -33,7 +33,7 @@ import java.util.Date;
         in = SecuritySchemeIn.HEADER
 )
 
-@Tag(name="Metadata Access Services: Open Metadata Store Services",
+@Tag(name="Metadata Access Server: Open Metadata Store Services",
      description="Provides generic open metadata retrieval and management services for Open Metadata Access Services (OMASs).",
      externalDocs=@ExternalDocumentation(description="Further Information",
                                          url="https://egeria-project.org/services/omf-metadata-management/"))

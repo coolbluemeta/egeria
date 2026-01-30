@@ -1,0 +1,196 @@
+# Egeria-baudot-subscription-requests
+## Locate the types of subscriptions available for a digital product
+
+@baseURL=https://localhost:9443
+@viewServer=view-server
+
+###
+# =====================================================================================================================
+# Manage the authentication token.  Run this request to create/refresh the token.
+
+# @name Token (RequestBody)
+POST {{baseURL}}/api/token
+Content-Type: application/json
+
+{
+  "userId" : "peterprofile",
+  "password" : "secret"
+}
+
+> {% client.global.set("token", response.body); %}
+
+###
+# =====================================================================================================================
+# Locate the types of subscriptions supported by a digital product
+# https://egeria-project.org/concepts/digital-product
+
+
+###
+# @name find Evaluation subscription governance action process
+# Retrieve the list of governance definition metadata elements that contain the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/governance-officer/governance-definitions/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "GovernanceActionProcess",
+  "searchString": "Evaluation subscription for Valid Metadata Value Set: deployedImplementationType",
+  "skipRelationships": ["SpecificationPropertyAssignment"],
+  "maxMermaidNodeCount": 15,
+  "startsWith" : false,
+  "endsWith" : false,
+  "ignoreCase" : true,
+  "startFrom" : 0,
+  "pageSize": 0
+}
+
+> {% client.global.set("deployedImplementationTypeEvaluationSubscriptionGUID", response.body.elements[0].elementHeader.guid); %}
+
+###
+# @name find Evaluation subscription specification
+# Retrieve the list of governance definition metadata elements that contain the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/governance-officer/governance-definitions/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "GovernanceActionProcess",
+  "searchString": "Evaluation subscription for Valid Metadata Value Set: deployedImplementationType",
+  "includeOnlyRelationships": ["SpecificationPropertyAssignment"],
+  "maxMermaidNodeCount": 15,
+  "startsWith" : false,
+  "endsWith" : false,
+  "ignoreCase" : true,
+  "startFrom" : 0,
+  "pageSize": 0
+}
+
+###
+# @name find Ongoing Update subscription
+# Retrieve the list of governance definition metadata elements that contain the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/governance-officer/governance-definitions/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "GovernanceActionProcess",
+  "searchString": "Ongoing update subscription for Valid Metadata Value Set: deployedImplementationType",
+  "skipRelationships": ["SpecificationPropertyAssignment"],
+  "maxMermaidNodeCount": 15,
+  "startsWith" : false,
+  "endsWith" : false,
+  "ignoreCase" : true,
+  "startFrom" : 0,
+  "pageSize": 0
+}
+
+> {% client.global.set("deployedImplementationTypeOngoingUpdateSubscriptionGUID", response.body.elements[0].elementHeader.guid); %}
+
+###
+# @name find Ongoing Update subscription specification
+# Retrieve the list of governance definition metadata elements that contain the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/governance-officer/governance-definitions/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "GovernanceActionProcess",
+  "searchString": "Ongoing update subscription for Valid Metadata Value Set: deployedImplementationType",
+  "includeOnlyRelationships": ["SpecificationPropertyAssignment"],
+  "maxMermaidNodeCount": 15,
+  "startsWith" : false,
+  "endsWith" : false,
+  "ignoreCase" : true,
+  "startFrom" : 0,
+  "pageSize": 0
+}
+
+###
+# @name find Weekly Refresh subscription
+# Retrieve the list of governance definition metadata elements that contain the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/governance-officer/governance-definitions/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "GovernanceActionProcess",
+  "searchString": "Weekly refresh subscription for Valid Metadata Value Set: deployedImplementationType",
+  "skipRelationships": ["SpecificationPropertyAssignment"],
+  "maxMermaidNodeCount": 15,
+  "startsWith" : false,
+  "endsWith" : false,
+  "ignoreCase" : true,
+  "startFrom" : 0,
+  "pageSize": 0
+}
+
+> {% client.global.set("deployedImplementationTypeWeeklyRefreshSubscriptionGUID", response.body.elements[0].elementHeader.guid); %}
+
+###
+# @name find Weekly Refresh subscription specification
+# Retrieve the list of governance definition metadata elements that contain the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/governance-officer/governance-definitions/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "GovernanceActionProcess",
+  "searchString": "Weekly refresh subscription for Valid Metadata Value Set: deployedImplementationType",
+  "includeOnlyRelationships": ["SpecificationPropertyAssignment"],
+  "maxMermaidNodeCount": 15,
+  "startsWith" : false,
+  "endsWith" : false,
+  "ignoreCase" : true,
+  "startFrom" : 0,
+  "pageSize": 0
+}
+
+###
+# @name find Daily Refresh subscription
+# Retrieve the list of governance definition metadata elements that contain the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/governance-officer/governance-definitions/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "GovernanceActionProcess",
+  "searchString": "Daily refresh subscription for Valid Metadata Value Set: deployedImplementationType",
+  "skipRelationships": ["SpecificationPropertyAssignment"],
+  "maxMermaidNodeCount": 15,
+  "startsWith" : false,
+  "endsWith" : false,
+  "ignoreCase" : true,
+  "startFrom" : 0,
+  "pageSize": 0
+}
+
+> {% client.global.set("deployedImplementationTypeDailyRefreshSubscriptionGUID", response.body.elements[0].elementHeader.guid); %}
+
+###
+# @name find Daily Refresh subscription specification
+# Retrieve the list of governance definition metadata elements that contain the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/governance-officer/governance-definitions/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "GovernanceActionProcess",
+  "searchString": "Daily refresh subscription for Valid Metadata Value Set: deployedImplementationType",
+  "includeOnlyRelationships": ["SpecificationPropertyAssignment"],
+  "maxMermaidNodeCount": 15,
+  "startsWith" : false,
+  "endsWith" : false,
+  "ignoreCase" : true,
+  "startFrom" : 0,
+  "pageSize": 0
+}
+
+###

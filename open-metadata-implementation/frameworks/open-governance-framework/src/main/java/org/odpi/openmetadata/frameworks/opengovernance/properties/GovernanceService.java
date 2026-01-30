@@ -27,7 +27,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = RegisteredGovernanceService.class, name = "RegisteredGovernanceService")
         })
 
-public class GovernanceServiceProperties extends DeployedConnectorProperties
+public class GovernanceService extends DeployedConnectorProperties
 {
     private String              owner                        = null;
     private String              ownerTypeName                = null;
@@ -43,7 +43,7 @@ public class GovernanceServiceProperties extends DeployedConnectorProperties
     /**
      * Default constructor
      */
-    public GovernanceServiceProperties()
+    public GovernanceService()
     {
         super();
     }
@@ -54,7 +54,7 @@ public class GovernanceServiceProperties extends DeployedConnectorProperties
      *
      * @param template object to copy
      */
-    public GovernanceServiceProperties(GovernanceServiceProperties  template)
+    public GovernanceService(GovernanceService template)
     {
         super(template);
 
@@ -291,7 +291,7 @@ public class GovernanceServiceProperties extends DeployedConnectorProperties
         {
             return false;
         }
-        GovernanceServiceProperties that = (GovernanceServiceProperties) objectToCompare;
+        GovernanceService that = (GovernanceService) objectToCompare;
         return Objects.equals(owner, that.owner) &&
                        Objects.equals(ownerTypeName, that.ownerTypeName) &&
                        Objects.equals(ownerPropertyName, that.ownerPropertyName) &&

@@ -6,7 +6,7 @@
 @integrationDaemon=integration-daemon
 @engineHost=engine-host
 @user=garygeeke
-@javaClassName=add name of connector provider class (include full package name but not '.class')
+@javaClassName=add name of connector provider class - include full package name but not '.class'
 
 ###
 # =====================================================================================================================

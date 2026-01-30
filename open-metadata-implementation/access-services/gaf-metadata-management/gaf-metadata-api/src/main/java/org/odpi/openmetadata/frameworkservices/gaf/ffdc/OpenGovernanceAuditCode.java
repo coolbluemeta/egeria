@@ -42,6 +42,16 @@ public enum OpenGovernanceAuditCode implements AuditLogMessageSet
                          "Verify that the start up sequence goes on to initialize the context for each connector configured for this service."),
 
     /**
+     * OPEN-GOVERNANCE-0003 The Open Governance service is ready to publish  notifications to topic {0}
+     */
+    SERVICE_PUBLISHING("OPEN-GOVERNANCE-0003",
+                       AuditLogRecordSeverityLevel.STARTUP,
+                       "The Open Governance service is ready to publish notifications to topic {0}",
+                       "The local server has started up the event publisher for the GAF Services.  " +
+                               "It will begin publishing metadata changes to its out topic.",
+                       "This is part of the normal start up of the service. Check that there are no errors from the event bus."),
+
+    /**
      * OPEN-GOVERNANCE-0005 - The Open Metadata Store Services has initialized a new instance for server {0}
      */
     SERVICE_INITIALIZED("OPEN-GOVERNANCE-0005",
@@ -74,13 +84,29 @@ public enum OpenGovernanceAuditCode implements AuditLogMessageSet
                                                 " state of the Event Bus.  Once this is resolved, restart the server."),
 
     /**
-     * OPEN-GOVERNANCE-0009 - The Open Metadata Store Services are shutting down server instance {0}
+     * OPEN-GOVERNANCE-0009 - The Open Governance Service are shutting down server instance {0}
      */
     SERVICE_TERMINATING("OPEN-GOVERNANCE-0009",
                         AuditLogRecordSeverityLevel.SHUTDOWN,
-                        "The Open Metadata Store Services are shutting down server instance {0}",
-                        "The local handlers has requested shut down of the Open Metadata Store Services.",
+                        "The Open Governance Service are shutting down server instance {0}",
+                        "The local handlers has requested shutdown of the Open Governance Service.",
                         "No action is required.  This is part of the normal operation of the service."),
+
+    /**
+     * OPEN-GOVERNANCE-0011 The Open Governance Service caught an unexpected {0} exception whilst shutting down the out
+     * topic listeners. The error message was: {1}
+     */
+    EVENT_SHUTDOWN_ERROR("OPEN-GOVERNANCE-0011",
+                         AuditLogRecordSeverityLevel.SHUTDOWN,
+                         "The Open Governance Service caught an unexpected {0} exception whilst shutting down the out " +
+                                 "topic listeners. The error message was: {1}",
+                         "The local administrator has requested shutdown of the engine host.  " +
+                                 "No more events will be received, although, due to this exception, the connection to the event bus may " +
+                                 "not be released properly.",
+                         "This is part of the normal shutdown of the engine host. However, an exception is not expected at this point unless it " +
+                                 "is the consequence of a previous error. Review the error message and any other reported failures to " +
+                                 "determine if this exception needs special attention."),
+
 
     /**
      * OPEN-GOVERNANCE-0012 - The Open Metadata Store Services are shutting down its instance for server {0}

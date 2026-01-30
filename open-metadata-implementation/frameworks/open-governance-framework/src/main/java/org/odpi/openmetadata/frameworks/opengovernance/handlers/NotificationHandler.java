@@ -94,30 +94,30 @@ public class NotificationHandler extends GovernanceDefinitionHandler
      * This method determines if the subscriber is eligible to receive the notification.
      *
      * @param userId                         caller's userId
-     * @param firstNotification              is this the first notification sent to this subscriber by this governance service instance?
-     * @param outboundNotificationProperties properties of the action
      * @param notificationTypeGUID           unique identifier of the cause for the action to be raised
-     * @param initialClassifications         initial classifications to add to the action
+     * @param notificationCount              count of notifications sent for this notification type - used to create unique qualified Names
+     * @param initialClassifications classification to add to the action
+     * @param firstNotificationProperties        properties for the first notification sent to this subscriber by this governance service instance
+     * @param subsequentNotificationProperties   properties for a follow-on notification sent to this subscriber by this governance service instance
      * @param requestParameters              properties to pass to the next governance service
      * @param actionRequesterGUID            unique identifier of the source of the action
      * @param actionTargets                  the list of elements that should be acted upon
      * @param minimumNotificationInterval    minimum time between notifications
-     * @param nextScheduledNotificationTime  next notification trigger time - either from the notification type or monitored resource activity
      * @param newSubscriberStatus            set the subscriber relationship to this value after a successful notification; null means leave it alone
      * @throws InvalidParameterException  one of the parameters is invalid
      * @throws UserNotAuthorizedException the watchdog action service is not authorized to continue
      * @throws PropertyServerException    a problem connecting to the metadata store
      */
     public void notifySubscribers(String                                userId,
-                                  boolean                               firstNotification,
+                                  long                                  notificationCount,
                                   Map<String, ClassificationProperties> initialClassifications,
-                                  NotificationProperties                outboundNotificationProperties,
+                                  NotificationProperties                firstNotificationProperties,
+                                  NotificationProperties                subsequentNotificationProperties,
                                   String                                notificationTypeGUID,
                                   Map<String, String>                   requestParameters,
                                   String                                actionRequesterGUID,
                                   List<NewActionTarget>                 actionTargets,
                                   long                                  minimumNotificationInterval,
-                                  Date                                  nextScheduledNotificationTime,
                                   ActivityStatus                        newSubscriberStatus) throws InvalidParameterException,
                                                                                                     UserNotAuthorizedException,
                                                                                                     PropertyServerException
@@ -125,7 +125,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
         final String methodName              = "notifySubscribers";
         final String propertiesParameterName = "outboundNotificationProperties";
 
-        propertyHelper.validateObject(outboundNotificationProperties, propertiesParameterName, methodName);
+        propertyHelper.validateObject(firstNotificationProperties, propertiesParameterName, methodName);
 
         /*
          * First, notify all eligible subscribers
@@ -142,21 +142,38 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                         (subscriber.getRelatedBy() != null) &&
                         (subscriber.getRelatedBy().getRelationshipProperties() instanceof NotificationSubscriberProperties notificationSubscriberProperties))
                 {
-                    if ((! firstNotification) || (notificationSubscriberProperties.getLastNotification() == null))
+                    if (notificationSubscriberProperties.getLastNotification() == null)
                     {
                         notifySubscriber(userId,
                                          subscriber.getElementHeader().getGUID(),
                                          subscriber.getElementHeader(),
                                          subscriber.getRelatedBy().getRelationshipHeader().getGUID(),
                                          notificationSubscriberProperties,
+                                         notificationCount,
                                          initialClassifications,
-                                         outboundNotificationProperties,
+                                         firstNotificationProperties,
                                          notificationTypeGUID,
                                          requestParameters,
                                          actionRequesterGUID,
                                          actionTargets,
                                          minimumNotificationInterval,
-                                         nextScheduledNotificationTime,
+                                         newSubscriberStatus);
+                    }
+                    else
+                    {
+                        notifySubscriber(userId,
+                                         subscriber.getElementHeader().getGUID(),
+                                         subscriber.getElementHeader(),
+                                         subscriber.getRelatedBy().getRelationshipHeader().getGUID(),
+                                         notificationSubscriberProperties,
+                                         notificationCount,
+                                         initialClassifications,
+                                         subsequentNotificationProperties,
+                                         notificationTypeGUID,
+                                         requestParameters,
+                                         actionRequesterGUID,
+                                         actionTargets,
+                                         minimumNotificationInterval,
                                          newSubscriberStatus);
                     }
                 }
@@ -170,6 +187,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
      *
      * @param userId               caller's userId
      * @param subscriberGUID       unique identifier of the subscriber
+     * @param notificationCount   number of notifications sent by this notification type - used to generate unique qualified names
      * @param outboundNotificationProperties           properties of the action
      * @param initialClassifications initial classifications to add to the action
      * @param notificationTypeGUID unique identifier of the cause for the action to be raised
@@ -185,6 +203,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
      */
     public String welcomeSubscriber(String                                userId,
                                     String                                subscriberGUID,
+                                    long                                  notificationCount,
                                     Map<String, ClassificationProperties> initialClassifications,
                                     NotificationProperties                outboundNotificationProperties,
                                     String                                notificationTypeGUID,
@@ -194,12 +213,15 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                                     long                                  minimumNotificationInterval,
                                     ActivityStatus                        newSubscriberStatus) throws InvalidParameterException,
                                                                                                       UserNotAuthorizedException,
-                                                                                               PropertyServerException
+                                                                                                      PropertyServerException
     {
         final String methodName = "welcomeSubscriber";
 
         try
         {
+            /*
+             * Retrieve the relationships between the notification type and the subscriber.
+             */
             OpenMetadataRelationshipList subscriberList = openMetadataClient.getMetadataElementRelationships(userId,
                                                                                                              notificationTypeGUID,
                                                                                                              subscriberGUID,
@@ -221,6 +243,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                                                          subscriber.getElementAtEnd2(),
                                                          subscriber.getRelationshipGUID(),
                                                          notificationSubscriberProperties,
+                                                         notificationCount,
                                                          initialClassifications,
                                                          outboundNotificationProperties,
                                                          notificationTypeGUID,
@@ -228,7 +251,6 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                                                          actionRequesterGUID,
                                                          actionTargets,
                                                          minimumNotificationInterval,
-                                                         null,
                                                          newSubscriberStatus);
                         }
                     }
@@ -243,6 +265,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                                                                                          methodName,
                                                                                          error.getMessage()),
                                   error);
+            throw error;
         }
 
         return null;
@@ -255,6 +278,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
      *
      * @param userId               caller's userId
      * @param subscriberGUID       unique identifier of the subscriber
+     * @param notificationCount              number of notifications sent to this subscriber by this governance service
      * @param outboundNotificationProperties           properties of the action
      * @param initialClassifications initial classifications to add to the action
      * @param notificationTypeGUID unique identifier of the cause for the action to be raised
@@ -268,6 +292,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
      */
     public String dismissSubscriber(String                                userId,
                                     String                                subscriberGUID,
+                                    long                                  notificationCount,
                                     Map<String, ClassificationProperties> initialClassifications,
                                     NotificationProperties                outboundNotificationProperties,
                                     String                                notificationTypeGUID,
@@ -302,6 +327,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                                                          subscriber.getElementAtEnd2(),
                                                          subscriber.getRelationshipGUID(),
                                                          notificationSubscriberProperties,
+                                                         notificationCount,
                                                          initialClassifications,
                                                          outboundNotificationProperties,
                                                          notificationTypeGUID,
@@ -309,7 +335,6 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                                                          actionRequesterGUID,
                                                          actionTargets,
                                                          0,
-                                                         new Date(0),
                                                          ActivityStatus.CANCELLED);
                         }
                     }
@@ -324,6 +349,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                                                                                          methodName,
                                                                                          error.getMessage()),
                                   error);
+            throw error;
         }
 
         return null;
@@ -335,6 +361,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
      * subscriber is of the appropriate type.
      *
      * @param userId               caller's userId
+     * @param subscriberGUID unique identifier of subscriber
      * @param subscriberHeader           header of the subscriber
      * @param outboundNotificationProperties           properties of the action
      * @param initialClassifications initial classifications to add to the action
@@ -343,7 +370,6 @@ public class NotificationHandler extends GovernanceDefinitionHandler
      * @param actionRequesterGUID  unique identifier of the source of the action
      * @param actionTargets        the list of elements that should be acted upon
      * @param minimumNotificationInterval    minimum time between notifications
-     * @param nextScheduledNotificationTime  next notification trigger time - either from the notification type or monitored resource activity
      * @param newSubscriberStatus    set the subscriber relationship to this value after a successful notification; null means leave it alone
      * @return unique identifier of the action
      * @throws InvalidParameterException  one of the parameters is invalid
@@ -355,6 +381,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                                     ElementControlHeader                  subscriberHeader,
                                     String                                notificationSubscriberGUID,
                                     NotificationSubscriberProperties      notificationSubscriberProperties,
+                                    long                                  notificationCount,
                                     Map<String, ClassificationProperties> initialClassifications,
                                     NotificationProperties                outboundNotificationProperties,
                                     String                                notificationTypeGUID,
@@ -362,10 +389,9 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                                     String                                actionRequesterGUID,
                                     List<NewActionTarget>                 actionTargets,
                                     long                                  minimumNotificationInterval,
-                                    Date                                  nextScheduledNotificationTime,
                                     ActivityStatus                        newSubscriberStatus) throws InvalidParameterException,
-                                                                                                UserNotAuthorizedException,
-                                                                                                PropertyServerException
+                                                                                                      UserNotAuthorizedException,
+                                                                                                      PropertyServerException
     {
         final String methodName = "notifySubscriber";
 
@@ -374,23 +400,26 @@ public class NotificationHandler extends GovernanceDefinitionHandler
         * IN_PROGRESS state, and there has been enough time since the last notification.
          */
         if ((notificationSubscriberProperties != null) &&
-                (ActivityStatus.IN_PROGRESS == notificationSubscriberProperties.getActivityStatus()))
+                ((notificationSubscriberProperties.getActivityStatus() == null) ||
+                 (List.of(ActivityStatus.IN_PROGRESS,
+                          ActivityStatus.REQUESTED,
+                          ActivityStatus.APPROVED,
+                          ActivityStatus.WAITING,
+                          ActivityStatus.ACTIVATING).contains(notificationSubscriberProperties.getActivityStatus()))))
         {
             /*
-             * Subscriber is in a good state.  If it never has had a notification, or if it has been long enough since the last notification,
-             * and if the next scheduled notification time is in the past, then send the notification.
+             * Subscriber is in a good state.  If it never has had a notification, or if it has been long enough
+             * since the last notification, then send the notification.
              */
             if ((notificationSubscriberProperties.getLastNotification() == null) ||
-                    ((System.currentTimeMillis() <= notificationSubscriberProperties.getLastNotification().getTime() + minimumNotificationInterval)) &&
-                     (nextScheduledNotificationTime != null) &&
-                     (new Date().after(nextScheduledNotificationTime)))
+                    ((System.currentTimeMillis() > notificationSubscriberProperties.getLastNotification().getTime() + minimumNotificationInterval)))
             {
                 NotificationProperties subscriberNotificationProperties = new NotificationProperties(outboundNotificationProperties);
 
-                subscriberNotificationProperties.setQualifiedName(outboundNotificationProperties.getQualifiedName() + "::" + subscriberGUID);
+                subscriberNotificationProperties.setQualifiedName(outboundNotificationProperties.getQualifiedName() + "::" + notificationSubscriberGUID);
 
                 /*
-                 * Subscribers are called if the status is IN_PROGRESS.  This is the default value.
+                 * Subscribers are called if the status is IN_PROGRESS (or less).  This is the default value.
                  * Zone membership controls the visibility of the notification.
                  */
                 List<String>   zoneMembership = null;
@@ -421,7 +450,8 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                 auditLog.logMessage(methodName, OGFAuditCode.ISSUING_NOTIFICATION.getMessageDefinition(localServiceName,
                                                                                                        subscriberGUID,
                                                                                                        subscriberHeader.getType().getTypeName(),
-                                                                                                       notificationTypeGUID));
+                                                                                                       notificationTypeGUID,
+                                                                                                       Long.toString(notificationCount)));
 
                 /*
                  * Issue notification.  This depends on the type of subscriber.
@@ -451,16 +481,27 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                 {
                     if (propertyHelper.isTypeOf(subscriberHeader, OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName))
                     {
-                        return openGovernanceClient.initiateGovernanceActionProcess(userId,
-                                                                                    subscriberNotificationProperties.getQualifiedName(),
-                                                                                    Collections.singletonList(actionRequesterGUID),
-                                                                                    Collections.singletonList(notificationTypeGUID),
-                                                                                    actionTargets,
-                                                                                    null,
-                                                                                    requestParameters,
-                                                                                    localServiceName,
-                                                                                    null);
+                        OpenMetadataElement process = openMetadataClient.getMetadataElementByGUID(userId, subscriberGUID, null);
 
+                        if (process != null)
+                        {
+                            String processQualifiedName = propertyHelper.getStringProperty(localServiceName,
+                                                                                           OpenMetadataProperty.QUALIFIED_NAME.name,
+                                                                                           process.getElementProperties(),
+                                                                                           methodName);
+                            if (processQualifiedName != null)
+                            {
+                                return openGovernanceClient.initiateGovernanceActionProcess(userId,
+                                                                                            processQualifiedName,
+                                                                                            Collections.singletonList(actionRequesterGUID),
+                                                                                            Collections.singletonList(notificationTypeGUID),
+                                                                                            actionTargets,
+                                                                                            null,
+                                                                                            requestParameters,
+                                                                                            localServiceName,
+                                                                                            null);
+                            }
+                        }
                     }
                     else if (propertyHelper.isTypeOf(subscriberHeader, OpenMetadataType.GOVERNANCE_ACTION_TYPE.typeName))
                     {

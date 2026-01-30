@@ -75,7 +75,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = GovernanceExpectationsProperties.class, name = "GovernanceExpectationsProperties"),
                 @JsonSubTypes.Type(value = GovernanceMeasurementsProperties.class, name = "GovernanceMeasurementsProperties"),
                 @JsonSubTypes.Type(value = KnownDuplicateProperties.class, name = "KnownDuplicateProperties"),
-                @JsonSubTypes.Type(value = LatestChangeProperties.class, name = "LatestChangeProperties"),
                 @JsonSubTypes.Type(value = ListenerInterfaceProperties.class, name = "ListenerInterfaceProperties"),
                 @JsonSubTypes.Type(value = MementoProperties.class, name = "MementoProperties"),
                 @JsonSubTypes.Type(value = MobileResourceProperties.class, name = "MobileResourceProperties"),

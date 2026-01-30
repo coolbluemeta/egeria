@@ -130,51 +130,54 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
                                                   placeholderProperties,
                                                   methodName);
 
-        /*
-         * This relationship shows where the property values for the new bean came from.  It enables traceability.  Also, if the template is
-         * updated, there is a possibility of making complementary changes to the entities that were derived from it.
-         */
-        if (log.isDebugEnabled())
+        if (templateProgress.newBeanCreated)
         {
-            log.debug("Adding SourcedFrom relationship from new element " + templateProgress.newBeanGUID + " of type " + entityTypeName + " to template " + templateGUID);
+            /*
+             * This relationship shows where the property values for the new bean came from.  It enables traceability.  Also, if the template is
+             * updated, there is a possibility of making complementary changes to the entities that were derived from it.
+             */
+            if (log.isDebugEnabled())
+            {
+                log.debug("Adding SourcedFrom relationship from new element " + templateProgress.newBeanGUID + " of type " + entityTypeName + " to template " + templateGUID);
+            }
+
+            InstanceProperties relationshipProperties = null;
+
+            if (templateProgress.sourceVersionNumber != 0)
+            {
+                relationshipProperties = repositoryHelper.addLongPropertyToInstance(serviceName,
+                                                                                    null,
+                                                                                    OpenMetadataProperty.SOURCE_VERSION_NUMBER.name,
+                                                                                    templateProgress.sourceVersionNumber,
+                                                                                    methodName);
+            }
+
+            repositoryHandler.createRelationship(localServerUserId,
+                                                 OpenMetadataType.SOURCED_FROM_RELATIONSHIP.typeGUID,
+                                                 externalSourceGUID,
+                                                 externalSourceName,
+                                                 templateProgress.newBeanGUID,
+                                                 templateGUID,
+                                                 relationshipProperties,
+                                                 methodName);
+
+            if (repositoryHelper.isTypeOf(serviceName, entityTypeName, OpenMetadataType.ASSET.typeName))
+            {
+                auditLog.logMessage(assetActionDescription,
+                                    OpenMetadataObservabilityAuditCode.ASSET_ACTIVITY_CREATE.getMessageDefinition(userId,
+                                                                                                                  entityTypeName,
+                                                                                                                  templateProgress.newBeanGUID,
+                                                                                                                  methodName,
+                                                                                                                  serviceName));
+            }
+
+            auditLog.logMessage(methodName,
+                                GenericHandlersAuditCode.TEMPLATE_MAPPING_SUMMARY.getMessageDefinition(templateGUID,
+                                                                                                       entityTypeName,
+                                                                                                       templateProgress.newBeanGUID,
+                                                                                                       templateProgress.coveredEntityGUIDMap.toString(),
+                                                                                                       templateProgress.coveredRelationshipGUIDMap.toString()));
         }
-
-        InstanceProperties relationshipProperties = null;
-
-        if (templateProgress.sourceVersionNumber != 0)
-        {
-            relationshipProperties = repositoryHelper.addLongPropertyToInstance(serviceName,
-                                                                                null,
-                                                                                OpenMetadataProperty.SOURCE_VERSION_NUMBER.name,
-                                                                                templateProgress.sourceVersionNumber,
-                                                                                methodName);
-        }
-
-        repositoryHandler.createRelationship(localServerUserId,
-                                             OpenMetadataType.SOURCED_FROM_RELATIONSHIP.typeGUID,
-                                             externalSourceGUID,
-                                             externalSourceName,
-                                             templateProgress.newBeanGUID,
-                                             templateGUID,
-                                             relationshipProperties,
-                                             methodName);
-
-        if (repositoryHelper.isTypeOf(serviceName, entityTypeName, OpenMetadataType.ASSET.typeName))
-        {
-            auditLog.logMessage(assetActionDescription,
-                                OpenMetadataObservabilityAuditCode.ASSET_ACTIVITY_CREATE.getMessageDefinition(userId,
-                                                                                                              entityTypeName,
-                                                                                                              templateProgress.newBeanGUID,
-                                                                                                              methodName,
-                                                                                                              serviceName));
-        }
-
-        auditLog.logMessage(methodName,
-                            GenericHandlersAuditCode.TEMPLATE_MAPPING_SUMMARY.getMessageDefinition(templateGUID,
-                                                                                                   entityTypeName,
-                                                                                                   templateProgress.newBeanGUID,
-                                                                                                   templateProgress.coveredEntityGUIDMap.toString(),
-                                                                                                   templateProgress.coveredRelationshipGUIDMap.toString()));
 
         return templateProgress.newBeanGUID;
     }
@@ -188,6 +191,7 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
     static class TemplateProgress
     {
         String              newBeanGUID                = null; /* GUID of last new entity created - ultimately this is returned to the original caller */
+        boolean             newBeanCreated             = true; /* Flag to indicate if a new bean was created during the current processing step */
         long                sourceVersionNumber        = 0; /* the version number of the template entity for the new bean */
         String              previousTemplateGUID       = null; /* GUID of last template entity processed - prevents processing a relationship twice */
         Map<String, String> coveredEntityGUIDMap       = new HashMap<>(); /* Map of template entity GUIDs to new bean GUIDs that have been processed - prevents replicating the same entity twice */
@@ -209,6 +213,7 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
         {
             return "TemplateProgress{" +
                     "newBeanGUID='" + newBeanGUID + '\'' +
+                    ", newBeanCreated=" + newBeanCreated +
                     ", sourceVersionNumber=" + sourceVersionNumber +
                     ", previousTemplateGUID='" + previousTemplateGUID + '\'' +
                     ", coveredGUIDMap=" + coveredEntityGUIDMap +
@@ -434,6 +439,7 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
                 if (newEntityGUID != null)
                 {
                     templateProgress.newBeanGUID = newEntityGUID;
+                    templateProgress.newBeanCreated = false;
 
                     return templateProgress;
                 }
@@ -452,8 +458,9 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
                                      methodName);
 
             /*
-             * All OK to create the new bean, now work out the classifications.  Start with the classifications from the template (ignoring Anchors
-             * and LatestChange) and then overlay the classifications set up in the builder and the appropriate anchor.
+             * All OK to create the new bean, now work out the classifications.
+             * Start with the classifications from the template (ignoring Anchors and Template)
+             * and then overlay the classifications set up in the builder and the appropriate anchor.
              */
             Map<String, Classification> newClassificationMap = new HashMap<>();
 
@@ -463,8 +470,7 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
                 {
                     if (templateClassification != null)
                     {
-                        if ((!OpenMetadataType.LATEST_CHANGE_CLASSIFICATION.typeName.equals(templateClassification.getName())) &&
-                                (!OpenMetadataType.TEMPLATE_CLASSIFICATION.typeName.equals(templateClassification.getName())) &&
+                        if ((!OpenMetadataType.TEMPLATE_CLASSIFICATION.typeName.equals(templateClassification.getName())) &&
                                 (!OpenMetadataType.ANCHORS_CLASSIFICATION.typeName.equals(templateClassification.getName())))
                         {
                             newClassificationMap.put(templateClassification.getName(), templateClassification);

@@ -13,7 +13,7 @@ over the OMF out topic.
 There are two connectors because events should only flow one way
 and so the client needs a different interface to the server.
 
-Specifically the client interface is a listener interface
+Specifically, the client interface is a listener interface
 to allow the client to receive events from the server.
 The server interface is an event sending interface.
 

@@ -4,7 +4,7 @@ package org.odpi.openmetadata.frameworkservices.gaf.converters;
 
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceActionProcessElement;
-import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceActionProcessProperties;
+import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceActionProcess;
 import org.odpi.openmetadata.frameworkservices.omf.converters.OpenMetadataStoreConverter;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.EntityDetail;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstanceProperties;
@@ -60,7 +60,7 @@ public class GovernanceActionProcessConverter<B> extends OpenMetadataStoreConver
 
             if (returnBean instanceof GovernanceActionProcessElement bean)
             {
-                GovernanceActionProcessProperties processProperties = new GovernanceActionProcessProperties();
+                GovernanceActionProcess processProperties = new GovernanceActionProcess();
 
                 if (entity != null)
                 {

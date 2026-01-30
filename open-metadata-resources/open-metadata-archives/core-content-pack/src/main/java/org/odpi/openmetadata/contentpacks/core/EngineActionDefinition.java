@@ -13,6 +13,9 @@ import java.util.Map;
  */
 public enum EngineActionDefinition
 {
+    /*
+     * Not in use - registered as a lovelace service
+     */
     KARMA_POINTS("2d23a09b-0cbf-44d3-b2ad-d818d070561f",
                  "Egeria:" + OpenMetadataType.ENGINE_ACTION.typeName + ":AwardKarmaPoints",
                  "Award Karma Points Action",
@@ -177,6 +180,6 @@ public enum EngineActionDefinition
     @Override
     public String toString()
     {
-        return "DigitalProductCatalogDefinition{name='" + name() + "'}";
+        return "EngineActionDefinition{name='" + name() + "'}";
     }
 }

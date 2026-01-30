@@ -5,6 +5,7 @@ package org.odpi.openmetadata.adapters.connectors;
 
 import org.odpi.openmetadata.adapters.connectors.controls.PostgresDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.controls.UnityCatalogDeployedImplementationType;
+import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
 import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
 import org.odpi.openmetadata.frameworks.connectors.OpenConnectorDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
@@ -104,6 +105,50 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
                           ComponentDevelopmentStatus.STABLE,
                           DeployedImplementationType.DATA_FOLDER.getAssociatedTypeName(),
                           DeployedImplementationType.DATA_FOLDER.getDeployedImplementationType()),
+
+    GAF_TOPIC_CLIENT_CONNECTOR(315,
+                          "09f48b14-cce9-4339-a170-63b3be3422f3",
+                          "Egeria:OpenMetadataTopicConnector:Kafka:GAFTopic:Client",
+                          "GAF Out Topic Client Connector",
+                          "Connector supports the receipt of events from the GAF Services.",
+                          "https://egeria-project.org/connectors/resource/gaf-topic-client-resource-connector/",
+                          "org.odpi.openmetadata.frameworkservices.gaf.connectors.outtopic.GAFOutTopicClientProvider",
+                          ComponentDevelopmentStatus.STABLE,
+                          DeployedImplementationType.APACHE_KAFKA_TOPIC.getAssociatedTypeName(),
+                          DeployedImplementationType.APACHE_KAFKA_TOPIC.getDeployedImplementationType()),
+
+    GAF_TOPIC_SERVER_CONNECTOR(316,
+                               "59eebd66-aa3b-464e-8ed3-37b41b637fc0",
+                               "Egeria:OpenMetadataTopicConnector:Kafka:GAFTopic:Server",
+                               "GAF Out Topic Server Connector",
+                               "Connector supports the sending of events from the GAF Services.",
+                               "https://egeria-project.org/connectors/resource/gaf-topic-server-resource-connector/",
+                               "org.odpi.openmetadata.frameworkservices.gaf.connectors.outtopic.GAFOutTopicServerProvider",
+                               ComponentDevelopmentStatus.STABLE,
+                               DeployedImplementationType.APACHE_KAFKA_TOPIC.getAssociatedTypeName(),
+                               DeployedImplementationType.APACHE_KAFKA_TOPIC.getDeployedImplementationType()),
+
+    OMF_TOPIC_CLIENT_CONNECTOR(317,
+                               "3fc78a69-c272-47ef-bc36-c411b1420b9c",
+                               "Egeria:OpenMetadataTopicConnector:Kafka:OMFTopic:Client",
+                               "OMF Out Topic Client Connector",
+                               "Connector supports the receipt of events from the OMF Services.",
+                               "https://egeria-project.org/connectors/resource/omf-topic-client-resource-connector/",
+                               "org.odpi.openmetadata.frameworkservices.omf.connectors.outtopic.OMFOutTopicClientProvider",
+                               ComponentDevelopmentStatus.STABLE,
+                               DeployedImplementationType.APACHE_KAFKA_TOPIC.getAssociatedTypeName(),
+                               DeployedImplementationType.APACHE_KAFKA_TOPIC.getDeployedImplementationType()),
+
+    OMF_TOPIC_SERVER_CONNECTOR(318,
+                               "10cdb777-ac35-4c9b-bae2-0b53349bc9d6",
+                               "Egeria:OpenMetadataTopicConnector:Kafka:OMFTopic:Server",
+                               "OMF Out Topic Server Connector",
+                               "Connector supports the sending of events from the OMF Services.",
+                               "https://egeria-project.org/connectors/resource/omf-topic-server-resource-connector/",
+                               "org.odpi.openmetadata.frameworkservices.omf.connectors.outtopic.OMFOutTopicServerProvider",
+                               ComponentDevelopmentStatus.STABLE,
+                               DeployedImplementationType.APACHE_KAFKA_TOPIC.getAssociatedTypeName(),
+                               DeployedImplementationType.APACHE_KAFKA_TOPIC.getDeployedImplementationType()),
 
     GLOSSARY_DYNAMIC_ARCHIVER_CONNECTOR(320,
                                         "02cfb290-43cb-497c-928e-267bd3d69324",
@@ -382,7 +427,29 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
                                 DeployedImplementationType.WATCHDOG_ACTION_SERVICE_CONNECTOR.getAssociatedTypeName(),
                                 DeployedImplementationType.WATCHDOG_ACTION_SERVICE_CONNECTOR.getDeployedImplementationType()),
 
-    BABBAGE_ANALYTICAL_ENGINE(382,
+    CANCEL_SUBSCRIPTION(382,
+                        "9c45474b-a685-40df-8b40-5b7e7988546a",
+                        "Egeria:GovernanceActionService:DigitalSubscription:Cancel",
+                        "Cancel Digital Subscription Governance Action Service",
+                        "Governance Action Service that cancels a digital subscription.",
+                        "https://egeria-project.org/connectors/digital-products/cancel-subscription/",
+                        "org.odpi.openmetadata.adapters.connectors.subscriptions.CancelSubscriptionGovernanceActionProvider",
+                        ComponentDevelopmentStatus.STABLE,
+                        DeployedImplementationType.GOVERNANCE_ACTION_SERVICE_CONNECTOR.getAssociatedTypeName(),
+                        DeployedImplementationType.GOVERNANCE_ACTION_SERVICE_CONNECTOR.getDeployedImplementationType()),
+
+    CREATE_SUBSCRIPTION(383,
+                        "488136c1-fded-4449-a820-60762b4f7fac",
+                        "Egeria:GovernanceActionService:DigitalSubscription:Create",
+                        "Create Digital Subscription Governance Action Service",
+                        "Governance Action Service that creates a digital subscription.",
+                        "https://egeria-project.org/connectors/digital-products/create-subscription/",
+                        "org.odpi.openmetadata.adapters.connectors.subscriptions.CreateSubscriptionGovernanceActionProvider",
+                        ComponentDevelopmentStatus.STABLE,
+                        DeployedImplementationType.GOVERNANCE_ACTION_SERVICE_CONNECTOR.getAssociatedTypeName(),
+                        DeployedImplementationType.GOVERNANCE_ACTION_SERVICE_CONNECTOR.getDeployedImplementationType()),
+
+    BABBAGE_ANALYTICAL_ENGINE(390,
                               "e553f0b6-06b9-427e-921e-3b7993c5b0ef",
                               "Egeria:IntegrationConnector:Babbage:AnalyticalEngine",
                               "Babbage Analytical Engine Integration Connector",
@@ -393,7 +460,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
                               DeployedImplementationType.INTEGRATION_CONNECTOR.getAssociatedTypeName(),
                               DeployedImplementationType.INTEGRATION_CONNECTOR.getDeployedImplementationType()),
 
-    KARMA_POINTS_AWARDS_LOVELACE_SERVICE(385,
+    KARMA_POINTS_AWARDS_LOVELACE_SERVICE(391,
                                          "b435b4e6-9a98-4ff2-b216-8b067eab0cee",
                                          "Egeria:GovernanceService:Watchdog:Lovelace:KarmaPointAwardsService",
                                          "Karma Point Awards Lovelace Service",
@@ -463,6 +530,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return int
      */
+    @Override
     public int getConnectorComponentId()
     {
         return connectorComponentId;
@@ -474,6 +542,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return string
      */
+    @Override
     public String getConnectorTypeGUID()
     {
         return connectorTypeGUID;
@@ -485,6 +554,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return string
      */
+    @Override
     public String getConnectorQualifiedName()
     {
         return connectorQualifiedName;
@@ -496,6 +566,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return string
      */
+    @Override
     public String getConnectorDisplayName()
     {
         return connectorDisplayName;
@@ -507,6 +578,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return string
      */
+    @Override
     public String getConnectorDescription()
     {
         return connectorDescription;
@@ -518,6 +590,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return string
      */
+    @Override
     public String getConnectorWikiPage()
     {
         return connectorWikiPage;
@@ -529,6 +602,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return string
      */
+    @Override
     public String getConnectorProviderClassName()
     {
         return connectorProviderClassName;
@@ -540,6 +614,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return ComponentDevelopmentStatus enum
      */
+    @Override
     public ComponentDevelopmentStatus getConnectorDevelopmentStatus()
     {
         return connectorDevelopmentStatus;
@@ -551,6 +626,7 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return string
      */
+    @Override
     public String getSupportedAssetTypeName()
     {
         return supportedAssetTypeName;
@@ -562,8 +638,26 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
      *
      * @return string
      */
+    @Override
     public String getSupportedDeployedImplementationType()
     {
         return supportedDeployedImplementationType;
+    }
+
+
+    /**
+     * Return the component description for this connector.
+     * This is used to initialize the audit log for the connector.
+     *
+     * @return AuditLogReportingComponent
+     */
+    @Override
+    public AuditLogReportingComponent getComponentDescription()
+    {
+        return new AuditLogReportingComponent(connectorComponentId,
+                                              connectorDevelopmentStatus,
+                                              connectorDisplayName,
+                                              connectorDescription,
+                                              connectorWikiPage);
     }
 }

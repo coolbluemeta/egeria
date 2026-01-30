@@ -93,7 +93,7 @@ public enum JacquardAuditCode implements AuditLogMessageSet
      * JACQUARD-HARVESTER-0010 - The {0} integration connector has created a new {1} supporting definition with GUID {2}
      */
     CREATED_SUPPORTING_DEFINITION("JACQUARD-HARVESTER-0010",
-                                  AuditLogRecordSeverityLevel.INFO,
+                                  AuditLogRecordSeverityLevel.TRACE,
                                   "The {0} integration connector has created a new {1} supporting definition called {2} with GUID {3}",
                                   "The connector is creating the metadata elements that supports the definition of the Open Metadata Digital Product Catalog.",
                                   "No action is required.  This message is used to show the progress of the setup."),
@@ -121,7 +121,7 @@ public enum JacquardAuditCode implements AuditLogMessageSet
      * JACQUARD-HARVESTER-0014 - The {0} integration connector is linking {1} element {2} to {3} element {4} using relationship {5}
      */
     LINKING_ELEMENTS("JACQUARD-HARVESTER-0014",
-                     AuditLogRecordSeverityLevel.INFO,
+                     AuditLogRecordSeverityLevel.TRACE,
                      "The {0} integration connector is linking {1} element {2} to {3} element {4} using relationship {5}",
                      "The connector is linking product catalog elements together.",
                      "No action is required.  This message is for monitoring the set up of the Open Metadata Digital Product Catalog."),
@@ -130,7 +130,7 @@ public enum JacquardAuditCode implements AuditLogMessageSet
      * JACQUARD-HARVESTER-0015 - The {0} integration connector has retrieved a new {1} supporting definition with GUID {2}
      */
     RETRIEVING_SUPPORTING_DEFINITION("JACQUARD-HARVESTER-0015",
-                                     AuditLogRecordSeverityLevel.INFO,
+                                     AuditLogRecordSeverityLevel.TRACE,
                                      "The {0} integration connector has retrieved a new {1} supporting definition called {2} with GUID {3}",
                                      "The connector is retrieving the metadata elements that supports the definition of the Open Metadata Digital Product Catalog.",
                                      "No action is required.  This message is used to show progress during the setup."),

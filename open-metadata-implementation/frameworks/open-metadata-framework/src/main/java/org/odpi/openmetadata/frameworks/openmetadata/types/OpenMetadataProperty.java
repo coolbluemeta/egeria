@@ -1105,20 +1105,9 @@ public enum OpenMetadataProperty
     KEY_PATTERN("keyPattern", DataType.STRING, KeyPattern.getOpenTypeName(), "Type of identifier that identifies its lifecycle, for example, its scope and whether the value is reused.", null, "a8805753-865d-4860-ab95-1e83c3eaf01d"),
 
     /**
-     * Type of role that the attribute plays as part of the concept bead.
+     * Used to describe how a collection of data values for an attribute cover the domain of the possible values to the linked attribute.
      */
     COVERAGE_CATEGORY("coverageCategory", DataType.STRING, CoverageCategory.getOpenTypeName(), "Used to describe how a collection of data values for an attribute cover the domain of the possible values to the linked attribute.", CoverageCategory.UNIQUE_IDENTIFIER.toString(), "4cac11a2-1187-4a54-b94a-8fa493c0b860"),
-
-
-    /**
-     * The relationship of element that has been changed to the anchor.
-     */
-    CHANGE_TARGET("changeTarget", DataType.STRING, LatestChangeTarget.getOpenTypeName(), "The relationship to the anchor that the changed element has.", null, "b3a4c3c0-f17f-4380-848a-6c6d985c2dd3"),
-
-    /**
-     * The type of change.
-     */
-    CHANGE_ACTION("changeAction", DataType.STRING, LatestChangeAction.getOpenTypeName(), "The type of change.", null, "365c4667-b86a-445f-860b-dc35eac917f2"),
 
     /**
      * Guidance on how the element should be used.
@@ -2263,6 +2252,11 @@ public enum OpenMetadataProperty
      * Records the next time a scheduled notification is to be sent to the active subscribers.
      */
     NEXT_SCHEDULED_NOTIFICATION("nextScheduledNotification", DataType.DATE, DataType.DATE.getName(), "Records the next time a scheduled notification is to be sent to the active subscribers.", null, "1ea5863c-f86f-4bf5-83ee-6ae0cd397af4"),
+
+    /**
+     * Records the number of times a notification type has been triggered.
+     */
+    NOTIFICATION_COUNT("notificationCount", DataType.LONG, DataType.LONG.getName(), "Records the number of times a notification type has been triggered.", null, "ea032888-f5c6-4f4d-9ab7-53acf8ba46e3"),
 
     /**
      * Records the last time a notification was sent to a subscriber.

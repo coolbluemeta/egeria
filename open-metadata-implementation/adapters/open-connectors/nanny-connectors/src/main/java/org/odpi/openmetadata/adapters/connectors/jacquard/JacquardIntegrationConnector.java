@@ -38,6 +38,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.ActorRole
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.AssignmentScopeProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.DigitalProductManagerProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.TabularDataSetProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.ActionTargetProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.EngineActionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.connectors.CatalogTargetProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.collections.CollectionMembershipProperties;
@@ -134,6 +135,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
                                                     methodName);
             }
 
+
             /*
              * These governance definitions support the product catalog initiative.
              * They are linked to the product catalog.
@@ -147,6 +149,29 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
             productRoles          = this.getProductRoles();
             solutionBlueprintGUID = this.getSolutionBlueprint();
             productFolders        = this.getProductCatalogFolders();
+
+            /*
+             * The engine action for the watchdog notification serve is started before the monitored resource
+             * and subscribers are attached to ensure the notification watchdog sees their attachment events and
+             * sends out the welcome messages.
+             */
+            if (baudotEngineActionGUID == null)
+            {
+                try
+                {
+                    baudotEngineActionGUID = this.activateSubscriptionManager();
+                }
+                catch (Exception error)
+                {
+                    auditLog.logException(methodName,
+                                          JacquardAuditCode.UNEXPECTED_EXCEPTION.getMessageDefinition(connectorName,
+                                                                                                      error.getClass().getName(),
+                                                                                                      methodName,
+                                                                                                      error.getMessage()),
+                                          error);
+                }
+            }
+
             glossaryTerms         = this.getGlossaryTerms();
             communities           = this.getCommunities();
             communityNoteLogs     = this.getCommunityNoteLogs();
@@ -210,28 +235,6 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
          * Refresh all the harvested tabular data sources, looking for data changes.
          */
         super.refresh();
-
-        /*
-         * The engine action for the watchdog notification serve is started before the monitored resource
-         * and subscribers are attached to ensure the notification watchdog sees their attachment events and
-         * sends out the welcome messages.
-         */
-        if (baudotEngineActionGUID == null)
-        {
-            try
-            {
-                baudotEngineActionGUID = this.activateSubscriptionManager();
-            }
-            catch (Exception error)
-            {
-                auditLog.logException(methodName,
-                                      JacquardAuditCode.UNEXPECTED_EXCEPTION.getMessageDefinition(connectorName,
-                                                                                                  error.getClass().getName(),
-                                                                                                  methodName,
-                                                                                                  error.getMessage()),
-                                      error);
-            }
-        }
     }
 
 
@@ -874,6 +877,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
 
                     addSubscriptionGovernanceActionProcess(productDefinition.getProductName(),
                                                            productHeader.getGUID(),
+                                                           productAssetGUID,
                                                            licenseTypeGUID,
                                                            notificationTypeGUID,
                                                            productSubscriptionDefinition,
@@ -895,7 +899,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
      * @param productAssetGUID              unique identifier for the asset that represents the product
      * @param communityNoteLogGUID          unique identifier of the community's note log
      * @param productManagerGUID            unique identifier for the product manager
-     * @return
+     * @return guid
      * @throws InvalidParameterException  invalid parameter passed - probably a bug in this code
      * @throws PropertyServerException    repository is probably down
      * @throws UserNotAuthorizedException connector's userId not defined to open metadata, or the connector has
@@ -907,8 +911,8 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
                                        String                        productAssetGUID,
                                        String                        communityNoteLogGUID,
                                        String                        productManagerGUID) throws InvalidParameterException,
-                                                                                              PropertyServerException,
-                                                                                              UserNotAuthorizedException
+                                                                                                PropertyServerException,
+                                                                                                UserNotAuthorizedException
     {
         /*
          * The notification of changes to a subscription is managed via a notification type.
@@ -920,7 +924,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
 
         notificationTypeProperties.setQualifiedName(OpenMetadataType.NOTIFICATION_TYPE.typeName + "::" + productHeader.getGUID() + "::" + productName + "::" + productSubscriptionDefinition.getIdentifier());
         notificationTypeProperties.setIdentifier(productSubscriptionDefinition.getIdentifier());
-        notificationTypeProperties.setDisplayName("Notification type for '" + productSubscriptionDefinition.getDisplayName() + "' for product '" + productName + "'");
+        notificationTypeProperties.setDisplayName("Notification type for " + productSubscriptionDefinition.getDisplayName() + " for product " + productName);
         notificationTypeProperties.setDescription(productSubscriptionDefinition.getDescription());
         notificationTypeProperties.setPlannedStartDate(new Date());
         notificationTypeProperties.setMultipleNotificationsPermitted(productSubscriptionDefinition.getMultipleNotificationsPermitted());
@@ -984,7 +988,24 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         notificationTarget.setActionTargetGUID(notificationTypeGUID);
         notificationTarget.setActionTargetName(ActionTarget.NOTIFICATION_TYPE.name);
 
-        notificationWatchdogTargets.add(notificationTarget);
+        if (baudotEngineActionGUID != null)
+        {
+            AssetClient assetClient = integrationContext.getAssetClient();
+
+            ActionTargetProperties actionTargetProperties = new ActionTargetProperties();
+
+            actionTargetProperties.setActionTargetName(ActionTarget.NOTIFICATION_TYPE.name);
+
+            assetClient.addActionTarget(baudotEngineActionGUID,
+                                        notificationTypeGUID,
+                                        assetClient.getMakeAnchorOptions(false),
+                                        actionTargetProperties);
+        }
+        else // save for when Baudot is running
+        {
+            notificationWatchdogTargets.add(notificationTarget);
+        }
+
         return notificationTypeGUID;
     }
 
@@ -996,6 +1017,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
      *
      * @param productName name of product
      * @param productGUID unique identifier of the product
+     * @param productAssetGUID unique identifier of the product's asset
      * @param licenseTypeGUID unique identifier of the license type supported to this product
      * @param notificationTypeGUID unique identifier of the notification type driving the subscription (optional)
      * @param productSubscriptionDefinition details of the subscription type
@@ -1008,6 +1030,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
      */
     private void addSubscriptionGovernanceActionProcess(String                        productName,
                                                         String                        productGUID,
+                                                        String                        productAssetGUID,
                                                         String                        licenseTypeGUID,
                                                         String                        notificationTypeGUID,
                                                         ProductSubscriptionDefinition productSubscriptionDefinition,
@@ -1043,6 +1066,14 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
                                                        null,
                                                        propertyHelper.addStringProperty(null, OpenMetadataProperty.ACTION_TARGET_NAME.name, ManageDigitalSubscriptionActionTarget.DIGITAL_SUBSCRIPTION_ITEM.getName()));
         actionTargetNames.add(ManageDigitalSubscriptionActionTarget.DIGITAL_SUBSCRIPTION_ITEM.getName());
+
+        openMetadataStore.createRelatedElementsInStore(OpenMetadataType.TARGET_FOR_GOVERNANCE_ACTION_RELATIONSHIP.typeName,
+                                                       governanceActionProcessGUID,
+                                                       productAssetGUID,
+                                                       null,
+                                                       null,
+                                                       propertyHelper.addStringProperty(null, OpenMetadataProperty.ACTION_TARGET_NAME.name, ManageDigitalSubscriptionActionTarget.DIGITAL_SUBSCRIPTION_SOURCE.getName()));
+        actionTargetNames.add(ManageDigitalSubscriptionActionTarget.DIGITAL_SUBSCRIPTION_SOURCE.getName());
 
         if (licenseTypeGUID != null)
         {
@@ -1149,8 +1180,23 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
 
         classificationManagerClient.addResourceListToElement(productGUID,
                                                              governanceActionProcessGUID,
-                                                             new MakeAnchorOptions(classificationManagerClient.getMetadataSourceOptions()),
+                                                             classificationManagerClient.getMakeAnchorOptions(false),
                                                              resourceListProperties);
+
+        /*
+         * Link the new governance action process to the glossary term for more explanation.
+         */
+        if (productSubscriptionDefinition.getGlossaryTerm() != null)
+        {
+            String glossaryTermGUID = glossaryTerms.get(productSubscriptionDefinition.getGlossaryTerm().getQualifiedName());
+            if (glossaryTermGUID != null)
+            {
+                classificationManagerClient.setupSemanticAssignment(governanceActionProcessGUID,
+                                                                    glossaryTermGUID,
+                                                                    null,
+                                                                    classificationManagerClient.getMakeAnchorOptions(false));
+            }
+        }
     }
 
 
@@ -2163,6 +2209,19 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
                                                dataFieldProperties,
                                                null);
 
+        if (dataFieldDefinition.getGlossaryTerm() != null)
+        {
+            String glossaryTermGUID = glossaryTerms.get(dataFieldDefinition.getGlossaryTerm().getQualifiedName());
+            if (glossaryTermGUID != null)
+            {
+                ClassificationManagerClient classificationManagerClient = integrationContext.getClassificationManagerClient();
+
+                classificationManagerClient.setupSemanticAssignment(dataFieldGUID,
+                                                                    glossaryTermGUID,
+                                                                    null,
+                                                                    classificationManagerClient.getMakeAnchorOptions(false));
+            }
+        }
         auditLog.logMessage(methodName,
                             JacquardAuditCode.CREATED_SUPPORTING_DEFINITION.getMessageDefinition(connectorName,
                                                                                                  OpenMetadataType.DATA_FIELD.typeName,

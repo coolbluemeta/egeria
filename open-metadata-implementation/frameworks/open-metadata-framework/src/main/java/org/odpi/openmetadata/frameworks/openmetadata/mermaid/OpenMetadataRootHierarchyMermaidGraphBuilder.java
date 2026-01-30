@@ -20,12 +20,16 @@ public class OpenMetadataRootHierarchyMermaidGraphBuilder extends OpenMetadataRo
      * Construct a mermaid markdown graph.
      *
      * @param openMetadataRootHierarchy content
+     * @param membershipName            name of the subgraph
+     * @param principleStyle            style of the principle element
+     * @param maxNodeCount              maximum number of nodes to include in the graph
      */
     public OpenMetadataRootHierarchyMermaidGraphBuilder(OpenMetadataRootHierarchy openMetadataRootHierarchy,
                                                         String                    membershipName,
-                                                        VisualStyle               principleStyle)
+                                                        VisualStyle               principleStyle,
+                                                        int                       maxNodeCount)
     {
-        super(openMetadataRootHierarchy);
+        super(openMetadataRootHierarchy, maxNodeCount);
 
         if (openMetadataRootHierarchy.getOpenMetadataRootHierarchies() != null)
         {

@@ -3,6 +3,7 @@
 
 package org.odpi.openmetadata.frameworks.connectors;
 
+import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
 import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
 
 /**
@@ -74,4 +75,29 @@ public interface OpenConnectorDefinition
      * @return ComponentDevelopmentStatus enum
      */
     ComponentDevelopmentStatus getConnectorDevelopmentStatus();
+
+
+    /**
+     * Return the name of the asset type that this connector supports.
+     *
+     * @return string
+     */
+    String getSupportedAssetTypeName();
+
+
+    /**
+     * Return the name of the deployed implementation that this connector supports.
+     *
+     * @return string
+     */
+    String getSupportedDeployedImplementationType();
+
+
+    /**
+     * Return the component description for this connector.
+     * This is used to initialize the audit log for the connector.
+     *
+     * @return AuditLogReportingComponent
+     */
+    AuditLogReportingComponent getComponentDescription();
 }

@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
         in = SecuritySchemeIn.HEADER
 )
 
-@Tag(name="Metadata Access Services: Open Governance Service",
+@Tag(name="Metadata Access Server: Open Governance Service",
         description="Provides support for common governance services used across the OMASs.",
         externalDocs=@ExternalDocumentation(description="Further Information",
                 url="https://egeria-project.org/services/gaf-metadata-management/"))
@@ -36,6 +36,28 @@ public class OpenGovernanceResource
 {
     private final OpenGovernanceRESTServices restAPI = new OpenGovernanceRESTServices();
 
+
+    /**
+     * Return the connection object for the Open Metadata Store's out topic.
+     *
+     * @param serverName name of the server to route the request to
+     * @param userId identifier of calling user
+     * @param callerId unique identifier for the caller
+     *
+     * @return connection object for the out topic or
+     * InvalidParameterException one of the parameters is null or invalid or
+     * UserNotAuthorizedException user not authorized to issue this request or
+     * PropertyServerException problem retrieving the discovery engine definition.
+     */
+    @GetMapping(path = "/topics/out-topic-connection/{callerId}")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    public OCFConnectionResponse getOutTopicConnection(@PathVariable String serverName,
+                                                       @PathVariable String userId,
+                                                       @PathVariable String callerId)
+    {
+        return restAPI.getOutTopicConnection(serverName, userId, callerId);
+    }
 
 
     /**

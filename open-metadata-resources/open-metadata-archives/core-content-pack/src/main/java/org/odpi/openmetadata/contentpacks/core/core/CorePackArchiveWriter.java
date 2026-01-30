@@ -343,14 +343,6 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                       KeyPattern.getOpenTypeName(),
                                       new ArrayList<>(Arrays.asList(KeyPattern.values())));
 
-        addOpenMetadataEnumValidNames(OpenMetadataProperty.CHANGE_ACTION.name,
-                                      LatestChangeAction.getOpenTypeName(),
-                                      new ArrayList<>(Arrays.asList(LatestChangeAction.values())));
-
-        addOpenMetadataEnumValidNames(OpenMetadataProperty.CHANGE_TARGET.name,
-                                      LatestChangeTarget.getOpenTypeName(),
-                                      new ArrayList<>(Arrays.asList(LatestChangeTarget.values())));
-
         addOpenMetadataEnumValidNames(OpenMetadataProperty.MEDIA_TYPE.name,
                                       MediaType.getOpenTypeName(),
                                       new ArrayList<>(Arrays.asList(MediaType.values())));

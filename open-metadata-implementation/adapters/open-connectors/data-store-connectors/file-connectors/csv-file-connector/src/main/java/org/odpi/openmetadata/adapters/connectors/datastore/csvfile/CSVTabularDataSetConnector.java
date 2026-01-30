@@ -59,6 +59,8 @@ public class CSVTabularDataSetConnector extends ConnectorBase implements Readabl
     {
         super.start();
 
+        fileStoreConnector = this.getFileStoreConnector();
+
         directoryPathName = super.getStringConfigurationProperty(CSVFileConfigurationProperty.DIRECTORY_PATH_NAME.getName(),
                                                                  connectionBean.getConfigurationProperties(),
                                                                  directoryPathName);
@@ -72,8 +74,6 @@ public class CSVTabularDataSetConnector extends ConnectorBase implements Readabl
         tableDescription = super.getStringConfigurationProperty(CSVFileConfigurationProperty.TABLE_DESCRIPTION.getName(),
                                                                 connectionBean.getConfigurationProperties(),
                                                                 tableDescription);
-
-        fileStoreConnector = this.getFileStoreConnector();
     }
 
 
@@ -302,6 +302,11 @@ public class CSVTabularDataSetConnector extends ConnectorBase implements Readabl
     public void writeRecord(long requestedRowNumber, List<String> dataValues) throws ConnectorCheckedException
     {
         final String methodName = "writeRecord";
+
+        /*
+         * Make sure the file exists.
+         */
+        fileStoreConnector.touchFile();
 
         File   fileStore = fileStoreConnector.getFile();
         String fileStoreName = fileStoreConnector.getFileName();

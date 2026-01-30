@@ -15,9 +15,9 @@ public class OpenMetadataWikiPages
     public static final String MODEL_0010_BASE_MODEL = "https://egeria-project.org/types/0/0010-Base-Model/";
 
     /**
-     * <a href="https://egeria-project.org/types/0/0011-Managing-Referenceables/">...</a>
+     * <a href="https://egeria-project.org/types/0/0011-Templates/">...</a>
      */
-    public static final String MODEL_0011_MANAGING_REFERENCEABLES      = "https://egeria-project.org/types/0/0011-Managing-Referenceables/";
+    public static final String MODEL_0011_TEMPLATES = "https://egeria-project.org/types/0/0011-Templates/";
 
     /**
      * <a href="https://egeria-project.org/types/0/0012-Search-Keywords/">...</a>

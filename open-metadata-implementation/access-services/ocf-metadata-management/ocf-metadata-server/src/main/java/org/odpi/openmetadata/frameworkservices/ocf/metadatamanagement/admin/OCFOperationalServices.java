@@ -36,7 +36,7 @@ public class OCFOperationalServices extends AccessServiceAdmin
      * @param localServerSecretsStoreProvider secrets store connector for bearer token
      * @param localServerSecretsStoreLocation secrets store location for bearer token
      * @param localServerSecretsStoreCollection secrets store collection for bearer token
-     * @param maxPageSize max number of results to return on single request.
+     * @param maxPageSize max results to return on a single request.
      * @throws OMAGConfigurationErrorException invalid parameters in the configuration properties.
      */
     @Override

@@ -15,13 +15,6 @@ import java.util.List;
  */
 public abstract class WatchdogActionServiceProvider extends GovernanceServiceProviderBase
 {
-    static
-    {
-        supportedDeployedImplementationType = DeployedImplementationType.WATCHDOG_ACTION_SERVICE_CONNECTOR.getDeployedImplementationType();
-    }
-
-
-
     /**
      * Base provider for all watchdog action services.  Sets up reasonable defaults that
      * the individual service implementation can either accept or override.
@@ -43,7 +36,7 @@ public abstract class WatchdogActionServiceProvider extends GovernanceServicePro
      */
     public WatchdogActionServiceProvider(OpenConnectorDefinition openConnectorDescription,
                                          String                  connectorClassName,
-                                         List<String> recognizedConfigurationPropertyNames)
+                                         List<String>            recognizedConfigurationPropertyNames)
     {
         super(openConnectorDescription, connectorClassName, recognizedConfigurationPropertyNames);
 

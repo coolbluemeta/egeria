@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
         in = SecuritySchemeIn.HEADER
 )
 
-@Tag(name="Metadata Access Services: Governance Context Service",
+@Tag(name="Metadata Access Server: Governance Context Service",
      description="Provides support for services used to control the status of an Engine Action during the execution of a governance service in an Engine Host.",
      externalDocs=@ExternalDocumentation(description="Further Information",
                                          url="https://egeria-project.org/services/gaf-metadata-management/"))

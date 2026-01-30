@@ -16,9 +16,11 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.digitalbusiness.
 import org.odpi.openmetadata.frameworks.openmetadata.properties.externalidentifiers.ExternalIdProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.externalreferences.ExternalReferenceProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.feedback.RatingProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.governanceactions.TargetForGovernanceActionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.resources.ResourceListProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.solutions.SolutionComponentProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports.RequestForActionTargetProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.validvalues.SpecificationPropertyAssignmentProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.PropertyHelper;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
@@ -38,6 +40,7 @@ public class MermaidGraphBuilderBase
     protected final Map<String, String>      nodeClicks        = new HashMap<>();
     protected final PropertyHelper           propertyHelper    = new PropertyHelper();
     protected final String                   sourceName        = "MermaidGraphBuilder";
+    protected int                            maxNodeCount      = 5;
 
     /**
      * Map from guid to nodeId
@@ -58,6 +61,25 @@ public class MermaidGraphBuilderBase
      * @param anchorTypeName type name
      */
     record AnchorNode (String anchorGUID, String anchorTypeName) { }
+
+
+    /**
+     * Constructor with default maximum node count parameter.
+     */
+    public MermaidGraphBuilderBase()
+    {
+    }
+
+
+    /**
+     * Constructor overriding maximum node count parameter.
+     *
+     * @param maxNodeCount maximum nodes linked by a particular relationship to an element to include in the graph
+     */
+    public MermaidGraphBuilderBase(int maxNodeCount)
+    {
+        this.maxNodeCount = maxNodeCount;
+    }
 
 
     /**
@@ -1926,7 +1948,7 @@ public class MermaidGraphBuilderBase
                  * If we have more than 5 related elements, create a "more" node to represent the rest.
                  * This helps to prevent the mermaid graph from being overwhelmed with too much detail.
                  */
-                if (nodeCount > 5)
+                if (nodeCount > maxNodeCount)
                 {
                     String moreNodeId = UUID.randomUUID().toString();
                     appendNewMermaidNode(moreNodeId,
@@ -2083,6 +2105,14 @@ public class MermaidGraphBuilderBase
         else if (relatedMetadataElement.getRelationshipProperties() instanceof ResourceListProperties resourceListProperties)
         {
             label = resourceListProperties.getResourceUse();
+        }
+        else if (relatedMetadataElement.getRelationshipProperties() instanceof SpecificationPropertyAssignmentProperties specificationPropertyAssignmentProperties)
+        {
+            label = specificationPropertyAssignmentProperties.getPropertyName();
+        }
+        else if (relatedMetadataElement.getRelationshipProperties() instanceof TargetForGovernanceActionProperties targetForGovernanceActionProperties)
+        {
+            label = targetForGovernanceActionProperties.getActionTargetName();
         }
 
         return label;

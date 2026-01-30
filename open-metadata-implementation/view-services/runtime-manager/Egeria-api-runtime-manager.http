@@ -95,6 +95,17 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ###
+
+@javaClassName=add name of connector provider class - include full package name but not '.class'
+#@javaClassName=org.odpi.openmetadata.adapters.connectors.governanceactions.provisioning.MoveCopyFileGovernanceActionProvider
+
+###
+# @name Get Connector Type (for any connector)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{platformGUID}}/connector-types/{{javaClassName}}
+Authorization: Bearer {{token}}
+
+
+###
 # ========================================================================================
 # Retrieve big picture of Egeria Deployment
 

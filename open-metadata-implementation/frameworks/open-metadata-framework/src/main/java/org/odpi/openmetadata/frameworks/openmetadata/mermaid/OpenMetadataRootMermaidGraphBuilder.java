@@ -20,9 +20,13 @@ public class OpenMetadataRootMermaidGraphBuilder extends MermaidGraphBuilderBase
      * Construct a mermaid markdown graph.
      *
      * @param openMetadataRootElement content
+     * @param maxNodeCount             maximum nodes linked by a particular relationship to an element to include in the graph
      */
-    public OpenMetadataRootMermaidGraphBuilder(OpenMetadataRootElement openMetadataRootElement)
+    public OpenMetadataRootMermaidGraphBuilder(OpenMetadataRootElement openMetadataRootElement,
+                                               int                     maxNodeCount)
     {
+        super(maxNodeCount);
+
         /*
          * Add the graph title
          */
@@ -63,11 +67,16 @@ public class OpenMetadataRootMermaidGraphBuilder extends MermaidGraphBuilderBase
     /**
      * Construct a mermaid markdown graph.
      *
+     * @param searchString             title
      * @param openMetadataRootElements content
+     * @param maxNodeCount             maximum nodes linked by a particular relationship to an element to include in the graph
      */
     public OpenMetadataRootMermaidGraphBuilder(String                        searchString,
-                                               List<OpenMetadataRootElement> openMetadataRootElements)
+                                               List<OpenMetadataRootElement> openMetadataRootElements,
+                                               int                           maxNodeCount)
     {
+        super(maxNodeCount);
+
         /*
          * Add the graph title
          */

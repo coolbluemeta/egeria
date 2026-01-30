@@ -390,7 +390,7 @@ public class RESTExceptionHandler
 
 
     /**
-     * Throw an UserNotAuthorizedException if it is encoded in the REST response.
+     * Throw the UserNotAuthorizedException exception if it is encoded in the REST response.
      *
      * @param restResult  response from UserNotAuthorizedException encoded exception from the server.
      *

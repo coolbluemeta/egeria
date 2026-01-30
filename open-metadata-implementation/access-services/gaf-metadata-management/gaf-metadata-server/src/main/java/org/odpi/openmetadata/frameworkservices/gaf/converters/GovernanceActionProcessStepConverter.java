@@ -2,7 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.frameworkservices.gaf.converters;
 
-import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceActionProcessStepProperties;
+import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceActionProcessStep;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceActionProcessStepElement;
 import org.odpi.openmetadata.frameworkservices.omf.converters.OpenMetadataStoreConverter;
@@ -82,7 +82,7 @@ public class GovernanceActionProcessStepConverter<B> extends OpenMetadataStoreCo
 
             if (returnBean instanceof GovernanceActionProcessStepElement bean)
             {
-                GovernanceActionProcessStepProperties actionTypeProperties = new GovernanceActionProcessStepProperties();
+                GovernanceActionProcessStep actionTypeProperties = new GovernanceActionProcessStep();
 
                 if (entity != null)
                 {

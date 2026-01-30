@@ -1392,7 +1392,7 @@ public class OpenMetadataHandlerBase
     {
         if (rootElement != null)
         {
-            OpenMetadataRootMermaidGraphBuilder graphBuilder = new OpenMetadataRootMermaidGraphBuilder(rootElement);
+            OpenMetadataRootMermaidGraphBuilder graphBuilder = new OpenMetadataRootMermaidGraphBuilder(rootElement, queryOptions.getMaxMermaidNodeCount());
 
             rootElement.setMermaidGraph(graphBuilder.getMermaidGraph());
 
@@ -1435,7 +1435,30 @@ public class OpenMetadataHandlerBase
     {
         if (elements != null)
         {
-            OpenMetadataRootMermaidGraphBuilder graphBuilder = new OpenMetadataRootMermaidGraphBuilder(searchString, elements);
+            OpenMetadataRootMermaidGraphBuilder graphBuilder = new OpenMetadataRootMermaidGraphBuilder(searchString, elements, 5);
+
+            return graphBuilder.getMermaidGraph();
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Create a composite mermaid graph from the returned elements.
+     *
+     * @param searchString string used to create list - used in title of the mermaid graph
+     * @param elements elements returned from the query
+     * @param maxMermaidNodeCount  maximum nodes linked by a particular relationship to an element to include in the graph
+     * @return mermaid string
+     */
+    public String getMermaidGraph(String                        searchString,
+                                  List<OpenMetadataRootElement> elements,
+                                  int                           maxMermaidNodeCount)
+    {
+        if (elements != null)
+        {
+            OpenMetadataRootMermaidGraphBuilder graphBuilder = new OpenMetadataRootMermaidGraphBuilder(searchString, elements, maxMermaidNodeCount);
 
             return graphBuilder.getMermaidGraph();
         }

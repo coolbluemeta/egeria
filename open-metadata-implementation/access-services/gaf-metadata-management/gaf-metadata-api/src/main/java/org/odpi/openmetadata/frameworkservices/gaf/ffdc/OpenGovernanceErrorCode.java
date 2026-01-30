@@ -35,6 +35,54 @@ public enum OpenGovernanceErrorCode implements ExceptionMessageSet
                          "Check that the server where the Open Metadata Store Services are running initialized correctly.  " +
                                  "Correct any errors discovered and retry the request when the open metadata services are available."),
 
+    /**
+     * OPEN-GOVERNANCE-500-001 A null topic listener has been passed by user {0} on method {1}
+     */
+    NULL_LISTENER(500, "OPEN-GOVERNANCE-500-001",
+                  "A null topic listener has been passed by user {0} on method {1}",
+                  "There is a coding error in the caller to the OMF Services.",
+                  "Correct the caller logic and retry the request."),
+
+    /**
+     * OPEN-GOVERNANCE-500-004 An unexpected exception occurred when sending an event through connector {0} to the OMF Services out topic.
+     * The failing event was {1}, the exception was {2} with message {2}
+     */
+    UNABLE_TO_SEND_EVENT(500, "OPEN-GOVERNANCE-500-004",
+                         "An unexpected exception occurred when sending an event through connector {0} to the OMF Services out topic.  The failing " +
+                                 "event was {1}, the exception was {2} with message {2}",
+                         "The system has issued a call to an open metadata access service REST API in a remote server and has received a null response.",
+                         "Look for errors in the remote server's audit log and console to understand and correct the source of the error."),
+
+    /**
+     * OPEN-GOVERNANCE-500-006 The requested connector for connection named {0} has not been created.
+     * The connection was provided by the {1} service running in OMAG Server {2} at {3}
+     */
+    NULL_CONNECTOR_RETURNED(500, "OPEN-GOVERNANCE-500-006",
+                            "The requested connector for connection named {0} has not been created.  The connection was provided by the {1} service" +
+                                    " running in OMAG Server {2} at {3}",
+                            "The system cannot create a connector which means some of its services will not work.",
+                            "This problem is likely to be caused by an incorrect connection object.  Check the settings on the Connection" +
+                                    "and correct if necessary.  If the connection is correct, contact the Egeria community for help."),
+
+    /**
+     * OPEN-GOVERNANCE-500-007 The connector generated from the connection named {0} return by the {1} service running in OMAG Server {2}
+     * at {3} is not of the required type. It should be an instance of {4}
+     */
+    WRONG_TYPE_OF_CONNECTOR(500, "OPEN-GOVERNANCE-500-007",
+                            "The connector generated from the connection named {0} return by the {1} service running in OMAG Server {2} at {3} is " +
+                                    "not of the required type. It should be an instance of {4}",
+                            "The system cannot create the required connector which means some of its services will not work.",
+                            "Verify that the OMAG server is running and the OMAS service is correctly configured."),
+
+
+    /**
+     * OPEN-GOVERNANCE-500-008 - The Design Model OMAS has received an unexpected {0} exception during method {1}.  The message was: {2}
+     */
+    UNEXPECTED_EXCEPTION(500, "OPEN-GOVERNANCE-500-008",
+                         "The OMF Services has received an unexpected {0} exception during method {1} for service {2}.  The message was: {3}",
+                         "The request returns with a PropertyServerException to indicate there has been an internal server error. The server also created a detailed error message and stack trace in the audit log.",
+                         "Review the stack trace to identify where the error occurred and work to resolve the cause."),
+
 
     ;
 

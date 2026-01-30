@@ -27,6 +27,7 @@ public class NotificationTypeProperties extends GovernanceControlProperties
     private long    minimumNotificationInterval    = 0L;
     private long    notificationInterval           = 0L;
     private Date    nextScheduledNotification      = null;
+    private long    notificationCount              = 0L;
     private Date    plannedCompletionDate          = null;
 
 
@@ -54,6 +55,7 @@ public class NotificationTypeProperties extends GovernanceControlProperties
             minimumNotificationInterval = template.getMinimumNotificationInterval();
             notificationInterval  = template.getNotificationInterval();
             nextScheduledNotification = template.getNextScheduledNotification();
+            notificationCount = template.getNotificationCount();
             plannedCompletionDate = template.getPlannedCompletionDate();
         }
     }
@@ -176,6 +178,28 @@ public class NotificationTypeProperties extends GovernanceControlProperties
 
 
     /**
+     * Return the number of notifications that have been triggered.
+     *
+     * @return long
+     */
+    public long getNotificationCount()
+    {
+        return notificationCount;
+    }
+
+
+    /**
+     * Set up yhe number of notifications that have been triggered.
+     *
+     * @param notificationCount long
+     */
+    public void setNotificationCount(long notificationCount)
+    {
+        this.notificationCount = notificationCount;
+    }
+
+
+    /**
      * Return the date/time that the monitor should stop running.
      *
      * @return date
@@ -211,6 +235,7 @@ public class NotificationTypeProperties extends GovernanceControlProperties
                 ", minimumNotificationInterval=" + getMinimumNotificationInterval() +
                 ", notificationInterval=" + getNotificationInterval() +
                 ", nextScheduledNotification=" + getNextScheduledNotification() +
+                ", notificationCount=" + getNotificationCount() +
                 ", plannedCompletionDate=" + getPlannedCompletionDate() +
                 "} " + super.toString();
     }
@@ -232,6 +257,7 @@ public class NotificationTypeProperties extends GovernanceControlProperties
         return minimumNotificationInterval == that.minimumNotificationInterval &&
                 multipleNotificationsPermitted == that.multipleNotificationsPermitted &&
                 notificationInterval == that.notificationInterval &&
+                notificationCount == that.notificationCount &&
                 Objects.equals(plannedStartDate, that.plannedStartDate) &&
                 Objects.equals(nextScheduledNotification, that.nextScheduledNotification) &&
                 Objects.equals(plannedCompletionDate, that.plannedCompletionDate);
@@ -246,6 +272,6 @@ public class NotificationTypeProperties extends GovernanceControlProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), plannedStartDate, multipleNotificationsPermitted, minimumNotificationInterval, notificationInterval, nextScheduledNotification, plannedCompletionDate);
+        return Objects.hash(super.hashCode(), plannedStartDate, multipleNotificationsPermitted, minimumNotificationInterval, notificationInterval, notificationCount, nextScheduledNotification, plannedCompletionDate);
     }
 }

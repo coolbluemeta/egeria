@@ -157,6 +157,37 @@ public class RuntimeManagerResource
 
 
     /**
+     * Return the connector type for the requested connector provider after validating that the
+     * connector provider is available on the OMAGServerPlatform's class path.  This method is for tools that are configuring
+     * connectors into an Egeria server.  It does not validate that the connector will load and initialize.
+     *
+     * @param serverName  name of called server
+     * @param platformGUID unique identifier of the platform
+     * @param connectorProviderClassName name of the connector provider class
+     * @return ConnectorType bean or exceptions that occur when trying to create the connector:
+     * InvalidParameterException  one of the parameters is null or invalid.
+     * PropertyServerException    a problem retrieving information from the property server(s).
+     * UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    @GetMapping("/platforms/{platformGUID}/connector-types/{connectorProviderClassName}")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary = "getConnectorType",
+            description = "Return the connector type for the requested connector provider after validating that the " +
+                    "connector provider is available on the OMAGServerPlatform's class path.  This method is for tools that are configuring " +
+                    "connectors into an Egeria server.  It does not validate that the connector will load and initialize.",
+            externalDocs = @ExternalDocumentation(description = "Connector Types",
+                    url = "https://egeria-project.org/concepts/connector-type/"))
+
+    public OCFConnectorTypeResponse getConnectorType(@PathVariable String serverName,
+                                                     @PathVariable String platformGUID,
+                                                     @PathVariable String connectorProviderClassName)
+    {
+        return restAPI.getConnectorType(serverName, platformGUID, connectorProviderClassName);
+    }
+
+
+    /**
      * Returns the list of servers with a particular name.
      *
      * @param serverName  name of called server

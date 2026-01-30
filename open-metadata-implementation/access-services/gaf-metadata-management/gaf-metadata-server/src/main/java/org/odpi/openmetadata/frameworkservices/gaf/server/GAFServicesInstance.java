@@ -10,9 +10,11 @@ import org.odpi.openmetadata.commonservices.generichandlers.GovernanceActionProc
 import org.odpi.openmetadata.commonservices.multitenant.AccessServerServiceInstance;
 import org.odpi.openmetadata.commonservices.multitenant.ffdc.exceptions.NewInstanceException;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
+import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.frameworks.opengovernance.properties.EngineActionElement;
 import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceActionProcessElement;
 import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceActionProcessStepElement;
+import org.odpi.openmetadata.frameworkservices.gaf.connectors.outtopic.GAFOutTopicClientProvider;
 import org.odpi.openmetadata.frameworkservices.gaf.converters.EngineActionConverter;
 import org.odpi.openmetadata.frameworkservices.gaf.converters.GovernanceActionProcessConverter;
 import org.odpi.openmetadata.frameworkservices.gaf.converters.GovernanceActionProcessStepConverter;
@@ -24,7 +26,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 /**
  * GAFServicesInstance caches references to OMRS objects for a specific server.
  * It is also responsible for registering itself in the instance map.
- * It is created by the admin class during server start up and
+ * It is created by the admin class during server start-up.
  */
 public class GAFServicesInstance extends AccessServerServiceInstance
 {
@@ -42,20 +44,24 @@ public class GAFServicesInstance extends AccessServerServiceInstance
      * @param repositoryConnector link to the repository responsible for servicing the REST calls.
      * @param auditLog logging destination
      * @param localServerUserId userId used for server initiated actions
-     * @param maxPageSize max number of results to return on single request.
+     * @param maxPageSize max results to return on a single request.
+     * @param outTopicConnection topic of the client side listener
      *
      * @throws NewInstanceException a problem occurred during initialization
      */
     public GAFServicesInstance(OMRSRepositoryConnector repositoryConnector,
                                AuditLog                auditLog,
                                String                  localServerUserId,
-                               int                     maxPageSize) throws NewInstanceException
+                               int                     maxPageSize,
+                               Connection              outTopicConnection) throws NewInstanceException
     {
         super(myDescription.getServiceName(),
               repositoryConnector,
               auditLog,
               localServerUserId,
-              maxPageSize);
+              maxPageSize,
+              GAFOutTopicClientProvider.class.getName(),
+              outTopicConnection);
 
         final String methodName = "new ServiceInstance";
 

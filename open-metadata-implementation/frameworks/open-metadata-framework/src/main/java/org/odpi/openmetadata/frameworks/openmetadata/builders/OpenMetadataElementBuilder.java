@@ -791,6 +791,9 @@ public class OpenMetadataElementBuilder
                                     elementProperties = propertyHelper.addDateProperty(elementProperties,
                                                                                        OpenMetadataProperty.NEXT_SCHEDULED_NOTIFICATION.name,
                                                                                        notificationTypeProperties.getNextScheduledNotification());
+                                    elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                                       OpenMetadataProperty.NOTIFICATION_COUNT.name,
+                                                                                       notificationTypeProperties.getNotificationCount());
                                     elementProperties = propertyHelper.addDateProperty(elementProperties,
                                                                                        OpenMetadataProperty.PLANNED_COMPLETION_DATE.name,
                                                                                        notificationTypeProperties.getPlannedCompletionDate());

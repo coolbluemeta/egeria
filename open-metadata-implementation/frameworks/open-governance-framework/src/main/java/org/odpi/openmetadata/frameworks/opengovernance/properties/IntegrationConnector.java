@@ -22,7 +22,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
 
-public class IntegrationConnectorProperties extends DeployedConnectorProperties
+public class IntegrationConnector extends DeployedConnectorProperties
 {
     private boolean    usesBlockingCalls          = false;
     private Connection connection                 = null;
@@ -31,7 +31,7 @@ public class IntegrationConnectorProperties extends DeployedConnectorProperties
     /**
      * Default constructor
      */
-    public IntegrationConnectorProperties()
+    public IntegrationConnector()
     {
         super();
     }
@@ -42,7 +42,7 @@ public class IntegrationConnectorProperties extends DeployedConnectorProperties
      *
      * @param template object to copy
      */
-    public IntegrationConnectorProperties(IntegrationConnectorProperties template)
+    public IntegrationConnector(IntegrationConnector template)
     {
         super(template);
 
@@ -134,7 +134,7 @@ public class IntegrationConnectorProperties extends DeployedConnectorProperties
         {
             return false;
         }
-        IntegrationConnectorProperties that = (IntegrationConnectorProperties) objectToCompare;
+        IntegrationConnector that = (IntegrationConnector) objectToCompare;
         return (usesBlockingCalls == that.usesBlockingCalls) &&
                        Objects.equals(connection, that.connection);
     }

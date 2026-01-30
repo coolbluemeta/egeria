@@ -308,6 +308,14 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                         monitoredPlatforms.put(platformDetails.platformRootURL, platformDetails);
                     }
                 }
+                catch (InvalidParameterException | UserNotAuthorizedException error)
+                {
+                    super.logRecord(methodName,
+                                    OMAGConnectorAuditCode.UNEXPECTED_EXCEPTION.getMessageDefinition(connectorName,
+                                                                                                     error.getClass().getName(),
+                                                                                                     methodName,
+                                                                                                     error.getMessage()));
+                }
                 catch (Exception error)
                 {
                     super.logExceptionRecord(methodName,

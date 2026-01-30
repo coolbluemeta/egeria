@@ -29,6 +29,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.frameworks.openwatchdog.GenericWatchdogActionListener;
 import org.odpi.openmetadata.frameworks.openwatchdog.WatchdogActionServiceConnector;
+import org.odpi.openmetadata.frameworks.openwatchdog.WatchdogContext;
 import org.odpi.openmetadata.frameworks.openwatchdog.controls.WatchdogActionGuard;
 
 import java.util.*;
@@ -166,7 +167,7 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
 
 
     /**
-     * Refresh the caches for the notification types and notification subscribers.
+     * Refresh the caches for the notification types.
      *
      * @return the next time that the caches should be refreshed.
      * @throws InvalidParameterException  one of the parameters is invalid
@@ -207,134 +208,160 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
                     if ((notificationTypeElement != null) && (notificationTypeElement.getProperties() instanceof NotificationTypeProperties notificationTypeProperties))
                     {
                         /*
+                         * Refresh the cache
+                         */
+                        boolean firstNotification = notificationTypeMap.setNotificationType(notificationTypeElement, watchdogContext);
+
+                        /*
                          * The notification type has been successfully retrieved from open metadata.  It is
                          * added to the map.  True is returned if this is the first time the notification type
                          * has been added to the map.
-                         */
-                        boolean firstNotification = notificationTypeMap.setNotificationType(notificationTypeElement);
-
-                        /*
-                         * The notification type is now in the map. Also update any monitored resources.
+                         *
                          * These resources are monitored by the event listener.
                          */
                         monitoredResources.setMonitoredResources(notificationTypeElement.getMonitoredResources(),
                                                                  notificationTypeElement.getElementHeader().getGUID());
 
                         /*
-                         * The notification type's properties define the conditions for when notifications are
-                         * sent to the subscribers and how many.  The next block of code determines which processing
-                         * pattern to use.  This affects the notification properties sent and the status of the
-                         * subscriber if the notification is sent.  If this is the first iteration for the notification
-                         * type, then an audit log message is published to identify how the notification type is being
-                         * interpreted.  This is to allow users to validate that they have set up the
-                         * notification type correctly.
+                         * Only process notification types that have started
                          */
-                        ActivityStatus    newSubscriberStatus = ActivityStatus.IN_PROGRESS;
-                        MessageDefinition notificationDescription;
-
-                        if (notificationTypeProperties.getMultipleNotificationsPermitted())
+                        if ((notificationTypeProperties.getPlannedStartDate() == null) || new Date().after(notificationTypeProperties.getPlannedStartDate()))
                         {
-                            if (notificationTypeProperties.getNotificationInterval() == 0)
+                            if ((notificationTypeProperties.getPlannedCompletionDate() != null) && (new Date().after(notificationTypeProperties.getPlannedCompletionDate())))
                             {
                                 /*
-                                 * A notification will only be sent from here for new subscribers - this is because
-                                 * the notification handler call to notifySubscribers() requires the subscriber
-                                 * to have lastNotification=null if it is not a periodic notification type.
+                                 * The Notification Type has finished sending notifications.  Check that all subscribers
+                                 * are notified and switched to completion status.
                                  */
-                                notificationDescription = BaudotNotificationMessageSet.NEW_SUBSCRIBER.getMessageDefinition(notificationTypeProperties.getDisplayName(), notificationTypeElement.getElementHeader().getGUID());
+                                long notificationCount = -1;
 
-                                /*
-                                 * Notifications for this notification type are based on the changing values in the
-                                 * monitored resources.  A message is output for the notification type only on the first round.
-                                 */
-                                if (firstNotification)
-                                {
-                                    String size = "0";
-                                    if (notificationTypeElement.getMonitoredResources() != null)
-                                    {
-                                        size = Integer.toString(notificationTypeElement.getMonitoredResources().size());
-                                    }
-
-                                    auditLog.logMessage(methodName,
-                                                        BaudotAuditCode.MONITORED_RESOURCE_NOTIFICATION_TYPE.getMessageDefinition(watchdogActionServiceName,
-                                                                                                                                  notificationTypeProperties.getDisplayName(),
-                                                                                                                                  notificationTypeElement.getElementHeader().getGUID(),
-                                                                                                                                  size));
-                                }
+                                watchdogContext.dismissSubscribers(notificationTypeElement.getElementHeader().getGUID(),
+                                                                   notificationCount,
+                                                                   null,
+                                                                   watchdogContext.getNotificationProperties(BaudotNotificationMessageSet.CANCELLED_SUBSCRIBER.getMessageDefinition(notificationTypeProperties.getDisplayName(), notificationTypeElement.getElementHeader().getGUID()),
+                                                                                                             notificationTypeElement.getElementHeader().getGUID(),
+                                                                                                             notificationCount),
+                                                                   watchdogContext.getRequestParameters(),
+                                                                   null,
+                                                                   notificationTypeProperties.getMinimumNotificationInterval());
                             }
                             else
                             {
                                 /*
-                                 * Notifications are sent periodically.
+                                 * The notification type's properties define the conditions for when notifications are
+                                 * sent to the subscribers and how many.  The next block of code determines which processing
+                                 * pattern to use.  This affects the notification properties sent and the status of the
+                                 * subscriber if the notification is sent.  If this is the first iteration for the notification
+                                 * type, then an audit log message is published to identify how the notification type is being
+                                 * interpreted.  This is to allow users to validate that they have set up the
+                                 * notification type correctly.
                                  */
-                                notificationDescription = BaudotNotificationMessageSet.PERIODIC_NOTIFICATION.getMessageDefinition(notificationTypeProperties.getDisplayName(),
-                                                                                                                                  notificationTypeElement.getElementHeader().getGUID(),
-                                                                                                                                  Long.toString(notificationTypeProperties.getNotificationInterval()));
+                                long notificationCount = notificationTypeMap.getNotificationType(notificationTypeElement.getElementHeader().getGUID()).incrementNotificationCount();
 
-                                if (firstNotification)
+                                if (notificationTypeProperties.getMultipleNotificationsPermitted())
                                 {
-                                    auditLog.logMessage(methodName,
-                                                        BaudotAuditCode.PERIODIC_NOTIFICATION_TYPE.getMessageDefinition(watchdogActionServiceName,
-                                                                                                                        notificationTypeProperties.getDisplayName(),
-                                                                                                                        notificationTypeElement.getElementHeader().getGUID(),
-                                                                                                                        Long.toString(notificationTypeProperties.getNotificationInterval()),
-                                                                                                                        nextCacheRefresh.toString()));
+                                    MessageDefinition newNotificationDescription = BaudotNotificationMessageSet.NEW_SUBSCRIBER.getMessageDefinition(notificationTypeProperties.getDisplayName(), notificationTypeElement.getElementHeader().getGUID());
+
+                                    if (notificationTypeProperties.getNotificationInterval() == 0)
+                                    {
+                                        /*
+                                         * Notifications for this notification type are based on the changing values in the
+                                         * monitored resources.  A message is output for the notification type only on the first round.
+                                         */
+                                        if (firstNotification)
+                                        {
+                                            String size = "0";
+                                            if (notificationTypeElement.getMonitoredResources() != null)
+                                            {
+                                                size = Integer.toString(notificationTypeElement.getMonitoredResources().size());
+                                            }
+
+                                            auditLog.logMessage(methodName,
+                                                                BaudotAuditCode.MONITORED_RESOURCE_NOTIFICATION_TYPE.getMessageDefinition(watchdogActionServiceName,
+                                                                                                                                          notificationTypeProperties.getDisplayName(),
+                                                                                                                                          notificationTypeElement.getElementHeader().getGUID(),
+                                                                                                                                          size));
+
+
+                                            watchdogContext.welcomeMonitoringSubscribers(notificationTypeElement.getElementHeader().getGUID(),
+                                                                                         notificationCount,
+                                                                                         null,
+                                                                                         watchdogContext.getNotificationProperties(newNotificationDescription,
+                                                                                                                                   notificationTypeElement.getElementHeader().getGUID(),
+                                                                                                                                   notificationCount),
+                                                                                         watchdogContext.getRequestParameters(),
+                                                                                         null,
+                                                                                         notificationTypeProperties.getMinimumNotificationInterval());
+                                        }
+                                    }
+                                    else
+                                    {
+                                        /*
+                                         * Notifications are sent periodically.  Set up the time for the next periodic notification
+                                         * for the notification type if it has expired.
+                                         */
+                                        Date                       nextNotificationTime          = new Date(System.currentTimeMillis() + (notificationTypeProperties.getNotificationInterval() * 60 * 1000));
+                                        NotificationTypeProperties newNotificationTypeProperties = new NotificationTypeProperties();
+
+                                        newNotificationTypeProperties.setNextScheduledNotification(nextNotificationTime);
+
+                                        if ((notificationTypeProperties.getNextScheduledNotification() == null) ||
+                                                (notificationTypeProperties.getNextScheduledNotification().before(nextNotificationTime)))
+                                        {
+                                            watchdogContext.updateNotificationType(notificationTypeElement.getElementHeader().getGUID(), newNotificationTypeProperties);
+
+                                            /*
+                                             * Adjust the time of the next cache refresh if this notification type needs to be
+                                             * processed sooner.
+                                             */
+                                            if (nextNotificationTime.before(nextCacheRefresh))
+                                            {
+                                                nextCacheRefresh = nextNotificationTime;
+                                            }
+
+                                            if (firstNotification)
+                                            {
+                                                auditLog.logMessage(methodName,
+                                                                    BaudotAuditCode.PERIODIC_NOTIFICATION_TYPE.getMessageDefinition(watchdogActionServiceName,
+                                                                                                                                    notificationTypeProperties.getDisplayName(),
+                                                                                                                                    notificationTypeElement.getElementHeader().getGUID(),
+                                                                                                                                    Long.toString(notificationTypeProperties.getNotificationInterval()),
+                                                                                                                                    nextCacheRefresh.toString()));
+                                            }
+
+                                            watchdogContext.notifyPeriodicSubscribers(notificationTypeElement.getElementHeader().getGUID(),
+                                                                                      notificationCount,
+                                                                                      null,
+                                                                                      watchdogContext.getNotificationProperties(BaudotNotificationMessageSet.PERIODIC_NOTIFICATION.getMessageDefinition(notificationTypeProperties.getDisplayName(),
+                                                                                                                                                                                                        notificationTypeElement.getElementHeader().getGUID(),
+                                                                                                                                                                                                        Long.toString(notificationTypeProperties.getNotificationInterval())),
+                                                                                                                                notificationTypeElement.getElementHeader().getGUID(),
+                                                                                                                                notificationCount),
+                                                                                      watchdogContext.getRequestParameters(),
+                                                                                      null,
+                                                                                      notificationTypeProperties.getMinimumNotificationInterval());
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                        else
-                        {
-                            newSubscriberStatus = ActivityStatus.COMPLETED;
-                            notificationDescription = BaudotNotificationMessageSet.ONE_TIME_NOTIFICATION.getMessageDefinition(notificationTypeProperties.getDisplayName(),
-                                                                                                                              notificationTypeElement.getElementHeader().getGUID());
-
-                            if (firstNotification)
-                            {
-                                auditLog.logMessage(methodName,
-                                                    BaudotAuditCode.ONE_TIME_NOTIFICATION_TYPE.getMessageDefinition(watchdogActionServiceName,
-                                                                                                                    notificationTypeProperties.getDisplayName(),
-                                                                                                                    notificationTypeElement.getElementHeader().getGUID()));
-                            }
-                        }
-
-                        /*
-                         * Notify subscribers for the notification type.
-                         */
-                        watchdogContext.notifySubscribers(notificationTypeElement.getElementHeader().getGUID(),
-                                                          firstNotification,
-                                                          null,
-                                                          watchdogContext.getNotificationProperties(notificationDescription,
-                                                                                                    notificationTypeElement.getElementHeader().getGUID(),
-                                                                                                    notificationTypeMap.getNotificationType(notificationTypeElement.getElementHeader().getGUID()).getNotificationCount()),
-                                                          watchdogContext.getRequestParameters(),
-                                                          null,
-                                                          notificationTypeProperties.getMinimumNotificationInterval(),
-                                                          notificationTypeProperties.getNextScheduledNotification(),
-                                                          newSubscriberStatus);
-
-                        if (notificationTypeProperties.getNotificationInterval() != 0)
-                        {
-                            /*
-                             * Notifications are sent periodically.  Set up the time for the next periodic notification
-                             * for the notification type if it has expired.
-                             */
-                            Date nextNotificationTime = new Date(System.currentTimeMillis() + (notificationTypeProperties.getNotificationInterval() * 60 * 1000));
-                            NotificationTypeProperties newNotificationTypeProperties = new NotificationTypeProperties();
-
-                            newNotificationTypeProperties.setNextScheduledNotification(nextNotificationTime);
-
-                            if ((notificationTypeProperties.getNextScheduledNotification() == null) ||
-                                (notificationTypeProperties.getNextScheduledNotification().before(nextNotificationTime)))
-                            {
-                                watchdogContext.updateNotificationType(notificationTypeElement.getElementHeader().getGUID(), newNotificationTypeProperties);
-
-                                /*
-                                 * Adjust the time of the next cache refresh if this notification type needs to be
-                                 * processed sooner.
-                                 */
-                                if (nextNotificationTime.before(nextCacheRefresh))
+                                else
                                 {
-                                    nextCacheRefresh = nextNotificationTime;
+                                    if (firstNotification)
+                                    {
+                                        auditLog.logMessage(methodName,
+                                                            BaudotAuditCode.ONE_TIME_NOTIFICATION_TYPE.getMessageDefinition(watchdogActionServiceName,
+                                                                                                                            notificationTypeProperties.getDisplayName(),
+                                                                                                                            notificationTypeElement.getElementHeader().getGUID()));
+                                    }
+
+                                    watchdogContext.notifyOneTimeSubscribers(notificationTypeElement.getElementHeader().getGUID(),
+                                                                              notificationCount,
+                                                                              null,
+                                                                              watchdogContext.getNotificationProperties(BaudotNotificationMessageSet.ONE_TIME_NOTIFICATION.getMessageDefinition(notificationTypeProperties.getDisplayName(),
+                                                                                                                                                                                                notificationTypeElement.getElementHeader().getGUID()),
+                                                                                                                        notificationTypeElement.getElementHeader().getGUID(),
+                                                                                                                        notificationCount),
+                                                                              watchdogContext.getRequestParameters(),
+                                                                              null);
                                 }
                             }
                         }
@@ -371,8 +398,6 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
                     List<MonitoredResource> monitoredResourceRelationships = monitoredResources.isMonitored(event.getElementHeader());
                     if (monitoredResourceRelationships != null)
                     {
-                        Date nextScheduledNotification = calculateNextNotificationTime(event);
-
                         for (MonitoredResource monitoredResourceRelationship : monitoredResourceRelationships)
                         {
                             if (monitoredResourceRelationship != null)
@@ -396,17 +421,17 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
 
                                 newActionTargets.add(newActionTarget);
 
-                                watchdogContext.notifySubscribers(notificationType.getNotificationTypeGUID(),
-                                                                  false,
-                                                                  null,
-                                                                  watchdogContext.getNotificationProperties(notificationDescription,
-                                                                                                            notificationType.getNotificationTypeGUID(),
-                                                                                                            notificationType.getNotificationCount()),
-                                                                  watchdogContext.getRequestParameters(),
-                                                                  newActionTargets,
-                                                                  notificationType.getMinimumNotificationInterval(),
-                                                                  nextScheduledNotification,
-                                                                  null);
+                                long notificationCount = notificationType.incrementNotificationCount();
+
+                                watchdogContext.notifyMonitoringSubscribers(notificationType.getNotificationTypeGUID(),
+                                                                            notificationCount,
+                                                                            null,
+                                                                            watchdogContext.getNotificationProperties(notificationDescription,
+                                                                                                                      notificationType.getNotificationTypeGUID(),
+                                                                                                                      notificationCount),
+                                                                            watchdogContext.getRequestParameters(),
+                                                                            newActionTargets,
+                                                                            notificationType.getMinimumNotificationInterval());
                             }
                         }
                     }
@@ -420,22 +445,31 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
 
                         NotificationType notificationType = notificationTypeMap.getNotificationType(changedNotificationGUID);
 
-                        if (notificationType != null)
+                        /*
+                         * Make sure the notification type is still valid.
+                         */
+                        if (notificationTypeIsActive(notificationType))
                         {
+                            /*
+                             * Do not need to update notification count since this is just a change in the subscriber list.
+                             */
+                            long notificationCount = notificationType.notificationCount;
+
                             if (event.getEventType() == OpenMetadataEventType.NEW_ELEMENT_CREATED)
                             {
                                 MessageDefinition notificationDescription = BaudotNotificationMessageSet.NEW_SUBSCRIBER.getMessageDefinition(notificationType.getNotificationTypeName(),
                                                                                                                                              notificationType.getNotificationTypeGUID());
                                 watchdogContext.welcomeSubscriber(notificationType.getNotificationTypeGUID(),
                                                                   event.getEndTwoElementHeader().getGUID(),
+                                                                  notificationCount,
                                                                   null,
                                                                   watchdogContext.getNotificationProperties(notificationDescription,
                                                                                                             notificationType.getNotificationTypeGUID(),
-                                                                                                            notificationType.getNotificationCount()),
+                                                                                                            notificationCount),
                                                                   watchdogContext.getRequestParameters(),
                                                                   null,
                                                                   notificationType.getMinimumNotificationInterval(),
-                                                                  null);
+                                                                  ActivityStatus.IN_PROGRESS);
                             }
                             else if (event.getEventType() == OpenMetadataEventType.ELEMENT_DELETED)
                             {
@@ -443,10 +477,11 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
                                                                                                                                                    notificationType.getNotificationTypeGUID());
                                 watchdogContext.dismissSubscriber(notificationType.getNotificationTypeGUID(),
                                                                   event.getEndTwoElementHeader().getGUID(),
+                                                                  notificationCount,
                                                                   null,
                                                                   watchdogContext.getNotificationProperties(notificationDescription,
                                                                                                             notificationType.getNotificationTypeGUID(),
-                                                                                                            notificationType.getNotificationCount()),
+                                                                                                            notificationCount),
                                                                   watchdogContext.getRequestParameters(),
                                                                   null);
                             }
@@ -458,7 +493,7 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
 
                         NotificationType notificationType = notificationTypeMap.getNotificationType(changedNotificationGUID);
 
-                        if (notificationType != null)
+                        if (notificationTypeIsActive(notificationType))
                         {
                             if (event.getEventType() == OpenMetadataEventType.NEW_ELEMENT_CREATED)
                             {
@@ -515,33 +550,16 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
 
 
     /**
-     * Calculate the next notification time for an event.  The notification handler will
-     * notify subscribers if they have not yet received a notification or if the
-     * nextScheduledNotification is not null and in the past.
+     * Validate that the notification type is set up correctly and "in date".
      *
-     * @param event event to process
-     * @return date/time of next notification
+     * @param notificationType notification type cache
+     * @return boolean indicating whether to proceed
      */
-    private Date calculateNextNotificationTime(OpenMetadataOutTopicEvent event)
+    private boolean notificationTypeIsActive(NotificationType notificationType)
     {
-        Date nextScheduledNotification = event.getElementHeader().getVersions().getUpdateTime();
-
-        if (nextScheduledNotification == null)
-        {
-            nextScheduledNotification = event.getElementHeader().getVersions().getCreateTime();
-        }
-
-        if (event.getElementHeader().getLatestChange() != null)
-        {
-            nextScheduledNotification = event.getElementHeader().getLatestChange().getVersions().getUpdateTime();
-
-            if (nextScheduledNotification == null)
-            {
-                nextScheduledNotification = event.getElementHeader().getLatestChange().getVersions().getCreateTime();
-            }
-        }
-
-        return nextScheduledNotification;
+        return  ((notificationType != null) && (notificationType.notificationTypeProperties != null) &&
+                        ((notificationType.notificationTypeProperties.getPlannedStartDate() == null) || (new Date().after(notificationType.notificationTypeProperties.getPlannedStartDate())) &&
+                        ((notificationType.notificationTypeProperties.getPlannedCompletionDate() == null) || (new Date().before(notificationType.notificationTypeProperties.getPlannedCompletionDate())))));
     }
 
 
@@ -697,7 +715,7 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
 
                 if ((resourceList != null) && (! resourceList.isEmpty()))
                 {
-                    return resourceList;
+                    return new ArrayList<>(resourceList);
                 }
             }
 
@@ -780,15 +798,19 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
          * is already in the map, it is replaced with new values.
          *
          * @param openMetadataRootElement details of a notification type.
+         * @param watchdogContext context for the action service
          * @return true if the notification type is new
          */
-        public synchronized boolean setNotificationType(OpenMetadataRootElement openMetadataRootElement)
+        public synchronized boolean setNotificationType(OpenMetadataRootElement openMetadataRootElement,
+                                                        WatchdogContext         watchdogContext)
         {
             if (openMetadataRootElement != null)
             {
-                NotificationType notificationType = new NotificationType(openMetadataRootElement);
+                NotificationType notificationType = new NotificationType(openMetadataRootElement, watchdogContext);
 
-                return (notificationTypeMap.put(notificationType.getNotificationTypeGUID(), notificationType) == null);
+                notificationTypeMap.put(notificationType.getNotificationTypeGUID(), notificationType);
+
+                return notificationType.notificationCount == 0;
             }
 
             return false;
@@ -858,18 +880,22 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
         private String                     notificationTypeName;
         private NotificationTypeProperties notificationTypeProperties;
         private long                       notificationCount;
+        private WatchdogContext            watchdogContext;
 
         /**
          * Constructor uses a root element to initialize the notification type properties.
          *
          * @param openMetadataRootElement full description of a notification type
+         * @param watchdogContext         context for the action service
          */
-        public NotificationType(OpenMetadataRootElement openMetadataRootElement)
+        public NotificationType(OpenMetadataRootElement openMetadataRootElement,
+                                WatchdogContext         watchdogContext)
         {
             if ((openMetadataRootElement != null) && (openMetadataRootElement.getProperties() instanceof NotificationTypeProperties properties))
             {
                 this.notificationTypeGUID = openMetadataRootElement.getElementHeader().getGUID();
                 this.setNotificationTypeProperties(properties);
+                this.watchdogContext = watchdogContext;
             }
         }
 
@@ -891,6 +917,8 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
             {
                 notificationTypeName = notificationTypeProperties.getQualifiedName();
             }
+
+            notificationCount = notificationTypeProperties.getNotificationCount();
         }
 
 
@@ -966,13 +994,24 @@ public class BaudotSubscriptionManagementService extends WatchdogActionServiceCo
 
         /**
          * Return the notification count that is used to ensure unique qualified names for notifications.
-         * (Millisecond time is not sufficiently granular - particularly for the note log.
+         * (Millisecond time is not granular enough to distinguish qualified names - particularly for the note log.
          *
          * @return long
+         * @throws InvalidParameterException an invalid property has been passed
+         * @throws UserNotAuthorizedException the user is not authorized or the connector is not active
+         * @throws PropertyServerException a problem communicating with the metadata server (or it has a logic error).
          */
-        public synchronized long getNotificationCount()
+        public synchronized long incrementNotificationCount() throws InvalidParameterException,
+                                                                     PropertyServerException,
+                                                                     UserNotAuthorizedException
         {
-            return notificationCount++;
+            NotificationTypeProperties properties = new NotificationTypeProperties();
+            notificationCount++;
+            properties.setNotificationCount(notificationCount);
+
+            watchdogContext.updateNotificationType(notificationTypeGUID, properties);
+
+            return notificationCount;
         }
     }
 }

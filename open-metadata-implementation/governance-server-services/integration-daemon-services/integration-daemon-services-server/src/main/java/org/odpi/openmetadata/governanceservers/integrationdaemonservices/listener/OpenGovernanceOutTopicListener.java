@@ -27,7 +27,7 @@ import java.util.List;
  * is a change to any integration group in the hope that it is the right one.
  *
  */
-public class OpenMetadataOutTopicListener implements OpenMetadataEventListener
+public class OpenGovernanceOutTopicListener implements OpenMetadataEventListener
 {
     private final String                        groupName;
     private final IntegrationGroupHandler       groupHandler;
@@ -47,11 +47,11 @@ public class OpenMetadataOutTopicListener implements OpenMetadataEventListener
      * @param userId useRId to use when calling the metadata server
      * @param auditLog logging destination
      */
-    public OpenMetadataOutTopicListener(String                        groupName,
-                                        IntegrationGroupHandler       integrationGroupHandler,
-                                        GovernanceConfigurationClient configurationClient,
-                                        String                        userId,
-                                        AuditLog                      auditLog)
+    public OpenGovernanceOutTopicListener(String                        groupName,
+                                          IntegrationGroupHandler       integrationGroupHandler,
+                                          GovernanceConfigurationClient configurationClient,
+                                          String                        userId,
+                                          AuditLog                      auditLog)
     {
         this.groupName                = groupName;
         this.groupHandler             = integrationGroupHandler;

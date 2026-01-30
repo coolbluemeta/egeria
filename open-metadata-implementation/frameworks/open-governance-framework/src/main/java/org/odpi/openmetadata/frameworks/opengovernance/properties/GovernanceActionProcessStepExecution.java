@@ -23,7 +23,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class GovernanceActionProcessStepExecution extends GovernanceActionProcessStepProperties
+public class GovernanceActionProcessStepExecution extends GovernanceActionProcessStep
 {
     private List<String>                         mandatoryGuards          = null;
     private List<String>                         receivedGuards           = null;
@@ -110,7 +110,7 @@ public class GovernanceActionProcessStepExecution extends GovernanceActionProces
      *
      * @param template object to copy
      */
-    public GovernanceActionProcessStepExecution(GovernanceActionProcessStepProperties template)
+    public GovernanceActionProcessStepExecution(GovernanceActionProcessStep template)
     {
         super(template);
 

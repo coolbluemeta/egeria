@@ -92,7 +92,7 @@ public enum ProductDefinitionEnum implements ProductDefinition
     REFERENCE_DATA_SETS(OpenMetadataType.DIGITAL_PRODUCT_FAMILY.typeName,
                               null,
                               "Reference Data Sets",
-                              "OPEN-METADATA-VALID-VALUES-FAMILY",
+                              "REFERENCE-DATA-SETS-FAMILY",
                               ProductFolderDefinition.PRODUCTS,
                               "Reference Data Sets",
                               "Each product in this folder is an extract of the reference data values managed by open metadata.  The reference data values are organized into a tabular data set, where each row is a specific valid value.  These products can be used as standard reference values when building other digital products to help consumers join data from multiple products together.",
@@ -413,10 +413,10 @@ public enum ProductDefinitionEnum implements ProductDefinition
      */
     DIGITAL_PRODUCTS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
                      new ProductDefinition[]{ProductDefinitionEnum.ACTOR_PLACES_PRODUCTS},
-                     "Digital Product Inventory",
-                     "DIGITAL-PRODUCTS-INVENTORY",
+                     "Digital Product List",
+                     "DIGITAL-PRODUCTS-LIST",
                      null,
-                     "Digital Product Inventory",
+                     "Digital Product List",
                      "A tabular data set where each record describes a digital product.",
                      ProductCategoryDefinition.MASTER_DATA.getPreferredValue(),
                      ProductGovernanceDefinition.INTERNAL_USE_ONLY,
@@ -440,7 +440,7 @@ public enum ProductDefinitionEnum implements ProductDefinition
                      OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
                      "Data set",
                      null,
-                     "DigitalProductsInventory"),
+                     "DigitalProductList"),
 
     /*
      * =============================================================================================

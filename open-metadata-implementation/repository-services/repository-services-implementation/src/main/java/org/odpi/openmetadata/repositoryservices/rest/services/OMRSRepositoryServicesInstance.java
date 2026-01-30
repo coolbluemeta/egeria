@@ -37,7 +37,7 @@ public class OMRSRepositoryServicesInstance extends OMAGServerServiceInstance
      * @param localServerURL URL of the local server
      * @param serviceName name of this service
      * @param auditLog logging destination
-     * @param maxPageSize max number of results to return on single request.
+     * @param maxPageSize max results to return on a single request.
      */
     public OMRSRepositoryServicesInstance(String                       localServerName,
                                           AuditLog                     masterAuditLog,

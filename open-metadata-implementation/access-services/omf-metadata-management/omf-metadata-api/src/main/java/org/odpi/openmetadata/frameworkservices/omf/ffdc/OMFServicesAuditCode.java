@@ -33,13 +33,13 @@ public enum OMFServicesAuditCode implements AuditLogMessageSet
                                  "startup was intentional."),
 
     /**
-     * OMF-SERVICES-0002 The Open Metadata Store is ready to publish asset manager notifications to topic {0}
+     * OMF-SERVICES-0002 The Open Metadata Store is ready to publish notifications to topic {0}
      */
     SERVICE_PUBLISHING("OMF-SERVICES-0002",
                        AuditLogRecordSeverityLevel.STARTUP,
-                       "The Open Metadata Store is ready to publish asset manager notifications to topic {0}",
+                       "The Open Metadata Store is ready to publish  notifications to topic {0}",
                        "The local server has started up the event publisher for the OMF Services.  " +
-                               "It will begin publishing asset manager metadata changes to its out topic.",
+                               "It will begin publishing metadata changes to its out topic.",
                        "This is part of the normal start up of the service. Check that there are no errors from the event bus."),
 
     /**

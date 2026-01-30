@@ -1,0 +1,284 @@
+# Egeria-baudot-tabular-data-connectors
+## Explore the implementation of the connectors that support tabular data sets.
+
+@baseURL=https://localhost:9443
+@viewServer=view-server
+
+###
+# =====================================================================================================================
+# Manage the authentication token.  Run this request to create/refresh the token.
+
+# @name Token (RequestBody)
+POST {{baseURL}}/api/token
+Content-Type: application/json
+
+{
+  "userId" : "garygeeke",
+  "password" : "secret"
+}
+
+> {% client.global.set("token", response.body); %}
+
+
+###
+# =====================================================================================================================
+# Extract details of the tabular data set connectors supported by Egeria's OMAG Server Platform
+# https://egeria-project.org/concepts/tabular-data-set
+
+
+###
+# @name getPlatformsByName
+# Returns the list of platforms with a particular name. The name is specified in the filter.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Local OMAG Server Platform"
+}
+
+> {% client.global.set("localOMAGServerPlatformGUID", response.body.elements[0].elementHeader.guid); %}
+
+
+###
+# @name Get Connector Type (PostgreSQL tabular data set)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.postgres.tabulardatasource.PostgresTabularDataSetProvider
+Authorization: Bearer {{token}}
+
+
+###
+# @name Get Connector Type (PostgreSQL tabular data set collection)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.postgres.tabulardatasource.PostgresTabularDataSetCollectionProvider
+Authorization: Bearer {{token}}
+
+
+###
+# @name Get Connector Type (CSV File tabular data set)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.datastore.csvfile.CSVTabularDataSetProvider
+Authorization: Bearer {{token}}
+
+
+###
+# @name Get Connector Type (CSV File tabular data set collection)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.datastore.csvfile.CSVTabularDataSetCollectionProvider
+Authorization: Bearer {{token}}
+
+
+###
+# @name Get Connector Type (Valid Metadata Value Set List tabular data set)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.jacquard.tabulardatasets.validmetadatavalues.ValidMetadataValueSetListProvider
+Authorization: Bearer {{token}}
+
+
+###
+# @name Get Connector Type (Valid Metadata Value Set tabular data set)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.jacquard.tabulardatasets.validmetadatavalues.ValidMetadataValueDataSetProvider
+Authorization: Bearer {{token}}
+
+
+###
+# @name Get Connector Type (Reference Data Set List tabular data set)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.jacquard.tabulardatasets.referencedata.ReferenceDataSetListProvider
+Authorization: Bearer {{token}}
+
+
+###
+# @name Get Connector Type (Reference Data Set tabular data set)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.jacquard.tabulardatasets.referencedata.ReferenceDataSetProvider
+Authorization: Bearer {{token}}
+
+
+###
+# @name Get Connector Type (Open Metadata Types tabular data set)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.jacquard.tabulardatasets.openmetadatatypes.OpenMetadataTypesDataSetProvider
+Authorization: Bearer {{token}}
+
+###
+# @name Get Connector Type (Tabular data set provisioning pipeline)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.governanceactions.provisioning.ProvisionTabularDataSetGovernanceActionProvider
+Authorization: Bearer {{token}}
+
+###
+# @name Get Connector Type (Create subscription)
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{localOMAGServerPlatformGUID}}/connector-types/org.odpi.openmetadata.adapters.connectors.subscriptions.CreateSubscriptionGovernanceActionProvider
+Authorization: Bearer {{token}}
+
+
+###
+# =====================================================================================================================
+# The technology types provide the reference data to guide the curator.  They are extracted from the valid
+# values for deployedImplementationType
+#
+###
+# @name getTechnologyTypeHierarchy (Tabular Data Set)
+# Retrieve the requested deployed implementation type metadata element and its subtypes.  A mermaid version if the hierarchy is also returned.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/automated-curation/technology-types/hierarchy
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Tabular Data Set"
+}
+
+###
+# @name getTechnologyTypeHierarchy (Tabular Data Set Collection)
+# Retrieve the requested deployed implementation type metadata element and its subtypes.  A mermaid version if the hierarchy is also returned.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/automated-curation/technology-types/hierarchy
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Tabular Data Set Collection"
+}
+
+###
+# @name getTechnologyTypeDetail (tabular data sets)
+# Retrieve the requested deployed implementation type metadata element. There are no wildcards allowed in the name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/automated-curation/technology-types/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Tabular Data Set"
+}
+
+###
+# @name getTechnologyTypeDetail (tabular data sets collection)
+# Retrieve the requested deployed implementation type metadata element. There are no wildcards allowed in the name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/automated-curation/technology-types/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Tabular Data Set Collection"
+}
+
+###
+# =====================================================================================================================
+# PostgreSQL tabular data sets
+# Extract the template, create a postgreSQL tabular data set asset,
+# and retrieve its contents (if exists in the database).
+
+
+###
+# @name get PostgreSQL Tabular Data Set Templates
+# Retrieve the elements for the requested deployed implementation type. There are no wildcards allowed in the name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/automated-curation/technology-types/elements
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "PostgreSQL Tabular Data Set",
+  "includeOnlyClassifiedElements": ["Template"]
+}
+
+> {% client.global.set("postgresTabularDataSetTemplateGUID", response.body.elements[0].elementHeader.guid); %}
+
+###
+# @name create PostgreSQL Tabular Data Set From Template
+# Create a new element from a template.
+# Further Information: https://egeria-project.org/features/templated-cataloguing/overview/
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/automated-curation/catalog-templates/new-element
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "templateGUID" : "{{postgresTabularDataSetTemplateGUID}}",
+  "isOwnAnchor" : true,
+  "allowRetrieve" : true,
+  "placeholderPropertyValues" : {
+    "serverName" : "LocalPostgreSQL1",
+    "hostIdentifier" : "localhost",
+    "portNumber" : "5432",
+    "databaseName" : "egeria",
+    "schemaName" : "reference_data",
+    "schemaDescription" : "Reference data from the open metadata ecosystem.",
+    "tableName" : "valid_metadata_values_list",
+    "tableDescription" : "List of properties that have valid metadata values defined.",
+    "versionIdentifier" : "V1.0",
+    "secretsCollectionName" : "PostgreSQL Server:LocalPostgreSQL1",
+    "secretsStorePathName" : "loading-bay/secrets/integration.omsecrets"
+  }
+}
+
+> {% client.global.set("postgresTabularDataSetGUID", response.body.guid); %}
+
+###
+# @name get PostgreSQL tabular data set by GUID
+# Return the properties of a specific asset.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/asset-maker/assets/{{postgresTabularDataSetGUID}}/retrieve
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+###
+# @name get PostgreSQL tabular data set report
+# Returns details of a tabular data set including the data rows that match the startFromRow and maxRowCount values.
+# If maxRowCount=0 then no data records are returned.
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-engineer/tabular-data-sets/{{postgresTabularDataSetGUID}}/report?startFromRow=0&maxRowCount=5000
+Authorization: Bearer {{token}}
+
+###
+
+###
+# =====================================================================================================================
+# CSV tabular data sets
+# Extract the template, create a CSV File tabular data set asset,
+# and retrieve its contents (if exists in the file system).
+
+
+###
+# @name get CSV File Tabular Data Set Templates
+# Retrieve the elements for the requested deployed implementation type. There are no wildcards allowed in the name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/automated-curation/technology-types/elements
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "CSV Tabular Data Set",
+  "includeOnlyClassifiedElements": ["Template"]
+}
+
+> {% client.global.set("csvFileTabularDataSetTemplateGUID", response.body.elements[0].elementHeader.guid); %}
+
+###
+# @name create CSV File Tabular Data Set From Template
+# Create a new element from a template.
+# Further Information: https://egeria-project.org/features/templated-cataloguing/overview/
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/automated-curation/catalog-templates/new-element
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "templateGUID" : "{{csvFileTabularDataSetTemplateGUID}}",
+  "isOwnAnchor" : true,
+  "allowRetrieve" : true,
+  "placeholderPropertyValues" : {
+    "displayName" : "CSV Version of the Valid Metadata Values List",
+    "description" : "Reference data from the open metadata ecosystem.",
+    "tableName" : "valid-metadata-values-list",
+    "tableDescription" : "List of properties that have valid metadata values defined.",
+    "versionIdentifier" : "V1.0",
+    "directoryPathName" : "loading-bay/reference-data"
+  }
+}
+
+> {% client.global.set("csvFileTabularDataSetGUID", response.body.guid); %}
+
+###
+# @name get CSV File tabular data set by GUID
+# Return the properties of a specific asset.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/asset-maker/assets/{{csvFileTabularDataSetGUID}}/retrieve
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+###
+# @name get CSV File tabular data set report
+# Returns details of a tabular data set including the data rows that match the startFromRow and maxRowCount values.
+# If maxRowCount=0 then no data records are returned.
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-engineer/tabular-data-sets/{{csvFileTabularDataSetGUID}}/report?startFromRow=0&maxRowCount=5000
+Authorization: Bearer {{token}}
+
+###
+###

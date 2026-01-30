@@ -542,7 +542,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
             else
@@ -625,7 +625,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(glossaryTermGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(glossaryTermGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
             else
@@ -711,7 +711,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(governanceDefinitionGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(governanceDefinitionGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -778,7 +778,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -842,7 +842,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -906,7 +906,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -970,7 +970,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -1033,7 +1033,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(scopeGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(scopeGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -1099,7 +1099,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -1162,7 +1162,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(resourceGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(resourceGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -1214,7 +1214,15 @@ public class ClassificationExplorerRESTServices extends TokenController
             if (summaryList != null)
             {
                 response.setElements(summaryList);
-                response.setMermaidGraph(handler.getMermaidGraph(licenseTypeGUID, summaryList));
+
+                if (requestBody != null)
+                {
+                    response.setMermaidGraph(handler.getMermaidGraph(licenseTypeGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
+                }
+                else
+                {
+                    response.setMermaidGraph(handler.getMermaidGraph(licenseTypeGUID, summaryList));
+                }
             }
         }
         catch (Throwable error)
@@ -1265,7 +1273,15 @@ public class ClassificationExplorerRESTServices extends TokenController
             if (summaryList != null)
             {
                 response.setElements(summaryList);
-                response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+
+                if (requestBody != null)
+                {
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
+                }
+                else
+                {
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                }
             }
         }
         catch (Throwable error)
@@ -1316,7 +1332,15 @@ public class ClassificationExplorerRESTServices extends TokenController
             if (summaryList != null)
             {
                 response.setElements(summaryList);
-                response.setMermaidGraph(handler.getMermaidGraph(certificationTypeGUID, summaryList));
+
+                if (requestBody != null)
+                {
+                    response.setMermaidGraph(handler.getMermaidGraph(certificationTypeGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
+                }
+                else
+                {
+                    response.setMermaidGraph(handler.getMermaidGraph(certificationTypeGUID, summaryList));
+                }
             }
         }
         catch (Throwable error)
@@ -1367,7 +1391,15 @@ public class ClassificationExplorerRESTServices extends TokenController
             if (summaryList != null)
             {
                 response.setElements(summaryList);
-                response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+
+                if (requestBody != null)
+                {
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
+                }
+                else
+                {
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                }
             }
         }
         catch (Throwable error)
@@ -2102,7 +2134,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -2134,11 +2166,11 @@ public class ClassificationExplorerRESTServices extends TokenController
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
     public OpenMetadataRootElementsResponse getRelatedElementsWithPropertyValue(String                      serverName,
-                                                                                       String                      urlMarker,
-                                                                                       String                      elementGUID,
-                                                                                       String                      relationshipTypeName,
-                                                                                       int                         startingAtEnd,
-                                                                                       FindPropertyNamesProperties requestBody)
+                                                                                String                      urlMarker,
+                                                                                String                      elementGUID,
+                                                                                String                      relationshipTypeName,
+                                                                                int                         startingAtEnd,
+                                                                                FindPropertyNamesProperties requestBody)
     {
         final String methodName = "getRelatedElementsWithPropertyValue";
 
@@ -2173,7 +2205,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -2243,7 +2275,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);
-                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList));
+                    response.setMermaidGraph(handler.getMermaidGraph(elementGUID, summaryList, requestBody.getMaxMermaidNodeCount()));
                 }
             }
         }
@@ -2542,7 +2574,7 @@ public class ClassificationExplorerRESTServices extends TokenController
                                                                    requestBody,
                                                                    methodName));
 
-                response.setMermaidGraph(handler.getMermaidGraph(requestBody.getFilter(), response.getElements()));
+                response.setMermaidGraph(handler.getMermaidGraph(requestBody.getFilter(), response.getElements(), requestBody.getMaxMermaidNodeCount()));
             }
             else
             {

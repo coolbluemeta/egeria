@@ -6,7 +6,7 @@ import org.odpi.openmetadata.commonservices.generichandlers.OMFConverter;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.frameworks.opengovernance.properties.IntegrationConnectorElement;
-import org.odpi.openmetadata.frameworks.opengovernance.properties.IntegrationConnectorProperties;
+import org.odpi.openmetadata.frameworks.opengovernance.properties.IntegrationConnector;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.EntityDetail;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstanceProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Relationship;
@@ -68,7 +68,7 @@ public class IntegrationConnectorConverter<B> extends OMFConverter<B>
 
             if (returnBean instanceof IntegrationConnectorElement bean)
             {
-                IntegrationConnectorProperties properties = new IntegrationConnectorProperties();
+                IntegrationConnector properties = new IntegrationConnector();
 
                 if (primaryEntity != null)
                 {
@@ -133,7 +133,7 @@ public class IntegrationConnectorConverter<B> extends OMFConverter<B>
             }
             else
             {
-                handleUnexpectedBeanClass(beanClass.getName(), IntegrationConnectorProperties.class.getName(), methodName);
+                handleUnexpectedBeanClass(beanClass.getName(), IntegrationConnector.class.getName(), methodName);
             }
 
             return returnBean;

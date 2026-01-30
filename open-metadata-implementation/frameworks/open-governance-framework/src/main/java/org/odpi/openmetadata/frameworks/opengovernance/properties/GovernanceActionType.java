@@ -25,7 +25,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class GovernanceActionTypeProperties extends ReferenceableProperties
+public class GovernanceActionType extends ReferenceableProperties
 {
     private int                        domainIdentifier           = 0;
     private List<RequestParameterType> supportedRequestParameters = null;
@@ -42,7 +42,7 @@ public class GovernanceActionTypeProperties extends ReferenceableProperties
     /**
      * Default constructor
      */
-    public GovernanceActionTypeProperties()
+    public GovernanceActionType()
     {
         super();
         super.setTypeName(OpenMetadataType.GOVERNANCE_ACTION_TYPE.typeName);
@@ -54,7 +54,7 @@ public class GovernanceActionTypeProperties extends ReferenceableProperties
      *
      * @param template object to copy
      */
-    public GovernanceActionTypeProperties(GovernanceActionTypeProperties template)
+    public GovernanceActionType(GovernanceActionType template)
     {
         super (template);
 
@@ -341,7 +341,7 @@ public class GovernanceActionTypeProperties extends ReferenceableProperties
         {
             return false;
         }
-        GovernanceActionTypeProperties that = (GovernanceActionTypeProperties) objectToCompare;
+        GovernanceActionType that = (GovernanceActionType) objectToCompare;
         return domainIdentifier == that.domainIdentifier &&
                        waitTime == that.waitTime &&
                        Objects.equals(supportedRequestParameters, that.supportedRequestParameters) &&

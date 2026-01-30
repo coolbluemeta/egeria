@@ -85,7 +85,7 @@ Content-Type: application/json
 {
   "class" : "FilterRequestBody",
   "metadataElementTypeName": "ReferenceCodeTable",
-  "filter" : "Valid Metadata Values for contentStatus",
+  "filter" : "Data set for contentStatus Valid Values",
   "startFrom" : 0,
   "pageSize": 10
 }
@@ -109,7 +109,7 @@ Content-Type: application/json
 {
   "class" : "FilterRequestBody",
   "metadataElementTypeName": "ReferenceCodeTable",
-  "filter" : "Valid Metadata Values for deployedImplementationType",
+  "filter" : "Data set for deployedImplementationType Valid Values",
   "startFrom" : 0,
   "pageSize": 10
 }

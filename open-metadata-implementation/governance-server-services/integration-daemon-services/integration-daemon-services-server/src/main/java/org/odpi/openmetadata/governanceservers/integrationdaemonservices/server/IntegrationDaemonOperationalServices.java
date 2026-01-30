@@ -8,9 +8,9 @@ import org.odpi.openmetadata.adminservices.ffdc.exception.OMAGConfigurationError
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.integration.contextmanager.IntegrationContextManager;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
+import org.odpi.openmetadata.frameworkservices.gaf.client.EgeriaOpenGovernanceEventClient;
 import org.odpi.openmetadata.frameworkservices.gaf.client.GovernanceConfigurationClient;
 import org.odpi.openmetadata.frameworkservices.gaf.client.OIFContextManager;
-import org.odpi.openmetadata.frameworkservices.omf.client.EgeriaOpenMetadataEventClient;
 import org.odpi.openmetadata.governanceservers.integrationdaemonservices.ffdc.IntegrationDaemonServicesAuditCode;
 import org.odpi.openmetadata.governanceservers.integrationdaemonservices.ffdc.IntegrationDaemonServicesErrorCode;
 import org.odpi.openmetadata.governanceservers.integrationdaemonservices.handlers.IntegrationConnectorCacheMap;
@@ -24,7 +24,7 @@ import java.util.Map;
 
 
 /**
- * IntegrationDaemonOperationalServices is responsible for controlling the startup and shutdown of
+ * IntegrationDaemonOperationalServices controls the startup and shutdown of
  * the integration daemon services.
  */
 public class IntegrationDaemonOperationalServices
@@ -101,15 +101,15 @@ public class IntegrationDaemonOperationalServices
                     String partnerOMASServerName = this.getPartnerOMASServerName(integrationGroupConfig);
                     String groupName             = this.getIntegrationGroupName(integrationGroupConfig);
 
-                    EgeriaOpenMetadataEventClient eventClient = new EgeriaOpenMetadataEventClient(partnerOMASServerName,
-                                                                                                  partnerOMASRootURL,
-                                                                                                  localServerUserId,
-                                                                                                  integrationGroupConfig.getSecretsStoreProvider(),
-                                                                                                  integrationGroupConfig.getSecretsStoreLocation(),
-                                                                                                  integrationGroupConfig.getSecretsStoreCollection(),
-                                                                                                  maxPageSize,
-                                                                                                  auditLog,
-                                                                                                  localServerId+groupName);
+                    EgeriaOpenGovernanceEventClient gafEventClient = new EgeriaOpenGovernanceEventClient(partnerOMASServerName,
+                                                                                                         partnerOMASRootURL,
+                                                                                                         localServerUserId,
+                                                                                                         integrationGroupConfig.getSecretsStoreProvider(),
+                                                                                                         integrationGroupConfig.getSecretsStoreLocation(),
+                                                                                                         integrationGroupConfig.getSecretsStoreCollection(),
+                                                                                                         maxPageSize,
+                                                                                                         auditLog,
+                                                                                                         localServerId+groupName);
 
                     GovernanceConfigurationClient configurationClient = new GovernanceConfigurationClient(partnerOMASServerName,
                                                                                                           partnerOMASRootURL,
@@ -154,7 +154,7 @@ public class IntegrationDaemonOperationalServices
                      */
                     GroupConfigurationRefreshThread configurationRefreshThread = new GroupConfigurationRefreshThread(integrationGroupConfig,
                                                                                                                      groupHandler,
-                                                                                                                     eventClient,
+                                                                                                                     gafEventClient,
                                                                                                                      auditLog,
                                                                                                                      localServerUserId,
                                                                                                                      localServerName,

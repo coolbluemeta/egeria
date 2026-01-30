@@ -24,8 +24,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 public class GovernanceActionProcessStepElement
 {
     private ElementHeader                          elementHeader         = null;
-    private GovernanceActionProcessStepProperties  processStepProperties = null;
-    private Map<String, List<Map<String, String>>> specification        = null;
+    private GovernanceActionProcessStep            processStepProperties = null;
+    private Map<String, List<Map<String, String>>> specification         = null;
     private String                                 mermaidSpecification = null;
 
 
@@ -82,7 +82,7 @@ public class GovernanceActionProcessStepElement
      *
      * @return process properties
      */
-    public GovernanceActionProcessStepProperties getProcessStepProperties()
+    public GovernanceActionProcessStep getProcessStepProperties()
     {
         return processStepProperties;
     }
@@ -93,7 +93,7 @@ public class GovernanceActionProcessStepElement
      *
      * @param processStepProperties process properties
      */
-    public void setProcessStepProperties(GovernanceActionProcessStepProperties processStepProperties)
+    public void setProcessStepProperties(GovernanceActionProcessStep processStepProperties)
     {
         this.processStepProperties = processStepProperties;
     }

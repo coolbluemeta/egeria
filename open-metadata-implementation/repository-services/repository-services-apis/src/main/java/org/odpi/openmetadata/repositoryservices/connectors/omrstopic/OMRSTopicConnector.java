@@ -251,13 +251,11 @@ public class OMRSTopicConnector extends ConnectorBase implements OMRSTopic,
             {
                 if (embeddedConnector != null)
                 {
-                    if (embeddedConnector instanceof OpenMetadataTopicConnector)
+                    if (embeddedConnector instanceof OpenMetadataTopicConnector realTopicConnector)
                     {
                         /*
                          * Successfully found an event bus connector of the right type.
                          */
-                        OpenMetadataTopicConnector realTopicConnector = (OpenMetadataTopicConnector)embeddedConnector;
-
                         if (auditLog != null)
                         {
                             realTopicConnector.setAuditLog(auditLog.createNewAuditLog(OMRSAuditingComponent.OPEN_METADATA_TOPIC_CONNECTOR));

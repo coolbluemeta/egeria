@@ -30,7 +30,7 @@ public class OCFServicesInstance extends AccessServerServiceInstance
      * @param repositoryConnector link to the repository responsible for servicing the REST calls.
      * @param auditLog destination for audit log events.
      * @param localServerUserId userId for server initialed calls.
-     * @param maxPageSize max number of results to return on single request.
+     * @param maxPageSize max results to return on a single request.
      * @throws NewInstanceException a problem occurred during initialization
      */
     public OCFServicesInstance(OMRSRepositoryConnector repositoryConnector,

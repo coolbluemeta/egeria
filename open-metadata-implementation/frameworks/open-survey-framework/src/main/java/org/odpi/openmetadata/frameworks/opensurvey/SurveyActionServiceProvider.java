@@ -17,12 +17,6 @@ import java.util.List;
  */
 public abstract class SurveyActionServiceProvider extends GovernanceServiceProviderBase
 {
-    static
-    {
-        supportedAssetTypeName = DeployedImplementationType.SURVEY_ACTION_SERVICE_CONNECTOR.getAssociatedTypeName();
-        supportedDeployedImplementationType = DeployedImplementationType.SURVEY_ACTION_SERVICE_CONNECTOR.getDeployedImplementationType();
-    }
-
     protected List<AnalysisStepType>   supportedAnalysisSteps  = null;
     protected List<AnnotationTypeType> producedAnnotationTypes = null;
 

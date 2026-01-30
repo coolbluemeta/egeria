@@ -84,14 +84,45 @@ public class BasicFileStoreConnector extends ConnectorBase implements BasicFileS
      */
     public void setFileStoreName(String fileStoreName) throws FileException
     {
-        final String methodName = "setFileStoreName";
-
         this.fileStoreName = fileStoreName;
+    }
 
-        /*
-         * Validate that this is a legal name
-         */
-        this.getFile(methodName);
+
+    /**
+     * Create the file if it does not exist.
+     *
+     * @return boolean flag that is true if the file was created
+     * @throws FileException problem accessing the file
+     */
+    public boolean touchFile() throws FileException
+    {
+        final String methodName = "touchFile";
+
+        try
+        {
+            if (fileStoreName == null)
+            {
+                this.throwException(BasicFileConnectorErrorCode.FILE_NOT_SPECIFIED, methodName, null, null);
+            }
+
+            File  fileStore = new File(fileStoreName);
+            return fileStore.createNewFile();
+        }
+        catch (FileException  error)
+        {
+            log.debug("Throwing error " + error.getClass().getSimpleName() + " with message " + error.getMessage());
+            throw error;
+        }
+        catch (SecurityException  error)
+        {
+            this.throwException(BasicFileConnectorErrorCode.UNEXPECTED_SECURITY_EXCEPTION, methodName, fileStoreName, error);
+        }
+        catch (Exception error)
+        {
+            this.throwException(BasicFileConnectorErrorCode.UNEXPECTED_IO_EXCEPTION, methodName, fileStoreName, error);
+        }
+
+        return false;
     }
 
 
@@ -101,12 +132,9 @@ public class BasicFileStoreConnector extends ConnectorBase implements BasicFileS
      * @return file name
      * @throws FileException problem accessing the file
      */
+    @Override
     public String   getFileName() throws FileException
     {
-        final String  methodName = "getFileName";
-
-        this.getFile(methodName);
-
         return fileStoreName;
     }
 
@@ -117,9 +145,10 @@ public class BasicFileStoreConnector extends ConnectorBase implements BasicFileS
      * @return number
      * @throws FileException unable to locate the file
      */
-    public long  getFileLength() throws FileException
+    @Override
+    public long getFileLength() throws FileException
     {
-        final String  methodName = "getFileLength";
+        final String methodName = "getFileLength";
 
         File file = this.getFile(methodName);
 
@@ -133,9 +162,10 @@ public class BasicFileStoreConnector extends ConnectorBase implements BasicFileS
      * @return Date object
      * @throws FileException problem accessing the file
      */
+    @Override
     public Date getCreationDate() throws FileException, FileReadException
     {
-        final String  methodName = "getCreationDate";
+        final String methodName = "getCreationDate";
 
         File fileStore = this.getFile(methodName);
 
@@ -164,6 +194,7 @@ public class BasicFileStoreConnector extends ConnectorBase implements BasicFileS
      * @throws FileReadException problem accessing the file
      * @throws FileReadException problem accessing the file
      */
+    @Override
     public Date getLastUpdateDate() throws FileReadException, FileException
     {
         final String  methodName = "getLastUpdateDate";
@@ -194,9 +225,10 @@ public class BasicFileStoreConnector extends ConnectorBase implements BasicFileS
      * @return Date object
      * @throws FileException problem accessing the file
      */
+    @Override
     public Date getLastAccessDate() throws FileException, FileReadException
     {
-        final String  methodName = "getLastAccessedDate";
+        final String methodName = "getLastAccessedDate";
 
         File fileStore = getFile(methodName);
 
@@ -252,9 +284,10 @@ public class BasicFileStoreConnector extends ConnectorBase implements BasicFileS
      * @return File object
      * @throws FileException problem accessing the file
      */
-    public File  getFile() throws FileException
+    @Override
+    public File getFile() throws FileException
     {
-        final String  methodName = "getFile";
+        final String methodName = "getFile";
 
         return this.getFile(methodName);
     }

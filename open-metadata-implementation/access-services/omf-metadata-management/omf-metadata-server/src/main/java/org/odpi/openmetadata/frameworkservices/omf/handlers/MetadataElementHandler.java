@@ -6,8 +6,6 @@ import org.odpi.openmetadata.commonservices.ffdc.InvalidParameterHandler;
 import org.odpi.openmetadata.commonservices.generichandlers.*;
 import org.odpi.openmetadata.commonservices.repositoryhandler.RepositoryHandler;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.LatestChangeAction;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.LatestChangeTarget;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.OMFCheckedExceptionBase;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
@@ -1785,25 +1783,6 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                   forDuplicateProcessing,
                                   effectiveTime,
                                   methodName);
-
-
-        if (anchorEntity != null)
-        {
-            final String actionDescription = "Attach " + metadataElementTypeName + " metadata element " + metadataElementGUID + " to anchor";
-            this.addLatestChangeToAnchor(anchorEntity,
-                                         LatestChangeTarget.ATTACHMENT,
-                                         LatestChangeAction.CREATED,
-                                         OpenMetadataType.ANCHORS_CLASSIFICATION.typeName,
-                                         metadataElementGUID,
-                                         metadataElementTypeName,
-                                         parentRelationshipTypeName,
-                                         userId,
-                                         actionDescription,
-                                         forLineage,
-                                         forDuplicateProcessing,
-                                         effectiveTime,
-                                         methodName);
-        }
 
         return metadataElementGUID;
     }

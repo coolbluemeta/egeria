@@ -1573,6 +1573,30 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
     }
 
 
+
+    /**
+     * Loop through the lovelave service definitions linking them as catalog targets to the
+     * Babbage Analytical Engine.
+     */
+    protected void addLovelaceCatalogTargets(ContentPackDefinition contentPackDefinition)
+    {
+        for (LovelaceServiceDefinition lovelaceServiceDefinition : LovelaceServiceDefinition.values())
+        {
+            if (contentPackDefinition.equals(lovelaceServiceDefinition.getContentPackDefinition()))
+            {
+                archiveHelper.addCatalogTargetRelationship(IntegrationConnectorDefinition.BABBAGE_ANALYTICAL_ENGINE.getGUID(),
+                                                           lovelaceServiceDefinition.getCatalogTargetGUID(),
+                                                           lovelaceServiceDefinition.getCatalogTargetName(),
+                                                           lovelaceServiceDefinition.getCatalogTargetName(),
+                                                           null,
+                                                           null,
+                                                           null);
+            }
+        }
+    }
+
+
+
     /**
      * Create the default governance engines
      *
