@@ -26,10 +26,51 @@ public enum ProductGlossaryTermDefinition
                     "https://egeria-project.org/types/7/0710-Digital-Products/",
                     ProductFolderDefinition.GLOSSARY_BASICS),
 
-        ;
+    EVALUATION_SUBSCRIPTION("Evaluation Subscription",
+                            "A subscription to a digital product that delivers the data to the target destination just once.",
+                            "A subscription to a digital product that delivers the data to the target destination just once.  It is used when evaluating a product's data, and also when data delivery needs to be controlled by the subscriber - for example to ensure data values remain constant through a particular processing task (such as training an AI model).",
+                            "",
+                            "",
+                            ProductFolderDefinition.GLOSSARY_SUBSCRIPTIONS),
 
-    private final String displayName;
-    private final String summary;
+    ONGOING_UPDATE_SUBSCRIPTION("Ongoing Update Subscription",
+                                "A subscription to a digital product that delivers the data to the target destination within an hour of it changing.",
+                                "A subscription to a digital product that delivers the data to the target destination within an hour of it changing.  This type of subscription ensures the latest information is always available to the consumer.",
+                                "",
+                                "",
+                                ProductFolderDefinition.GLOSSARY_SUBSCRIPTIONS),
+
+    DAILY_REFRESH_SUBSCRIPTION("Evaluation Subscription",
+                               "A subscription to a digital product that delivers the data to the target destination once a day.",
+                               "A subscription to a digital product that delivers the data to the target destination once a day.",
+                               "",
+                               "",
+                               ProductFolderDefinition.GLOSSARY_SUBSCRIPTIONS),
+
+    WEEKLY_REFRESH_SUBSCRIPTION("Evaluation Subscription",
+                                "A subscription to a digital product that delivers the data to the target destination once a week.",
+                                "A subscription to a digital product that delivers the data to the target destination once a week.",
+                                "",
+                                "",
+                                ProductFolderDefinition.GLOSSARY_SUBSCRIPTIONS),
+
+    GUID("Unique Identifier",
+         "A unique identifier for a product or service.",
+         "A unique identifier for a product or service.  It is used to ensure that each product or service is uniquely identifiable within the system.",
+         "",
+         "",
+         ProductFolderDefinition.GLOSSARY_DATA_ITEMS),
+
+    OPEN_METADATA_TYPE_NAME("Open Metadata Type Name",
+                            "The name of the open metadata type for a product or service.",
+                            "The name of the open metadata type for a product or service.  It is used to identify the type of product or service within the system.",
+                            "",
+                            "",
+                            ProductFolderDefinition.GLOSSARY_DATA_ITEMS)
+    ;
+
+    private final String                  displayName;
+    private final String                  summary;
     private final String                  description;
     private final String                  abbreviation;
     private final String                  url;
@@ -39,18 +80,18 @@ public enum ProductGlossaryTermDefinition
     /**
      * The constructor creates an instance of the enum
      *
-     * @param displayName   unique id for the enum
-     * @param summary   name for the enum
-     * @param description   description of the use of this value
+     * @param displayName  unique id for the enum
+     * @param summary      name for the enum
+     * @param description  description of the use of this value
      * @param abbreviation optional abbreviation
-     * @param url optional url for the term
-     * @param folder optional folder for the term
+     * @param url          optional url for the term
+     * @param folder       optional folder for the term
      */
     ProductGlossaryTermDefinition(String displayName,
-                                  String                  summary,
-                                  String                  description,
-                                  String                  abbreviation,
-                                  String                  url,
+                                  String summary,
+                                  String description,
+                                  String abbreviation,
+                                  String url,
                                   ProductFolderDefinition folder)
     {
         this.displayName  = displayName;
@@ -91,10 +132,16 @@ public enum ProductGlossaryTermDefinition
     }
 
 
-    public String getUrl() { return url; }
+    public String getUrl()
+    {
+        return url;
+    }
 
 
-    public ProductFolderDefinition getFolder() { return folder; }
+    public ProductFolderDefinition getFolder()
+    {
+        return folder;
+    }
 
 
     /**

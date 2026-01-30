@@ -54,9 +54,11 @@ public class Referenceable extends ElementBase
 
         if (template != null)
         {
-            qualifiedName                           = template.getQualifiedName();
-
-            additionalProperties                    = template.getAdditionalProperties();
+            qualifiedName        = template.getQualifiedName();
+            displayName          = template.getDisplayName();
+            description          = template.getDescription();
+            versionIdentifier    = template.getVersionIdentifier();
+            additionalProperties = template.getAdditionalProperties();
         }
     }
 

@@ -1139,11 +1139,11 @@ public class AssetHandler extends OpenMetadataHandlerBase
      * @throws PropertyServerException    a problem updating information in the property server(s).
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public String addActionTarget(String                  userId,
-                                   String                 actionGUID,
-                                   String                 elementGUID,
-                                   MakeAnchorOptions      makeAnchorOptions,
-                                   ActionTargetProperties actionTargetProperties) throws InvalidParameterException,
+    public String addActionTarget(String                 userId,
+                                  String                 actionGUID,
+                                  String                 elementGUID,
+                                  MakeAnchorOptions      makeAnchorOptions,
+                                  ActionTargetProperties actionTargetProperties) throws InvalidParameterException,
                                                                                          PropertyServerException,
                                                                                          UserNotAuthorizedException
     {

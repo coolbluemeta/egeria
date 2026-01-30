@@ -6,6 +6,7 @@ package org.odpi.openmetadata.contentpacks.core;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.controls.AtlasDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ApacheAtlasIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.integration.KafkaTopicIntegrationProvider;
+import org.odpi.openmetadata.adapters.connectors.babbage.BabbageAnalyticalEngineProvider;
 import org.odpi.openmetadata.adapters.connectors.controls.PostgresDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.YAMLSecretsStoreProvider;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStorePurpose;
@@ -471,7 +472,7 @@ public enum IntegrationConnectorDefinition
                       "JacquardHarvesterIntegrationConnector",
                       "Defines and maintains digital products based on the content of the open metadata repositories.",
                       JacquardIntegrationConnectorProvider.class.getName(),
-                      "JacquardHarvester",
+                      "JacquardDigitalProductLoom",
                       "jacquardnpa",
                       null,
                       null,
@@ -486,6 +487,26 @@ public enum IntegrationConnectorDefinition
                       new YAMLSecretsStoreProvider().getConnectorType().getGUID(),
                       "loading-bay/secrets/egeria-servers.omsecrets",
                       ContentPackDefinition.PRODUCTS_CONTENT_PACK),
+
+    BABBAGE_ANALYTICAL_ENGINE("a2c281e0-3c8d-4621-bb4d-8f6dff756d1a",
+                      "BabbageAnalyticalEngineIntegrationConnector",
+                      "Initiates analytical processing using the Governance Action Types that are attached as catalog targets.",
+                      BabbageAnalyticalEngineProvider.class.getName(),
+                      "BabbageAnalyticalEngine",
+                      "babbagenpa",
+                      null,
+                      null,
+                      null,
+                      60,
+                      null,
+                      "2e7ec1b4-a8ba-4be6-b345-2c1735a94c7a",
+                      "Babbage Analytical Engine",
+                      "Initiates analytical processing that generates statistics on the content and operation of the open metadata ecosystem.  The analytical processors are called lovelace analytical services.",
+                      "BabbageAnalyticalEngine",
+                      SecretsStorePurpose.REST_BEARER_TOKEN.getName(),
+                      new YAMLSecretsStoreProvider().getConnectorType().getGUID(),
+                      "loading-bay/secrets/egeria-servers.omsecrets",
+                      ContentPackDefinition.CORE_CONTENT_PACK),
     ;
 
 

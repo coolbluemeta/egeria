@@ -229,23 +229,6 @@ public enum OMRSAuditingComponent implements ComponentDescription
                                 "Provides access to open metadata located in a remote repository for remote members of a cohort.",
                                 "https://egeria-project.org/concepts/cohort-member-client-connector/"),
 
-    /**
-     * Metadata Access Server Out Topic - Publishes events from the open metadata store.
-     */
-    METADATA_ACCESS_SERVER_OUT_TOPIC(24,
-                                     ComponentDevelopmentStatus.STABLE,
-                                     "Metadata Access Server Out Topic",
-                                     "Publishes events from the open metadata store.",
-                                     "https://egeria-project.org/concepts/out-topic/"),
-
-    /**
-     * Open Metadata Access Service (OMAS) In Topic - Receives events from external servers and tools directed at a specific access service.
-     */
-    OMAS_IN_TOPIC(25,
-                  ComponentDevelopmentStatus.STABLE,
-                  "Open Metadata Access Service (OMAS) In Topic",
-                  "Receives events from external servers and tools directed at a specific access service.",
-                  "https://egeria-project.org/concepts/in-topic/"),
 
     /**
      * Enterprise Topic Listener - Receives events from the open metadata repository cohorts that this server is registered with and distributes
@@ -267,14 +250,6 @@ public enum OMRSAuditingComponent implements ComponentDescription
                          "Maps open metadata calls to a metadata repository.",
                          "https://egeria-project.org/concepts/repository-connector/"),
 
-    /**
-     * Open Discovery Service Connector - A connector that analyzing the contents of a digital resource.
-     */
-    OPEN_DISCOVERY_SERVICE_CONNECTOR(28,
-                                     ComponentDevelopmentStatus.DEPRECATED,
-                                     "Open Discovery Service Connector",
-                                     "A connector that analyzing the contents of a digital resource.",
-                                     "https://egeria-project.org/guides/developer/open-discovery-services/overview/"),
 
     /**
      * Governance Action Service Connector - A connector that coordinates governance of digital resources and metadata.

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
         in = SecuritySchemeIn.HEADER
 )
 
-@Tag(name="Metadata Access Services: Governance Configuration Service", description="The Governance Configuration Service provides support for maintaining the metadata elements that control the operation of the governance servers.",
+@Tag(name="Metadata Access Server: Governance Configuration Service", description="The Governance Configuration Service provides support for maintaining the metadata elements that control the operation of the governance servers.",
      externalDocs=@ExternalDocumentation(description="Further Information",
                                          url="https://egeria-project.org/services/gaf-metadata-management/"))
 

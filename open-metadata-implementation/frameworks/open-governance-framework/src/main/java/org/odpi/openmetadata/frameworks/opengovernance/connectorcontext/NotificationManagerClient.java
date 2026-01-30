@@ -19,7 +19,6 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.NewActionTarget;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.NotificationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.QueryOptions;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -98,43 +97,43 @@ public class NotificationManagerClient extends ConnectorContextClientBase
     /**
      * Create a notification/action for the subscribers.
      *
-     * @param properties             properties of the action
-     * @param firstNotification              is this the first notification sent to this subscriber by this governance service instance?
+     * @param firstNotificationProperties        properties for the first notification sent to this subscriber by this governance service instance
+     * @param nextNotificationProperties   properties for a follow on notification sent to this subscriber by this governance service instance
+     * @param notificationCount      notification count
      * @param notificationTypeGUID   unique identifier of the cause for the action to be raised
      * @param initialClassifications initial classifications to add to the action
-     * @param requestParameters      properties to pass to the next governance service
+     * @param requestParameters      firstNotificationProperties to pass to the next governance service
      * @param actionRequesterGUID    unique identifier of the source of the action
      * @param actionTargets          the list of elements that should be acted upon
      * @param minimumNotificationInterval    minimum time between notifications
-     * @param nextScheduledNotificationTime  next notification trigger time - either from the notification type or monitored resource activity
      * @param newSubscriberStatus    set the subscriber relationship to this value after a successful notification; null means leave it alone
      * @throws InvalidParameterException  the completion status is null
      * @throws UserNotAuthorizedException the governance action service is not authorized to update the governance action service status
      * @throws PropertyServerException    a problem connecting to the metadata store
      */
-    public void notifySubscribers(boolean                               firstNotification,
+    public void notifySubscribers(long                                  notificationCount,
                                   Map<String, ClassificationProperties> initialClassifications,
-                                  NotificationProperties                properties,
+                                  NotificationProperties                firstNotificationProperties,
+                                  NotificationProperties                nextNotificationProperties,
                                   String                                notificationTypeGUID,
                                   Map<String, String>                   requestParameters,
                                   String                                actionRequesterGUID,
                                   List<NewActionTarget>                 actionTargets,
                                   long                                  minimumNotificationInterval,
-                                  Date                                  nextScheduledNotificationTime,
                                   ActivityStatus                        newSubscriberStatus) throws InvalidParameterException,
                                                                                                     UserNotAuthorizedException,
                                                                                                     PropertyServerException
     {
         notificationHandler.notifySubscribers(connectorUserId,
-                                              firstNotification,
+                                              notificationCount,
                                               initialClassifications,
-                                              properties,
+                                              firstNotificationProperties,
+                                              nextNotificationProperties,
                                               notificationTypeGUID,
                                               requestParameters,
                                               actionRequesterGUID,
                                               actionTargets,
                                               minimumNotificationInterval,
-                                              nextScheduledNotificationTime,
                                               newSubscriberStatus);
     }
 
@@ -143,6 +142,7 @@ public class NotificationManagerClient extends ConnectorContextClientBase
      * Create a notification/action for the new subscriber.
      *
      * @param subscriberGUID       unique identifier of the subscriber
+     * @param notificationCount      notification count
      * @param outboundNotificationProperties           properties of the action
      * @param initialClassifications initial classifications to add to the action
      * @param notificationTypeGUID unique identifier of the cause for the action to be raised
@@ -157,6 +157,7 @@ public class NotificationManagerClient extends ConnectorContextClientBase
      * @throws PropertyServerException    a problem connecting to the metadata store
      */
     public String welcomeSubscriber(String                                subscriberGUID,
+                                    long                                  notificationCount,
                                     Map<String, ClassificationProperties> initialClassifications,
                                     NotificationProperties                outboundNotificationProperties,
                                     String                                notificationTypeGUID,
@@ -168,13 +169,24 @@ public class NotificationManagerClient extends ConnectorContextClientBase
                                                                                                       UserNotAuthorizedException,
                                                                                                       PropertyServerException
     {
-        return notificationHandler.welcomeSubscriber(connectorUserId, subscriberGUID, initialClassifications, outboundNotificationProperties, notificationTypeGUID, requestParameters, actionRequesterGUID, actionTargets, minimumNotificationInterval, newSubscriberStatus);
+        return notificationHandler.welcomeSubscriber(connectorUserId,
+                                                     subscriberGUID,
+                                                     notificationCount,
+                                                     initialClassifications,
+                                                     outboundNotificationProperties,
+                                                     notificationTypeGUID,
+                                                     requestParameters,
+                                                     actionRequesterGUID,
+                                                     actionTargets,
+                                                     minimumNotificationInterval,
+                                                     newSubscriberStatus);
     }
 
     /**
      * Create a notification/action for an unsubscribed subscriber.
      *
      * @param subscriberGUID       unique identifier of the subscriber
+     * @param notificationCount      notification count
      * @param outboundNotificationProperties           properties of the action
      * @param initialClassifications initial classifications to add to the action
      * @param notificationTypeGUID unique identifier of the cause for the action to be raised
@@ -187,6 +199,7 @@ public class NotificationManagerClient extends ConnectorContextClientBase
      * @throws PropertyServerException    a problem connecting to the metadata store
      */
     public String dismissSubscriber(String                                subscriberGUID,
+                                    long                                  notificationCount,
                                     Map<String, ClassificationProperties> initialClassifications,
                                     NotificationProperties                outboundNotificationProperties,
                                     String                                notificationTypeGUID,
@@ -196,7 +209,15 @@ public class NotificationManagerClient extends ConnectorContextClientBase
                                                                                                 UserNotAuthorizedException,
                                                                                                 PropertyServerException
     {
-        return notificationHandler.dismissSubscriber(connectorUserId, subscriberGUID, initialClassifications, outboundNotificationProperties, notificationTypeGUID, requestParameters, actionRequesterGUID, actionTargets);
+        return notificationHandler.dismissSubscriber(connectorUserId,
+                                                     subscriberGUID,
+                                                     notificationCount,
+                                                     initialClassifications,
+                                                     outboundNotificationProperties,
+                                                     notificationTypeGUID,
+                                                     requestParameters,
+                                                     actionRequesterGUID,
+                                                     actionTargets);
     }
 
 

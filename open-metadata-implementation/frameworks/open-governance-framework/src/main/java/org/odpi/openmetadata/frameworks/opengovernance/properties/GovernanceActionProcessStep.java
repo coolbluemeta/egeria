@@ -18,14 +18,14 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class GovernanceActionProcessStepProperties extends GovernanceActionTypeProperties
+public class GovernanceActionProcessStep extends GovernanceActionType
 {
     private boolean             ignoreMultipleTriggers = false;
 
     /**
      * Default constructor
      */
-    public GovernanceActionProcessStepProperties()
+    public GovernanceActionProcessStep()
     {
         super();
     }
@@ -36,7 +36,7 @@ public class GovernanceActionProcessStepProperties extends GovernanceActionTypeP
      *
      * @param template object to copy
      */
-    public GovernanceActionProcessStepProperties(GovernanceActionProcessStepProperties template)
+    public GovernanceActionProcessStep(GovernanceActionProcessStep template)
     {
         super (template);
 
@@ -105,7 +105,7 @@ public class GovernanceActionProcessStepProperties extends GovernanceActionTypeP
         {
             return false;
         }
-        GovernanceActionProcessStepProperties that = (GovernanceActionProcessStepProperties) objectToCompare;
+        GovernanceActionProcessStep that = (GovernanceActionProcessStep) objectToCompare;
         return ignoreMultipleTriggers == that.ignoreMultipleTriggers ;
     }
 

@@ -28,6 +28,7 @@ public class GetOptions extends BasicOptions
     private List<String> includeOnlyRelationships      = null;
     private int          relationshipsPageSize         = 0;
     private int          graphQueryDepth               = 5;
+    private int          maxMermaidNodeCount           = 5;
 
     /**
      * Default constructor
@@ -56,6 +57,7 @@ public class GetOptions extends BasicOptions
             includeOnlyRelationships      = template.getIncludeOnlyRelationships();
             relationshipsPageSize         = template.getRelationshipsPageSize();
             graphQueryDepth               = template.getGraphQueryDepth();
+            maxMermaidNodeCount           = template.getMaxMermaidNodeCount();
         }
     }
 
@@ -231,6 +233,27 @@ public class GetOptions extends BasicOptions
 
 
     /**
+     * Return the maximum number of nodes linked by a particular relationship to an element to include in the graph.
+     *
+     * @return int (default is 5)
+     */
+    public int getMaxMermaidNodeCount()
+    {
+        return maxMermaidNodeCount;
+    }
+
+    /**
+     * Set up the maximum number of nodes linked by a particular relationship to an element to include in the graph.
+     *
+     * @param maxMermaidNodeCount int (default is 5)
+     */
+    public void setMaxMermaidNodeCount(int maxMermaidNodeCount)
+    {
+        this.maxMermaidNodeCount = maxMermaidNodeCount;
+    }
+
+
+    /**
      * JSON-style toString
      *
      * @return return string containing the property names and values
@@ -246,6 +269,7 @@ public class GetOptions extends BasicOptions
                 ", includeOnlyRelationships=" + includeOnlyRelationships +
                 ", relationshipsPageSize=" + relationshipsPageSize +
                 ", graphQueryDepth=" + graphQueryDepth +
+                ", maxMermaidNodeCount=" + maxMermaidNodeCount +
                 "} " + super.toString();
     }
 
@@ -265,6 +289,7 @@ public class GetOptions extends BasicOptions
         if (!super.equals(objectToCompare)) return false;
         GetOptions that = (GetOptions) objectToCompare;
         return graphQueryDepth == that.graphQueryDepth &&
+                maxMermaidNodeCount == that.maxMermaidNodeCount &&
                 Objects.equals(asOfTime, that.asOfTime) &&
                 Objects.equals(metadataElementTypeName, that.metadataElementTypeName) &&
                 Objects.equals(metadataElementSubtypeNames, that.metadataElementSubtypeNames) &&
@@ -281,6 +306,8 @@ public class GetOptions extends BasicOptions
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), asOfTime, metadataElementTypeName, metadataElementSubtypeNames, skipRelationships, includeOnlyRelationships, relationshipsPageSize, graphQueryDepth);
+        return Objects.hash(super.hashCode(), asOfTime, metadataElementTypeName, metadataElementSubtypeNames,
+                            skipRelationships, includeOnlyRelationships, relationshipsPageSize,
+                            graphQueryDepth, maxMermaidNodeCount);
     }
 }

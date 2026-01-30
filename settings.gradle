@@ -102,6 +102,7 @@ include(':open-metadata-implementation:access-services:gaf-metadata-management:g
 include(':open-metadata-implementation:access-services:gaf-metadata-management:gaf-metadata-client')
 include(':open-metadata-implementation:access-services:gaf-metadata-management:gaf-metadata-server')
 include(':open-metadata-implementation:access-services:gaf-metadata-management:gaf-metadata-spring')
+include(':open-metadata-implementation:access-services:gaf-metadata-management:gaf-topic-connectors')
 include(':open-metadata-implementation:access-services:ocf-metadata-management:ocf-metadata-api')
 include(':open-metadata-implementation:access-services:ocf-metadata-management:ocf-metadata-client')
 include(':open-metadata-implementation:access-services:ocf-metadata-management:ocf-metadata-server')

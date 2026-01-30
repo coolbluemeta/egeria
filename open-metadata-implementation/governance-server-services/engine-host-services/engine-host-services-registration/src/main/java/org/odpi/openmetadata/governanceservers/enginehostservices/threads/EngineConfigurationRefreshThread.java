@@ -10,6 +10,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedExcep
 import org.odpi.openmetadata.governanceservers.enginehostservices.admin.GovernanceEngineHandler;
 import org.odpi.openmetadata.governanceservers.enginehostservices.enginemap.GovernanceEngineMap;
 import org.odpi.openmetadata.governanceservers.enginehostservices.ffdc.EngineHostServicesAuditCode;
+import org.odpi.openmetadata.governanceservers.enginehostservices.listener.OpenGovernanceOutTopicListener;
 import org.odpi.openmetadata.governanceservers.enginehostservices.listener.OpenMetadataOutTopicListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,8 @@ public class EngineConfigurationRefreshThread implements Runnable
 {
     private final EngineConfig            engineConfig;
     private final GovernanceEngineMap     engineHandlers;
-    private final OpenMetadataEventClient eventClient;
+    private final OpenMetadataEventClient omfEventClient;
+    private final OpenMetadataEventClient gafEventClient;
     private final AuditLog                auditLog;
     private final String                  localServerName;
     private volatile boolean              keepTrying = true;
@@ -42,21 +44,24 @@ public class EngineConfigurationRefreshThread implements Runnable
      * needed to log errors if the metadata server is not available.
      *
      * @param engineHandlers list of governance engine handlers running locally mapped to their names
-     * @param eventClient client for accessing the Governance Server OMAS OutTopic
+     * @param omfEventClient client for accessing the Open Metadata OutTopic
+     * @param gafEventClient client for accessing the Open Governance OutTopic
      * @param auditLog logging destination
      * @param localServerName this server's name
      */
     public EngineConfigurationRefreshThread(EngineConfig             engineConfig,
                                             GovernanceEngineMap      engineHandlers,
-                                            OpenMetadataEventClient  eventClient,
+                                            OpenMetadataEventClient  omfEventClient,
+                                            OpenMetadataEventClient  gafEventClient,
                                             AuditLog                 auditLog,
                                             String                   localServerName)
     {
-        this.engineConfig            = engineConfig;
-        this.engineHandlers          = engineHandlers;
-        this.eventClient             = eventClient;
-        this.auditLog                = auditLog;
-        this.localServerName         = localServerName;
+        this.engineConfig    = engineConfig;
+        this.engineHandlers  = engineHandlers;
+        this.omfEventClient  = omfEventClient;
+        this.gafEventClient  = gafEventClient;
+        this.auditLog        = auditLog;
+        this.localServerName = localServerName;
     }
 
 
@@ -79,7 +84,8 @@ public class EngineConfigurationRefreshThread implements Runnable
             {
                 try
                 {
-                    eventClient.registerListener(engineConfig.getEngineUserId(), new OpenMetadataOutTopicListener(engineConfig, engineHandlers, auditLog));
+                    omfEventClient.registerListener(engineConfig.getEngineUserId(), new OpenMetadataOutTopicListener(engineConfig, engineHandlers, auditLog));
+                    gafEventClient.registerListener(engineConfig.getEngineUserId(), new OpenGovernanceOutTopicListener(engineConfig, engineHandlers, auditLog));
                     listenerRegistered = true;
 
                     auditLog.logMessage(actionDescription,

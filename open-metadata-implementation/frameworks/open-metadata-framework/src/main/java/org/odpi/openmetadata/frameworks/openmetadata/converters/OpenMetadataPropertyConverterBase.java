@@ -6928,29 +6928,6 @@ public class OpenMetadataPropertyConverterBase
 
 
     /**
-     * Extract and delete the classificationName property from the supplied element properties.
-     *
-     * @param elementProperties properties from element
-     * @return string
-     */
-    protected String removeClassificationName(ElementProperties elementProperties)
-
-    {
-        final String methodName = "removeClassificationName";
-
-        if (elementProperties != null)
-        {
-            return propertyHelper.removeStringProperty(localServiceName,
-                                                       OpenMetadataProperty.CLASSIFICATION_NAME.name,
-                                                       elementProperties,
-                                                       methodName);
-        }
-
-        return null;
-    }
-
-
-    /**
      * Extract and delete the processingEngineUserId property from the supplied element properties.
      *
      * @param elementProperties properties from element
@@ -7934,6 +7911,28 @@ public class OpenMetadataPropertyConverterBase
         {
             return propertyHelper.removeLongProperty(localServiceName,
                                                      OpenMetadataProperty.NOTIFICATION_INTERVAL.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeNotificationCount(ElementProperties elementProperties)
+    {
+        final String methodName = "removeNotificationCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.NOTIFICATION_COUNT.name,
                                                      elementProperties,
                                                      methodName);
         }
@@ -9981,73 +9980,6 @@ public class OpenMetadataPropertyConverterBase
 
 
     /**
-     * Extract and delete the property from the supplied element properties.
-     *
-     * @param elementProperties properties from element
-     * @return string text or null
-     */
-    protected String removeAttachmentGUID(ElementProperties  elementProperties)
-    {
-        final String methodName = "removeAttachmentGUID";
-
-        if (elementProperties != null)
-        {
-            return propertyHelper.removeStringProperty(localServiceName,
-                                                       OpenMetadataProperty.ATTACHMENT_GUID.name,
-                                                       elementProperties,
-                                                       methodName);
-        }
-
-        return null;
-    }
-
-
-    /**
-     * Extract and delete the property from the supplied element properties.
-     *
-     * @param elementProperties properties from element
-     * @return string text or null
-     */
-    protected String removeAttachmentType(ElementProperties  elementProperties)
-    {
-        final String methodName = "removeAttachmentType";
-
-        if (elementProperties != null)
-        {
-            return propertyHelper.removeStringProperty(localServiceName,
-                                                       OpenMetadataProperty.ATTACHMENT_TYPE.name,
-                                                       elementProperties,
-                                                       methodName);
-        }
-
-        return null;
-    }
-
-
-    /**
-     * Extract and delete the property from the supplied element properties.
-     *
-     * @param elementProperties properties from element
-     * @return string text or null
-     */
-    protected String removeRelationshipType(ElementProperties  elementProperties)
-    {
-        final String methodName = "removeRelationshipType";
-
-        if (elementProperties != null)
-        {
-            return propertyHelper.removeStringProperty(localServiceName,
-                                                       OpenMetadataProperty.RELATIONSHIP_TYPE.name,
-                                                       elementProperties,
-                                                       methodName);
-        }
-
-        return null;
-    }
-
-
-
-    /**
      * Extract and delete the relatedEntityGUID standing property from the supplied element properties.
      *
      * @param elementProperties properties from element
@@ -11053,69 +10985,6 @@ public class OpenMetadataPropertyConverterBase
     }
 
 
-
-    /**
-     * Extract and delete the property from the supplied element properties.
-     *
-     * @param elementProperties properties from entity
-     * @return enum
-     */
-    LatestChangeTarget removeLatestChangeTarget(ElementProperties elementProperties)
-    {
-        final String methodName = "removeLatestChangeTarget";
-
-        if (elementProperties != null)
-        {
-            String retrievedProperty = propertyHelper.removeEnumProperty(localServiceName,
-                                                                         OpenMetadataProperty.CHANGE_TARGET.name,
-                                                                         elementProperties,
-                                                                         methodName);
-
-            for (LatestChangeTarget latestChangeTarget : LatestChangeTarget.values())
-            {
-                if (latestChangeTarget.getName().equals(retrievedProperty))
-                {
-                    return latestChangeTarget;
-                }
-            }
-        }
-
-        return null;
-    }
-
-
-
-
-    /**
-     * Extract and delete the property from the supplied element properties.
-     *
-     * @param elementProperties properties from entity
-     * @return enum
-     */
-    LatestChangeAction removeLatestChangeAction(ElementProperties elementProperties)
-    {
-        final String methodName = "removeLatestChangeAction";
-
-        if (elementProperties != null)
-        {
-            String retrievedProperty = propertyHelper.removeEnumProperty(localServiceName,
-                                                                         OpenMetadataProperty.CHANGE_ACTION.name,
-                                                                         elementProperties,
-                                                                         methodName);
-
-            for (LatestChangeAction latestChangeAction : LatestChangeAction.values())
-            {
-                if (latestChangeAction.getName().equals(retrievedProperty))
-                {
-                    return latestChangeAction;
-                }
-            }
-        }
-
-        return null;
-    }
-
-
     /**
      * Extract and delete the property from the supplied element properties.
      *
@@ -11750,19 +11619,6 @@ public class OpenMetadataPropertyConverterBase
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.KNOWN_DUPLICATE_CLASSIFICATION.typeName))
             {
                 beanProperties = new KnownDuplicateProperties();
-            }
-            else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.LATEST_CHANGE_CLASSIFICATION.typeName))
-            {
-                beanProperties = new LatestChangeProperties();
-
-                ((LatestChangeProperties)beanProperties).setChangeTarget(this.removeLatestChangeTarget(elementProperties));
-                ((LatestChangeProperties)beanProperties).setChangeAction(this.removeLatestChangeAction(elementProperties));
-                ((LatestChangeProperties)beanProperties).setClassificationName(this.removeClassificationName(elementProperties));
-                ((LatestChangeProperties)beanProperties).setAttachmentGUID(this.removeAttachmentGUID(elementProperties));
-                ((LatestChangeProperties)beanProperties).setAttachmentTypeName(this.removeAttachmentType(elementProperties));
-                ((LatestChangeProperties)beanProperties).setRelationshipTypeName(this.removeRelationshipType(elementProperties));
-                ((LatestChangeProperties)beanProperties).setUserId(this.removeUserId(elementProperties));
-                ((LatestChangeProperties)beanProperties).setDescription(this.removeDescription(elementProperties));
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.LISTENER_INTERFACE_CLASSIFICATION.typeName))
             {
@@ -13773,6 +13629,7 @@ public class OpenMetadataPropertyConverterBase
                                 ((NotificationTypeProperties) beanProperties).setNotificationInterval(this.removeNotificationInterval(elementProperties));
                                 ((NotificationTypeProperties) beanProperties).setMultipleNotificationsPermitted(this.removeMultipleNotificationsPermitted(elementProperties));
                                 ((NotificationTypeProperties) beanProperties).setNextScheduledNotification(this.removeNextScheduledNotification(elementProperties));
+                                ((NotificationTypeProperties) beanProperties).setNotificationCount(this.removeNotificationCount(elementProperties));
                                 ((NotificationTypeProperties) beanProperties).setPlannedCompletionDate(this.removePlannedCompletionDate(elementProperties));
 
                             }

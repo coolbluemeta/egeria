@@ -8,6 +8,8 @@ import org.odpi.openmetadata.frameworks.openmetadata.client.OpenMetadataClient;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.ActivityStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.ContentStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.DeploymentStatus;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.AssignmentScopeProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.ActionTargetProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementOriginCategory;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
@@ -571,6 +573,178 @@ public class AssetClient extends ConnectorContextClientBase
     {
         assetHandler.detachFolderHierarchy(connectorUserId, parentFolderGUID, childFolderGUID, deleteOptions);
     }
+
+
+
+
+    /**
+     * Add an element to an action's workload.
+     *
+     * @param actionGUID        unique identifier of the integration connector.
+     * @param makeAnchorOptions options to control access to open metadata
+     * @param actionTargetProperties  properties describing the relationship characteristics.
+     * @param elementGUID           unique identifier of the target element.
+     * @return relationship GUID
+     * @throws InvalidParameterException  one of the parameters is invalid.
+     * @throws PropertyServerException    a problem updating information in the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public String addActionTarget(String                 actionGUID,
+                                  String                 elementGUID,
+                                  MakeAnchorOptions      makeAnchorOptions,
+                                  ActionTargetProperties actionTargetProperties) throws InvalidParameterException,
+                                                                                        PropertyServerException,
+                                                                                        UserNotAuthorizedException
+    {
+        return assetHandler.addActionTarget(connectorUserId, actionGUID, elementGUID, makeAnchorOptions, actionTargetProperties);
+    }
+
+
+    /**
+     * Update the properties associated with an Action Target.
+     *
+     * @param actionTargetGUID       unique identifier of the action target relationship
+     * @param updateOptions provides a structure for the additional options when updating an element.
+     * @param actionTargetProperties properties to change
+     * @throws InvalidParameterException  a parameter is invalid
+     * @throws PropertyServerException    the server is not available
+     * @throws UserNotAuthorizedException the calling user is not authorized to issue the call
+     */
+    public void updateActionTargetProperties(String                 actionTargetGUID,
+                                             UpdateOptions          updateOptions,
+                                             ActionTargetProperties actionTargetProperties) throws InvalidParameterException,
+                                                                                                   PropertyServerException,
+                                                                                                   UserNotAuthorizedException
+    {
+        assetHandler.updateActionTargetProperties(connectorUserId, actionTargetGUID, updateOptions, actionTargetProperties);
+    }
+
+
+    /**
+     * Retrieve a specific action target associated with an action.
+     *
+     * @param relationshipGUID unique identifier of the relationship.
+     * @param getOptions options to control the retrieve
+     *
+     * @return details of the integration connector and the elements it is to catalog
+     * @throws InvalidParameterException one of the parameters is null or invalid.
+     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws PropertyServerException problem retrieving the integration connector definition.
+     */
+    public OpenMetadataRelationship getActionTarget(String     relationshipGUID,
+                                                    GetOptions getOptions) throws InvalidParameterException,
+                                                                                  UserNotAuthorizedException,
+                                                                                  PropertyServerException
+    {
+        return assetHandler.getActionTarget(connectorUserId, relationshipGUID, getOptions);
+    }
+
+
+    /**
+     * Return a list of elements that are target elements for an action.
+     *
+     * @param actionGUID unique identifier of the integration connector.
+     * @param queryOptions   options for query
+     * @return list of member details
+     * @throws InvalidParameterException  one of the parameters is invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public List<OpenMetadataRootElement> getActionTargets(String               actionGUID,
+                                                          List<ActivityStatus> activityStatusList,
+                                                          QueryOptions         queryOptions) throws InvalidParameterException,
+                                                                                                    PropertyServerException,
+                                                                                                    UserNotAuthorizedException
+    {
+        return assetHandler.getActionTargets(connectorUserId, actionGUID, activityStatusList, queryOptions);
+    }
+
+
+    /**
+     * Retrieve the actions that are chained from an action target element.
+     *
+     * @param elementGUID unique identifier of the element to start with
+     * @param activityStatusList  optional activity status list
+     * @param queryOptions           multiple options to control the query
+     * @return list of action beans
+     * @throws InvalidParameterException  a parameter is invalid
+     * @throws PropertyServerException    the server is not available
+     * @throws UserNotAuthorizedException the calling user is not authorized to issue the call
+     */
+    public List<OpenMetadataRootElement> getActionsForActionTarget(String               elementGUID,
+                                                                   List<ActivityStatus> activityStatusList,
+                                                                   QueryOptions         queryOptions) throws InvalidParameterException,
+                                                                                                             PropertyServerException,
+                                                                                                             UserNotAuthorizedException
+    {
+        return assetHandler.getActionsForActionTarget(connectorUserId, elementGUID, activityStatusList, queryOptions);
+    }
+
+
+    /**
+     * Assign an action to an actor.
+     *
+     * @param actionGUID  unique identifier of the action
+     * @param actorGUID actor to assign the action to
+     * @param makeAnchorOptions  options to control access to open metadata
+     * @param relationshipProperties the properties of the relationship
+     * @throws InvalidParameterException  a parameter is invalid
+     * @throws PropertyServerException    the server is not available
+     * @throws UserNotAuthorizedException the calling user is not authorized to issue the call
+     */
+    public void assignAction(String                    actionGUID,
+                             String                    actorGUID,
+                             MakeAnchorOptions         makeAnchorOptions,
+                             AssignmentScopeProperties relationshipProperties) throws InvalidParameterException,
+                                                                                      PropertyServerException,
+                                                                                      UserNotAuthorizedException
+    {
+        assetHandler.assignAction(connectorUserId, actionGUID, actorGUID, makeAnchorOptions, relationshipProperties);
+    }
+
+
+    /**
+     * Assign an action to a new actor - removing all other assignees.
+     *
+     * @param actionGUID  unique identifier of the action
+     * @param actorGUID actor to assign the action to
+     * @param makeAnchorOptions  options to control access to open metadata
+     * @param relationshipProperties the properties of the relationship
+     * @throws InvalidParameterException  a parameter is invalid
+     * @throws PropertyServerException    the server is not available
+     * @throws UserNotAuthorizedException the calling user is not authorized to issue the call
+     */
+    public void reassignAction(String                    actionGUID,
+                               String                    actorGUID,
+                               MakeAnchorOptions         makeAnchorOptions,
+                               AssignmentScopeProperties relationshipProperties) throws InvalidParameterException,
+                                                                                        PropertyServerException,
+                                                                                        UserNotAuthorizedException
+    {
+        assetHandler.reassignAction(connectorUserId, actionGUID, actorGUID, makeAnchorOptions, relationshipProperties);
+    }
+
+
+    /**
+     * Remove an action from an actor.
+     *
+     * @param actionGUID  unique identifier of the action
+     * @param actorGUID actor to assign the action to
+     * @param deleteOptions  options to control access to open metadata
+     * @throws InvalidParameterException  a parameter is invalid
+     * @throws PropertyServerException    the server is not available
+     * @throws UserNotAuthorizedException the calling user is not authorized to issue the call
+     */
+    public void unassignAction(String        actionGUID,
+                               String        actorGUID,
+                               DeleteOptions deleteOptions) throws InvalidParameterException,
+                                                                   PropertyServerException,
+                                                                   UserNotAuthorizedException
+    {
+        assetHandler.unassignAction(connectorUserId, actionGUID, actorGUID, deleteOptions);
+    }
+
+
 
 
     /**

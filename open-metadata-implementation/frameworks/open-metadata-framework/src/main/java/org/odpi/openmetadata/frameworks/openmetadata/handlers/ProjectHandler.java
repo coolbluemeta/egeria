@@ -492,7 +492,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
      *
      * @param userId calling user
      * @param projectGUID unique identifier of the requested metadata element
-     * @param queryOptions           multiple options to control the query
+     * @param suppliedQueryOptions           multiple options to control the query
      *
      * @return matching metadata element
      *
@@ -502,11 +502,13 @@ public class ProjectHandler extends OpenMetadataHandlerBase
      */
     public OpenMetadataRootHierarchy getProjectInContext(String       userId,
                                                          String       projectGUID,
-                                                         QueryOptions queryOptions) throws InvalidParameterException,
-                                                                                            UserNotAuthorizedException,
-                                                                                            PropertyServerException
+                                                         QueryOptions suppliedQueryOptions) throws InvalidParameterException,
+                                                                                                   UserNotAuthorizedException,
+                                                                                                   PropertyServerException
     {
         final String methodName = "getProjectsInContext";
+
+        QueryOptions queryOptions = new QueryOptions(suppliedQueryOptions);
 
         OpenMetadataRootElement rootElement = this.getRootElementByGUID(userId, projectGUID, queryOptions, methodName);
 
@@ -526,7 +528,8 @@ public class ProjectHandler extends OpenMetadataHandlerBase
              */
             OpenMetadataRootHierarchyMermaidGraphBuilder mermaidGraphBuilder = new OpenMetadataRootHierarchyMermaidGraphBuilder(openMetadataRootHierarchy,
                                                                                                                                 "Related Projects",
-                                                                                                                                VisualStyle.PROJECT);
+                                                                                                                                VisualStyle.PROJECT,
+                                                                                                                                queryOptions.getMaxMermaidNodeCount());
 
             openMetadataRootHierarchy.setMermaidGraph(mermaidGraphBuilder.getMermaidGraph());
 
@@ -695,7 +698,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
      *
      * @param userId calling user
      * @param projectGUID starting project
-     * @param queryOptions multiple options to control the query
+     * @param suppliedQueryOptions multiple options to control the query
      * @return project hierarchy for the element
      * @throws InvalidParameterException  one of the parameters is null or invalid.
      * @throws PropertyServerException    a problem retrieving information from the property server(s).
@@ -703,11 +706,13 @@ public class ProjectHandler extends OpenMetadataHandlerBase
      */
     public OpenMetadataRootHierarchy getProjectHierarchy(String       userId,
                                                          String       projectGUID,
-                                                         QueryOptions queryOptions) throws InvalidParameterException,
-                                                                                             PropertyServerException,
-                                                                                             UserNotAuthorizedException
+                                                         QueryOptions suppliedQueryOptions) throws InvalidParameterException,
+                                                                                                   PropertyServerException,
+                                                                                                   UserNotAuthorizedException
     {
         final String methodName  = "getProjectHierarchy";
+
+        QueryOptions queryOptions = new QueryOptions(suppliedQueryOptions);
 
         OpenMetadataRootElement rootElement = this.getRootElementByGUID(userId, projectGUID, queryOptions, methodName);
 
@@ -727,7 +732,8 @@ public class ProjectHandler extends OpenMetadataHandlerBase
              */
             OpenMetadataRootHierarchyMermaidGraphBuilder mermaidGraphBuilder = new OpenMetadataRootHierarchyMermaidGraphBuilder(openMetadataRootHierarchy,
                                                                                                                                 "Managed Projects",
-                                                                                                                                VisualStyle.PROJECT);
+                                                                                                                                VisualStyle.PROJECT,
+                                                                                                                                queryOptions.getMaxMermaidNodeCount());
 
             openMetadataRootHierarchy.setMermaidGraph(mermaidGraphBuilder.getMermaidGraph());
 

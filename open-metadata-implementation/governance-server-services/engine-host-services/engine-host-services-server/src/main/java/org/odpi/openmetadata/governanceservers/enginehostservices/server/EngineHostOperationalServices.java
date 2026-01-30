@@ -3,6 +3,7 @@
 package org.odpi.openmetadata.governanceservers.enginehostservices.server;
 
 import org.odpi.openmetadata.adminservices.configuration.properties.EngineConfig;
+import org.odpi.openmetadata.frameworkservices.gaf.client.EgeriaOpenGovernanceEventClient;
 import org.odpi.openmetadata.governanceservers.enginehostservices.registration.EngineServiceDefinition;
 import org.odpi.openmetadata.adminservices.configuration.registration.*;
 import org.odpi.openmetadata.adminservices.ffdc.exception.OMAGConfigurationErrorException;
@@ -135,12 +136,12 @@ public class EngineHostOperationalServices
             for (EngineConfig governanceEngine : configuration)
             {
                 /*
-                 * The event client issues a REST call to the Open Metadata Services to retrieve the client-side connection to is OutTopic
+                 * The event clients issue a REST call to the Open Metadata Services to retrieve the client-side connection to is OutTopic
                  * creates the topic connector, listens for incoming and then passes them to any registered listeners.  There are two listeners
-                 * expected - one used by the engine host services to receive updates to the governance engine configuration and new GovernanceActions
-                 * - the other used by the Governance Action OMES to receive new Watchdog events for registered Open Watchdog Governance Action Services.
+                 * expected - one used by the engine host services to receive updates to the governance engine configuration and new engine actions.
+                 * The other is used to receive new Watchdog events for registered Open Watchdog/Governance Action Services.
                  */
-                OpenMetadataEventClient eventClient = new EgeriaOpenMetadataEventClient(governanceEngine.getOMAGServerName(),
+                OpenMetadataEventClient omfEventClient = new EgeriaOpenMetadataEventClient(governanceEngine.getOMAGServerName(),
                                                                                         governanceEngine.getOMAGServerPlatformRootURL(),
                                                                                         governanceEngine.getEngineUserId(),
                                                                                         governanceEngine.getSecretsStoreProvider(),
@@ -150,12 +151,23 @@ public class EngineHostOperationalServices
                                                                                         auditLog,
                                                                                         governanceEngine.getEngineId());
 
+                EgeriaOpenGovernanceEventClient gafEventClient = new EgeriaOpenGovernanceEventClient(governanceEngine.getOMAGServerName(),
+                                                                                                     governanceEngine.getOMAGServerPlatformRootURL(),
+                                                                                                     governanceEngine.getEngineUserId(),
+                                                                                                     governanceEngine.getSecretsStoreProvider(),
+                                                                                                     governanceEngine.getSecretsStoreLocation(),
+                                                                                                     governanceEngine.getSecretsStoreCollection(),
+                                                                                                     maxPageSize,
+                                                                                                     auditLog,
+                                                                                                     governanceEngine.getEngineId());
+
                 /*
                  * This thread is responsible for managing the retrieval of the engine definitions and registering the listener for events.
                  */
                 EngineConfigurationRefreshThread configurationRefreshThread = new EngineConfigurationRefreshThread(governanceEngine,
                                                                                                                    governanceEngineHandlers,
-                                                                                                                   eventClient,
+                                                                                                                   omfEventClient,
+                                                                                                                   gafEventClient,
                                                                                                                    auditLog,
                                                                                                                    localServerName);
 
@@ -163,7 +175,7 @@ public class EngineHostOperationalServices
                  * Create an entry in the governance engine map for the configured engine.
                  */
                 governanceEngineHandlers.setGovernanceEngineProperties(governanceEngine,
-                                                                       eventClient,
+                                                                       gafEventClient,
                                                                        configurationRefreshThread);
 
                 /*

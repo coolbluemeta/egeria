@@ -25,7 +25,8 @@ public enum ProductDataFieldDefinition
          null,
          null,
          true,
-         false),
+         false,
+         ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of the asset.
@@ -37,31 +38,34 @@ public enum ProductDataFieldDefinition
                null,
                null,
                true,
-               false),
+               false,
+               ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of the glossary term linked to the element using semantic assignment.
      */
     SEMANTIC_TERM_GUID("Semantic Assignment Glossary Term Unique Identifier (GUID)",
-               "Semantic Term GUID",
-               "Unique identifier of the glossary term linked to the element using semantic assignment.",
-               DataType.STRING,
-               null,
-               null,
-               true,
-               false),
+                       "Semantic Term GUID",
+                       "Unique identifier of the glossary term linked to the element using semantic assignment.",
+                       DataType.STRING,
+                       null,
+                       null,
+                       true,
+                       false,
+                       ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of a certification type.
      */
     CERTIFICATION_TYPE_GUID("Certification Type Unique Identifier (GUID)",
-                       "Certification Type GUID",
-                       "Unique identifier of a certification type.",
-                       DataType.STRING,
-                       null,
-                       null,
-                       true,
-                       false),
+                            "Certification Type GUID",
+                            "Unique identifier of a certification type.",
+                            DataType.STRING,
+                            null,
+                            null,
+                            true,
+                            false,
+                            ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of a certification relationship.
@@ -73,31 +77,34 @@ public enum ProductDataFieldDefinition
                        null,
                        null,
                        true,
-                       false),
+                       false,
+                       ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of a license relationship.
      */
     LICENSE_GUID("License Unique Identifier (GUID)",
-                            "License GUID",
-                            "Unique identifier of a license relationship.",
-                            DataType.STRING,
-                            null,
-                            null,
-                            true,
-                            false),
+                 "License GUID",
+                 "Unique identifier of a license relationship.",
+                 DataType.STRING,
+                 null,
+                 null,
+                 true,
+                 false,
+                 ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of a license type.
      */
     LICENSE_TYPE_GUID("License Type Unique Identifier (GUID)",
-                            "License Type GUID",
-                            "Unique identifier of a license type.",
-                            DataType.STRING,
-                            null,
-                            null,
-                            true,
-                            false),
+                      "License Type GUID",
+                      "Unique identifier of a license type.",
+                      DataType.STRING,
+                      null,
+                      null,
+                      true,
+                      false,
+                      ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of a project.
@@ -109,7 +116,8 @@ public enum ProductDataFieldDefinition
                  null,
                  null,
                  true,
-                 false),
+                 false,
+                 ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of a profile.
@@ -121,7 +129,8 @@ public enum ProductDataFieldDefinition
                  null,
                  null,
                  true,
-                 false),
+                 false,
+                 ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of a survey report for an asset.
@@ -133,7 +142,8 @@ public enum ProductDataFieldDefinition
                        null,
                        null,
                        true,
-                       false),
+                       false,
+                       ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of a survey subject (typically an asset).
@@ -145,19 +155,21 @@ public enum ProductDataFieldDefinition
                         null,
                         null,
                         true,
-                        false),
+                        false,
+                        ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of a survey annotation.
      */
     ANNOTATION_GUID("Survey Annotation Unique Identifier (GUID)",
-                        "Annotation GUID",
-                        "Unique identifier of a survey annotation.",
-                        DataType.STRING,
-                        null,
-                        null,
-                        true,
-                        false),
+                    "Annotation GUID",
+                    "Unique identifier of a survey annotation.",
+                    DataType.STRING,
+                    null,
+                    null,
+                    true,
+                    false,
+                    ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of an engine action.
@@ -169,19 +181,21 @@ public enum ProductDataFieldDefinition
                        null,
                        null,
                        true,
-                       false),
+                       false,
+                       ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of an engine action's requester.
      */
     ACTION_REQUEST_GUID("Action Request Unique Identifier (GUID)",
-                       "Action Request GUID",
-                       "Unique identifier of an engine action's requester.",
-                       DataType.STRING,
-                       null,
-                       null,
-                       true,
-                       false),
+                        "Action Request GUID",
+                        "Unique identifier of an engine action's requester.",
+                        DataType.STRING,
+                        null,
+                        null,
+                        true,
+                        false,
+                        ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of an engine action's target element.
@@ -199,13 +213,14 @@ public enum ProductDataFieldDefinition
      * Unique identifier of an engine action's target element.
      */
     ACTION_TARGET_RELATIONSHIP_GUID("Action Target Relationship Unique Identifier (GUID)",
-                        "Action Target Relationship GUID",
-                        "Unique identifier of the relationship linking an engine action to one of its target elements to process.",
-                        DataType.STRING,
-                        null,
-                        null,
-                        true,
-                        false),
+                                    "Action Target Relationship GUID",
+                                    "Unique identifier of the relationship linking an engine action to one of its target elements to process.",
+                                    DataType.STRING,
+                                    null,
+                                    null,
+                                    true,
+                                    false,
+                                    ProductGlossaryTermDefinition.GUID),
 
     /**
      * Unique identifier of an engine action's target element.
@@ -217,7 +232,8 @@ public enum ProductDataFieldDefinition
                        null,
                        null,
                        true,
-                       false),
+                       false,
+                       ProductGlossaryTermDefinition.GUID),
 
 
     /**
@@ -242,44 +258,48 @@ public enum ProductDataFieldDefinition
                   null,
                   null,
                   true,
-                  false),
+                  false,
+                  ProductGlossaryTermDefinition.GUID),
 
 
     /**
      * The unique identifier of an owner.
      */
     OWNER_GUID("Owner Unique Identifier (GUID)",
-                  "Owner GUID",
-                  "The unique identifier of an owner of the attached element.",
-                  DataType.STRING,
-                  null,
-                  null,
-                  true,
-                  false),
+               "Owner GUID",
+               "The unique identifier of an owner of the attached element.",
+               DataType.STRING,
+               null,
+               null,
+               true,
+               false,
+               ProductGlossaryTermDefinition.GUID),
 
     /**
      * The unique identifier of an organization where this digital resource originated.
      */
     ORIGIN_ORGANIZATION_GUID("Origin Organization Unique Identifier (GUID)",
-               "Owner GUID",
-               "The unique identifier of an organization where this digital resource originated.",
-               DataType.STRING,
-               null,
-               null,
-               true,
-               false),
+                             "Owner GUID",
+                             "The unique identifier of an organization where this digital resource originated.",
+                             DataType.STRING,
+                             null,
+                             null,
+                             true,
+                             false,
+                             ProductGlossaryTermDefinition.GUID),
 
     /**
      * The unique identifier of a business capability where this digital resource originated.
      */
     ORIGIN_BUSINESS_CAPABILITY_GUID("Origin Business Capability Unique Identifier (GUID)",
-               "Owner GUID",
-               "The unique identifier of a business capability where this digital resource originated.",
-               DataType.STRING,
-               null,
-               null,
-               true,
-               false),
+                                    "Owner GUID",
+                                    "The unique identifier of a business capability where this digital resource originated.",
+                                    DataType.STRING,
+                                    null,
+                                    null,
+                                    true,
+                                    false,
+                                    ProductGlossaryTermDefinition.GUID),
 
     /**
      * Time that the element was created.
@@ -663,39 +683,39 @@ public enum ProductDataFieldDefinition
      * Created By User Id
      */
     CREATION_BY("Created By User Identifier (userId)",
-            "Created By User Id",
-            OpenMetadataProperty.CREATED_BY.description,
-            OpenMetadataProperty.CREATED_BY.dataType,
-            null,
-            null,
-            false,
-            true),
+                "Created By User Id",
+                OpenMetadataProperty.CREATED_BY.description,
+                OpenMetadataProperty.CREATED_BY.dataType,
+                null,
+                null,
+                false,
+                true),
 
 
     /**
      * Last Updated By User Id
      */
     LAST_UPDATED_BY("Last Updated By User Identifier (userId)",
-            "Last Updated By User Id",
-            OpenMetadataProperty.UPDATED_BY.description,
-            OpenMetadataProperty.UPDATED_BY.dataType,
-            null,
-            null,
-            false,
-            true),
+                    "Last Updated By User Id",
+                    OpenMetadataProperty.UPDATED_BY.description,
+                    OpenMetadataProperty.UPDATED_BY.dataType,
+                    null,
+                    null,
+                    false,
+                    true),
 
 
     /**
      * Maintained By User Ids
      */
     MAINTAINED_BY("Maintained By User Identifiers (userIds)",
-            "Maintained By User Ids",
-            OpenMetadataProperty.MAINTAINED_BY.description,
-            OpenMetadataProperty.USER_ID.dataType,
-            null,
-            null,
-            false,
-            true),
+                  "Maintained By User Ids",
+                  OpenMetadataProperty.MAINTAINED_BY.description,
+                  OpenMetadataProperty.USER_ID.dataType,
+                  null,
+                  null,
+                  false,
+                  true),
 
 
     /**
@@ -715,25 +735,25 @@ public enum ProductDataFieldDefinition
      * Initiator User Id
      */
     INITIATOR_USER_ID("Initiator User Identifier (userId)",
-                        "Initiator User Id",
-                        "User that requested the action.",
-                        DataType.STRING,
-                        null,
-                        null,
-                        false,
-                        true),
+                      "Initiator User Id",
+                      "User that requested the action.",
+                      DataType.STRING,
+                      null,
+                      null,
+                      false,
+                      true),
 
     /**
      * Archive Date
      */
     ARCHIVED("Archive Date",
-                       "Archive Date",
-                       OpenMetadataProperty.ARCHIVE_DATE.description,
-                       OpenMetadataProperty.ARCHIVE_DATE.dataType,
-                       null,
-                       null,
-                       false,
-                       true),
+             "Archive Date",
+             OpenMetadataProperty.ARCHIVE_DATE.description,
+             OpenMetadataProperty.ARCHIVE_DATE.dataType,
+             null,
+             null,
+             false,
+             true),
 
     /**
      * Distinguished Name
@@ -752,25 +772,25 @@ public enum ProductDataFieldDefinition
      * List of informal tags attached to this element.
      */
     TAGS("Informal Tags",
-                      "Is Case Sensitive",
-                      "List of informal tags attached to this element.",
-                      DataType.ARRAY_STRING,
-                      null,
-                      null,
-                      false,
-                      true),
-
-    /**
-     * List of search keywords attached to this element.
-     */
-    SEARCH_KEYWORDS("Search Keywords",
-         "Search Keywords",
-         "List of search keywords attached to this element.",
+         "Is Case Sensitive",
+         "List of informal tags attached to this element.",
          DataType.ARRAY_STRING,
          null,
          null,
          false,
          true),
+
+    /**
+     * List of search keywords attached to this element.
+     */
+    SEARCH_KEYWORDS("Search Keywords",
+                    "Search Keywords",
+                    "List of search keywords attached to this element.",
+                    DataType.ARRAY_STRING,
+                    null,
+                    null,
+                    false,
+                    true),
 
     /**
      * Is Case Sensitive?
@@ -839,13 +859,13 @@ public enum ProductDataFieldDefinition
      * Abbreviation
      */
     ABBREVIATION("Abbreviation",
-          "Abbreviation",
-          OpenMetadataProperty.ABBREVIATION.description,
-          OpenMetadataProperty.ABBREVIATION.dataType,
-          null,
-          null,
-          false,
-          true),
+                 "Abbreviation",
+                 OpenMetadataProperty.ABBREVIATION.description,
+                 OpenMetadataProperty.ABBREVIATION.dataType,
+                 null,
+                 null,
+                 false,
+                 true),
 
 
     /**
@@ -920,20 +940,22 @@ public enum ProductDataFieldDefinition
                             null,
                             null,
                             false,
-                            true),
+                            true,
+                            ProductGlossaryTermDefinition.OPEN_METADATA_TYPE_NAME),
 
 
     /**
      * Asset Type Name
      */
     ASSET_TYPE_NAME("Asset Type Name",
-                            "Asset Type Name",
-                            "The unique type name of an asset.",
-                            DataType.STRING,
-                            null,
-                            null,
-                            false,
-                            true),
+                    "Asset Type Name",
+                    "The unique type name of an asset.",
+                    DataType.STRING,
+                    null,
+                    null,
+                    false,
+                    true,
+                    ProductGlossaryTermDefinition.OPEN_METADATA_TYPE_NAME),
 
 
     /**
@@ -946,45 +968,49 @@ public enum ProductDataFieldDefinition
                     null,
                     null,
                     false,
-                    true),
+                    true,
+                    ProductGlossaryTermDefinition.OPEN_METADATA_TYPE_NAME),
 
 
     /**
      * Annotation Type Name
      */
     ANNOTATION_TYPE_NAME("Annotation Type Name",
-                    "Annotation Type Name",
-                    "The unique type name of an annotation from a survey report.",
-                    DataType.STRING,
-                    null,
-                    null,
-                    false,
-                    true),
+                         "Annotation Type Name",
+                         "The unique type name of an annotation from a survey report.",
+                         DataType.STRING,
+                         null,
+                         null,
+                         false,
+                         true,
+                         ProductGlossaryTermDefinition.OPEN_METADATA_TYPE_NAME),
 
     /**
      * Survey Subject Type Name
      */
     SURVEY_SUBJECT_TYPE_NAME("Survey Subject Type Name",
-                         "Survey Subject Type Name",
-                         "The unique type name of the subject of a survey report (typically an asset).",
-                         DataType.STRING,
-                         null,
-                         null,
-                         false,
-                         true),
+                             "Survey Subject Type Name",
+                             "The unique type name of the subject of a survey report (typically an asset).",
+                             DataType.STRING,
+                             null,
+                             null,
+                             false,
+                             true,
+                             ProductGlossaryTermDefinition.OPEN_METADATA_TYPE_NAME),
 
 
     /**
      * Action Target Type Name
      */
     ACTION_TARGET_TYPE_NAME("Action Target Type Name",
-                         "Action Target Type Name",
-                         "The unique type name of an an element that is the target of an action.",
-                         DataType.STRING,
-                         null,
-                         null,
-                         false,
-                         true),
+                            "Action Target Type Name",
+                            "The unique type name of an an element that is the target of an action.",
+                            DataType.STRING,
+                            null,
+                            null,
+                            false,
+                            true,
+                            ProductGlossaryTermDefinition.OPEN_METADATA_TYPE_NAME),
 
 
     /**
@@ -1105,13 +1131,13 @@ public enum ProductDataFieldDefinition
      * Unique name of the metadata collection.
      */
     METADATA_COLLECTION_NAME("Metadata Collection Name",
-                           "Metadata Collection Id",
-                           "Name of the home metadata collection for an element.",
-                           DataType.STRING,
-                           null,
-                           null,
-                           false,
-                           true),
+                             "Metadata Collection Id",
+                             "Name of the home metadata collection for an element.",
+                             DataType.STRING,
+                             null,
+                             null,
+                             false,
+                             true),
 
 
     REQUEST_TYPE("Request Type",
@@ -1802,14 +1828,50 @@ public enum ProductDataFieldDefinition
 
     ;
 
-    private final String   displayName;
-    private final String   namePattern;
-    private final String   description;
-    private final DataType dataType;
-    private final String   defaultValue;
-    private final String   units;
-    private final boolean  isIdentifier;
-    private final boolean  isNullable;
+    private final String                        displayName;
+    private final String                        namePattern;
+    private final String                        description;
+    private final DataType                      dataType;
+    private final String                        defaultValue;
+    private final String                        units;
+    private final boolean                       isIdentifier;
+    private final boolean                       isNullable;
+    private final ProductGlossaryTermDefinition glossaryTerm;
+
+
+    /**
+     * The constructor creates an instance of the enum
+     *
+     * @param displayName  display name
+     * @param namePattern  technical name
+     * @param description  description of the use of this field
+     * @param dataType     type for this field
+     * @param defaultValue default value to use if not specified
+     * @param units        units that are used in numeric fields
+     * @param isIdentifier is this field used as a row/record/object identifier?
+     * @param isNullable   is this field nullable
+     * @param glossaryTerm optional glossary term for the data field
+     */
+    ProductDataFieldDefinition(String                        displayName,
+                               String                        namePattern,
+                               String                        description,
+                               DataType                      dataType,
+                               String                        defaultValue,
+                               String                        units,
+                               boolean                       isIdentifier,
+                               boolean                       isNullable,
+                               ProductGlossaryTermDefinition glossaryTerm)
+    {
+        this.displayName  = displayName;
+        this.namePattern  = namePattern;
+        this.description  = description;
+        this.dataType     = dataType;
+        this.defaultValue = defaultValue;
+        this.units        = units;
+        this.isIdentifier = isIdentifier;
+        this.isNullable   = isNullable;
+        this.glossaryTerm = glossaryTerm;
+    }
 
 
     /**
@@ -1824,14 +1886,14 @@ public enum ProductDataFieldDefinition
      * @param isIdentifier is this field used as a row/record/object identifier?
      * @param isNullable   is this field nullable
      */
-    ProductDataFieldDefinition(String displayName,
-                               String namePattern,
-                               String description,
+    ProductDataFieldDefinition(String   displayName,
+                               String   namePattern,
+                               String   description,
                                DataType dataType,
-                               String defaultValue,
-                               String units,
-                               boolean isIdentifier,
-                               boolean isNullable)
+                               String   defaultValue,
+                               String   units,
+                               boolean  isIdentifier,
+                               boolean  isNullable)
     {
         this.displayName  = displayName;
         this.namePattern  = namePattern;
@@ -1841,6 +1903,7 @@ public enum ProductDataFieldDefinition
         this.units        = units;
         this.isIdentifier = isIdentifier;
         this.isNullable   = isNullable;
+        this.glossaryTerm = null;
     }
 
 
@@ -1940,6 +2003,17 @@ public enum ProductDataFieldDefinition
     public boolean isNullable()
     {
         return isNullable;
+    }
+
+
+    /**
+     * Return the optional glossary term for this data field.
+     *
+     * @return ProductGlossaryTermDefinition
+     */
+    public ProductGlossaryTermDefinition getGlossaryTerm()
+    {
+        return glossaryTerm;
     }
 
 

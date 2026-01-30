@@ -777,7 +777,7 @@ public class OMAGServerOperationalServices extends TokenController
      * @param localServerSecretsStoreCollection secrets store collection for bearer token
      * @param localServerName server name
      * @param activatedServiceList list of services (subsystems) running in the server
-     * @param maxPageSize max number of results to return on single request.
+     * @param maxPageSize max results to return on a single request.
      * @throws OMAGConfigurationErrorException problem with the configuration
      */
     private void initializeAccessServices(OMAGOperationalServicesInstance instance,

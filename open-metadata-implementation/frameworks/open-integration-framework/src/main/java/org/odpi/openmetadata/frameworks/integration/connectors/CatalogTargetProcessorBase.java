@@ -44,6 +44,7 @@ public abstract class CatalogTargetProcessorBase extends RequestedCatalogTarget
     protected final String         connectorName;
     protected final AuditLog       auditLog;
     protected final PropertyHelper propertyHelper = new PropertyHelper();
+
     /*
      * These values are extracted from the server definition's server capabilities.
      * The metadata collection information comes from the metadata collection that is linked off of the

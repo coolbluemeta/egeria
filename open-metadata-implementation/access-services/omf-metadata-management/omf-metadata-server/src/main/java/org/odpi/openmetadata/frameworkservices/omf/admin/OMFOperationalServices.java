@@ -2,6 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.frameworkservices.omf.admin;
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.adminservices.configuration.properties.AccessServiceConfig;
 import org.odpi.openmetadata.adminservices.configuration.registration.AccessServiceDescription;
 import org.odpi.openmetadata.adminservices.ffdc.exception.OMAGConfigurationErrorException;
@@ -15,7 +16,6 @@ import org.odpi.openmetadata.frameworkservices.omf.outtopic.OpenMetadataOutTopic
 import org.odpi.openmetadata.frameworkservices.omf.server.OMFServicesInstance;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworkservices.omf.server.OMFServicesInstanceHandler;
-import org.odpi.openmetadata.repositoryservices.auditlog.OMRSAuditingComponent;
 import org.odpi.openmetadata.repositoryservices.connectors.omrstopic.OMRSTopicConnector;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.repositoryconnector.OMRSRepositoryConnector;
 
@@ -42,7 +42,7 @@ public class OMFOperationalServices extends AccessServiceAdmin
      * @param localServerSecretsStoreProvider secrets store connector for bearer token
      * @param localServerSecretsStoreLocation secrets store location for bearer token
      * @param localServerSecretsStoreCollection secrets store collection for bearer token
-     * @param maxPageSize max number of results to return on single request.
+     * @param maxPageSize max results to return on a single request.
      * @throws OMAGConfigurationErrorException invalid parameters in the configuration properties.
      */
     @Override
@@ -79,7 +79,7 @@ public class OMFOperationalServices extends AccessServiceAdmin
             {
                 Endpoint endpoint = outTopicEventBusConnection.getEndpoint();
 
-                AuditLog outTopicAuditLog = auditLog.createNewAuditLog(OMRSAuditingComponent.METADATA_ACCESS_SERVER_OUT_TOPIC);
+                AuditLog outTopicAuditLog = auditLog.createNewAuditLog(EgeriaOpenConnectorDefinition.OMF_TOPIC_SERVER_CONNECTOR.getComponentDescription());
                 Connection serverSideOutTopicConnection = this.getServerSideOutTopicConnection(outTopicEventBusConnection,
                                                                                                AccessServiceDescription.OMF_METADATA_MANAGEMENT.getServiceName(),
                                                                                                OMFOutTopicServerProvider.class.getName(),

@@ -20,7 +20,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class GovernanceActionProcessProperties extends ProcessProperties
+public class GovernanceActionProcess extends ProcessProperties
 {
     private int    domainIdentifier     = 0;
 
@@ -28,7 +28,7 @@ public class GovernanceActionProcessProperties extends ProcessProperties
     /**
      * Default constructor
      */
-    public GovernanceActionProcessProperties()
+    public GovernanceActionProcess()
     {
         super();
     }
@@ -39,7 +39,7 @@ public class GovernanceActionProcessProperties extends ProcessProperties
      *
      * @param template template object to copy.
      */
-    public GovernanceActionProcessProperties(GovernanceActionProcessProperties template)
+    public GovernanceActionProcess(GovernanceActionProcess template)
     {
         super(template);
 
@@ -100,7 +100,7 @@ public class GovernanceActionProcessProperties extends ProcessProperties
         if (this == objectToCompare) return true;
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         if (!super.equals(objectToCompare)) return false;
-        GovernanceActionProcessProperties that = (GovernanceActionProcessProperties) objectToCompare;
+        GovernanceActionProcess that = (GovernanceActionProcess) objectToCompare;
         return domainIdentifier == that.domainIdentifier;
     }
 

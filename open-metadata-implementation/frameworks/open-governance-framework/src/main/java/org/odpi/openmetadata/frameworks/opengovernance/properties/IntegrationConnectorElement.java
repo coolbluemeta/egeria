@@ -24,9 +24,9 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class IntegrationConnectorElement
 {
-    private ElementHeader                  elementHeader  = null;
-    private IntegrationConnectorProperties properties     = null;
-    private List<CatalogTarget>            catalogTargets = null;
+    private ElementHeader        elementHeader  = null;
+    private IntegrationConnector properties     = null;
+    private List<CatalogTarget>  catalogTargets = null;
 
 
     /**
@@ -81,7 +81,7 @@ public class IntegrationConnectorElement
      *
      * @return properties bean
      */
-    public IntegrationConnectorProperties getProperties()
+    public IntegrationConnector getProperties()
     {
         return properties;
     }
@@ -92,7 +92,7 @@ public class IntegrationConnectorElement
      *
      * @param properties properties bean
      */
-    public void setProperties(IntegrationConnectorProperties properties)
+    public void setProperties(IntegrationConnector properties)
     {
         this.properties = properties;
     }

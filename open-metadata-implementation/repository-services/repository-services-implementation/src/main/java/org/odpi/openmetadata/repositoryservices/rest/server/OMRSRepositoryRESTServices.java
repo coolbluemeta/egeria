@@ -119,7 +119,7 @@ public class OMRSRepositoryRESTServices
      * @param metadataHighwayManager        manager of the cohort managers
      * @param localServerURL                URL of the local server
      * @param auditLog                      auditLog destination
-     * @param maxPageSize                   max number of results to return on single request.
+     * @param maxPageSize                   max results to return on a single request.
      */
     public static void setServerRepositories(String                       localServerName,
                                              AuditLog                     masterAuditLog,

@@ -22,11 +22,11 @@ import org.odpi.openmetadata.frameworks.auditlog.messagesets.AuditLogMessageSet;
 public enum OGFAuditCode implements AuditLogMessageSet
 {
     /**
-     * OPEN-GOVERNANCE-0001 - The {0} service is issuing a notification to subscriber {1} of type {2} for notification type {3}
+     * OPEN-GOVERNANCE-0001 - The {0} service is issuing a notification to subscriber {1} of type {2} for notification type {3} (notification count = {4})
      */
     ISSUING_NOTIFICATION("OPEN-GOVERNANCE-0001",
                              AuditLogRecordSeverityLevel.INFO,
-                             "The {0} service is issuing a notification to subscriber {1} of type {2} for notification type {3}",
+                             "The {0} service is issuing a notification to subscriber {1} of type {2} for notification type {3} (notification count = {4})",
                              "The governance service attempts to notify the subscriber.",
                              "Verify that this subscriber should be linked to this notification type.  If not, remove the subscriber from the notification type.  If this is a valid subscriber then verify that the notification was successful.  Error messages should be logged if there are any known failures."),
 

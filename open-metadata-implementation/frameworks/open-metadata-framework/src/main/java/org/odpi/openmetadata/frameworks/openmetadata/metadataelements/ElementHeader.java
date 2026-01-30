@@ -36,7 +36,6 @@ public class ElementHeader extends ElementControlHeader
      */
     private String                      guid                     = null;
     private ElementClassification       anchor                   = null;
-    private ElementClassification       latestChange             = null;
     private ElementClassification       zoneMembership           = null;
     private ElementClassification       impact                   = null;
     private ElementClassification       criticality              = null;
@@ -86,7 +85,6 @@ public class ElementHeader extends ElementControlHeader
         {
             this.guid                     = template.getGUID();
             this.anchor                   = template.getAnchor();
-            this.latestChange             = template.getLatestChange();
             this.zoneMembership           = template.getZoneMembership();
             this.impact                   = template.getImpact();
             this.criticality              = template.getCriticality();
@@ -169,28 +167,6 @@ public class ElementHeader extends ElementControlHeader
     public void setAnchor(ElementClassification anchor)
     {
         this.anchor = anchor;
-    }
-
-
-    /**
-     * Return the properties of the LatestChange classification.
-     *
-     * @return classification
-     */
-    public ElementClassification getLatestChange()
-    {
-        return latestChange;
-    }
-
-
-    /**
-     * Set up the properties of the LatestChange classification
-     *
-     * @param latestChange classification
-     */
-    public void setLatestChange(ElementClassification latestChange)
-    {
-        this.latestChange = latestChange;
     }
 
 
@@ -780,7 +756,6 @@ public class ElementHeader extends ElementControlHeader
         return "ElementHeader{" +
                 "guid='" + guid + '\'' +
                 ", anchor=" + anchor +
-                ", latestChange=" + latestChange +
                 ", zoneMembership=" + zoneMembership +
                 ", impact=" + impact +
                 ", criticality=" + criticality +
@@ -824,7 +799,6 @@ public class ElementHeader extends ElementControlHeader
         ElementHeader that = (ElementHeader) objectToCompare;
         return Objects.equals(guid, that.guid) &&
                 Objects.equals(anchor, that.anchor) &&
-                Objects.equals(latestChange, that.latestChange) &&
                 Objects.equals(zoneMembership, that.zoneMembership) &&
                 Objects.equals(impact, that.impact) &&
                 Objects.equals(criticality, that.criticality) &&
@@ -862,7 +836,7 @@ public class ElementHeader extends ElementControlHeader
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), guid, anchor, latestChange, zoneMembership, impact, criticality,
+        return Objects.hash(super.hashCode(), guid, anchor, zoneMembership, impact, criticality,
                             confidentiality, confidence, retention, governanceExpectations, governanceMeasurements,
                             executionPoints, duplicateClassifications, ownership, digitalResourceOrigin, memento,
                             dataScope, dataAssetEncoding,

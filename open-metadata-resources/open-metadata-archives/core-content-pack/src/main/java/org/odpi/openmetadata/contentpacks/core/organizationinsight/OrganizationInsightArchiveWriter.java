@@ -49,9 +49,9 @@ public class OrganizationInsightArchiveWriter extends ContentPackBaseArchiveWrit
         super.createRequestTypes(ContentPackDefinition.ORGANIZATION_INSIGHT_CONTENT_PACK);
 
         /*
-         * Create the engine actions that will drive the ongoing creation of insight.
+         * Link the Lovelace services to the Babbage Analytical Engine.
          */
-        super.addEngineActions(ContentPackDefinition.ORGANIZATION_INSIGHT_CONTENT_PACK);
+        super.addLovelaceCatalogTargets(ContentPackDefinition.ORGANIZATION_INSIGHT_CONTENT_PACK);
 
         /*
          * Define the solution components for this solution.

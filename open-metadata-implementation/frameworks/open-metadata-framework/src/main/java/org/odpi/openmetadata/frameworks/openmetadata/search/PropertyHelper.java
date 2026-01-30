@@ -514,10 +514,6 @@ public class PropertyHelper
                     {
                         elementHeader.setAnchor(this.getElementClassification(attachedClassification));
                     }
-                    else if (this.isTypeOf(attachedClassification, OpenMetadataType.LATEST_CHANGE_CLASSIFICATION.typeName))
-                    {
-                        elementHeader.setLatestChange(this.getElementClassification(attachedClassification));
-                    }
                     else if (this.isTypeOf(attachedClassification, OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName))
                     {
                         elementHeader.setZoneMembership(this.getElementClassification(attachedClassification));

@@ -77,11 +77,14 @@ public class JacquardCatalogTargetProcessor extends CatalogTargetProcessorBase
      * DataScope classification.
      *
      * @throws ConnectorCheckedException a problem with the connector.  It is unable to refresh the metadata.
+     * @throws UserNotAuthorizedException the connector was disconnected so stop refresh processing
      */
     @Override
-    public void refresh() throws ConnectorCheckedException
+    public void refresh() throws ConnectorCheckedException, UserNotAuthorizedException
     {
         final String methodName = "refresh";
+
+        super.refresh();
 
         try
         {

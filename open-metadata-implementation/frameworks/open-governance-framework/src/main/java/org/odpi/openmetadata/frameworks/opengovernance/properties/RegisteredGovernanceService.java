@@ -19,7 +19,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class RegisteredGovernanceService extends GovernanceServiceProperties
+public class RegisteredGovernanceService extends GovernanceService
 {
     private Map<String, SupportedGovernanceServiceProperties> requestTypes = null; /* a map from request types to service request type and request parameters */
 
@@ -52,7 +52,7 @@ public class RegisteredGovernanceService extends GovernanceServiceProperties
      *
      * @param template object to copy
      */
-    public RegisteredGovernanceService(GovernanceServiceProperties  template)
+    public RegisteredGovernanceService(GovernanceService template)
     {
         super(template);
     }

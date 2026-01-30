@@ -47,6 +47,8 @@ public class OpenConnectorProviderBase extends ConnectorProviderBase
      * @param connectorClassName                   connector class name
      * @param recognizedConfigurationPropertyNames list of property names that the connector supports
      *                                             in the configuration properties.
+     * @param connectorInterfaces                  list of interfaces that the connector supports.
+     * @param expectedDataFormat                   description of the data format that the connector expects.
      */
     public OpenConnectorProviderBase(OpenConnectorDefinition openConnectorDescription,
                                      String                  connectorClassName,
@@ -79,6 +81,8 @@ public class OpenConnectorProviderBase extends ConnectorProviderBase
         connectorType.setRecognizedConfigurationProperties(recognizedConfigurationPropertyNames);
         connectorType.setConnectorInterfaces(connectorInterfaces);
         connectorType.setExpectedDataFormat(expectedDataFormat);
+        connectorType.setSupportedAssetTypeName(openConnectorDescription.getSupportedAssetTypeName());
+        connectorType.setSupportedDeployedImplementationType(openConnectorDescription.getSupportedDeployedImplementationType());
 
         super.connectorTypeBean = connectorType;
 

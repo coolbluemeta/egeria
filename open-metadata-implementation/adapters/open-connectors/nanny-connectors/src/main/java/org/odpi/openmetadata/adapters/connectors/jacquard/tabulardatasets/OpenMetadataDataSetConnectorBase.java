@@ -445,30 +445,12 @@ public abstract class OpenMetadataDataSetConnectorBase extends ConnectorBase imp
         else if (ProductDataFieldDefinition.CREATE_TIME.getDisplayName().equals(columnName))
         {
             Date createTime = elementHeader.getVersions().getCreateTime();
-
-            if (elementHeader.getLatestChange() != null)
-            {
-                if (createTime.before(elementHeader.getLatestChange().getVersions().getCreateTime()))
-                {
-                    createTime = elementHeader.getLatestChange().getVersions().getCreateTime();
-                }
-            }
-
             recordValues.add(Long.toString(createTime.getTime()));
             return true;
         }
         else if (ProductDataFieldDefinition.UPDATE_TIME.getDisplayName().equals(columnName))
         {
             Date updateTime = this.getUpdateTime(elementHeader);
-
-            if (elementHeader.getLatestChange() != null)
-            {
-                if (updateTime.before(this.getUpdateTime(elementHeader.getLatestChange())))
-                {
-                    updateTime = this.getUpdateTime(elementHeader.getLatestChange());
-                }
-            }
-
             recordValues.add(Long.toString(updateTime.getTime()));
             return true;
         }

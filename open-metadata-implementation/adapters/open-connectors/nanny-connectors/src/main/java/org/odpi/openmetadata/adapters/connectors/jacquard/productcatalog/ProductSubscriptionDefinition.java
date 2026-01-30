@@ -19,7 +19,8 @@ public enum ProductSubscriptionDefinition
                             ProductGovernanceDefinition.ONE_TIME_SLO,
                             false,
                             10,
-                            0),
+                            0,
+                            ProductGlossaryTermDefinition.EVALUATION_SUBSCRIPTION),
 
     /**
      * This subscription delivers the data to the target destination once a day.
@@ -32,7 +33,8 @@ public enum ProductSubscriptionDefinition
                                ProductGovernanceDefinition.DAILY_REFRESH_SLO,
                                true,
                                10,
-                               24 * 60),
+                               24 * 60,
+                               ProductGlossaryTermDefinition.DAILY_REFRESH_SUBSCRIPTION),
 
     /**
      * This subscription delivers the data to the target destination once a week.
@@ -45,7 +47,8 @@ public enum ProductSubscriptionDefinition
                                ProductGovernanceDefinition.WEEKLY_REFRESH_SLO,
                                 true,
                                 10,
-                                7 * 24 * 60),
+                                7 * 24 * 60,
+                                ProductGlossaryTermDefinition.WEEKLY_REFRESH_SUBSCRIPTION),
 
 
     /**
@@ -59,19 +62,21 @@ public enum ProductSubscriptionDefinition
                    ProductGovernanceDefinition.MONITORED_RESOURCE_SLO,
                    true,
                    10,
-                   0),
+                   0,
+                   ProductGlossaryTermDefinition.ONGOING_UPDATE_SUBSCRIPTION),
     ;
 
 
-    private final String                      governanceActionTypeGUID;
-    private final String                      identifier;
-    private final String                      displayName;
-    private final String                      description;
-    private final String                      category;
-    private final ProductGovernanceDefinition serviceLevelObjective;
-    private final boolean                     multipleNotificationsPermitted;
-    private final long                        minimumNotificationInterval ;
-    private final long                        notificationInterval;
+    private final String                        governanceActionTypeGUID;
+    private final String                        identifier;
+    private final String                        displayName;
+    private final String                        description;
+    private final String                        category;
+    private final ProductGovernanceDefinition   serviceLevelObjective;
+    private final boolean                       multipleNotificationsPermitted;
+    private final long                          minimumNotificationInterval;
+    private final long                          notificationInterval;
+    private final ProductGlossaryTermDefinition glossaryTerm;
 
 
     /**
@@ -87,15 +92,16 @@ public enum ProductSubscriptionDefinition
      * @param minimumNotificationInterval minimum time between notifications
      * @param notificationInterval        time between notifications for periodic notification pattern
      */
-    ProductSubscriptionDefinition(String                      governanceActionTypeGUID,
-                                  String                      identifier,
-                                  String                      displayName,
-                                  String                      description,
-                                  String                      category,
-                                  ProductGovernanceDefinition serviceLevelObjective,
-                                  boolean                     multipleNotificationsPermitted,
-                                  long                        minimumNotificationInterval,
-                                  long                        notificationInterval)
+    ProductSubscriptionDefinition(String                        governanceActionTypeGUID,
+                                  String                        identifier,
+                                  String                        displayName,
+                                  String                        description,
+                                  String                        category,
+                                  ProductGovernanceDefinition   serviceLevelObjective,
+                                  boolean                       multipleNotificationsPermitted,
+                                  long                          minimumNotificationInterval,
+                                  long                          notificationInterval,
+                                  ProductGlossaryTermDefinition glossaryTerm)
     {
         this.governanceActionTypeGUID       = governanceActionTypeGUID;
         this.identifier                     = identifier;
@@ -106,6 +112,7 @@ public enum ProductSubscriptionDefinition
         this.multipleNotificationsPermitted = multipleNotificationsPermitted;
         this.minimumNotificationInterval    = minimumNotificationInterval;
         this.notificationInterval           = notificationInterval;
+        this.glossaryTerm                   = glossaryTerm;
     }
 
 
@@ -214,6 +221,17 @@ public enum ProductSubscriptionDefinition
 
 
     /**
+     * Return the optional glossary term for this subscription.
+     *
+     * @return glossary term definition
+     */
+    public ProductGlossaryTermDefinition getGlossaryTerm()
+    {
+        return glossaryTerm;
+    }
+
+
+    /**
      * String containing the definition values
      *
      * @return printable string
@@ -222,15 +240,16 @@ public enum ProductSubscriptionDefinition
     public String toString()
     {
         return "ProductSubscriptionDefinition{" +
-                "governanceActionTypeGUID='" + getGovernanceActionTypeGUID() + '\'' +
-                ", identifier='" + getIdentifier() + '\'' +
-                ", displayName='" + getDisplayName() + '\'' +
-                ", description='" + getDescription() + '\'' +
-                ", category='" + getCategory() + '\'' +
-                ", serviceLevelObjective=" + getServiceLevelObjective() +
-                ", multipleNotificationsPermitted=" + getMultipleNotificationsPermitted() +
-                ", minimumNotificationInterval=" + getMinimumNotificationInterval() +
-                ", notificationInterval=" + getNotificationInterval() +
+                "governanceActionTypeGUID='" + governanceActionTypeGUID + '\'' +
+                ", identifier='" + identifier + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", serviceLevelObjective=" + serviceLevelObjective +
+                ", multipleNotificationsPermitted=" + multipleNotificationsPermitted +
+                ", minimumNotificationInterval=" + minimumNotificationInterval +
+                ", notificationInterval=" + notificationInterval +
+                ", glossaryTerm=" + glossaryTerm +
                 "} " + super.toString();
     }
 }

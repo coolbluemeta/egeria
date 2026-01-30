@@ -14,15 +14,6 @@ import java.util.List;
  */
 public abstract class RepositoryGovernanceProvider extends GovernanceServiceProviderBase
 {
-    /*
-     * The type name of the asset that this connector supports.
-     */
-    static
-    {
-        supportedAssetTypeName = DeployedImplementationType.REPOSITORY_GOVERNANCE_SERVICE_CONNECTOR.getAssociatedTypeName();
-        supportedDeployedImplementationType = DeployedImplementationType.REPOSITORY_GOVERNANCE_SERVICE_CONNECTOR.getDeployedImplementationType();
-    }
-
     /**
      * Constructor where subclass sets up the connector provider.
      */
@@ -41,7 +32,7 @@ public abstract class RepositoryGovernanceProvider extends GovernanceServiceProv
      */
     public RepositoryGovernanceProvider(OpenConnectorDefinition openConnectorDescription,
                                         String                  connectorClassName,
-                                        List<String> recognizedConfigurationPropertyNames)
+                                        List<String>            recognizedConfigurationPropertyNames)
     {
         super(openConnectorDescription, connectorClassName, recognizedConfigurationPropertyNames);
     }

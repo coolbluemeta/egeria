@@ -38,9 +38,9 @@ public class ActionTargetType extends SpecificationProperty
 
 
     /**
-     * Is this ActionTarget required for the service to work successfully.
+     * Is this ActionTarget required for the service to work successfully?
      */
-    private boolean required = false;
+    private boolean required = true;
 
 
     /**

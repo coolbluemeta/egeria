@@ -3,8 +3,6 @@
 package org.odpi.openmetadata.opentypes;
 
 
-import org.odpi.openmetadata.frameworks.openmetadata.enums.LatestChangeAction;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.LatestChangeTarget;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.repositoryservices.archiveutilities.OMRSArchiveBuilder;
@@ -179,102 +177,8 @@ public class OpenMetadataTypesArchive2_4
      */
     private void update0011ManagingReferenceables()
     {
-        this.archiveBuilder.addEnumDef(getLatestChangeTargetEnum());
-        this.archiveBuilder.addEnumDef(getLatestChangeActionEnum());
         this.archiveBuilder.addClassificationDef(addAnchorsClassification());
-
-        this.archiveBuilder.addClassificationDef(addLatestChangeClassification());
-
         this.archiveBuilder.addRelationshipDef(addSourcedFromRelationship());
-    }
-
-    private EnumDef getLatestChangeTargetEnum()
-    {
-        EnumDef enumDef = archiveHelper.getEmptyEnumDef(LatestChangeTarget.getOpenTypeGUID(),
-                                                        LatestChangeTarget.getOpenTypeName(),
-                                                        LatestChangeTarget.getOpenTypeDescription(),
-                                                        LatestChangeTarget.getOpenTypeDescriptionGUID(),
-                                                        LatestChangeTarget.getOpenTypeDescriptionWiki());
-
-        ArrayList<EnumElementDef> elementDefs = new ArrayList<>();
-        EnumElementDef            elementDef;
-
-        for (LatestChangeTarget enumValue : LatestChangeTarget.values())
-        {
-            elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
-                                                         enumValue.getDescription(),
-                                                         enumValue.getDescriptionGUID());
-
-            elementDefs.add(elementDef);
-
-            if (enumValue.isDefault())
-            {
-                enumDef.setDefaultValue(elementDef);
-            }
-        }
-
-        enumDef.setElementDefs(elementDefs);
-
-        return enumDef;
-    }
-
-    private EnumDef getLatestChangeActionEnum()
-    {
-        EnumDef enumDef = archiveHelper.getEmptyEnumDef(LatestChangeAction.getOpenTypeGUID(),
-                                                        LatestChangeAction.getOpenTypeName(),
-                                                        LatestChangeAction.getOpenTypeDescription(),
-                                                        LatestChangeAction.getOpenTypeDescriptionGUID(),
-                                                        LatestChangeAction.getOpenTypeDescriptionWiki());
-
-        ArrayList<EnumElementDef> elementDefs = new ArrayList<>();
-        EnumElementDef            elementDef;
-
-        for (LatestChangeAction enumValue : LatestChangeAction.values())
-        {
-            elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
-                                                         enumValue.getDescription(),
-                                                         enumValue.getDescriptionGUID());
-
-            elementDefs.add(elementDef);
-
-            if (enumValue.isDefault())
-            {
-                enumDef.setDefaultValue(elementDef);
-            }
-        }
-
-        enumDef.setElementDefs(elementDefs);
-
-        return enumDef;
-    }
-
-    private ClassificationDef addLatestChangeClassification()
-    {
-        ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.LATEST_CHANGE_CLASSIFICATION,
-                                                                                 null,
-                                                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.REFERENCEABLE.typeName),
-                                                                                 false);
-
-        /*
-         * Build the attributes
-         */
-        List<TypeDefAttribute> properties = new ArrayList<>();
-
-
-        properties.add(archiveHelper.getEnumTypeDefAttribute(OpenMetadataProperty.CHANGE_TARGET));
-        properties.add(archiveHelper.getEnumTypeDefAttribute(OpenMetadataProperty.CHANGE_ACTION));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CLASSIFICATION_NAME));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ATTACHMENT_GUID));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ATTACHMENT_TYPE));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.RELATIONSHIP_TYPE));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.USER_ID));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
-
-        classificationDef.setPropertiesDefinition(properties);
-
-        return classificationDef;
     }
 
     private ClassificationDef addAnchorsClassification()

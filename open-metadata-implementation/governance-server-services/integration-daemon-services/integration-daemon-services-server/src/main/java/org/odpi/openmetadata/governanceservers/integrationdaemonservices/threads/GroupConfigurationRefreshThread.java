@@ -6,13 +6,13 @@ package org.odpi.openmetadata.governanceservers.integrationdaemonservices.thread
 
 import org.odpi.openmetadata.adminservices.configuration.properties.IntegrationGroupConfig;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
+import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataEventClient;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworkservices.gaf.client.GovernanceConfigurationClient;
-import org.odpi.openmetadata.frameworkservices.omf.client.EgeriaOpenMetadataEventClient;
 import org.odpi.openmetadata.governanceservers.integrationdaemonservices.ffdc.IntegrationDaemonServicesAuditCode;
 import org.odpi.openmetadata.governanceservers.integrationdaemonservices.handlers.IntegrationGroupHandler;
-import org.odpi.openmetadata.governanceservers.integrationdaemonservices.listener.OpenMetadataOutTopicListener;
+import org.odpi.openmetadata.governanceservers.integrationdaemonservices.listener.OpenGovernanceOutTopicListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,16 +24,16 @@ import org.slf4j.LoggerFactory;
  */
 public class GroupConfigurationRefreshThread implements Runnable
 {
-    private final IntegrationGroupConfig        group;
-    private final String                        groupName;
-    private final IntegrationGroupHandler       groupHandler;
-    private final EgeriaOpenMetadataEventClient eventClient;
-    private final AuditLog                      auditLog;
-    private final String                        localServerUserId;
-    private final String                        localServerName;
-    private final String                        accessServiceServerName;
-    private final String                        accessServiceRootURL;
-    private final GovernanceConfigurationClient configurationClient;
+    private final IntegrationGroupConfig          group;
+    private final String                          groupName;
+    private final IntegrationGroupHandler         groupHandler;
+    private final OpenMetadataEventClient         eventClient;
+    private final AuditLog                        auditLog;
+    private final String                          localServerUserId;
+    private final String                          localServerName;
+    private final String                          accessServiceServerName;
+    private final String                          accessServiceRootURL;
+    private final GovernanceConfigurationClient   configurationClient;
 
     private volatile boolean keepTrying = true;
 
@@ -54,15 +54,15 @@ public class GroupConfigurationRefreshThread implements Runnable
      * @param accessServiceRootURL platform location for metadata server
      * @param maxPageSize max results
      */
-    public GroupConfigurationRefreshThread(IntegrationGroupConfig        group,
-                                           IntegrationGroupHandler       groupHandler,
-                                           EgeriaOpenMetadataEventClient eventClient,
-                                           AuditLog                      auditLog,
-                                           String                        localServerUserId,
-                                           String                        localServerName,
-                                           String                        accessServiceServerName,
-                                           String                        accessServiceRootURL,
-                                           int                           maxPageSize) throws InvalidParameterException
+    public GroupConfigurationRefreshThread(IntegrationGroupConfig  group,
+                                           IntegrationGroupHandler groupHandler,
+                                           OpenMetadataEventClient eventClient,
+                                           AuditLog                auditLog,
+                                           String                  localServerUserId,
+                                           String                  localServerName,
+                                           String                  accessServiceServerName,
+                                           String                  accessServiceRootURL,
+                                           int                     maxPageSize) throws InvalidParameterException
     {
         this.group                   = group;
         this.groupName               = group.getIntegrationGroupQualifiedName();
@@ -105,16 +105,16 @@ public class GroupConfigurationRefreshThread implements Runnable
                 try
                 {
                     eventClient.registerListener(localServerUserId,
-                                                 new OpenMetadataOutTopicListener(groupName,
-                                                                                  groupHandler,
-                                                                                  configurationClient,
-                                                                                  localServerUserId,
-                                                                                  auditLog));
+                                                 new OpenGovernanceOutTopicListener(groupName,
+                                                                                    groupHandler,
+                                                                                    configurationClient,
+                                                                                    localServerUserId,
+                                                                                    auditLog));
                     listenerRegistered = true;
 
                     auditLog.logMessage(actionDescription,
                                         IntegrationDaemonServicesAuditCode.CONFIGURATION_LISTENER_REGISTERED.getMessageDefinition(localServerName,
-                                                                                                                           accessServiceServerName));
+                                                                                                                                  accessServiceServerName));
                 }
                 catch (UserNotAuthorizedException error)
                 {

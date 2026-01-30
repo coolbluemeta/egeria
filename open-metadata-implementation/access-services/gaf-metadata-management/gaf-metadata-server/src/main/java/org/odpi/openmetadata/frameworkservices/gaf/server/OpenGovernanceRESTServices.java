@@ -7,10 +7,7 @@ import org.odpi.openmetadata.commonservices.ffdc.InvalidParameterHandler;
 import org.odpi.openmetadata.commonservices.ffdc.RESTCallLogger;
 import org.odpi.openmetadata.commonservices.ffdc.RESTCallToken;
 import org.odpi.openmetadata.commonservices.ffdc.RESTExceptionHandler;
-import org.odpi.openmetadata.commonservices.ffdc.rest.GUIDResponse;
-import org.odpi.openmetadata.commonservices.ffdc.rest.NullRequestBody;
-import org.odpi.openmetadata.commonservices.ffdc.rest.ResultsRequestBody;
-import org.odpi.openmetadata.commonservices.ffdc.rest.VoidResponse;
+import org.odpi.openmetadata.commonservices.ffdc.rest.*;
 import org.odpi.openmetadata.commonservices.generichandlers.AssetHandler;
 import org.odpi.openmetadata.commonservices.generichandlers.EngineActionHandler;
 import org.odpi.openmetadata.commonservices.generichandlers.GovernanceActionProcessStepHandler;
@@ -60,6 +57,56 @@ public class OpenGovernanceRESTServices
     {
     }
 
+
+    /**
+     * Return the client side connection object for the OMF Services' out topic.
+     *
+     * @param serverName name of the service to route the request to.
+     * @param userId identifier of calling user.
+     * @param callerId unique identifier of the caller
+     *
+     * @return connection object for the out topic or
+     * InvalidParameterException one of the parameters is null or invalid or
+     * UserNotAuthorizedException user not authorized to issue this request or
+     * PropertyServerException problem retrieving the discovery engine definition.
+     */
+    public OCFConnectionResponse getOutTopicConnection(String serverName,
+                                                       String userId,
+                                                       String callerId)
+    {
+        final String methodName = "getOutTopicConnection";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+
+        OCFConnectionResponse response = new OCFConnectionResponse();
+        AuditLog              auditLog = null;
+
+        try
+        {
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+            response.setConnection(instanceHandler.getOutTopicConnection(userId, serverName, methodName, callerId));
+        }
+        catch (InvalidParameterException error)
+        {
+            restExceptionHandler.captureInvalidParameterException(response, error);
+        }
+        catch (PropertyServerException error)
+        {
+            restExceptionHandler.capturePropertyServerException(response, error);
+        }
+        catch (UserNotAuthorizedException error)
+        {
+            restExceptionHandler.captureUserNotAuthorizedException(response, error);
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response.toString());
+
+        return response;
+    }
 
 
     /* =====================================================================================================================

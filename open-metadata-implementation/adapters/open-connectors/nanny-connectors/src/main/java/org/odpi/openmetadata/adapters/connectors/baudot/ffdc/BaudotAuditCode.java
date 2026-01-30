@@ -31,30 +31,30 @@ public enum BaudotAuditCode implements AuditLogMessageSet
                          "Use the details from the error message to determine the cause of the error and retry the request once it is resolved."),
 
     /**
-     * BAUDOT-SUBSCRIPTION-MANAGER-0002 - The {0} governance service is processing notification type {1} ({2}) where notifications are triggered by changes to its monitored resources.  {3} monitored resources are currently registered
+     * BAUDOT-SUBSCRIPTION-MANAGER-0002 - The {0} governance service is refreshing its cache for configured notification type {1} ({2}) where notifications are triggered by changes to its monitored resources.  {3} monitored resources are currently registered
      */
     MONITORED_RESOURCE_NOTIFICATION_TYPE( "BAUDOT-SUBSCRIPTION-MANAGER-0002",
                          AuditLogRecordSeverityLevel.INFO,
-                         "The {0} governance service is processing notification type {1} ({2}) where notifications are triggered by changes to its monitored resources.   {3} monitored resources are currently registered",
+                         "The {0} governance service is refreshing its cache for configured notification type {1} ({2}) where notifications are triggered by changes to its monitored resources.   {3} monitored resources are currently registered",
                          "The governance service monitors the events generated when open metadata elements change.  Notifications are sent if one of the monitored resources (or anything anchored from it) changes, unless another notification has been sent out within the minimumNotificationInterval.",
                          "This notification pattern was selected because multipleNotificationsPermitted is set to true and notificationInterval is set to 0. Verify that this is the intended behaviour and that the correct elements are linked to this notification type using the MonitoredResource relationship."),
 
 
     /**
-     * BAUDOT-SUBSCRIPTION-MANAGER-0003 - The {0} governance service is processing notification type {1} ({2}) where only one notification is sent to each subscriber
+     * BAUDOT-SUBSCRIPTION-MANAGER-0003 - The {0} governance service is refreshing its cache for configured notification type {1} ({2}) where only one notification is sent to each subscriber
      */
     ONE_TIME_NOTIFICATION_TYPE( "BAUDOT-SUBSCRIPTION-MANAGER-0003",
                               AuditLogRecordSeverityLevel.INFO,
-                              "The {0} governance service is processing notification type {1} ({2}) where only one notification is sent to each subscriber",
+                              "The {0} governance service is refreshing its cache for configured notification type {1} ({2}) where only one notification is sent to each subscriber",
                               "The governance service sends a notification to each subscriber registered when the service starts up and then monitors for new subscribers in order to send them a notification.",
                               "This notification pattern was selected because multipleNotificationsPermitted is set to false. Validate that this is the right pattern."),
 
     /**
-     * BAUDOT-SUBSCRIPTION-MANAGER-0005 - The {0} governance service is processing notification type {1} ({2}) where a notification is sent to each subscriber on a regular schedule every {3} minutes.  The next scheduled notification will be sent at {4}
+     * BAUDOT-SUBSCRIPTION-MANAGER-0005 - The {0} governance service is refreshing its cache for configured notification type {1} ({2}) where a notification is sent to each subscriber on a regular schedule every {3} minutes.  The next scheduled notification will be sent at {4}
      */
     PERIODIC_NOTIFICATION_TYPE("BAUDOT-SUBSCRIPTION-MANAGER-0005",
                       AuditLogRecordSeverityLevel.INFO,
-                      "The {0} governance service is processing notification type {1} ({2}) where a notification is sent to each subscriber on a regular schedule every {3} minutes.  The next scheduled notification will be sent at {4}",
+                      "The {0} governance service is refreshing its cache for configured notification type {1} ({2}) where a notification is sent to each subscriber on a regular schedule every {3} minutes.  The next scheduled notification will be sent at {4}",
                       "The governance service sends a notification to each subscriber registered when the service starts up and then monitors for new subscribers in order to send them notifications.  Additional notifications are sent to each active subscriber every notification interval.",
                       "This notification pattern was selected because multipleNotificationsPermitted is set to true and notificationInterval is greater than 0. Validate that this is the intended behaviour and the notification interval is appropriate."),
 

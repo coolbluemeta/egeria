@@ -13,12 +13,6 @@ import java.util.List;
  */
 public abstract class GovernanceActionServiceProviderBase extends GovernanceServiceProviderBase
 {
-    static
-    {
-        supportedAssetTypeName = DeployedImplementationType.GOVERNANCE_ACTION_SERVICE_CONNECTOR.getAssociatedTypeName();
-        supportedDeployedImplementationType = DeployedImplementationType.GOVERNANCE_ACTION_SERVICE_CONNECTOR.getDeployedImplementationType();
-    }
-
     /**
      * Base provider for governance action services that set up their own provider.
      */

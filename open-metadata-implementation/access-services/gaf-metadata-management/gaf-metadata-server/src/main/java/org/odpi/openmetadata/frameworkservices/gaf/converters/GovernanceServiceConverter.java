@@ -3,7 +3,7 @@
 package org.odpi.openmetadata.frameworkservices.gaf.converters;
 
 import org.odpi.openmetadata.commonservices.generichandlers.OMFConverter;
-import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceServiceProperties;
+import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceService;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.frameworks.opengovernance.properties.GovernanceServiceElement;
@@ -68,7 +68,7 @@ public class GovernanceServiceConverter<B> extends OMFConverter<B>
 
             if (returnBean instanceof GovernanceServiceElement bean)
             {
-                GovernanceServiceProperties properties = new GovernanceServiceProperties();
+                GovernanceService properties = new GovernanceService();
 
                 if (primaryEntity != null)
                 {
@@ -131,7 +131,7 @@ public class GovernanceServiceConverter<B> extends OMFConverter<B>
             }
             else
             {
-                handleUnexpectedBeanClass(beanClass.getName(), GovernanceServiceProperties.class.getName(), methodName);
+                handleUnexpectedBeanClass(beanClass.getName(), GovernanceService.class.getName(), methodName);
             }
 
             return returnBean;

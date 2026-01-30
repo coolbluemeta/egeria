@@ -2,7 +2,7 @@
 # A metadata collection is an asset that describes a logical collection of metadata.
 
 @baseURL=https://localhost:9443
-@viewServer=view-server
+@viewServer=qs-view-server
 
 ###
 # =====================================================================================================================
@@ -45,6 +45,10 @@ Content-Type: application/json
 {
   "class" : "SearchStringRequestBody",
   "metadataElementTypeName" : "EngineAction",
+  "searchString" : "Baudot",
   "pageSize": 10
 }
+
+> {% client.global.set("baudotEngineActionGUID", response.body.elements[0].elementHeader.guid); %}
+
 

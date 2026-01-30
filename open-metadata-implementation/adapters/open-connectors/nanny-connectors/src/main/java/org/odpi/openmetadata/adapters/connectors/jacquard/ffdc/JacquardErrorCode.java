@@ -119,7 +119,7 @@ public enum JacquardErrorCode implements ExceptionMessageSet
     @Override
     public String toString()
     {
-        return "ProductManagerErrorCode{" +
+        return "JacquardErrorCode{" +
                        "messageDefinition=" + messageDefinition +
                        '}';
     }

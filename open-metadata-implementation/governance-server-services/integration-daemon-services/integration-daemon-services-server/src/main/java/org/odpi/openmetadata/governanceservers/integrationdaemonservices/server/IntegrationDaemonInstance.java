@@ -36,7 +36,7 @@ public class IntegrationDaemonInstance extends GovernanceServerServiceInstance
      * @param serviceName name of this service
      * @param auditLog link to the repository responsible for servicing the REST calls.
      * @param localServerUserId userId to use for local server initiated actions
-     * @param maxPageSize max number of results to return on single request.
+     * @param maxPageSize max results to return on a single request.
      */
     IntegrationDaemonInstance(String                                 serverName,
                               String                                 serviceName,

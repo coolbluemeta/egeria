@@ -1688,7 +1688,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
      *
      * @param userId         userId of user making request.
      * @param collectionGUID unique identifier of the collection.
-     * @param queryOptions   multiple options to control the query
+     * @param suppliedQueryOptions   multiple options to control the query
      * @return list of member details
      * @throws InvalidParameterException  one of the parameters is invalid.
      * @throws PropertyServerException    a problem retrieving information from the property server(s).
@@ -1696,16 +1696,18 @@ public class CollectionHandler extends OpenMetadataHandlerBase
      */
     public OpenMetadataRootHierarchy getCollectionHierarchy(String       userId,
                                                             String       collectionGUID,
-                                                            QueryOptions queryOptions) throws InvalidParameterException,
-                                                                                              PropertyServerException,
-                                                                                              UserNotAuthorizedException
+                                                            QueryOptions suppliedQueryOptions) throws InvalidParameterException,
+                                                                                                      PropertyServerException,
+                                                                                                      UserNotAuthorizedException
     {
         final String methodName                  = "getCollectionHierarchy";
         final String collectionGUIDParameterName = "collectionGUID";
 
         propertyHelper.validateUserId(userId, methodName);
         propertyHelper.validateGUID(collectionGUID, collectionGUIDParameterName, methodName);
-        propertyHelper.validatePaging(queryOptions, openMetadataClient.getMaxPagingSize(), methodName);
+        propertyHelper.validatePaging(suppliedQueryOptions, openMetadataClient.getMaxPagingSize(), methodName);
+
+        QueryOptions queryOptions = new QueryOptions(suppliedQueryOptions);
 
         OpenMetadataRootHierarchy collectionHierarchy = this.convertToCollectionGraph(userId,
                                                                                       this.getCollectionByGUID(userId, collectionGUID, queryOptions),
@@ -1714,7 +1716,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
 
         String membershipName = "Collection Hierarchy";
 
-        if ((queryOptions != null) && (queryOptions.getGraphQueryDepth() != 0))
+        if (queryOptions.getGraphQueryDepth() != 0)
         {
             membershipName = membershipName + " - query depth=" + queryOptions.getGraphQueryDepth();
         }
@@ -1723,7 +1725,8 @@ public class CollectionHandler extends OpenMetadataHandlerBase
         {
             OpenMetadataRootHierarchyMermaidGraphBuilder graphBuilder = new OpenMetadataRootHierarchyMermaidGraphBuilder(collectionHierarchy,
                                                                                                                          membershipName,
-                                                                                                                         VisualStyle.COLLECTION);
+                                                                                                                         VisualStyle.COLLECTION,
+                                                                                                                         queryOptions.getMaxMermaidNodeCount());
 
             collectionHierarchy.setMermaidGraph(graphBuilder.getMermaidGraph());
 

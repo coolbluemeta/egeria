@@ -22,8 +22,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class GovernanceServiceElement
 {
-    private ElementHeader               elementHeader = null;
-    private GovernanceServiceProperties properties    = null;
+    private ElementHeader     elementHeader = null;
+    private GovernanceService properties    = null;
 
 
     /**
@@ -77,7 +77,7 @@ public class GovernanceServiceElement
      *
      * @return properties bean
      */
-    public GovernanceServiceProperties getProperties()
+    public GovernanceService getProperties()
     {
         return properties;
     }
@@ -88,7 +88,7 @@ public class GovernanceServiceElement
      *
      * @param properties properties bean
      */
-    public void setProperties(GovernanceServiceProperties properties)
+    public void setProperties(GovernanceService properties)
     {
         this.properties = properties;
     }

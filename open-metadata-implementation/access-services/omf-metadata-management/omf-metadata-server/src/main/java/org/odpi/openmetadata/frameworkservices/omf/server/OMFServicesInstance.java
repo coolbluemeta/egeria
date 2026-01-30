@@ -33,7 +33,7 @@ public class OMFServicesInstance extends AccessServerServiceInstance
      * @param repositoryConnector link to the repository responsible for servicing the REST calls.
      * @param auditLog logging destination
      * @param localServerUserId userId used for server initiated actions
-     * @param maxPageSize max number of results to return on single request.
+     * @param maxPageSize max results to return on a single request.
      * @param outTopicConnection topic of the client side listener
      *
      * @throws NewInstanceException a problem occurred during initialization

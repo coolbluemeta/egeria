@@ -523,6 +523,22 @@ public class ConnectorContextClientBase
 
 
     /**
+     * Return the default makeAnchor options with an override for makeAnchor.
+     *
+     * @param makeAnchor flag to indicate whether to anchor the end 2 element to the end 1 element.  The default is false.
+     * @return a structure for the additional options when updating an element
+     */
+    public MakeAnchorOptions getMakeAnchorOptions(boolean makeAnchor)
+    {
+        MakeAnchorOptions makeAnchorOptions = new MakeAnchorOptions(this.getMetadataSourceOptions());
+
+        makeAnchorOptions.setMakeAnchor(makeAnchor);
+
+        return makeAnchorOptions;
+    }
+
+
+    /**
      * Return the default update options with an override for mergeUpdate.
      *
      * @param mergeUpdate flag to indicate whether to completely replace the existing properties with the

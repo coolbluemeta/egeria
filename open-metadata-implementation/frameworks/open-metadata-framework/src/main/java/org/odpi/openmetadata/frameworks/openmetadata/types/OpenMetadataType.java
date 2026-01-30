@@ -198,22 +198,11 @@ public enum OpenMetadataType
                              SampleDataProperties.class),
 
     /**
-     * Defines the latest change to an anchor entity and its associated attachments.
-     */
-    LATEST_CHANGE_CLASSIFICATION("adce83ac-10f1-4279-8a35-346976e94466",
-                                 "LatestChange",
-                                 OpenMetadataWikiPages.MODEL_0010_BASE_MODEL,
-                                 "5f6bf15f-0c9d-434b-a84e-588269e70b0b",
-                                 "Defines the latest change to an anchor entity and its associated attachments.",
-                                 LatestChangeProperties.class),
-
-
-    /**
      * Marks the referenceable as a template for creating new objects.
      */
     TEMPLATE_CLASSIFICATION("25fad4a2-c2d6-440d-a5b1-e537881f84ee",
                             "Template",
-                            OpenMetadataWikiPages.MODEL_0011_MANAGING_REFERENCEABLES,
+                            OpenMetadataWikiPages.MODEL_0011_TEMPLATES,
                             "8982fa20-41a8-4ad2-a72a-519bba6e3f82",
                             "Marks the referenceable as a template for creating new objects.",
                             TemplateProperties.class),
@@ -223,7 +212,7 @@ public enum OpenMetadataType
      */
     CATALOG_TEMPLATE_RELATIONSHIP("e0a32163-00d3-4748-afdb-478a1dfbba23",
                                   "CatalogTemplate",
-                                  OpenMetadataWikiPages.MODEL_0011_MANAGING_REFERENCEABLES,
+                                  OpenMetadataWikiPages.MODEL_0011_TEMPLATES,
                                   "fc9af2cd-851b-46a7-9198-b9f95ad64811",
                                   "Provides the template for creating a metadata representation of the linked from valid value.",
                                   CatalogTemplateProperties.class),
@@ -233,7 +222,7 @@ public enum OpenMetadataType
      */
     TEMPLATE_SUBSTITUTE_CLASSIFICATION("93b293c3-1185-4921-aa1c-237d3f0a5d5c",
                                        "TemplateSubstitute",
-                                       OpenMetadataWikiPages.MODEL_0011_MANAGING_REFERENCEABLES,
+                                       OpenMetadataWikiPages.MODEL_0011_TEMPLATES,
                                        "29d921c0-d0fa-4047-97c0-81d6f9e87573",
                                        "An element that has been introduced in a template to provide an end to a relationship that is part of the template but should not be visible outside the template use.",
                                        TemplateSubstituteProperties.class),
@@ -243,7 +232,7 @@ public enum OpenMetadataType
      */
     SOURCED_FROM_RELATIONSHIP("87b7371e-e311-460f-8849-08646d0d6ad3",
                               "SourcedFrom",
-                              OpenMetadataWikiPages.MODEL_0011_MANAGING_REFERENCEABLES,
+                              OpenMetadataWikiPages.MODEL_0011_TEMPLATES,
                               "e5794f9e-adf0-461d-bee2-7ba807dc1511",
                               "Defines source of the information for a referenceable that was created by copying from a template.",
                               SourcedFromProperties.class),
