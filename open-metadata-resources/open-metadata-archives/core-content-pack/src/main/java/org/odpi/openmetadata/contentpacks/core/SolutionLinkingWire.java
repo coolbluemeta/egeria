@@ -3,30 +3,40 @@
 
 package org.odpi.openmetadata.contentpacks.core;
 
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
+
 /**
- * Describes the additional solution linking wires that can not be derived from standard definition.
+ * Describes the additional solution linking wires that cannot be derived from standard definition.
  * EG friendship relationships
  */
 public enum SolutionLinkingWire
 {
     /**
-     * Pass responsibility for cataloguing schema, tables and columns.
+     * Pass responsibility for cataloguing schema, tables, and columns.
      */
-    POSTGRES_FRIENDSHIP(IntegrationConnectorDefinition.POSTGRES_SERVER_CATALOGUER.getGUID(),
-                        IntegrationConnectorDefinition.POSTGRES_DB_CATALOGUER.getGUID(),
+    POSTGRES_FRIENDSHIP(IntegrationConnectorDefinition.POSTGRES_SERVER_CATALOGUER.getSolutionComponentGUID(),
+                        IntegrationConnectorDefinition.POSTGRES_DB_CATALOGUER.getSolutionComponentGUID(),
                         "handoff",
-                        "Pass responsibility for cataloguing schema, tables and columns.",
+                        "Pass responsibility for cataloguing schema, tables, and columns.",
                         ContentPackDefinition.POSTGRES_CONTENT_PACK),
 
     /**
      * Pass responsibility for cataloguing data assets found in a Unity Catalog (UC) catalog.
      */
-    UNITY_CATALOG_FRIENDSHIP(IntegrationConnectorDefinition.UC_SERVER_CATALOGUER.getGUID(),
-                             IntegrationConnectorDefinition.UC_CATALOG_CATALOGUER.getGUID(),
+    UNITY_CATALOG_FRIENDSHIP(IntegrationConnectorDefinition.UC_SERVER_CATALOGUER.getSolutionComponentGUID(),
+                             IntegrationConnectorDefinition.UC_CATALOG_CATALOGUER.getSolutionComponentGUID(),
                              "handoff",
                              "Pass responsibility for cataloguing data assets found in a Unity Catalog (UC) catalog.",
                              ContentPackDefinition.UNITY_CATALOG_CONTENT_PACK),
 
+    /**
+     * Initializes the karma point awarding process.
+     */
+    BABBAGE_KARMA(IntegrationConnectorDefinition.BABBAGE_ANALYTICAL_ENGINE.getSolutionComponentGUID(),
+                  RequestTypeDefinition.AWARD_KARMA_POINTS.getSolutionComponentGUID(),
+                  "schedules",
+                  "Initializes the karma point awarding process.",
+                  ContentPackDefinition.ORGANIZATION_INSIGHT_CONTENT_PACK),
 
     ;
 

@@ -219,9 +219,12 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "class" : "RatingProperties",
-  "starRating" : "TWO_STARS",
-  "review" : "Add comments here"
+  "class" : "NewAttachmentRequestBody",
+  "properties" : {
+    "class" : "RatingProperties",
+    "starRating" : "TWO_STARS",
+    "review" : "Add comments here"
+  }
 }
 
 

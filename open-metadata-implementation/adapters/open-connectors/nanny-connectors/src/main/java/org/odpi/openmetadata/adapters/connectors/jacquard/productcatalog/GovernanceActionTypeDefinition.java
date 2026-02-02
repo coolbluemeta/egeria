@@ -30,6 +30,12 @@ public enum GovernanceActionTypeDefinition
                       "bf03a1c7-ad5e-49b7-8f97-a66624243767"),
 
     /**
+     * provision-subscription
+     */
+    PROVISION_SUBSCRIPTION("provision-subscription",
+                           "685d48bf-bebc-46da-b10f-ebbdaf79450b"),
+
+    /**
      * create-digital-subscription
      */
     CREATE_SUBSCRIPTION("create-digital-subscription",

@@ -37,13 +37,13 @@ import java.util.Map;
  * The updates are synchronized to reduce the chance of updating the same contribution record simultaneously
  * in multiple threads.
  */
-public class KarmaPointAwardsService extends WatchdogActionServiceConnector
+public class LovelaceKarmaPointAwardsService extends WatchdogActionServiceConnector
 {
     private final GenericWatchdogActionListener listener = new GenericWatchdogActionListener(this);
 
     private final UserToContributionRecordMap userToContributionRecordMap = new UserToContributionRecordMap();
 
-    private static final Logger log = LoggerFactory.getLogger(KarmaPointAwardsService.class);
+    private static final Logger log = LoggerFactory.getLogger(LovelaceKarmaPointAwardsService.class);
 
     /**
      * Indicates that the watchdog action service is completely configured and can begin processing.

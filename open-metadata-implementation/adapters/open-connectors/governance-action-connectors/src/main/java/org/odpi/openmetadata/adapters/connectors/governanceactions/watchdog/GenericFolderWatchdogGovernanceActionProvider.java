@@ -9,7 +9,7 @@ import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorTyp
 import org.odpi.openmetadata.frameworks.opengovernance.GovernanceActionServiceProviderBase;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ActionTargetType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,11 +54,11 @@ public class GenericFolderWatchdogGovernanceActionProvider extends GovernanceAct
 
         actionTargetType.setName(FOLDER_TARGET_PROPERTY);
         actionTargetType.setDescription(FOLDER_TARGET_PROPERTY_DESCRIPTION);
-        actionTargetType.setOpenMetadataTypeName(DeployedImplementationType.FILE_FOLDER.getAssociatedTypeName());
-        actionTargetType.setDeployedImplementationType(DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType());
+        actionTargetType.setOpenMetadataTypeName(DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getAssociatedTypeName());
+        actionTargetType.setDeployedImplementationType(DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType());
 
         super.supportedActionTargetTypes.add(actionTargetType);
-        super.supportedTechnologyTypes = SupportedTechnologyType.getSupportedTechnologyTypes(new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_FOLDER, DeployedImplementationType.DATA_FOLDER});
+        super.supportedTechnologyTypes = SupportedTechnologyType.getSupportedTechnologyTypes(new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_SYSTEM_DIRECTORY, DeployedImplementationType.DATA_FOLDER});
 
         producedGuards = GenericWatchdogGuard.getGuardTypes();
 

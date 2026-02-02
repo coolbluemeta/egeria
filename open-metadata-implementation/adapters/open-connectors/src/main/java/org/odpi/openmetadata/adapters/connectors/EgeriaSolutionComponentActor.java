@@ -1,7 +1,12 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
 
-package org.odpi.openmetadata.frameworks.openmetadata.definitions;
+package org.odpi.openmetadata.adapters.connectors;
+
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.ActorRoleDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentActorDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 
 /**
  * Define the relationship between the solution roles and the solution components
@@ -9,14 +14,14 @@ package org.odpi.openmetadata.frameworks.openmetadata.definitions;
 public enum EgeriaSolutionComponentActor implements SolutionComponentActorDefinition
 {
     COMMUNITY_TO_ARCHIVE(EgeriaRoleDefinition.EGERIA_COMMUNITY,
-                         EgeriaSolutionComponent.OPEN_METADATA_ARCHIVE,
+                         DeployedImplementationType.OPEN_METADATA_ARCHIVE.getSolutionComponent(),
                          "develops",
                          "Develops the content for predefined open metadata types and instances that enable the Egeria services and solutions."),
 
     USER_TO_JUPYTER(EgeriaRoleDefinition.PYTHON_PROGRAMMER,
-                     EgeriaSolutionComponent.JUPYTER_NOTEBOOK,
-                     "writes python code for",
-                     "Coders developing new function in an interactive style."),
+                    DeployedImplementationType.JUPYTER_NOTEBOOK.getSolutionComponent(),
+                    "writes python code for",
+                    "Coders developing new function in an interactive style."),
 
     USER_TO_MY_EGERIA(EgeriaRoleDefinition.OPEN_METADATA_USER,
                       EgeriaSolutionComponent.MY_EGERIA,
@@ -50,10 +55,10 @@ public enum EgeriaSolutionComponentActor implements SolutionComponentActorDefini
     final String                      role;
     final String                      description;
 
-    EgeriaSolutionComponentActor(EgeriaRoleDefinition    solutionRole,
-                                 EgeriaSolutionComponent solutionComponent,
-                                 String                  role,
-                                 String                  description)
+    EgeriaSolutionComponentActor(EgeriaRoleDefinition        solutionRole,
+                                 SolutionComponentDefinition solutionComponent,
+                                 String                      role,
+                                 String                      description)
     {
         this.solutionRole      = solutionRole;
         this.solutionComponent = solutionComponent;

@@ -4,7 +4,7 @@
 package org.odpi.openmetadata.adapters.connectors.postgres.solution;
 
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.ActorRoleDefinition;
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaRoleDefinition;
+import org.odpi.openmetadata.adapters.connectors.EgeriaRoleDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentActorDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentDefinition;
 

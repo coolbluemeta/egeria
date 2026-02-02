@@ -3,12 +3,10 @@
 package org.odpi.openmetadata.adapters.connectors.controls;
 
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.SolutionComponentType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataWikiPages;
-
-import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues.constructValidValueQualifiedName;
 
 /**
  * DeployedImplementationType describes the standard deployed implementation types supplied with Egeria that
@@ -16,7 +14,6 @@ import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataV
  */
 public enum PostgresDeployedImplementationType implements DeployedImplementationTypeDefinition
 {
-
     /**
      * A database hosted on a PostgreSQL server.
      */
@@ -26,7 +23,10 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
                         OpenMetadataType.RELATIONAL_DATABASE.typeName,
                         null,
                         "A database hosted on a PostgreSQL server.",
-                        "https://www.postgresql.org/"),
+                        "https://www.postgresql.org/",
+                        "d14e713e-ef5b-4a6b-8495-d6f298cfd149",
+                        SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                        "POSTGRESQL-DATABASE"),
 
 
     /**
@@ -38,31 +38,39 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
                                OpenMetadataType.DEPLOYED_DATABASE_SCHEMA.typeName,
                                null,
                                "A database schema hosted on a PostgreSQL relational database server capable of being called through a JDBC Driver.",
-                               "https://www.postgresql.org/"),
+                               "https://www.postgresql.org/",
+                               "c6d87bb4-a663-4e6c-a009-537cd15fb763",
+                               SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                               "POSTGRESQL-DATABASE-SCHEMA"),
 
 
     /**
-     * A database table hosted on a PostgreSQL relational database server capable of being called as a tabular data set.
+     * A database table hosted on a PostgreSQL relational database server that has the tabular data set interface.
      */
     POSTGRESQL_TABULAR_DATA_SET("aa50ce4c-917d-4880-a987-d6c771b822b2",
                                 "PostgreSQL Tabular Data Set",
                                 DeployedImplementationType.TABULAR_DATA_SET,
                                 OpenMetadataType.TABULAR_DATA_SET.typeName,
                                 null,
-                                "A database table hosted on a PostgreSQL relational database server capable of being called as a tabular data set.",
-                                "https://www.postgresql.org/"),
+                                "A database table hosted on a PostgreSQL relational database server that has the tabular data set interface.",
+                                "https://www.postgresql.org/",
+                                "46a31804-127c-4416-941e-12b55cb9a224",
+                                SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                                "POSTGRESQL-TABULAR-DATA-SET"),
 
     /**
-     * A database schema hosted on a PostgreSQL relational database server capable of being called as a tabular data set collection.
+     * A database schema hosted on a PostgreSQL relational database server that has the tabular data set collection interface.
      */
     POSTGRESQL_TABULAR_DATA_SET_COLLECTION("c113b127-ae8d-417f-90f2-92108c141270",
                                            "PostgreSQL Tabular Data Set Collection",
                                            DeployedImplementationType.TABULAR_DATA_SET_COLLECTION,
                                            OpenMetadataType.TABULAR_DATA_SET_COLLECTION.typeName,
                                            null,
-                                           "A database schema hosted on a PostgreSQL relational database server capable of being called as a tabular data set collection.",
-                                           "https://www.postgresql.org/"),
-
+                                           "A database schema hosted on a PostgreSQL relational database server that has the tabular data set collection interface.",
+                                           "https://www.postgresql.org/",
+                                           "89a6c506-862d-4fa8-9a3e-a1d6ee44f23b",
+                                           SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                                           "POSTGRESQL-TABULAR-DATA-SET-COLLECTION"),
 
     /**
      * A database server running the PostgreSQL software.
@@ -73,7 +81,10 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
                       OpenMetadataType.SOFTWARE_SERVER.typeName,
                       null,
                       "A database server running the PostgreSQL software.",
-                      "https://www.postgresql.org/"),
+                      "https://www.postgresql.org/",
+                      "8cdd96c6-1493-411c-99f7-7f5589ae858d",
+                      SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
+                      "POSTGRESQL-SERVER"),
 
     /**
      * A system that manages collections of data called relational databases which in turn are organized into a tabular format and accessed via the Structured Query Language (SQL).
@@ -84,13 +95,16 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
                                 OpenMetadataType.DATABASE_MANAGER.typeName,
                                 null,
                                 "The PostgreSQL capability that manages collections of data called relational databases which in turn are organized into a tabular format and accessed via the Structured Query Language (SQL).",
-                                OpenMetadataWikiPages.MODEL_0050_APPS_AND_PROCESSES),
+                                OpenMetadataWikiPages.MODEL_0050_APPS_AND_PROCESSES,
+                                "ed8eaba6-55d7-4f41-99e3-139b581492cb",
+                                SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
+                                "POSTGRESQL-DATABASE-MANAGER"),
 
     ;
 
 
     /**
-     * Return the matching ENUM to make use of the full definition for the deployed implementation type.
+     * Return the matching ENUM for the full definition for the deployed implementation type.
      *
      * @param deployedImplementationType value to match on
      * @return DeployedImplementationType definition
@@ -112,6 +126,24 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
     }
 
 
+    /**
+     * Return a list of definitions for this set of deployed implementation types.
+     *
+     * @return array of definitions
+     */
+    public static DeployedImplementationTypeDefinition[] getDefinitions()
+    {
+        DeployedImplementationTypeDefinition[] definitions = new DeployedImplementationTypeDefinition[values().length];
+
+        for (PostgresDeployedImplementationType definition : PostgresDeployedImplementationType.values())
+        {
+            definitions[definition.ordinal()] = definition;
+        }
+
+        return definitions;
+    }
+
+
     private final String                               guid;
     private final String                               deployedImplementationType;
     private final DeployedImplementationTypeDefinition isATypeOf;
@@ -119,6 +151,9 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
     private final String                               associatedClassification;
     private final String                               description;
     private final String                               wikiLink;
+    private final String                               solutionComponentGUID;
+    private final String                               solutionComponentType;
+    private final String                               solutionComponentIdentifier;
 
 
     /**
@@ -131,6 +166,9 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
      * @param associatedClassification the open metadata classification where this value is used
      * @param description description of the type
      * @param wikiLink url link to more information (optional)
+     * @param solutionComponentGUID unique identifier of the solution component that this deployed implementation type is associated with (optional)
+     * @param solutionComponentType type of the solution component that this deployed implementation type is associated with (optional)
+     * @param solutionComponentIdentifier  identifier of the solution component that this deployed implementation type is associated with (optional)
      */
     PostgresDeployedImplementationType(String                               guid,
                                        String                               deployedImplementationType,
@@ -138,7 +176,10 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
                                        String                               associatedTypeName,
                                        String                               associatedClassification,
                                        String                               description,
-                                       String                               wikiLink)
+                                       String                               wikiLink,
+                                       String                               solutionComponentGUID,
+                                       String                               solutionComponentType,
+                                       String                               solutionComponentIdentifier)
     {
         this.guid = guid;
         this.deployedImplementationType = deployedImplementationType;
@@ -147,6 +188,9 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
         this.associatedClassification = associatedClassification;
         this.description = description;
         this.wikiLink = wikiLink;
+        this.solutionComponentGUID = solutionComponentGUID;
+        this.solutionComponentType = solutionComponentType;
+        this.solutionComponentIdentifier = solutionComponentIdentifier;
     }
 
 
@@ -185,6 +229,7 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
         return isATypeOf;
     }
 
+
     /**
      * Return the type name that this deployed implementation type is associated with.
      *
@@ -210,21 +255,6 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
 
 
     /**
-     * Return the qualified name for this deployed implementation type.
-     *
-     * @return string
-     */
-    @Override
-    public String getQualifiedName()
-    {
-        return constructValidValueQualifiedName(associatedTypeName,
-                                                OpenMetadataProperty.DEPLOYED_IMPLEMENTATION_TYPE.name,
-                                                null,
-                                                deployedImplementationType);
-    }
-
-
-    /**
      * Return the description for this value.
      *
      * @return string
@@ -245,6 +275,42 @@ public enum PostgresDeployedImplementationType implements DeployedImplementation
     public String getWikiLink()
     {
         return wikiLink;
+    }
+
+
+    /**
+     * Return the optional unique identifier of the solution component that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentGUID()
+    {
+        return solutionComponentGUID;
+    }
+
+
+    /**
+     * Return the solution component type that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentType()
+    {
+        return solutionComponentType;
+    }
+
+
+    /**
+     * Return the solution component identifier that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentIdentifier()
+    {
+        return solutionComponentIdentifier;
     }
 
 

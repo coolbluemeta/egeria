@@ -1095,7 +1095,7 @@ public enum OpenMetadataProperty
     PERMITTED_SYNCHRONIZATION("permittedSynchronization", DataType.STRING, PermittedSynchronization.getOpenTypeName(), "Defines the permitted directions of flow of metadata updates between open metadata and a third party technology.", null, "45f5f2fc-17ec-4f02-8d7a-8cfe8f1557fe"),
 
     /**
-     * Type of role that the attribute plays as part of the concept bead.
+     * The third party system identifier.
      */
     KEY("key", DataType.STRING, DataType.STRING.getName(), "The third party system identifier.", "0bea195b-2bbc-460d-8e86-8202669abf12", "fc65a493-a5d6-48e7-a805-8950471aedb3"),
 
@@ -1105,9 +1105,9 @@ public enum OpenMetadataProperty
     KEY_PATTERN("keyPattern", DataType.STRING, KeyPattern.getOpenTypeName(), "Type of identifier that identifies its lifecycle, for example, its scope and whether the value is reused.", null, "a8805753-865d-4860-ab95-1e83c3eaf01d"),
 
     /**
-     * Used to describe how a collection of data values for an attribute cover the domain of the possible values to the linked attribute.
+     * Used to describe how a collection of data values for an attribute covers the domain of the possible values to the linked attribute.
      */
-    COVERAGE_CATEGORY("coverageCategory", DataType.STRING, CoverageCategory.getOpenTypeName(), "Used to describe how a collection of data values for an attribute cover the domain of the possible values to the linked attribute.", CoverageCategory.UNIQUE_IDENTIFIER.toString(), "4cac11a2-1187-4a54-b94a-8fa493c0b860"),
+    COVERAGE_CATEGORY("coverageCategory", DataType.STRING, CoverageCategory.getOpenTypeName(), "Used to describe how a collection of data values for an attribute covers the domain of the possible values to the linked attribute.", CoverageCategory.UNIQUE_IDENTIFIER.toString(), "4cac11a2-1187-4a54-b94a-8fa493c0b860"),
 
     /**
      * Guidance on how the element should be used.

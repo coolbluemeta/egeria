@@ -4,6 +4,7 @@
 package org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control;
 
 
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.OMAGServerPlatformProvider;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.EngineHostProvider;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.IntegrationDaemonProvider;
@@ -15,9 +16,8 @@ import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderPropert
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.PlaceholderPropertyType;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ReplacementAttributeType;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.TemplateDefinition;
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.HashMap;
 import java.util.List;

@@ -4,7 +4,7 @@
 package org.odpi.openmetadata.contentpacks.core;
 
 
-import org.odpi.openmetadata.adapters.connectors.apacheatlas.controls.AtlasDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.AtlasDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ApacheAtlasRESTProvider;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaPlaceholderProperty;
@@ -25,7 +25,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.Pla
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ReplacementAttributeType;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.TemplateDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.List;

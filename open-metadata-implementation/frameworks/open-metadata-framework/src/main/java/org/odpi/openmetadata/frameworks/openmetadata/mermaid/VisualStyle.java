@@ -61,8 +61,11 @@ public enum VisualStyle
 
 
     DEFAULT_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "rect"),
-    AUTOMATED_PROCESS_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "subproc"),
-    THIRD_PARTY_PROCESS_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "processes"),
+    COMMAND_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "rounded"),
+    AUTOMATED_ACTION_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "subproc"),
+    LONG_RUNNING_DAEMON_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "div-rect"),
+    MULTI_STEP_PROCESS_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "processes"),
+    THIRD_PARTY_PROCESS_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "tag-rect"),
     MANUAL_PROCESS_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "docs"),
     DATA_STORAGE_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "lin-cyl"),
     DATA_DISTRIBUTION_SOLUTION_COMPONENT(Colour.BLACK.getColourNumber(), Colour.PLUM.getColourNumber(), Colour.BLACK.getColourNumber(), "das"),

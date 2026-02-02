@@ -3616,8 +3616,19 @@ public class OpenMetadataTypesArchive1_2
 
     private EntityDef getLikeEntity()
     {
-        return archiveHelper.getDefaultEntityDef(OpenMetadataType.LIKE,
-                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.OPEN_METADATA_ROOT.typeName));
+        EntityDef entityDef = archiveHelper.getDefaultEntityDef(OpenMetadataType.LIKE,
+                                                                this.archiveBuilder.getEntityDef(OpenMetadataType.OPEN_METADATA_ROOT.typeName));
+
+        /*
+         * Build the attributes
+         */
+        List<TypeDefAttribute> properties = new ArrayList<>();
+
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.EMOJI));
+
+        entityDef.setPropertiesDefinition(properties);
+
+        return entityDef;
     }
 
 
@@ -3627,7 +3638,7 @@ public class OpenMetadataTypesArchive1_2
                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.REFERENCEABLE.typeName));
 
         /*
-         * Build the attributes
+         * Build the attributes - the display name is required.
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
@@ -3636,8 +3647,6 @@ public class OpenMetadataTypesArchive1_2
         property.setValuesMinCount(1);
         property.setAttributeCardinality(AttributeCardinality.ONE_ONLY);
         properties.add(property);
-
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
 
         entityDef.setPropertiesDefinition(properties);
 

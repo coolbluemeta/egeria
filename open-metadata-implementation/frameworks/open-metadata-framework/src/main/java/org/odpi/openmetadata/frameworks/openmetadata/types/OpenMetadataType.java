@@ -228,13 +228,13 @@ public enum OpenMetadataType
                                        TemplateSubstituteProperties.class),
 
     /**
-     * Defines source of the information for a referenceable that was created by copying from a template.
+     * Defines the source of the information for a referenceable that was created by copying from a template.
      */
     SOURCED_FROM_RELATIONSHIP("87b7371e-e311-460f-8849-08646d0d6ad3",
                               "SourcedFrom",
                               OpenMetadataWikiPages.MODEL_0011_TEMPLATES,
                               "e5794f9e-adf0-461d-bee2-7ba807dc1511",
-                              "Defines source of the information for a referenceable that was created by copying from a template.",
+                              "Defines the source of the information for a referenceable that was created by copying from a template.",
                               SourcedFromProperties.class),
 
     /**

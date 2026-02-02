@@ -13,11 +13,22 @@ import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataV
 public enum SolutionComponentType
 {
     /**
-     * An automated process that is implemented by some form of software.
+     * An automated action that is implemented by some form of software.  It is designed to perform a single task.
      */
-    AUTOMATED_PROCESS("Automated Process",
-                      "An automated process that is implemented by some form of software."),
+    AUTOMATED_ACTION("Automated Action",
+                      "An automated action that is implemented by some form of software.  It is designed to perform a single task."),
 
+    /**
+     * A software component that runs as a background task monitoring and taking actions.  It will perform many tasks while it is running - but in a narrow scope.
+     */
+    LONG_RUNNING_DAEMON("Long Running Daemon",
+                     "A software component that runs as a background task monitoring and taking actions.  It will perform many tasks while it is running - but in a narrow scope."),
+
+    /**
+     * A software component that runs multiple choreographed steps.
+     */
+    MULTI_STEP_PROCESS("Multi-Step Process",
+                        "A software component that runs multiple choreographed steps."),
 
     /**
      * A process that is implemented by a third party and is opaque to the solution.

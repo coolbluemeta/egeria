@@ -10,7 +10,7 @@ import org.odpi.openmetadata.adapters.connectors.unitycatalog.controls.UnityCata
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.controls.UnityCatalogTemplateType;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
 import org.odpi.openmetadata.frameworks.integration.connectors.IntegrationConnectorProvider;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 public class OSSUnityCatalogInsideCatalogSyncProvider extends IntegrationConnectorProvider
 {

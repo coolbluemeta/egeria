@@ -3,11 +3,9 @@
 package org.odpi.openmetadata.adapters.connectors.controls;
 
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.SolutionComponentType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
-
-import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues.constructValidValueQualifiedName;
 
 /**
  * UnityCatalogDeployedImplementationType describes the standard deployed implementation types supplied with Egeria for
@@ -24,7 +22,10 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                   OpenMetadataType.DATA_FOLDER.typeName,
                   null,
                   "A collection of related data files within the Unity Catalog (UC) 'catalog of catalogs'.",
-                  "https://github.com/unitycatalog/unitycatalog"),
+                  "https://github.com/unitycatalog/unitycatalog",
+                  "d02a65ad-a0a3-4fec-ade3-2050bf04d0e4",
+                  SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                  "UNITY-CATALOG-VOLUME"),
 
     /**
      * An analytics model deployed to Unity Catalog (UC).
@@ -35,8 +36,10 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                             OpenMetadataType.DEPLOYED_ANALYTICS_MODEL.typeName,
                             null,
                             "An analytics model deployed to Unity Catalog (UC).",
-                            "https://github.com/unitycatalog/unitycatalog"),
-
+                            "https://github.com/unitycatalog/unitycatalog",
+                            "aa001263-3f98-4cb6-8169-4431bc4760ee",
+                            SolutionComponentType.INSIGHT_MODEL.getSolutionComponentType(),
+                            "UNITY-CATALOG-REGISTERED-MODEL"),
 
     /**
      * A version of an analytics model deployed to Unity Catalog (UC).
@@ -47,8 +50,10 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                                     OpenMetadataType.ANALYTICS_MODEL_RUN.typeName,
                                     null,
                                     "A version of an analytics model deployed to Unity Catalog (UC).",
-                                    "https://github.com/unitycatalog/unitycatalog"),
-
+                                    "https://github.com/unitycatalog/unitycatalog",
+                                    "95c593dc-848b-462a-a0de-9680645b5306",
+                                    SolutionComponentType.INSIGHT_MODEL.getSolutionComponentType(),
+                                    "UNITY-CATALOG-REGISTERED-MODEL-VERSION"),
 
     /**
      * A function found in Unity Catalog (UC) that is working with data.
@@ -59,7 +64,10 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                     OpenMetadataType.DEPLOYED_API.typeName,
                     null,
                     "A function found in Unity Catalog (UC) that is working with data.",
-                    "https://github.com/unitycatalog/unitycatalog"),
+                    "https://github.com/unitycatalog/unitycatalog",
+                    "50fb626b-e0b3-4048-87db-1abcb0d46041",
+                    SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
+                    "UNITY-CATALOG-FUNCTION"),
 
     /**
      * A relational table within the Unity Catalog (UC) 'catalog of catalogs'.
@@ -70,7 +78,10 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                  OpenMetadataType.VIRTUAL_RELATIONAL_TABLE.typeName,
                  null,
                  "A relational table within the Unity Catalog (UC) 'catalog of catalogs'.",
-                 "https://github.com/unitycatalog/unitycatalog"),
+                 "https://github.com/unitycatalog/unitycatalog",
+                 "6d90e382-c527-46e2-9d59-60a2343d21d0",
+                 SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                 "UNITY-CATALOG-TABLE"),
 
 
     /**
@@ -82,7 +93,10 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                   OpenMetadataType.DEPLOYED_DATABASE_SCHEMA.typeName,
                   null,
                   "A schema that organizes data assets for an operational data platform catalog within the Unity Catalog (UC) 'catalog of catalogs'.",
-                  "https://github.com/unitycatalog/unitycatalog"),
+                  "https://github.com/unitycatalog/unitycatalog",
+                  "2bd1a0da-11ff-4197-a585-3d1811cb915d",
+                  SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                  "UNITY-CATALOG-SCHEMA"),
 
     /**
      * An operational data platform manager within the Unity Catalog (UC) 'catalog of catalogs'.
@@ -93,7 +107,10 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                    OpenMetadataType.DATABASE.typeName,
                    null,
                    "An operational data platform catalog within the Unity Catalog (UC) 'catalog of catalogs'.",
-                   "https://github.com/unitycatalog/unitycatalog"),
+                   "https://github.com/unitycatalog/unitycatalog",
+                   "275036b5-19fa-43d6-8ba1-a66f3880a3c2",
+                   SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                   "UNITY-CATALOG-CATALOG"),
 
     /**
      * An operational metadata catalog that supports controlled access to data managed through a data platform.
@@ -104,7 +121,10 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                              OpenMetadataType.SOFTWARE_SERVER.typeName,
                              null,
                              "The OSS Unity Catalog (UC) Server is an operational data platform 'catalog of catalogs' that supports controlled access to data managed through a related data platforms.",
-                             "https://github.com/unitycatalog/unitycatalog"),
+                             "https://github.com/unitycatalog/unitycatalog",
+                             "e9d51678-4377-41cb-8415-959886530933",
+                             SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
+                             "UNITY-CATALOG-SERVER"),
 
 
     /**
@@ -116,13 +136,16 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                             OpenMetadataType.SOFTWARE_SERVER.typeName,
                             null,
                             "The Databricks Unity Catalog (UC) Server is an operational data platform 'catalog of catalogs' that supports controlled access to data managed through a related data platforms.",
-                            "https://github.com/unitycatalog/unitycatalog"),
+                            "https://github.com/unitycatalog/unitycatalog",
+                            "f9258f64-4423-4528-8da9-71df263a06bf",
+                            SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
+                            "UNITY-CATALOG-SERVER"),
 
     ;
 
 
     /**
-     * Return the matching ENUM to make use of the full definition for the deployed implementation type.
+     * Return the matching ENUM for the full definition for the deployed implementation type.
      *
      * @param deployedImplementationType value to match on
      * @return DeployedImplementationType definition
@@ -151,6 +174,9 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
     private final String                               associatedClassification;
     private final String                               description;
     private final String                               wikiLink;
+    private final String                               solutionComponentGUID;
+    private final String                               solutionComponentType;
+    private final String                               solutionComponentIdentifier;
 
 
     /**
@@ -163,6 +189,9 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
      * @param associatedClassification the open metadata classification where this value is used
      * @param description description of the type
      * @param wikiLink url link to more information (optional)
+     * @param solutionComponentGUID unique identifier of the solution component that this deployed implementation type is associated with (optional)
+     * @param solutionComponentType type of the solution component that this deployed implementation type is associated with (optional)
+     * @param solutionComponentIdentifier  identifier of the solution component that this deployed implementation type is associated with (optional)
      */
     UnityCatalogDeployedImplementationType(String                               guid,
                                            String                               deployedImplementationType,
@@ -170,7 +199,10 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
                                            String                               associatedTypeName,
                                            String                               associatedClassification,
                                            String                               description,
-                                           String                               wikiLink)
+                                           String                               wikiLink,
+                                           String                               solutionComponentGUID,
+                                           String                               solutionComponentType,
+                                           String                               solutionComponentIdentifier)
     {
         this.guid = guid;
         this.deployedImplementationType = deployedImplementationType;
@@ -179,8 +211,28 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
         this.associatedClassification = associatedClassification;
         this.description = description;
         this.wikiLink = wikiLink;
+        this.solutionComponentGUID = solutionComponentGUID;
+        this.solutionComponentType = solutionComponentType;
+        this.solutionComponentIdentifier = solutionComponentIdentifier;
     }
 
+
+    /**
+     * Return a list of GUIDs for this set of deployed implementation types.
+     *
+     * @return array of guids
+     */
+    public static String[] getGUIDs()
+    {
+        String[] guids = new String[values().length];
+
+        for (UnityCatalogDeployedImplementationType definition : UnityCatalogDeployedImplementationType.values())
+        {
+            guids[definition.ordinal()] = definition.getGUID();
+        }
+
+        return guids;
+    }
 
 
     /**
@@ -218,6 +270,7 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
         return isATypeOf;
     }
 
+
     /**
      * Return the type name that this deployed implementation type is associated with.
      *
@@ -243,21 +296,6 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
 
 
     /**
-     * Return the qualified name for this deployed implementation type.
-     *
-     * @return string
-     */
-    @Override
-    public String getQualifiedName()
-    {
-        return constructValidValueQualifiedName(associatedTypeName,
-                                                OpenMetadataProperty.DEPLOYED_IMPLEMENTATION_TYPE.name,
-                                                null,
-                                                deployedImplementationType);
-    }
-
-
-    /**
      * Return the description for this value.
      *
      * @return string
@@ -278,6 +316,42 @@ public enum UnityCatalogDeployedImplementationType implements DeployedImplementa
     public String getWikiLink()
     {
         return wikiLink;
+    }
+
+
+    /**
+     * Return the optional unique identifier of the solution component that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentGUID()
+    {
+        return solutionComponentGUID;
+    }
+
+
+    /**
+     * Return the solution component type that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentType()
+    {
+        return solutionComponentType;
+    }
+
+
+    /**
+     * Return the solution component identifier that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentIdentifier()
+    {
+        return solutionComponentIdentifier;
     }
 
 

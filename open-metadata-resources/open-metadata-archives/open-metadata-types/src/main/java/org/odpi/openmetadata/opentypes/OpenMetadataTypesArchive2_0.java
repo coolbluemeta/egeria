@@ -185,7 +185,7 @@ public class OpenMetadataTypesArchive2_0
     {
         ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.TEMPLATE_CLASSIFICATION,
                                                                                  null,
-                                                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.REFERENCEABLE.typeName),
+                                                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.OPEN_METADATA_ROOT.typeName),
                                                                                  false);
 
         /*

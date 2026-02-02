@@ -127,56 +127,56 @@ public enum GovernanceEngineDefinition
      * Provides surveys on Egeria's OMAG Server Platform and Servers.
      */
     EGERIA_SURVEY_ENGINE("6fb9afe5-e346-487e-8938-fd5bc1761ceb",
-                        "EgeriaSurvey",
-                        "Egeria Survey Engine",
-                        "Provides specialist surveys on Egeria's OMAG Server Platform and Servers.",
+                         "EgeriaSurvey",
+                         "Egeria Survey Engine",
+                         "Provides specialist surveys on Egeria's OMAG Server Platform and Servers.",
                          "egeriasurveyengine",
                          OpenMetadataType.SURVEY_ACTION_ENGINE.typeName,
-                        ContentPackDefinition.EGERIA_CONTENT_PACK),
+                         ContentPackDefinition.EGERIA_CONTENT_PACK),
 
     /**
      * Provides specialist governance services to Egeria's OMAG Server Platform and Servers.
      */
     EGERIA_GOVERNANCE_ENGINE("81d0292d-f074-41e3-93ec-dbecc45cc0c1",
-                            "EgeriaGovernance",
-                            "Egeria Governance Engine",
-                            "Provides specialist governance services to Egeria's OMAG Server Platform and Servers.",
+                             "EgeriaGovernance",
+                             "Egeria Governance Engine",
+                             "Provides specialist governance services to Egeria's OMAG Server Platform and Servers.",
                              "egeriagovernanceengine",
                              OpenMetadataType.GOVERNANCE_ACTION_ENGINE.typeName,
-                            ContentPackDefinition.CORE_CONTENT_PACK),
+                             ContentPackDefinition.CORE_CONTENT_PACK),
 
     /**
      * Provides standard watchdog services to Egeria's OMAG Server Platform and Servers.
      */
     EGERIA_WATCHDOG_ENGINE("23ec5cb2-e0a2-412c-9c2e-deefbe3d6459",
-                             "EgeriaWatchdog",
-                             "Egeria Watchdog Engine",
-                             "Provides standard watchdog services to Egeria's OMAG Server Platform and Servers.",
-                             "egeriawatchdogengine",
-                             OpenMetadataType.WATCHDOG_ACTION_ENGINE.typeName,
-                             ContentPackDefinition.CORE_CONTENT_PACK),
+                           "EgeriaWatchdog",
+                           "Egeria Watchdog Engine",
+                           "Provides standard watchdog services to Egeria's OMAG Server Platform and Servers.",
+                           "egeriawatchdogengine",
+                           OpenMetadataType.WATCHDOG_ACTION_ENGINE.typeName,
+                           ContentPackDefinition.CORE_CONTENT_PACK),
 
     /**
      * Provides surveys on Apache Kafka Servers.
      */
     KAFKA_SURVEY_ENGINE("de82d12d-f723-47c7-b5e6-c9a5998a0d6a",
-                         "ApacheKafkaSurvey",
-                         "Apache Kafka Survey Engine",
-                         "Provides specialist surveys on Apache Kafka Servers.",
+                        "ApacheKafkaSurvey",
+                        "Apache Kafka Survey Engine",
+                        "Provides specialist surveys on Apache Kafka Servers.",
                         "apachekafkasurveyengine",
                         OpenMetadataType.SURVEY_ACTION_ENGINE.typeName,
-                         ContentPackDefinition.APACHE_KAFKA_CONTENT_PACK),
+                        ContentPackDefinition.APACHE_KAFKA_CONTENT_PACK),
 
     /**
      * Provides specialist governance services to Apache Kafka Servers.
      */
     KAFKA_GOVERNANCE_ENGINE("0874bb8a-0003-4dda-b028-cbcecfff0e45",
-                             "ApacheKafkaGovernance",
-                             "Apache Kafka Governance Engine",
-                             "Provides specialist governance services to Apache Kafka Servers.",
+                            "ApacheKafkaGovernance",
+                            "Apache Kafka Governance Engine",
+                            "Provides specialist governance services to Apache Kafka Servers.",
                             "apachekafkagovernanceengine",
                             OpenMetadataType.GOVERNANCE_ACTION_ENGINE.typeName,
-                             ContentPackDefinition.APACHE_KAFKA_CONTENT_PACK),
+                            ContentPackDefinition.APACHE_KAFKA_CONTENT_PACK),
 
 
     /**
@@ -188,7 +188,7 @@ public enum GovernanceEngineDefinition
                             "Provides specialist governance services to enable observations on the activity and content of the open metadata ecosystem.",
                             "observabilitygovernanceengine",
                             OpenMetadataType.GOVERNANCE_ACTION_ENGINE.typeName,
-                            ContentPackDefinition.NANNY_CONTENT_PACK),
+                            ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
     ;
 
 

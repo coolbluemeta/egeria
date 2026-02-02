@@ -3,6 +3,7 @@
 
 package org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.catalog;
 
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control.OMAGServerPlatformPlaceholderProperty;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.properties.*;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.EngineHostConnector;
@@ -12,7 +13,6 @@ import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.Vi
 import org.odpi.openmetadata.adminservices.configuration.properties.OMAGServerConfig;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStorePurpose;
 import org.odpi.openmetadata.frameworks.openmetadata.connectorcontext.*;
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control.EgeriaSoftwareServerTemplateDefinition;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control.OMAGServerPlatformConfigurationProperty;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.ffdc.OMAGConnectorAuditCode;
@@ -23,7 +23,6 @@ import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedException;
 import org.odpi.openmetadata.frameworks.integration.connectors.IntegrationConnectorBase;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaSolutionComponent;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.CapabilityAssetUseType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementOriginCategory;
 import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataEventListener;
@@ -819,24 +818,27 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
     {
         if (ServerTypeClassification.INTEGRATION_DAEMON.getServerTypeName().equals(serverType))
         {
-            return EgeriaSolutionComponent.INTEGRATION_DAEMON.getGUID();
+            return EgeriaDeployedImplementationType.INTEGRATION_DAEMON.getSolutionComponentGUID();
         }
         else if (ServerTypeClassification.ENGINE_HOST.getServerTypeName().equals(serverType))
         {
-            return EgeriaSolutionComponent.ENGINE_HOST.getGUID();
+            return EgeriaDeployedImplementationType.ENGINE_HOST.getSolutionComponentGUID();
         }
-        else if (ServerTypeClassification.METADATA_ACCESS_STORE.getServerTypeName().equals(serverType) ||
-                ServerTypeClassification.METADATA_ACCESS_POINT.getServerTypeName().equals(serverType) ||
-                ServerTypeClassification.METADATA_ACCESS_SERVER.getServerTypeName().equals(serverType))
+        else if (ServerTypeClassification.METADATA_ACCESS_STORE.getServerTypeName().equals(serverType))
         {
-            return EgeriaSolutionComponent.METADATA_ACCESS_STORE.getGUID();
+            return EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID();
+        }
+        else if (ServerTypeClassification.METADATA_ACCESS_POINT.getServerTypeName().equals(serverType) ||
+                 ServerTypeClassification.METADATA_ACCESS_SERVER.getServerTypeName().equals(serverType))
+        {
+            return EgeriaDeployedImplementationType.METADATA_ACCESS_SERVER.getSolutionComponentGUID();
         }
         else if (ServerTypeClassification.VIEW_SERVER.getServerTypeName().equals(serverType))
         {
-            return EgeriaSolutionComponent.VIEW_SERVER.getGUID();
+            return EgeriaDeployedImplementationType.VIEW_SERVER.getSolutionComponentGUID();
         }
 
-        return EgeriaSolutionComponent.SERVER_PLATFORM.getGUID();
+        return EgeriaDeployedImplementationType.OMAG_SERVER_PLATFORM.getSolutionComponentGUID();
     }
 
 

@@ -9,7 +9,7 @@ package org.odpi.openmetadata.adapters.connectors.jacquard.solutionblueprint;
 public enum SolutionComponentActor
 {
     PRODUCT_SUPPORT_TO_HARVESTER(ProductRoleDefinition.JACQUARD_SUPPORT,
-                                 ProductSolutionComponent.OPEN_METADATA_HARVESTER,
+                                 ProductSolutionComponent.JACQUARD_HARVESTER,
                                  "Maintains",
                                  "Maintains the Jacquard Digital Product Loom."),
 

@@ -10,10 +10,28 @@ import org.odpi.openmetadata.frameworks.openmetadata.refdata.SolutionComponentTy
 public enum SolutionComponentVisualStyle
 {
     /**
-     * An automated process that is implemented by some form of software.
+     * An automated action that is implemented by some form of software.
      */
-    AUTOMATED_PROCESS(SolutionComponentType.AUTOMATED_PROCESS,
-                      VisualStyle.AUTOMATED_PROCESS_SOLUTION_COMPONENT),
+    AUTOMATED_ACTION(SolutionComponentType.AUTOMATED_ACTION,
+                     VisualStyle.AUTOMATED_ACTION_SOLUTION_COMPONENT),
+
+    /**
+     * An automated action that is implemented by some form of software.
+     */
+    LONG_RUNNING_DAEMON(SolutionComponentType.LONG_RUNNING_DAEMON,
+                        VisualStyle.LONG_RUNNING_DAEMON_SOLUTION_COMPONENT),
+
+    /**
+     * An automated action that is implemented by some form of software.
+     */
+    MULTI_STEP_PROCESS(SolutionComponentType.MULTI_STEP_PROCESS,
+                       VisualStyle.MULTI_STEP_PROCESS_SOLUTION_COMPONENT),
+
+    /**
+     * Provides a callable function that can be issued from a console/command line.
+     */
+    CONSOLE_COMMAND(SolutionComponentType.CONSOLE_COMMAND,
+                    VisualStyle.COMMAND_SOLUTION_COMPONENT),
 
 
     /**

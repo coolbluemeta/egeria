@@ -91,7 +91,7 @@ public class ComponentIdReport
     private static final String csvFileTabularDataSetCollectionProviderClassName = "org.odpi.openmetadata.adapters.connectors.datastore.csvfile.CSVTabularDataSetCollectionProvider";
     private static final String postgresTabularDataSetProviderClassName = "org.odpi.openmetadata.adapters.connectors.postgres.tabulardatasource.PostgresTabularDataSetProvider";
     private static final String postgresTabularDataSetCollectionProviderClassName = "org.odpi.openmetadata.adapters.connectors.postgres.tabulardatasource.PostgresTabularDataSetCollectionProvider";
-    private static final String karmaPointProviderClassName = "org.odpi.openmetadata.adapters.connectors.organizationinsight.karmapoints.KarmaPointAwardsServiceProvider";
+    private static final String karmaPointProviderClassName = "org.odpi.openmetadata.adapters.connectors.organizationinsight.karmapoints.LovelaceKarmaPointAwardsServiceProvider";
     private static final String monitoredResourceProviderClassName = "org.odpi.openmetadata.adapters.connectors.governanceactions.notifications.MonitoredResourceNotificationServiceProvider";
     private static final String oneTimeProviderClassName = "org.odpi.openmetadata.adapters.connectors.governanceactions.notifications.OneTimeNotificationServiceProvider";
     private static final String periodicRefreshProviderClassName = "org.odpi.openmetadata.adapters.connectors.governanceactions.notifications.PeriodicRefreshNotificationServiceProvider";

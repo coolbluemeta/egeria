@@ -435,6 +435,7 @@ public class SimpleCatalogArchiveHelper
 
             String componentGUID = this.addSolutionComponent(solutionComponent.getTypeName(),
                                                              solutionComponent.getQualifiedName(),
+                                                             solutionComponent.getIdentifier(),
                                                              solutionComponent.getDisplayName(),
                                                              solutionComponent.getDescription(),
                                                              solutionComponent.getVersionIdentifier(),
@@ -2414,7 +2415,7 @@ public class SimpleCatalogArchiveHelper
         InstanceProperties properties = archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.MEMBERSHIP_RATIONALE.name, membershipRationale, methodName);
 
         archiveBuilder.addRelationship(archiveHelper.getRelationship(OpenMetadataType.COLLECTION_MEMBERSHIP_RELATIONSHIP.typeName,
-                                                                     idToGUIDMap.getGUID(collectionGUID + "_to_" + memberGUID + "_collection_membership_relationship"),
+                                                                     idToGUIDMap.getGUID(collectionGUID + "_to_" + memberGUID + "(" + membershipRationale + ")_collection_membership_relationship"),
                                                                      properties,
                                                                      InstanceStatus.ACTIVE,
                                                                      end1,
@@ -2423,7 +2424,7 @@ public class SimpleCatalogArchiveHelper
 
 
     /**
-     * Create a data field entity.  These are not all of the properties of a data field - but enough for current
+     * Create a data field entity.  These are not all the properties of a data field - but enough for current
      * use cases.
      *
      * @param suppliedTypeName type of data field
@@ -6185,17 +6186,17 @@ public class SimpleCatalogArchiveHelper
     /**
      * Create a navigation link from one referenceable to another to show they provide more information.
      *
-     * @param describedElementId unique identifier for the element that is referencing the other.
-     * @param describerElementId unique identifier for the element being pointed to.
+     * @param describedElementGUID unique identifier for the element that is referencing the other.
+     * @param describerElementGUID unique identifier for the element being pointed to.
      */
-    public void addMoreInformationLink(String  describedElementId,
-                                       String  describerElementId)
+    public void addMoreInformationLink(String  describedElementGUID,
+                                       String  describerElementGUID)
     {
-        EntityProxy end1 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(describedElementId));
-        EntityProxy end2 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(describerElementId));
+        EntityProxy end1 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(describedElementGUID));
+        EntityProxy end2 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(describerElementGUID));
 
         archiveBuilder.addRelationship(archiveHelper.getRelationship(OpenMetadataType.MORE_INFORMATION_RELATIONSHIP.typeName,
-                                                                     idToGUIDMap.getGUID(describedElementId + "_to_" + describerElementId + "_more_information_relationship"),
+                                                                     idToGUIDMap.getGUID(describedElementGUID + "_to_" + describerElementGUID + "_more_information_relationship"),
                                                                      null,
                                                                      InstanceStatus.ACTIVE,
                                                                      end1,
@@ -7445,7 +7446,7 @@ public class SimpleCatalogArchiveHelper
      *
      * @param suppliedTypeName type name to use
      * @param qualifiedName qualified name
-     * @param name display name
+     * @param displayName display name
      * @param description description
      * @param versionIdentifier versionIdentifier
      * @param componentType type of component
@@ -7458,7 +7459,8 @@ public class SimpleCatalogArchiveHelper
      */
     public  String addSolutionComponent(String              suppliedTypeName,
                                         String              qualifiedName,
-                                        String              name,
+                                        String              identifier,
+                                        String              displayName,
                                         String              description,
                                         String              versionIdentifier,
                                         String              componentType,
@@ -7477,7 +7479,8 @@ public class SimpleCatalogArchiveHelper
         }
 
         InstanceProperties properties = archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.QUALIFIED_NAME.name, qualifiedName, methodName);
-        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, name, methodName);
+        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.IDENTIFIER.name, identifier, methodName);
+        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, displayName, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.VERSION_IDENTIFIER.name, versionIdentifier, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.SOLUTION_COMPONENT_TYPE.name, componentType, methodName);

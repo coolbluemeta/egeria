@@ -18,7 +18,7 @@ import org.odpi.openmetadata.adapters.connectors.subscriptions.CancelSubscriptio
 import org.odpi.openmetadata.adapters.connectors.subscriptions.CreateSubscriptionGovernanceActionProvider;
 import org.odpi.openmetadata.adapters.connectors.governanceactions.verification.VerifyAssetGovernanceActionProvider;
 import org.odpi.openmetadata.adapters.connectors.governanceactions.watchdog.GenericFolderWatchdogGovernanceActionProvider;
-import org.odpi.openmetadata.adapters.connectors.organizationinsight.karmapoints.KarmaPointAwardsServiceProvider;
+import org.odpi.openmetadata.adapters.connectors.organizationinsight.karmapoints.LovelaceKarmaPointAwardsServiceProvider;
 import org.odpi.openmetadata.adapters.connectors.postgres.survey.PostgresDatabaseSurveyActionProvider;
 import org.odpi.openmetadata.adapters.connectors.postgres.survey.PostgresServerSurveyActionProvider;
 import org.odpi.openmetadata.adapters.connectors.reports.surveyreport.SurveyReportProvider;
@@ -30,9 +30,10 @@ import org.odpi.openmetadata.adapters.connectors.unitycatalog.survey.OSSUnityCat
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.survey.OSSUnityCatalogInsideSchemaSurveyProvider;
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.survey.OSSUnityCatalogServerSurveyProvider;
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.survey.OSSUnityCatalogInsideVolumeSurveyProvider;
+import org.odpi.openmetadata.adapters.connectors.wedgwood.WedgwoodProvisionSubscriptionGovernanceActionProvider;
 import org.odpi.openmetadata.frameworks.opengovernance.GovernanceServiceProviderBase;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ResourceUse;
 import org.odpi.openmetadata.frameworks.opensurvey.SurveyActionServiceProvider;
 import org.odpi.openmetadata.samples.archiveutilities.GovernanceActionDescription;
@@ -341,45 +342,56 @@ public enum GovernanceServiceDefinition
                          ContentPackDefinition.CORE_CONTENT_PACK),
 
     /**
-     * Add a new digital subscription using a template.
+     * Create Open Metadata Digital Product Subscription Governance Action Service
      */
     CREATE_SUBSCRIPTION("a7ea66bf-c77e-44d5-af3a-087c6e179321",
                          "create-subscription-governance-service",
-                         "Add a new digital subscription using a template.",
+                         "Create Open Metadata Digital Product Subscription Governance Action Service",
                          new CreateSubscriptionGovernanceActionProvider(),
                          ResourceUse.CREATE_SUBSCRIPTION,
                          DeployedImplementationType.GOVERNANCE_ACTION_SERVICE_CONNECTOR,
                          ContentPackDefinition.PRODUCTS_CONTENT_PACK),
 
     /**
-     * Remove an existing digital subscription.
+     * Cance Open Metadata Digital Product Subscription Governance Action Service
      */
     CANCEL_SUBSCRIPTION("2663ca74-a3cb-4ad8-9043-4c35a9f5ba47",
                         "cancel-subscription-governance-service",
-                        "Remove an existing digital subscription.",
+                        "Cancel Open Metadata Digital Product Subscription Governance Action Service",
                         new CancelSubscriptionGovernanceActionProvider(),
                         ResourceUse.CANCEL_SUBSCRIPTION,
                         DeployedImplementationType.GOVERNANCE_ACTION_SERVICE_CONNECTOR,
                         ContentPackDefinition.PRODUCTS_CONTENT_PACK),
 
     /**
-     * A Watchdog Action Service that notifies subscribers of Open Metadata Digital Products that the condition set out in the subscription has occurred.
+     * Baudot Open Metadata Digital Product Subscription Manager Governance Action Service
      */
     BAUDOT_SUBSCRIPTION_MANAGER("8b4e7a99-651e-4c54-b8ec-3615786c8394",
-                                    "baudot-subscription-manager-governance-service",
-                                    "A Watchdog Action Service that notifies subscribers of Open Metadata Digital Products that the condition set out in the subscription has occurred.",
-                                    new BaudotSubscriptionManagementProvider(),
-                                    ResourceUse.INFORM_STEWARD,
-                                    DeployedImplementationType.WATCHDOG_ACTION_SERVICE_CONNECTOR,
-                                    ContentPackDefinition.PRODUCTS_CONTENT_PACK),
+                                "baudot-subscription-manager-governance-service",
+                                "Baudot Open Metadata Digital Product Subscription Manager Governance Action Service",
+                                new BaudotSubscriptionManagementProvider(),
+                                ResourceUse.INFORM_STEWARD,
+                                DeployedImplementationType.WATCHDOG_ACTION_SERVICE_CONNECTOR,
+                                ContentPackDefinition.PRODUCTS_CONTENT_PACK),
 
     /**
-     * A Watchdog Action Service that listens for changes to open metadata and awards karma points to the user making the change.
+     * Wedgwood Open Metadata Digital Product Provisioning Pipeline Governance Action Service
+     */
+    SUBSCRIPTION_PROVISIONER("2efbd7d9-402e-44af-953b-65b27c18f492",
+                             "wedgwood-subscription-provisioning-governance-action-service",
+                             "Wedgwood Open Metadata Digital Product Provisioning Pipeline Governance Action Service",
+                             new WedgwoodProvisionSubscriptionGovernanceActionProvider(),
+                             ResourceUse.PROVISION_RESOURCE,
+                             DeployedImplementationType.GOVERNANCE_ACTION_SERVICE_CONNECTOR,
+                             ContentPackDefinition.PRODUCTS_CONTENT_PACK),
+
+    /**
+     * Lovelace Karma Points Awards Governance Action Service
      */
     KARMA_POINT_AWARDS("1263739c-2c47-429b-be0d-4dec8e2765cbf",
                           "karma-points-awards-governance-service",
-                          "A Watchdog Action Service that listens for changes to open metadata and awards karma points to the user making the change.",
-                          new KarmaPointAwardsServiceProvider(),
+                          "Lovelace Karma Points Awards Governance Action Service",
+                          new LovelaceKarmaPointAwardsServiceProvider(),
                           ResourceUse.GENERATE_INSIGHT,
                           DeployedImplementationType.WATCHDOG_ACTION_SERVICE_CONNECTOR,
                           ContentPackDefinition.ORGANIZATION_INSIGHT_CONTENT_PACK),

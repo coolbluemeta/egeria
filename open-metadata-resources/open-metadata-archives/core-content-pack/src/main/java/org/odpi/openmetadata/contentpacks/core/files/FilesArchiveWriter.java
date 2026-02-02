@@ -112,24 +112,24 @@ public class FilesArchiveWriter extends ContentPackBaseArchiveWriter
         super.createRequestTypes(ContentPackDefinition.FILES_CONTENT_PACK);
 
         this.createAndSurveyServerGovernanceActionProcess("FileDirectory",
-                                                          DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType(),
+                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
                                                           RequestTypeDefinition.CREATE_FILE_FOLDER,
                                                           DataAssetTemplateDefinition.FILE_FOLDER_TEMPLATE,
                                                           RequestTypeDefinition.SURVEY_ALL_FOLDERS_AND_FILES,
-                                                          DeployedImplementationType.FILE_FOLDER.getQualifiedName());
+                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName());
 
         this.createAndCatalogServerGovernanceActionProcess("FileDirectory",
-                                                           DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType(),
+                                                           DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
                                                            RequestTypeDefinition.CREATE_FILE_FOLDER,
                                                            DataAssetTemplateDefinition.FILE_FOLDER_TEMPLATE,
                                                            RequestTypeDefinition.CATALOG_FILE_FOLDER,
-                                                           DeployedImplementationType.FILE_FOLDER.getQualifiedName());
+                                                           DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName());
 
         this.deleteAsCatalogTargetGovernanceActionProcess("FileDirectory",
-                                                          DeployedImplementationType.FILE_FOLDER.getAssociatedTypeName(),
-                                                          DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType(),
+                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getAssociatedTypeName(),
+                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
                                                           RequestTypeDefinition.DELETE_FILE_FOLDER,
-                                                          DeployedImplementationType.FILE_FOLDER.getQualifiedName());
+                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName());
 
         this.createAndSurveyServerGovernanceActionProcess("DataDirectory",
                                                           DeployedImplementationType.DATA_FOLDER.getDeployedImplementationType(),
@@ -139,7 +139,7 @@ public class FilesArchiveWriter extends ContentPackBaseArchiveWriter
                                                           DeployedImplementationType.DATA_FOLDER.getQualifiedName());
 
         this.createAndCatalogServerGovernanceActionProcess("DataDirectory",
-                                                           DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType(),
+                                                           DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
                                                            RequestTypeDefinition.CREATE_DATA_FOLDER,
                                                            DataAssetTemplateDefinition.DATA_FOLDER_TEMPLATE,
                                                            RequestTypeDefinition.CATALOG_DATA_FOLDER,

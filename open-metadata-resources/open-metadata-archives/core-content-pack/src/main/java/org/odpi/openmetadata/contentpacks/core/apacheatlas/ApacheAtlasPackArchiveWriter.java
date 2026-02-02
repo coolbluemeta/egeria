@@ -2,7 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.contentpacks.core.apacheatlas;
 
-import org.odpi.openmetadata.adapters.connectors.apacheatlas.controls.AtlasDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.AtlasDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ApacheAtlasIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ApacheAtlasRESTProvider;
 import org.odpi.openmetadata.contentpacks.core.ContentPackDefinition;
@@ -45,17 +45,11 @@ public class ApacheAtlasPackArchiveWriter extends ContentPackBaseArchiveWriter
          */
         for (AtlasDeployedImplementationType deployedImplementationType : AtlasDeployedImplementationType.values())
         {
-            this.addDeployedImplementationType(deployedImplementationType.getGUID(),
-                                               deployedImplementationType.getDeployedImplementationType(),
-                                               deployedImplementationType.getAssociatedTypeName(),
-                                               deployedImplementationType.getQualifiedName(),
-                                               deployedImplementationType.getDescription(),
-                                               deployedImplementationType.getWikiLink(),
-                                               deployedImplementationType.getIsATypeOf());
+            this.addDeployedImplementationType(deployedImplementationType);
         }
 
         /*
-         * Integration Connector Types may need to link to deployedImplementationType valid value element.
+         * Integration Connector Types may need to link to other deployedImplementationType valid value elements.
          * This information is in the connector provider.
          */
         archiveHelper.addConnectorType(new ApacheAtlasRESTProvider());

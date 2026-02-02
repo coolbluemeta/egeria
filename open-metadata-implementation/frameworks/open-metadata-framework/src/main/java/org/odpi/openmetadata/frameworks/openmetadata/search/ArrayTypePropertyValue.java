@@ -14,7 +14,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
 /**
- * ArrayTypePropertyValue stores the values of an array within an entity or relationship properties.
+ * ArrayTypePropertyValue stores the values of an array within an entity's or a relationship's properties.
  * The elements of the array are stored in an ElementProperties map where the property name is set to the element
  * number and the property value is set to the value of the element in the array.
  */

@@ -7,7 +7,7 @@ package org.odpi.openmetadata.adapters.connectors.integration.basicfiles;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.frameworks.integration.controls.CatalogTargetType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.ArrayList;
 
@@ -41,12 +41,12 @@ public class DataFilesMonitorIntegrationProvider extends BasicFilesMonitorIntegr
         CatalogTargetType catalogTargetType = new CatalogTargetType();
 
         catalogTargetType.setName(CATALOG_TARGET_NAME);
-        catalogTargetType.setTypeName(DeployedImplementationType.FILE_FOLDER.getAssociatedTypeName());
-        catalogTargetType.setDeployedImplementationType(DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType());
+        catalogTargetType.setTypeName(DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getAssociatedTypeName());
+        catalogTargetType.setDeployedImplementationType(DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType());
 
         super.catalogTargets = new ArrayList<>();
         super.catalogTargets.add(catalogTargetType);
-        super.supportedTechnologyTypes = SupportedTechnologyType.getSupportedTechnologyTypes(new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_FOLDER,
+        super.supportedTechnologyTypes = SupportedTechnologyType.getSupportedTechnologyTypes(new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_SYSTEM_DIRECTORY,
                 DeployedImplementationType.DATA_FOLDER, DeployedImplementationType.DATA_FILE, DeployedImplementationType.FILE});
         super.supportedConfigurationProperties = BasicFilesMonitoringConfigurationProperty.getConfigurationPropertyTypes();
     }

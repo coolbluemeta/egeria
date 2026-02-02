@@ -24,7 +24,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.Pla
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ReplacementAttributeType;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.TemplateDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 
 import java.util.HashMap;
@@ -104,11 +104,11 @@ public enum DataAssetTemplateDefinition implements TemplateDefinition
                          ContentPackDefinition.CORE_CONTENT_PACK),
 
     FILE_FOLDER_TEMPLATE(FilesTemplateType.FILE_FOLDER_TEMPLATE.getTemplateGUID(),
-                         DeployedImplementationType.FILE_FOLDER,
+                         DeployedImplementationType.FILE_SYSTEM_DIRECTORY,
                          PlaceholderProperty.DIRECTORY_NAME.getPlaceholder(),
                          PlaceholderProperty.DESCRIPTION.getPlaceholder(),
-                         DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType() + "::" + PlaceholderProperty.FILE_SYSTEM_NAME.getPlaceholder() + ":" + PlaceholderProperty.DIRECTORY_PATH_NAME.getPlaceholder(),
-                         getFileFolderExtendedProperties(DeployedImplementationType.FILE_FOLDER),
+                         DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType() + "::" + PlaceholderProperty.FILE_SYSTEM_NAME.getPlaceholder() + ":" + PlaceholderProperty.DIRECTORY_PATH_NAME.getPlaceholder(),
+                         getFileFolderExtendedProperties(DeployedImplementationType.FILE_SYSTEM_DIRECTORY),
                          null,
                          null,
                          new BasicFolderProvider().getConnectorType().getGUID(),

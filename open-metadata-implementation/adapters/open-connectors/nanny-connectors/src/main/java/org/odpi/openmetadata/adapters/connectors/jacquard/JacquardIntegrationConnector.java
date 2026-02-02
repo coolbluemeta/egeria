@@ -2421,7 +2421,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         newElementOptions.setAnchorScopeGUID(this.anchorScopeGUID);
         newElementOptions.setIsOwnAnchor(true);
 
-        String blueprintGUID = findSolutionBlueprint(ProductSolutionBlueprint.AUTO_PRODUCT_MANAGER, newElementOptions);
+        String blueprintGUID = findSolutionBlueprint(ProductSolutionBlueprint.ALL, newElementOptions);
 
         if (blueprintGUID != null)
         {
@@ -2544,11 +2544,11 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
             for (ProductSolutionBlueprint productSolutionBlueprint : ProductSolutionBlueprint.values())
             {
                 /*
-                 * Ignore the top level blueprint.
+                 * Ignore the top-level blueprint.
                  */
-                if (!ProductSolutionBlueprint.AUTO_PRODUCT_MANAGER.getQualifiedName().equals(productSolutionBlueprint.getQualifiedName()))
+                if (! ProductSolutionBlueprint.ALL.getQualifiedName().equals(productSolutionBlueprint.getQualifiedName()))
                 {
-                    String nestedBlueprint_GUID = findSolutionBlueprint(productSolutionBlueprint, newElementOptions);
+                    String nestedBlueprintGUID = findSolutionBlueprint(productSolutionBlueprint, newElementOptions);
 
                     for (ProductSolutionComponent solutionComponentDefinition : ProductSolutionComponent.values())
                     {
@@ -2556,12 +2556,12 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
                         {
                             CollectionClient collectionClient = integrationContext.getCollectionClient();
 
-                            collectionClient.addToCollection(nestedBlueprint_GUID,
+                            collectionClient.addToCollection(nestedBlueprintGUID,
                                                              qualifiedNameToGUIDMap.get(solutionComponentDefinition.getQualifiedName()),
                                                              null,
                                                              null);
                         }
-                     }
+                    }
                 }
             }
         }
