@@ -10,7 +10,7 @@ import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyT
 import org.odpi.openmetadata.frameworks.connectors.tabulardatasets.ReadableTabularDataSource;
 import org.odpi.openmetadata.frameworks.connectors.tabulardatasets.WritableTabularDataSource;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.List;
 

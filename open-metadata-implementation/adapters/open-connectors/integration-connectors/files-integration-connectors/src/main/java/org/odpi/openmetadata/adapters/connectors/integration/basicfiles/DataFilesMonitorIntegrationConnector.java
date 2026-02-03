@@ -64,8 +64,8 @@ public class DataFilesMonitorIntegrationConnector extends BasicFilesMonitorInteg
     OpenMetadataRootElement getFolderElement(File dataFolderFile) throws ConnectorCheckedException
     {
         return super.getFolderElement(dataFolderFile,
-                                      DeployedImplementationType.FILE_FOLDER.getAssociatedTypeName(),
-                                      DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType());
+                                      DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getAssociatedTypeName(),
+                                      DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType());
     }
 
 

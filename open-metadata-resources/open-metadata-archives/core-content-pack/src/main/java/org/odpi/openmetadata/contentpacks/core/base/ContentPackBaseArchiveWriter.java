@@ -2,10 +2,13 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.contentpacks.core.base;
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaSolutionComponent;
 import org.odpi.openmetadata.contentpacks.core.*;
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.ManageAssetGuard;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStoreConfigurationProperty;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.RequestParameterType;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.NewActionTarget;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
@@ -1265,36 +1268,26 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
     /**
      * Add a new valid values record for a deployed implementation type.
      *
-     * @param guid unique identifier of technology type (deployedImplementationType)
-     * @param deployedImplementationType preferred value
-     * @param associatedTypeName         specific type name to tie it to (maybe null)
-     * @param qualifiedName              qualifiedName for this value
-     * @param description                description of this value
-     * @param wikiLink                   optional URL link to more information
-     * @param isATypeOf                  superType
+     * @param deployedImplementationType Description of the technology type
+
      * @return unique identifier of the deployedImplementationType
      */
-    protected String addDeployedImplementationType(String                               guid,
-                                                   String                               deployedImplementationType,
-                                                   String                               associatedTypeName,
-                                                   String                               qualifiedName,
-                                                   String                               description,
-                                                   String                               wikiLink,
-                                                   DeployedImplementationTypeDefinition isATypeOf)
+    protected String addDeployedImplementationType(DeployedImplementationTypeDefinition deployedImplementationType)
     {
         String parentSetGUID = this.getParentSet(OpenMetadataProperty.DEPLOYED_IMPLEMENTATION_TYPE.name);
+        String qualifiedName = deployedImplementationType.getQualifiedName();
 
         Map<String, String> additionalProperties = new HashMap<>();
 
-        additionalProperties.put(OpenMetadataProperty.OPEN_METADATA_TYPE_NAME.name, associatedTypeName);
+        additionalProperties.put(OpenMetadataProperty.OPEN_METADATA_TYPE_NAME.name, deployedImplementationType.getAssociatedTypeName());
 
         /*
          * Not all deployed implementation types have fixed guids. The GUID is typically fixed to use it, say,
          *  for anchorScopeGUID.
          */
-        if (guid != null)
+        if (deployedImplementationType.getGUID() != null)
         {
-            archiveHelper.setGUID(qualifiedName, guid);
+            archiveHelper.setGUID(qualifiedName, deployedImplementationType.getGUID());
         }
 
         String validValueGUID = this.archiveHelper.addValidValue(null,
@@ -1307,24 +1300,66 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                                  qualifiedName,
                                                                  Category.VALID_METADATA_VALUES.getName(),
                                                                  OpenMetadataProperty.DEPLOYED_IMPLEMENTATION_TYPE.name,
-                                                                 deployedImplementationType,
-                                                                 description,
+                                                                 deployedImplementationType.getDeployedImplementationType(),
+                                                                 deployedImplementationType.getDescription(),
                                                                  null,
                                                                  null,
                                                                  DataType.STRING.getName(),
                                                                  OpenMetadataValidValues.OPEN_METADATA_ECOSYSTEM_SCOPE,
-                                                                 deployedImplementationType,
-                                                                 wikiLink,
+                                                                 deployedImplementationType.getDeployedImplementationType(),
+                                                                 deployedImplementationType.getWikiLink(),
                                                                  false,
                                                                  additionalProperties);
 
-        if (isATypeOf != null)
+        /*
+         * DeployedImplementationTypes may have a parent type.
+         */
+        if (deployedImplementationType.getIsATypeOf() != null)
         {
             archiveHelper.addValidValueAssociationRelationship(qualifiedName,
-                                                               isATypeOf.getQualifiedName(),
+                                                               deployedImplementationType.getIsATypeOf().getQualifiedName(),
                                                                OpenMetadataValidValues.VALID_METADATA_VALUE_IS_TYPE_OF,
                                                                AssociationType.INHERITANCE.getName(),
                                                                null);
+        }
+
+        /*
+         * DeployedImplementationTypes may be part of a solution.  They make useful components to link to for
+         * connectors.
+         */
+        SolutionComponentDefinition solutionComponentDefinition = deployedImplementationType.getSolutionComponent();
+
+        if ((solutionComponentDefinition != null) && (solutionComponentDefinition.getGUID() != null))
+        {
+            String solutionComponentQualifiedName = solutionComponentDefinition.getQualifiedName();
+
+            archiveHelper.setGUID(solutionComponentQualifiedName, deployedImplementationType.getSolutionComponentGUID());
+            archiveHelper.addSolutionComponent(solutionComponentDefinition.getTypeName(),
+                                               solutionComponentQualifiedName,
+                                               solutionComponentDefinition.getIdentifier(),
+                                               solutionComponentDefinition.getDisplayName(),
+                                               solutionComponentDefinition.getDescription(),
+                                               versionName,
+                                               solutionComponentDefinition.getComponentType(),
+                                               solutionComponentDefinition.getImplementationType(),
+                                               solutionComponentDefinition.getURL(),
+                                               null,
+                                               null);
+
+            archiveHelper.addMoreInformationLink(deployedImplementationType.getGUID(),
+                                                 deployedImplementationType.getSolutionComponentGUID());
+
+            if (solutionComponentDefinition.getSubComponents() != null)
+            {
+                for (SolutionComponentDefinition subComponent : solutionComponentDefinition.getSubComponents())
+                {
+                    if (subComponent != null)
+                    {
+                        archiveHelper.addSolutionCompositionRelationship(deployedImplementationType.getSolutionComponentGUID(),
+                                                                         subComponent.getGUID());
+                    }
+                }
+            }
         }
 
         return validValueGUID;
@@ -1332,10 +1367,10 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
 
 
     /**
-     * Add the description of the solutions for each content pack.  It is expected that
-     * there is at least on solution blueprint in each content pack, used to describe its content.
+     * Add the description of the solutions for each content pack.  There should be
+     * at least one solution blueprint in each content pack, used to describe its content.
      *
-     * @param contentPackDefinition which content pack is being processed
+     * @param contentPackDefinition which content pack?
      */
     protected void addSolutionBlueprints(ContentPackDefinition contentPackDefinition)
     {
@@ -1343,38 +1378,70 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
         {
             if (solutionBlueprint.getContentPackDefinition() == contentPackDefinition)
             {
-                archiveHelper.setGUID(solutionBlueprint.getQualifiedName(), solutionBlueprint.getGUID());
+                archiveHelper.setGUID(solutionBlueprint.getSolutionBlueprintQualifiedName(), solutionBlueprint.getSolutionBlueprintGUID());
 
                 String solutionBlueprintGUID = archiveHelper.addSolutionBlueprint(OpenMetadataType.SOLUTION_BLUEPRINT.typeName,
-                                                                                  solutionBlueprint.getQualifiedName(),
-                                                                                  solutionBlueprint.getName(),
+                                                                                  solutionBlueprint.getSolutionBlueprintQualifiedName(),
+                                                                                  solutionBlueprint.getSolutionBlueprintDisplayName(),
                                                                                   solutionBlueprint.getDescription(),
                                                                                   versionName,
                                                                                   null,
                                                                                   null);
 
-                assert(solutionBlueprint.getGUID().equals(solutionBlueprintGUID));
+                assert(solutionBlueprint.getSolutionBlueprintGUID().equals(solutionBlueprintGUID));
 
-                if (solutionBlueprint.getSolutionComponentGUIDs() != null)
+                if (solutionBlueprint.getExtraSolutionComponentGUIDs() != null)
                 {
-                    for (String solutionComponentGUID : solutionBlueprint.getSolutionComponentGUIDs())
+                    for (String solutionComponentGUID : solutionBlueprint.getExtraSolutionComponentGUIDs())
                     {
-                        archiveHelper.addMemberToCollection(solutionBlueprint.getGUID(),
+                        archiveHelper.addMemberToCollection(solutionBlueprint.getSolutionBlueprintGUID(),
                                                             solutionComponentGUID,
-                                                            null);
+                                                            "related component");
                     }
                 }
 
                 /*
                  * The solution may include the deployed implementation types (technology types) that it supports.
                  */
-                if (solutionBlueprint.getDeployedImplementationTypeGUIDs() != null)
+                if (solutionBlueprint.getDeployedImplementationTypes() != null)
                 {
-                    for (String deployedImplementationTypeGUID : solutionBlueprint.getDeployedImplementationTypeGUIDs())
+                    for (DeployedImplementationTypeDefinition deployedImplementationType : solutionBlueprint.getDeployedImplementationTypes())
                     {
-                        archiveHelper.addMemberToCollection(solutionBlueprint.getGUID(),
-                                                            deployedImplementationTypeGUID,
-                                                            null);
+                        if (deployedImplementationType.getSolutionComponentGUID() == null)
+                        {
+                            System.out.println("WARNING: No solution component GUID for " + deployedImplementationType.getDeployedImplementationType());
+                            continue;
+                        }
+
+                        archiveHelper.addMemberToCollection(solutionBlueprint.getSolutionBlueprintGUID(),
+                                                            deployedImplementationType.getSolutionComponentGUID(),
+                                                            "interacting with");
+                    }
+                }
+
+                /*
+                 * Add the integration connectors included in the content pack
+                 */
+                for (IntegrationConnectorDefinition integrationConnectorDefinition : IntegrationConnectorDefinition.values())
+                {
+                    if (contentPackDefinition.equals(integrationConnectorDefinition.getContentPackDefinition()))
+                    {
+                        archiveHelper.addMemberToCollection(solutionBlueprint.getSolutionBlueprintGUID(),
+                                                            integrationConnectorDefinition.getSolutionComponentGUID(),
+                                                            "member of");
+                    }
+                }
+
+                /*
+                 * Add the governance action types included in the content pack
+                 */
+                for (RequestTypeDefinition requestTypeDefinition : RequestTypeDefinition.values())
+                {
+                    if (contentPackDefinition.equals(requestTypeDefinition.getContentPackDefinition()))
+                    {
+                        archiveHelper.addMemberToCollection(solutionBlueprint.getSolutionBlueprintGUID(),
+                                                            requestTypeDefinition.getSolutionComponentGUID(),
+                                                            "member of");
                     }
                 }
             }
@@ -1386,7 +1453,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * Add the additional wires to the solution components.
      * The solution components are added with the implementing components.
      *
-     * @param contentPackDefinition which content pack is being processed
+     * @param contentPackDefinition which content pack?
      */
     protected void addSolutionLinkingWires(ContentPackDefinition contentPackDefinition)
     {
@@ -1487,11 +1554,9 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                  */
                 if (integrationConnectorDefinition.getDeployedImplementationTypes() != null)
                 {
-                    for (String deployedImplementationType : integrationConnectorDefinition.getDeployedImplementationTypes())
+                    for (DeployedImplementationTypeDefinition deployedImplementationType : integrationConnectorDefinition.getDeployedImplementationTypes())
                     {
-                        String deployedImplementationTypeGUID = archiveHelper.queryGUID(deployedImplementationType);
-
-                        archiveHelper.addResourceListRelationshipByGUID(deployedImplementationTypeGUID,
+                        archiveHelper.addResourceListRelationshipByGUID(deployedImplementationType.getGUID(),
                                                                         integrationConnectorDefinition.getGUID(),
                                                                         integrationConnectorDefinition.getResourceUse().getResourceUse(),
                                                                         integrationConnectorDefinition.getResourceUse().getDescription());
@@ -1510,10 +1575,11 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
 
                     archiveHelper.addSolutionComponent(OpenMetadataType.SOLUTION_COMPONENT.typeName,
                                                        qualifiedName,
+                                                       integrationConnectorDefinition.getConnectorName(),
                                                        integrationConnectorDefinition.getSolutionComponentName(),
                                                        integrationConnectorDefinition.getSolutionComponentDescription(),
                                                        versionName,
-                                                       SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                                                       SolutionComponentType.LONG_RUNNING_DAEMON.getSolutionComponentType(),
                                                        DeployedImplementationType.INTEGRATION_CONNECTOR.getDeployedImplementationType(),
                                                        "https://egeria-project.org/concepts/integration-connector/",
                                                        null,
@@ -1526,17 +1592,28 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                                null,
                                                                null);
 
+                    archiveHelper.addSolutionLinkingWireRelationship(integrationConnectorDefinition.getSolutionComponentGUID(),
+                                                                     EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID(),
+                                                                     "metadata",
+                                                                     "Querying and maintaining open metadata.",
+                                                                     null);
+
                     if (integrationConnectorDefinition.getDeployedImplementationTypes() != null)
                     {
-                        for (String deployedImplementationType : integrationConnectorDefinition.getDeployedImplementationTypes())
+                        for (DeployedImplementationTypeDefinition deployedImplementationType : integrationConnectorDefinition.getDeployedImplementationTypes())
                         {
-                            String deployedImplementationTypeGUID = archiveHelper.queryGUID(deployedImplementationType);
-
-                            archiveHelper.addSolutionLinkingWireRelationship(integrationConnectorDefinition.getSolutionComponentGUID(),
-                                                                             deployedImplementationTypeGUID,
-                                                                             integrationConnectorDefinition.getResourceUse().getResourceUse(),
-                                                                             integrationConnectorDefinition.getResourceUse().getDescription(),
-                                                                             null);
+                            if (deployedImplementationType.getSolutionComponentGUID() != null)
+                            {
+                                archiveHelper.addSolutionLinkingWireRelationship(integrationConnectorDefinition.getSolutionComponentGUID(),
+                                                                                 deployedImplementationType.getSolutionComponentGUID(),
+                                                                                 integrationConnectorDefinition.getResourceUse().getResourceUse(),
+                                                                                 integrationConnectorDefinition.getResourceUse().getDescription(),
+                                                                                 null);
+                            }
+                            else
+                            {
+                                System.out.println("WARNING: No solution component GUID for " + deployedImplementationType.getDeployedImplementationType());
+                            }
                         }
                     }
                 }
@@ -1760,14 +1837,21 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
 
             archiveHelper.addSolutionComponent(OpenMetadataType.SOLUTION_COMPONENT.typeName,
                                                qualifiedName,
+                                               governanceRequestType,
                                                solutionComponentName,
                                                solutionComponentDescription,
                                                versionName,
-                                               SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                                               SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                                                DeployedImplementationType.GOVERNANCE_ACTION_TYPE.getDeployedImplementationType(),
                                                "https://egeria-project.org/concepts/governance-action-type/",
                                                null,
                                                null);
+
+            archiveHelper.addSolutionLinkingWireRelationship(solutionComponentGUID,
+                                                             EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID(),
+                                                             "metadata",
+                                                             "Querying and maintaining open metadata.",
+                                                             null);
 
             archiveHelper.addImplementedByRelationship(solutionComponentGUID,
                                                        governanceActionTypeGUID,

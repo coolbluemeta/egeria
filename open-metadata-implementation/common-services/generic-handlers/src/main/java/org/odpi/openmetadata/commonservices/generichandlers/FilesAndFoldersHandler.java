@@ -532,7 +532,7 @@ public class FilesAndFoldersHandler<FILESYSTEM, FOLDER, FILE>
                                                               pathName,
                                                               folderName,
                                                               null,
-                                                              DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType(),
+                                                              DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
                                                               effectiveFrom,
                                                               effectiveTo,
                                                               forLineage,

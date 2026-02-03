@@ -1,0 +1,417 @@
+# Egeria-coco-subject-areas
+# The CocoComboArchive.omarchive creates their core subject areas described in
+# https://egeria-project.org/practices/coco-pharmaceuticals/scenarios/defining-subject-areas/overview/
+# plus a subject areas for sustainability.  This sequence of commands adds a chemical subject area
+# and a Geospacial subject area with nested subject areas of location and facility.
+# All of the top-level subject areas are grouped under a top level collection and the full
+# subject area hierarchy is retrieved.
+# Subject Areas: https://egeria-project.org/concepts/subject-area/
+
+@baseURL=https://localhost:9443
+@viewServer=view-server
+
+###
+# =====================================================================================================================
+# Manage the authentication token.  Run this request to create/refresh the token.
+
+# @name Token (RequestBody)
+POST {{baseURL}}/api/token
+Content-Type: application/json
+
+{
+  "userId" : "peterprofile",
+  "password" : "secret"
+}
+
+> {% client.global.set("token", response.body); %}
+
+
+###
+# =====================================================================================================================
+# Create Top-Level Collection
+# https://egeria-project.org/concepts/collection
+
+
+###
+# @name create top level collection
+# Create a subject area.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewElementRequestBody",
+  "isOwnAnchor": true,
+  "properties": {
+    "class" : "RootCollectionProperties",
+    "qualifiedName": "RootCollection::SubjectAreas::CocoPharmaceuticals",
+    "displayName": "Coco Pharmaceuticals Subject Areas",
+    "identifier": "COCO-SUBJECT-AREAS",
+    "description": "This collection gathers together the subject areas defined by Coco Pharmaceuticals.  These subject areas are designed to create focus on the types of data that supports the future state of the business."
+  }
+}
+
+> {% client.global.set("topLevelCollectionGUID", response.body.guid); %}
+
+
+###
+# =====================================================================================================================
+# Create Chemicals subject area
+
+###
+# @name create Chemicals subject area
+# Create a subject area.  Notice it is both anchored and has a parent relationship with the parent collection.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewElementRequestBody",
+  "anchorGUID" : "{{topLevelCollectionGUID}}",
+  "isOwnAnchor": false,
+  "parentGUID": "{{topLevelCollectionGUID}}",
+  "parentRelationshipTypeName": "CollectionMembership",
+  "parentRelationshipProperties": {
+    "class": "CollectionMemberProperties",
+    "collectionType" : "primarySubjectArea"
+  },
+  "parentAtEnd1": true,
+  "properties": {
+    "class" : "SubjectAreaProperties",
+    "qualifiedName": "SubjectArea::Chemicals",
+    "displayName": "Chemicals",
+    "identifier": "CHEMICALS",
+    "description": "Information relating to chemicals and their composition.",
+    "usage": "These subject areas are used in the Coco Pharmaceuticals scenarios.",
+    "scope": "Within organization",
+    "domainIdentifier": 0
+  }
+}
+
+> {% client.global.set("chemicalsSubjectAreaGUID", response.body.guid); %}
+
+###
+# =====================================================================================================================
+# Create Geospatial subject area
+
+###
+# @name create Geospatial subject area
+# Create a subject area.  Notice it is both anchored and has a parent relationship with the parent collection.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewElementRequestBody",
+  "anchorGUID" : "{{topLevelCollectionGUID}}",
+  "isOwnAnchor": false,
+  "parentGUID": "{{topLevelCollectionGUID}}",
+  "parentRelationshipTypeName": "CollectionMembership",
+  "parentRelationshipProperties": {
+    "class": "CollectionMemberProperties",
+    "collectionType" : "primarySubjectArea"
+  },
+  "parentAtEnd1": true,
+  "properties": {
+    "class" : "SubjectAreaProperties",
+    "qualifiedName": "SubjectArea::Geospatial",
+    "displayName": "Geospatial",
+    "identifier": "GEOSPATIAL",
+    "description": "Information relating to Geospatial data.",
+    "usage": "These subject areas are used in the Coco Pharmaceuticals scenarios.",
+    "scope": "Within organization",
+    "domainIdentifier": 0
+  }
+}
+
+> {% client.global.set("geospatialSubjectAreaGUID", response.body.guid); %}
+
+###
+# @name create Location subject area
+# Create a subject area.  Notice it is anchored to the top level collection and has a SubjectAreaHierachy parent relationship with the Geospatial subject area.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewElementRequestBody",
+  "anchorGUID" : "{{topLevelCollectionGUID}}",
+  "isOwnAnchor": false,
+  "parentGUID": "{{geospatialSubjectAreaGUID}}",
+  "parentRelationshipTypeName": "SubjectAreaHierarchy",
+  "parentAtEnd1": true,
+  "properties": {
+    "class" : "SubjectAreaProperties",
+    "qualifiedName": "SubjectArea::Geospatial::Location",
+    "displayName": "Location",
+    "identifier": "GEOSPATIAL-LOCATION",
+    "description": "Information relating to data about locations.",
+    "usage": "These subject areas are used in the Coco Pharmaceuticals scenarios.",
+    "scope": "Within organization",
+    "domainIdentifier": 0
+  }
+}
+
+###
+# @name create Facility subject area
+# Create a subject area.  Notice it is anchored to the top level collection and has a SubjectAreaHierachy parent relationship with the Geospatial subject area.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewElementRequestBody",
+  "anchorGUID" : "{{topLevelCollectionGUID}}",
+  "isOwnAnchor": false,
+  "parentGUID": "{{geospatialSubjectAreaGUID}}",
+  "parentRelationshipTypeName": "SubjectAreaHierarchy",
+  "parentAtEnd1": true,
+  "properties": {
+    "class" : "SubjectAreaProperties",
+    "qualifiedName": "SubjectArea::Geospatial::Facility",
+    "displayName": "Facility",
+    "identifier": "GEOSPATIAL-FACILITY",
+    "description": "Information relating to data about Facilities.",
+    "usage": "These subject areas are used in the Coco Pharmaceuticals scenarios.",
+    "scope": "Within organization",
+    "domainIdentifier": 0
+  }
+}
+
+###
+# =====================================================================================================================
+# Link existing top level subject areas to the new top-level collection
+# The get command locates each subject area and then links them into the collection
+# using the CollectionMembership relaitonship.
+
+
+###
+
+# @name get Organization Subject Area
+# Returns the list of subject areas with a particular name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Organization",
+  "metadataElementTypeName": "SubjectArea"
+}
+
+> {% client.global.set("organizationSubjectAreaGUID", response.body.elements[0].elementHeader.guid); %}
+
+
+###
+# @name add to top-level collection
+# Add an element to a collection.  The request body is optional
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections/{{topLevelCollectionGUID}}/members/{{organizationSubjectAreaGUID}}/attach
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewRelationshipRequestBody",
+  "properties" : {
+    "class": "CollectionMemberProperties",
+    "collectionType" : "primarySubjectArea"
+  }
+}
+
+###
+
+# @name get Person Subject Area
+# Returns the list of subject areas with a particular name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Person",
+  "metadataElementTypeName": "SubjectArea"
+}
+
+> {% client.global.set("personSubjectAreaGUID", response.body.elements[0].elementHeader.guid); %}
+
+
+###
+# @name add to top-level collection
+# Add an element to a collection.  The request body is optional
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections/{{topLevelCollectionGUID}}/members/{{personSubjectAreaGUID}}/attach
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewRelationshipRequestBody",
+  "properties" : {
+    "class": "CollectionMemberProperties",
+    "collectionType" : "primarySubjectArea"
+  }
+}
+
+###
+
+# @name get Clinical Subject Area
+# Returns the list of subject areas with a particular name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Clinical",
+  "metadataElementTypeName": "SubjectArea"
+}
+
+> {% client.global.set("clinicalSubjectAreaGUID", response.body.elements[0].elementHeader.guid); %}
+
+
+###
+# @name add to top-level collection
+# Add an element to a collection.  The request body is optional
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections/{{topLevelCollectionGUID}}/members/{{clinicalSubjectAreaGUID}}/attach
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewRelationshipRequestBody",
+  "properties" : {
+    "class": "CollectionMemberProperties",
+    "collectionType" : "primarySubjectArea"
+  }
+}
+
+###
+
+# @name get Treatment Subject Area
+# Returns the list of subject areas with a particular name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Treatment",
+  "metadataElementTypeName": "SubjectArea"
+}
+
+> {% client.global.set("treatmentSubjectAreaGUID", response.body.elements[0].elementHeader.guid); %}
+
+
+###
+# @name add to top-level collection
+# Add an element to a collection.  The request body is optional
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections/{{topLevelCollectionGUID}}/members/{{treatmentSubjectAreaGUID}}/attach
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewRelationshipRequestBody",
+  "properties" : {
+    "class": "CollectionMemberProperties",
+    "collectionType" : "primarySubjectArea"
+  }
+}
+
+###
+
+# @name get Service Quality Subject Area
+# Returns the list of subject areas with a particular name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Service Quality",
+  "metadataElementTypeName": "SubjectArea"
+}
+
+> {% client.global.set("serviceQualitySubjectAreaGUID", response.body.elements[0].elementHeader.guid); %}
+
+
+###
+# @name add to top-level collection
+# Add an element to a collection.  The request body is optional
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections/{{topLevelCollectionGUID}}/members/{{serviceQualitySubjectAreaGUID}}/attach
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewRelationshipRequestBody",
+  "properties" : {
+    "class": "CollectionMemberProperties",
+    "collectionType" : "primarySubjectArea"
+  }
+}
+
+###
+
+# @name get Governance Subject Area
+# Returns the list of subject areas with a particular name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Governance",
+  "metadataElementTypeName": "SubjectArea"
+}
+
+> {% client.global.set("governanceSubjectAreaGUID", response.body.elements[0].elementHeader.guid); %}
+
+
+###
+# @name add to top-level collection
+# Add an element to a collection.  The request body is optional
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections/{{topLevelCollectionGUID}}/members/{{governanceSubjectAreaGUID}}/attach
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewRelationshipRequestBody",
+  "properties" : {
+    "class": "CollectionMemberProperties",
+    "collectionType" : "primarySubjectArea"
+  }
+}
+
+###
+
+# @name get Product Development Subject Area
+# Returns the list of subject areas with a particular name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/subject-area/collections/by-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Product Development",
+  "metadataElementTypeName": "SubjectArea"
+}
+
+> {% client.global.set("productDevelopmentSubjectAreaGUID", response.body.elements[0].elementHeader.guid); %}
+
+
+###
+# @name add to top-level collection
+# Add an element to a collection.  The request body is optional
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections/{{topLevelCollectionGUID}}/members/{{productDevelopmentSubjectAreaGUID}}/attach
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewRelationshipRequestBody",
+  "properties" : {
+    "class": "CollectionMemberProperties",
+    "collectionType" : "primarySubjectArea"
+  }
+}
+
+
+###
+# =====================================================================================================================
+# Retrieve the collection hierarchy
+
+###
+# @name getCollectionHierarchy
+# Return a hierarchy of nested collections. Request body is optional
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections/{{topLevelCollectionGUID}}/hierarchy
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###

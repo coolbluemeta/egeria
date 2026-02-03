@@ -1,7 +1,8 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
-package org.odpi.openmetadata.frameworks.openmetadata.definitions;
+package org.odpi.openmetadata.adapters.connectors;
 
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.ActorRoleDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 /**
@@ -27,6 +28,7 @@ public enum EgeriaRoleDefinition implements ActorRoleDefinition
                        "OPEN-METADATA-USER",
                        "Open Metadata User",
                        "A person or system maintaining and using open metadata."),
+
 
     /**
      * A person/system capable of writing python code.

@@ -12,22 +12,22 @@ import java.util.List;
 public enum SolutionComponentWire
 {
 
-    MAINTAIN_PRODUCT(ProductSolutionComponent.OPEN_METADATA_HARVESTER,
+    MAINTAIN_PRODUCT(ProductSolutionComponent.JACQUARD_HARVESTER,
                      ProductSolutionComponent.OPEN_METADATA_PRODUCT,
                      "maintain catalog entry",
                      "Jacquard is responsible for the description of each product in the product catalog."),
 
-    MONITOR_METADATA(ProductSolutionComponent.OPEN_METADATA_HARVESTER,
+    MONITOR_METADATA(ProductSolutionComponent.JACQUARD_HARVESTER,
                      ProductSolutionComponent.METADATA_ACCESS_STORE,
                      "monitor for changes",
                      "Jacquard monitors the content of the open metadata repositories looking for possible new products and updates to existing products."),
 
-    BUILD_CATALOG(ProductSolutionComponent.OPEN_METADATA_HARVESTER,
+    BUILD_CATALOG(ProductSolutionComponent.JACQUARD_HARVESTER,
                      ProductSolutionComponent.PRODUCT_CATALOG,
                      "add products to catalog",
                      "Jacquard links the digital products it creates into appropriate folders in the Open Metadata Digital Catalog."),
 
-    SETUP_SUB_MANAGER(ProductSolutionComponent.OPEN_METADATA_HARVESTER,
+    SETUP_SUB_MANAGER(ProductSolutionComponent.JACQUARD_HARVESTER,
                       ProductSolutionComponent.SUBSCRIPTION_MANAGER,
                       "set up subscription managers",
                       "Jacquard creates the engine action for each subscription manager.  Th engine action will run a watchdog action service to monitor for product changes and notify the different subscribers.  This includes running the provisioning pipeline for each product subscriber."),
@@ -57,6 +57,11 @@ public enum SolutionComponentWire
                               "maintain data",
                               "Update the subscriber's copy of the data when a product changes."),
 
+    RETRIEVE_PRODUCT_DATA(ProductSolutionComponent.PROVISIONING_PIPELINE,
+                          ProductSolutionComponent.OPEN_METADATA_PRODUCT,
+                          "retrieve data",
+                          "Retrieve the data for a product."),
+
     PRODUCT_CATALOG_SEARCH(ProductSolutionComponent.PRODUCT_CATALOG,
                            ProductSolutionComponent.OPEN_METADATA_PRODUCT,
                            "search for type of data",
@@ -73,9 +78,9 @@ public enum SolutionComponentWire
                            "The product's watchdog is configured with details of the new pipeline that supports the subscription."),
 
     REMOVE_SUBSCRIPTION(ProductSolutionComponent.CANCEL_PRODUCT_SUBSCRIPTION,
-                           ProductSolutionComponent.SUBSCRIPTION_MANAGER,
+                           ProductSolutionComponent.OPEN_METADATA_PRODUCT,
                            "remove subscription",
-                           "The pipeline subscription is removed from the product's watchdog so it is no longer called when the product changes."),
+                           "The pipeline subscription is removed from the product's notification type so it is no longer called when the product changes."),
 
     REMOVE_COPY(ProductSolutionComponent.CANCEL_PRODUCT_SUBSCRIPTION,
                         ProductSolutionComponent.PRODUCT_DELIVERY_LOCATION,

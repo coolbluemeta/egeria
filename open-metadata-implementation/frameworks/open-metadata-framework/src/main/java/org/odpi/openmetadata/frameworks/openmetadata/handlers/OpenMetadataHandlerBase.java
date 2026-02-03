@@ -1201,6 +1201,19 @@ public class OpenMetadataHandlerBase
                                                                  queryOptions,
                                                                  1));
 
+            rootElement.setNestedSolutionComponents(this.getElementHierarchies(userId,
+                                                                               rootElement.getNestedSolutionComponents(),
+                                                                               1,
+                                                                               null,
+                                                                               List.of(OpenMetadataType.SOLUTION_COMPONENT_ACTOR_RELATIONSHIP.typeName,
+                                                                                       OpenMetadataType.SOLUTION_LINKING_WIRE_RELATIONSHIP.typeName,
+                                                                                       OpenMetadataType.SOLUTION_COMPOSITION_RELATIONSHIP.typeName,
+                                                                                       OpenMetadataType.IMPLEMENTED_BY_RELATIONSHIP.typeName,
+                                                                                       OpenMetadataType.SOLUTION_COMPONENT_PORT_RELATIONSHIP.typeName,
+                                                                                       OpenMetadataType.SOLUTION_PORT_DELEGATION_RELATIONSHIP.typeName),
+                                                                               queryOptions,
+                                                                               1));
+
             if (propertyHelper.isTypeOf(rootElement.getElementHeader(), OpenMetadataType.ASSET.typeName))
             {
                 rootElement.setConnections(this.getElementHierarchies(userId,
@@ -1230,17 +1243,6 @@ public class OpenMetadataHandlerBase
                                                                              null,
                                                                              queryOptions,
                                                                              1));
-
-                rootElement.setNestedSolutionComponents(this.getElementHierarchies(userId,
-                                                                                   rootElement.getNestedSolutionComponents(),
-                                                                                   1,
-                                                                                   null,
-                                                                                   List.of(OpenMetadataType.SOLUTION_COMPONENT_ACTOR_RELATIONSHIP.typeName,
-                                                                                           OpenMetadataType.SOLUTION_LINKING_WIRE_RELATIONSHIP.typeName,
-                                                                                           OpenMetadataType.SOLUTION_COMPONENT_PORT_RELATIONSHIP.typeName,
-                                                                                           OpenMetadataType.SOLUTION_PORT_DELEGATION_RELATIONSHIP.typeName),
-                                                                                   queryOptions,
-                                                                                   1));
             }
             else if ((propertyHelper.isTypeOf(rootElement.getElementHeader(), OpenMetadataType.SOLUTION_BLUEPRINT.typeName)) ||
                      (propertyHelper.isTypeOf(rootElement.getElementHeader(), OpenMetadataType.INFORMATION_SUPPLY_CHAIN.typeName)))
@@ -1251,6 +1253,8 @@ public class OpenMetadataHandlerBase
                                                                             OpenMetadataType.SOLUTION_COMPOSITION_RELATIONSHIP.typeName,
                                                                             List.of(OpenMetadataType.SOLUTION_COMPONENT_ACTOR_RELATIONSHIP.typeName,
                                                                                     OpenMetadataType.SOLUTION_LINKING_WIRE_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.COLLECTION_MEMBERSHIP_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.IMPLEMENTED_BY_RELATIONSHIP.typeName,
                                                                                     OpenMetadataType.SOLUTION_COMPONENT_PORT_RELATIONSHIP.typeName,
                                                                                     OpenMetadataType.SOLUTION_PORT_DELEGATION_RELATIONSHIP.typeName),
                                                                             queryOptions,

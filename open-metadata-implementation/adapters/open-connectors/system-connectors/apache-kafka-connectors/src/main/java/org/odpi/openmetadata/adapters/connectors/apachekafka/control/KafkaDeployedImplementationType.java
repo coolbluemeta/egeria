@@ -3,11 +3,9 @@
 package org.odpi.openmetadata.adapters.connectors.apachekafka.control;
 
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.SolutionComponentType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
-
-import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues.constructValidValueQualifiedName;
 
 /**
  * DeployedImplementationType describes the standard deployed implementation types supplied with Egeria. These are encoded in the
@@ -16,32 +14,38 @@ import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataV
 public enum KafkaDeployedImplementationType implements DeployedImplementationTypeDefinition
 {
     /**
-     * A software capability that enables high speed, reliable topic-based event exchange.
+     * A software capability that enables high-speed, reliable topic-based event exchange.
      */
     APACHE_KAFKA_EVENT_BROKER("511259bb-1f67-407a-88e2-e6ce1098a80f",
                               "Apache Kafka Event Broker",
                               DeployedImplementationType.SOFTWARE_CAPABILITY,
                               OpenMetadataType.EVENT_BROKER.typeName,
                               null,
-                              "A software capability that enables high speed, reliable topic-based event exchange.",
-                              "https://kafka.apache.org/"),
+                              "A software capability that enables high-speed, reliable topic-based event exchange.",
+                              "https://kafka.apache.org/",
+                              "1407472b-c01e-4b1c-a134-d23c6c68fbc7",
+                              SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
+                              "Apache Kafka Event Broker"),
 
     /**
-     * A software server supporting an event broker that enables high speed, reliable topic-based event exchange.
+     * A software server supporting an event broker that enables high-speed, reliable topic-based event exchange.
      */
     APACHE_KAFKA_SERVER("47ab900d-7507-4a52-8b1e-f1692dcb97e0",
                         "Apache Kafka Server",
                         DeployedImplementationType.INTEGRATION_SERVER,
                         OpenMetadataType.SOFTWARE_SERVER.typeName,
                         null,
-                        "A software server supporting an event broker that enables high speed, reliable topic-based event exchange.",
-                        "https://kafka.apache.org/"),
+                        "A software server supporting an event broker that enables high-speed, reliable topic-based event exchange.",
+                        "https://kafka.apache.org/",
+                        "db7328df-4ce2-4064-aaff-0cf2c3f14aaf",
+                        SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
+                        "Apache Kafka Server"),
 
     ;
 
 
     /**
-     * Return the matching ENUM to make use of the full definition for the deployed implementation type.
+     * Return the matching ENUM for the full definition for the deployed implementation type.
      *
      * @param deployedImplementationType value to match on
      * @return DeployedImplementationType definition
@@ -63,6 +67,24 @@ public enum KafkaDeployedImplementationType implements DeployedImplementationTyp
     }
 
 
+    /**
+     * Return a list of definitions for this set of deployed implementation types.
+     *
+     * @return array of definitions
+     */
+    public static DeployedImplementationTypeDefinition[] getDefinitions()
+    {
+        DeployedImplementationTypeDefinition[] definitions = new DeployedImplementationTypeDefinition[values().length];
+
+        for (KafkaDeployedImplementationType definition : KafkaDeployedImplementationType.values())
+        {
+            definitions[definition.ordinal()] = definition;
+        }
+
+        return definitions;
+    }
+
+
     private final String                               guid;
     private final String                               deployedImplementationType;
     private final DeployedImplementationTypeDefinition isATypeOf;
@@ -70,7 +92,9 @@ public enum KafkaDeployedImplementationType implements DeployedImplementationTyp
     private final String                               associatedClassification;
     private final String                               description;
     private final String                               wikiLink;
-
+    private final String                               solutionComponentGUID;
+    private final String                               solutionComponentType;
+    private final String                               solutionComponentIdentifier;
 
     /**
      * Constructor for individual enum value.
@@ -82,6 +106,9 @@ public enum KafkaDeployedImplementationType implements DeployedImplementationTyp
      * @param associatedClassification the open metadata classification where this value is used
      * @param description description of the type
      * @param wikiLink url link to more information (optional)
+     * @param solutionComponentGUID unique identifier of the solution component that this deployed implementation type is associated with (optional)
+     * @param solutionComponentType type of the solution component that this deployed implementation type is associated with (optional)
+     * @param solutionComponentIdentifier  identifier of the solution component that this deployed implementation type is associated with (optional)
      */
     KafkaDeployedImplementationType(String                               guid,
                                     String                               deployedImplementationType,
@@ -89,7 +116,10 @@ public enum KafkaDeployedImplementationType implements DeployedImplementationTyp
                                     String                               associatedTypeName,
                                     String                               associatedClassification,
                                     String                               description,
-                                    String                               wikiLink)
+                                    String                               wikiLink,
+                                    String                               solutionComponentGUID,
+                                    String                               solutionComponentType,
+                                    String                               solutionComponentIdentifier)
     {
         this.guid = guid;
         this.deployedImplementationType = deployedImplementationType;
@@ -98,6 +128,9 @@ public enum KafkaDeployedImplementationType implements DeployedImplementationTyp
         this.associatedClassification = associatedClassification;
         this.description = description;
         this.wikiLink = wikiLink;
+        this.solutionComponentGUID = solutionComponentGUID;
+        this.solutionComponentType = solutionComponentType;
+        this.solutionComponentIdentifier = solutionComponentIdentifier;
     }
 
 
@@ -161,21 +194,6 @@ public enum KafkaDeployedImplementationType implements DeployedImplementationTyp
 
 
     /**
-     * Return the qualified name for this deployed implementation type.
-     *
-     * @return string
-     */
-    @Override
-    public String getQualifiedName()
-    {
-        return constructValidValueQualifiedName(associatedTypeName,
-                                                OpenMetadataProperty.DEPLOYED_IMPLEMENTATION_TYPE.name,
-                                                null,
-                                                deployedImplementationType);
-    }
-
-
-    /**
      * Return the description for this value.
      * 
      * @return string
@@ -196,6 +214,42 @@ public enum KafkaDeployedImplementationType implements DeployedImplementationTyp
     public String getWikiLink()
     {
         return wikiLink;
+    }
+
+
+    /**
+     * Return the optional unique identifier of the solution component that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentGUID()
+    {
+        return solutionComponentGUID;
+    }
+
+
+    /**
+     * Return the solution component type that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentType()
+    {
+        return solutionComponentType;
+    }
+
+
+    /**
+     * Return the solution component identifier that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentIdentifier()
+    {
+        return solutionComponentIdentifier;
     }
 
 

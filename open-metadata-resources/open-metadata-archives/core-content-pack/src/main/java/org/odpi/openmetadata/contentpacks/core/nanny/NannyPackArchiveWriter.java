@@ -25,10 +25,10 @@ public class NannyPackArchiveWriter extends ContentPackBaseArchiveWriter
      */
     public NannyPackArchiveWriter()
     {
-        super(ContentPackDefinition.NANNY_CONTENT_PACK.getArchiveGUID(),
-              ContentPackDefinition.NANNY_CONTENT_PACK.getArchiveName(),
-              ContentPackDefinition.NANNY_CONTENT_PACK.getArchiveDescription(),
-              ContentPackDefinition.NANNY_CONTENT_PACK.getArchiveFileName(),
+        super(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK.getArchiveGUID(),
+              ContentPackDefinition.OBSERVABILITY_CONTENT_PACK.getArchiveName(),
+              ContentPackDefinition.OBSERVABILITY_CONTENT_PACK.getArchiveDescription(),
+              ContentPackDefinition.OBSERVABILITY_CONTENT_PACK.getArchiveFileName(),
               new OpenMetadataArchive[]{new CorePackArchiveWriter().getOpenMetadataArchive(), new PostgresPackArchiveWriter().getOpenMetadataArchive()});
     }
 
@@ -42,30 +42,30 @@ public class NannyPackArchiveWriter extends ContentPackBaseArchiveWriter
         /*
          * Add catalog templates
          */
-        this.addSoftwareServerCatalogTemplates(ContentPackDefinition.NANNY_CONTENT_PACK);
-        this.addDataAssetCatalogTemplates(ContentPackDefinition.NANNY_CONTENT_PACK);
+        this.addSoftwareServerCatalogTemplates(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
+        this.addDataAssetCatalogTemplates(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
 
         /*
          * Create the default integration group.
          */
-        super.addIntegrationGroups(ContentPackDefinition.NANNY_CONTENT_PACK);
-        super.addIntegrationConnectors(ContentPackDefinition.NANNY_CONTENT_PACK,
+        super.addIntegrationGroups(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
+        super.addIntegrationConnectors(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK,
                                        IntegrationGroupDefinition.NANNY);
 
         /*
          * Create the default governance engines
          */
-        super.createGovernanceEngines(ContentPackDefinition.NANNY_CONTENT_PACK);
+        super.createGovernanceEngines(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
 
         /*
          * Register the governance services that are going to be in the default governance engines.
          */
-        super.createGovernanceServices(ContentPackDefinition.NANNY_CONTENT_PACK);
+        super.createGovernanceServices(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
 
         /*
          * Connect the governance engines to the governance services using the request types.
          */
-        super.createRequestTypes(ContentPackDefinition.NANNY_CONTENT_PACK);
+        super.createRequestTypes(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
 
         this.createAndHarvestToAssetGovernanceActionProcess("HarvestSurveyReports",
                                                             PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getAssociatedTypeName(),
@@ -86,8 +86,8 @@ public class NannyPackArchiveWriter extends ContentPackBaseArchiveWriter
         /*
          * Define the solution components for this solution.
          */
-        super.addSolutionBlueprints(ContentPackDefinition.NANNY_CONTENT_PACK);
-        super.addSolutionLinkingWires(ContentPackDefinition.NANNY_CONTENT_PACK);
+        super.addSolutionBlueprints(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
+        super.addSolutionLinkingWires(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
 
         /*
          * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.

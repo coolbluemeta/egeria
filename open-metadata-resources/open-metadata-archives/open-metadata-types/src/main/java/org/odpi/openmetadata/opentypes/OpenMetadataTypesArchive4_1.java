@@ -247,7 +247,7 @@ public class OpenMetadataTypesArchive4_1
     {
         return archiveHelper.getClassificationDef(OpenMetadataType.TEMPLATE_SUBSTITUTE_CLASSIFICATION,
                                                   null,
-                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.REFERENCEABLE.typeName),
+                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.OPEN_METADATA_ROOT.typeName),
                                                   false);
     }
 

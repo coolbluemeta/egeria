@@ -9,7 +9,7 @@ import org.odpi.openmetadata.adapters.connectors.controls.UnityCatalogDeployedIm
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ActionTargetType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 import org.odpi.openmetadata.frameworks.opensurvey.SurveyActionServiceProvider;
 import org.odpi.openmetadata.frameworks.opensurvey.controls.AnalysisStep;
 
@@ -44,7 +44,7 @@ public class OSSUnityCatalogInsideVolumeSurveyProvider extends SurveyActionServi
         actionTargetType.setName(FILE_TARGET_PROPERTY);
         actionTargetType.setDescription(FILE_TARGET_PROPERTY_DESCRIPTION);
         actionTargetType.setOpenMetadataTypeName(UnityCatalogDeployedImplementationType.OSS_UC_VOLUME.getAssociatedTypeName());
-        actionTargetType.setDeployedImplementationType(DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType());
+        actionTargetType.setDeployedImplementationType(DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType());
 
         super.supportedTechnologyTypes = SupportedTechnologyType.getSupportedTechnologyTypes(new DeployedImplementationTypeDefinition[]{UnityCatalogDeployedImplementationType.OSS_UC_VOLUME});
 

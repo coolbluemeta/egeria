@@ -3,10 +3,11 @@
 
 package org.odpi.openmetadata.contentpacks.core;
 
-import org.odpi.openmetadata.adapters.connectors.apacheatlas.controls.AtlasDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.AtlasDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.controls.PostgresDeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.jacquard.solutionblueprint.ProductSolutionComponent;
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control.EgeriaSoftwareServerTemplateDefinition;
 import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.ManageAssetRequestParameter;
 import org.odpi.openmetadata.adapters.connectors.jacquard.productcatalog.GovernanceActionTypeDefinition;
@@ -37,7 +38,7 @@ public enum RequestTypeDefinition
                         GovernanceEngineDefinition.FILE_GOVERNANCE_ENGINE,
                         GovernanceServiceDefinition.NEW_FILES_WATCHDOG,
                         "69bead73-b5b7-4791-9293-c660990ec7bf",
-                        DeployedImplementationType.FILE_FOLDER.getQualifiedName(),
+                        DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName(),
                         "6ba4d520-a3fd-4eb7-9fc1-b1beddfd721e",
                         "Watch for new Files in Directory (folder)",
                         "Monitors the creation of open metadata elements that represent files and initiates appropriate governance actions.",
@@ -102,9 +103,9 @@ public enum RequestTypeDefinition
                                 GovernanceServiceDefinition.BAUDOT_SUBSCRIPTION_MANAGER,
                                 GovernanceActionTypeDefinition.BAUDOT_SUBSCRIPTION_MANAGER.getGovernanceActionTypeGUID(),
                                 DeployedImplementationType.TABULAR_DATA_SET.getQualifiedName(),
-                                "d4166d3f-2eb8-47a1-8d33-a36ae831c2d3",
-                                "Baudot Subscription Manager",
-                                "Sends a notification to all interested subscribers when an Open Metadata Digital Product changes.",
+                                ProductSolutionComponent.SUBSCRIPTION_MANAGER.getGUID(),
+                                ProductSolutionComponent.SUBSCRIPTION_MANAGER.getDisplayName(),
+                                ProductSolutionComponent.SUBSCRIPTION_MANAGER.getDescription(),
                                 ContentPackDefinition.PRODUCTS_CONTENT_PACK),
 
     /**
@@ -137,7 +138,23 @@ public enum RequestTypeDefinition
                       "15060bce-3034-4cd6-9288-15287c5a354e",
                       "Provision Tabular Data Set",
                       "Copies data from one tabular data set to another.",
-                      ContentPackDefinition.PRODUCTS_CONTENT_PACK),
+                      ContentPackDefinition.CORE_CONTENT_PACK),
+
+    /**
+     * provision-subscription
+     */
+    PROVISION_SUBSCRIPTION(GovernanceActionTypeDefinition.PROVISION_SUBSCRIPTION.getGovernanceRequestType(),
+                           null,
+                           null,
+                           null,
+                           GovernanceEngineDefinition.EGERIA_GOVERNANCE_ENGINE,
+                           GovernanceServiceDefinition.SUBSCRIPTION_PROVISIONER,
+                           GovernanceActionTypeDefinition.PROVISION_SUBSCRIPTION.getGovernanceActionTypeGUID(),
+                           DeployedImplementationType.TABULAR_DATA_SET.getQualifiedName(),
+                           ProductSolutionComponent.PROVISIONING_PIPELINE.getGUID(),
+                           ProductSolutionComponent.PROVISIONING_PIPELINE.getDisplayName(),
+                           ProductSolutionComponent.PROVISIONING_PIPELINE.getDescription(),
+                           ContentPackDefinition.PRODUCTS_CONTENT_PACK),
 
     /**
      * create-digital-subscription
@@ -150,9 +167,9 @@ public enum RequestTypeDefinition
                         GovernanceServiceDefinition.CREATE_SUBSCRIPTION,
                         GovernanceActionTypeDefinition.CREATE_SUBSCRIPTION.getGovernanceActionTypeGUID(),
                         DeployedImplementationType.TABULAR_DATA_SET.getQualifiedName(),
-                        "259273bf-d228-4b44-af85-58d83c2dc6cb",
-                        "Create Digital Subscription",
-                        "Creates a subscription to a digital product.  The current contents of the product are provisioned to the user's specified destination.  If the subscription type supports ongoing notifications, then updates to the product contents will also be provisioned to the same destination.",
+                        ProductSolutionComponent.NEW_PRODUCT_SUBSCRIPTION.getGUID(),
+                        ProductSolutionComponent.NEW_PRODUCT_SUBSCRIPTION.getDisplayName(),
+                        ProductSolutionComponent.NEW_PRODUCT_SUBSCRIPTION.getDescription(),
                         ContentPackDefinition.PRODUCTS_CONTENT_PACK),
 
     /**
@@ -166,9 +183,9 @@ public enum RequestTypeDefinition
                         GovernanceServiceDefinition.CANCEL_SUBSCRIPTION,
                         GovernanceActionTypeDefinition.CANCEL_SUBSCRIPTION.getGovernanceActionTypeGUID(),
                         DeployedImplementationType.TABULAR_DATA_SET.getQualifiedName(),
-                        "aa299ce9-1b05-4ac7-9c22-a0d44e15f30e",
-                        "Cancel Subscription",
-                        "Cancels (removes) a subscription to a digital product. No more updates to the product data will be sent.",
+                        ProductSolutionComponent.CANCEL_PRODUCT_SUBSCRIPTION.getGUID(),
+                        ProductSolutionComponent.CANCEL_PRODUCT_SUBSCRIPTION.getDisplayName(),
+                        ProductSolutionComponent.CANCEL_PRODUCT_SUBSCRIPTION.getDescription(),
                         ContentPackDefinition.PRODUCTS_CONTENT_PACK),
 
 
@@ -360,7 +377,7 @@ public enum RequestTypeDefinition
                   GovernanceEngineDefinition.FILE_SURVEY_ENGINE,
                   GovernanceServiceDefinition.FOLDER_SURVEY,
                   "381c60e6-733b-42db-a025-8e6eb29294fc",
-                  DeployedImplementationType.FILE_FOLDER.getQualifiedName(),
+                  DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName(),
                   "96a97dc7-10b0-4c7a-8e4f-1f4f2b0b1bf7",
                   "Survey File System Directory",
                   "Create a survey report that summarizes the files in a directory (folder) on a file system.  Nested directories are ignored.",
@@ -376,7 +393,7 @@ public enum RequestTypeDefinition
                             GovernanceEngineDefinition.FILE_SURVEY_ENGINE,
                             GovernanceServiceDefinition.FOLDER_SURVEY,
                             "633e7711-0c65-47b5-894f-c9dba5472412",
-                            DeployedImplementationType.FILE_FOLDER.getQualifiedName(),
+                            DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName(),
                             "7d8e6ed1-c2b8-49af-9e49-8e5c5290c064",
                             "Survey File System Directory and its Files",
                             "Create a survey report that characterises the files in a requested directory (folder) on a file system along with a summary of the directory itself.  Nested directories are ignored.",
@@ -392,7 +409,7 @@ public enum RequestTypeDefinition
                        GovernanceEngineDefinition.FILE_SURVEY_ENGINE,
                        GovernanceServiceDefinition.FOLDER_SURVEY,
                        "a6f2f6e8-d912-4101-982f-79c62190f1ba",
-                       DeployedImplementationType.FILE_FOLDER.getQualifiedName(),
+                       DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName(),
                        "b6c523a0-7318-4dd9-8b69-0e1e4aa08d1f",
                        "Survey Nested Files System Directories (Folders)",
                        "Starting from a particular directory, navigate through the hierarchy of nested directories in a file system and create a survey report that includes a summary of the files found in each directory.",
@@ -408,7 +425,7 @@ public enum RequestTypeDefinition
                                  GovernanceEngineDefinition.FILE_SURVEY_ENGINE,
                                  GovernanceServiceDefinition.FOLDER_SURVEY,
                                  "cc642671-898a-4c83-9d29-b1a1758672d2",
-                                 DeployedImplementationType.FILE_FOLDER.getQualifiedName(),
+                                 DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName(),
                                  "9c38a6ca-4e0c-4d53-b517-6cdb78e46b35",
                                  "Survey Nested Files System Directories (Folders) and Files",
                                  "Starting from a particular directory, navigate through the hierarchy of nested directories in a file system and create a survey report that includes a description of each file encountered and a summary of the files found in each directory.",
@@ -568,7 +585,7 @@ public enum RequestTypeDefinition
                        GovernanceEngineDefinition.FILE_GOVERNANCE_ENGINE,
                        GovernanceServiceDefinition.CREATE_ASSET,
                        "52a82692-7e49-40a8-9b3d-469e87e0220b",
-                       DeployedImplementationType.FILE_FOLDER.getQualifiedName(),
+                       DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName(),
                        "44ff46f1-50f8-443c-836e-78458123340f",
                        "Create File Folder in Open Metadata",
                        "Create a FileFolder asset in open metadata to represent a file system directory.  This is typically used to request a survey or the cataloguing of the files/nested directories within the directory.",
@@ -600,7 +617,7 @@ public enum RequestTypeDefinition
                        GovernanceEngineDefinition.FILE_GOVERNANCE_ENGINE,
                        GovernanceServiceDefinition.DELETE_ASSET,
                        "ac62ef3c-674e-48d7-b9a2-636cbaee4c6b",
-                       DeployedImplementationType.FILE_FOLDER.getQualifiedName(),
+                       DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName(),
                        "a822725e-e721-4f78-88a0-115b48d9b787",
                        "Delete File Folder from Open Metadata",
                        "Delete the requested FileFolder asset using the template placeholder properties used to create it.",
@@ -632,7 +649,7 @@ public enum RequestTypeDefinition
                             GovernanceEngineDefinition.FILE_GOVERNANCE_ENGINE,
                             GovernanceServiceDefinition.CATALOG_TARGET_ASSET,
                             "33fb5cd5-b84d-4c17-95b3-b1b2b99840e0",
-                            DeployedImplementationType.FILE_FOLDER.getQualifiedName(),
+                            DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName(),
                         "553a6cd6-282c-4358-9c5a-4ac4c2d10b99",
                         "Catalog a File Folder in Open Metadata",
                         "",
@@ -1134,7 +1151,7 @@ public enum RequestTypeDefinition
                     "09393325-2c65-4278-8d1b-3e77cf4aa311",
                     "Harvest Surveys",
                     "Retrieve all of the information from the survey reports created by the open survey framework and summarize them in a set of database tables for further analysis.",
-                    ContentPackDefinition.NANNY_CONTENT_PACK),
+                    ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
 
     /**
      * harvest-open-metadata
@@ -1150,7 +1167,7 @@ public enum RequestTypeDefinition
                           "710c48ea-6bda-47dd-bb74-6d47a88d767b",
                           "Harvest Open Metadata",
                           "Create a collection of database tables full of insight gleaned from the open metadata ecosystem.  This information may be used to analyse the health of the open metadata ecosystem, or to distribute key information to other systems.",
-                          ContentPackDefinition.NANNY_CONTENT_PACK),
+                          ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
     ;
 
     private final String                      governanceRequestType;

@@ -9,7 +9,7 @@ import org.odpi.openmetadata.adapters.connectors.controls.UnityCatalogDeployedIm
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.controls.UnityCatalogSurveyRequestParameter;
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.controls.UnityCatalogTarget;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 import org.odpi.openmetadata.frameworks.opensurvey.SurveyActionServiceProvider;
 import org.odpi.openmetadata.frameworks.opensurvey.controls.AnalysisStep;
 

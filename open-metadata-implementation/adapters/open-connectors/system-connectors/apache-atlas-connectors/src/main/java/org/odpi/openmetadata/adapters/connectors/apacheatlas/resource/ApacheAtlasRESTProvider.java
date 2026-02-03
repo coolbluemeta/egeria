@@ -3,13 +3,13 @@
 
 package org.odpi.openmetadata.adapters.connectors.apacheatlas.resource;
 
-import org.odpi.openmetadata.adapters.connectors.apacheatlas.controls.AtlasDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.AtlasDeployedImplementationType;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
 import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorProviderBase;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.ArrayList;
 import java.util.List;

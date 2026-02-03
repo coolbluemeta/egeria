@@ -2,6 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.contentpacks.core.egeria;
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaRoleDefinition;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control.EgeriaSoftwareServerTemplateDefinition;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.OMAGServerPlatformProvider;
 import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.YAMLSecretsStoreProvider;
@@ -11,14 +12,13 @@ import org.odpi.openmetadata.contentpacks.core.IntegrationGroupDefinition;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
 import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
 import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
-import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStoreConfigurationProperty;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStorePurpose;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ResourceUse;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Classification;
@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues.constructValidValueQualifiedName;
 
 
 /**
@@ -56,21 +55,6 @@ public class EgeriaArchiveWriter extends ContentPackBaseArchiveWriter
     @Override
     public void getArchiveContent()
     {
-        /*
-         * Add valid metadata values for deployedImplementationType.  The GUIDs are saved in a look-up map
-         * to make it easy to link other elements to these valid values later.
-         */
-        for (EgeriaDeployedImplementationType deployedImplementationType : EgeriaDeployedImplementationType.values())
-        {
-            this.addDeployedImplementationType(deployedImplementationType.getGUID(),
-                                               deployedImplementationType.getDeployedImplementationType(),
-                                               deployedImplementationType.getAssociatedTypeName(),
-                                               deployedImplementationType.getQualifiedName(),
-                                               deployedImplementationType.getDescription(),
-                                               deployedImplementationType.getWikiLink(),
-                                               deployedImplementationType.getIsATypeOf());
-        }
-
         /*
          * Egeria also has valid values for its implementation.  These are useful when cataloguing Egeria.
          */
@@ -271,10 +255,9 @@ public class EgeriaArchiveWriter extends ContentPackBaseArchiveWriter
         this.addSolutionBlueprints(ContentPackDefinition.EGERIA_CONTENT_PACK);
         this.addSolutionLinkingWires(ContentPackDefinition.EGERIA_CONTENT_PACK);
 
-        //this.addDefaultOMAGServerPlatform();
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();
@@ -410,12 +393,76 @@ public class EgeriaArchiveWriter extends ContentPackBaseArchiveWriter
                                                  String description,
                                                  String wikiLink)
     {
-        String qualifiedName = constructValidValueQualifiedName(associatedTypeName,
-                                                                OpenMetadataProperty.DEPLOYED_IMPLEMENTATION_TYPE.name,
-                                                                null,
-                                                                deployedImplementationType);
+        DeployedImplementationTypeDefinition definition = new DeployedImplementationTypeDefinition()
+        {
+            @Override
+            public String getGUID()
+            {
+                return guid;
+            }
 
-        return super.addDeployedImplementationType(guid, deployedImplementationType, associatedTypeName, qualifiedName, description, wikiLink, null);
+            @Override
+            public String getDeployedImplementationType()
+            {
+                return deployedImplementationType;
+            }
+
+            @Override
+            public DeployedImplementationTypeDefinition getIsATypeOf()
+            {
+                return null;
+            }
+
+            @Override
+            public String getAssociatedTypeName()
+            {
+                return associatedTypeName;
+            }
+
+            @Override
+            public String getAssociatedClassification()
+            {
+                return null;
+            }
+
+            @Override
+            public String getDescription()
+            {
+                return description;
+            }
+
+            @Override
+            public String getWikiLink()
+            {
+                return wikiLink;
+            }
+
+            @Override
+            public String getSolutionComponentGUID()
+            {
+                return null;
+            }
+
+            @Override
+            public String getSolutionComponentType()
+            {
+                return null;
+            }
+
+            @Override
+            public String getSolutionComponentIdentifier()
+            {
+                return null;
+            }
+
+            @Override
+            public SolutionComponentDefinition getSolutionComponent()
+            {
+                return null;
+            }
+        };
+
+        return super.addDeployedImplementationType(definition);
     }
 
 

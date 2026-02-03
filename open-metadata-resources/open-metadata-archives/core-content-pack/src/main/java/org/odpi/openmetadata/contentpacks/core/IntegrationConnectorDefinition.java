@@ -3,14 +3,15 @@
 
 package org.odpi.openmetadata.contentpacks.core;
 
-import org.odpi.openmetadata.adapters.connectors.apacheatlas.controls.AtlasDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.AtlasDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ApacheAtlasIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.integration.KafkaTopicIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.babbage.BabbageAnalyticalEngineProvider;
 import org.odpi.openmetadata.adapters.connectors.controls.PostgresDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.jacquard.solutionblueprint.ProductSolutionComponent;
 import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.YAMLSecretsStoreProvider;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStorePurpose;
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.catalog.OMAGServerPlatformCatalogProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.DataFilesMonitorIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.DataFolderMonitorIntegrationProvider;
@@ -30,6 +31,7 @@ import org.odpi.openmetadata.adapters.connectors.unitycatalog.sync.OSSUnityCatal
 import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.controls.UnityCatalogDeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ResourceUse;
 
@@ -56,7 +58,7 @@ public enum IntegrationConnectorDefinition
                            "loading-bay/sample-data",
                            getAllFileCataloguerConfigProperties(),
                            1440,
-                           new String[]{DeployedImplementationType.FILE_FOLDER.getQualifiedName()},
+                           new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_SYSTEM_DIRECTORY},
                            "acebfa6f-f3a6-4fe3-a467-963a4e5bf0d6",
                            "Sample Data Files Monitor",
                            "Catalogs any files added to the 'loading-bay/sample-data' directory.  This is used to demonstrate how different types of files are catalog in open metadata.  Just drop the files that you want to experiment with into the directory anf they will be catalogued.  Use the Asset Maker API to query the results.",
@@ -76,7 +78,7 @@ public enum IntegrationConnectorDefinition
                             "content-packs",
                             getFileCataloguerConfigProperties(),
                             60,
-                            new String[]{DeployedImplementationType.FILE_FOLDER.getQualifiedName()},
+                            new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_SYSTEM_DIRECTORY},
                             "c67172bb-bd66-4d22-9ed7-ee6dc9c99b38",
                             "Content Packs Monitor",
                             "Catalogs open metadata archive files located in the 'content-packs' directory.  This includes cataloguing the header information from the archive file.  This includes a description of its content.  The resulting open metadata elements are used to list the content packs that are available to load into the Open Metadata Ecosystem.",
@@ -96,7 +98,7 @@ public enum IntegrationConnectorDefinition
                               null,
                               getFileCataloguerConfigProperties(),
                               60,
-                              new String[]{DeployedImplementationType.FILE_FOLDER.getQualifiedName()},
+                              new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_SYSTEM_DIRECTORY},
                               "aa8914ac-b557-4595-b248-e1f252b77cf2",
                               "Catalog Files in Directory (Folder)",
                               "Create an open metadata representation of the files in the directories linked to this connector through the CatalogTarget relationship.",
@@ -116,7 +118,7 @@ public enum IntegrationConnectorDefinition
                                     null,
                                     getAllFileCataloguerConfigProperties(),
                                     60,
-                                    new String[]{DeployedImplementationType.DATA_FOLDER.getQualifiedName()},
+                                    new DeployedImplementationTypeDefinition[]{DeployedImplementationType.DATA_FOLDER},
                                     "871aa27d-a74b-48f5-9c29-ddbcd09c94c7",
                                     "Maintain DataFolder's storeUpdateTime",
                                     "Monitors changes to the files in the directory associated with a DataFolder and maintains the storeUpdateTime attribute in the DataFolder with the data/time that ome of the files was created/changed.",
@@ -136,7 +138,7 @@ public enum IntegrationConnectorDefinition
                     null,
                     null,
                     60,
-                    new String[]{DeployedImplementationType.JDBC_RELATIONAL_DATABASE.getQualifiedName()},
+                    new DeployedImplementationTypeDefinition[]{DeployedImplementationType.JDBC_RELATIONAL_DATABASE},
                     "855a6c95-ee48-4f79-a7ce-c0b660012d30",
                     "JDBC Database Cataloguer",
                     "Maintains the open metadata elements that represent the schemas, tables and columns in a JDBC relational database.",
@@ -156,7 +158,7 @@ public enum IntegrationConnectorDefinition
                            null,
                            null,
                            60,
-                           new String[]{PostgresDeployedImplementationType.POSTGRESQL_DATABASE.getQualifiedName()},
+                           new DeployedImplementationTypeDefinition[]{PostgresDeployedImplementationType.POSTGRESQL_DATABASE},
                            "b33fcf90-575f-4384-9ccd-07780688dc28",
                            "PostgreSQL Database Cataloguer",
                            "Maintains the open metadata elements that represent the schemas, tables and columns in a PostgreSQL relational database.",
@@ -176,7 +178,7 @@ public enum IntegrationConnectorDefinition
                                null,
                                getPostgreSQLServerConfigProperties(),
                                60,
-                               new String[]{PostgresDeployedImplementationType.POSTGRESQL_SERVER.getQualifiedName()},
+                               new DeployedImplementationTypeDefinition[]{PostgresDeployedImplementationType.POSTGRESQL_SERVER},
                                "871d318b-5556-4d41-9552-6f0cbc7f411e",
                                "Catalog PostgreSQL Server",
                                "Maintains the open metadata elements that represent the databases in a PostgreSQL server.  Hands off the cataloguing of the schemas, tables and columns of each database to the 'PostgreSQL Database Cataloguer'.",
@@ -188,16 +190,16 @@ public enum IntegrationConnectorDefinition
 
 
     APACHE_ATLAS_EXCHANGE("5721627a-2dd4-4f95-a274-6cfb128edb97",
-                               "ApacheAtlasServerIntegrationConnector",
-                               "Exchanges metadata with Apache Atlas metadata catalogs.",
-                               ApacheAtlasIntegrationProvider.class.getName(),
-                               "ApacheAtlasExchange",
-                               "atlascatnpa",
-                               null,
-                               null,
-                               null,
-                               60,
-                               new String[]{AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getQualifiedName()},
+                          "ApacheAtlasServerIntegrationConnector",
+                          "Exchanges metadata with Apache Atlas metadata catalogs.",
+                          ApacheAtlasIntegrationProvider.class.getName(),
+                          "ApacheAtlasExchange",
+                          "atlascatnpa",
+                          null,
+                          null,
+                          null,
+                          60,
+                          new DeployedImplementationTypeDefinition[]{AtlasDeployedImplementationType.APACHE_ATLAS_SERVER},
                           "174a5f66-eb58-4a67-b886-288988b8e330",
                           "Apache Atlas Exchange",
                           "Proves a two-way synchronization of metadata between the open metadata ecosystem and Apache Atlas servers.",
@@ -217,7 +219,7 @@ public enum IntegrationConnectorDefinition
                             null,
                             null,
                             60,
-                            new String[]{KafkaDeployedImplementationType.APACHE_KAFKA_SERVER.getQualifiedName()},
+                            new DeployedImplementationTypeDefinition[]{KafkaDeployedImplementationType.APACHE_KAFKA_SERVER},
                             "ac589ef1-c3b9-443c-856a-7b5be788e2ae",
                             "Apache Kafka Cataloguer",
                             "Catalogs the topics found in an Apache Kafka broker.",
@@ -237,7 +239,7 @@ public enum IntegrationConnectorDefinition
                    null,
                    null,
                    60,
-                   new String[]{EgeriaDeployedImplementationType.OMAG_SERVER_PLATFORM.getQualifiedName()},
+                   new DeployedImplementationTypeDefinition[]{EgeriaDeployedImplementationType.OMAG_SERVER_PLATFORM},
                    "22bcb015-84ab-4503-9619-231896c33828",
                    "Open API Cataloguer",
                    "Maintains open metadata descriptions of Open API specification extracted from a running application/server/platform.",
@@ -257,7 +259,7 @@ public enum IntegrationConnectorDefinition
                           null,
                           null,
                           60,
-                          new String[]{UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getQualifiedName()},
+                          new DeployedImplementationTypeDefinition[]{UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER},
                           "0102f808-2ee3-42d4-a769-95c891517876",
                           "Unity Catalog Asset Exchange",
                           "Exchanges the metadata found in a Unity Catalog Catalog with the open metadata ecosystem.  The open metadata ecosystem can provide enrichment of the description of Unity Catalog assets and search across Unity Catalog server instances.  It can also be used to provision new assets to Unity Catalog.",
@@ -277,7 +279,7 @@ public enum IntegrationConnectorDefinition
                          null,
                          getUCServerConfigProperties(),
                          60,
-                         new String[]{UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getQualifiedName()},
+                         new DeployedImplementationTypeDefinition[]{UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER},
                          "a8d557c8-c914-4d70-a04e-45a48119a670",
                          "Unity Catalog Server Exchange",
                          "Maintains the open metadata description of the catalogs found in the Unity Catalog servers linked through CatalogTarget relationships.  It hands off the cataloguing of the assets within each catalog to the 'Unity Catalog Asset Exchange'.  New catalogs linked to the metadata element for a Unity Catalog server are automatically provisioned to the corresponding Unity Catalog server instance.",
@@ -297,7 +299,7 @@ public enum IntegrationConnectorDefinition
                                     null,
                                     getOMAGCataloguerConfigProperties(),
                                     60,
-                                    new String[]{EgeriaDeployedImplementationType.OMAG_SERVER_PLATFORM.getQualifiedName()},
+                                    new DeployedImplementationTypeDefinition[]{EgeriaDeployedImplementationType.OMAG_SERVER_PLATFORM},
                                     "2eed7ad8-9189-4971-ba67-2de94efc7db3",
                                     "OMAG Server Platform Cataloguer",
                                     "Monitors the running OMAG Server Platform instances that are catalogued in the open metadata ecosystem and maintains the metadata that describes the servers and their configuration.",
@@ -317,7 +319,9 @@ public enum IntegrationConnectorDefinition
                                null,
                                null,
                                60,
-                               new String[]{DeployedImplementationType.MARQUEZ_SERVER.getQualifiedName()},
+                               new DeployedImplementationTypeDefinition[]{
+                                       DeployedImplementationType.MARQUEZ_SERVER
+                               },
                                "f993be00-e07f-452c-96d0-22813f5f9db6",
                                "Open Lineage API Publisher",
                                "Publishes open lineage events to APIs linked through CatalogTarget relationships.  These open lineage events may have been received from third party processes or were generated from running Governance Action Processes in the open metadata ecosystem.",
@@ -337,7 +341,8 @@ public enum IntegrationConnectorDefinition
                                 "logs/openlineage",
                                 null,
                                 60,
-                                new String[]{DeployedImplementationType.FILE_FOLDER.getQualifiedName(), DeployedImplementationType.DATA_FOLDER.getQualifiedName()},
+                                new DeployedImplementationTypeDefinition[]{
+                                        DeployedImplementationType.FILE_SYSTEM_DIRECTORY},
                                 "ed596c5f-0908-4266-b378-55963f0afc09",
                                 "Open Lineage File Publisher",
                                 "Publishes open lineage events as JSON files to each of the file directories attached as catalog targets.",
@@ -397,7 +402,7 @@ public enum IntegrationConnectorDefinition
                                 null,
                                 null,
                                 60,
-                                new String[]{DeployedImplementationType.APACHE_KAFKA_TOPIC.getQualifiedName()},
+                                new DeployedImplementationTypeDefinition[]{DeployedImplementationType.APACHE_KAFKA_TOPIC},
                                 "638322ff-3c26-4259-8c46-70f969fbe5cd",
                                 "Open Lineage Kafka Listener",
                                 "Receives open lineage events from the open lineage proxy.  It listens for events from Apache Kafka topics attached as catalog targets.",
@@ -417,7 +422,7 @@ public enum IntegrationConnectorDefinition
                           null,
                           null,
                           60,
-                          new String[]{PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getQualifiedName()},
+                          new DeployedImplementationTypeDefinition[]{PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA},
                           "11b3d589-2391-4104-9f6d-f5dfb3b1adf5",
                           "Harvest Open Metadata",
                           "Monitors metadata changes in the open metadata ecosystem and populates a PostgreSQL database schema.",
@@ -425,7 +430,7 @@ public enum IntegrationConnectorDefinition
                           null,
                           null,
                           null,
-                          ContentPackDefinition.NANNY_CONTENT_PACK),
+                          ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
 
     HARVEST_SURVEYS("fae162c3-2bfd-467f-9c47-2e3b63a655de",
                     "HarvestSurveysIntegrationConnector",
@@ -437,7 +442,7 @@ public enum IntegrationConnectorDefinition
                     null,
                     null,
                     60,
-                    new String[]{PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getQualifiedName()},
+                    new DeployedImplementationTypeDefinition[]{PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA},
                     "f74c05ea-c1ad-48e7-9d79-5449d4e727bf",
                     "Harvest Surveys",
                     "Scans for new survey reports in the open metadata ecosystem and populates a PostgreSQL database schema.",
@@ -445,20 +450,21 @@ public enum IntegrationConnectorDefinition
                     null,
                     null,
                     null,
-                    ContentPackDefinition.NANNY_CONTENT_PACK),
+                    ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
 
     HARVEST_ACTIVITY("856501d9-ec29-4e67-9cd7-120f53710ffa",
-                    "HarvestActivityIntegrationConnector",
-                    "Listens for audit log records published through specific Apache Kafka Topics and populates a PostgreSQL database schema or folder.",
-                    DistributeAuditEventsFromKafkaProvider.class.getName(),
-                    "HarvestActivity",
-                    "nannyalnpa",
-                    null,
-                    null,
-                    null,
-                    60,
-                    new String[]{PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getQualifiedName(),
-                            DeployedImplementationType.FILE_FOLDER.getQualifiedName()},
+                     "HarvestActivityIntegrationConnector",
+                     "Listens for audit log records published through specific Apache Kafka Topics and populates a PostgreSQL database schema or folder.",
+                     DistributeAuditEventsFromKafkaProvider.class.getName(),
+                     "HarvestActivity",
+                     "nannyalnpa",
+                     null,
+                     null,
+                     null,
+                     60,
+                     new DeployedImplementationTypeDefinition[]{
+                             PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA,
+                             DeployedImplementationType.FILE_SYSTEM_DIRECTORY},
                      "c09464a4-95df-4e8b-bfeb-43197da9db00",
                      "Harvest Activity",
                      "Listens for audit log records published through specific Apache Kafka Topics and populates a PostgreSQL database schema or folder.",
@@ -466,7 +472,7 @@ public enum IntegrationConnectorDefinition
                      null,
                      null,
                      null,
-                     ContentPackDefinition.NANNY_CONTENT_PACK),
+                     ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
 
     PRODUCT_HARVESTER("8a3d91da-05a0-49ca-83e0-77f5c48bdf0c",
                       "JacquardHarvesterIntegrationConnector",
@@ -479,9 +485,9 @@ public enum IntegrationConnectorDefinition
                       null,
                       60,
                       null,
-                      "cff44017-c366-47cc-b3ac-2e5af75f2e3e",
-                      "Harvest Open Metadata Products (Jacquard)",
-                      "Defines and maintains digital products based on the content of the open metadata repositories.",
+                      ProductSolutionComponent.JACQUARD_HARVESTER.getGUID(),
+                      ProductSolutionComponent.JACQUARD_HARVESTER.getDisplayName(),
+                      ProductSolutionComponent.JACQUARD_HARVESTER.getDescription(),
                       "JacquardHarvester",
                       SecretsStorePurpose.REST_BEARER_TOKEN.getName(),
                       new YAMLSecretsStoreProvider().getConnectorType().getGUID(),
@@ -489,24 +495,24 @@ public enum IntegrationConnectorDefinition
                       ContentPackDefinition.PRODUCTS_CONTENT_PACK),
 
     BABBAGE_ANALYTICAL_ENGINE("a2c281e0-3c8d-4621-bb4d-8f6dff756d1a",
-                      "BabbageAnalyticalEngineIntegrationConnector",
-                      "Initiates analytical processing using the Governance Action Types that are attached as catalog targets.",
-                      BabbageAnalyticalEngineProvider.class.getName(),
-                      "BabbageAnalyticalEngine",
-                      "babbagenpa",
-                      null,
-                      null,
-                      null,
-                      60,
-                      null,
-                      "2e7ec1b4-a8ba-4be6-b345-2c1735a94c7a",
-                      "Babbage Analytical Engine",
-                      "Initiates analytical processing that generates statistics on the content and operation of the open metadata ecosystem.  The analytical processors are called lovelace analytical services.",
-                      "BabbageAnalyticalEngine",
-                      SecretsStorePurpose.REST_BEARER_TOKEN.getName(),
-                      new YAMLSecretsStoreProvider().getConnectorType().getGUID(),
-                      "loading-bay/secrets/egeria-servers.omsecrets",
-                      ContentPackDefinition.CORE_CONTENT_PACK),
+                              "BabbageAnalyticalEngineIntegrationConnector",
+                              "Initiates analytical processing using the Governance Action Types that are attached as catalog targets.",
+                              BabbageAnalyticalEngineProvider.class.getName(),
+                              "BabbageAnalyticalEngine",
+                              "babbagenpa",
+                              null,
+                              null,
+                              null,
+                              60,
+                              null,
+                              "2e7ec1b4-a8ba-4be6-b345-2c1735a94c7a",
+                              "Babbage Analytical Engine",
+                              "Initiates analytical processing that generates statistics on the content and operation of the open metadata ecosystem.  The analytical processors are called lovelace analytical services.",
+                              "BabbageAnalyticalEngine",
+                              SecretsStorePurpose.REST_BEARER_TOKEN.getName(),
+                              new YAMLSecretsStoreProvider().getConnectorType().getGUID(),
+                              "loading-bay/secrets/egeria-servers.omsecrets",
+                              ContentPackDefinition.CORE_CONTENT_PACK),
     ;
 
 
@@ -581,25 +587,25 @@ public enum IntegrationConnectorDefinition
     }
 
 
-    private final String                guid;
-    private final String                displayName;
-    private final String                description;
-    private final String                connectorProviderClassName;
-    private final String                connectorName;
-    private final String                connectorUserId;
-    private final String                metadataSourceQualifiedName;
-    private final String                endpointAddress;
-    private final Map<String, Object>   configurationProperties;
-    private final long                  refreshTimeInterval;
-    private final String[]              deployedImplementationTypes;
-    private final String                solutionComponentGUID;
-    private final String                solutionComponentName;
-    private final String                solutionComponentDescription;
-    private final String                secretsCollectionName;
-    private final String                secretsStorePurpose;
-    private final String                secretsStoreConnectorTypeGUID;
-    private final String                secretsStoreFileName;
-    private final ContentPackDefinition contentPackDefinition;
+    private final String                                 guid;
+    private final String                                 displayName;
+    private final String                                 description;
+    private final String                                 connectorProviderClassName;
+    private final String                                 connectorName;
+    private final String                                 connectorUserId;
+    private final String                                 metadataSourceQualifiedName;
+    private final String                                 endpointAddress;
+    private final Map<String, Object>                    configurationProperties;
+    private final long                                   refreshTimeInterval;
+    private final DeployedImplementationTypeDefinition[] deployedImplementationTypes;
+    private final String                                 solutionComponentGUID;
+    private final String                                 solutionComponentName;
+    private final String                                 solutionComponentDescription;
+    private final String                                 secretsCollectionName;
+    private final String                                 secretsStorePurpose;
+    private final String                                 secretsStoreConnectorTypeGUID;
+    private final String                                 secretsStoreFileName;
+    private final ContentPackDefinition                  contentPackDefinition;
 
 
     /**
@@ -616,33 +622,33 @@ public enum IntegrationConnectorDefinition
      * @param refreshTimeInterval how often should it refresh (initial value)
      * @param deployedImplementationTypes what deployed implementation types does this connector support?
      * @param solutionComponentGUID unique identifier of the solution component for the governance action type
-     * @param solutionComponentName display name of the solution component for the governance action type
+     * @param solutionComponentName the display name of the solution component for the governance action type
      * @param solutionComponentDescription description of the solution component for the governance action type
-     * @param secretsCollectionName            name of collection of secrets to use in the secrets store
+     * @param secretsCollectionName            name of the collection of secrets to use in the secrets store
      * @param secretsStorePurpose              type of authentication information provided by the secrets store
      * @param secretsStoreConnectorTypeGUID    optional connector type for secrets store
      * @param secretsStoreFileName             location of the secrets store
      * @param contentPackDefinition which content pack?
      */
-    IntegrationConnectorDefinition(String                       guid,
-                                   String                       displayName,
-                                   String                       description,
-                                   String                       connectorProviderClassName,
-                                   String                       connectorName,
-                                   String                       connectorUserId,
-                                   String                       metadataSourceQualifiedName,
-                                   String                       endpointAddress,
-                                   Map<String, Object>          configurationProperties,
-                                   long                         refreshTimeInterval,
-                                   String[]                     deployedImplementationTypes,
-                                   String                       solutionComponentGUID,
-                                   String                       solutionComponentName,
-                                   String                       solutionComponentDescription,
-                                   String                       secretsCollectionName,
-                                   String                       secretsStorePurpose,
-                                   String                       secretsStoreConnectorTypeGUID,
-                                   String                       secretsStoreFileName,
-                                   ContentPackDefinition        contentPackDefinition)
+    IntegrationConnectorDefinition(String                                 guid,
+                                   String                                 displayName,
+                                   String                                 description,
+                                   String                                 connectorProviderClassName,
+                                   String                                 connectorName,
+                                   String                                 connectorUserId,
+                                   String                                 metadataSourceQualifiedName,
+                                   String                                 endpointAddress,
+                                   Map<String, Object>                    configurationProperties,
+                                   long                                   refreshTimeInterval,
+                                   DeployedImplementationTypeDefinition[] deployedImplementationTypes,
+                                   String                                 solutionComponentGUID,
+                                   String                                 solutionComponentName,
+                                   String                                 solutionComponentDescription,
+                                   String                                 secretsCollectionName,
+                                   String                                 secretsStorePurpose,
+                                   String                                 secretsStoreConnectorTypeGUID,
+                                   String                                 secretsStoreFileName,
+                                   ContentPackDefinition                  contentPackDefinition)
     {
         this.guid                          = guid;
         this.displayName                   = displayName;
@@ -793,7 +799,7 @@ public enum IntegrationConnectorDefinition
      *
      * @return enum
      */
-    public List<String> getDeployedImplementationTypes()
+    public List<DeployedImplementationTypeDefinition> getDeployedImplementationTypes()
     {
         if (deployedImplementationTypes == null)
         {
@@ -883,7 +889,7 @@ public enum IntegrationConnectorDefinition
     /**
      * Return the location of the secrets store.
      *
-     * @return path name of file
+     * @return path name of the file
      */
     public String getSecretsStoreFileName()
     {

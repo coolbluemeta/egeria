@@ -10,7 +10,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.Pla
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ReplacementAttributeType;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.TemplateDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.List;
 

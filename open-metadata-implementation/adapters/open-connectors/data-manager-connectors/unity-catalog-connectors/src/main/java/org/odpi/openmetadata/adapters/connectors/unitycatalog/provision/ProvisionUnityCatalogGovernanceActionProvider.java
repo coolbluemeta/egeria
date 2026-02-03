@@ -5,16 +5,11 @@ package org.odpi.openmetadata.adapters.connectors.unitycatalog.provision;
 
 import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.adapters.connectors.controls.UnityCatalogDeployedImplementationType;
-import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
-import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
 import org.odpi.openmetadata.frameworks.opengovernance.GovernanceActionServiceProviderBase;
 import org.odpi.openmetadata.frameworks.opengovernance.controls.ActionTarget;
-import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ActionTargetType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 /**

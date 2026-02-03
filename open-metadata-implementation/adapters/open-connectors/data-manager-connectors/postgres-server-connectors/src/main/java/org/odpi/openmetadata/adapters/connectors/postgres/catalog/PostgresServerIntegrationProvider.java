@@ -9,7 +9,7 @@ import org.odpi.openmetadata.adapters.connectors.controls.PostgresDeployedImplem
 import org.odpi.openmetadata.adapters.connectors.postgres.controls.PostgresTarget;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
 import org.odpi.openmetadata.frameworks.integration.connectors.IntegrationConnectorProvider;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 /**
  * PostgresServerIntegrationProvider is the OCF connector provider for the PostgreSQL database server integration connector.

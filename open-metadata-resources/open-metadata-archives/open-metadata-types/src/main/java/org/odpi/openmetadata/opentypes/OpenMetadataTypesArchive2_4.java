@@ -219,7 +219,7 @@ public class OpenMetadataTypesArchive2_4
         final String                     end1AttributeDescription     = "Element created from the template.";
         final String                     end1AttributeDescriptionGUID = null;
 
-        relationshipEndDef = archiveHelper.getRelationshipEndDef(this.archiveBuilder.getEntityDef(OpenMetadataType.REFERENCEABLE.typeName),
+        relationshipEndDef = archiveHelper.getRelationshipEndDef(this.archiveBuilder.getEntityDef(OpenMetadataType.OPEN_METADATA_ROOT.typeName),
                                                                  end1AttributeName,
                                                                  end1AttributeDescription,
                                                                  end1AttributeDescriptionGUID,
@@ -234,7 +234,7 @@ public class OpenMetadataTypesArchive2_4
         final String                     end2AttributeDescription     = "Template element providing information.";
         final String                     end2AttributeDescriptionGUID = null;
 
-        relationshipEndDef = archiveHelper.getRelationshipEndDef(this.archiveBuilder.getEntityDef(OpenMetadataType.REFERENCEABLE.typeName),
+        relationshipEndDef = archiveHelper.getRelationshipEndDef(this.archiveBuilder.getEntityDef(OpenMetadataType.OPEN_METADATA_ROOT.typeName),
                                                                  end2AttributeName,
                                                                  end2AttributeDescription,
                                                                  end2AttributeDescriptionGUID,

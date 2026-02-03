@@ -3,12 +3,8 @@
 package org.odpi.openmetadata.contentpacks.core.core;
 
 import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
-import org.odpi.openmetadata.adapters.connectors.datastore.basicfile.BasicFileStoreProvider;
-import org.odpi.openmetadata.adapters.connectors.datastore.basicfile.BasicFolderProvider;
-import org.odpi.openmetadata.adapters.connectors.datastore.csvfile.CSVFileStoreProvider;
-import org.odpi.openmetadata.adapters.connectors.datastore.csvfile.CSVTabularDataSetCollectionProvider;
-import org.odpi.openmetadata.adapters.connectors.datastore.csvfile.CSVTabularDataSetProvider;
-import org.odpi.openmetadata.adapters.connectors.datastore.datafolder.DataFolderProvider;
+import org.odpi.openmetadata.adapters.connectors.EgeriaRoleDefinition;
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.OMAGServerPlatformProvider;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.catalog.OMAGServerPlatformCatalogProvider;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.*;
@@ -17,19 +13,12 @@ import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.W
 import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.DataFilesMonitorIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.DataFolderMonitorIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.csvlineageimporter.CSVLineageImporterProvider;
-import org.odpi.openmetadata.adapters.connectors.integration.jdbc.JDBCIntegrationConnectorProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.kafkaaudit.DistributeAuditEventsFromKafkaProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.openlineage.*;
-import org.odpi.openmetadata.adapters.connectors.jacquard.tabulardatasets.validmetadatavalues.ValidMetadataValueDataSetProvider;
-import org.odpi.openmetadata.adapters.connectors.jacquard.tabulardatasets.validmetadatavalues.ValidMetadataValueSetListProvider;
-import org.odpi.openmetadata.adapters.connectors.resource.jdbc.JDBCResourceConnectorProvider;
-import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.YAMLSecretsStoreProvider;
-import org.odpi.openmetadata.adapters.eventbus.topic.kafka.KafkaOpenMetadataTopicProvider;
 import org.odpi.openmetadata.contentpacks.core.*;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorProvider;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.*;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.*;
 import org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.*;
@@ -67,15 +56,6 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
     @Override
     public void getArchiveContent()
     {
-        /*
-         * Add Egeria's common solution definitions
-         */
-        archiveHelper.addSolutionRoles(List.of(EgeriaRoleDefinition.values()));
-        archiveHelper.addSolutionComponents(List.of(EgeriaSolutionComponent.values()));
-        archiveHelper.addSolutionComponentActors(List.of(EgeriaSolutionComponentActor.values()));
-        archiveHelper.addSolutionComponentWires(List.of(EgeriaSolutionComponentWire.values()));
-        archiveHelper.addSolutionBlueprints(List.of(EgeriaSolutionBlueprint.values()));
-
         /*
          * Add the root digital product catalog.
          */
@@ -394,13 +374,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
          */
         for (DeployedImplementationType deployedImplementationType : DeployedImplementationType.values())
         {
-            this.addDeployedImplementationType(deployedImplementationType.getGUID(),
-                                               deployedImplementationType.getDeployedImplementationType(),
-                                               deployedImplementationType.getAssociatedTypeName(),
-                                               deployedImplementationType.getQualifiedName(),
-                                               deployedImplementationType.getDescription(),
-                                               deployedImplementationType.getWikiLink(),
-                                               deployedImplementationType.getIsATypeOf());
+            this.addDeployedImplementationType(deployedImplementationType);
         }
 
 
@@ -481,6 +455,24 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
         this.addMacBookProCatalogTemplate();
         this.addFileSystemTemplate();
         this.addUNIXFileSystemTemplate();
+
+        /*
+         * Add valid metadata values for deployedImplementationType.  The GUIDs are saved in a look-up map
+         * to make it easy to link other elements to these valid values later.
+         */
+        for (EgeriaDeployedImplementationType deployedImplementationType : EgeriaDeployedImplementationType.values())
+        {
+            this.addDeployedImplementationType(deployedImplementationType);
+        }
+
+        /*
+         * Add Egeria's common solution definitions
+         */
+        archiveHelper.addSolutionRoles(List.of(EgeriaRoleDefinition.values()));
+        archiveHelper.addSolutionComponents(List.of(org.odpi.openmetadata.adapters.connectors.EgeriaSolutionComponent.values()));
+        archiveHelper.addSolutionComponentActors(List.of(org.odpi.openmetadata.adapters.connectors.EgeriaSolutionComponentActor.values()));
+        archiveHelper.addSolutionComponentWires(List.of(org.odpi.openmetadata.adapters.connectors.EgeriaSolutionComponentWire.values()));
+        archiveHelper.addSolutionBlueprints(List.of(org.odpi.openmetadata.adapters.connectors.EgeriaSolutionBlueprint.values()));
 
 
         /*

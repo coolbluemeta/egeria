@@ -7,7 +7,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderPropert
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.PlaceholderPropertyType;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ReplacementAttributeType;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.TemplateDefinition;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,8 @@
 
 package org.odpi.openmetadata.adapters.connectors.postgres.solution;
 
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaSolutionComponent;
+import org.odpi.openmetadata.adapters.connectors.EgeriaSolutionComponent;
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.SolutionComponentType;
 
@@ -17,48 +18,48 @@ public enum PostgresSolutionComponent implements SolutionComponentDefinition
 {
     SURVEY_POSTGRES_SERVER("f945efc5-2ada-4cc9-b3a7-36cedbd87f72",
                            "SURVEY-POSTGRESQL-SERVER",
-                           SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                           SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                            null,
                            "Survey PostgreSQL Server",
                            "Extract high-level details (such a size) about the different databases managed by the PostgreSQL server.  This survey does not scan the data in the databases.  Its aim is to provide an overview of the databases resident in the database server.  With this information it is possible to select which databases are worth performing a more detailed survey on.",
-                           new SolutionComponentDefinition[]{EgeriaSolutionComponent.ENGINE_HOST},
+                           new SolutionComponentDefinition[]{EgeriaDeployedImplementationType.ENGINE_HOST.getSolutionComponent()},
                            null,
                            null),
 
     SURVEY_POSTGRES_DATABASE("df94a083-5ebc-4081-af5e-d0b6fd16b899",
                            "SURVEY-POSTGRESQL-DATABASE",
-                           SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                           SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                            null,
                            "Survey PostgreSQL Database",
                            "Extract details about the schemas, tables and columns defined in a PostgreSQL database.  This survey does not scan the data in the database.  Its aim is to provide an overview of the type of data stored in the database.  With this information is it possible to decide whether to explore the data itself.",
-                           new SolutionComponentDefinition[]{EgeriaSolutionComponent.ENGINE_HOST},
+                           new SolutionComponentDefinition[]{EgeriaDeployedImplementationType.ENGINE_HOST.getSolutionComponent()},
                            null,
                            null),
 
 
     CATALOG_POSTGRES_SERVER("101b4f3b-f91d-4054-9620-d1f5fd3d4050",
                            "CATALOG-POSTGRESQL-SERVER",
-                           SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                           SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                            null,
                            "Catalog PostgreSQL Server",
                            "Create database assets in the metadata server for each of the databases found in the PostgreSQL server.",
-                           new SolutionComponentDefinition[]{EgeriaSolutionComponent.INTEGRATION_DAEMON},
+                           new SolutionComponentDefinition[]{EgeriaDeployedImplementationType.INTEGRATION_DAEMON.getSolutionComponent()},
                            null,
                            null),
 
     CATALOG_POSTGRES_DATABASE("06ed1756-7265-4bc7-8f94-c87e849f32d4",
                              "CATALOG-POSTGRESQL-DATABASE",
-                             SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                             SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                              null,
                              "Catalog PostgreSQL Database",
                              "Extract details about the schemas, tables and columns defined in a PostgreSQL database.  This survey does not scan the data in the database.  Its aim is to provide an overview of the type of data stored in the database.  With this information is it possible to decide whether to explore the data itself.",
-                             new SolutionComponentDefinition[]{EgeriaSolutionComponent.INTEGRATION_DAEMON},
+                             new SolutionComponentDefinition[]{EgeriaDeployedImplementationType.INTEGRATION_DAEMON.getSolutionComponent()},
                              null,
                              null),
 
     POSTGRES_TABULAR_DATA_SET("d0b49ac1-77f0-43c6-8e62-d38fb0139798",
                               "POSTGRESQL-TABULAR-DATA-SET-CONNECTOR",
-                              SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                              SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                               null,
                               "PostgreSQL Tabular Data Set Connector",
                               "Manages the definition and maintenance of data in a PostgreSQL table.",

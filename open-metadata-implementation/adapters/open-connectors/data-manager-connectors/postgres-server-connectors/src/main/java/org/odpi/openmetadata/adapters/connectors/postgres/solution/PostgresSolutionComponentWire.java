@@ -3,9 +3,10 @@
 
 package org.odpi.openmetadata.adapters.connectors.postgres.solution;
 
-import org.odpi.openmetadata.frameworks.openmetadata.definitions.EgeriaSolutionComponent;
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentWireDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 
 import java.util.List;
 
@@ -15,50 +16,50 @@ import java.util.List;
 public enum PostgresSolutionComponentWire implements SolutionComponentWireDefinition
 {
     TABULAR_DATA_SET_TO_POSTGRES(PostgresSolutionComponent.POSTGRES_TABULAR_DATA_SET,
-                                 EgeriaSolutionComponent.POSTGRES_SERVER,
+                                 DeployedImplementationType.POSTGRES_SERVER.getSolutionComponent(),
                                  "manages data",
                                  "The PostgreSQL Tabular data set connector is able to define a PostSQL database table and manage data in it."),
 
     SURVEY_SERVER_TO_POSTGRES(PostgresSolutionComponent.SURVEY_POSTGRES_SERVER,
-                                 EgeriaSolutionComponent.POSTGRES_SERVER,
-                                 "reads postgres database catalog",
-                                 "The PostgreSQL server surveyor reads the database catalog to discover details of the databases on the PostgreSQL server."),
+                              DeployedImplementationType.POSTGRES_SERVER.getSolutionComponent(),
+                              "reads postgres database catalog",
+                              "The PostgreSQL server surveyor reads the database catalog to discover details of the databases on the PostgreSQL server."),
 
     SURVEY_SERVER_TO_METADATA_STORE(PostgresSolutionComponent.SURVEY_POSTGRES_SERVER,
-                              EgeriaSolutionComponent.METADATA_ACCESS_STORE,
-                              "writes survey results",
-                              "The PostgreSQL server surveyor writes the results of its analysis to a survey report stored in the Metadata Access Store."),
+                                    EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponent(),
+                                    "writes survey results",
+                                    "The PostgreSQL server surveyor writes the results of its analysis to a survey report stored in the Metadata Access Store."),
 
     SURVEY_DATABASE_TO_POSTGRES(PostgresSolutionComponent.SURVEY_POSTGRES_DATABASE,
-                              EgeriaSolutionComponent.POSTGRES_SERVER,
-                              "reads postgres database catalog",
-                              "The PostgreSQL database surveyor reads the database catalog to discover details of a database in the PostgreSQL server."),
+                                DeployedImplementationType.POSTGRES_SERVER.getSolutionComponent(),
+                                "reads postgres database catalog",
+                                "The PostgreSQL database surveyor reads the database catalog to discover details of a database in the PostgreSQL server."),
 
     SURVEY_DATABASE_TO_METADATA_STORE(PostgresSolutionComponent.SURVEY_POSTGRES_DATABASE,
-                                    EgeriaSolutionComponent.METADATA_ACCESS_STORE,
-                                    "writes survey results",
-                                    "The PostgreSQL database surveyor writes the results of its analysis to a survey report stored in the Metadata Access Store."),
+                                      EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponent(),
+                                      "writes survey results",
+                                      "The PostgreSQL database surveyor writes the results of its analysis to a survey report stored in the Metadata Access Store."),
 
 
     CATALOG_SERVER_TO_POSTGRES(PostgresSolutionComponent.CATALOG_POSTGRES_SERVER,
-                              EgeriaSolutionComponent.POSTGRES_SERVER,
-                              "reads postgres database catalog",
-                              "The PostgreSQL server cataloger reads the database catalog to discover details of the databases on the PostgreSQL server."),
+                               DeployedImplementationType.POSTGRES_SERVER.getSolutionComponent(),
+                               "reads postgres database catalog",
+                               "The PostgreSQL server cataloger reads the database catalog to discover details of the databases on the PostgreSQL server."),
 
     CATALOG_SERVER_TO_METADATA_STORE(PostgresSolutionComponent.CATALOG_POSTGRES_SERVER,
-                                    EgeriaSolutionComponent.METADATA_ACCESS_STORE,
-                                    "writes catalog entries",
-                                    "The PostgreSQL server cataloguer writes the results of its analysis as catalog entries (assets, connections, ...) stored in the Metadata Access Store."),
+                                     EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponent(),
+                                     "writes catalog entries",
+                                     "The PostgreSQL server cataloguer writes the results of its analysis as catalog entries (assets, connections, ...) stored in the Metadata Access Store."),
 
     CATALOG_DATABASE_TO_POSTGRES(PostgresSolutionComponent.CATALOG_POSTGRES_DATABASE,
-                                EgeriaSolutionComponent.POSTGRES_SERVER,
-                                "reads postgres database catalog",
-                                "The PostgreSQL database cataloguer reads the database catalog to discover details of a database in the PostgreSQL server."),
+                                 DeployedImplementationType.POSTGRES_SERVER.getSolutionComponent(),
+                                 "reads postgres database catalog",
+                                 "The PostgreSQL database cataloguer reads the database catalog to discover details of a database in the PostgreSQL server."),
 
     CATALOG_DATABASE_TO_METADATA_STORE(PostgresSolutionComponent.CATALOG_POSTGRES_DATABASE,
-                                      EgeriaSolutionComponent.METADATA_ACCESS_STORE,
-                                      "writes catalog entries",
-                                      "The PostgreSQL database cataloguer writes the results of its analysis as catalog entries (assets, schema elements, connections, ...) stored in the Metadata Access Store."),
+                                       EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponent(),
+                                       "writes catalog entries",
+                                       "The PostgreSQL database cataloguer writes the results of its analysis as catalog entries (assets, schema elements, connections, ...) stored in the Metadata Access Store."),
 
     ;
 

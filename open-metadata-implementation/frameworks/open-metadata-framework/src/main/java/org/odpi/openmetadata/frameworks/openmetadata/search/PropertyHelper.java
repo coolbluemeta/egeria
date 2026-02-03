@@ -3546,11 +3546,14 @@ public class PropertyHelper
                                               ElementProperties  properties,
                                               String             methodName)
     {
-        PropertyValue instancePropertyValue = properties.getPropertyValue(propertyName);
-
-        if (instancePropertyValue instanceof EnumTypePropertyValue enumTypePropertyValue)
+        if (properties != null)
         {
-            return enumTypePropertyValue.getSymbolicName();
+            PropertyValue instancePropertyValue = properties.getPropertyValue(propertyName);
+
+            if (instancePropertyValue instanceof EnumTypePropertyValue enumTypePropertyValue)
+            {
+                return enumTypePropertyValue.getSymbolicName();
+            }
         }
 
         return null;

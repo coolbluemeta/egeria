@@ -142,7 +142,7 @@ public class GetOptions extends BasicOptions
     /**
      * Return the list of relationships that the query should skip (not return).
      * Typically, egeria queries return all related element when an element is retrieved.
-     * Some elements have a large number of linked elements.  This option allows you to prune specific
+     * Some elements have many linked elements.  This option allows you to prune specific
      * relationships from the response.
      *
      * @return list of relationship type names or null
@@ -200,7 +200,7 @@ public class GetOptions extends BasicOptions
 
 
     /**
-     * Set up the maximum number of relationships of a particular kind that can be returned with this element.
+     * Set up the maximum relationships of a particular kind that can be returned with this element.
      *
      * @param relationshipsPageSize int
      */
@@ -211,7 +211,8 @@ public class GetOptions extends BasicOptions
 
 
     /**
-     * Return the maximum number of relationships away from the starting element that a graph query can traverse.
+     * Return the maximum relationships away from the starting element that a graph query can traverse.
+     * If this value is 0, then no relationships are retrieved.
      *
      * @return int (default is 5)
      */
@@ -222,7 +223,7 @@ public class GetOptions extends BasicOptions
 
 
     /**
-     * Set up the maximum number of relationships away from the starting element that a graph query can traverse.
+     * Set up the maximum relationships away from the starting element that a graph query can traverse.
      *
      * @param graphQueryDepth int (default is 5)
      */
@@ -233,7 +234,7 @@ public class GetOptions extends BasicOptions
 
 
     /**
-     * Return the maximum number of nodes linked by a particular relationship to an element to include in the graph.
+     * Return the maximum nodes linked by a particular relationship to an element to include in the graph.
      *
      * @return int (default is 5)
      */
@@ -243,7 +244,7 @@ public class GetOptions extends BasicOptions
     }
 
     /**
-     * Set up the maximum number of nodes linked by a particular relationship to an element to include in the graph.
+     * Set up the maximum nodes linked by a particular relationship to an element to include in the graph.
      *
      * @param maxMermaidNodeCount int (default is 5)
      */

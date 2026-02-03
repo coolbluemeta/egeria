@@ -7,7 +7,7 @@ import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.frameworks.connectors.OpenConnectorProviderBase;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.Collections;
 
@@ -32,6 +32,6 @@ public class BasicFolderProvider extends OpenConnectorProviderBase
               Collections.singletonList(BasicFileStore.class.getName()),
               null);
 
-        super.supportedTechnologyTypes = SupportedTechnologyType.getSupportedTechnologyTypes(new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_FOLDER});
+        super.supportedTechnologyTypes = SupportedTechnologyType.getSupportedTechnologyTypes(new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_SYSTEM_DIRECTORY});
     }
 }

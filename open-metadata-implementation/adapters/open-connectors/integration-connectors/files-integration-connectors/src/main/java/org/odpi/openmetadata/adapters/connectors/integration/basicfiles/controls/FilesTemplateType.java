@@ -8,7 +8,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.Pla
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ReplacementAttributeType;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.TemplateDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +20,12 @@ import java.util.Map;
  */
 public enum FilesTemplateType implements TemplateDefinition
 {
-    FILE_FOLDER_TEMPLATE(DeployedImplementationType.FILE_FOLDER.getDeployedImplementationType(),
-                             "Create a " + DeployedImplementationType.FILE_FOLDER.getAssociatedTypeName() + " asset.",
-                             DeployedImplementationType.FILE_FOLDER.getAssociatedTypeName(),
+    FILE_FOLDER_TEMPLATE(DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
+                             "Create a " + DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getAssociatedTypeName() + " asset.",
+                             DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getAssociatedTypeName(),
                              false,
                              "fbdd8efd-1b69-474c-bb6d-0a304b394146",
-                             DeployedImplementationType.FILE_FOLDER,
+                             DeployedImplementationType.FILE_SYSTEM_DIRECTORY,
                              PlaceholderProperty.getFolderPlaceholderPropertyTypes(),
                              null),
 

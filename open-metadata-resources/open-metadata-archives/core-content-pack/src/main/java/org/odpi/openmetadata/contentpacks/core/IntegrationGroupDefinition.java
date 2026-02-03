@@ -78,7 +78,7 @@ public enum IntegrationGroupDefinition
          "Egeria:IntegrationGroup:OpenMetadataObservability",
          "OpenMetadataObservabilityIntegrationGroup",
          "Dynamic integration group supporting integration connectors extracting interesting information needed to observe the activity in the Open Metadata Ecosystem.",
-         ContentPackDefinition.NANNY_CONTENT_PACK),
+         ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
 
     /**
      * Dynamic integration group supporting integration connectors extracting interesting information from the open metadata repositories that make useful digital products.

@@ -39,7 +39,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                                  null),
 
     LANDING_FOLDER_CATALOGUER(ClinicalTrialSolutionComponent.LANDING_FOLDER_CATALOGUER.getGUID(),
-                              SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                              SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                               "Integration Connector",
                               "Landing Folder Cataloguer",
                               "Integration connector that is cataloguing files arriving in the hospital landing area folders and invoking the onboarding pipeline.",
@@ -50,7 +50,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                               null),
 
     MOVE_FILE_TO_DATA_LAKE("18931474-d170-4394-97a9-0e627e2212ac",
-                           SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                           SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                            "Governance Action Process Step",
                            "Move File To Data Lake",
                            "Move landing area files to data lake, catalog files in data lake with lineage from the landing area and validate/certify that the data contains valid values.  The cataloguing includes lineage, retention, origin, governance zones.  The quality validation survey will add a certification to the file asset if the data contains valid values.",
@@ -60,7 +60,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                            RequestTypeDefinition.MOVE_FILE.getGovernanceActionTypeGUID()),
 
     CHECK_QUALITY_OF_DATA("2a5763d0-c540-4a59-8268-db7c88342269",
-                          SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                          SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                           "Governance Action Process Step",
                           "Check Quality of Data",
                           "Validate that the data contains valid values. The quality validation survey will add a certification to the file asset if the data contains valid values.",
@@ -70,7 +70,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                           CocoRequestTypeDefinition.CHECK_DATA.getGovernanceActionTypeGUID()),
 
     REPORT_QUALITY_ISSUES("b1fd8336-45ca-4e2e-bd79-ce6601c0b68f",
-                          SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                          SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                           "Governance Action Process Step",
                           "Report Quality Issues",
                           "Create alerts to interested parties if quality issues are detected.",
@@ -80,7 +80,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                           RequestTypeDefinition.EVALUATE_ANNOTATIONS.getGovernanceActionTypeGUID()),
 
     DETERMINE_ORIGIN_OF_DATA("7bcf573b-0ad8-4ca8-82c0-8d8f50fac4cd",
-                             SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                             SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                              "Governance Action Process Step",
                              "Determine Origin of Data",
                              "Add details of the originating hospital.",
@@ -90,7 +90,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                              RequestTypeDefinition.SEEK_ORIGIN.getGovernanceActionTypeGUID()),
 
     SET_RETENTION_PERIOD("bed0ec86-45ce-4350-8c68-9596299c843a",
-                         SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                         SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                          "Governance Action Process Step",
                          "Set Retention Period",
                          "Define when this file can be archived and then deleted.",
@@ -100,7 +100,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                          RequestTypeDefinition.RETENTION_PERIOD.getGovernanceActionTypeGUID()),
 
     PUBLISH_ASSET("22e35eff-fcc8-4baa-804e-8363989cf6f1",
-                  SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                  SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                   "Governance Action Process Step",
                   "Publish Asset",
                   "Make the new file visible in the data lake catalog.",
@@ -110,7 +110,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                   RequestTypeDefinition.ZONE_MEMBER.getGovernanceActionTypeGUID()),
 
     WEEKLY_MEASUREMENTS_ONBOARDING_PIPELINE(ClinicalTrialSolutionComponent.WEEKLY_MEASUREMENTS_ONBOARDING_PIPELINE.getGUID(),
-                                            SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                                            SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                                             "Governance Action Process",
                                             "Weekly Measurements Onboarding Pipeline",
                                             "Move landing area files to data lake, catalog files in data lake with lineage from the landing area and validate/certify that the data contains valid values.  The cataloguing includes lineage, retention, origin, governance zones.  The quality validation survey will add a certification to the file asset if the data contains valid values.",
@@ -136,7 +136,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                                          null),
 
     POPULATE_SANDBOX(ClinicalTrialSolutionComponent.POPULATE_SANDBOX.getGUID(),
-                     SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                     SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                      "Airflow DAG",
                      "Populate Sandbox",
                      "A process that copies certified files from the hospitals into the research team's sandbox for processing.",
@@ -196,7 +196,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                                    null),
 
     NOMINATE_HOSPITAL(ClinicalTrialSolutionComponent.NOMINATE_HOSPITAL.getGUID(),
-                      SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                      SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                       "Governance Action Process",
                       "Nominate Hospital",
                       "Add details of a hospital as a candidate for participation in the clinical trials.",
@@ -206,7 +206,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                       CocoRequestTypeDefinition.NOMINATE_HOSPITAL.getGovernanceActionTypeGUID()),
 
     CERTIFY_HOSPITAL(ClinicalTrialSolutionComponent.CERTIFY_HOSPITAL.getGUID(),
-                     SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                     SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                      "Governance Action Process",
                      "Certify Hospital",
                      "Confirm that a hospital has met all of the criteria to participate in the clinical trial.",
@@ -216,7 +216,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                      CocoRequestTypeDefinition.CERTIFY_HOSPITAL.getGovernanceActionTypeGUID()),
 
     ONBOARD_HOSPITAL(ClinicalTrialSolutionComponent.ONBOARD_HOSPITAL.getGUID(),
-                     SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                     SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                      "Governance Action Process",
                      "Onboard Hospital",
                      "Set up the onboarding pipeline for a participating hospital.  This fails if the hospital is not certified.",
@@ -226,7 +226,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                      CocoRequestTypeDefinition.ONBOARD_HOSPITAL.getGovernanceActionTypeGUID()),
 
     SET_UP_DATA_LAKE(ClinicalTrialSolutionComponent.SET_UP_DATA_LAKE.getGUID(),
-                     SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                     SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                      "Governance Action Process",
                      "Set up Data Lake",
                      "Set up the data stores for receiving data from the hospitals - this includes the file system directory and Unity Catalog Volume for incoming patient measurements, along with the data set collection for certified measurement files.",
@@ -238,7 +238,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                      CocoRequestTypeDefinition.SET_UP_DATA_LAKE.getGovernanceActionTypeGUID()),
 
     SET_UP_CLINICAL_TRIAL("849b0b42-f465-452b-813c-477d6398e082",
-                          SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                          SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                           "Governance Action Process",
                           "Set up clinical trial",
                           "Generates the project, and governance action processes needed to drive a clinical trial.",
@@ -248,7 +248,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                           CocoRequestTypeDefinition.SET_UP_CLINICAL_TRIAL.getGovernanceActionTypeGUID()),
 
     SUSTAINABILITY_ODS("fc55ef2d-a88d-44ee-94cb-3fca9b9af8b4",
-                       SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                       SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                        "PostgreSQL Database",
                        "Sustainability Operational Data Store (ODS)",
                        "A store for both the raw data needed for the sustainability calculations and the results.",
@@ -259,7 +259,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                        null),
 
     SUSTAINABILITY_CALCULATORS("06edd666-06fd-43ef-b7bd-22e2651c334f",
-                               SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                               SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                                "Analytics Application",
                                "Sustainability Calculators",
                                "Algorithms that calculate the impact of Coco Pharmaceuticals' operation and the changes that are making a difference.",
@@ -270,7 +270,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                                null),
 
     SUSTAINABILITY_DASHBOARDS("d50a6f1f-49d2-47c3-a55e-5844464bd26f",
-                               SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                               SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                                "SuperSet Application",
                                "Sustainability Dashboards",
                                "Dashboards that illustrate Coco Pharmaceuticals' sustainability position.",
@@ -281,7 +281,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                               null),
 
     EMPLOYEE_EXPENSE_TOOL("02cdce9a-7630-479a-90de-fd7698d098f1",
-                          SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                          SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                           "Cloud Application",
                           "Employee Expense Tool",
                           "Application for recording and categorizing employee expenses, and authorizing the repayment.",
@@ -292,7 +292,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                           null),
 
     HAZMAT_INVENTORY("25fd5be7-692d-4752-9dc7-30068a7d665e",
-                     SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                     SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                      "COTS Application",
                      "Hazardous Materials (HazMat) Inventory",
                      "Application for recording and tracing hazardous materials.  This includes greenhouse gasses such as CO2 and Hydro-fluorocarbons.",
@@ -303,7 +303,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                      null),
 
     ACCOUNTING_LEDGER("2c0f5a4e-bb02-4081-a80e-3072ca99a1aa",
-                      SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                      SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                       "Cloud Application",
                       "Accounting ledgers",
                       "Application for recording and tracing the income and spending of Coco Pharmaceuticals.  This can help to identify how much the company is spending on particular materials and activities.",
@@ -314,7 +314,7 @@ public enum SolutionComponent implements SolutionComponentDefinition
                       null),
 
     GOODS_INVENTORY("50768e61-43b6-4241-96a3-4c413582ec1f",
-                    SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                    SolutionComponentType.AUTOMATED_ACTION.getSolutionComponentType(),
                     "COTS Application",
                     "Goods Inventory",
                     "Application for recording and tracing physical materials as they are acquired, stored, distributed and used.",
@@ -343,10 +343,10 @@ public enum SolutionComponent implements SolutionComponentDefinition
      * Construct an enum instance.
      *
      * @param guid unique identifier
-     * @param componentType   type of solution component - ege automated process
+     * @param componentType   type of solution component - eg automated process
      * @param implementationType   type of software component - for example, is it a process, of file or database.
-     * @param displayName display name of solution component
-     * @param description description of solution component
+     * @param displayName the display name of the solution component
+     * @param description the description of the solution component
      * @param versionIdentifier version identifier of the solution component
      * @param subComponents optional subcomponents of the solution
      * @param linkedFromSegment array of segments that are implemented by this component
@@ -383,18 +383,6 @@ public enum SolutionComponent implements SolutionComponentDefinition
     public String getGUID()
     {
         return guid;
-    }
-
-    /**
-     * Return the unique identifier of this element.  It is only needed if the elements are to be loaded
-     * into an open metadata archive.
-     *
-     * @return string
-     */
-    @Override
-    public String getTypeName()
-    {
-        return OpenMetadataType.SOLUTION_COMPONENT.typeName;
     }
 
 

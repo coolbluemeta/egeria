@@ -13,16 +13,16 @@ import org.odpi.openmetadata.frameworks.openwatchdog.controls.WatchdogActionGuar
  * KarmaPointAwardsServiceProvider is the OCF connector provider for the KarmaPointAwardsService.
  * This is a WatchDog Action Service.
  */
-public class KarmaPointAwardsServiceProvider extends WatchdogActionServiceProvider
+public class LovelaceKarmaPointAwardsServiceProvider extends WatchdogActionServiceProvider
 {
     /**
      * Constructor used to initialize the ConnectorProvider with the Java class name of the specific
      * store implementation.
      */
-    public KarmaPointAwardsServiceProvider()
+    public LovelaceKarmaPointAwardsServiceProvider()
     {
         super(EgeriaOpenConnectorDefinition.KARMA_POINTS_AWARDS_LOVELACE_SERVICE,
-              KarmaPointAwardsService.class.getName(),
+              LovelaceKarmaPointAwardsService.class.getName(),
               null);
 
         super.supportedRequestTypes = null;

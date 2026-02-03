@@ -1,13 +1,11 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
-package org.odpi.openmetadata.adapters.connectors.apacheatlas.controls;
+package org.odpi.openmetadata.adapters.connectors.controls;
 
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.SolutionComponentType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
-
-import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues.constructValidValueQualifiedName;
 
 /**
  * Describes the standard deployed implementation types supplied with Egeria for working with Apache Atlas.
@@ -24,7 +22,10 @@ public enum AtlasDeployedImplementationType implements DeployedImplementationTyp
                         OpenMetadataType.SOFTWARE_SERVER.typeName,
                         null,
                         "A data catalog for the Hadoop ecosystem.",
-                        "https://atlas.apache.org/"),
+                        "https://atlas.apache.org/",
+                        "2bdfd011-bf61-4382-a134-47e9f6af1f82",
+                        SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
+                        "APACHE-ATLAS-SERVER"),
 
     ;
 
@@ -52,6 +53,24 @@ public enum AtlasDeployedImplementationType implements DeployedImplementationTyp
     }
 
 
+    /**
+     * Return a list of GUIDs for this set of deployed implementation types.
+     *
+     * @return array of guids
+     */
+    public static String[] getGUIDs()
+    {
+        String[] guids = new String[values().length];
+
+        for (AtlasDeployedImplementationType definition : AtlasDeployedImplementationType.values())
+        {
+            guids[definition.ordinal()] = definition.getGUID();
+        }
+
+        return guids;
+    }
+
+
     private final String                               guid;
     private final String                               deployedImplementationType;
     private final DeployedImplementationTypeDefinition isATypeOf;
@@ -59,6 +78,9 @@ public enum AtlasDeployedImplementationType implements DeployedImplementationTyp
     private final String                               associatedClassification;
     private final String                               description;
     private final String                               wikiLink;
+    private final String                               solutionComponentGUID;
+    private final String                               solutionComponentType;
+    private final String                               solutionComponentIdentifier;
 
 
     /**
@@ -71,6 +93,9 @@ public enum AtlasDeployedImplementationType implements DeployedImplementationTyp
      * @param associatedClassification the open metadata classification where this value is used
      * @param description description of the type
      * @param wikiLink url link to more information (optional)
+     * @param solutionComponentGUID unique identifier of the solution component that this deployed implementation type is associated with (optional)
+     * @param solutionComponentType type of the solution component that this deployed implementation type is associated with (optional)
+     * @param solutionComponentIdentifier  identifier of the solution component that this deployed implementation type is associated with (optional)
      */
     AtlasDeployedImplementationType(String                               guid,
                                     String                               deployedImplementationType,
@@ -78,7 +103,10 @@ public enum AtlasDeployedImplementationType implements DeployedImplementationTyp
                                     String                               associatedTypeName,
                                     String                               associatedClassification,
                                     String                               description,
-                                    String                               wikiLink)
+                                    String                               wikiLink,
+                                    String                               solutionComponentGUID,
+                                    String                               solutionComponentType,
+                                    String                               solutionComponentIdentifier)
     {
         this.guid = guid;
         this.deployedImplementationType = deployedImplementationType;
@@ -87,7 +115,11 @@ public enum AtlasDeployedImplementationType implements DeployedImplementationTyp
         this.associatedClassification = associatedClassification;
         this.description = description;
         this.wikiLink = wikiLink;
+        this.solutionComponentGUID = solutionComponentGUID;
+        this.solutionComponentType = solutionComponentType;
+        this.solutionComponentIdentifier = solutionComponentIdentifier;
     }
+
 
     /**
      * Return the guid for the deployed technology type - can be null.
@@ -149,21 +181,6 @@ public enum AtlasDeployedImplementationType implements DeployedImplementationTyp
 
 
     /**
-     * Return the qualified name for this deployed implementation type.
-     *
-     * @return string
-     */
-    @Override
-    public String getQualifiedName()
-    {
-        return constructValidValueQualifiedName(associatedTypeName,
-                                                OpenMetadataProperty.DEPLOYED_IMPLEMENTATION_TYPE.name,
-                                                null,
-                                                deployedImplementationType);
-    }
-
-
-    /**
      * Return the description for this value.
      * 
      * @return string
@@ -184,6 +201,42 @@ public enum AtlasDeployedImplementationType implements DeployedImplementationTyp
     public String getWikiLink()
     {
         return wikiLink;
+    }
+
+
+    /**
+     * Return the optional unique identifier of the solution component that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentGUID()
+    {
+        return solutionComponentGUID;
+    }
+
+
+    /**
+     * Return the solution component type that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentType()
+    {
+        return solutionComponentType;
+    }
+
+
+    /**
+     * Return the solution component identifier that this deployed implementation type is associated with.
+     *
+     * @return string
+     */
+    @Override
+    public String getSolutionComponentIdentifier()
+    {
+        return solutionComponentIdentifier;
     }
 
 

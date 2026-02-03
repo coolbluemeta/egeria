@@ -1,8 +1,10 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
 
-package org.odpi.openmetadata.frameworks.openmetadata.definitions;
+package org.odpi.openmetadata.adapters.connectors;
 
+import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.SolutionComponentType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
@@ -15,68 +17,6 @@ import java.util.List;
  */
 public enum EgeriaSolutionComponent implements SolutionComponentDefinition
 {
-    OPEN_METADATA_REPOSITORY("1dcdc147-e023-4480-ae5c-93c009927b1a",
-                             "OPEN-METADATA-REPOSITORY",
-                             SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-                             DeployedImplementationType.OPEN_METADATA_REPOSITORY.getAssociatedTypeName(),
-                             "https://egeria-project.org/concepts/open-metadata-repository/",
-                             DeployedImplementationType.OPEN_METADATA_REPOSITORY.getDeployedImplementationType(),
-                             DeployedImplementationType.OPEN_METADATA_REPOSITORY.getDescription(),
-                             null,
-                             null),
-
-    METADATA_ACCESS_STORE("74385479-73a1-4e61-9c2f-a98be526acc7",
-                          "METADATA-ACCESS-STORE",
-                          SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
-                          EgeriaDeployedImplementationType.METADATA_ACCESS_SERVER.getAssociatedTypeName(),
-                          "https://egeria-project.org/concepts/metadata-access-store/",
-                          EgeriaDeployedImplementationType.METADATA_ACCESS_SERVER.getDeployedImplementationType(),
-                          EgeriaDeployedImplementationType.METADATA_ACCESS_SERVER.getDescription(),
-                          new EgeriaSolutionComponent[]{OPEN_METADATA_REPOSITORY},
-                          null),
-
-    INTEGRATION_DAEMON("31d227b4-08b2-4544-bd31-f7f1d1f65ec9",
-                       "INTEGRATION-DAEMON",
-                       SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
-                       EgeriaDeployedImplementationType.INTEGRATION_DAEMON.getAssociatedTypeName(),
-                       "https://egeria-project.org/concepts/integration-daemon/",
-                       EgeriaDeployedImplementationType.INTEGRATION_DAEMON.getDeployedImplementationType(),
-                       EgeriaDeployedImplementationType.INTEGRATION_DAEMON.getDescription(),
-                       null,
-                       null),
-
-
-    ENGINE_HOST("0ec8aaf3-42cf-4a81-83fa-2db6b20c7507",
-                "ENGINE-HOST",
-                SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
-                EgeriaDeployedImplementationType.ENGINE_HOST.getAssociatedTypeName(),
-                "https://egeria-project.org/concepts/engine-host/",
-                EgeriaDeployedImplementationType.ENGINE_HOST.getDeployedImplementationType(),
-                EgeriaDeployedImplementationType.ENGINE_HOST.getDescription(),
-                null,
-                null),
-
-
-    VIEW_SERVER("5037b995-3e3e-4ad1-94f7-1d7960f28b44",
-                "VIEW-SERVER",
-                SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
-                EgeriaDeployedImplementationType.VIEW_SERVER.getAssociatedTypeName(),
-                "https://egeria-project.org/concepts/view-server/",
-                EgeriaDeployedImplementationType.VIEW_SERVER.getDeployedImplementationType(),
-                EgeriaDeployedImplementationType.VIEW_SERVER.getDescription(),
-                null,
-                null),
-
-    SERVER_PLATFORM("1442a1bc-f791-4fda-a3be-56fb68934a4c",
-                    "SERVER-PLATFORM",
-                    SolutionComponentType.SOFTWARE_SERVICE.getSolutionComponentType(),
-                    EgeriaDeployedImplementationType.OMAG_SERVER_PLATFORM.getAssociatedTypeName(),
-                    "https://egeria-project.org/concepts/omag-server-platform/",
-                    EgeriaDeployedImplementationType.OMAG_SERVER_PLATFORM.getDeployedImplementationType(),
-                    EgeriaDeployedImplementationType.OMAG_SERVER_PLATFORM.getDescription(),
-                    new EgeriaSolutionComponent[]{METADATA_ACCESS_STORE, VIEW_SERVER, INTEGRATION_DAEMON, ENGINE_HOST},
-                    null),
-
     LOAD_ARCHIVE("cc3e0a81-ad10-4c72-b6a5-01301c5dd587",
                  "LOAD-ARCHIVE",
                  SolutionComponentType.CONSOLE_COMMAND.getSolutionComponentType(),
@@ -87,16 +27,6 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                  null,
                  null),
 
-    PYEGERIA("c3fd85ae-4226-4d20-b57f-af3b0e748e5f",
-             "PYEGERIA",
-             SolutionComponentType.SOFTWARE_LIBRARY.getSolutionComponentType(),
-             OpenMetadataType.SOFTWARE_LIBRARY.typeName,
-             "https://egeria-project.org/concepts/pyegeria/",
-             "pyegeria",
-             "Python language library supporting calls to Egeria's REST APIs",
-             null,
-             null),
-
     MY_EGERIA("57f6a0c7-fbbe-42b2-a30f-3298a8816096",
               "MY-EGERIA",
               SolutionComponentType.USER_INTERFACE.getSolutionComponentType(),
@@ -104,7 +34,7 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
               null,
               "my_egeria",
               "A user interface for working with Egeria and open metadata.",
-              new EgeriaSolutionComponent[]{PYEGERIA},
+              new SolutionComponentDefinition[]{DeployedImplementationType.PYEGERIA.getSolutionComponent()},
               null),
 
     DR_EGERIA("1ddd9283-3dc9-4220-ac42-be0894b5a930",
@@ -114,7 +44,7 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
               null,
               "Dr.Egeria",
               "A markdown processor that can maintain and retrieve open metadata by processing and creating markdown documents.",
-              new EgeriaSolutionComponent[]{PYEGERIA},
+              new SolutionComponentDefinition[]{DeployedImplementationType.PYEGERIA.getSolutionComponent()},
               null),
 
     HEY_EGERIA("b2278203-63a6-4a4f-b142-6f75cd592415",
@@ -124,25 +54,14 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                "https://egeria-project.org/user-interfaces/hey-egeria/overview/",
                "hey_egeria",
                "A user interface for working with Egeria and open metadata.",
-               new EgeriaSolutionComponent[]{
-                       PYEGERIA,
+               new SolutionComponentDefinition[]{
+                       DeployedImplementationType.PYEGERIA.getSolutionComponent(),
                        LOAD_ARCHIVE},
                null),
 
-
-    OPEN_METADATA_ARCHIVE("8624e13c-6b08-417e-8aee-5d78a5278af2",
-                          "OPEN-METADATA-ARCHIVE",
-                          SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-                          OpenMetadataType.ARCHIVE_FILE.typeName,
-                          "https://egeria-project.org/concepts/open-metadata-archive/",
-                          "Open Metadata Archive",
-                          "An archive file containing pre-defined metadata types and instances.",
-                          null,
-                          null),
-
     EGERIA_BUILD("f763d7df-1d49-4ceb-a079-c7f40e15982b",
                  "EGERIA-BUILD",
-                 SolutionComponentType.AUTOMATED_PROCESS.getSolutionComponentType(),
+                 SolutionComponentType.MULTI_STEP_PROCESS.getSolutionComponentType(),
                  OpenMetadataType.BUILD_INSTRUCTION_FILE.typeName,
                  null,
                  "Egeria Gradle Build",
@@ -158,7 +77,7 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                 "https://jupyter.org/hub",
                 "JupyterHub",
                 "Supports browser based interaction with Jupyter Notebooks.",
-                new EgeriaSolutionComponent[]{PYEGERIA},
+                new SolutionComponentDefinition[]{DeployedImplementationType.PYEGERIA.getSolutionComponent()},
                 null),
 
     DEFAULT_UNITY_CATALOG("d22f1b91-61d9-4454-b4a3-be07a3336874",
@@ -201,32 +120,23 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                    null,
                    null),
 
-    APACHE_AIRFLOW_JOB("1687e842-6f66-4871-b844-3f96a9f4391f",
-                       "APACHE-KAFKA",
-                       SolutionComponentType.DATA_DISTRIBUTION.getSolutionComponentType(),
-                       OpenMetadataType.SOFTWARE_SERVER.typeName,
-                       "https://airflow.apache.org/",
-                       "Apache Airflow Job",
-                       "Runs data movement and transformation pipelines.",
-                       new EgeriaSolutionComponent[]{PYEGERIA},
-                       null),
-    APACHE_AIRFLOW("6db0416a-1e7f-4e7c-aae6-8925c2148820",
-                   "APACHE-AIRFLOW",
-                   SolutionComponentType.DATA_DISTRIBUTION.getSolutionComponentType(),
-                   OpenMetadataType.SOFTWARE_SERVER.typeName,
-                   "https://airflow.apache.org/",
-                   "Apache Airflow",
-                   "Runs data movement and transformation pipelines.",
-                   new EgeriaSolutionComponent[]{APACHE_AIRFLOW_JOB},
-                   null),
-
     OPEN_METADATA_TOPIC("03310995-216c-49e7-a9fe-8e789b11d37d",
                         "OPEN-METADATA-TOPIC",
                         SolutionComponentType.DATA_DISTRIBUTION.getSolutionComponentType(),
                         OpenMetadataType.TOPIC.typeName,
                         "https://egeria-project.org/concepts/open-metadata-topic-connector/",
                         "Open Metadata Topic",
-                        "Provides notifications when open metadata changes.",
+                        "Provides notifications when open metadata changes in any of the connected repositories.",
+                        null,
+                        null),
+
+    OPEN_GOVERNANCE_TOPIC("145b6fd1-6267-429a-90f3-851a2dc1350e",
+                        "OPEN-GOVERNANCE-TOPIC",
+                        SolutionComponentType.DATA_DISTRIBUTION.getSolutionComponentType(),
+                        OpenMetadataType.TOPIC.typeName,
+                        "https://egeria-project.org/concepts/open-metadata-topic-connector/",
+                        "Open Governance Topic",
+                        "Provides notifications when governance server configuration (Governance engines, governance services, integration groups, and integration connectors) changes.  It also transmits changes to engine actions to allow the engine host to initiate the actions.",
                         null,
                         null),
 
@@ -237,7 +147,7 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                  "https://kafka.apache.org/",
                  "Apache Kafka",
                  "Manages a reliable topic based service.",
-                 new EgeriaSolutionComponent[]{OL_KAFKA_TOPIC, OPEN_METADATA_TOPIC},
+                 new SolutionComponentDefinition[]{OL_KAFKA_TOPIC, OPEN_METADATA_TOPIC, OPEN_GOVERNANCE_TOPIC},
                  null),
 
     EGERIA_POSTGRESQL_DATABASE("ac2df71c-6041-42b9-b96b-ae036a32f5d8",
@@ -247,7 +157,8 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                                null,
                                "Egeria PostgreSQL Database",
                                "This database supports the different repositories used by the Egeria runtime.",
-                               new EgeriaSolutionComponent[]{OPEN_METADATA_REPOSITORY},
+                               new SolutionComponentDefinition[]{
+                                       DeployedImplementationType.OPEN_METADATA_REPOSITORY.getSolutionComponent()},
                                null),
 
     UC_POSTGRESQL_DATABASE("0f732681-e40c-48dc-b5b3-c1e78c05da29",
@@ -290,71 +201,21 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                                 null,
                                 null),
 
-    POSTGRES_SERVER("235a335a-f010-43ee-b785-3774380b5058",
-                    "POSTGRES-SERVER",
-                    SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-                    OpenMetadataType.SOFTWARE_SERVER.typeName,
-                    "https://www.postgresql.org/",
-                    "PostgreSQL Server",
-                    "Hosts relational databases.",
-                    new EgeriaSolutionComponent[]{
-                            EGERIA_POSTGRESQL_DATABASE,
-                            UC_POSTGRESQL_DATABASE,
-                            SUPERSET_POSTGRESQL_DATABASE,
-                            AIRFLOW_POSTGRESQL_DATABASE,
-                            MARQUEZ_POSTGRESQL_DATABASE,
-                    },
-                    null),
-
-    FILE("5ac2a078-0b81-487e-b8f0-095e544aaf52",
-         "FILE",
-         SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-         OpenMetadataType.DATA_FILE.typeName,
-         null,
-         "File",
-         "Provides storage for data.",
-         null,
-         null),
-
-    FILE_DIRECTORY("40719374-f686-4faf-8675-e1863bdafa1d",
-                   "FILE-DIRECTORY",
-                   SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-                   OpenMetadataType.FILE_FOLDER.typeName,
-                   null,
-                   "File Directory",
-                   "Organizes a collection of files hierarchically in nested folders.",
-                   new EgeriaSolutionComponent[]{ FILE },
-                   null),
-
-    FILE_SYSTEM("5c14f90b-ecc5-4ecb-adfe-36208671bc5d",
-                "FILE-SYSTEM",
-                SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-                OpenMetadataType.FILE_SYSTEM.typeName,
-                null,
-                "File System",
-                "Provides storage for hierarchically organized files.",
-                new EgeriaSolutionComponent[]{ FILE_DIRECTORY },
-                null),
-
-    APACHE_SUPERSET("bea991ef-fe4d-441b-a5c3-70ce595ffe43",
-                    "APACHE-SUPERSET",
-                    SolutionComponentType.USER_INTERFACE.getSolutionComponentType(),
-                    OpenMetadataType.SOFTWARE_SERVER.typeName,
-                    "https://superset.apache.org/",
-                    "Apache Superset",
-                    "Manages the definition and display of reports.",
-                    null,
-                    null),
-
-    MARQUEZ("61fa7d16-94a6-4a58-a431-8be05f15ea71",
-            "MARQUEZ",
-            SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-            OpenMetadataType.SOFTWARE_SERVER.typeName,
-            "https://marquezproject.ai/",
-            "Marquez",
-            "Runs data movement and transformation pipelines.",
-            null,
-            null),
+    WORKSPACES_POSTGRES_SERVER("235a335a-f010-43ee-b785-3774380b5058",
+                               "WORKSPACES-POSTGRES-SERVER",
+                               SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                               OpenMetadataType.SOFTWARE_SERVER.typeName,
+                               "https://www.postgresql.org/",
+                               "Egeria Workspaces PostgreSQL Server",
+                               "Hosts relational databases for the Egeria Workspaces deployment.",
+                               new EgeriaSolutionComponent[]{
+                                       EGERIA_POSTGRESQL_DATABASE,
+                                       UC_POSTGRESQL_DATABASE,
+                                       SUPERSET_POSTGRESQL_DATABASE,
+                                       AIRFLOW_POSTGRESQL_DATABASE,
+                                       MARQUEZ_POSTGRESQL_DATABASE,
+                               },
+                               null),
 
     APACHE_WEB_SERVER("2b9976a6-1466-4b82-be8b-61e80d1adaef",
                       "APACHE-WEB-SERVER",
@@ -373,38 +234,8 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                  null,
                  "Pyegeria-Web",
                  "REST-ful service for calling Dr.Egeria from local tools.",
-                 new EgeriaSolutionComponent[]{PYEGERIA},
+                 new SolutionComponentDefinition[]{DeployedImplementationType.PYEGERIA.getSolutionComponent()},
                  null),
-
-    MARKDOWN_DOCUMENT("fd26eb09-ec95-4d83-b478-c8caee4b1c21",
-                      "MARKDOWN-DOCUMENT",
-                      SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-                      OpenMetadataType.DOCUMENT.typeName,
-                      "https://en.wikipedia.org/wiki/Markdown",
-                      "Markdown Document",
-                      "Text file encoded using markdown tags and layout.",
-                      null,
-                      null),
-
-    HTML_WEBPAGE("843cf81f-ae76-418e-9df3-bb2595e08c15",
-                 "HTML-WEBPAGE",
-                 SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-                 OpenMetadataType.DOCUMENT.typeName,
-                 "https://en.wikipedia.org/wiki/HTML",
-                 "HTML Webpage",
-                 "Text file encoded using HTML tags.",
-                 null,
-                 null),
-
-    JUPYTER_NOTEBOOK("3af1e6e6-7a65-4d67-8cfd-d202cc5660d7",
-                     "JUPYTER-NOTEBOOK",
-                     SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-                     OpenMetadataType.JSON_FILE.typeName,
-                     "https://jupyter.org/",
-                     "Jupyter Notebook",
-                     "Text file encoded in JSON that describes a mixture of python code and descriptive text.",
-                     null,
-                     null),
 
     USER_WORKSPACE("331875c2-0876-4211-bc52-b18f1e1bb478",
                    "USER-WORKSPACE",
@@ -413,22 +244,25 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                    null,
                    "User Workspace",
                    "Directory on the file systems where a user can store their files.",
-                   new EgeriaSolutionComponent[]{JUPYTER_NOTEBOOK, MARKDOWN_DOCUMENT, HTML_WEBPAGE},
+                   new SolutionComponentDefinition[]{
+                           DeployedImplementationType.JUPYTER_NOTEBOOK.getSolutionComponent(),
+                           DeployedImplementationType.MARKDOWN_DOCUMENT.getSolutionComponent(),
+                           DeployedImplementationType.WEBPAGE.getSolutionComponent()},
                    null),
 
 
     ;
 
 
-    private final String                    guid;
-    private final String                    identifier;
-    private final String                    componentType;
-    private final String                    implementationType;
-    private final String                    url;
-    private final String                    displayName;
-    private final String                    description;
-    private final EgeriaSolutionComponent[] subComponents;
-    private final String                    implementationResource;
+    private final String                        guid;
+    private final String                        identifier;
+    private final String                        componentType;
+    private final String                        implementationType;
+    private final String                        url;
+    private final String                        displayName;
+    private final String                        description;
+    private final SolutionComponentDefinition[] subComponents;
+    private final String                        implementationResource;
 
 
     /**
@@ -442,15 +276,15 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
      * @param subComponents optional subcomponents of the solution
      * @param implementationResource components useful when creating implementations
      */
-    EgeriaSolutionComponent(String                    guid,
-                            String                    identifier,
-                            String                    componentType,
-                            String                    implementationType,
-                            String                    url,
-                            String                    displayName,
-                            String                    description,
-                            EgeriaSolutionComponent[] subComponents,
-                            String                    implementationResource)
+    EgeriaSolutionComponent(String                        guid,
+                            String                        identifier,
+                            String                        componentType,
+                            String                        implementationType,
+                            String                        url,
+                            String                        displayName,
+                            String                        description,
+                            SolutionComponentDefinition[] subComponents,
+                            String                        implementationResource)
     {
         this.guid                   = guid;
         this.identifier             = identifier;

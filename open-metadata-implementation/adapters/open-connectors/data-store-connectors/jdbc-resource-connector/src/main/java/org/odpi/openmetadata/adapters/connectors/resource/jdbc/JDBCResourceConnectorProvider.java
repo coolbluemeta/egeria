@@ -8,7 +8,7 @@ import org.odpi.openmetadata.adapters.connectors.resource.jdbc.controls.JDBCConf
 import org.odpi.openmetadata.frameworks.connectors.OpenConnectorProviderBase;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 /**
  * JDBCResourceConnectorProvider is the OCF connector provider for the jdbc resource connector.

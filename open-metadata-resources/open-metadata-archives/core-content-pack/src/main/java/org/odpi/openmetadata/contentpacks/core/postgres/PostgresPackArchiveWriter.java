@@ -5,10 +5,9 @@ package org.odpi.openmetadata.contentpacks.core.postgres;
 import org.odpi.openmetadata.adapters.connectors.controls.PostgresDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.postgres.catalog.PostgresServerIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.postgres.controls.PostgreSQLTemplateType;
-import org.odpi.openmetadata.adapters.connectors.surveyaction.solution.FilesSolutionBlueprint;
-import org.odpi.openmetadata.adapters.connectors.surveyaction.solution.FilesSolutionComponent;
-import org.odpi.openmetadata.adapters.connectors.surveyaction.solution.FilesSolutionComponentActor;
-import org.odpi.openmetadata.adapters.connectors.surveyaction.solution.FilesSolutionComponentWire;
+import org.odpi.openmetadata.adapters.connectors.postgres.solution.PostgresSolutionComponent;
+import org.odpi.openmetadata.adapters.connectors.postgres.solution.PostgresSolutionComponentActor;
+import org.odpi.openmetadata.adapters.connectors.postgres.solution.PostgresSolutionComponentWire;
 import org.odpi.openmetadata.adapters.connectors.postgres.tabulardatasource.PostgresTabularDataSetCollectionProvider;
 import org.odpi.openmetadata.adapters.connectors.postgres.tabulardatasource.PostgresTabularDataSetProvider;
 import org.odpi.openmetadata.contentpacks.core.ContentPackDefinition;
@@ -52,23 +51,15 @@ public class PostgresPackArchiveWriter extends ContentPackBaseArchiveWriter
          */
         for (PostgresDeployedImplementationType deployedImplementationType : PostgresDeployedImplementationType.values())
         {
-            this.addDeployedImplementationType(deployedImplementationType.getGUID(),
-                                               deployedImplementationType.getDeployedImplementationType(),
-                                               deployedImplementationType.getAssociatedTypeName(),
-                                               deployedImplementationType.getQualifiedName(),
-                                               deployedImplementationType.getDescription(),
-                                               deployedImplementationType.getWikiLink(),
-                                               deployedImplementationType.getIsATypeOf());
+            this.addDeployedImplementationType(deployedImplementationType);
         }
 
         /*
-         * Add Egeria's common solution definitions
+         * Add PostgreSQL's common solution definitions
          */
-        archiveHelper.addSolutionComponents(List.of(FilesSolutionComponent.values()));
-        archiveHelper.addSolutionComponentActors(List.of(FilesSolutionComponentActor.values()));
-        archiveHelper.addSolutionComponentWires(List.of(FilesSolutionComponentWire.values()));
-        archiveHelper.addSolutionBlueprints(List.of(FilesSolutionBlueprint.values()));
-
+        archiveHelper.addSolutionComponents(List.of(PostgresSolutionComponent.values()));
+        archiveHelper.addSolutionComponentActors(List.of(PostgresSolutionComponentActor.values()));
+        archiveHelper.addSolutionComponentWires(List.of(PostgresSolutionComponentWire.values()));
 
         /*
          * Integration Connector Types will link to the deployedImplementationType valid value element.

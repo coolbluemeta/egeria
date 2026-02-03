@@ -20,7 +20,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.Req
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.TemplateDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.mapper.PropertyFacetValidValues;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationTypeDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ResourceUse;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
@@ -60,13 +60,7 @@ public class UnityCatalogPackArchiveWriter extends ContentPackBaseArchiveWriter
          */
         for (UnityCatalogDeployedImplementationType deployedImplementationType : UnityCatalogDeployedImplementationType.values())
         {
-            this.addDeployedImplementationType(deployedImplementationType.getGUID(),
-                                               deployedImplementationType.getDeployedImplementationType(),
-                                               deployedImplementationType.getAssociatedTypeName(),
-                                               deployedImplementationType.getQualifiedName(),
-                                               deployedImplementationType.getDescription(),
-                                               deployedImplementationType.getWikiLink(),
-                                               deployedImplementationType.getIsATypeOf());
+            this.addDeployedImplementationType(deployedImplementationType);
         }
 
         /*
