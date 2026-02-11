@@ -140,6 +140,16 @@ public enum EgeriaSolutionComponent implements SolutionComponentDefinition
                         null,
                         null),
 
+    AUDIT_LOG_TOPIC("9caf4cb6-c43d-49d5-aa50-02b06fc66225",
+                          "AUDIT-LOG-TOPIC",
+                          SolutionComponentType.DATA_DISTRIBUTION.getSolutionComponentType(),
+                          OpenMetadataType.TOPIC.typeName,
+                          "https://egeria-project.org/concepts/audit-log-destination-connector/",
+                          "Audit Log Topic",
+                          "Provides notifications when audit log events of severity Error, Exception, Activity, Action, Decision, Security or Cohort are written to the audit log by registered OMAG Servers.",
+                          null,
+                          null),
+
     APACHE_KAFKA("d52a42e9-87a1-4382-aa0e-d0a3a63465f6",
                  "APACHE-KAFKA",
                  SolutionComponentType.DATA_DISTRIBUTION.getSolutionComponentType(),

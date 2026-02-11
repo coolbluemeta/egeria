@@ -12,7 +12,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
 /**
- * OpenMetadataArchiveType defines the origin of the open metadata archive.  Content pack means tha the archive contains
+ * OpenMetadataArchiveType defines the origin of the open metadata archive.  Content pack means that the archive contains
  * pre-defined types and instances for a particular use case.  Metadata export is a collection of types and instances
  * from a particular metadata server.
  */

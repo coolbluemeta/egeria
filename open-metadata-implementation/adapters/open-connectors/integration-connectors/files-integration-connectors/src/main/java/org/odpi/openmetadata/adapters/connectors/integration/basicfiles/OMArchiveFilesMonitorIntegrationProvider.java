@@ -4,6 +4,7 @@
 package org.odpi.openmetadata.adapters.connectors.integration.basicfiles;
 
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
 import org.odpi.openmetadata.frameworks.integration.controls.CatalogTargetType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
@@ -17,25 +18,13 @@ import java.util.ArrayList;
  */
 public class OMArchiveFilesMonitorIntegrationProvider extends BasicFilesMonitorIntegrationProviderBase
 {
-    private static final String connectorTypeGUID      = "67ed3803-9e14-4a5a-93f3-8d358f3d1ac4";
-    private static final int    connectorComponentId   = 697;
-    private static final String connectorQualifiedName = "Egeria:IntegrationConnector:Files:OpenMetadataArchiveFilesMonitor";
-    private static final String connectorDisplayName   = "Open Metadata Archive Files Monitor Integration Connector";
-    private static final String connectorDescription   = "Connector supports cataloguing of Open Metadata Archive files under a specific directory (folder) in the file system.";
-    private static final String connectorWikiPage      = "https://egeria-project.org/connectors/integration/om-archive-files-monitor-integration-connector/";
-
     /**
      * Constructor used to initialize the ConnectorProviderBase with the Java class name of the specific
      * store implementation.
      */
     public OMArchiveFilesMonitorIntegrationProvider()
     {
-        super(connectorTypeGUID,
-              connectorComponentId,
-              connectorQualifiedName,
-              connectorDisplayName,
-              connectorDescription,
-              connectorWikiPage,
+        super(EgeriaOpenConnectorDefinition.OM_ARCHIVE_FILES_MONITOR_INTEGRATION_CONNECTOR,
               "org.odpi.openmetadata.adapters.connectors.integration.basicfiles.OMArchiveFilesMonitorIntegrationConnector");
 
         CatalogTargetType catalogTargetType = new CatalogTargetType();

@@ -28,7 +28,6 @@ import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasObjectId;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasRelationship;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
@@ -96,7 +95,6 @@ public abstract class AtlasIntegrationModuleBase
     protected final String                   moduleName;
     protected final Connection               connectionDetails;
     protected final IntegrationContext       myContext;
-    protected final List<Connector>          embeddedConnectors;
     protected final ApacheAtlasRESTConnector atlasClient;
     protected final String                   targetRootURL;
 
@@ -122,7 +120,6 @@ public abstract class AtlasIntegrationModuleBase
      * @param myContext integration context assigned to the connector
      * @param targetRootURL host name and port of Apache Atlas
      * @param atlasClient client to call Apache Atlas
-     * @param embeddedConnectors any  connectors embedded in the connector (such as the secrets connector or Kafka connector)
      * @throws UserNotAuthorizedException the data asset service has not been enabled.
      */
     public AtlasIntegrationModuleBase(String                   connectorName,
@@ -131,8 +128,7 @@ public abstract class AtlasIntegrationModuleBase
                                       AuditLog                 auditLog,
                                       IntegrationContext       myContext,
                                       String                   targetRootURL,
-                                      ApacheAtlasRESTConnector atlasClient,
-                                      List<Connector>          embeddedConnectors) throws UserNotAuthorizedException
+                                      ApacheAtlasRESTConnector atlasClient) throws UserNotAuthorizedException
     {
         this.auditLog           = auditLog;
         this.connectorName      = connectorName;
@@ -141,7 +137,6 @@ public abstract class AtlasIntegrationModuleBase
         this.myContext          = myContext;
         this.targetRootURL      = targetRootURL;
         this.atlasClient        = atlasClient;
-        this.embeddedConnectors = embeddedConnectors;
 
         this.dataAssetClient             = myContext.getAssetClient(OpenMetadataType.DATA_ASSET.typeName);
         this.schemaTypeClient            = myContext.getSchemaTypeClient();

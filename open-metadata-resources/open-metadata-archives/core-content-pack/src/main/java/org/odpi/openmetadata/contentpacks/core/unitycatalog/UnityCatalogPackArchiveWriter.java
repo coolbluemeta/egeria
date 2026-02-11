@@ -2,6 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.contentpacks.core.unitycatalog;
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaRoleDefinition;
 import org.odpi.openmetadata.adapters.connectors.datastore.datafolder.DataFolderProvider;
 import org.odpi.openmetadata.adapters.connectors.controls.UnityCatalogDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.controls.UnityCatalogPlaceholderProperty;
@@ -16,6 +17,8 @@ import org.odpi.openmetadata.contentpacks.core.RequestTypeDefinition;
 import org.odpi.openmetadata.contentpacks.core.SoftwareServerTemplateDefinition;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
 import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.SolutionComponentType;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.RequestParameterType;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.TemplateDefinition;
@@ -105,78 +108,99 @@ public class UnityCatalogPackArchiveWriter extends ContentPackBaseArchiveWriter
         super.createRequestTypes(ContentPackDefinition.UNITY_CATALOG_CONTENT_PACK);
 
         /*
-         * Create Processes for working with Unity Catalog
+         * Create helper processes
          */
-        this.createAndSurveyServerGovernanceActionProcess("UnityCatalogServer",
-                                                          UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_UC_SERVER,
-                                                          SoftwareServerTemplateDefinition.UNITY_CATALOG_SERVER_TEMPLATE,
-                                                          RequestTypeDefinition.SURVEY_UC_SERVER,
-                                                          UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getQualifiedName());
-        this.createAndCatalogServerGovernanceActionProcess("UnityCatalogServer",
-                                                           UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getDeployedImplementationType(),
-                                                           RequestTypeDefinition.CREATE_UC_SERVER,
-                                                           SoftwareServerTemplateDefinition.UNITY_CATALOG_SERVER_TEMPLATE,
-                                                           RequestTypeDefinition.CATALOG_UC_SERVER,
-                                                           UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getQualifiedName());
-        this.deleteAsCatalogTargetGovernanceActionProcess("UnityCatalogServer",
-                                                          UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getAssociatedTypeName(),
-                                                          UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_UC_SERVER,
-                                                          UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getQualifiedName());
+        List<String> additionalSolutionComponents = new ArrayList<>();
 
-        this.createAndSurveyServerGovernanceActionProcess("DatabricksUnityCatalogServer",
-                                                          UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_DB_UC_SERVER,
-                                                          SoftwareServerTemplateDefinition.DATABRICKS_UC_SERVER_TEMPLATE,
-                                                          RequestTypeDefinition.SURVEY_UC_SERVER,
-                                                          UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER.getQualifiedName());
-        this.createAndCatalogServerGovernanceActionProcess("DatabricksUnityCatalogServer",
-                                                           UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER.getDeployedImplementationType(),
-                                                           RequestTypeDefinition.CREATE_DB_UC_SERVER,
-                                                           SoftwareServerTemplateDefinition.DATABRICKS_UC_SERVER_TEMPLATE,
-                                                           RequestTypeDefinition.CATALOG_UC_SERVER,
-                                                           UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER.getQualifiedName());
-        this.deleteAsCatalogTargetGovernanceActionProcess("DatabricksUnityCatalogServer",
-                                                          UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER.getAssociatedTypeName(),
-                                                          UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_UC_SERVER,
-                                                          UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER.getQualifiedName());
+        String solutionComponentGUID = this.createAndSurveyServerGovernanceActionProcess("UnityCatalogServer",
+                                                                                         UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER,
+                                                                                         "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                         RequestTypeDefinition.CREATE_UC_SERVER,
+                                                                                         SoftwareServerTemplateDefinition.UNITY_CATALOG_SERVER_TEMPLATE,
+                                                                                         RequestTypeDefinition.SURVEY_UC_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
 
-        this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogCatalog",
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_CATALOG.getDeployedImplementationType(),
-                                                                RequestTypeDefinition.PROVISION_UC,
-                                                                UnityCatalogTemplateType.OSS_UC_CATALOG_TEMPLATE,
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_CATALOG.getQualifiedName());
-        this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogSchema",
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_SCHEMA.getDeployedImplementationType(),
-                                                                RequestTypeDefinition.PROVISION_UC,
-                                                                UnityCatalogTemplateType.OSS_UC_SCHEMA_TEMPLATE,
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_SCHEMA.getQualifiedName());
-        this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogVolume",
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_VOLUME.getDeployedImplementationType(),
-                                                                RequestTypeDefinition.PROVISION_UC,
-                                                                UnityCatalogTemplateType.OSS_UC_VOLUME_TEMPLATE,
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_VOLUME.getQualifiedName());
-        this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogTable",
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_TABLE.getDeployedImplementationType(),
-                                                                RequestTypeDefinition.PROVISION_UC,
-                                                                UnityCatalogTemplateType.OSS_UC_TABLE_TEMPLATE,
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_TABLE.getQualifiedName());
-        this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogFunction",
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_FUNCTION.getDeployedImplementationType(),
-                                                                RequestTypeDefinition.PROVISION_UC,
-                                                                UnityCatalogTemplateType.OSS_UC_FUNCTION_TEMPLATE,
-                                                                UnityCatalogDeployedImplementationType.OSS_UC_FUNCTION.getQualifiedName());
+        solutionComponentGUID = this.createAndCatalogServerGovernanceActionProcess("UnityCatalogServer",
+                                                                                   UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER,
+                                                                                   "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                   RequestTypeDefinition.CREATE_UC_SERVER,
+                                                                                   SoftwareServerTemplateDefinition.UNITY_CATALOG_SERVER_TEMPLATE,
+                                                                                   RequestTypeDefinition.CATALOG_UC_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("UnityCatalogServer",
+                                                                                  UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                  RequestTypeDefinition.DELETE_UC_SERVER);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndSurveyServerGovernanceActionProcess("DatabricksUnityCatalogServer",
+                                                                                  UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                  RequestTypeDefinition.CREATE_DB_UC_SERVER,
+                                                                                  SoftwareServerTemplateDefinition.DATABRICKS_UC_SERVER_TEMPLATE,
+                                                                                  RequestTypeDefinition.SURVEY_UC_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndCatalogServerGovernanceActionProcess("DatabricksUnityCatalogServer",
+                                                                                   UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER,
+                                                                                   "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                   RequestTypeDefinition.CREATE_DB_UC_SERVER,
+                                                                                   SoftwareServerTemplateDefinition.DATABRICKS_UC_SERVER_TEMPLATE,
+                                                                                   RequestTypeDefinition.CATALOG_UC_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("DatabricksUnityCatalogServer",
+                                                                                  UnityCatalogDeployedImplementationType.DB_UNITY_CATALOG_SERVER,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                  RequestTypeDefinition.DELETE_UC_SERVER);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogCatalog",
+                                                                                        UnityCatalogDeployedImplementationType.OSS_UC_CATALOG,
+                                                                                        "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                        RequestTypeDefinition.PROVISION_UC,
+                                                                                        UnityCatalogTemplateType.OSS_UC_CATALOG_TEMPLATE);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogSchema",
+                                                                                        UnityCatalogDeployedImplementationType.OSS_UC_SCHEMA,
+                                                                                        "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                        RequestTypeDefinition.PROVISION_UC,
+                                                                                        UnityCatalogTemplateType.OSS_UC_SCHEMA_TEMPLATE);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogVolume",
+                                                                                        UnityCatalogDeployedImplementationType.OSS_UC_VOLUME,
+                                                                                        "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                        RequestTypeDefinition.PROVISION_UC,
+                                                                                        UnityCatalogTemplateType.OSS_UC_VOLUME_TEMPLATE);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogTable",
+                                                                                        UnityCatalogDeployedImplementationType.OSS_UC_TABLE,
+                                                                                        "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                        RequestTypeDefinition.PROVISION_UC,
+                                                                                        UnityCatalogTemplateType.OSS_UC_TABLE_TEMPLATE);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createProvisionUnityCatalogGovernanceActionProcess("UnityCatalogFunction",
+                                                                                        UnityCatalogDeployedImplementationType.OSS_UC_FUNCTION,
+                                                                                        "https://egeria-project.org/egeria-solutions/leveraging-unity-catalog/overview/",
+                                                                                        RequestTypeDefinition.PROVISION_UC,
+                                                                                        UnityCatalogTemplateType.OSS_UC_FUNCTION_TEMPLATE);
+        additionalSolutionComponents.add(solutionComponentGUID);
 
         /*
          * Define the solution components for this solution.
          */
-        this.addSolutionBlueprints(ContentPackDefinition.UNITY_CATALOG_CONTENT_PACK);
+        this.addSolutionBlueprints(ContentPackDefinition.UNITY_CATALOG_CONTENT_PACK, additionalSolutionComponents);
         this.addSolutionLinkingWires(ContentPackDefinition.UNITY_CATALOG_CONTENT_PACK);
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();
@@ -190,21 +214,24 @@ public class UnityCatalogPackArchiveWriter extends ContentPackBaseArchiveWriter
      * @param technologyType value for deployed implementation type
      * @param provisionRequestType request type used to create the server's metadata element
      * @param createTemplate template to use in the creation step
-     * @param supportedElementQualifiedName qualified name of the element that this should be listed as a resource
+     * @return unique identifier for the solution component for the new governance action process
      */
-    protected void createProvisionUnityCatalogGovernanceActionProcess(String                     technologyName,
-                                                                      String                     technologyType,
-                                                                      RequestTypeDefinition      provisionRequestType,
-                                                                      TemplateDefinition         createTemplate,
-                                                                      String                     supportedElementQualifiedName)
+    protected String createProvisionUnityCatalogGovernanceActionProcess(String                               technologyName,
+                                                                        DeployedImplementationTypeDefinition technologyType,
+                                                                        String                               url,
+                                                                        RequestTypeDefinition                provisionRequestType,
+                                                                        TemplateDefinition                   createTemplate)
     {
-        String description = "Create a " + technologyType + " element in the correct metadata collection so that it is provisioned into unity catalog.";
+        final String qualifiedName = "Provision::" + technologyName + "::GovernanceActionProcess";
+        final String displayName = "Provision Governance Action Process for " + technologyName;
+        final String description = "Create a " + technologyType + " element in the correct metadata collection so that it is provisioned into unity catalog.";
 
         String processGUID = archiveHelper.addGovernanceActionProcess(OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
-                                                                      "Provision:" + technologyName + ":GovernanceActionProcess",
-                                                                      "Provision " + technologyType,
-                                                                      null,
+                                                                      qualifiedName,
+                                                                      displayName,
+                                                                      versionName,
                                                                       description,
+                                                                      url,
                                                                       null,
                                                                       0,
                                                                       null,
@@ -219,12 +246,29 @@ public class UnityCatalogPackArchiveWriter extends ContentPackBaseArchiveWriter
             supportedRequestParameters = this.getRequestTypeDefinition(createTemplate.getPlaceholders());
         }
 
+        String processComponentGUID = archiveHelper.addSolutionComponent(OpenMetadataType.SOLUTION_COMPONENT.typeName,
+                                                                         OpenMetadataType.SOLUTION_COMPONENT.typeName + "::" + qualifiedName,
+                                                                         "PROVISION-" + technologyName.toUpperCase(),
+                                                                         displayName,
+                                                                         description,
+                                                                         versionName,
+                                                                         SolutionComponentType.MULTI_STEP_PROCESS.getSolutionComponentType(),
+                                                                         DeployedImplementationType.GOVERNANCE_ACTION_PROCESS.getDeployedImplementationType(),
+                                                                         url,
+                                                                         null,
+                                                                         null);
+
+        archiveHelper.addSolutionComponentActorRelationship(EgeriaRoleDefinition.OPEN_METADATA_USER.getGUID(),
+                                                            processComponentGUID,
+                                                            "provision asset",
+                                                            "A user wishing to provision a " + technologyName + " resource to this technology can request that a provisioning action is run against the server.");
+
         String step1GUID = archiveHelper.addGovernanceActionProcessStep(OpenMetadataType.GOVERNANCE_ACTION_PROCESS_STEP.typeName,
                                                                         processGUID,
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        "Provision:" + technologyName + ":Step1",
+                                                                        qualifiedName + "::Step1",
                                                                         "Create the new element",
                                                                         "Create a " + technologyType + " element in the correct metadata collection so that it is provisioned into unity catalog.",
                                                                         0,
@@ -247,20 +291,29 @@ public class UnityCatalogPackArchiveWriter extends ContentPackBaseArchiveWriter
 
             Map<String, String> requestParameters = new HashMap<>();
 
-            requestParameters.put(ProvisionUnityCatalogRequestParameter.TECHNOLOGY_TYPE.getName(), technologyType);
+            requestParameters.put(ProvisionUnityCatalogRequestParameter.TECHNOLOGY_TYPE.getName(), technologyType.getDeployedImplementationType());
 
             archiveHelper.addGovernanceActionProcessFlow(processGUID, null, requestParameters, step1GUID);
         }
 
-        if (supportedElementQualifiedName != null)
+        archiveHelper.addSolutionLinkingWireRelationship(processComponentGUID,
+                                                         provisionRequestType.getSolutionComponentGUID(),
+                                                         "step 1", "Provision the asset.", null);
+
+        if (technologyType.getGUID() != null)
         {
-            String supportedElementGUID = archiveHelper.queryGUID(supportedElementQualifiedName);
-            archiveHelper.addResourceListRelationshipByGUID(supportedElementGUID,
+            archiveHelper.addResourceListRelationshipByGUID(technologyType.getGUID(),
                                                             processGUID,
                                                             ResourceUse.SURVEY_RESOURCE.getResourceUse(),
                                                             description,
                                                             provisionRequestType.getRequestParameters());
         }
+        else
+        {
+            System.out.println("WARNING: No GUID found for " + technologyType.getDeployedImplementationType());
+        }
+
+        return processComponentGUID;
     }
 
 

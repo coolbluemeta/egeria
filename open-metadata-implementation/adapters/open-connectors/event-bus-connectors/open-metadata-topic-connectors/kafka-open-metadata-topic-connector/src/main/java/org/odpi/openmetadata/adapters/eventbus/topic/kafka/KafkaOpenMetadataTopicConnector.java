@@ -581,14 +581,23 @@ public class KafkaOpenMetadataTopicConnector extends OpenMetadataTopicConnector
                 int napCount = Integer.parseInt( connectionProperties.getProperty("bring.up.retries") );
                 int minSleepTime = Integer.parseInt( connectionProperties.getProperty("bring.up.minSleepTime")) ;
 
-                while (count < napCount) {
-                   if (auditLog != null)
-                   {
-                       auditLog.logMessage("waitForBrokers", KafkaOpenMetadataTopicConnectorAuditCode.KAFKA_CONNECTION_RETRY.getMessageDefinition(
-                               connectionProperties.getProperty("bootstrap.servers"),
-                               String.valueOf(count + 1),
-                               String.valueOf(napCount)));
-                   }
+                while (count < napCount)
+                {
+                    if (auditLog != null)
+                    {
+                        auditLog.logMessage("waitForBrokers", KafkaOpenMetadataTopicConnectorAuditCode.KAFKA_CONNECTION_RETRY.getMessageDefinition(
+                                connectionProperties.getProperty("bootstrap.servers"),
+                                String.valueOf(count + 1),
+                                String.valueOf(napCount)));
+                    }
+                    else
+                    {
+                        /*
+                         * If kafka is being used for the audit log then auditLog==null so we output
+                         * to sys out.
+                         */
+                        System.out.println(new Date() + " Kafka connection retry " + String.valueOf(count + 1) + " of " + String.valueOf(napCount));
+                    }
                     Instant start = Instant.now();
                     if (getRunningBrokers(connectionProperties)) {
                         //we were returned a list of running brokers

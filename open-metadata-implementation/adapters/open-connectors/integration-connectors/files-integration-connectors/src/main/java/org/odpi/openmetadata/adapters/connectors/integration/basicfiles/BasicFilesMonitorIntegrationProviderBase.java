@@ -5,6 +5,7 @@ package org.odpi.openmetadata.adapters.connectors.integration.basicfiles;
 
 import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
 import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
+import org.odpi.openmetadata.frameworks.connectors.OpenConnectorDefinition;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.frameworks.integration.connectors.IntegrationConnectorProvider;
@@ -49,65 +50,19 @@ class BasicFilesMonitorIntegrationProviderBase extends IntegrationConnectorProvi
     static public final String CATALOG_TARGET_NAME                             = "directoryToMonitor";
 
     /**
-     * Constructor used to initialize the ConnectorProviderBase with the Java class name of the specific
-     * store implementation.
+     * Constructor for an open connector provider.
      *
-     * @param connectorTypeGUID the unique identifier for the connector type
-     * @param connectorComponentId the component id used by the connector in logging
-     * @param connectorQualifiedName the unique name for this connector
-     * @param connectorDisplayName the printable name for this connector
-     * @param connectorDescription the description of this connector
-     * @param connectorWikiPage the URL of the connector page in the connector catalog
-     * @param connectorClassName the name of the connector class that the connector provider creates
+     * @param openConnectorDescription connector definition
+     * @param connectorClassName       connector class name
      */
-    BasicFilesMonitorIntegrationProviderBase(String   connectorTypeGUID,
-                                             int      connectorComponentId,
-                                             String   connectorQualifiedName,
-                                             String   connectorDisplayName,
-                                             String   connectorDescription,
-                                             String   connectorWikiPage,
-                                             String   connectorClassName)
+    BasicFilesMonitorIntegrationProviderBase(OpenConnectorDefinition openConnectorDescription,
+                                             String                  connectorClassName)
     {
-        super();
-
-        /*
-         * Set up the class name of the connector that this provider creates.
-         */
-        super.setConnectorClassName(connectorClassName);
-
-        /*
-         * Set up the connector type that should be included in a connection used to configure this connector.
-         */
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorQualifiedName);
-        connectorType.setDisplayName(connectorDisplayName);
-        connectorType.setDescription(connectorDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
-
-        List<String> recognizedConfigurationProperties = new ArrayList<>();
-        recognizedConfigurationProperties.add(CATALOG_ALL_FILES_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(TO_DO_TEMPLATE_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(INCIDENT_REPORT_TEMPLATE_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(WAIT_FOR_DIRECTORY_CONFIGURATION_PROPERTY);
-
-        connectorType.setRecognizedConfigurationProperties(recognizedConfigurationProperties);
-        connectorType.setSupportedAssetTypeName(supportedAssetTypeName);
-        connectorType.setSupportedDeployedImplementationType(DeployedImplementationType.INTEGRATION_CONNECTOR.getDeployedImplementationType());
-
-        super.connectorTypeBean = connectorType;
-
-        /*
-         * Set up the component description used in the connector's audit log messages.
-         */
-        AuditLogReportingComponent componentDescription = new AuditLogReportingComponent();
-
-        componentDescription.setComponentId(connectorComponentId);
-        componentDescription.setComponentDevelopmentStatus(ComponentDevelopmentStatus.STABLE);
-        componentDescription.setComponentName(connectorDisplayName);
-        componentDescription.setComponentDescription(connectorDescription);
-        componentDescription.setComponentWikiURL(connectorWikiPage);
-
-        super.setConnectorComponentDescription(componentDescription);
+        super(openConnectorDescription,
+              connectorClassName,
+              List.of(CATALOG_ALL_FILES_CONFIGURATION_PROPERTY,
+                      TO_DO_TEMPLATE_CONFIGURATION_PROPERTY,
+                      INCIDENT_REPORT_TEMPLATE_CONFIGURATION_PROPERTY,
+                      WAIT_FOR_DIRECTORY_CONFIGURATION_PROPERTY));
     }
 }

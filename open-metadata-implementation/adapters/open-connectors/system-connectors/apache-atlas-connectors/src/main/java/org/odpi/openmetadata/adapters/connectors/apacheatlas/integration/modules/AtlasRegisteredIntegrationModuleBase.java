@@ -4,7 +4,6 @@ package org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.module
 
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ApacheAtlasRESTConnector;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.frameworks.integration.context.IntegrationContext;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
@@ -35,7 +34,6 @@ public abstract class AtlasRegisteredIntegrationModuleBase extends AtlasIntegrat
      * @param myContext integration context assigned to the connector
      * @param targetRootURL host name and port of Apache Atlas
      * @param atlasClient client to call Apache Atlas
-     * @param embeddedConnectors any  connectors embedded in the connector (such as the secrets connector or Kafka connector)
      * @param supportedEntityTypes list of entity types that this module is maintaining
      * @param listenForTypes list of types that the module wants to receive events on
      * @throws UserNotAuthorizedException the data asset service has not been enabled.
@@ -47,11 +45,10 @@ public abstract class AtlasRegisteredIntegrationModuleBase extends AtlasIntegrat
                                                 IntegrationContext       myContext,
                                                 String                   targetRootURL,
                                                 ApacheAtlasRESTConnector atlasClient,
-                                                List<Connector>          embeddedConnectors,
                                                 String[]                 supportedEntityTypes,
                                                 String[]                 listenForTypes) throws UserNotAuthorizedException
     {
-        super(connectorName, moduleName, connectionDetails, auditLog, myContext, targetRootURL, atlasClient, embeddedConnectors);
+        super(connectorName, moduleName, connectionDetails, auditLog, myContext, targetRootURL, atlasClient);
 
         if (supportedEntityTypes == null)
         {

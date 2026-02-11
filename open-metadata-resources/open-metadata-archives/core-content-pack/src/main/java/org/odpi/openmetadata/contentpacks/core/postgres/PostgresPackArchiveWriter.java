@@ -5,9 +5,6 @@ package org.odpi.openmetadata.contentpacks.core.postgres;
 import org.odpi.openmetadata.adapters.connectors.controls.PostgresDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.postgres.catalog.PostgresServerIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.postgres.controls.PostgreSQLTemplateType;
-import org.odpi.openmetadata.adapters.connectors.postgres.solution.PostgresSolutionComponent;
-import org.odpi.openmetadata.adapters.connectors.postgres.solution.PostgresSolutionComponentActor;
-import org.odpi.openmetadata.adapters.connectors.postgres.solution.PostgresSolutionComponentWire;
 import org.odpi.openmetadata.adapters.connectors.postgres.tabulardatasource.PostgresTabularDataSetCollectionProvider;
 import org.odpi.openmetadata.adapters.connectors.postgres.tabulardatasource.PostgresTabularDataSetProvider;
 import org.odpi.openmetadata.contentpacks.core.ContentPackDefinition;
@@ -18,6 +15,7 @@ import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter
 import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,13 +51,6 @@ public class PostgresPackArchiveWriter extends ContentPackBaseArchiveWriter
         {
             this.addDeployedImplementationType(deployedImplementationType);
         }
-
-        /*
-         * Add PostgreSQL's common solution definitions
-         */
-        archiveHelper.addSolutionComponents(List.of(PostgresSolutionComponent.values()));
-        archiveHelper.addSolutionComponentActors(List.of(PostgresSolutionComponentActor.values()));
-        archiveHelper.addSolutionComponentWires(List.of(PostgresSolutionComponentWire.values()));
 
         /*
          * Integration Connector Types will link to the deployedImplementationType valid value element.
@@ -104,71 +95,83 @@ public class PostgresPackArchiveWriter extends ContentPackBaseArchiveWriter
         super.createRequestTypes(ContentPackDefinition.POSTGRES_CONTENT_PACK);
 
         /*
-         * Create the solution processes
+         * Create helper processes
          */
-        this.createAndSurveyServerGovernanceActionProcess("PostgreSQLServer",
-                                                          PostgresDeployedImplementationType.POSTGRESQL_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_POSTGRES_SERVER,
-                                                          SoftwareServerTemplateDefinition.POSTGRES_SERVER_TEMPLATE,
-                                                          RequestTypeDefinition.SURVEY_POSTGRES_SERVER,
-                                                          PostgresDeployedImplementationType.POSTGRESQL_SERVER.getQualifiedName());
-        
-        this.createAndCatalogServerGovernanceActionProcess("PostgreSQLServer",
-                                                           PostgresDeployedImplementationType.POSTGRESQL_SERVER.getDeployedImplementationType(),
-                                                           RequestTypeDefinition.CREATE_POSTGRES_SERVER,
-                                                           SoftwareServerTemplateDefinition.POSTGRES_SERVER_TEMPLATE,
-                                                           RequestTypeDefinition.CATALOG_POSTGRES_SERVER,
-                                                           PostgresDeployedImplementationType.POSTGRESQL_SERVER.getQualifiedName());
+        List<String> additionalSolutionComponents = new ArrayList<>();
 
-        this.deleteAsCatalogTargetGovernanceActionProcess("PostgreSQLServer",
-                                                          PostgresDeployedImplementationType.POSTGRESQL_SERVER.getAssociatedTypeName(),
-                                                          PostgresDeployedImplementationType.POSTGRESQL_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_POSTGRES_SERVER,
-                                                          PostgresDeployedImplementationType.POSTGRESQL_SERVER.getQualifiedName());
+        String solutionComponentGUID = this.createAndSurveyServerGovernanceActionProcess("PostgreSQLServer",
+                                                                                         PostgresDeployedImplementationType.POSTGRESQL_SERVER,
+                                                                                         "https://egeria-project.org/egeria-solutions/leveraging-postgres/overview/",
+                                                                                         RequestTypeDefinition.CREATE_POSTGRES_SERVER,
+                                                                                         SoftwareServerTemplateDefinition.POSTGRES_SERVER_TEMPLATE,
+                                                                                         RequestTypeDefinition.SURVEY_POSTGRES_SERVER);
 
-        this.createAndSurveyServerGovernanceActionProcess("PostgreSQLDatabase",
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_POSTGRES_DB,
-                                                          PostgreSQLTemplateType.POSTGRES_DATABASE_TEMPLATE,
-                                                          RequestTypeDefinition.SURVEY_POSTGRES_DATABASE,
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE.getQualifiedName());
+        additionalSolutionComponents.add(solutionComponentGUID);
 
-        this.createAndCatalogAssetGovernanceActionProcess("PostgreSQLDatabase",
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE.getAssociatedTypeName(),
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_POSTGRES_DB,
-                                                          PostgreSQLTemplateType.POSTGRES_DATABASE_TEMPLATE,
-                                                          RequestTypeDefinition.CATALOG_POSTGRES_DATABASE,
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE.getQualifiedName());
+        solutionComponentGUID = this.createAndCatalogServerGovernanceActionProcess("PostgreSQLServer",
+                                                                                   PostgresDeployedImplementationType.POSTGRESQL_SERVER,
+                                                                                   "https://egeria-project.org/egeria-solutions/leveraging-postgres/overview/",
+                                                                                   RequestTypeDefinition.CREATE_POSTGRES_SERVER,
+                                                                                   SoftwareServerTemplateDefinition.POSTGRES_SERVER_TEMPLATE,
+                                                                                   RequestTypeDefinition.CATALOG_POSTGRES_SERVER);
 
-        this.deleteAsCatalogTargetGovernanceActionProcess("PostgreSQLDatabase",
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE.getAssociatedTypeName(),
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_POSTGRES_DB,
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE.getQualifiedName());
+        additionalSolutionComponents.add(solutionComponentGUID);
 
-        this.createAndCatalogAssetGovernanceActionProcess("PostgreSQLDatabaseSchema",
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getAssociatedTypeName(),
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_POSTGRES_SCHEMA,
-                                                          PostgreSQLTemplateType.POSTGRES_SCHEMA_TEMPLATE,
-                                                          RequestTypeDefinition.CATALOG_POSTGRES_SCHEMA,
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getQualifiedName());
+        solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("PostgreSQLServer",
+                                                                                  PostgresDeployedImplementationType.POSTGRESQL_SERVER,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-postgres/overview/",
+                                                                                  RequestTypeDefinition.DELETE_POSTGRES_SERVER);
 
-        this.deleteAsCatalogTargetGovernanceActionProcess("PostgreSQLDatabaseSchema",
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getAssociatedTypeName(),
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_POSTGRES_SCHEMA,
-                                                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getQualifiedName());
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndSurveyServerGovernanceActionProcess("PostgreSQLDatabase",
+                                                                                  PostgresDeployedImplementationType.POSTGRESQL_DATABASE,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-postgres/overview/",
+                                                                                  RequestTypeDefinition.CREATE_POSTGRES_DB,
+                                                                                  PostgreSQLTemplateType.POSTGRES_DATABASE_TEMPLATE,
+                                                                                  RequestTypeDefinition.SURVEY_POSTGRES_DATABASE);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndCatalogAssetGovernanceActionProcess("PostgreSQLDatabase",
+                                                                                  PostgresDeployedImplementationType.POSTGRESQL_DATABASE,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-postgres/overview/",
+                                                                                  RequestTypeDefinition.CREATE_POSTGRES_DB,
+                                                                                  PostgreSQLTemplateType.POSTGRES_DATABASE_TEMPLATE,
+                                                                                  RequestTypeDefinition.CATALOG_POSTGRES_DATABASE);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("PostgreSQLDatabase",
+                                                                                  PostgresDeployedImplementationType.POSTGRESQL_DATABASE,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-postgres/overview/",
+                                                                                  RequestTypeDefinition.DELETE_POSTGRES_DB);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndCatalogAssetGovernanceActionProcess("PostgreSQLDatabaseSchema",
+                                                                                  PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-postgres/overview/",
+                                                                                  RequestTypeDefinition.CREATE_POSTGRES_SCHEMA,
+                                                                                  PostgreSQLTemplateType.POSTGRES_SCHEMA_TEMPLATE,
+                                                                                  RequestTypeDefinition.CATALOG_POSTGRES_SCHEMA);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("PostgreSQLDatabaseSchema",
+                                                                                  PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-postgres/overview/",
+                                                                                  RequestTypeDefinition.DELETE_POSTGRES_SCHEMA);
+        additionalSolutionComponents.add(solutionComponentGUID);
 
         /*
          * Define the solution components for this solution.
          */
-        this.addSolutionBlueprints(ContentPackDefinition.POSTGRES_CONTENT_PACK);
+        this.addSolutionBlueprints(ContentPackDefinition.POSTGRES_CONTENT_PACK, additionalSolutionComponents);
         this.addSolutionLinkingWires(ContentPackDefinition.POSTGRES_CONTENT_PACK);
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();

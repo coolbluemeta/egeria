@@ -3,7 +3,7 @@
 package org.odpi.openmetadata.adapters.connectors.apachekafka.survey;
 
 
-import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.KafkaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.resource.ApacheKafkaAdminConnector;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.survey.controls.KafkaAnnotationType;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.survey.ffdc.KafkaSurveyErrorCode;

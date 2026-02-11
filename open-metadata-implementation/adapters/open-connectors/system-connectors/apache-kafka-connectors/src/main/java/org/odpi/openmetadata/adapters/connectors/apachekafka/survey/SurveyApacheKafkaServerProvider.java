@@ -3,12 +3,10 @@
 
 package org.odpi.openmetadata.adapters.connectors.apachekafka.survey;
 
-import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
+import org.odpi.openmetadata.adapters.connectors.controls.KafkaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.survey.controls.KafkaAnnotationType;
-import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
-import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ActionTargetType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
@@ -25,24 +23,6 @@ import java.util.ArrayList;
 public class SurveyApacheKafkaServerProvider extends SurveyActionServiceProvider
 {
     /*
-     * Unique identifier of the connector for the audit log.
-     */
-    private static final int    connectorComponentId   = 677;
-
-    /*
-     * Unique identifier for the connector type.
-     */
-    private static final String connectorTypeGUID      = "a6f9e92f-a16a-494c-bac6-d3618de12a6a";
-
-    /*
-     * Descriptive information about the connector for the connector type and audit log.
-     */
-    private static final String connectorQualifiedName = "Egeria:SurveyActionService:SurveyApacheKafkaServer";
-    private static final String connectorDisplayName   = "Apache Kafka Server Survey Action Service";
-    private static final String connectorDescription   = "Discovers the topics supported by the Apache Kafka Server.";
-    private static final String connectorWikiPage      = "https://egeria-project.org/connectors/apache-kafka/apache-kafka-server-survey-action-service/";
-
-    /*
      * Class of the connector.
      */
     private static final String connectorClassName     = "org.odpi.openmetadata.adapters.connectors.apachekafka.survey.SurveyApacheKafkaServerConnector";
@@ -54,26 +34,9 @@ public class SurveyApacheKafkaServerProvider extends SurveyActionServiceProvider
      */
     public SurveyApacheKafkaServerProvider()
     {
-        super();
-
-        /*
-         * Set up the class name of the connector that this provider creates.
-         */
-        super.setConnectorClassName(connectorClassName);
-
-        /*
-         * Set up the connector type that should be included in a connection used to configure this connector.
-         */
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorQualifiedName);
-        connectorType.setDisplayName(connectorDisplayName);
-        connectorType.setDescription(connectorDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
-        connectorType.setSupportedAssetTypeName(SurveyActionServiceProvider.supportedAssetTypeName);
-        connectorType.setSupportedDeployedImplementationType(supportedDeployedImplementationType);
-
-        super.connectorTypeBean = connectorType;
+        super(EgeriaOpenConnectorDefinition.APACHE_KAFKA_TOPIC_SURVEY_SERVICE,
+              connectorClassName,
+              null);
 
         supportedRequestParameters = null;
         supportedAnalysisSteps = AnalysisStep.getAnalysisStepTypes(new AnalysisStep[] {
@@ -92,19 +55,6 @@ public class SurveyApacheKafkaServerProvider extends SurveyActionServiceProvider
         super.supportedActionTargetTypes.add(actionTargetType);
 
         producedAnnotationTypes = KafkaAnnotationType.getAnnotationTypeTypes();
-
-        /*
-         * Set up the component description used in the connector's audit log messages.
-         */
-        AuditLogReportingComponent componentDescription = new AuditLogReportingComponent();
-
-        componentDescription.setComponentId(connectorComponentId);
-        componentDescription.setComponentDevelopmentStatus(ComponentDevelopmentStatus.STABLE);
-        componentDescription.setComponentName(connectorDisplayName);
-        componentDescription.setComponentDescription(connectorDescription);
-        componentDescription.setComponentWikiURL(connectorWikiPage);
-
-        super.setConnectorComponentDescription(componentDescription);
 
         super.supportedTechnologyTypes = SupportedTechnologyType.getSupportedTechnologyTypes(new DeployedImplementationTypeDefinition[]{KafkaDeployedImplementationType.APACHE_KAFKA_SERVER, KafkaDeployedImplementationType.APACHE_KAFKA_EVENT_BROKER, DeployedImplementationType.APACHE_KAFKA_TOPIC});
     }

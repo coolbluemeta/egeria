@@ -5,15 +5,9 @@ package org.odpi.openmetadata.contentpacks.core.core;
 import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.adapters.connectors.EgeriaRoleDefinition;
 import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
-import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.OMAGServerPlatformProvider;
-import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.catalog.OMAGServerPlatformCatalogProvider;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.*;
 import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.DaysOfWeekGuard;
 import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.WriteAuditLogRequestParameter;
-import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.DataFilesMonitorIntegrationProvider;
-import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.DataFolderMonitorIntegrationProvider;
-import org.odpi.openmetadata.adapters.connectors.integration.csvlineageimporter.CSVLineageImporterProvider;
-import org.odpi.openmetadata.adapters.connectors.integration.kafkaaudit.DistributeAuditEventsFromKafkaProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.openlineage.*;
 import org.odpi.openmetadata.contentpacks.core.*;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
@@ -422,29 +416,6 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
         }
 
         /*
-         * Connectors that are not yet using EgeriaOpenConnectorDefinition.
-         */
-        archiveHelper.addConnectorType(new CSVLineageImporterProvider());
-        archiveHelper.addConnectorType(new DataFilesMonitorIntegrationProvider());
-        archiveHelper.addConnectorType(new DataFolderMonitorIntegrationProvider());
-        archiveHelper.addConnectorType(new DistributeAuditEventsFromKafkaProvider());
-
-        archiveHelper.addConnectorType(new APIBasedOpenLineageLogStoreProvider());
-        archiveHelper.addConnectorType(new FileBasedOpenLineageLogStoreProvider());
-        archiveHelper.addConnectorType(new GovernanceActionOpenLineageIntegrationProvider());
-        archiveHelper.addConnectorType(new OpenLineageCataloguerIntegrationProvider());
-        archiveHelper.addConnectorType(new OpenLineageEventReceiverIntegrationProvider());
-
-        archiveHelper.addConnectorType(new OMAGServerPlatformCatalogProvider());
-        archiveHelper.addConnectorType(new OMAGServerPlatformProvider());
-        archiveHelper.addConnectorType(new OMAGServerProvider());
-        archiveHelper.addConnectorType(new EngineHostProvider());
-        archiveHelper.addConnectorType(new IntegrationDaemonProvider());
-        archiveHelper.addConnectorType(new MetadataAccessServerProvider());
-        archiveHelper.addConnectorType(new ViewServerProvider());
-
-
-        /*
          * Add catalog templates
          */
         this.addEndpointCatalogTemplates();
@@ -500,30 +471,38 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
          */
         super.createRequestTypes(ContentPackDefinition.CORE_CONTENT_PACK);
 
+        /*
+         * Add information supply chains.
+         */
+        super.addInformationSupplyChains();
 
+        /*
+         * Create a helper process for Apache Kafka.
+         */
+        List<String> additionalSolutionComponents = new ArrayList<>();
 
-        this.deleteAsCatalogTargetGovernanceActionProcess("ApacheKafkaTopic",
-                                                          DeployedImplementationType.APACHE_KAFKA_TOPIC.getAssociatedTypeName(),
-                                                          DeployedImplementationType.APACHE_KAFKA_TOPIC.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_KAFKA_TOPIC,
-                                                          DeployedImplementationType.APACHE_KAFKA_TOPIC.getQualifiedName());
+        String solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("ApacheKafkaTopic",
+                                                                                         DeployedImplementationType.APACHE_KAFKA_TOPIC,
+                                                                                         "https://egeria-project.org/egeria-solutions/leveraging-apache-kafka/overview/",
+                                                                                         RequestTypeDefinition.DELETE_KAFKA_TOPIC);
 
-
+        additionalSolutionComponents.add(solutionComponentGUID);
 
         /*
          * Create a sample process
          */
-        this.createDailyGovernanceActionProcess();
+        solutionComponentGUID = this.createDailyGovernanceActionProcess();
+        additionalSolutionComponents.add(solutionComponentGUID);
 
         /*
          * Define the solution components for this solution.
          */
-        this.addSolutionBlueprints(ContentPackDefinition.CORE_CONTENT_PACK);
+        this.addSolutionBlueprints(ContentPackDefinition.CORE_CONTENT_PACK, additionalSolutionComponents);
         this.addSolutionLinkingWires(ContentPackDefinition.CORE_CONTENT_PACK);
 
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();
@@ -765,25 +744,48 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
     /**
      * Create a sample governance action process.
      */
-    private void createDailyGovernanceActionProcess()
+    private String createDailyGovernanceActionProcess()
     {
+        final String qualifiedName = "Egeria::DailyGovernanceActionProcess";
+        final String displayName = "Daily Governance Action Process";
+        final String description = "Determines which day of the week it is today, and puts out a message on the audit log matching the assigned task for the day of the week.";
+        final String url = "https://egeria-project.org/concepts/guard/";
+
         String processGUID = archiveHelper.addGovernanceActionProcess(OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
-                                                                      "Egeria:DailyGovernanceActionProcess",
-                                                                      "DailyGovernanceActionProcess",
-                                                                      null,
-                                                                      "Determines which day of the week it is today, and puts out a message on the audit log matching the assigned task for the day of the week.",
+                                                                      qualifiedName,
+                                                                      displayName,
+                                                                      versionName,
+                                                                      description,
+                                                                      url,
                                                                       null,
                                                                       0,
                                                                       null,
                                                                       null,
                                                                       null);
 
+        String processComponentGUID = archiveHelper.addSolutionComponent(OpenMetadataType.SOLUTION_COMPONENT.typeName,
+                                                                         OpenMetadataType.SOLUTION_COMPONENT.typeName + "::" + qualifiedName,
+                                                                         "DAILY-PROCESS",
+                                                                         displayName,
+                                                                         description,
+                                                                         versionName,
+                                                                         SolutionComponentType.MULTI_STEP_PROCESS.getSolutionComponentType(),
+                                                                         DeployedImplementationType.GOVERNANCE_ACTION_PROCESS.getDeployedImplementationType(),
+                                                                         url,
+                                                                         null,
+                                                                         null);
+
+        archiveHelper.addSolutionComponentActorRelationship(EgeriaRoleDefinition.OPEN_METADATA_USER.getGUID(),
+                                                            processComponentGUID,
+                                                            "requests daily process",
+                                                            "A user wishing to run the daily process can request its execution.");
+
         String step1GUID = archiveHelper.addGovernanceActionProcessStep(OpenMetadataType.GOVERNANCE_ACTION_PROCESS_STEP.typeName,
                                                                         processGUID,
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        "Egeria:DailyGovernanceActionProcess:GetDayOfWeek",
+                                                                        qualifiedName + "::GetDayOfWeek",
                                                                         "Get the day of the Week",
                                                                         null,
                                                                         0,
@@ -814,12 +816,22 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
             archiveHelper.addGovernanceActionProcessFlow(processGUID, null, null, step1GUID);
         }
 
+        archiveHelper.addSolutionLinkingWireRelationship(processComponentGUID,
+                                                         RequestTypeDefinition.GET_DAY_OF_WEEK.getSolutionComponentGUID(),
+                                                         "step 1", "Get the data of the week.", null);
+
+
+        archiveHelper.addSolutionLinkingWireRelationship(processComponentGUID,
+                                                         RequestTypeDefinition.WRITE_AUDIT_LOG.getSolutionComponentGUID(),
+                                                         "step 2", "Output the daily task.", null);
+
+
         String step2GUID = archiveHelper.addGovernanceActionProcessStep(OpenMetadataType.GOVERNANCE_ACTION_PROCESS_STEP.typeName,
                                                                         processGUID,
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        "Egeria:DailyGovernanceActionProcess:MondayTask",
+                                                                        qualifiedName + "::MondayTask",
                                                                         "Output Monday's task",
                                                                         null,
                                                                         0,
@@ -858,7 +870,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        "Egeria:DailyGovernanceActionProcess:TuesdayTask",
+                                                                        qualifiedName + "::TuesdayTask",
                                                                         "Output Tuesday's task",
                                                                         null,
                                                                         0,
@@ -897,7 +909,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        "Egeria:DailyGovernanceActionProcess:WednesdayTask",
+                                                                        qualifiedName + "::WednesdayTask",
                                                                         "Output Wednesday's task",
                                                                         null,
                                                                         0,
@@ -936,7 +948,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        "Egeria:DailyGovernanceActionProcess:ThursdayTask",
+                                                                        qualifiedName + "::ThursdayTask",
                                                                         "Output Thursday's task",
                                                                         null,
                                                                         0,
@@ -975,7 +987,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        "Egeria:DailyGovernanceActionProcess:FridayTask",
+                                                                        qualifiedName + "::FridayTask",
                                                                         "Output Friday's task",
                                                                         null,
                                                                         0,
@@ -1014,7 +1026,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        "Egeria:DailyGovernanceActionProcess:SaturdayTask",
+                                                                        qualifiedName + "::SaturdayTask",
                                                                         "Output Saturday's task",
                                                                         null,
                                                                         0,
@@ -1054,7 +1066,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        "Egeria:DailyGovernanceActionProcess:SundayTask",
+                                                                        qualifiedName + "::SundayTask",
                                                                         "Output Sunday's task",
                                                                         null,
                                                                         0,
@@ -1087,6 +1099,8 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
 
             archiveHelper.addNextGovernanceActionProcessStep(step1GUID, DaysOfWeekGuard.SUNDAY.getName(), false, step8GUID);
         }
+
+        return processComponentGUID;
     }
 
 

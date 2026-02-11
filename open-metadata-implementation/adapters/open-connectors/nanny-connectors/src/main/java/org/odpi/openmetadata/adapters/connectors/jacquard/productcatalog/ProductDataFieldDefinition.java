@@ -185,11 +185,11 @@ public enum ProductDataFieldDefinition
                        ProductGlossaryTermDefinition.GUID),
 
     /**
-     * Unique identifier of an engine action's requester.
+     * Unique identifier of a request for action target relationship.
      */
     ACTION_REQUEST_GUID("Action Request Unique Identifier (GUID)",
                         "Action Request GUID",
-                        "Unique identifier of an engine action's requester.",
+                        "Unique identifier of a request for action target relationship.",
                         DataType.STRING,
                         null,
                         null,
@@ -1321,8 +1321,8 @@ public enum ProductDataFieldDefinition
               false,
               true),
 
-    ENCODING("File Encoding",
-             "File Encoding",
+    ENCODING("Data Encoding",
+             "Data Encoding",
              FileMetric.ENCODING.getDescription(),
              DataType.STRING,
              null,

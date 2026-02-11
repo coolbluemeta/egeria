@@ -75,6 +75,8 @@ public enum VisualStyle
     SOLUTION_PORT(Colour.WHITE.getColourNumber(), Colour.MAUVE.getColourNumber(), Colour.PINKY.getColourNumber(), "delay"),
 
     GOVERNANCE_ACTION(Colour.BLACK.getColourNumber(), Colour.TURQUOISE.getColourNumber(), Colour.BLACK.getColourNumber(), "tag-rect"),
+    GOVERNANCE_ACTION_TYPE(Colour.BLACK.getColourNumber(), Colour.TURQUOISE.getColourNumber(), Colour.BLACK.getColourNumber(), "subproc"),
+    GOVERNANCE_ACTION_PROCESS(Colour.BLACK.getColourNumber(), Colour.TURQUOISE.getColourNumber(), Colour.BLACK.getColourNumber(), "processes"),
     GOVERNANCE_ACTION_PROCESS_STEP(Colour.WHITE.getColourNumber(), Colour.DARK_BLUE.getColourNumber(), Colour.BLACK.getColourNumber(), "rounded"),
     ENGINE_ACTION(Colour.BLACK.getColourNumber(), Colour.AQUAMARINE.getColourNumber(), Colour.BLACK.getColourNumber(), "trap-t"),
     ACTION_TARGET(Colour.BLACK.getColourNumber(), Colour.MUSTARD.getColourNumber(), Colour.BLACK.getColourNumber(), "rect"),

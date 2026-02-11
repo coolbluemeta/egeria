@@ -114,8 +114,12 @@ public class EventTopicAuditLogStoreConnector extends OMRSAuditLogStoreConnector
          */
         for (Connector topicConnector : topicConnectors)
         {
-            if (topicConnector != null)
+            if (topicConnector instanceof OpenMetadataTopicConnector realTopicConnector)
             {
+                /*
+                 * Clear the audit log because this topic is part of the audit logging capability.
+                 */
+                realTopicConnector.setAuditLog(null);
                 topicConnector.start();
             }
         }

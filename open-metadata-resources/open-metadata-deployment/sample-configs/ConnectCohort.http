@@ -6,12 +6,29 @@
 @adminUserId=garygeeke
 @cohort=sampleCohort
 
+###
+# =====================================================================================================================
+# Manage the authentication token.  Run this request to create/refresh the token.
+
+# @name Token (RequestBody)
+POST {{baseURL}}/api/token
+Content-Type: application/json
+
+{
+  "userId" : "{{adminUserId}}",
+  "password" : "secret"
+}
+
+> {% client.global.set("token", response.body); %}
+
+###
 # ---------------------------------------------
 # Metadata Access Store: simple-metadata-store
 #
 ###
 # The Cohort uses Apache Kafka and so simple-metadata-store needs information about your kafka.
 POST {{baseURL}}/open-metadata/admin-services/servers/simple-metadata-store/event-bus
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -23,10 +40,22 @@ Content-Type: application/json
     }
 }
 
+
+###
+# Add the event topic audit log destination to the server's configuration document now kafka is configured.
+POST {{baseURL}}/open-metadata/admin-services/servers/active-metadata-store/audit-log-destinations/event-topic?topicName=egeria.omag.server.ffdc.audit-logs
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+["Error", "Exception", "Activity", "Action", "Decision", "Security", "Cohort"]
+
+
+
 ###
 # @name Set local metadata collection id for simple-metadata-store
 # Fix the metadata collection id
 POST {{baseURL}}/open-metadata/admin-services/servers/simple-metadata-store/local-repository/metadata-collection-id
+Authorization: Bearer {{token}}
 Content-Type: text/plain
 
 094b2e2e-bb79-4c5e-a0f0-ac2120f23624
@@ -44,6 +73,7 @@ POST {{baseURL}}/open-metadata/admin-services/servers/simple-metadata-store/coho
 ###
 # Set up the description of this server.
 POST {{baseURL}}/open-metadata/admin-services/servers/active-metadata-store/server-description
+Authorization: Bearer {{token}}
 Content-Type: text/plain
 
 A metadata store that supports Open Metadata Access Services (OMASs) with event notifications.  It provides metadata to the cohort, engine-host and integration-daemon.
@@ -52,6 +82,7 @@ A metadata store that supports Open Metadata Access Services (OMASs) with event 
 # @name Set local metadata collection id for active-metadata-store
 # Fix the metadata collection id
 POST {{baseURL}}/open-metadata/admin-services/servers/active-metadata-store/local-repository/metadata-collection-id
+Authorization: Bearer {{token}}
 Content-Type: text/plain
 
 fdf8de25-b213-4fa4-95d5-c9eb91e60b21
@@ -68,10 +99,12 @@ POST {{baseURL}}/open-metadata/admin-services/servers/active-metadata-store/coho
 ###
 # Set up the user Id that this server should use on open metadata requests when it is processing events (and consequently there is no end user id to use).
 POST {{baseURL}}/open-metadata/admin-services/servers/metadata-access-point/server-user-id?id=activenpa
+Authorization: Bearer {{token}}
 
 ###
 # Set up the description of this server.
 POST {{baseURL}}/open-metadata/admin-services/servers/metadata-access-point/server-description
+Authorization: Bearer {{token}}
 Content-Type: text/plain
 
 A metadata access point that supports Open Metadata Access Services (OMASs) with event notifications.  It provides metadata to view-server via the cohort.
@@ -81,6 +114,7 @@ A metadata access point that supports Open Metadata Access Services (OMASs) with
 # Set up the common properties needed to call your event bus.  The value of ~{kafkaEndpoint}~ is resolved in the
 # application.properties file using the `platform.placeholder.variables` property.
 POST {{baseURL}}/open-metadata/admin-services/servers/metadata-access-point/event-bus
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -97,11 +131,13 @@ Content-Type: application/json
 ###
 # Add the server to the cohort.
 POST {{baseURL}}/open-metadata/admin-services/servers/metadata-access-point/cohorts/{{cohort}}
+Authorization: Bearer {{token}}
 
 
 ###
 # Set up all of the registered, undeprecated Open Metadata Access Services (OMASs) with kafka notifications enabled.
 POST {{baseURL}}/open-metadata/admin-services/servers/metadata-access-point/access-services
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 
@@ -113,6 +149,7 @@ Content-Type: application/json
 ###
 # Point the view server at the metadata-access-point
 POST {{baseURL}}/open-metadata/admin-services/servers/view-server/view-services
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {

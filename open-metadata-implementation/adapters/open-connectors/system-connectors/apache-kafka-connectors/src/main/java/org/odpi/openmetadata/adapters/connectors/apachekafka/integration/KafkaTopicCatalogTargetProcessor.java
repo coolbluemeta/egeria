@@ -5,8 +5,8 @@ package org.odpi.openmetadata.adapters.connectors.apachekafka.integration;
 
 
 import org.apache.kafka.clients.admin.Admin;
-import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaTemplateConfigurationProperty;
-import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaTemplateType;
+import org.odpi.openmetadata.adapters.connectors.controls.KafkaTemplateConfigurationProperty;
+import org.odpi.openmetadata.adapters.connectors.controls.KafkaTemplateType;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.integration.ffdc.KafkaIntegrationConnectorAuditCode;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.integration.ffdc.KafkaIntegrationConnectorErrorCode;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;

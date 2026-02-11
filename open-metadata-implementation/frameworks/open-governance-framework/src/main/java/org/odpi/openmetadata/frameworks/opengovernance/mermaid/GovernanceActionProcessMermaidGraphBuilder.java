@@ -24,23 +24,23 @@ public class GovernanceActionProcessMermaidGraphBuilder extends MermaidGraphBuil
     {
         mermaidGraph.append("---\n");
         mermaidGraph.append("title: Process - ");
-        mermaidGraph.append(processGraph.getGovernanceActionProcess().getProcessProperties().getDisplayName());
+        mermaidGraph.append(processGraph.getGovernanceActionProcess().getProperties().getDisplayName());
         mermaidGraph.append(" [");
         mermaidGraph.append(processGraph.getGovernanceActionProcess().getElementHeader().getGUID());
         mermaidGraph.append("]\n---\nflowchart LR\n%%{init: {\"flowchart\": {\"htmlLabels\": false}} }%%\n\n");
 
         String currentNodeName = processGraph.getGovernanceActionProcess().getElementHeader().getGUID();
-        String currentDisplayName = processGraph.getGovernanceActionProcess().getProcessProperties().getDisplayName();
+        String currentDisplayName = processGraph.getGovernanceActionProcess().getProperties().getDisplayName();
 
         if (currentDisplayName == null)
         {
-            currentDisplayName = processGraph.getGovernanceActionProcess().getProcessProperties().getQualifiedName();
+            currentDisplayName = processGraph.getGovernanceActionProcess().getProperties().getQualifiedName();
         }
 
         appendNewMermaidNode(currentNodeName,
                              currentDisplayName,
                              super.getTypeNameForEntity(processGraph.getGovernanceActionProcess().getElementHeader()),
-                             processGraph.getGovernanceActionProcess().getProcessProperties(),
+                             processGraph.getGovernanceActionProcess().getProperties(),
                              getVisualStyleForEntity(processGraph.getGovernanceActionProcess().getElementHeader(), VisualStyle.GOVERNANCE_ACTION));
 
         this.addDescription(processGraph.getGovernanceActionProcess());
@@ -210,14 +210,14 @@ public class GovernanceActionProcessMermaidGraphBuilder extends MermaidGraphBuil
             }
         }
 
-        if (governanceActionProcessElement.getProcessProperties() != null)
+        if (governanceActionProcessElement.getProperties() != null)
         {
-            if (governanceActionProcessElement.getProcessProperties().getDescription() != null)
+            if (governanceActionProcessElement.getProperties().getDescription() != null)
             {
                 String descriptionNodeName = UUID.randomUUID().toString();
 
                 appendNewMermaidNode(descriptionNodeName,
-                                     governanceActionProcessElement.getProcessProperties().getDescription(),
+                                     governanceActionProcessElement.getProperties().getDescription(),
                                      "Description",
                                      VisualStyle.DESCRIPTION);
             }

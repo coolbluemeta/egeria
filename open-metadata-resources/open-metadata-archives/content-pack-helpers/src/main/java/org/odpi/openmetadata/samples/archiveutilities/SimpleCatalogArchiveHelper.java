@@ -368,6 +368,7 @@ public class SimpleCatalogArchiveHelper
             String blueprintGUID = this.addSolutionBlueprint(solutionBlueprint.getTypeName(),
                                                              solutionBlueprint.getQualifiedName(),
                                                              solutionBlueprint.getDisplayName(),
+                                                             solutionBlueprint.getIdentifier(),
                                                              solutionBlueprint.getDescription(),
                                                              solutionBlueprint.getVersionIdentifier(),
                                                              null,
@@ -3946,6 +3947,7 @@ public class SimpleCatalogArchiveHelper
      * @param name display name for the asset
      * @param versionIdentifier version of the asset
      * @param description description about the asset
+     * @param url further information about the process
      * @param formula description of the logic that this process performs
      * @param additionalProperties any other properties
      * @param extendedProperties additional properties defined in the subtype
@@ -3958,6 +3960,7 @@ public class SimpleCatalogArchiveHelper
                              String               name,
                              String               versionIdentifier,
                              String               description,
+                             String               url,
                              String               formula,
                              Map<String, String>  additionalProperties,
                              Map<String, Object>  extendedProperties,
@@ -3987,6 +3990,7 @@ public class SimpleCatalogArchiveHelper
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, name, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.VERSION_IDENTIFIER.name, versionIdentifier, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
+        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.URL.name, url, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.FORMULA.name, formula, methodName);
         properties = archiveHelper.addStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ADDITIONAL_PROPERTIES.name, additionalProperties, methodName);
         properties = archiveHelper.addPropertyMapToInstance(archiveRootName, properties, extendedProperties, methodName);
@@ -7393,7 +7397,8 @@ public class SimpleCatalogArchiveHelper
      *
      * @param suppliedTypeName type name to use
      * @param qualifiedName qualified name
-     * @param name display name
+     * @param displayName display name
+     * @param identifier identifier
      * @param description description
      * @param versionIdentifier versionIdentifier
      * @param additionalProperties are there any additional properties to add
@@ -7402,7 +7407,8 @@ public class SimpleCatalogArchiveHelper
      */
     public  String addSolutionBlueprint(String              suppliedTypeName,
                                         String              qualifiedName,
-                                        String              name,
+                                        String              displayName,
+                                        String              identifier,
                                         String              description,
                                         String              versionIdentifier,
                                         Map<String, String> additionalProperties,
@@ -7418,7 +7424,8 @@ public class SimpleCatalogArchiveHelper
         }
 
         InstanceProperties properties = archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.QUALIFIED_NAME.name, qualifiedName, methodName);
-        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, name, methodName);
+        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, displayName, methodName);
+        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.IDENTIFIER.name, identifier, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.VERSION_IDENTIFIER.name, versionIdentifier, methodName);
         properties = archiveHelper.addStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ADDITIONAL_PROPERTIES.name, additionalProperties, methodName);

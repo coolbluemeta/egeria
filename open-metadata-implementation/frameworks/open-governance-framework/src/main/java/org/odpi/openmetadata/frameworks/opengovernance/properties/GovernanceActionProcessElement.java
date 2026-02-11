@@ -24,12 +24,12 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class GovernanceActionProcessElement
 {
-    private ElementHeader                            elementHeader     = null;
-    private GovernanceActionProcess                  processProperties = null;
-    private Map<String, List<SpecificationProperty>> specification     = null;
+    private ElementHeader                            elementHeader               = null;
+    private GovernanceActionProcess                  properties                  = null;
+    private Map<String, List<SpecificationProperty>> specification               = null;
     private List<PredefinedActionTarget>             predefinedActionTargets     = null;
     private Map<String, String>                      predefinedRequestParameters = null;
-    private String                                   mermaidSpecification        = null;
+    private String                                   specificationMermaidGraph   = null;
 
 
     /**
@@ -50,12 +50,12 @@ public class GovernanceActionProcessElement
     {
         if (template != null)
         {
-            elementHeader               = template.getElementHeader();
-            processProperties           = template.getProcessProperties();
-            predefinedActionTargets     = template.getPredefinedActionTargets();
+            elementHeader           = template.getElementHeader();
+            properties              = template.getProperties();
+            predefinedActionTargets = template.getPredefinedActionTargets();
             predefinedRequestParameters = template.getPredefinedRequestParameters();
-            specification               = template.getSpecification();
-            mermaidSpecification        = template.getMermaidSpecification();
+            specification             = template.getSpecification();
+            specificationMermaidGraph = template.getSpecificationMermaidGraph();
         }
     }
 
@@ -86,20 +86,20 @@ public class GovernanceActionProcessElement
      *
      * @return process properties
      */
-    public GovernanceActionProcess getProcessProperties()
+    public GovernanceActionProcess getProperties()
     {
-        return processProperties;
+        return properties;
     }
 
 
     /**
      * Set up process properties
      *
-     * @param processProperties process properties
+     * @param properties process properties
      */
-    public void setProcessProperties(GovernanceActionProcess processProperties)
+    public void setProperties(GovernanceActionProcess properties)
     {
-        this.processProperties = processProperties;
+        this.properties = properties;
     }
 
 
@@ -174,20 +174,20 @@ public class GovernanceActionProcessElement
      *
      * @return string in Mermaid markdown
      */
-    public String getMermaidSpecification()
+    public String getSpecificationMermaidGraph()
     {
-        return mermaidSpecification;
+        return specificationMermaidGraph;
     }
 
 
     /**
      * Set up mermaid string used to render a graph.
      *
-     * @param mermaidSpecification string in Mermaid markdown
+     * @param specificationMermaidGraph string in Mermaid markdown
      */
-    public void setMermaidSpecification(String mermaidSpecification)
+    public void setSpecificationMermaidGraph(String specificationMermaidGraph)
     {
-        this.mermaidSpecification = mermaidSpecification;
+        this.specificationMermaidGraph = specificationMermaidGraph;
     }
 
 
@@ -201,11 +201,11 @@ public class GovernanceActionProcessElement
     {
         return "GovernanceActionProcessElement{" +
                 "elementHeader=" + elementHeader +
-                ", processProperties=" + processProperties +
+                ", processProperties=" + properties +
                 ", specification=" + specification +
                 ", predefinedActionTargets=" + predefinedActionTargets +
                 ", predefinedRequestParameters=" + predefinedRequestParameters +
-                ", mermaidSpecification='" + mermaidSpecification + '\'' +
+                ", mermaidSpecification='" + specificationMermaidGraph + '\'' +
                 '}';
     }
 
@@ -233,11 +233,11 @@ public class GovernanceActionProcessElement
         }
         GovernanceActionProcessElement that = (GovernanceActionProcessElement) objectToCompare;
         return Objects.equals(elementHeader, that.elementHeader) &&
-                Objects.equals(processProperties, that.processProperties) &&
+                Objects.equals(properties, that.properties) &&
                 Objects.equals(predefinedActionTargets, that.predefinedActionTargets) &&
                 Objects.equals(predefinedRequestParameters, that.predefinedRequestParameters) &&
                 Objects.equals(specification, that.specification) &&
-                Objects.equals(mermaidSpecification, that.mermaidSpecification);
+                Objects.equals(specificationMermaidGraph, that.specificationMermaidGraph);
     }
 
 
@@ -249,7 +249,7 @@ public class GovernanceActionProcessElement
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), elementHeader, processProperties, predefinedActionTargets,
-                            predefinedRequestParameters, specification, mermaidSpecification);
+        return Objects.hash(super.hashCode(), elementHeader, properties, predefinedActionTargets,
+                            predefinedRequestParameters, specification, specificationMermaidGraph);
     }
 }

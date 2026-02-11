@@ -21,11 +21,11 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class GovernanceActionProcessGraph
 {
-    private GovernanceActionProcessElement                    governanceActionProcess = null;
-    private FirstGovernanceActionProcessStepElement           firstProcessStep        = null;
-    private List<GovernanceActionProcessStepExecutionElement> nextProcessSteps        = null;
-    private List<NextGovernanceActionProcessStepLink>         processStepLinks        = null;
-    private String                                            mermaidGraph            = null;
+    private GovernanceActionProcessElement                    governanceActionProcess             = null;
+    private FirstGovernanceActionProcessStepElement           firstProcessStep                    = null;
+    private List<GovernanceActionProcessStepExecutionElement> nextProcessSteps                    = null;
+    private List<NextGovernanceActionProcessStepLink>         processStepLinks                    = null;
+    private String                                            governanceActionProcessMermaidGraph = null;
 
 
     /**
@@ -48,8 +48,8 @@ public class GovernanceActionProcessGraph
             this.governanceActionProcess = template.getGovernanceActionProcess();
             this.firstProcessStep        = template.getFirstProcessStep();
             this.nextProcessSteps        = template.getNextProcessSteps();
-            this.processStepLinks        = template.getProcessStepLinks();
-            this.mermaidGraph            = template.getMermaidGraph();
+            this.processStepLinks                    = template.getProcessStepLinks();
+            this.governanceActionProcessMermaidGraph = template.getGovernanceActionProcessMermaidGraph();
         }
     }
 
@@ -148,20 +148,20 @@ public class GovernanceActionProcessGraph
      *
      * @return string in Mermaid markdown
      */
-    public String getMermaidGraph()
+    public String getGovernanceActionProcessMermaidGraph()
     {
-        return mermaidGraph;
+        return governanceActionProcessMermaidGraph;
     }
 
 
     /**
      * Set up mermaid string used to render a graph.
      *
-     * @param mermaidGraph string in Mermaid markdown
+     * @param governanceActionProcessMermaidGraph string in Mermaid markdown
      */
-    public void setMermaidGraph(String mermaidGraph)
+    public void setGovernanceActionProcessMermaidGraph(String governanceActionProcessMermaidGraph)
     {
-        this.mermaidGraph = mermaidGraph;
+        this.governanceActionProcessMermaidGraph = governanceActionProcessMermaidGraph;
     }
 
 
@@ -178,7 +178,7 @@ public class GovernanceActionProcessGraph
                 ", firstProcessStep=" + firstProcessStep +
                 ", nextProcessSteps=" + nextProcessSteps +
                 ", processStepLinks=" + processStepLinks +
-                ", mermaidGraph='" + mermaidGraph + '\'' +
+                ", mermaidGraph='" + governanceActionProcessMermaidGraph + '\'' +
                 '}';
     }
 
@@ -199,7 +199,7 @@ public class GovernanceActionProcessGraph
                 Objects.equals(firstProcessStep, that.firstProcessStep) &&
                 Objects.equals(nextProcessSteps, that.nextProcessSteps) &&
                 Objects.equals(processStepLinks, that.processStepLinks) &&
-                Objects.equals(mermaidGraph, that.mermaidGraph);
+                Objects.equals(governanceActionProcessMermaidGraph, that.governanceActionProcessMermaidGraph);
     }
 
 
@@ -211,6 +211,6 @@ public class GovernanceActionProcessGraph
     @Override
     public int hashCode()
     {
-        return Objects.hash(governanceActionProcess, firstProcessStep, nextProcessSteps, processStepLinks, mermaidGraph);
+        return Objects.hash(governanceActionProcess, firstProcessStep, nextProcessSteps, processStepLinks, governanceActionProcessMermaidGraph);
     }
 }

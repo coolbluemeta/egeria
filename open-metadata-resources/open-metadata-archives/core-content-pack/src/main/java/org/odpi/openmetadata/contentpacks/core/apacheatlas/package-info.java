@@ -2,6 +2,6 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 
 /**
- * Builds a content pack to support templates, connectors and services specific for working with Apache Atlas.
+ * Builds a content pack to support templates, connectors, and services specific for working with Apache Atlas.
  */
 package org.odpi.openmetadata.contentpacks.core.apacheatlas;

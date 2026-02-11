@@ -194,11 +194,12 @@ Content-Type: application/json
 # @name Add topic audit log destination
 # Add the event topic audit log destination to the server's configuration document.  The list of severities that are sent to this destination are passed on the request body.  An empty list means all severities.
 # The server may have multiple audit log destinations configured.  Typically each destination has a different subset of the severities configured.
-POST {{baseURL}}/open-metadata/admin-services/servers/{{server}}/audit-log-destinations/event-topic
+POST {{baseURL}}/open-metadata/admin-services/servers/{{server}}/audit-log-destinations/event-topic?topicName=egeria.omag.server.ffdc.audit-logs
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
-[]
+["Error", "Exception", "Activity", "Action", "Decision", "Security", "Cohort"]
+
 
 
 ###
@@ -211,11 +212,11 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "supportedSeverities" : ["Error", "Exception", "Activity", "Action", "Decision"],
-  "databaseURL": "~{postgreSQLDatabaseURL}~?currentSchema=audit_logs",
+  "supportedSeverities" : ["Error", "Exception", "Activity", "Action", "Decision", "Security", "Cohort"],
+  "databaseURL": "~{repositoryDatabaseURL}~?currentSchema=audit_logs",
   "databaseSchema": "audit_logs",
-  "secretsStore": "~{secretsStore}~",
-  "secretsCollectionName": "~{postgreSQLServerCollectionName}~"
+  "secretsStore": "~{egeriaServersSecretsStore}~",
+  "secretsCollectionName": "~{repositorySecretCollectionName}~"
 }
 
 

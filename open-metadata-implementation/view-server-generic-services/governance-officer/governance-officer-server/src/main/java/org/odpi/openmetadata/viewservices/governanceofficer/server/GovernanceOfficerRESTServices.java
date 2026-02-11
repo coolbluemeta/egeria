@@ -1324,18 +1324,18 @@ public class GovernanceOfficerRESTServices extends TokenController
                     OpenMetadataClient openMetadataClient = instanceHandler.getOpenMetadataClient(userId, serverName, urlMarker, methodName);
                     governanceActionProcessElement.setSpecification(openMetadataClient.getSpecification(userId, governanceActionProcessElement.getElementHeader().getGUID()));
 
-                    String displayName = governanceActionProcessElement.getProcessProperties().getQualifiedName();
+                    String displayName = governanceActionProcessElement.getProperties().getQualifiedName();
 
-                    if (governanceActionProcessElement.getProcessProperties().getDisplayName() != null)
+                    if (governanceActionProcessElement.getProperties().getDisplayName() != null)
                     {
-                        displayName = governanceActionProcessElement.getProcessProperties().getDisplayName();
+                        displayName = governanceActionProcessElement.getProperties().getDisplayName();
                     }
 
                     SpecificationMermaidGraphBuilder graphBuilder = new SpecificationMermaidGraphBuilder(governanceActionProcessElement.getElementHeader(),
                                                                                                          displayName,
                                                                                                          governanceActionProcessElement.getSpecification());
 
-                    governanceActionProcessElement.setMermaidSpecification(graphBuilder.getMermaidGraph());
+                    governanceActionProcessElement.setSpecificationMermaidGraph(graphBuilder.getMermaidGraph());
                 }
             }
         }

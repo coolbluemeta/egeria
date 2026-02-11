@@ -23,16 +23,15 @@ public enum SolutionBlueprint
      * Base Connector Types and Categories for connectors from the Egeria project along with metadata valid values, templates, and connectors for the basic types of technology supported by these connectors.
      */
     CORE_CONTENT_PACK("eb83f1a4-684b-4624-bdc8-6b394ce9cdc8",
-                      "Egeria::SolutionBlueprint::Default",
-                      "Core Content Pack Solution Blueprint",
+                      "Egeria::SolutionBlueprint::CoreContentPack",
+                      "Core Content Pack",
+                      "CORE-CONTENT-PACK",
                       "Solution blueprint for a default setup.",
-                      new String[]{
-                              EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID()
-                      },
+                      null,
                       new DeployedImplementationTypeDefinition[]{
                               DeployedImplementationType.JDBC_RELATIONAL_DATABASE,
-                              DeployedImplementationType.SOFTWARE_SERVER,
-                              DeployedImplementationType.APACHE_KAFKA_TOPIC
+                              DeployedImplementationType.TABULAR_DATA_SET,
+                              DeployedImplementationType.AUDIT_LOG_DESTINATION_CONNECTOR
                       },
                       ContentPackDefinition.CORE_CONTENT_PACK),
 
@@ -41,10 +40,14 @@ public enum SolutionBlueprint
      */
     EGERIA_CONTENT_PACK("4d033711-0449-4d67-bf98-c7bfcae86b8c",
                         "Egeria::SolutionBlueprint::EgeriaContentPack",
-                        "Egeria Solution Blueprint",
+                        "Egeria Content Pack",
+                        "EGERIA-CONTENT-PACK",
                         "Solution blueprint containing integration connectors for working with Egeria's infrastructure.",
+                        new String[]{
+                                EgeriaDeployedImplementationType.OMAG_SERVER_PLATFORM.getSolutionComponentGUID(),
+                                EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID()
+                        },
                         null,
-                        EgeriaDeployedImplementationType.getDefinitions(),
                         ContentPackDefinition.EGERIA_CONTENT_PACK),
 
     /**
@@ -52,12 +55,17 @@ public enum SolutionBlueprint
      */
     FILES_CONTENT_PACK("d89b489d-9661-41ee-838f-37454ebb70bf",
                        "Egeria::SolutionBlueprint::FilesContentPack",
-                       "Files Content Pack Solution Blueprint",
+                       "Files Content Pack",
+                       "FILES-CONTENT-PACK",
                        "Solution blueprint containing integration connectors for working with files.",
                        new String[]{
-                               EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID()
+                               RequestTypeDefinition.PRINT_SURVEY_REPORT.getSolutionComponentGUID()
                        },
-                       new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_SYSTEM},
+                       new DeployedImplementationTypeDefinition[]{
+                               DeployedImplementationType.FILE_SYSTEM_DIRECTORY,
+                               DeployedImplementationType.CSV_FILE,
+                               DeployedImplementationType.FILE
+                       },
                        ContentPackDefinition.FILES_CONTENT_PACK),
 
     /**
@@ -65,15 +73,17 @@ public enum SolutionBlueprint
      */
     OPEN_LINEAGE_CONTENT_PACK("368cd66f-1250-491a-9da1-7f70f2963fd1",
                               "Egeria::SolutionBlueprint::OpenLineageContentPack",
-                              "Open Lineage Content Pack Solution Blueprint",
+                              "Open Lineage Content Pack",
+                              "OPEN-LINEAGE-CONTENT-PACK",
                               "Solution blueprint containing integration connectors for working with open lineage events.",
                               new String[]{
                                       EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID(),
                                       EgeriaSolutionComponent.OL_KAFKA_TOPIC.getGUID(),
+                                      EgeriaSolutionComponent.OPEN_METADATA_TOPIC.getGUID(),
                                       EgeriaSolutionComponent.OL_PROXY.getGUID()
                               },
                               new DeployedImplementationTypeDefinition[]{
-                                      DeployedImplementationType.FILE_SYSTEM,
+                                      DeployedImplementationType.FILE_SYSTEM_DIRECTORY,
                                       DeployedImplementationType.MARQUEZ_SERVER
                               },
                               ContentPackDefinition.OPEN_LINEAGE_CONTENT_PACK),
@@ -83,10 +93,11 @@ public enum SolutionBlueprint
      */
     UNITY_CATALOG_CONTENT_PACK("548661f1-e792-4acd-8dc2-0aa41187d6d2",
                                "Egeria::SolutionBlueprint::UnityCatalogContentPack",
-                               "Unity Catalog Solution Blueprint",
+                               "Unity Catalog Content Pack",
+                               "UNITY-CATALOG-CONTENT-PACK",
                                "Solution blueprint supporting the exchange of metadata between the open metadata ecosystem and Unity Catalog (UC).",
                                new String[]{
-                                       EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID()
+                                       RequestTypeDefinition.PRINT_SURVEY_REPORT.getSolutionComponentGUID()
                                },
                                new DeployedImplementationTypeDefinition[]{
                                        UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER,
@@ -99,10 +110,11 @@ public enum SolutionBlueprint
      */
     APACHE_ATLAS_CONTENT_PACK("819a7239-f1dc-43af-8501-c7a551655373",
                               "Egeria::SolutionBlueprint::ApacheAtlasContentPack",
-                              "Apache Atlas Solution Blueprint",
+                              "Apache Atlas Content Pack",
+                              "APACHE-ATLAS-CONTENT-PACK",
                               "Solution blueprint supporting integration connectors connecting to Apache Atlas.",
                               new String[]{
-                                      EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID()
+                                      RequestTypeDefinition.PRINT_SURVEY_REPORT.getSolutionComponentGUID()
                               },
                               new DeployedImplementationTypeDefinition[]{
                                       AtlasDeployedImplementationType.APACHE_ATLAS_SERVER
@@ -114,12 +126,16 @@ public enum SolutionBlueprint
      */
     POSTGRES_CONTENT_PACK("9c0e55dc-96b4-42de-8cd8-e4b2e2b92a38",
                           "Egeria::SolutionBlueprint::PostgresContentPack",
-                          "PostgreSQL Solution Blueprint",
+                          "PostgreSQL Content Pack",
+                          "POSTGRESQL-CONTENT-PACK",
                           "Solution blueprint supporting integration connectors connecting to PostgreSQL Servers.",
                           new String[]{
-                                  EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID()
+                                  RequestTypeDefinition.PRINT_SURVEY_REPORT.getSolutionComponentGUID(),
+                                  IntegrationConnectorDefinition.JDBC_CATALOGUER.getSolutionComponentGUID()
                           },
-                          PostgresDeployedImplementationType.getDefinitions(),
+                          new DeployedImplementationTypeDefinition[]{
+                                  PostgresDeployedImplementationType.POSTGRESQL_SERVER
+                          },
                           ContentPackDefinition.POSTGRES_CONTENT_PACK),
 
     /**
@@ -127,11 +143,10 @@ public enum SolutionBlueprint
      */
     APACHE_KAFKA_CONTENT_PACK("a3c6e079-3630-46e9-bf90-339c21964a4e",
                               "Egeria::SolutionBlueprint::ApacheKafkaContentPack",
-                              "Apache Kafka Solution Blueprint",
+                              "Apache Kafka Content Pack",
+                              "APACHE-KAFKA-CONTENT-PACK",
                               "Solution blueprint supporting integration connectors connecting to Apache Kafka.",
-                              new String[]{
-                                      EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID()
-                              },
+                              null,
                               new DeployedImplementationTypeDefinition[]{
                                       DeployedImplementationType.APACHE_KAFKA_TOPIC
                               },
@@ -143,6 +158,7 @@ public enum SolutionBlueprint
     OBSERVABILITY_CONTENT_PACK("8d79d108-4045-45e2-bdc0-ec34ed4aadf2",
                                "Egeria::SolutionBlueprint::EgeriaObservabilityContentPack",
                                "Egeria Observability Content Pack",
+                               "EGERIA-OBSERVABILITY-CONTENT-PACK",
                                "Solution blueprint showing the analytical components that add observability statistics to the open metadata ecosystem.",
                                new String[]{
                                        IntegrationConnectorDefinition.BABBAGE_ANALYTICAL_ENGINE.getSolutionComponentGUID(),
@@ -156,7 +172,8 @@ public enum SolutionBlueprint
      */
     APIS_CONTENT_PACK("3a07c1f8-c810-4d53-9d28-4bbca1a6ea97",
                       "Egeria::SolutionBlueprint::APIsContentPack",
-                      "Open APIs Solution Blueprint",
+                      "Open APIs Content Pack",
+                      "OPEN-APIS-CONTENT-PACK",
                       "Solution blueprint supporting integration connectors extracting Open API specifications to Open APIs via swagger.",
                       new String[]{
                               EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID()
@@ -170,8 +187,9 @@ public enum SolutionBlueprint
      * Open metadata collections packaged into dynamic digital products.
      */
     PRODUCTS_CONTENT_PACK("ea509f7a-de1f-4864-bbbd-6f373f49e132",
-                          "Egeria::SolutionBlueprint::JacquardHarvesterContentPack",
-                          "Jacquard Harvester Content Pack",
+                          "Egeria::SolutionBlueprint::OpenMetadataDigitalProductsContentPack",
+                          "Open Metadata Digital Products Content Pack",
+                          "OPEN-METADATA-DIGITAL-PRODUCTS-CONTENT-PACK",
                           "Solution blueprint showing the components that manage the Open Metadata Digital Product Catalog.",
                           new String[]{
                                   IntegrationConnectorDefinition.BABBAGE_ANALYTICAL_ENGINE.getSolutionComponentGUID(),
@@ -185,7 +203,8 @@ public enum SolutionBlueprint
      */
     ORGANIZATION_INSIGHT_CONTENT_PACK("b36c6cc7-26f2-4b9b-b3e3-496f738c8927",
                                       "Egeria::SolutionBlueprint::OrganizationInsightContentPack",
-                                      "Organization Insight Solution Blueprint",
+                                      "Organization Insight Content Pack",
+                                      "ORGANIZATION-INSIGHT-CONTENT-PACK",
                                       "Solution blueprint describing the components that deliver organization insight to the open metadata ecosystem.",
                                       new String[]{
                                               IntegrationConnectorDefinition.BABBAGE_ANALYTICAL_ENGINE.getSolutionComponentGUID(),
@@ -199,6 +218,7 @@ public enum SolutionBlueprint
     private final String                                 solutionBlueprintGUID;
     private final String                                 solutionBlueprintQualifiedName;
     private final String                                 solutionBlueprintDisplayName;
+    private final String                                 solutionBlueprintIdentifier;
     private final String                                 solutionBlueprintDescription;
     private final String[]                               extraSolutionComponentGUIDs;
     private final DeployedImplementationTypeDefinition[] deployedImplementationTypes;
@@ -208,6 +228,7 @@ public enum SolutionBlueprint
     SolutionBlueprint(String                                 solutionBlueprintGUID,
                       String                                 solutionBlueprintQualifiedName,
                       String                                 solutionBlueprintDisplayName,
+                      String                                 solutionBlueprintIdentifier,
                       String                                 description,
                       String[]                               extraSolutionComponentGUIDs,
                       DeployedImplementationTypeDefinition[] deployedImplementationTypes,
@@ -216,6 +237,7 @@ public enum SolutionBlueprint
         this.solutionBlueprintGUID          = solutionBlueprintGUID;
         this.solutionBlueprintQualifiedName = solutionBlueprintQualifiedName;
         this.solutionBlueprintDisplayName   = solutionBlueprintDisplayName;
+        this.solutionBlueprintIdentifier    = solutionBlueprintIdentifier;
         this.solutionBlueprintDescription   = description;
         this.extraSolutionComponentGUIDs    = extraSolutionComponentGUIDs;
         this.deployedImplementationTypes    = deployedImplementationTypes;
@@ -253,6 +275,17 @@ public enum SolutionBlueprint
     public String getSolutionBlueprintDisplayName()
     {
         return solutionBlueprintDisplayName;
+    }
+
+
+    /**
+     * Return the identifier of the solution blueprint.
+     *
+     * @return string
+     */
+    public String getSolutionBlueprintIdentifier()
+    {
+        return solutionBlueprintIdentifier;
     }
 
 

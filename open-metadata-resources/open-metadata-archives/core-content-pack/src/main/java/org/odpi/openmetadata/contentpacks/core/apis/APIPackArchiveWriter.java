@@ -70,11 +70,11 @@ public class APIPackArchiveWriter extends ContentPackBaseArchiveWriter
         /*
          * Define the solution components for this solution.
          */
-        this.addSolutionBlueprints(ContentPackDefinition.APIS_CONTENT_PACK);
+        this.addSolutionBlueprints(ContentPackDefinition.APIS_CONTENT_PACK, null);
         this.addSolutionLinkingWires(ContentPackDefinition.APIS_CONTENT_PACK);
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();

@@ -335,7 +335,7 @@ public class ConnectorConfigurationFactory
                                                       Map<String, Object> eventBusConfigurationProperties)
     {
         final String destinationName = "EventTopic";
-        String topicName = defaultTopicRootName + localServerName + ".ffdc";
+        String topicName = defaultTopicRootName + localServerName + ".ffdc.auditlog";
 
         if (suppliedTopicName != null)
         {
@@ -671,7 +671,7 @@ public class ConnectorConfigurationFactory
 
             String connectorTypeJavaClassName = KAFKA_OPEN_METADATA_TOPIC_PROVIDER;
 
-            if ((connectorProviderClassName != null) && (connectorProviderClassName.length() > 0))
+            if ((connectorProviderClassName != null) && (!connectorProviderClassName.isEmpty()))
             {
                 connectorTypeJavaClassName = connectorProviderClassName;
             }
@@ -1030,9 +1030,9 @@ public class ConnectorConfigurationFactory
             Class<?>   connectorProviderClass = Class.forName(connectorProviderClassName);
             Object     potentialConnectorProvider = connectorProviderClass.getDeclaredConstructor().newInstance();
 
-            if (potentialConnectorProvider instanceof ConnectorProvider)
+            if (potentialConnectorProvider instanceof ConnectorProvider connectorProvider)
             {
-                connectorType = new ConnectorType();
+                connectorType = new ConnectorType(connectorProvider.getConnectorType());
 
                 connectorType.setConnectorProviderClassName(connectorProviderClassName);
             }

@@ -90,59 +90,59 @@ public enum ProductDefinitionEnum implements ProductDefinition
      * when it is retrieved for the first time.
      */
     REFERENCE_DATA_SETS(OpenMetadataType.DIGITAL_PRODUCT_FAMILY.typeName,
-                              null,
-                              "Reference Data Sets",
-                              "REFERENCE-DATA-SETS-FAMILY",
-                              ProductFolderDefinition.PRODUCTS,
-                              "Reference Data Sets",
-                              "Each product in this folder is an extract of the reference data values managed by open metadata.  The reference data values are organized into a tabular data set, where each row is a specific valid value.  These products can be used as standard reference values when building other digital products to help consumers join data from multiple products together.",
-                              ProductCategoryDefinition.REFERENCE_DATA.getPreferredValue(),
-                              ProductGovernanceDefinition.INTERNAL_USE_ONLY,
-                              ProductCommunityDefinition.REFERENCE_DATA_SIG,
-                              new ProductSubscriptionDefinition[]{
-                                      ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
-                                      ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
-                                      ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
-                                      ProductSubscriptionDefinition.ONGOING_UPDATE},
-                              null,
-                              null,
-                              null,
-                              OpenMetadataType.TABULAR_DATA_SET_COLLECTION.typeName,
-                              "Data sets",
-                              null,
-                              null),
+                        null,
+                        "Reference Data Sets",
+                        "REFERENCE-DATA-SETS-FAMILY",
+                        ProductFolderDefinition.PRODUCTS,
+                        "Reference Data Sets",
+                        "Each product in this folder is an extract of the reference data values managed by open metadata.  The reference data values are organized into a tabular data set, where each row is a specific valid value.  These products can be used as standard reference values when building other digital products to help consumers join data from multiple products together.",
+                        ProductCategoryDefinition.REFERENCE_DATA.getPreferredValue(),
+                        ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                        ProductCommunityDefinition.REFERENCE_DATA_SIG,
+                        new ProductSubscriptionDefinition[]{
+                                ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                ProductSubscriptionDefinition.ONGOING_UPDATE},
+                        null,
+                        null,
+                        null,
+                        OpenMetadataType.TABULAR_DATA_SET_COLLECTION.typeName,
+                        "Data sets",
+                        null,
+                        null),
 
     /**
      * Reference Data Set List - Jacquard dynamically generates a digital product for each reference data set in this list.
      */
     REFERENCE_DATA_SET_LIST(OpenMetadataType.DIGITAL_PRODUCT.typeName,
-                                  new ProductDefinition[]{ProductDefinitionEnum.REFERENCE_DATA_SETS},
-                                  "Reference Data Set List",
-                                  "OPEN-METADATA-" + OpenMetadataType.REFERENCE_DATA_SET.typeName + "-with-members",
-                                  null,
-                                  "Reference Data Set List",
-                                  "A tabular data set where each record describes a reference data set stored in open metadata.  There is a digital product for each reference data set in this list.",
-                                  ProductCategoryDefinition.REFERENCE_DATA.getPreferredValue(),
-                                  ProductGovernanceDefinition.INTERNAL_USE_ONLY,
-                                  ProductCommunityDefinition.REFERENCE_DATA_SIG,
-                                  new ProductSubscriptionDefinition[]{
-                                          ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
-                                          ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
-                                          ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
-                                          ProductSubscriptionDefinition.ONGOING_UPDATE},
-                                  "Reference Data Set List",
-                                  new ProductDataFieldDefinition[]{
-                                          ProductDataFieldDefinition.GUID},
-                                  new ProductDataFieldDefinition[]{
-                                          ProductDataFieldDefinition.IDENTIFIER,
-                                          ProductDataFieldDefinition.DESCRIPTION,
-                                          ProductDataFieldDefinition.CREATE_TIME,
-                                          ProductDataFieldDefinition.UPDATE_TIME,
-                                          ProductDataFieldDefinition.DATA_TYPE},
-                                  OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
-                                  "Data set",
-                                  new ReferenceDataSetListProvider(),
-                                  "ReferenceDataSetList"),
+                            new ProductDefinition[]{ProductDefinitionEnum.REFERENCE_DATA_SETS},
+                            "Reference Data Set List",
+                            "OPEN-METADATA-" + OpenMetadataType.REFERENCE_DATA_SET.typeName + "-with-members",
+                            null,
+                            "Reference Data Set List",
+                            "A tabular data set where each record describes a reference data set stored in open metadata.  There is a digital product for each reference data set in this list.",
+                            ProductCategoryDefinition.REFERENCE_DATA.getPreferredValue(),
+                            ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                            ProductCommunityDefinition.REFERENCE_DATA_SIG,
+                            new ProductSubscriptionDefinition[]{
+                                    ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                    ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                    ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                    ProductSubscriptionDefinition.ONGOING_UPDATE},
+                            "Reference Data Set List",
+                            new ProductDataFieldDefinition[]{
+                                    ProductDataFieldDefinition.GUID},
+                            new ProductDataFieldDefinition[]{
+                                    ProductDataFieldDefinition.IDENTIFIER,
+                                    ProductDataFieldDefinition.DESCRIPTION,
+                                    ProductDataFieldDefinition.CREATE_TIME,
+                                    ProductDataFieldDefinition.UPDATE_TIME,
+                                    ProductDataFieldDefinition.DATA_TYPE},
+                            OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                            "Data set",
+                            new ReferenceDataSetListProvider(),
+                            "ReferenceDataSetList"),
 
     /*
      * =============================================================================================
@@ -486,6 +486,607 @@ public enum ProductDefinitionEnum implements ProductDefinition
               null,
               "Locations"),
 
+
+
+    /*
+     * =============================================================================================
+     */
+
+    /**
+     * Survey Reports
+     */
+    SURVEY_REPORTS(OpenMetadataType.DIGITAL_PRODUCT_FAMILY.typeName,
+                   null,
+                   "Survey Reports",
+                   "SURVEY-REPORTS",
+                   ProductFolderDefinition.PRODUCTS,
+                   "Survey Reports",
+                   "Each product in this folder publishes insights from the surveys published through the open survey framework.  These surveys may be run as engine actions in the Engine Host, or run in an external surveying process that published results through the Data Discovery API.",
+                   ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                   ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                   ProductCommunityDefinition.OBSERVABILITY_SIG,
+                   new ProductSubscriptionDefinition[]{
+                           ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                           ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                           ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                           ProductSubscriptionDefinition.ONGOING_UPDATE
+                   },
+                   null,
+                   null,
+                   null,
+                   OpenMetadataType.TABULAR_DATA_SET_COLLECTION.typeName,
+                   "Data sets",
+                   null,
+                   null),
+
+    /**
+     * List of Survey Reports
+     */
+    SURVEY_REPORT_LIST(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                       new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                       "Survey Report List",
+                       "SURVEY-REPORT-LIST",
+                       null,
+                       "List of Survey Reports",
+                       "A tabular data set where each record describes a survey report.  These surveys may be run as engine actions in the Engine Host, or run in an external surveying process that published results through the Data Discovery API.",
+                       ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                       ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                       ProductCommunityDefinition.OBSERVABILITY_SIG,
+                       new ProductSubscriptionDefinition[]{
+                               ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                               ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                               ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                               ProductSubscriptionDefinition.ONGOING_UPDATE},
+                       "Survey Report List",
+                       new ProductDataFieldDefinition[]{
+                               ProductDataFieldDefinition.SURVEY_REPORT_GUID},
+                       new ProductDataFieldDefinition[]{
+                               ProductDataFieldDefinition.QUALIFIED_NAME,
+                               ProductDataFieldDefinition.DISPLAY_NAME,
+                               ProductDataFieldDefinition.CATEGORY,
+                               ProductDataFieldDefinition.IDENTIFIER,
+                               ProductDataFieldDefinition.DISPLAY_NAME,
+                               ProductDataFieldDefinition.DESCRIPTION,
+                               ProductDataFieldDefinition.PURPOSE,
+                               ProductDataFieldDefinition.START_TIMESTAMP,
+                               ProductDataFieldDefinition.END_TIMESTAMP,
+                               ProductDataFieldDefinition.ASSET_GUID,
+                               ProductDataFieldDefinition.ASSET_TYPE_NAME,
+                               ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                               ProductDataFieldDefinition.ENGINE_ACTION_GUID,
+                               ProductDataFieldDefinition.INITIATOR_USER_ID,
+                               ProductDataFieldDefinition.REQUEST_TYPE,
+                               ProductDataFieldDefinition.GOVERNANCE_ENGINE_NAME,
+                               ProductDataFieldDefinition.ENGINE_HOST_USER_ID,
+                               ProductDataFieldDefinition.CREATE_TIME,
+                               ProductDataFieldDefinition.UPDATE_TIME},
+                       OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                       "Data set",
+                       null,
+                       "Survey Report List"),
+
+    /**
+     * List of Annotations
+     */
+    ANNOTATIONS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                "Annotations List",
+                "ANNOTATIONS-LIST",
+                null,
+                "List of Annotations from all Survey Reports",
+                "A tabular data set where each record describes an annotation from a survey report.",
+                ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                ProductCommunityDefinition.OBSERVABILITY_SIG,
+                new ProductSubscriptionDefinition[]{
+                        ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                        ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                        ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                        ProductSubscriptionDefinition.ONGOING_UPDATE},
+                "Annotation List",
+                new ProductDataFieldDefinition[]{
+                        ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                        ProductDataFieldDefinition.ANNOTATION_GUID,
+                        ProductDataFieldDefinition.SURVEY_SUBJECT_GUID
+                },
+                new ProductDataFieldDefinition[]{
+                        ProductDataFieldDefinition.OPEN_METADATA_TYPE_NAME,
+                        ProductDataFieldDefinition.QUALIFIED_NAME,
+                        ProductDataFieldDefinition.DISPLAY_NAME,
+                        ProductDataFieldDefinition.CATEGORY,
+                        ProductDataFieldDefinition.IDENTIFIER,
+                        ProductDataFieldDefinition.DISPLAY_NAME,
+                        ProductDataFieldDefinition.DESCRIPTION,
+                        ProductDataFieldDefinition.PURPOSE,
+                        ProductDataFieldDefinition.START_TIMESTAMP,
+                        ProductDataFieldDefinition.END_TIMESTAMP,
+                        ProductDataFieldDefinition.ASSET_GUID,
+                        ProductDataFieldDefinition.ASSET_TYPE_NAME,
+                        ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                        ProductDataFieldDefinition.ENGINE_ACTION_GUID,
+                        ProductDataFieldDefinition.INITIATOR_USER_ID,
+                        ProductDataFieldDefinition.REQUEST_TYPE,
+                        ProductDataFieldDefinition.GOVERNANCE_ENGINE_NAME,
+                        ProductDataFieldDefinition.ENGINE_HOST_USER_ID,
+                        ProductDataFieldDefinition.CREATE_TIME,
+                        ProductDataFieldDefinition.UPDATE_TIME},
+                OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                "Data set",
+                null,
+                "Annotation List"),
+
+    /**
+     * Request For Action Annotation List
+     */
+    REQUEST_FOR_ACTION(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                       new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                       "Request For Action Annotations List",
+                       "REQUEST-FOR-ACTION-ANNOTATIONS-LIST",
+                       null,
+                       "List of Request For Action Annotations from all Survey Reports",
+                       "A tabular data set where each record describes a request for action annotation from a survey report.  This digital product supplements the main annotation list product (Annotation List).",
+                       ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                       ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                       ProductCommunityDefinition.OBSERVABILITY_SIG,
+                       new ProductSubscriptionDefinition[]{
+                               ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                               ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                               ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                               ProductSubscriptionDefinition.ONGOING_UPDATE},
+                       "Request For Action Annotation List",
+                       new ProductDataFieldDefinition[]{
+                               ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                               ProductDataFieldDefinition.ANNOTATION_GUID,
+                               ProductDataFieldDefinition.SURVEY_SUBJECT_GUID
+                       },
+                       new ProductDataFieldDefinition[]{
+                               ProductDataFieldDefinition.ACTION_REQUEST_NAME,
+                               ProductDataFieldDefinition.CREATE_TIME,
+                               ProductDataFieldDefinition.UPDATE_TIME},
+                       OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                       "Data set",
+                       null,
+                       "Request For Action Annotation List"),
+
+    /**
+     * Request For Action Annotation List
+     */
+    REQUEST_FOR_ACTION_TARGET(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                              new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                              "Request For Action Target List",
+                              "REQUEST-FOR-ACTION-TARGET-LIST",
+                              null,
+                              "List of Request For Action Annotations from all Survey Reports",
+                              "A tabular data set where each record describes a request for action annotation from a survey report.  This digital product supplements the main annotation list product (Annotation List).",
+                              ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                              ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                              ProductCommunityDefinition.OBSERVABILITY_SIG,
+                              new ProductSubscriptionDefinition[]{
+                                      ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                      ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                      ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                      ProductSubscriptionDefinition.ONGOING_UPDATE},
+                              "Request For Action Target List",
+                              new ProductDataFieldDefinition[]{
+                                      ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                                      ProductDataFieldDefinition.ANNOTATION_GUID,
+                                      ProductDataFieldDefinition.ACTION_TARGET_RELATIONSHIP_GUID,
+                                      ProductDataFieldDefinition.SURVEY_SUBJECT_GUID
+                              },
+                              new ProductDataFieldDefinition[]{
+                                      ProductDataFieldDefinition.ACTION_REQUEST_NAME,
+                                      ProductDataFieldDefinition.ACTION_TARGET_GUID,
+                                      ProductDataFieldDefinition.ACTION_TARGET_NAME,
+                                      ProductDataFieldDefinition.ACTION_TARGET_TYPE_NAME,
+                                      ProductDataFieldDefinition.CREATE_TIME,
+                                      ProductDataFieldDefinition.UPDATE_TIME},
+                              OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                              "Data set",
+                              null,
+                              "Request For Action Target List"),
+
+
+    /**
+     * Relational Data Manager Measurements
+     */
+    RELATIONAL_DATA_MANAGER_MEASUREMENTS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                                         new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                                         "Relational Data Manager Measurements",
+                                         "RELATIONAL-DATA-MANAGER-MEASUREMENTS",
+                                         null,
+                                         "Resource measurement annotations for surveyed Relational Data Managers",
+                                         "Details of the measurements collected by a survey of a relational data manager.  This digital product supplements the main annotation list product (Annotation List).",
+                                         ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                                         ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                                         ProductCommunityDefinition.OBSERVABILITY_SIG,
+                                         new ProductSubscriptionDefinition[]{
+                                                 ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                                 ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                                 ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                                 ProductSubscriptionDefinition.ONGOING_UPDATE},
+                                         "Relational Data Manager Measurements",
+                                         new ProductDataFieldDefinition[]{
+                                                 ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                                                 ProductDataFieldDefinition.ANNOTATION_GUID,
+                                                 ProductDataFieldDefinition.RESOURCE_NAME,
+                                                 ProductDataFieldDefinition.SURVEY_SUBJECT_GUID
+                                         },
+                                         new ProductDataFieldDefinition[]{
+                                                 ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                                                 ProductDataFieldDefinition.SURVEY_SUBJECT_TYPE_NAME,
+                                                 ProductDataFieldDefinition.SCHEMA_COUNT,
+                                                 ProductDataFieldDefinition.TABLE_COUNT,
+                                                 ProductDataFieldDefinition.VIEW_COUNT,
+                                                 ProductDataFieldDefinition.MAT_VIEW_COUNT,
+                                                 ProductDataFieldDefinition.COLUMN_COUNT,
+                                                 ProductDataFieldDefinition.DATA_SIZE,
+                                                 ProductDataFieldDefinition.ROWS_FETCHED,
+                                                 ProductDataFieldDefinition.ROWS_UPDATED,
+                                                 ProductDataFieldDefinition.ROWS_DELETED,
+                                                 ProductDataFieldDefinition.SESSION_TIME,
+                                                 ProductDataFieldDefinition.ACTIVE_TIME,
+                                                 ProductDataFieldDefinition.CREATE_TIME,
+                                                 ProductDataFieldDefinition.UPDATE_TIME},
+                                         OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                                         "Data set",
+                                         null,
+                                         "Relational Data Manager Measurements"),
+
+    /**
+     * Relational Schema Measurements
+     */
+    RELATIONAL_SCHEMA_MEASUREMENTS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                                   new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                                   "Relational Schema Measurements",
+                                   "RELATIONAL-SCHEMA-MEASUREMENTS",
+                                   null,
+                                   "Resource measurement annotations for surveyed Relational Schemas",
+                                   "Details of the measurements collected by a survey of relational schemas from multiple databases.  This digital product supplements the main annotation list product (Annotation List).",
+                                   ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                                   ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                                   ProductCommunityDefinition.OBSERVABILITY_SIG,
+                                   new ProductSubscriptionDefinition[]{
+                                           ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                           ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                           ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                           ProductSubscriptionDefinition.ONGOING_UPDATE},
+                                   "Relational Schema Measurements",
+                                   new ProductDataFieldDefinition[]{
+                                           ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                                           ProductDataFieldDefinition.ANNOTATION_GUID,
+                                           ProductDataFieldDefinition.RESOURCE_NAME,
+                                           ProductDataFieldDefinition.SURVEY_SUBJECT_GUID
+                                   },
+                                   new ProductDataFieldDefinition[]{
+                                           ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                                           ProductDataFieldDefinition.SURVEY_SUBJECT_TYPE_NAME,
+                                           ProductDataFieldDefinition.DISPLAY_NAME,
+                                           ProductDataFieldDefinition.TABLE_COUNT,
+                                           ProductDataFieldDefinition.VIEW_COUNT,
+                                           ProductDataFieldDefinition.MAT_VIEW_COUNT,
+                                           ProductDataFieldDefinition.COLUMN_COUNT,
+                                           ProductDataFieldDefinition.DATA_SIZE,
+                                           ProductDataFieldDefinition.CREATE_TIME,
+                                           ProductDataFieldDefinition.UPDATE_TIME},
+                                   OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                                   "Data set",
+                                   null,
+                                   "Relational Schema Measurements"),
+
+
+    /**
+     * Relational Table Measurements
+     */
+    RELATIONAL_TABLE_MEASUREMENTS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                                  new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                                  "Relational Table Measurements",
+                                  "RELATIONAL-TABLE-MEASUREMENTS",
+                                  null,
+                                  "Resource measurement annotations for surveyed Relational Tables",
+                                  "Details of the measurements collected by a survey of relational tables from multiple databases.  This digital product supplements the main annotation list product (Annotation List).",
+                                  ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                                  ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                                  ProductCommunityDefinition.OBSERVABILITY_SIG,
+                                  new ProductSubscriptionDefinition[]{
+                                          ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                          ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                          ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                          ProductSubscriptionDefinition.ONGOING_UPDATE},
+                                  "Relational Table Measurements",
+                                  new ProductDataFieldDefinition[]{
+                                          ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                                          ProductDataFieldDefinition.ANNOTATION_GUID,
+                                          ProductDataFieldDefinition.RESOURCE_NAME,
+                                          ProductDataFieldDefinition.SURVEY_SUBJECT_GUID
+                                  },
+                                  new ProductDataFieldDefinition[]{
+                                          ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                                          ProductDataFieldDefinition.SURVEY_SUBJECT_TYPE_NAME,
+                                          ProductDataFieldDefinition.DISPLAY_NAME,
+                                          ProductDataFieldDefinition.TABLE_COUNT,
+                                          ProductDataFieldDefinition.VIEW_COUNT,
+                                          ProductDataFieldDefinition.MAT_VIEW_COUNT,
+                                          ProductDataFieldDefinition.COLUMN_COUNT,
+                                          ProductDataFieldDefinition.DATA_SIZE,
+                                          ProductDataFieldDefinition.CREATE_TIME,
+                                          ProductDataFieldDefinition.UPDATE_TIME},
+                                  OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                                  "Data set",
+                                  null,
+                                  "Relational Table Measurements"),
+
+    /**
+     * Relational Column Measurements
+     */
+    RELATIONAL_COLUMN_MEASUREMENTS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                                   new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                                   "Relational Column Measurements",
+                                   "RELATIONAL-COLUMN-MEASUREMENTS",
+                                   null,
+                                   "Resource measurement annotations for surveyed Relational Columns",
+                                   "Details of the measurements collected by a survey of relational columns from multiple databases.  This digital product supplements the main annotation list product (Annotation List).",
+                                   ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                                   ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                                   ProductCommunityDefinition.OBSERVABILITY_SIG,
+                                   new ProductSubscriptionDefinition[]{
+                                           ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                           ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                           ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                           ProductSubscriptionDefinition.ONGOING_UPDATE},
+                                   "Relational Column Measurements",
+                                   new ProductDataFieldDefinition[]{
+                                           ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                                           ProductDataFieldDefinition.ANNOTATION_GUID,
+                                           ProductDataFieldDefinition.RESOURCE_NAME,
+                                           ProductDataFieldDefinition.SURVEY_SUBJECT_GUID
+                                   },
+                                   new ProductDataFieldDefinition[]{
+                                           ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                                           ProductDataFieldDefinition.SURVEY_SUBJECT_TYPE_NAME,
+                                           ProductDataFieldDefinition.DISPLAY_NAME,
+                                           ProductDataFieldDefinition.DATA_TYPE,
+                                           ProductDataFieldDefinition.DATA_SIZE,
+                                           ProductDataFieldDefinition.DATA_SIZE,
+                                           ProductDataFieldDefinition.AVERAGE_WIDTH,
+                                           ProductDataFieldDefinition.NUMBER_OF_DISTINCT_VALUES,
+                                           ProductDataFieldDefinition.MOST_COMMON_VALUES,
+                                           ProductDataFieldDefinition.MOST_COMMON_VALUES_FREQUENCY,
+                                           ProductDataFieldDefinition.CREATE_TIME,
+                                           ProductDataFieldDefinition.UPDATE_TIME},
+                                   OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                                   "Data set",
+                                   null,
+                                   "Relational Column Measurements"),
+
+    /**
+     * File Measurements
+     */
+    FILE_MEASUREMENTS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                      new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                      "File Measurements",
+                      "FILE-MEASUREMENTS",
+                      null,
+                      "Resource measurement annotations for surveyed Files",
+                      "Details of the measurements collected by a survey of files from multiple directories (folders).  This digital product supplements the main annotation list product (Annotation List).",
+                      ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                      ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                      ProductCommunityDefinition.OBSERVABILITY_SIG,
+                      new ProductSubscriptionDefinition[]{
+                              ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                              ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                              ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                              ProductSubscriptionDefinition.ONGOING_UPDATE},
+                      "File Measurements",
+                      new ProductDataFieldDefinition[]{
+                              ProductDataFieldDefinition.ANNOTATION_GUID,
+                              ProductDataFieldDefinition.PATHNAME
+                      },
+                      new ProductDataFieldDefinition[]{
+                              ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                              ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                              ProductDataFieldDefinition.SURVEY_SUBJECT_GUID,
+                              ProductDataFieldDefinition.SURVEY_SUBJECT_TYPE_NAME,
+                              ProductDataFieldDefinition.FILE_NAME,
+                              ProductDataFieldDefinition.FILE_EXTENSION,
+                              ProductDataFieldDefinition.FILE_TYPE,
+                              ProductDataFieldDefinition.DEPLOYED_IMPLEMENTATION_TYPE,
+                              ProductDataFieldDefinition.ENCODING,
+                              ProductDataFieldDefinition.ASSET_TYPE_NAME,
+                              ProductDataFieldDefinition.CAN_READ,
+                              ProductDataFieldDefinition.CAN_WRITE,
+                              ProductDataFieldDefinition.CAN_EXECUTE,
+                              ProductDataFieldDefinition.IS_SYM_LINK,
+                              ProductDataFieldDefinition.IS_HIDDEN,
+                              ProductDataFieldDefinition.FILE_CREATION_TIME,
+                              ProductDataFieldDefinition.LAST_FILE_MODIFICATION_TIME,
+                              ProductDataFieldDefinition.LAST_ACCESSED_TIME,
+                              ProductDataFieldDefinition.FILE_SIZE,
+                              ProductDataFieldDefinition.RECORD_COUNT,
+                              ProductDataFieldDefinition.CREATE_TIME,
+                              ProductDataFieldDefinition.UPDATE_TIME},
+                      OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                      "Data set",
+                      null,
+                      "File Measurements"),
+
+    /**
+     * File Directory (Folder) Measurements
+     */
+    FOLDER_MEASUREMENTS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                        new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                        "File Directory (Folder) Measurements",
+                        "FILE-DIRECTORY-MEASUREMENTS",
+                        null,
+                        "Resource measurement annotations for surveyed directories (folders)",
+                        "Details of files found in a directory (and subdirectories).  This digital product supplements the main annotation list product (Annotation List).",
+                        ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                        ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                        ProductCommunityDefinition.OBSERVABILITY_SIG,
+                        new ProductSubscriptionDefinition[]{
+                                ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                ProductSubscriptionDefinition.ONGOING_UPDATE},
+                        "File Directory Measurements",
+                        new ProductDataFieldDefinition[]{
+                                ProductDataFieldDefinition.ANNOTATION_GUID,
+                                ProductDataFieldDefinition.PATHNAME
+                        },
+                        new ProductDataFieldDefinition[]{
+                                ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                                ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                                ProductDataFieldDefinition.SURVEY_SUBJECT_GUID,
+                                ProductDataFieldDefinition.SURVEY_SUBJECT_TYPE_NAME,
+                                ProductDataFieldDefinition.FILE_COUNT,
+                                ProductDataFieldDefinition.TOTAL_FILE_SIZE,
+                                ProductDataFieldDefinition.SUB_DIRECTORY_COUNT,
+                                ProductDataFieldDefinition.READABLE_FILE_COUNT,
+                                ProductDataFieldDefinition.WRITEABLE_FILE_COUNT,
+                                ProductDataFieldDefinition.EXECUTABLE_FILE_COUNT,
+                                ProductDataFieldDefinition.SYM_LINK_FILE_COUNT,
+                                ProductDataFieldDefinition.HIDDEN_FILE_COUNT,
+                                ProductDataFieldDefinition.FILE_NAME_COUNT,
+                                ProductDataFieldDefinition.FILE_EXTENSION_COUNT,
+                                ProductDataFieldDefinition.FILE_TYPE_COUNT,
+                                ProductDataFieldDefinition.ASSET_TYPE_COUNT,
+                                ProductDataFieldDefinition.DEPLOYED_IMPLEMENTATION_TYPE_COUNT,
+                                ProductDataFieldDefinition.UNCLASSIFIED_FILE_COUNT,
+                                ProductDataFieldDefinition.INACCESSIBLE_FILE_COUNT,
+                                ProductDataFieldDefinition.LAST_FILE_CREATION_TIME,
+                                ProductDataFieldDefinition.LAST_FILE_MODIFICATION_TIME,
+                                ProductDataFieldDefinition.LAST_FILE_ACCESSED_TIME,
+                                ProductDataFieldDefinition.CREATE_TIME,
+                                ProductDataFieldDefinition.UPDATE_TIME},
+                        OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                        "Data set",
+                        null,
+                        "File Directory Measurements"),
+
+
+    /**
+     * Resource Measurements
+     */
+    RESOURCE_MEASUREMENTS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                          new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                          "Resource Measurements",
+                          "RESOURCE-MEASUREMENTS",
+                          null,
+                          "Resource measurement annotations for surveyed resources",
+                          "Details of individual resources surveyed.  This digital product supplements the main annotation list product (Annotation List).",
+                          ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                          ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                          ProductCommunityDefinition.OBSERVABILITY_SIG,
+                          new ProductSubscriptionDefinition[]{
+                                  ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                  ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                  ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                  ProductSubscriptionDefinition.ONGOING_UPDATE},
+                          "Resource Measurements",
+                          new ProductDataFieldDefinition[]{
+                                  ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                                  ProductDataFieldDefinition.ANNOTATION_GUID,
+                                  ProductDataFieldDefinition.SURVEY_SUBJECT_GUID,
+                                  ProductDataFieldDefinition.MEASUREMENT_CATEGORY
+                          },
+                          new ProductDataFieldDefinition[]{
+                                  ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                                  ProductDataFieldDefinition.SURVEY_SUBJECT_TYPE_NAME,
+                                  ProductDataFieldDefinition.MEASUREMENT_NAME,
+                                  ProductDataFieldDefinition.MEASUREMENT_VALUE,
+                                  ProductDataFieldDefinition.MEASUREMENT_DISPLAY_NAME,
+                                  ProductDataFieldDefinition.MEASUREMENT_NUMERIC_VALUE,
+                                  ProductDataFieldDefinition.RESOURCE_CREATION_TIME,
+                                  ProductDataFieldDefinition.LAST_MODIFIED_TIME,
+                                  ProductDataFieldDefinition.LAST_ACCESSED_TIME,
+                                  ProductDataFieldDefinition.RESOURCE_SIZE,
+                                  ProductDataFieldDefinition.ENCODING,
+                                  ProductDataFieldDefinition.CREATE_TIME,
+                                  ProductDataFieldDefinition.UPDATE_TIME},
+                          OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                          "Data set",
+                          null,
+                          "Resource Measurements"),
+
+
+    /**
+     * Profile Measurements
+     */
+    PROFILE_MEASUREMENTS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                         new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                         "Profile Measurements",
+                         "PROFILE-MEASUREMENTS",
+                         null,
+                         "Profile measurement annotations for surveyed resources",
+                         "Details of individual profile measurements.  This digital product supplements the main annotation list product (Annotation List).",
+                         ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                         ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                         ProductCommunityDefinition.OBSERVABILITY_SIG,
+                         new ProductSubscriptionDefinition[]{
+                                 ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                 ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                 ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                 ProductSubscriptionDefinition.ONGOING_UPDATE},
+                         "Profile Measurements",
+                         new ProductDataFieldDefinition[]{
+                                 ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                                 ProductDataFieldDefinition.ANNOTATION_GUID,
+                                 ProductDataFieldDefinition.SURVEY_SUBJECT_GUID,
+                                 ProductDataFieldDefinition.MEASUREMENT_CATEGORY
+                         },
+                         new ProductDataFieldDefinition[]{
+                                 ProductDataFieldDefinition.METADATA_COLLECTION_ID,
+                                 ProductDataFieldDefinition.SURVEY_SUBJECT_TYPE_NAME,
+                                 ProductDataFieldDefinition.MEASUREMENT_NAME,
+                                 ProductDataFieldDefinition.MEASUREMENT_VALUE,
+                                 ProductDataFieldDefinition.MEASUREMENT_NUMERIC_VALUE,
+                                 ProductDataFieldDefinition.CREATE_TIME,
+                                 ProductDataFieldDefinition.UPDATE_TIME},
+                         OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                         "Data set",
+                         null,
+                         "Profile Measurements"),
+
+
+    /**
+     * Missing File Classifiers
+     */
+    MISSING_FILE_CLASSIFIERS(OpenMetadataType.DIGITAL_PRODUCT.typeName,
+                             new ProductDefinition[]{ProductDefinitionEnum.SURVEY_REPORTS},
+                             "Missing File Classifiers",
+                             "MISSING-FILE-CLASSIFIERS",
+                             null,
+                             "Missing File Classifiers",
+                             "List of files that could not be classified using the file reference data supplied by Core Content Pack.",
+                             ProductCategoryDefinition.SURVEY_REPORTS.getPreferredValue(),
+                             ProductGovernanceDefinition.INTERNAL_USE_ONLY,
+                             ProductCommunityDefinition.OBSERVABILITY_SIG,
+                             new ProductSubscriptionDefinition[]{
+                                     ProductSubscriptionDefinition.EVALUATION_SUBSCRIPTION,
+                                     ProductSubscriptionDefinition.DAILY_REFRESH_SUBSCRIPTION,
+                                     ProductSubscriptionDefinition.WEEKLY_REFRESH_SUBSCRIPTION,
+                                     ProductSubscriptionDefinition.ONGOING_UPDATE},
+                             "Missing File Classifiers",
+                             new ProductDataFieldDefinition[]{
+                                     ProductDataFieldDefinition.SYNC_TIME,
+                                     ProductDataFieldDefinition.PATHNAME
+                             },
+                             new ProductDataFieldDefinition[]{
+                                     ProductDataFieldDefinition.SURVEY_REPORT_GUID,
+                                     ProductDataFieldDefinition.FILE_NAME,
+                                     ProductDataFieldDefinition.FILE_EXTENSION,
+                                     ProductDataFieldDefinition.FILE_TYPE,
+                                     ProductDataFieldDefinition.DEPLOYED_IMPLEMENTATION_TYPE,
+                                     ProductDataFieldDefinition.ENCODING,
+                                     ProductDataFieldDefinition.ASSET_TYPE_NAME,
+                                     ProductDataFieldDefinition.CREATE_TIME,
+                                     ProductDataFieldDefinition.UPDATE_TIME},
+                             OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
+                             "Data set",
+                             null,
+                             "Missing File Classifiers"),
+
+
+
     /*
      * =============================================================================================
      */
@@ -499,7 +1100,7 @@ public enum ProductDefinitionEnum implements ProductDefinition
                                "ORGANIZATION-OBSERVABILITY",
                                ProductFolderDefinition.PRODUCTS,
                                "Organization Observability",
-                               "Each product in this folder publishes insights about the activity of the organization observed through the open metadata ecosystem.  The latest insight is published to subscribers on a regular basis.  Subscribers can maintain a history of the insight publications, or treat each on as a trigger to perform specific processing.",
+                               "Each product in this folder publishes insights about the activity of the organization observed through the open metadata ecosystem.  The latest insight is published to subscribers on a regular basis.  Subscribers can maintain a history of the insight publications, or treat each one as a trigger to perform specific processing.",
                                ProductCategoryDefinition.INSIGHT_NOTIFICATIONS.getPreferredValue(),
                                ProductGovernanceDefinition.PERSONAL_DATA,
                                ProductCommunityDefinition.OBSERVABILITY_SIG,

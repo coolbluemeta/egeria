@@ -330,7 +330,7 @@ public class CocoOrganizationArchiveWriter extends EgeriaBaseArchiveWriter
 
             if (deptDefinition.getMembers() != null)
             {
-                for (PersonDefinition appointee : deptDefinition.getLeaders())
+                for (PersonDefinition appointee : deptDefinition.getMembers())
                 {
                     archiveHelper.addPersonRoleAppointmentRelationship(appointee.getQualifiedName(),
                                                                        membershipRoleQName,

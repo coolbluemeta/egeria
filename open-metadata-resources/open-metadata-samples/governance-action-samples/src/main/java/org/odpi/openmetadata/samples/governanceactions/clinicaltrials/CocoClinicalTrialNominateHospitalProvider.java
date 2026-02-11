@@ -11,7 +11,7 @@ public class CocoClinicalTrialNominateHospitalProvider extends GovernanceActionS
     private static final String  connectorTypeGUID = "f89e7b05-d05b-449f-8c5c-d5dd7833acec";
     private static final String  connectorTypeQualifiedName = "CocoPharmaceuticals:GovernanceActionService:ClinicalTrial:NominateHospital";
     private static final String  connectorTypeDisplayName = "Clinical Trial Nominate Hospital Governance Action Service";
-    private static final String  connectorTypeDescription = "Adds an incomplete certification relationship the Hospital organization that identifies the hospital contacts that will complete the certification process.  Any previous certifications tha the hospital has to this clinical trial are cancelled (ended).";
+    private static final String  connectorTypeDescription = "Adds an incomplete certification relationship the Hospital organization that identifies the hospital contacts that will complete the certification process.  Any previous certifications that the hospital has to this clinical trial are cancelled (ended).";
 
     private static final String connectorClassName = CocoClinicalTrialNominateHospitalService.class.getName();
 

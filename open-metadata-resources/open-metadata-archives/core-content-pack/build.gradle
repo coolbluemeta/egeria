@@ -39,7 +39,7 @@ dependencies {
     implementation project(':open-metadata-implementation:adapters:open-connectors:nanny-connectors')
     implementation project(':open-metadata-implementation:adapters:open-connectors:organization-insights')
     implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:files-integration-connectors')
-    implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:csv-lineage-import-integration-connector')
+    runtimeOnly project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:csv-lineage-import-integration-connector')
     implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:jdbc-integration-connector')
     implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:kafka-audit-integration-connector')
     implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:openapi-integration-connector')

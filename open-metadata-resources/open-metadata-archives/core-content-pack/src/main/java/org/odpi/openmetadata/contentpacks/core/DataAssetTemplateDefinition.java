@@ -4,8 +4,8 @@
 package org.odpi.openmetadata.contentpacks.core;
 
 
-import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaPlaceholderProperty;
-import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaTemplateType;
+import org.odpi.openmetadata.adapters.connectors.controls.KafkaPlaceholderProperty;
+import org.odpi.openmetadata.adapters.connectors.controls.KafkaTemplateType;
 import org.odpi.openmetadata.adapters.connectors.controls.PostgresDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.datastore.basicfile.BasicFileStoreProvider;
 import org.odpi.openmetadata.adapters.connectors.datastore.basicfile.BasicFolderProvider;

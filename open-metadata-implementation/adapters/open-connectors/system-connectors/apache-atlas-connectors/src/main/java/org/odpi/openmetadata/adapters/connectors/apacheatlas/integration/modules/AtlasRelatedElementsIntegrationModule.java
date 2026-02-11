@@ -3,8 +3,8 @@
 package org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.modules;
 
 
-import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ApacheAtlasIntegrationConnector;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ApacheAtlasIntegrationProvider;
+import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ApacheAtlasIntegrationTargetProcessor;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ffdc.AtlasIntegrationAuditCode;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ApacheAtlasRESTConnector;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasClassification;
@@ -12,7 +12,6 @@ import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasEntityWithExtInfo;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasInstanceStatus;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.frameworks.integration.context.IntegrationContext;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
@@ -60,7 +59,6 @@ public class AtlasRelatedElementsIntegrationModule extends AtlasIntegrationModul
      * @param myContext integration context
      * @param targetRootURL URL to connect to Apache Atlas
      * @param atlasClient client to connect to Apache Atlas
-     * @param embeddedConnectors list of any embedded connectors (such as secrets connector and topic connector
      * @param informalTagsMappingPolicy determines what type of mapping to perform for informal tags
      * @param relatedClassificationPolicy determines how classifications should be processed.  Can be "ALL", "SELECTED" or "NONE".
      * @param ignoreClassificationList list of classifications to ignore if relatedClassificationPolicy==SELECTED
@@ -74,7 +72,6 @@ public class AtlasRelatedElementsIntegrationModule extends AtlasIntegrationModul
                                                  IntegrationContext       myContext,
                                                  String                   targetRootURL,
                                                  ApacheAtlasRESTConnector atlasClient,
-                                                 List<Connector>          embeddedConnectors,
                                                  String                   informalTagsMappingPolicy,
                                                  String                   relatedClassificationPolicy,
                                                  List<String>             ignoreClassificationList,
@@ -87,8 +84,7 @@ public class AtlasRelatedElementsIntegrationModule extends AtlasIntegrationModul
               auditLog,
               myContext,
               targetRootURL,
-              atlasClient,
-              embeddedConnectors);
+              atlasClient);
 
         this.informalTagsMappingPolicy = informalTagsMappingPolicy;
         this.relatedClassificationPolicy = relatedClassificationPolicy;
@@ -155,7 +151,7 @@ public class AtlasRelatedElementsIntegrationModule extends AtlasIntegrationModul
             final int              maxPageSize = 100;
             int                    startFrom = 0;
 
-            List<AtlasEntityHeader> correlationEntities = atlasClient.getEntitiesForType(ApacheAtlasIntegrationConnector.OPEN_METADATA_CORRELATION_TYPE_NAME, startFrom, maxPageSize);
+            List<AtlasEntityHeader> correlationEntities = atlasClient.getEntitiesForType(ApacheAtlasIntegrationTargetProcessor.OPEN_METADATA_CORRELATION_TYPE_NAME, startFrom, maxPageSize);
 
             while (correlationEntities != null)
             {
@@ -218,7 +214,7 @@ public class AtlasRelatedElementsIntegrationModule extends AtlasIntegrationModul
                 }
 
                 startFrom = startFrom + maxPageSize;
-                correlationEntities = atlasClient.getEntitiesForType(ApacheAtlasIntegrationConnector.OPEN_METADATA_CORRELATION_TYPE_NAME,
+                correlationEntities = atlasClient.getEntitiesForType(ApacheAtlasIntegrationTargetProcessor.OPEN_METADATA_CORRELATION_TYPE_NAME,
                                                                      startFrom,
                                                                      maxPageSize);
             }

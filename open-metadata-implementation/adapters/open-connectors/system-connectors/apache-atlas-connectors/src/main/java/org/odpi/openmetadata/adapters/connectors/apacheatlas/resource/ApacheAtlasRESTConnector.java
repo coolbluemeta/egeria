@@ -2,6 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.adapters.connectors.apacheatlas.resource;
 
+import org.odpi.openmetadata.adapters.connectors.apacheatlas.controls.ApacheAtlasConfigurationProperty;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ffdc.ApacheAtlasAuditCode;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ffdc.ApacheAtlasErrorCode;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ffdc.NameConflictException;
@@ -137,9 +138,9 @@ public class ApacheAtlasRESTConnector extends ConnectorBase implements AuditLogg
 
         if (configurationProperties != null)
         {
-            if (configurationProperties.get(ApacheAtlasRESTProvider.ATLAS_SERVER_NAME_CONFIGURATION_PROPERTY) != null)
+            if (configurationProperties.get(ApacheAtlasConfigurationProperty.ATLAS_SERVER_NAME.getName()) != null)
             {
-                atlasServerName = configurationProperties.get(ApacheAtlasRESTProvider.ATLAS_SERVER_NAME_CONFIGURATION_PROPERTY).toString();
+                atlasServerName = configurationProperties.get(ApacheAtlasConfigurationProperty.ATLAS_SERVER_NAME.getName()).toString();
             }
         }
 

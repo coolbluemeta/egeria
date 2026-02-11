@@ -34,7 +34,6 @@ public class AtlasInformalTagsIntegrationModule extends AtlasIntegrationModuleBa
      * @param myContext integration context
      * @param targetRootURL URL to connect to Apache Atlas
      * @param atlasClient client to connect to Apache Atlas
-     * @param embeddedConnectors list of any embedded connectors (such as secrets connector and topic connector
      * @param informalTagsMappingPolicy determines what type of mapping to perform for informal tags
      * @throws UserNotAuthorizedException security problem
      */
@@ -44,7 +43,6 @@ public class AtlasInformalTagsIntegrationModule extends AtlasIntegrationModuleBa
                                               IntegrationContext       myContext,
                                               String                   targetRootURL,
                                               ApacheAtlasRESTConnector atlasClient,
-                                              List<Connector>          embeddedConnectors,
                                               String                   informalTagsMappingPolicy) throws UserNotAuthorizedException
     {
         super(connectorName,
@@ -53,8 +51,7 @@ public class AtlasInformalTagsIntegrationModule extends AtlasIntegrationModuleBa
               auditLog,
               myContext,
               targetRootURL,
-              atlasClient,
-              embeddedConnectors);
+              atlasClient);
 
         this.informalTagsMappingPolicy = informalTagsMappingPolicy;
     }
