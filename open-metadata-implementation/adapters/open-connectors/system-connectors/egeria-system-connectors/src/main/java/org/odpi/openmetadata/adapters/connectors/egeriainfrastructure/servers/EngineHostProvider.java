@@ -3,37 +3,15 @@
 
 package org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers;
 
-import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control.OMAGServerPlatformConfigurationProperty;
-import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
-import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
-import org.odpi.openmetadata.frameworks.connectors.ConnectorProviderBase;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
+import org.odpi.openmetadata.frameworks.connectors.OpenConnectorProviderBase;
 
 /**
  * Connector Provider
  */
-public class EngineHostProvider extends ConnectorProviderBase
+public class EngineHostProvider extends OpenConnectorProviderBase
 {
-    /*
-     * Unique identifier of the connector for the audit log.
-     */
-    private static final int    connectorComponentId   = 679;
-
-    /*
-     * Unique identifier for the connector type.
-     */
-    private static final String connectorTypeGUID      = "17e3636d-f1fd-4ebc-8604-d789c0a2021b";
-
-    /*
-     * Descriptive information about the connector for the connector type and audit log.
-     */
-    private static final String connectorQualifiedName = "Egeria:ResourceConnector:System:EngineHost";
-    private static final String connectorDisplayName   = "Engine Host Connector";
-    private static final String connectorDescription   = "Connector that provides access to the operational services of Egeria's Engine Host.";
-    private static final String connectorWikiPage      = "https://egeria-project.org/connectors/egeria/engine-host-connector/";
-
-
     /*
      * Class of the connector.
      */
@@ -46,39 +24,9 @@ public class EngineHostProvider extends ConnectorProviderBase
      */
     public EngineHostProvider()
     {
-        super();
-
-        /*
-         * Set up the class name of the connector that this provider creates.
-         */
-        super.setConnectorClassName(connectorClassName);
-
-        /*
-         * Set up the connector type that should be included in a connection used to configure this connector.
-         */
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorQualifiedName);
-        connectorType.setDisplayName(connectorDisplayName);
-        connectorType.setDescription(connectorDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
-        connectorType.setSupportedAssetTypeName(EgeriaDeployedImplementationType.ENGINE_HOST.getAssociatedTypeName());
-        connectorType.setSupportedDeployedImplementationType(EgeriaDeployedImplementationType.ENGINE_HOST.getDeployedImplementationType());
-        connectorType.setRecognizedConfigurationProperties(OMAGServerPlatformConfigurationProperty.getRecognizedConfigurationProperties());
-        super.connectorTypeBean = connectorType;
-
-        /*
-         * Set up the component description used in the connector's audit log messages.
-         */
-        AuditLogReportingComponent componentDescription = new AuditLogReportingComponent();
-
-        componentDescription.setComponentId(connectorComponentId);
-        componentDescription.setComponentDevelopmentStatus(ComponentDevelopmentStatus.STABLE);
-        componentDescription.setComponentName(connectorDisplayName);
-        componentDescription.setComponentDescription(connectorDescription);
-        componentDescription.setComponentWikiURL(connectorWikiPage);
-
-        super.setConnectorComponentDescription(componentDescription);
+        super(EgeriaOpenConnectorDefinition.ENGINE_HOST_RESOURCE_CONNECTOR,
+              connectorClassName,
+              OMAGServerPlatformConfigurationProperty.getRecognizedConfigurationProperties());
 
         super.supportedConfigurationProperties = OMAGServerPlatformConfigurationProperty.getConfigurationPropertyTypes();
     }

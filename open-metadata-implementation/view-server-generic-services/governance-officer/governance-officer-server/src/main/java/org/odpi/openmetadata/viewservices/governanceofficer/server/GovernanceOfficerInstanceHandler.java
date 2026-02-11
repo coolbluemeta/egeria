@@ -10,7 +10,6 @@ import org.odpi.openmetadata.frameworks.openmetadata.client.OpenMetadataClient;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
-import org.odpi.openmetadata.frameworks.openmetadata.handlers.GovernanceDefinitionGraphHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.GovernanceDefinitionHandler;
 
 

@@ -110,7 +110,7 @@ subprojects {
                     mavenmodule(MavenPublication) {
                         from components.java
                         pom {
-                            url = 'http://egeria.odpi.org'
+                            url = 'https://egeria.odpi.org'
                             licenses {
                                 // Code
                                 license {

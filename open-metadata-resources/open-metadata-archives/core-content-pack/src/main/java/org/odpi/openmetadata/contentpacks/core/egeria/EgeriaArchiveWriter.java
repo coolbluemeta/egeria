@@ -9,6 +9,7 @@ import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.YAMLSecretsSt
 import org.odpi.openmetadata.adminservices.configuration.registration.*;
 import org.odpi.openmetadata.contentpacks.core.ContentPackDefinition;
 import org.odpi.openmetadata.contentpacks.core.IntegrationGroupDefinition;
+import org.odpi.openmetadata.contentpacks.core.RequestTypeDefinition;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
 import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
 import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
@@ -32,7 +33,7 @@ import java.util.Map;
 
 /**
  * EgeriaArchiveWriter creates an open metadata archive that includes the connectors and reference data that
- * survey and catalog the Egeria's infrastructure..
+ * survey and catalog the Egeria's infrastructure.
  */
 public class EgeriaArchiveWriter extends ContentPackBaseArchiveWriter
 {
@@ -252,9 +253,22 @@ public class EgeriaArchiveWriter extends ContentPackBaseArchiveWriter
         /*
          * Define the solution components for this solution.
          */
-        this.addSolutionBlueprints(ContentPackDefinition.EGERIA_CONTENT_PACK);
+        this.addSolutionBlueprints(ContentPackDefinition.EGERIA_CONTENT_PACK, null);
         this.addSolutionLinkingWires(ContentPackDefinition.EGERIA_CONTENT_PACK);
 
+        /*
+         * Since there are no processes, the actors are added explicitly
+         */
+        for (RequestTypeDefinition requestType : RequestTypeDefinition.values())
+        {
+            if (requestType.getContentPackDefinition() == ContentPackDefinition.EGERIA_CONTENT_PACK)
+            {
+                archiveHelper.addSolutionComponentActorRelationship(EgeriaRoleDefinition.OPEN_METADATA_USER.getGUID(),
+                                                                    requestType.getSolutionComponentGUID(),
+                                                                    "requests",
+                                                                    "A user wishing to understand their Egeria runtime may request this action.");
+            }
+        }
 
         /*
          * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.

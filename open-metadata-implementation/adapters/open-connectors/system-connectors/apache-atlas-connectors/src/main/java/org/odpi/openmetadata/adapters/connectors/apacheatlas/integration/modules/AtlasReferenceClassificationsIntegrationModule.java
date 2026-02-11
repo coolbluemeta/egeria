@@ -10,7 +10,6 @@ import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasClassificationDef;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasTypesDef;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.frameworks.integration.context.IntegrationContext;
 import org.odpi.openmetadata.frameworks.openmetadata.connectorcontext.ValidValueDefinitionClient;
@@ -56,7 +55,6 @@ public class AtlasReferenceClassificationsIntegrationModule extends AtlasIntegra
      * @param myContext integration context
      * @param targetRootURL URL to connect to Apache Atlas
      * @param atlasClient client to connect to Apache Atlas
-     * @param embeddedConnectors list of any embedded connectors (such as secrets connector and topic connector
      * @param classificationReferenceSetName determines what type of mapping to perform for informal tags
      * @param classificationReferenceSetPolicy determines the direction of exchange between the open metadata ecosystem and Apache Atlas
      * @throws UserNotAuthorizedException security problem
@@ -67,7 +65,6 @@ public class AtlasReferenceClassificationsIntegrationModule extends AtlasIntegra
                                                           IntegrationContext       myContext,
                                                           String                   targetRootURL,
                                                           ApacheAtlasRESTConnector atlasClient,
-                                                          List<Connector>          embeddedConnectors,
                                                           String                   classificationReferenceSetName,
                                                           String                   classificationReferenceSetPolicy) throws UserNotAuthorizedException
     {
@@ -77,8 +74,7 @@ public class AtlasReferenceClassificationsIntegrationModule extends AtlasIntegra
               auditLog,
               myContext,
               targetRootURL,
-              atlasClient,
-              embeddedConnectors);
+              atlasClient);
 
         this.classificationReferenceSetName = classificationReferenceSetName;
         this.classificationReferenceSetPolicy = classificationReferenceSetPolicy;

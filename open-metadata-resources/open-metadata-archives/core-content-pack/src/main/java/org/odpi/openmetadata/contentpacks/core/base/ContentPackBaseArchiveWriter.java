@@ -2,7 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.contentpacks.core.base;
 
-import org.odpi.openmetadata.adapters.connectors.EgeriaSolutionComponent;
+import org.odpi.openmetadata.adapters.connectors.EgeriaRoleDefinition;
 import org.odpi.openmetadata.contentpacks.core.*;
 import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.ManageAssetGuard;
@@ -124,6 +124,48 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                 null);
                 }
 
+            }
+        }
+    }
+
+
+    /**
+     * Create supply chains
+     */
+    protected void addInformationSupplyChains()
+    {
+        final String methodName = "addInformationSupplyChains";
+
+        for (org.odpi.openmetadata.adapters.connectors.EgeriaInformationSupplyChainDefinition informationSupplyChain : org.odpi.openmetadata.adapters.connectors.EgeriaInformationSupplyChainDefinition.values())
+        {
+            archiveHelper.setGUID(informationSupplyChain.getQualifiedName(), informationSupplyChain.getGUID());
+
+            String iscGUID = archiveHelper.addInformationSupplyChain(informationSupplyChain.getOwningSupplyChain(),
+                                                                     informationSupplyChain.isOwningInformationSupplyChainAnchor(),
+                                                                     informationSupplyChain.getAnchorScopeGUID(),
+                                                                     OpenMetadataType.INFORMATION_SUPPLY_CHAIN.typeName,
+                                                                     informationSupplyChain.getQualifiedName(),
+                                                                     informationSupplyChain.getDisplayName(),
+                                                                     informationSupplyChain.getDescription(),
+                                                                     informationSupplyChain.getScope().getPreferredValue(),
+                                                                     informationSupplyChain.getPurposes(),
+                                                                     null,
+                                                                     informationSupplyChain.getOwner(),
+                                                                     informationSupplyChain.getOwnerTypeName(),
+                                                                     informationSupplyChain.getOwnerPropertyName(),
+                                                                     null,
+                                                                     null,
+                                                                     null);
+            assert(iscGUID.equals(informationSupplyChain.getGUID()));
+
+            if (informationSupplyChain.isTemplate())
+            {
+                archiveHelper.addTemplateClassification(iscGUID,
+                                                        informationSupplyChain.getTemplateName(),
+                                                        informationSupplyChain.getTemplateDescription(),
+                                                        versionName,
+                                                        null,
+                                                        methodName);
             }
         }
     }
@@ -503,7 +545,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                                        deployedImplementationType.getAssociatedTypeName(),
                                                                        OpenMetadataType.ASSET.typeName,
                                                                        null,
-                                                                       qualifiedName + ":SecretStoreEndpoint",
+                                                                       qualifiedName + "::SecretStoreEndpoint",
                                                                        serverName + " secret store endpoint",
                                                                        null,
                                                                        secretsStoreFileName,
@@ -511,7 +553,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                                        null);
 
             String secretsStoreConnectionGUID = archiveHelper.addConnection(OpenMetadataType.CONNECTION.typeName,
-                                                                            qualifiedName + ":SecretsStoreConnection",
+                                                                            qualifiedName + "::SecretsStoreConnection",
                                                                             serverName + " secrets store connection",
                                                                             null,
                                                                             null,
@@ -1233,7 +1275,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                                    deployedImplementationType.getAssociatedTypeName(),
                                                                    OpenMetadataType.ASSET.typeName,
                                                                    null,
-                                                                   qualifiedName + ":SecretStoreEndpoint",
+                                                                   qualifiedName + "::SecretStoreEndpoint",
                                                                    assetName + " secret store endpoint",
                                                                    null,
                                                                    secretsStoreFileName,
@@ -1241,7 +1283,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                                    null);
 
         String secretsStoreConnectionGUID = archiveHelper.addConnection(OpenMetadataType.CONNECTION.typeName,
-                                                                        qualifiedName + ":SecretsStoreConnection",
+                                                                        qualifiedName + "::SecretsStoreConnection",
                                                                         assetName + " secrets store connection",
                                                                         null,
                                                                         null,
@@ -1371,8 +1413,10 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * at least one solution blueprint in each content pack, used to describe its content.
      *
      * @param contentPackDefinition which content pack?
+     * @param additionalComponentGUIDs additional components to add to the solution blueprint
      */
-    protected void addSolutionBlueprints(ContentPackDefinition contentPackDefinition)
+    protected void addSolutionBlueprints(ContentPackDefinition contentPackDefinition,
+                                         List<String>          additionalComponentGUIDs)
     {
         for (SolutionBlueprint solutionBlueprint : SolutionBlueprint.values())
         {
@@ -1383,12 +1427,23 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                 String solutionBlueprintGUID = archiveHelper.addSolutionBlueprint(OpenMetadataType.SOLUTION_BLUEPRINT.typeName,
                                                                                   solutionBlueprint.getSolutionBlueprintQualifiedName(),
                                                                                   solutionBlueprint.getSolutionBlueprintDisplayName(),
+                                                                                  solutionBlueprint.getSolutionBlueprintIdentifier(),
                                                                                   solutionBlueprint.getDescription(),
                                                                                   versionName,
                                                                                   null,
                                                                                   null);
 
                 assert(solutionBlueprint.getSolutionBlueprintGUID().equals(solutionBlueprintGUID));
+
+                if (additionalComponentGUIDs != null)
+                {
+                    for (String solutionComponentGUID : additionalComponentGUIDs)
+                    {
+                        archiveHelper.addMemberToCollection(solutionBlueprint.getSolutionBlueprintGUID(),
+                                                            solutionComponentGUID,
+                                                            "additional component");
+                    }
+                }
 
                 if (solutionBlueprint.getExtraSolutionComponentGUIDs() != null)
                 {
@@ -1592,11 +1647,14 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                                null,
                                                                null);
 
-                    archiveHelper.addSolutionLinkingWireRelationship(integrationConnectorDefinition.getSolutionComponentGUID(),
-                                                                     EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID(),
-                                                                     "metadata",
-                                                                     "Querying and maintaining open metadata.",
-                                                                     null);
+                    if (integrationConnectorDefinition.linkToMetadataServerSolutionComponent())
+                    {
+                        archiveHelper.addSolutionLinkingWireRelationship(integrationConnectorDefinition.getSolutionComponentGUID(),
+                                                                         EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID(),
+                                                                         "metadata",
+                                                                         "Querying and maintaining open metadata.",
+                                                                         null);
+                    }
 
                     if (integrationConnectorDefinition.getDeployedImplementationTypes() != null)
                     {
@@ -1778,7 +1836,10 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                     requestTypeDefinition.getSupportedElementQualifiedName(),
                                     requestTypeDefinition.getSolutionComponentGUID(),
                                     requestTypeDefinition.getSolutionComponentName(),
-                                    requestTypeDefinition.getSolutionComponentDescription());
+                                    requestTypeDefinition.getSolutionComponentDescription(),
+                                    requestTypeDefinition.getConfiguresComponentGUID(),
+                                    requestTypeDefinition.linkToMetadataServerSolutionComponent(),
+                                    requestTypeDefinition.getWorksWithTechnology());
             }
         }
     }
@@ -1794,23 +1855,32 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * @param serviceRequestType internal name of the request type
      * @param requestParameters any request parameters
      * @param actionTargets action targets
-     * @param governanceActionDescription description of the governance action if and
+     * @param governanceActionDescription description of the governance action, if any
      * @param governanceActionTypeGUID unique identifier of the associated governance action type
-     * @param supportedElementQualifiedName element to link the governance action type to
+     * @param supportedElementQualifiedName technology to link the governance action type to with ResourceList
+     * @param solutionComponentGUID unique identifier for the solution component
+     * @param solutionComponentName name of the solution component
+     * @param solutionComponentDescription description for the solution components
+     * @param worksWithTechnology technology type to link the solution component to
+     * @param configuresComponentGUID optional component that it configures
+     * @param linkToMetadataServerSolutionComponent should this component link to the open metadata server solution component?
      */
-    protected void addRequestType(String                      governanceEngineGUID,
-                                  String                      governanceEngineName,
-                                  String                      governanceEngineTypeName,
-                                  String                      governanceRequestType,
-                                  String                      serviceRequestType,
-                                  Map<String, String>         requestParameters,
-                                  List<NewActionTarget>       actionTargets,
-                                  GovernanceActionDescription governanceActionDescription,
-                                  String                      governanceActionTypeGUID,
-                                  String                      supportedElementQualifiedName,
-                                  String                      solutionComponentGUID,
-                                  String                      solutionComponentName,
-                                  String                      solutionComponentDescription)
+    protected void addRequestType(String                               governanceEngineGUID,
+                                  String                               governanceEngineName,
+                                  String                               governanceEngineTypeName,
+                                  String                               governanceRequestType,
+                                  String                               serviceRequestType,
+                                  Map<String, String>                  requestParameters,
+                                  List<NewActionTarget>                actionTargets,
+                                  GovernanceActionDescription          governanceActionDescription,
+                                  String                               governanceActionTypeGUID,
+                                  String                               supportedElementQualifiedName,
+                                  String                               solutionComponentGUID,
+                                  String                               solutionComponentName,
+                                  String                               solutionComponentDescription,
+                                  String                               configuresComponentGUID,
+                                  boolean                              linkToMetadataServerSolutionComponent,
+                                  DeployedImplementationTypeDefinition worksWithTechnology)
     {
         archiveHelper.addSupportedGovernanceService(governanceEngineGUID,
                                                     governanceRequestType,
@@ -1847,11 +1917,39 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                null,
                                                null);
 
-            archiveHelper.addSolutionLinkingWireRelationship(solutionComponentGUID,
-                                                             EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID(),
-                                                             "metadata",
-                                                             "Querying and maintaining open metadata.",
-                                                             null);
+            if (linkToMetadataServerSolutionComponent)
+            {
+                archiveHelper.addSolutionLinkingWireRelationship(solutionComponentGUID,
+                                                                 EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID(),
+                                                                 "metadata",
+                                                                 "Querying and maintaining open metadata.",
+                                                                 null);
+            }
+
+            if (configuresComponentGUID != null)
+            {
+                archiveHelper.addSolutionLinkingWireRelationship(solutionComponentGUID,
+                                                                 configuresComponentGUID,
+                                                                 "configures",
+                                                                 "Creates a link between the supplied element and this component to enable it to work on the element.",
+                                                                 null);
+            }
+
+            if (worksWithTechnology != null)
+            {
+                if (worksWithTechnology.getSolutionComponentGUID() != null)
+                {
+                    archiveHelper.addSolutionLinkingWireRelationship(solutionComponentGUID,
+                                                                     worksWithTechnology.getSolutionComponentGUID(),
+                                                                     "works with",
+                                                                     "interacts with technology",
+                                                                     null);
+                }
+                else
+                {
+                    System.out.println("WARNING: No solution component GUID for " + worksWithTechnology.getDeployedImplementationType());
+                }
+            }
 
             archiveHelper.addImplementedByRelationship(solutionComponentGUID,
                                                        governanceActionTypeGUID,
@@ -1941,6 +2039,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                             governanceActionDescription.resourceUse.getResourceUse(),
                                                             governanceActionDescription.governanceServiceDescription,
                                                             requestParameters);
+
         }
     }
 
@@ -1950,26 +2049,28 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * and then runs a survey against the asset's resource and creates a report.
      *
      * @param assetType name for the asset type (no spaces)
-     * @param technologyType value for deployed implementation type
+     * @param technologyType value for the deployed implementation type
+     * @param url link to useful information about the survey process
      * @param createRequestType request type used to create the server's metadata element
      * @param createTemplate details of the template to use
      * @param surveyRequestType request type to run the survey
-     * @param supportedElementQualifiedName qualified name of the element that this should be listed as a resource
+     * @return unique identifier for the solution component for the new governance action process
      */
-    protected void createAndSurveyServerGovernanceActionProcess(String                     assetType,
-                                                                String                     technologyType,
-                                                                RequestTypeDefinition      createRequestType,
-                                                                TemplateDefinition         createTemplate,
-                                                                RequestTypeDefinition      surveyRequestType,
-                                                                String                     supportedElementQualifiedName)
+    protected String createAndSurveyServerGovernanceActionProcess(String                               assetType,
+                                                                  DeployedImplementationTypeDefinition technologyType,
+                                                                  String                               url,
+                                                                  RequestTypeDefinition                createRequestType,
+                                                                  TemplateDefinition                   createTemplate,
+                                                                  RequestTypeDefinition                surveyRequestType)
     {
-        String description = "Create a " + technologyType + ", run a survey against it, and print out the resulting report.";
+        String description = "Create a " + technologyType.getDeployedImplementationType() + ", run a survey against it, and print out the resulting report.";
 
         String processGUID = archiveHelper.addGovernanceActionProcess(OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                       assetType + ":CreateAndSurveyGovernanceActionProcess",
                                                                       assetType + ":CreateAndSurvey",
                                                                       null,
                                                                       description,
+                                                                      url,
                                                                       null,
                                                                       0,
                                                                       null,
@@ -2007,14 +2108,31 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                 null,
                                                 surveyRequestType.getGovernanceService().getGovernanceActionDescription().supportedAnnotationTypes);
 
+        String processComponentGUID = archiveHelper.addSolutionComponent(OpenMetadataType.SOLUTION_COMPONENT.typeName,
+                                                                         OpenMetadataType.SOLUTION_COMPONENT.typeName + "::" + assetType + "::CreateAndSurvey",
+                                                                         "CREATE-AND-SURVEY-" + assetType.toUpperCase(),
+                                                                         "Create and Survey Governance Action Process for " + technologyType.getDeployedImplementationType(),
+                                                                         description,
+                                                                         versionName,
+                                                                         SolutionComponentType.MULTI_STEP_PROCESS.getSolutionComponentType(),
+                                                                         DeployedImplementationType.GOVERNANCE_ACTION_PROCESS.getDeployedImplementationType(),
+                                                                         url,
+                                                                         null,
+                                                                         null);
+
+        archiveHelper.addSolutionComponentActorRelationship(EgeriaRoleDefinition.OPEN_METADATA_USER.getGUID(),
+                                                            processComponentGUID,
+                                                            "requests survey",
+                                                            "A user wishing to understand more about this technology can request that a survey is run against the server.");
+
         String step1GUID = archiveHelper.addGovernanceActionProcessStep(OpenMetadataType.GOVERNANCE_ACTION_PROCESS_STEP.typeName,
                                                                         processGUID,
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        assetType + ":CreateAndSurvey:Step1",
+                                                                        assetType + "::CreateAndSurvey::Step1",
                                                                         "Create the " + assetType + " entity",
-                                                                        "Create the description of the " + technologyType,
+                                                                        "Create the description of the " + technologyType.getDeployedImplementationType(),
                                                                         0,
                                                                         supportedRequestParameters,
                                                                         null,
@@ -2036,14 +2154,18 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
             archiveHelper.addGovernanceActionProcessFlow(processGUID, null, null, step1GUID);
         }
 
+        archiveHelper.addSolutionLinkingWireRelationship(processComponentGUID,
+                                                         createRequestType.getSolutionComponentGUID(),
+                                                         "step 1", "Create the asset.", null);
+
         String step2GUID = archiveHelper.addGovernanceActionProcessStep(OpenMetadataType.GOVERNANCE_ACTION_PROCESS_STEP.typeName,
                                                                         processGUID,
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        assetType + ":CreateAndSurvey:Step2",
+                                                                        assetType + "::CreateAndSurvey::Step2",
                                                                         "Run the survey.",
-                                                                        "Create a survey report detailing the contents of the "+ technologyType + ".",
+                                                                        "Create a survey report detailing the contents of the "+ technologyType.getDeployedImplementationType() + ".",
                                                                         0,
                                                                         null,
                                                                         null,
@@ -2065,14 +2187,18 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
             archiveHelper.addNextGovernanceActionProcessStep(step1GUID, ManageAssetGuard.SET_UP_COMPLETE.getName(), false, step2GUID);
         }
 
+        archiveHelper.addSolutionLinkingWireRelationship(processComponentGUID,
+                                                         surveyRequestType.getSolutionComponentGUID(),
+                                                         "step 2", "Run the survey.", null);
+
         String step3GUID = archiveHelper.addGovernanceActionProcessStep(OpenMetadataType.GOVERNANCE_ACTION_PROCESS_STEP.typeName,
                                                                         processGUID,
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        assetType + ":CreateAndSurvey:Step3",
+                                                                        assetType + "::CreateAndSurvey::Step3",
                                                                         "Print the survey report.",
-                                                                        "Print a survey report detailing the contents of the " + technologyType + ".",
+                                                                        "Print a survey report detailing the contents of the " + technologyType.getDeployedImplementationType() + ".",
                                                                         0,
                                                                         null,
                                                                         null,
@@ -2094,15 +2220,25 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
             archiveHelper.addNextGovernanceActionProcessStep(step2GUID, SurveyActionGuard.SURVEY_COMPLETED.getName(), false, step3GUID);
         }
 
-        if (supportedElementQualifiedName != null)
+        archiveHelper.addSolutionLinkingWireRelationship(processComponentGUID,
+                                                         RequestTypeDefinition.PRINT_SURVEY_REPORT.getSolutionComponentGUID(),
+                                                         "step 3", "Print the survey report.", null);
+
+
+        if (technologyType.getGUID() != null)
         {
-            String supportedElementGUID = archiveHelper.queryGUID(supportedElementQualifiedName);
-            archiveHelper.addResourceListRelationshipByGUID(supportedElementGUID,
+            archiveHelper.addResourceListRelationshipByGUID(technologyType.getGUID(),
                                                             processGUID,
                                                             ResourceUse.SURVEY_RESOURCE.getResourceUse(),
                                                             description,
                                                             createRequestType.getRequestParameters());
         }
+        else
+        {
+            System.out.println("WARNING: No GUID found for " + technologyType.getDeployedImplementationType());
+        }
+
+        return processComponentGUID;
     }
 
 
@@ -2147,27 +2283,27 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * and then adds it as a catalog target for an appropriate integration connector.
      *
      * @param serverType name for the server type (no spaces)
-     * @param technologyType value for deployed implementation type
+     * @param technologyType value for the deployed implementation type
+     * @param url link to useful information about the survey process
      * @param createRequestType request type used to create the server's metadata element
      * @param createTemplate details of the template to use
      * @param catalogRequestType request type to run the survey
-     * @param supportedElementQualifiedName qualified name of the element that this should be listed as a resource
+     * @return unique identifier for the solution component for the new governance action process
      */
-    protected void createAndCatalogServerGovernanceActionProcess(String                     serverType,
-                                                                 String                     technologyType,
-                                                                 RequestTypeDefinition      createRequestType,
-                                                                 TemplateDefinition         createTemplate,
-                                                                 RequestTypeDefinition      catalogRequestType,
-                                                                 String                     supportedElementQualifiedName)
+    protected String createAndCatalogServerGovernanceActionProcess(String                               serverType,
+                                                                   DeployedImplementationTypeDefinition technologyType,
+                                                                   String                               url,
+                                                                   RequestTypeDefinition                createRequestType,
+                                                                   TemplateDefinition                   createTemplate,
+                                                                   RequestTypeDefinition                catalogRequestType)
     {
-        createAsCatalogTargetGovernanceActionProcess(serverType,
-                                                     OpenMetadataType.SOFTWARE_SERVER.typeName,
-                                                     technologyType,
-                                                     "catalog",
-                                                     createRequestType,
-                                                     createTemplate,
-                                                     catalogRequestType,
-                                                     supportedElementQualifiedName);
+        return createAsCatalogTargetGovernanceActionProcess(serverType,
+                                                            technologyType,
+                                                            "catalog",
+                                                            url,
+                                                            createRequestType,
+                                                            createTemplate,
+                                                            catalogRequestType);
     }
 
 
@@ -2176,29 +2312,27 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * and then adds it as a catalog target for an appropriate integration connector.
      *
      * @param assetType name for the asset type (no spaces)
-     * @param openMetadataType open metadata type name for the created asset
-     * @param technologyType value for deployed implementation type
+     * @param technologyType value for the deployed implementation type
+     * @param url link to useful information about the survey process
      * @param createRequestType request type used to create the server's metadata element
      * @param createTemplate details of the template to use
      * @param catalogRequestType request type to run the survey
-     * @param supportedElementQualifiedName qualified name of the element that this should be listed as a resource
+     * @return unique identifier for the solution component for the new governance action process
      */
-    protected void createAndCatalogAssetGovernanceActionProcess(String                     assetType,
-                                                                String                     openMetadataType,
-                                                                String                     technologyType,
-                                                                RequestTypeDefinition      createRequestType,
-                                                                TemplateDefinition         createTemplate,
-                                                                RequestTypeDefinition      catalogRequestType,
-                                                                String                     supportedElementQualifiedName)
+    protected String createAndCatalogAssetGovernanceActionProcess(String                               assetType,
+                                                                  DeployedImplementationTypeDefinition technologyType,
+                                                                  String                               url,
+                                                                  RequestTypeDefinition                createRequestType,
+                                                                  TemplateDefinition                   createTemplate,
+                                                                  RequestTypeDefinition                catalogRequestType)
     {
-        createAsCatalogTargetGovernanceActionProcess(assetType,
-                                                     openMetadataType,
-                                                     technologyType,
-                                                     "catalog",
-                                                     createRequestType,
-                                                     createTemplate,
-                                                     catalogRequestType,
-                                                     supportedElementQualifiedName);
+        return createAsCatalogTargetGovernanceActionProcess(assetType,
+                                                            technologyType,
+                                                            "catalog",
+                                                            url,
+                                                            createRequestType,
+                                                            createTemplate,
+                                                            catalogRequestType);
     }
 
 
@@ -2207,29 +2341,27 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * and then adds it as a catalog target for an appropriate integration connector.
      *
      * @param assetType name for the asset type (no spaces)
-     * @param openMetadataType open metadata type name for the created asset
-     * @param technologyType value for deployed implementation type
+     * @param technologyType value for the deployed implementation type
+     * @param url link to useful information about the survey process
      * @param createRequestType request type used to create the server's metadata element
      * @param createTemplate details of the template to use
      * @param catalogRequestType request type to run the survey
-     * @param supportedElementQualifiedName qualified name of the element that this should be listed as a resource
+     * @return unique identifier for the solution component for the new governance action process
      */
-    protected void createAndHarvestToAssetGovernanceActionProcess(String                     assetType,
-                                                                  String                     openMetadataType,
-                                                                  String                     technologyType,
-                                                                  RequestTypeDefinition      createRequestType,
-                                                                  TemplateDefinition         createTemplate,
-                                                                  RequestTypeDefinition      catalogRequestType,
-                                                                  String                     supportedElementQualifiedName)
+    protected String createAndHarvestToAssetGovernanceActionProcess(String                               assetType,
+                                                                    DeployedImplementationTypeDefinition technologyType,
+                                                                    String                               url,
+                                                                    RequestTypeDefinition                createRequestType,
+                                                                    TemplateDefinition                   createTemplate,
+                                                                    RequestTypeDefinition                catalogRequestType)
     {
-        createAsCatalogTargetGovernanceActionProcess(assetType,
-                                                     openMetadataType,
-                                                     technologyType,
-                                                     "harvest",
-                                                     createRequestType,
-                                                     createTemplate,
-                                                     catalogRequestType,
-                                                     supportedElementQualifiedName);
+        return createAsCatalogTargetGovernanceActionProcess(assetType,
+                                                            technologyType,
+                                                            "harvest",
+                                                            url,
+                                                            createRequestType,
+                                                            createTemplate,
+                                                            catalogRequestType);
     }
 
 
@@ -2239,30 +2371,30 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * and then adds it as a catalog target for an appropriate integration connector.
      *
      * @param assetType name for the server type (no spaces)
-     * @param openMetadataType type of the element to create
-     * @param technologyType value for deployed implementation type
+     * @param technologyType value for the deployed implementation type
      * @param actionName nme to use for the action
+     * @param url link to useful information about the survey process
      * @param createRequestType request type used to create the server's metadata element
      * @param createTemplate details of the template to use
      * @param catalogRequestType request type to run the survey
-     * @param supportedElementQualifiedName qualified name of the element that this should be listed as a resource
+     * @return unique identifier for the solution component for the new governance action process
      */
-    protected void createAsCatalogTargetGovernanceActionProcess(String                     assetType,
-                                                                String                     openMetadataType,
-                                                                String                     technologyType,
-                                                                String                     actionName,
-                                                                RequestTypeDefinition      createRequestType,
-                                                                TemplateDefinition         createTemplate,
-                                                                RequestTypeDefinition      catalogRequestType,
-                                                                String                     supportedElementQualifiedName)
+    protected String createAsCatalogTargetGovernanceActionProcess(String                               assetType,
+                                                                  DeployedImplementationTypeDefinition technologyType,
+                                                                  String                               actionName,
+                                                                  String                               url,
+                                                                  RequestTypeDefinition                createRequestType,
+                                                                  TemplateDefinition                   createTemplate,
+                                                                  RequestTypeDefinition                catalogRequestType)
     {
-        String description = "Create a " + technologyType + " and configure an integration connector to " + actionName + " its contents.";
+        String description = "Create a " + technologyType.getDeployedImplementationType() + " and configure an integration connector to " + actionName + " its contents.";
 
         String processGUID = archiveHelper.addGovernanceActionProcess(OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
-                                                                      assetType + ":CreateAsCatalogTargetGovernanceActionProcess",
-                                                                      assetType + ":CreateAsCatalogTarget",
+                                                                      assetType + "::CreateAsCatalogTargetGovernanceActionProcess",
+                                                                      assetType + "::CreateAsCatalogTarget",
                                                                       null,
                                                                       description,
+                                                                      url,
                                                                       null,
                                                                       0,
                                                                       null,
@@ -2284,14 +2416,31 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                     null,
                                                     supportedRequestParameters);
 
+        String processComponentGUID = archiveHelper.addSolutionComponent(OpenMetadataType.SOLUTION_COMPONENT.typeName,
+                                                                         OpenMetadataType.SOLUTION_COMPONENT.typeName + "::" + assetType + "::CreateAsCatalogTarget",
+                                                                         "CREATE-AND-" + actionName.toUpperCase() + "-" + assetType.toUpperCase(),
+                                                                         "Create and " + actionName + " Governance Action Process for " + technologyType.getDeployedImplementationType(),
+                                                                         description,
+                                                                         versionName,
+                                                                         SolutionComponentType.MULTI_STEP_PROCESS.getSolutionComponentType(),
+                                                                         DeployedImplementationType.GOVERNANCE_ACTION_PROCESS.getDeployedImplementationType(),
+                                                                         url,
+                                                                         null,
+                                                                         null);
+
+        archiveHelper.addSolutionComponentActorRelationship(EgeriaRoleDefinition.OPEN_METADATA_USER.getGUID(),
+                                                            processComponentGUID,
+                                                            "requests " + actionName,
+                                                            "A user wishing to " + actionName + " a technology can request that it be " + actionName + "ed by linking it to the appropriate integration connector.");
+
         String step1GUID = archiveHelper.addGovernanceActionProcessStep(OpenMetadataType.GOVERNANCE_ACTION_PROCESS_STEP.typeName,
                                                                         processGUID,
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        assetType + ":CreateAsCatalogTarget:Step1",
-                                                                        "Create the " + openMetadataType + " entity",
-                                                                        "Create the description of the " + technologyType,
+                                                                        assetType + "::CreateAsCatalogTarget::Step1",
+                                                                        "Create the " + technologyType.getAssociatedTypeName() + " entity",
+                                                                        "Create the description of the " + technologyType.getDeployedImplementationType(),
                                                                         0,
                                                                         supportedRequestParameters,
                                                                         null,
@@ -2313,14 +2462,19 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
             archiveHelper.addGovernanceActionProcessFlow(processGUID, null, null, step1GUID);
         }
 
+        archiveHelper.addSolutionLinkingWireRelationship(processComponentGUID,
+                                                         createRequestType.getSolutionComponentGUID(),
+                                                         "step 1", "Create the asset.", null);
+
+
         String step2GUID = archiveHelper.addGovernanceActionProcessStep(OpenMetadataType.GOVERNANCE_ACTION_PROCESS_STEP.typeName,
                                                                         processGUID,
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        assetType + ":CreateAsCatalogTarget:Step2",
+                                                                        assetType + "::CreateAsCatalogTarget::Step2",
                                                                         "Connect new asset to integration connector",
-                                                                        "Connect the asset entity for the " + technologyType + " to the appropriate integration connector.",
+                                                                        "Connect the asset entity for the " + technologyType.getDeployedImplementationType() + " to the appropriate integration connector.",
                                                                         0,
                                                                         null,
                                                                         null,
@@ -2342,56 +2496,82 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
             archiveHelper.addNextGovernanceActionProcessStep(step1GUID, ManageAssetGuard.SET_UP_COMPLETE.getName(), false, step2GUID);
         }
 
-        if (supportedElementQualifiedName != null)
+        archiveHelper.addSolutionLinkingWireRelationship(processComponentGUID,
+                                                         catalogRequestType.getSolutionComponentGUID(),
+                                                         "step 2", "Link as catalog target.", null);
+
+
+        if (technologyType.getGUID() != null)
         {
-            String supportedElementGUID = archiveHelper.queryGUID(supportedElementQualifiedName);
-            archiveHelper.addResourceListRelationshipByGUID(supportedElementGUID,
+            archiveHelper.addResourceListRelationshipByGUID(technologyType.getGUID(),
                                                             processGUID,
                                                             ResourceUse.CATALOG_RESOURCE.getResourceUse(),
                                                             description,
                                                             createRequestType.getRequestParameters());
         }
+        else
+        {
+            System.out.println("WARNING: No GUID found for " + technologyType.getDeployedImplementationType());
+        }
+
+        return processComponentGUID;
     }
-
-
 
 
     /**
      * Create a one-step governance action process that deletes a metadata element for a particular type of asset
-     * which then removes it, any anchored content and relationships - like the catalog target for an appropriate integration connector.
+     * which then removes it, any anchored content, and relationships - like the catalog target for an appropriate integration connector.
      *
      * @param assetType name for the server type (no spaces)
-     * @param technologyType value for deployed implementation type
+     * @param technologyType value for the deployed implementation type
+     * @param url link to useful information about the survey process
      * @param deleteRequestType request type used to delete the server's metadata element
-     * @param supportedElementQualifiedName qualified name of the element that this should be listed as a resource
+     * @return unique identifier for the solution component for the new governance action process
      */
-    protected void deleteAsCatalogTargetGovernanceActionProcess(String                     assetType,
-                                                                String                     openMetadataType,
-                                                                String                     technologyType,
-                                                                RequestTypeDefinition      deleteRequestType,
-                                                                String                     supportedElementQualifiedName)
+    protected String deleteAsCatalogTargetGovernanceActionProcess(String                               assetType,
+                                                                  DeployedImplementationTypeDefinition technologyType,
+                                                                  String                               url,
+                                                                  RequestTypeDefinition                deleteRequestType)
     {
-        String description = "Delete the asset for " + technologyType + " using the same template properties that were used to create it.  This will delete all of the metadata anchored to the asset and relationships to other entities such as the catalog target relationships.";
+        String description = "Delete the asset for " + technologyType.getDeployedImplementationType() + " using the same template properties that were used to create it.  This will delete all of the metadata anchored to the asset and relationships to other entities such as the catalog target relationships.";
 
         String processGUID = archiveHelper.addGovernanceActionProcess(OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                       assetType + ":DeleteAssetWithTemplateGovernanceActionProcess",
                                                                       assetType + ":DeleteAsset",
                                                                       null,
                                                                       description,
+                                                                      url,
                                                                       null,
                                                                       0,
                                                                       null,
                                                                       null,
                                                                       null);
 
+        String processComponentGUID = archiveHelper.addSolutionComponent(OpenMetadataType.SOLUTION_COMPONENT.typeName,
+                                                                         OpenMetadataType.SOLUTION_COMPONENT.typeName + "::" + assetType + "::DeleteAsCatalogTarget",
+                                                                         "DELETE-WITH-TEMPLATE-FOR-" + assetType.toUpperCase(),
+                                                                         "Delete with Template Governance Action Process for " + technologyType.getDeployedImplementationType(),
+                                                                         description,
+                                                                         versionName,
+                                                                         SolutionComponentType.MULTI_STEP_PROCESS.getSolutionComponentType(),
+                                                                         DeployedImplementationType.GOVERNANCE_ACTION_PROCESS.getDeployedImplementationType(),
+                                                                         url,
+                                                                         null,
+                                                                         null);
+
+        archiveHelper.addSolutionComponentActorRelationship(EgeriaRoleDefinition.OPEN_METADATA_USER.getGUID(),
+                                                            processComponentGUID,
+                                                            "delete " + technologyType.getDeployedImplementationType(),
+                                                            "A user wishing to delete an asset to this technology can request that a delete action is run.");
+
         String step1GUID = archiveHelper.addGovernanceActionProcessStep(OpenMetadataType.GOVERNANCE_ACTION_PROCESS_STEP.typeName,
                                                                         processGUID,
                                                                         OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
                                                                         OpenMetadataType.ASSET.typeName,
                                                                         null,
-                                                                        assetType + ":Delete Asset:Step1",
-                                                                        "Delete the " + openMetadataType + " entity",
-                                                                        "Delete asset for " + technologyType + " using the same template properties as was used to create it.",
+                                                                        assetType + "::Delete Asset::Step1",
+                                                                        "Delete the " + technologyType.getAssociatedTypeName() + " entity",
+                                                                        "Delete asset for " + technologyType.getDeployedImplementationType() + " using the same template properties as was used to create it.",
                                                                         0,
                                                                         null,
                                                                         null,
@@ -2413,15 +2593,24 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
             archiveHelper.addGovernanceActionProcessFlow(processGUID, null, null, step1GUID);
         }
 
-        if (supportedElementQualifiedName != null)
+        archiveHelper.addSolutionLinkingWireRelationship(processComponentGUID,
+                                                         deleteRequestType.getSolutionComponentGUID(),
+                                                         "step 1", "Delete the asset using a template.", null);
+
+        if (technologyType.getGUID() != null)
         {
-            String supportedElementGUID = archiveHelper.queryGUID(supportedElementQualifiedName);
-            archiveHelper.addResourceListRelationshipByGUID(supportedElementGUID,
+            archiveHelper.addResourceListRelationshipByGUID(technologyType.getGUID(),
                                                             processGUID,
                                                             ResourceUse.SURVEY_RESOURCE.getResourceUse(),
                                                             description,
                                                             deleteRequestType.getRequestParameters());
         }
+        else
+        {
+            System.out.println("WARNING: No GUID found for " + technologyType.getDeployedImplementationType());
+        }
+
+        return processComponentGUID;
     }
 
 

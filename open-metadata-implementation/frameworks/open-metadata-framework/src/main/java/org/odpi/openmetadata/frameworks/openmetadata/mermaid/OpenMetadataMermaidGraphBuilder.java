@@ -340,14 +340,6 @@ public class OpenMetadataMermaidGraphBuilder extends MermaidGraphBuilderBase
 
         if (currentDisplayName == null)
         {
-            currentDisplayName = propertyHelper.getEnumPropertySymbolicName(sourceName,
-                                                                            OpenMetadataProperty.STARS.name,
-                                                                            elementProperties,
-                                                                            methodName);
-        }
-
-        if (currentDisplayName == null)
-        {
             currentDisplayName = propertyHelper.getStringProperty(sourceName,
                                                                   OpenMetadataProperty.URL.name,
                                                                   elementProperties,

@@ -1148,6 +1148,13 @@ public class OpenMetadataHandlerBase
                                                                     queryOptions,
                                                                     1));
 
+            rootElement.setPerformsRoles(this.getElementHierarchies(userId,
+                                                                    rootElement.getPerformsRoles(),
+                                                                    1,
+                                                                    OpenMetadataType.ASSIGNMENT_SCOPE_RELATIONSHIP.typeName,
+                                                                    queryOptions,
+                                                                    1));
+
             rootElement.setSchemaAttributes(this.getElementHierarchies(userId,
                                                                         rootElement.getSchemaAttributes(),
                                                                         1,

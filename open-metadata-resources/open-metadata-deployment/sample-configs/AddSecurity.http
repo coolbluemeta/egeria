@@ -22,21 +22,6 @@ Content-Type: application/json
 
 
 ###
-# =====================================================================================================================
-# Manage the authentication token.  Run this request to create/refresh the token.
-
-# @name Token (RequestBody)
-POST {{baseURL}}/api/token
-Content-Type: application/json
-
-{
-  "userId" : "{{adminUserId}}",
-  "password" : "secret"
-}
-
-> {% client.global.set("token", response.body); %}
-
-###
 # ---------------------------------------------
 # Metadata Access Store: simple-metadata-store
 #

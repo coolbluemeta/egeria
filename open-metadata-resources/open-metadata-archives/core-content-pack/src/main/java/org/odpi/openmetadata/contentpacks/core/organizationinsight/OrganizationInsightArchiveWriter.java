@@ -56,7 +56,7 @@ public class OrganizationInsightArchiveWriter extends ContentPackBaseArchiveWrit
         /*
          * Define the solution components for this solution.
          */
-        this.addSolutionBlueprints(ContentPackDefinition.ORGANIZATION_INSIGHT_CONTENT_PACK);
+        this.addSolutionBlueprints(ContentPackDefinition.ORGANIZATION_INSIGHT_CONTENT_PACK, null);
         this.addSolutionLinkingWires(ContentPackDefinition.ORGANIZATION_INSIGHT_CONTENT_PACK);
 
         /*

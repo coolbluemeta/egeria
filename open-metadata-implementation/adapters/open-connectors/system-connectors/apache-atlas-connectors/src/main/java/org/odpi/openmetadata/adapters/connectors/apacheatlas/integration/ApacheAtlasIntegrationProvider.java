@@ -3,14 +3,11 @@
 
 package org.odpi.openmetadata.adapters.connectors.apacheatlas.integration;
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.adapters.connectors.controls.AtlasDeployedImplementationType;
-import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
-import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
 import org.odpi.openmetadata.frameworks.integration.connectors.IntegrationConnectorProvider;
 import org.odpi.openmetadata.frameworks.integration.controls.CatalogTargetType;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 
 import java.util.ArrayList;
@@ -23,24 +20,6 @@ import java.util.List;
 public class ApacheAtlasIntegrationProvider extends IntegrationConnectorProvider
 {
     /*
-     * Unique identifier of the connector for the audit log.
-     */
-    private static final int    connectorComponentId   = 659;
-
-    /*
-     * Unique identifier for the connector type.
-     */
-    private static final String connectorTypeGUID      = "aeca7da2-80c1-4e2a-baa5-8c30472be766";
-
-    /*
-     * Descriptive information about the connector for the connector type and audit log.
-     */
-    private static final String connectorQualifiedName = "Egeria:IntegrationConnector:Catalog:ApacheAtlas";
-    private static final String connectorDisplayName   = "Apache Atlas Integration Connector";
-    private static final String connectorDescription   = "Connector extracts data assets and glossary terms from Apache Atlas and, optionally copies governance metadata to Apache Atlas and attaches it to appropriate entities.";
-    private static final String connectorWikiPage      = "https://egeria-project.org/connectors/apache-atlas/apache-atlas-catalog-integration-connector/";
-
-    /*
      * Class of the connector.
      */
     private static final String connectorClassName       = "org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ApacheAtlasIntegrationConnector";
@@ -48,7 +27,7 @@ public class ApacheAtlasIntegrationProvider extends IntegrationConnectorProvider
     /**
      * This connector needs to add open metadata types to Apache Atlas to store particular types of open metadata
      * elements that are beyond the types defined by Apache Atlas.  There are three new types that are always needed:
-     * OpenMetadataCorrelation, OpenMetadataCorrelationLink and OpenMetadataGlossaryCorrelationLink.
+     * OpenMetadataCorrelation, OpenMetadataCorrelationLink, and OpenMetadataGlossaryCorrelationLink.
      * In addition, this connector creates Apache Atlas types as it needs.  The type name from open metadata is prefixed with
      * "OpenMetadata" when it is added to Apache Atlas.  For example, the LicenseType entityDef from open metadata becomes
      * "OpenMetadataLicenseType in Apache Atlas.  This makes it easy to identify the types from the open metadata
@@ -218,53 +197,20 @@ public class ApacheAtlasIntegrationProvider extends IntegrationConnectorProvider
      */
     public ApacheAtlasIntegrationProvider()
     {
-        super();
+        super(EgeriaOpenConnectorDefinition.APACHE_ATLAS_INTEGRATION_CONNECTOR,
+              connectorClassName,
+              List.of(OPEN_METADATA_TYPES_POLICY_CONFIGURATION_PROPERTY,
+                      IGNORE_OPEN_METADATA_TYPES_CONFIGURATION_PROPERTY,
+                      EGERIA_GLOSSARY_QUALIFIED_NAME_CONFIGURATION_PROPERTY,
+                      ATLAS_GLOSSARY_NAME_CONFIGURATION_PROPERTY,
+                      INFORMAL_TAGS_MAPPING_POLICY_CONFIGURATION_PROPERTY,
+                      CLASSIFICATION_REFERENCE_SET_NAME_CONFIGURATION_PROPERTY,
+                      CLASSIFICATION_REFERENCE_SET_POLICY_CONFIGURATION_PROPERTY,
+                      RELATED_CLASSIFICATION_POLICY_CONFIGURATION_PROPERTY,
+                      RELATED_CLASSIFICATION_IGNORE_LIST_CONFIGURATION_PROPERTY,
+                      RELATED_ENTITY_POLICY_CONFIGURATION_PROPERTY,
+                      RELATED_RELATIONSHIP_IGNORE_LIST_CONFIGURATION_PROPERTY));
 
-        /*
-         * Set up the class name of the connector that this provider creates.
-         */
-        super.setConnectorClassName(connectorClassName);
-
-        /*
-         * Set up the connector type that should be included in a connection used to configure this connector.
-         */
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorQualifiedName);
-        connectorType.setDisplayName(connectorDisplayName);
-        connectorType.setDescription(connectorDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
-        connectorType.setSupportedAssetTypeName(supportedAssetTypeName);
-        connectorType.setSupportedDeployedImplementationType(DeployedImplementationType.INTEGRATION_CONNECTOR.getDeployedImplementationType());
-
-        List<String> recognizedConfigurationProperties = new ArrayList<>();
-        recognizedConfigurationProperties.add(OPEN_METADATA_TYPES_POLICY_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(IGNORE_OPEN_METADATA_TYPES_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(EGERIA_GLOSSARY_QUALIFIED_NAME_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(ATLAS_GLOSSARY_NAME_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(INFORMAL_TAGS_MAPPING_POLICY_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(CLASSIFICATION_REFERENCE_SET_NAME_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(CLASSIFICATION_REFERENCE_SET_POLICY_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(RELATED_CLASSIFICATION_POLICY_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(RELATED_CLASSIFICATION_IGNORE_LIST_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(RELATED_ENTITY_POLICY_CONFIGURATION_PROPERTY);
-        recognizedConfigurationProperties.add(RELATED_RELATIONSHIP_IGNORE_LIST_CONFIGURATION_PROPERTY);
-        connectorType.setRecognizedConfigurationProperties(recognizedConfigurationProperties);
-
-        super.connectorTypeBean = connectorType;
-
-        /*
-         * Set up the component description used in the connector's audit log messages.
-         */
-        AuditLogReportingComponent componentDescription = new AuditLogReportingComponent();
-
-        componentDescription.setComponentId(connectorComponentId);
-        componentDescription.setComponentDevelopmentStatus(ComponentDevelopmentStatus.STABLE);
-        componentDescription.setComponentName(connectorDisplayName);
-        componentDescription.setComponentDescription(connectorDescription);
-        componentDescription.setComponentWikiURL(connectorWikiPage);
-
-        super.setConnectorComponentDescription(componentDescription);
 
         CatalogTargetType catalogTargetType = new CatalogTargetType();
 

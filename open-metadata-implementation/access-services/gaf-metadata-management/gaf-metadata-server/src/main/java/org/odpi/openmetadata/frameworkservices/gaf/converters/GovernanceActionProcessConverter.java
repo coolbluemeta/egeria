@@ -82,14 +82,14 @@ public class GovernanceActionProcessConverter<B> extends OpenMetadataStoreConver
                     processProperties.setStartTime(this.removeProcessStartTime(instanceProperties));
                     processProperties.setCompletionTime(this.removeProcessEndTime(instanceProperties));
 
-                    bean.setProcessProperties(processProperties);
+                    bean.setProperties(processProperties);
                 }
                 else
                 {
                     handleMissingMetadataInstance(beanClass.getName(), TypeDefCategory.ENTITY_DEF, methodName);
                 }
 
-                bean.setProcessProperties(processProperties);
+                bean.setProperties(processProperties);
             }
 
             return returnBean;

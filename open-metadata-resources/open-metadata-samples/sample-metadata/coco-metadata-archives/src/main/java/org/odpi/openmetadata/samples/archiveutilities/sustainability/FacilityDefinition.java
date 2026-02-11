@@ -61,7 +61,7 @@ public enum FacilityDefinition
                  FacilityTypeDefinition.DATA_CENTER,
                  FacilityDefinition.AMSTERDAM_SITE,
                  null,
-                 SustainabilityRoleDefinition.AMS_OFFICE_LEADER,
+                 SustainabilityRoleDefinition.AMS_DC_LEADER,
                  PersonDefinition.GARY_GEEKE,
                  OrganizationDefinition.COCO),
 

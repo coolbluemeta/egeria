@@ -7,7 +7,6 @@ import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ApacheAtla
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasEntity;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasEntityWithExtInfo;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.frameworks.integration.context.IntegrationContext;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.PermittedSynchronization;
@@ -56,7 +55,6 @@ public class ApacheHiveIntegrationModule extends DatabaseIntegrationModuleBase
      * @param myContext integration context
      * @param targetRootURL URL to connect to Apache Atlas
      * @param atlasClient client to connect to Apache Atlas
-     * @param embeddedConnectors list of any embedded connectors (such as secrets connector and topic connector
      * @throws UserNotAuthorizedException security problem
      */
     public ApacheHiveIntegrationModule(String                   connectorName,
@@ -64,8 +62,7 @@ public class ApacheHiveIntegrationModule extends DatabaseIntegrationModuleBase
                                        AuditLog                 auditLog,
                                        IntegrationContext       myContext,
                                        String                   targetRootURL,
-                                       ApacheAtlasRESTConnector atlasClient,
-                                       List<Connector>          embeddedConnectors) throws UserNotAuthorizedException
+                                       ApacheAtlasRESTConnector atlasClient) throws UserNotAuthorizedException
     {
         super(connectorName,
               hiveModuleName,
@@ -78,8 +75,7 @@ public class ApacheHiveIntegrationModule extends DatabaseIntegrationModuleBase
               auditLog,
               myContext,
               targetRootURL,
-              atlasClient,
-              embeddedConnectors);
+              atlasClient);
     }
 
 

@@ -3,7 +3,12 @@
 
 package org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.catalog;
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
+import org.odpi.openmetadata.adapters.connectors.EgeriaInformationSupplyChainDefinition;
+import org.odpi.openmetadata.adapters.connectors.EgeriaSolutionComponent;
 import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.KafkaPlaceholderProperty;
+import org.odpi.openmetadata.adapters.connectors.controls.KafkaTemplateType;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control.OMAGServerPlatformPlaceholderProperty;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.properties.*;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.EngineHostConnector;
@@ -12,6 +17,9 @@ import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.Me
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.ViewServerConnector;
 import org.odpi.openmetadata.adminservices.configuration.properties.OMAGServerConfig;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStorePurpose;
+import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
+import org.odpi.openmetadata.frameworks.connectors.properties.beans.EmbeddedConnection;
+import org.odpi.openmetadata.frameworks.connectors.properties.beans.VirtualConnection;
 import org.odpi.openmetadata.frameworks.openmetadata.connectorcontext.*;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control.EgeriaSoftwareServerTemplateDefinition;
 import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.control.OMAGServerPlatformConfigurationProperty;
@@ -24,6 +32,8 @@ import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedExceptio
 import org.odpi.openmetadata.frameworks.integration.connectors.IntegrationConnectorBase;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.CapabilityAssetUseType;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.topics.TopicProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.lineage.DataFlowProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementOriginCategory;
 import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataEventListener;
 import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataOutTopicEvent;
@@ -42,10 +52,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.connections.Conn
 import org.odpi.openmetadata.frameworks.openmetadata.properties.connections.EndpointProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.implementations.ImplementedByProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.softwarecapabilities.*;
-import org.odpi.openmetadata.frameworks.openmetadata.search.ElementProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.search.MakeAnchorOptions;
-import org.odpi.openmetadata.frameworks.openmetadata.search.NewElementOptions;
-import org.odpi.openmetadata.frameworks.openmetadata.search.SearchOptions;
+import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.governanceservers.enginehostservices.properties.GovernanceEngineSummary;
@@ -207,12 +214,12 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
             /*
              * The monitored platforms list has been built up from the platforms catalogued in open metadata.
-             * Now it is time the catalog the servers running on these platforms.
+             * Now it is time to catalog the servers running on these platforms.
              */
             processPlatforms();
 
             /*
-             * Now all of the servers are catalogued and up to date, loop through them all and test that
+             * Now all the servers are catalogued and up to date, loop through them all and test that
              * the lineage relationships between them are still correct.
              */
             checkServerLineage();
@@ -256,10 +263,10 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
 
     /**
-     * If the element is a software server platform, and it is not already being monitored then it is added to monitored platforms.
+     * If the element is a software server platform, and it is not being monitored, then it is added to monitored platforms.
      *
      * @param elementHeader unique id nd type of element
-     * @param displayName display name of platform
+     * @param displayName display name of the platform
      * @param deployedImplementationType deployed implementation type
      */
     private synchronized void assessElementForMonitoring(ElementHeader elementHeader,
@@ -357,7 +364,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                     if (platformProperties.getOMAGServers() != null)
                     {
                         /*
-                         * These maps are scoped by the platform, so it is ok to work with server names.
+                         * These maps are scoped by the platform, so it is OK to work with server names.
                          */
                         Map<String, OMAGServerProperties> knownServerMap   = new HashMap<>();
                         List<String>                      processedServers = new ArrayList<>();
@@ -377,7 +384,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                                 /*
                                  * Check that the egeriaEndpoint has not changed.  This change is a typical precursor to connecting the
                                  * workspace into a cohort.  This means there will be multiple instances of this connector
-                                 * running and the connections need to be updated away from local host.
+                                 * running, and the connections need to be updated away from local host.
                                  */
                                 if (omagServerProperties instanceof OMAGMetadataStoreProperties omagMetadataStoreProperties)
                                 {
@@ -414,13 +421,13 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                         if ((platformElement != null) && (platformElement.getHostedITAssets() != null))
                         {
                             /*
-                             * Before starting on the servers, check that the platform is up-to-date.
+                             * Before starting on the servers, check that the platform is up to date.
                              */
                             updatePlatform(platformProperties, platformElement);
 
                             /*
                              * Compare the known servers with the servers linked from the platform in the metadata server.
-                             * These are updated and needed and are added to the processed server list,
+                             * These are updated and needed and are added to the processed server list.
                              */
                             for (RelatedMetadataElementSummary deploymentElement : platformElement.getHostedITAssets())
                             {
@@ -429,10 +436,10 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                                         (assetProperties.getResourceName() != null))
                                 {
                                     /*
-                                     * The resource name is used since it may include the organization name
-                                     * with the server name if set up - this is important if multiple workspaces
-                                     * are linked in a cohort - the same servers will be running, and they are
-                                     * distinguished by the organization name - each egeria-workspaces should have a unique
+                                     * The resource name is used since it may include the organization name along with
+                                     * the server name if set up. This is important if multiple workspaces
+                                     * are linked in a cohort.  In this circumstance, the same servers will be running, and they are
+                                     * distinguished by the organization name. As such, each egeria-workspaces deployment should have a unique
                                      * organization name set up in both the application.properties and in the server config.
                                      */
                                     String serverResourceName = assetProperties.getResourceName();
@@ -501,7 +508,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                                     /*
                                      * This server has not been catalogued before.
                                      */
-                                    String matchingServerGUID = null;
+                                    String matchingServerGUID;
                                     if (matchingServer == null)
                                     {
                                         matchingServerGUID = catalogServer(omagServerProperties, platformProperties, platformElement);
@@ -571,10 +578,9 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
         AssetClient assetClient = integrationContext.getAssetClient(OpenMetadataType.SOFTWARE_SERVER.typeName);
 
         int startFrom = 0;
-
-        List<OpenMetadataRootElement> softwareServers = assetClient.findAssets(null,
-                                                                               assetClient.getSearchOptions(startFrom,
-                                                                                                            integrationContext.getMaxPageSize()));
+        SearchOptions searchOptions = assetClient.getSearchOptions(startFrom, integrationContext.getMaxPageSize());
+        searchOptions.setSkipClassifiedElements(List.of(OpenMetadataType.TEMPLATE_CLASSIFICATION.typeName));
+        List<OpenMetadataRootElement> softwareServers = assetClient.findAssets(null, searchOptions);
 
         while (softwareServers != null)
         {
@@ -587,10 +593,10 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                     try
                     {
                         /*
-                         * Not all servers are Egeria servers and so the deployedImplementationType is used
+                         * Not all servers are Egeria servers, and so the deployedImplementationType is used
                          * to determine which servers to link.
                          */
-                        // todo
+                        // Todo link servers together
                         if (EgeriaDeployedImplementationType.VIEW_SERVER.getDeployedImplementationType().equals(softwareServerProperties.getDeployedImplementationType()))
                         {
                             Connector connector = integrationContext.getConnectedAssetContext().getConnectorForAsset(softwareServer.getElementHeader().getGUID(), auditLog);
@@ -601,6 +607,11 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                                 viewServerConnector.start();
 
                                 OMAGServerConfig serverConfig = viewServerConnector.getResolvedOMAGServerConfig();
+
+                                if (serverConfig != null)
+                                {
+                                    catalogAuditLogConnector(serverConfig, softwareServer);
+                                }
 
                                 viewServerConnector.disconnect();
                             }
@@ -616,6 +627,11 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
                                 OMAGServerConfig serverConfig = integrationDaemonConnector.getResolvedOMAGServerConfig();
 
+                                if (serverConfig != null)
+                                {
+                                    catalogAuditLogConnector(serverConfig, softwareServer);
+                                }
+
                                 integrationDaemonConnector.disconnect();
                             }
                         }
@@ -630,6 +646,11 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
                                 OMAGServerConfig serverConfig = engineHostConnector.getResolvedOMAGServerConfig();
 
+                                if (serverConfig != null)
+                                {
+                                    catalogAuditLogConnector(serverConfig, softwareServer);
+                                }
+
                                 engineHostConnector.disconnect();
                             }
                         }
@@ -643,6 +664,10 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                                 metadataAccessServerConnector.start();
 
                                 OMAGServerConfig serverConfig = metadataAccessServerConnector.getResolvedOMAGServerConfig();
+                                if (serverConfig != null)
+                                {
+                                    catalogAuditLogConnector(serverConfig, softwareServer);
+                                }
 
                                 metadataAccessServerConnector.disconnect();
                             }
@@ -661,9 +686,8 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
             }
 
             startFrom = startFrom + integrationContext.getMaxPageSize();
-            softwareServers = assetClient.findAssets(null,
-                                                     assetClient.getSearchOptions(startFrom,
-                                                                                  integrationContext.getMaxPageSize()));
+            searchOptions.setStartFrom(startFrom);
+            softwareServers = assetClient.findAssets(null, searchOptions);
         }
     }
 
@@ -769,7 +793,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
 
     /**
-     * Return the url for the server.
+     * Return the url of the server.
      *
      * @param serverType server type
      * @return string
@@ -1196,6 +1220,261 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
 
     /**
+     * Add the definition of the server's audit log destinations used to distribute audit log events.
+     * At the moment this just deals with kafka audit log destination.  This is to support Jacquard's audit log products.
+     * ToDo Later versions could add other destination types.
+     *
+     * @param serverConfig server's configuration
+     * @param softwareServer server's metadata description
+     * @throws InvalidParameterException invalid parameter
+     * @throws PropertyServerException no repo
+     * @throws UserNotAuthorizedException security problem
+     */
+    private void catalogAuditLogConnector(OMAGServerConfig        serverConfig,
+                                          OpenMetadataRootElement softwareServer) throws InvalidParameterException,
+                                                                                        PropertyServerException,
+                                                                                        UserNotAuthorizedException
+    {
+        final String formula = "severity in [Error, Exception, Activity, Action, Decision, Security, Cohort]";
+
+        if ((softwareServer != null) &&
+                (softwareServer.getProperties() != null) &&
+                (softwareServer.getProperties() instanceof SoftwareServerProperties softwareServerProperties))
+        {
+            if (softwareServer.getLineageLinkage() != null)
+            {
+                for (RelatedMetadataElementSummary lineageLink : softwareServer.getLineageLinkage())
+                {
+                    if ((lineageLink != null) && (lineageLink.getRelationshipProperties() instanceof DataFlowProperties dataFlowProperties) &&
+                            (formula.equals(dataFlowProperties.getFormula())))
+                    {
+                        /*
+                         * The relationship is in place.
+                         * ToDo In a future iteration we may want to validate that the relationship is still correct.
+                         */
+                        return;
+                    }
+                }
+            }
+
+            /*
+             * Create the relationship between the software server and the audit log topic.
+             * First, we need to discover if the topic exists - and for this we need its name.
+             * The topic name is the networkAddress attribute in the endpoint of the embedded audit log connection.
+             */
+            if ((serverConfig != null) &&
+                    (serverConfig.getRepositoryServicesConfig() != null) &&
+                    (serverConfig.getRepositoryServicesConfig().getAuditLogConnections() != null))
+            {
+                String topicName = null;
+                String topicQualifiedName = null;
+                Map<String, Object> configurationProperties = null;
+                for (Connection auditLogConnection : serverConfig.getRepositoryServicesConfig().getAuditLogConnections())
+                {
+                    if ((auditLogConnection != null) &&
+                            (auditLogConnection.getQualifiedName() != null) &&
+                            (auditLogConnection instanceof VirtualConnection virtualConnection) &&
+                            (virtualConnection.getEmbeddedConnections() != null))
+                    {
+                        for (EmbeddedConnection embeddedConnection : virtualConnection.getEmbeddedConnections())
+                        {
+                            /*
+                             * This test is probably more picky than it needs to be.  However, these definitions are
+                             * created by an administrator, possibly by hand, and so it is well to be cautious.
+                             */
+                            if ((embeddedConnection != null) &&
+                                    (embeddedConnection.getEmbeddedConnection() != null) &&
+                                    (embeddedConnection.getEmbeddedConnection().getEndpoint() != null) &&
+                                    (embeddedConnection.getEmbeddedConnection().getEndpoint().getNetworkAddress() != null) &&
+                                    (embeddedConnection.getEmbeddedConnection().getConnectorType() != null) &&
+                                    (EgeriaOpenConnectorDefinition.KAFKA_TOPIC_CONNECTOR.getConnectorProviderClassName().equals(embeddedConnection.getEmbeddedConnection().getConnectorType().getConnectorProviderClassName())))
+                            {
+                                /*
+                                 * This is a kafka topic connector.  We need to get the topic name and qualified name.
+                                 */
+                                topicName = embeddedConnection.getEmbeddedConnection().getEndpoint().getNetworkAddress();
+                                topicQualifiedName = auditLogConnection.getQualifiedName();
+                                configurationProperties = embeddedConnection.getEmbeddedConnection().getConfigurationProperties();
+
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if ((topicName != null) && (topicQualifiedName != null))
+                {
+                    String topicGUID = null;
+                    AssetClient assetClient = integrationContext.getAssetClient(OpenMetadataType.TOPIC.typeName);
+                    List<OpenMetadataRootElement> elements = assetClient.getAssetsByName(topicQualifiedName,
+                                                                                         assetClient.getQueryOptions());
+
+
+                    if (elements != null)
+                    {
+                        for (OpenMetadataRootElement element : elements)
+                        {
+                            if ((element != null) && (element.getProperties() instanceof TopicProperties))
+                            {
+                                topicGUID = element.getElementHeader().getGUID();
+                                break;
+                            }
+                        }
+                    }
+
+                    DataFlowProperties dataFlowProperties = new DataFlowProperties();
+
+                    dataFlowProperties.setFormula(formula);
+                    dataFlowProperties.setLabel("audit log events");
+                    dataFlowProperties.setDescription("Audit log events from server " + softwareServerProperties.getDisplayName());
+                    dataFlowProperties.setISCQualifiedName(EgeriaInformationSupplyChainDefinition.OPEN_METADATA_OBSERVABILITY.getQualifiedName());
+
+                    if (topicGUID == null)
+                    {
+                        /*
+                         * The topic needs to be created.  We will add the lineage link to the server at the same time.
+                         */
+                        TemplateOptions templateOptions = new TemplateOptions(assetClient.getMetadataSourceOptions());
+
+                        templateOptions.setAnchorGUID(null);
+                        templateOptions.setIsOwnAnchor(true);
+                        templateOptions.setAnchorScopeGUID(null);
+
+                        templateOptions.setParentGUID(softwareServer.getElementHeader().getGUID());
+                        templateOptions.setParentAtEnd1(true);
+                        templateOptions.setParentRelationshipTypeName(OpenMetadataType.DATA_FLOW_RELATIONSHIP.typeName);
+
+                        Map<String, String> placementProperties = new HashMap<>();
+
+                        placementProperties.put(PlaceholderProperty.HOST_IDENTIFIER.getName(), getKafkaHostIdentifier(configurationProperties));
+                        placementProperties.put(PlaceholderProperty.PORT_NUMBER.getName(), getKafkaPortNumber(configurationProperties));
+                        placementProperties.put(PlaceholderProperty.SERVER_NAME.getName(), "Default Apache Atlas");
+                        placementProperties.put(PlaceholderProperty.DESCRIPTION.getName(), "Apache Kafka topic distributing audit log events from the OMAG Servers.");
+                        placementProperties.put(PlaceholderProperty.VERSION_IDENTIFIER.getName(), softwareServerProperties.getVersionIdentifier());
+                        placementProperties.put(KafkaPlaceholderProperty.FULL_TOPIC_NAME.getName(), topicName);
+                        placementProperties.put(KafkaPlaceholderProperty.SHORT_TOPIC_NAME.getName(), topicName);
+                        placementProperties.put(KafkaPlaceholderProperty.EVENT_DIRECTION.getName(), "inOut");
+                        topicGUID = assetClient.createAssetFromTemplate(templateOptions,
+                                                                        KafkaTemplateType.KAFKA_TOPIC_TEMPLATE.getTemplateGUID(),
+                                                                        null,
+                                                                        placementProperties,
+                                                                        dataFlowProperties);
+
+                        GovernanceDefinitionClient governanceDefinitionClient = integrationContext.getGovernanceDefinitionClient();
+
+                        ImplementedByProperties implementedByProperties = new ImplementedByProperties();
+
+                        implementedByProperties.setRole("running instance");
+                        implementedByProperties.setDescription("Topic usage discovered by " + connectorName + ".");
+
+                        governanceDefinitionClient.linkDesignToImplementation(EgeriaSolutionComponent.AUDIT_LOG_TOPIC.getGUID(),
+                                                                              topicGUID,
+                                                                              new MakeAnchorOptions(governanceDefinitionClient.getMetadataSourceOptions()),
+                                                                              implementedByProperties);
+                    }
+                    else
+                    {
+                        /*
+                         * The topic is defined, we will add a new lineage relationship if it is missing.
+                         */
+                        String lineageRelationshipGUID = null;
+                        if (softwareServer.getLineageLinkage() != null)
+                        {
+                            for (RelatedMetadataElementSummary lineageLink : softwareServer.getLineageLinkage())
+                            {
+                                if ((lineageLink != null) &&
+                                        (! lineageLink.getRelatedElementAtEnd1()) &&
+                                        (lineageLink.getRelatedElement().getElementHeader().getGUID().equals(topicGUID)))
+                                {
+                                    lineageRelationshipGUID = lineageLink.getRelationshipHeader().getGUID();
+                                    break;
+                                }
+                            }
+                        }
+
+                        /*
+                         * Add the missing lineage relationship.
+                         */
+                        if (lineageRelationshipGUID == null)
+                        {
+                            LineageClient lineageClient = integrationContext.getLineageClient();
+
+                            lineageClient.linkLineage(softwareServer.getElementHeader().getGUID(),
+                                                      topicGUID,
+                                                      OpenMetadataType.DATA_FLOW_RELATIONSHIP.typeName,
+                                                      lineageClient.getMakeAnchorOptions(false),
+                                                      dataFlowProperties);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Retrieve the host identifier from the bootstrap server information.
+     *
+     * @param configurationProperties configuration properties from topic connector
+     * @return host identifier
+     */
+    private String getKafkaHostIdentifier(Map<String, Object> configurationProperties)
+    {
+        String bootstrapServer = getBootstrapServer(configurationProperties);
+        if (bootstrapServer != null)
+        {
+            return bootstrapServer.substring(0, bootstrapServer.lastIndexOf(":"));
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Retrieve the port number from the bootstrap server information.
+     *
+     * @param configurationProperties configuration properties from topic connector
+     * @return port number
+     */
+    private String getKafkaPortNumber(Map<String, Object> configurationProperties)
+    {
+        String bootstrapServer = getBootstrapServer(configurationProperties);
+        if (bootstrapServer != null)
+        {
+            return bootstrapServer.substring(bootstrapServer.lastIndexOf(":") + 1);
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Retrieve the bootstrap server information from the configuration properties.
+     * It contains the host identifier and port number.
+     *
+     * @param configurationProperties configuration properties from topic connector
+     * @return bootstrap server information
+     */
+    private String getBootstrapServer(Map<String, Object> configurationProperties)
+    {
+        Object properties = configurationProperties.get("producer");
+        if (properties instanceof Map<?, ?> map)
+        {
+            return (String) map.get("bootstrap.servers");
+        }
+
+        properties = configurationProperties.get("consumer");
+        if (properties instanceof Map<?, ?> map)
+        {
+            return (String) map.get("bootstrap.servers");
+        }
+
+        return null;
+    }
+
+
+
+    /**
      * Integration Daemons and Engine Hosts are controlled by SoftwareCapability entities.  This method connects the
      * server definitions to the configured software capabilities.  It is using calls to the live servers
      * to extract the list of running capabilities so only make the calls if the servers are running.
@@ -1228,7 +1507,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                 if (serverElement != null)
                 {
                     /*
-                     * First identify the server capabilities that are already connected to the server element
+                     * First, identify the server capabilities that are already connected to the server element
                      * - that those that should not be connected to the server element because they are longer defined.
                      */
                     if (serverElement.getCapabilities() != null)
@@ -1305,7 +1584,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                 if (serverElement != null)
                 {
                     /*
-                     * First identify the server capabilities that are already connected to the server element
+                     * First, identify the server capabilities that are already connected to the server element
                      * - that those that should not be connected to the server element because they are longer defined.
                      */
                     if (serverElement.getCapabilities() != null)
@@ -1405,7 +1684,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
 
     /**
-     * Link the server to all of the cohorts it is a member of.
+     * Link the server to all the cohorts it is a member of.
      *
      * @param serverGUID unique identifier of the entity for the server
      * @param serverQualifiedName qualified name of the server
@@ -1488,7 +1767,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
                 /*
                  * The server's membership of the cohort is represented by a CohortMember software capability linked to
-                 * the cohort.  There is one software capability for each cohort so the qualified name includes
+                 * the cohort.  There is one software capability for each cohort, so the qualified name includes
                  * both the server name and the cohort.
                  */
                 CohortMemberProperties cohortMemberProperties = new CohortMemberProperties();
@@ -1528,7 +1807,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
 
     /**
-     * Return all of the network addresses for a set of nested connectors.
+     * Return all the network addresses for a set of nested connectors.
      *
      * @param connectors list of nested connectors
      * @return list of network addresses
@@ -1585,7 +1864,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
     {
         /*
          * It is possible that the platform has its own secrets store.  This is configured in its connection's
-         * configuration properties. There is probably only one connection but the code allows for multiple
+         * configuration properties. There is probably only one connection, but the code allows for multiple
          * and returns the first secrets store path name it finds.
          */
         if ((platformElement != null) && (platformElement.getConnections() != null))
@@ -1603,7 +1882,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
         }
 
         /*
-         * The platform does not have its secrets store explicitly defined so use the one provided to this connector.
+         * The platform does not have its secrets store explicitly defined, so use the one provided to this connector.
          */
         return super.getStringConfigurationProperty(OMAGServerPlatformConfigurationProperty.SECRETS_STORE.getName(), connectionBean.getConfigurationProperties());
     }
@@ -1625,7 +1904,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
     {
         /*
          * It is possible that the platform has its own secrets store.  This is configured in its connection's
-         * configuration properties. There is probably only one connection but the code allows for multiple
+         * configuration properties. There is probably only one connection, but the code allows for multiple
          * and returns the first secrets store path name it finds.
          */
         if ((platformElement != null) && (platformElement.getConnections() != null))
@@ -1643,7 +1922,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
         }
 
         /*
-         * The platform does not have its secrets store explicitly defined so use the one provided to this connector.
+         * The platform does not have its secrets store explicitly defined, so use the one provided to this connector.
          */
         return super.getStringConfigurationProperty(OMAGServerPlatformConfigurationProperty.SECRETS_STORE.getName(), connectionBean.getConfigurationProperties());
     }

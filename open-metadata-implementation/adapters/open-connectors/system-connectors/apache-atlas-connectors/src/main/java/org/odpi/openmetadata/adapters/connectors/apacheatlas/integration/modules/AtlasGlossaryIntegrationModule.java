@@ -25,7 +25,6 @@ import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasEntityHeader;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasEntityWithExtInfo;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
@@ -89,7 +88,6 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
      * @param myContext integration context
      * @param targetRootURL URL to connect to Apache Atlas
      * @param atlasClient client to connect to Apache Atlas
-     * @param embeddedConnectors list of any embedded connectors (such as secrets connector and topic connector
      * @throws UserNotAuthorizedException security problem
      */
     public AtlasGlossaryIntegrationModule(String                   connectorName,
@@ -97,8 +95,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
                                           AuditLog                 auditLog,
                                           IntegrationContext       myContext,
                                           String                   targetRootURL,
-                                          ApacheAtlasRESTConnector atlasClient,
-                                          List<Connector>          embeddedConnectors) throws UserNotAuthorizedException
+                                          ApacheAtlasRESTConnector atlasClient) throws UserNotAuthorizedException
     {
         super(connectorName,
               moduleName,
@@ -107,7 +104,6 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
               myContext,
               targetRootURL,
               atlasClient,
-              embeddedConnectors,
               new String[]{"Glossary", "GlossaryCategory", "GlossaryTerm"},
               new String[]{"Glossary", "GlossaryCategory", "GlossaryTerm"});
 

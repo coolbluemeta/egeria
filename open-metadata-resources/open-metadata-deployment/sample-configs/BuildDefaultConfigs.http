@@ -109,6 +109,16 @@ Content-Type: application/json
 }
 }
 
+###
+# Add the event topic audit log destination to the server's configuration document.  The list of severities that are sent to this destination are passed on the request body.  An empty list means all severities.
+# The server may have multiple audit log destinations configured.  Typically each destination has a different subset of the severities configured.
+POST {{baseURL}}/open-metadata/admin-services/servers/active-metadata-store/audit-log-destinations/event-topic?topicName=egeria.omag.server.default.ffdc.audit-logs
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+["Error", "Exception", "Activity", "Action", "Decision", "Security", "Cohort"]
+
+
 
 ###
 # Set up all of the registered, undeprecated Open Metadata Access Services (OMASs) with kafka notifications enabled.
@@ -196,6 +206,35 @@ Content-Type: application/json
 
 
 ###
+# Set up the common properties needed to call your event bus.  The value of ~{kafkaEndpoint}~ is resolved in the
+# application.properties file using the `platform.placeholder.variables` property.
+POST {{baseURL}}/open-metadata/admin-services/servers/view-server/event-bus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "producer":
+  {
+    "bootstrap.servers":"~{kafkaEndpoint}~"
+  },
+  "consumer":
+  {
+    "bootstrap.servers":"~{kafkaEndpoint}~"
+  }
+}
+
+###
+# Add the event topic audit log destination to the server's configuration document.  The list of severities that are sent to this destination are passed on the request body.  An empty list means all severities.
+# The server may have multiple audit log destinations configured.  Typically each destination has a different subset of the severities configured.
+POST {{baseURL}}/open-metadata/admin-services/servers/view-server/audit-log-destinations/event-topic?topicName=egeria.omag.server.default.ffdc.audit-logs
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+["Error", "Exception", "Activity", "Action", "Decision", "Security", "Cohort"]
+
+
+
+###
 # Set up all of the registered, undeprecated Open Metadata View Services (OMVSs).  The request body lists the platforms
 # and servers that will appear on the appropriate UI dropdowns.
 POST {{baseURL}}/open-metadata/admin-services/servers/view-server/view-services
@@ -231,6 +270,36 @@ Content-Type: application/json
   "secretsStoreCollection" : "~{egeriaServersSecretsCollection}~",
   "maxPageSize" : 1000
 }
+
+
+###
+# Set up the common properties needed to call your event bus.  The value of ~{kafkaEndpoint}~ is resolved in the
+# application.properties file using the `platform.placeholder.variables` property.
+POST {{baseURL}}/open-metadata/admin-services/servers/engine-host/event-bus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "producer":
+  {
+    "bootstrap.servers":"~{kafkaEndpoint}~"
+  },
+  "consumer":
+  {
+    "bootstrap.servers":"~{kafkaEndpoint}~"
+  }
+}
+
+###
+# Add the event topic audit log destination to the server's configuration document.  The list of severities that are sent to this destination are passed on the request body.  An empty list means all severities.
+# The server may have multiple audit log destinations configured.  Typically each destination has a different subset of the severities configured.
+POST {{baseURL}}/open-metadata/admin-services/servers/engine-host/audit-log-destinations/event-topic?topicName=egeria.omag.server.default.ffdc.audit-logs
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+["Error", "Exception", "Activity", "Action", "Decision", "Security", "Cohort"]
+
+
 
 ###
 # Set up the address of the active-metadata-store that will supply the engine host with metadata along with the
@@ -439,6 +508,36 @@ Content-Type: application/json
   "secretsStoreCollection" : "~{egeriaServersSecretsCollection}~",
   "maxPageSize" : 1000
 }
+
+
+###
+# Set up the common properties needed to call your event bus.  The value of ~{kafkaEndpoint}~ is resolved in the
+# application.properties file using the `platform.placeholder.variables` property.
+POST {{baseURL}}/open-metadata/admin-services/servers/integration-daemon/event-bus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "producer":
+  {
+    "bootstrap.servers":"~{kafkaEndpoint}~"
+  },
+  "consumer":
+  {
+    "bootstrap.servers":"~{kafkaEndpoint}~"
+  }
+}
+
+###
+# Add the event topic audit log destination to the server's configuration document.  The list of severities that are sent to this destination are passed on the request body.  An empty list means all severities.
+# The server may have multiple audit log destinations configured.  Typically each destination has a different subset of the severities configured.
+POST {{baseURL}}/open-metadata/admin-services/servers/integration-daemon/audit-log-destinations/event-topic?topicName=egeria.omag.server.default.ffdc.audit-logs
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+["Error", "Exception", "Activity", "Action", "Decision", "Security", "Cohort"]
+
+
 
 ###
 # Set up the qualified name of the integration group that this server supports and the location of the

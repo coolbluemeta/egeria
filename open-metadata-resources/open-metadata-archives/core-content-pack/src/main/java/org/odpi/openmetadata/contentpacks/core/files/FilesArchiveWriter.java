@@ -17,6 +17,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.types.DataType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,54 +112,68 @@ public class FilesArchiveWriter extends ContentPackBaseArchiveWriter
          */
         super.createRequestTypes(ContentPackDefinition.FILES_CONTENT_PACK);
 
-        this.createAndSurveyServerGovernanceActionProcess("FileDirectory",
-                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_FILE_FOLDER,
-                                                          DataAssetTemplateDefinition.FILE_FOLDER_TEMPLATE,
-                                                          RequestTypeDefinition.SURVEY_ALL_FOLDERS_AND_FILES,
-                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName());
+        /*
+         * Create helper processes
+         */
+        List<String> additionalSolutionComponents = new ArrayList<>();
 
-        this.createAndCatalogServerGovernanceActionProcess("FileDirectory",
-                                                           DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
-                                                           RequestTypeDefinition.CREATE_FILE_FOLDER,
-                                                           DataAssetTemplateDefinition.FILE_FOLDER_TEMPLATE,
-                                                           RequestTypeDefinition.CATALOG_FILE_FOLDER,
-                                                           DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName());
+        String solutionComponentGUID = this.createAndSurveyServerGovernanceActionProcess("FileDirectory",
+                                                                                         DeployedImplementationType.FILE_SYSTEM_DIRECTORY,
+                                                                                         "https://egeria-project.org/egeria-solutions/leveraging-files/overview/",
+                                                                                         RequestTypeDefinition.CREATE_FILE_FOLDER,
+                                                                                         DataAssetTemplateDefinition.FILE_FOLDER_TEMPLATE,
+                                                                                         RequestTypeDefinition.SURVEY_ALL_FOLDERS_AND_FILES);
 
-        this.deleteAsCatalogTargetGovernanceActionProcess("FileDirectory",
-                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getAssociatedTypeName(),
-                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_FILE_FOLDER,
-                                                          DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getQualifiedName());
+        additionalSolutionComponents.add(solutionComponentGUID);
 
-        this.createAndSurveyServerGovernanceActionProcess("DataDirectory",
-                                                          DeployedImplementationType.DATA_FOLDER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_DATA_FOLDER,
-                                                          DataAssetTemplateDefinition.DATA_FOLDER_TEMPLATE,
-                                                          RequestTypeDefinition.SURVEY_FOLDER_AND_FILES,
-                                                          DeployedImplementationType.DATA_FOLDER.getQualifiedName());
+        solutionComponentGUID = this.createAndCatalogServerGovernanceActionProcess("FileDirectory",
+                                                                                   DeployedImplementationType.FILE_SYSTEM_DIRECTORY,
+                                                                                   "https://egeria-project.org/egeria-solutions/leveraging-files/overview/",
+                                                                                   RequestTypeDefinition.CREATE_FILE_FOLDER,
+                                                                                   DataAssetTemplateDefinition.FILE_FOLDER_TEMPLATE,
+                                                                                   RequestTypeDefinition.CATALOG_FILE_FOLDER);
 
-        this.createAndCatalogServerGovernanceActionProcess("DataDirectory",
-                                                           DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
-                                                           RequestTypeDefinition.CREATE_DATA_FOLDER,
-                                                           DataAssetTemplateDefinition.DATA_FOLDER_TEMPLATE,
-                                                           RequestTypeDefinition.CATALOG_DATA_FOLDER,
-                                                           DeployedImplementationType.DATA_FOLDER.getQualifiedName());
+        additionalSolutionComponents.add(solutionComponentGUID);
 
-        this.deleteAsCatalogTargetGovernanceActionProcess("DataDirectory",
-                                                          DeployedImplementationType.DATA_FOLDER.getAssociatedTypeName(),
-                                                          DeployedImplementationType.DATA_FOLDER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_DATA_FOLDER,
-                                                          DeployedImplementationType.DATA_FOLDER.getQualifiedName());
+        solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("FileDirectory",
+                                                                                  DeployedImplementationType.FILE_SYSTEM_DIRECTORY,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-files/overview/",
+                                                                                  RequestTypeDefinition.DELETE_FILE_FOLDER);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndSurveyServerGovernanceActionProcess("DataDirectory",
+                                                                                  DeployedImplementationType.DATA_FOLDER,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-files/overview/",
+                                                                                  RequestTypeDefinition.CREATE_DATA_FOLDER,
+                                                                                  DataAssetTemplateDefinition.DATA_FOLDER_TEMPLATE,
+                                                                                  RequestTypeDefinition.SURVEY_FOLDER_AND_FILES);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndCatalogServerGovernanceActionProcess("DataDirectory",
+                                                                                   DeployedImplementationType.FILE_SYSTEM_DIRECTORY,
+                                                                                   "https://egeria-project.org/egeria-solutions/leveraging-files/overview/",
+                                                                                   RequestTypeDefinition.CREATE_DATA_FOLDER,
+                                                                                   DataAssetTemplateDefinition.DATA_FOLDER_TEMPLATE,
+                                                                                   RequestTypeDefinition.CATALOG_DATA_FOLDER);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("DataDirectory",
+                                                                                  DeployedImplementationType.DATA_FOLDER,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-files/overview/",
+                                                                                  RequestTypeDefinition.DELETE_DATA_FOLDER);
+        additionalSolutionComponents.add(solutionComponentGUID);
 
         /*
          * Define the solution components for this solution.
          */
-        this.addSolutionBlueprints(ContentPackDefinition.FILES_CONTENT_PACK);
+        this.addSolutionBlueprints(ContentPackDefinition.FILES_CONTENT_PACK, additionalSolutionComponents);
         this.addSolutionLinkingWires(ContentPackDefinition.FILES_CONTENT_PACK);
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();

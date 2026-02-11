@@ -16,7 +16,6 @@ import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasEntityWithExtInfo;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ApacheAtlasRESTConnector;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
@@ -64,7 +63,6 @@ public class AtlasLineageIntegrationModule extends AtlasIntegrationModuleBase
      * @param myContext integration context
      * @param targetRootURL URL to connect to Apache Atlas
      * @param atlasClient client to connect to Apache Atlas
-     * @param embeddedConnectors list of any embedded connectors (such as secrets connector and topic connector
      * @throws UserNotAuthorizedException security problem
      */
     public AtlasLineageIntegrationModule(String                   connectorName,
@@ -72,8 +70,7 @@ public class AtlasLineageIntegrationModule extends AtlasIntegrationModuleBase
                                          AuditLog                 auditLog,
                                          IntegrationContext       myContext,
                                          String                   targetRootURL,
-                                         ApacheAtlasRESTConnector atlasClient,
-                                         List<Connector>          embeddedConnectors) throws UserNotAuthorizedException
+                                         ApacheAtlasRESTConnector atlasClient) throws UserNotAuthorizedException
     {
         super(connectorName,
               lineageModuleName,
@@ -81,8 +78,7 @@ public class AtlasLineageIntegrationModule extends AtlasIntegrationModuleBase
               auditLog,
               myContext,
               targetRootURL,
-              atlasClient,
-              embeddedConnectors);
+              atlasClient);
 
         this.lineageClient = myContext.getLineageClient();
         this.assetClient = myContext.getAssetClient();

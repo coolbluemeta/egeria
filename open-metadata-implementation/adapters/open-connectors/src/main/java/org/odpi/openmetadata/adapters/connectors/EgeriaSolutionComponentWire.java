@@ -70,6 +70,21 @@ public enum EgeriaSolutionComponentWire implements SolutionComponentWireDefiniti
                                      "stores data",
                                      "A metadata access store stores its metadata in a metadata repository."),
 
+    METADATA_ACCESS_STORE_AL_EVENTS(EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponent(),
+                                    EgeriaSolutionComponent.AUDIT_LOG_TOPIC,
+                                    "audit log notifications",
+                                    "A metadata access store sends a kafka event each time an audit log record of severity Error, Exception, Activity, Action, Decision, Security or Cohort."),
+
+    INTEGRATION_DAEMON_AL_EVENTS(EgeriaDeployedImplementationType.INTEGRATION_DAEMON.getSolutionComponent(),
+                                    EgeriaSolutionComponent.AUDIT_LOG_TOPIC,
+                                    "audit log notifications",
+                                    "An integration daemon sends a kafka event each time an audit log record of severity Error, Exception, Activity, Action, Decision, Security or Cohort."),
+
+    ENGINE_HOST_AL_EVENTS(EgeriaDeployedImplementationType.ENGINE_HOST.getSolutionComponent(),
+                                 EgeriaSolutionComponent.AUDIT_LOG_TOPIC,
+                                 "audit log notifications",
+                                 "An engine host sends a kafka event each time an audit log record of severity Error, Exception, Activity, Action, Decision, Security or Cohort."),
+
     METADATA_ACCESS_STORE_OM_EVENTS(EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponent(),
                                  EgeriaSolutionComponent.OPEN_METADATA_TOPIC,
                                  "metadata change notifications",

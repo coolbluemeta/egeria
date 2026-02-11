@@ -329,7 +329,7 @@ public class OpenGovernanceRESTServices
             }
 
             GovernanceActionProcessMermaidGraphBuilder graphBuilder = new GovernanceActionProcessMermaidGraphBuilder(governanceActionProcessGraph);
-            governanceActionProcessGraph.setMermaidGraph(graphBuilder.getMermaidGraph());
+            governanceActionProcessGraph.setGovernanceActionProcessMermaidGraph(graphBuilder.getMermaidGraph());
 
             response.setElement(governanceActionProcessGraph);
 

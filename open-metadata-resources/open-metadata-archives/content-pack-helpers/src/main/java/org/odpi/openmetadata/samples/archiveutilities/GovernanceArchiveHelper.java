@@ -1502,19 +1502,20 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
      * @param name display name for the capability
      * @param versionIdentifier identifier of the version for the process implementation
      * @param description description about the capability
+     * @param url further information about the process
      * @param formula logic for the process
      * @param domainIdentifier which governance domain - 0=all
      * @param additionalProperties any other properties
      * @param extendedProperties properties for subtype
      * @param classifications list of classifications (if any)
-     *
-     * @return id for the new entity
+     * @return unique identifier for the solution component for the new governance action process
      */
     public String addGovernanceActionProcess(String               typeName,
                                              String               qualifiedName,
                                              String               name,
                                              String               versionIdentifier,
                                              String               description,
+                                             String               url,
                                              String               formula,
                                              int                  domainIdentifier,
                                              Map<String, String>  additionalProperties,
@@ -1542,6 +1543,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                 name,
                                 versionIdentifier,
                                 description,
+                                url,
                                 formula,
                                 additionalProperties,
                                 extendedProperties,

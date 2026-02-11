@@ -10,8 +10,10 @@ import org.odpi.openmetadata.contentpacks.core.RequestTypeDefinition;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
 import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
 import org.odpi.openmetadata.contentpacks.core.postgres.PostgresPackArchiveWriter;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,7 +23,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.p
 public class NannyPackArchiveWriter extends ContentPackBaseArchiveWriter
 {
     /**
-     * Default constructor initializes the archive.
+     * The default constructor initializes the archive.
      */
     public NannyPackArchiveWriter()
     {
@@ -67,30 +69,38 @@ public class NannyPackArchiveWriter extends ContentPackBaseArchiveWriter
          */
         super.createRequestTypes(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
 
-        this.createAndHarvestToAssetGovernanceActionProcess("HarvestSurveyReports",
-                                                            PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getAssociatedTypeName(),
-                                                            PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getDeployedImplementationType(),
-                                                            RequestTypeDefinition.CREATE_POSTGRES_SCHEMA,
-                                                            PostgreSQLTemplateType.POSTGRES_SCHEMA_TEMPLATE,
-                                                            RequestTypeDefinition.HARVEST_SURVEYS,
-                                                            PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getQualifiedName());
+        /*
+         * Create helper processes
+         */
+        List<String> additionalSolutionComponents = new ArrayList<>();
 
-        this.createAndHarvestToAssetGovernanceActionProcess("HarvestOpenMetadataEcosystem",
-                                                            OpenMetadataType.DEPLOYED_DATABASE_SCHEMA.typeName,
-                                                            PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getDeployedImplementationType(),
-                                                            RequestTypeDefinition.CREATE_POSTGRES_SCHEMA,
-                                                            PostgreSQLTemplateType.POSTGRES_SCHEMA_TEMPLATE,
-                                                            RequestTypeDefinition.HARVEST_OPEN_METADATA,
-                                                            PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getQualifiedName());
+        String solutionComponentGUID = this.createAndHarvestToAssetGovernanceActionProcess("HarvestSurveyReports",
+                                                                                           PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA,
+                                                                                           null,
+                                                                                           RequestTypeDefinition.CREATE_POSTGRES_SCHEMA,
+                                                                                           PostgreSQLTemplateType.POSTGRES_SCHEMA_TEMPLATE,
+                                                                                           RequestTypeDefinition.HARVEST_SURVEYS);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndHarvestToAssetGovernanceActionProcess("HarvestOpenMetadataEcosystem",
+                                                                                    PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA,
+                                                                                    null,
+                                                                                    RequestTypeDefinition.CREATE_POSTGRES_SCHEMA,
+                                                                                    PostgreSQLTemplateType.POSTGRES_SCHEMA_TEMPLATE,
+                                                                                    RequestTypeDefinition.HARVEST_OPEN_METADATA);
+
+        additionalSolutionComponents.add(solutionComponentGUID);
+
 
         /*
          * Define the solution components for this solution.
          */
-        super.addSolutionBlueprints(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
+        super.addSolutionBlueprints(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK, additionalSolutionComponents);
         super.addSolutionLinkingWires(ContentPackDefinition.OBSERVABILITY_CONTENT_PACK);
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();

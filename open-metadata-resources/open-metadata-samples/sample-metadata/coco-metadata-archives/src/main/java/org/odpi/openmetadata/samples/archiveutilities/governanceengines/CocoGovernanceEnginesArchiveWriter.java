@@ -589,6 +589,7 @@ public class CocoGovernanceEnginesArchiveWriter extends EgeriaBaseArchiveWriter
                                                                                    3) Lineage is created between the original file asset and the new file asset,
                                                                                    4) The owner and origin are assigned,
                                                                                    5) The governance zones are assigned to make the new asset visible to the research team.""",
+                                                                      "https://egeria-project.org/egeria-solutions/leveraging-files/overview/",
                                                                       null,
                                                                       0,
                                                                       null,

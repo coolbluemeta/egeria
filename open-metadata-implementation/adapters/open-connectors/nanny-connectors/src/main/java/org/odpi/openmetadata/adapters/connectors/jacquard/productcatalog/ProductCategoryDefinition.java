@@ -34,6 +34,11 @@ public enum ProductCategoryDefinition
     INSIGHT_NOTIFICATIONS ("Insight Notifications","Regular publishing of summaries, analysis and other insights."),
 
     /**
+     * Publishing of insights from the surveys from the open survey framework.  These surveys may be run as engine actions in the Engine Host, or run in an external surveying process that published results through the Data Discovery API.
+     */
+    SURVEY_REPORTS ("Survey Reports","Publishing of insights from the surveys from the open survey framework.  These surveys may be run as engine actions in the Engine Host, or run in an external surveying process that published results through the Data Discovery API."),
+
+    /**
      * Details of the open metadata types in operation.
      */
     OPEN_METADATA_TYPES ("Open Metadata Types","Details of the open metadata types in operation."),

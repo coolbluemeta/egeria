@@ -209,7 +209,7 @@ public class ConfigRepositoryServicesResource
 
     public VoidResponse addEventTopicAuditLogDestination(@PathVariable String       serverName,
                                                          @Parameter(description="delegating user id")  @RequestParam(required = false) String delegatingUserId,
-                                                         @RequestParam (required = false)
+                                                         @Parameter(description="topic name") @RequestParam (required = false)
                                                                        String       topicName,
                                                          @RequestBody  List<String> supportedSeverities)
     {

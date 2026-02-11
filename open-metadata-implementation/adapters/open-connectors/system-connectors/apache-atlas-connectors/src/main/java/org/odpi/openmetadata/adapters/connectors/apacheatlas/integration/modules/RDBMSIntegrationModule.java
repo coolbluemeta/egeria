@@ -6,7 +6,6 @@ package org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.module
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.properties.AtlasEntity;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ApacheAtlasRESTConnector;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.frameworks.integration.context.IntegrationContext;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
@@ -18,9 +17,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.databases
 import org.odpi.openmetadata.frameworks.openmetadata.types.DataType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * RDBMSIntegrationModule manages the cataloguing of RDBMS entities stored in Apache Atlas into the open metadata ecosystem.
@@ -52,7 +49,6 @@ public class RDBMSIntegrationModule extends DatabaseIntegrationModuleBase
      * @param myContext integration context
      * @param targetRootURL URL to connect to Apache Atlas
      * @param atlasClient client to connect to Apache Atlas
-     * @param embeddedConnectors list of any embedded connectors (such as secrets connector and topic connector
      * @throws UserNotAuthorizedException security problem
      */
     public RDBMSIntegrationModule(String                   connectorName,
@@ -60,8 +56,7 @@ public class RDBMSIntegrationModule extends DatabaseIntegrationModuleBase
                                   AuditLog                 auditLog,
                                   IntegrationContext        myContext,
                                   String                   targetRootURL,
-                                  ApacheAtlasRESTConnector atlasClient,
-                                  List<Connector>          embeddedConnectors) throws UserNotAuthorizedException
+                                  ApacheAtlasRESTConnector atlasClient) throws UserNotAuthorizedException
     {
         super(connectorName,
               rdbmsModuleName,
@@ -74,8 +69,7 @@ public class RDBMSIntegrationModule extends DatabaseIntegrationModuleBase
               auditLog,
               myContext,
               targetRootURL,
-              atlasClient,
-              embeddedConnectors);
+              atlasClient);
     }
 
 

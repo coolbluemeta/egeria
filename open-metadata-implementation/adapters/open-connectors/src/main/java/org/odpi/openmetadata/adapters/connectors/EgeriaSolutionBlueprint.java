@@ -60,6 +60,7 @@ public enum EgeriaSolutionBlueprint implements SolutionBlueprintDefinition
                               DeployedImplementationType.APACHE_AIRFLOW_SERVER.getSolutionComponent(),
                               EgeriaSolutionComponent.OL_PROXY,
                               EgeriaSolutionComponent.OL_KAFKA_TOPIC,
+                              EgeriaSolutionComponent.AUDIT_LOG_TOPIC,
                               EgeriaSolutionComponent.OPEN_METADATA_TOPIC,
                               EgeriaSolutionComponent.OPEN_GOVERNANCE_TOPIC,
                               EgeriaDeployedImplementationType.INTEGRATION_DAEMON.getSolutionComponent(),

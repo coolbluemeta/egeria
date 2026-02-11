@@ -3,7 +3,7 @@
 # https://egeria-project.org/concepts/digital-product
 
 @baseURL=https://localhost:9443
-@viewServer=qs-view-server
+@viewServer=view-server
 
 ###
 # =====================================================================================================================

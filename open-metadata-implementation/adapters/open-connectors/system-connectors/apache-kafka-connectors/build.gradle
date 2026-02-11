@@ -11,6 +11,7 @@ dependencies {
     compileOnly project(':open-metadata-implementation:frameworks:open-integration-framework')
     compileOnly project(':open-metadata-implementation:frameworks:open-governance-framework')
     compileOnly project(':open-metadata-implementation:frameworks:open-survey-framework')
+    compileOnly project(':open-metadata-implementation:adapters:open-connectors')
     compileOnly 'com.fasterxml.jackson.core:jackson-annotations'
     compileOnly 'com.fasterxml.jackson.core:jackson-databind'
     compileOnly 'org.slf4j:slf4j-api'

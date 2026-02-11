@@ -3,7 +3,6 @@
 
 package org.odpi.openmetadata.samples.archiveutilities.governanceengines;
 
-import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ScopeDefinition;
@@ -18,21 +17,6 @@ import java.util.List;
  */
 public enum InformationSupplyChain
 {
-    /**
-     * Standard template
-     */
-    INFORMATION_SUPPLY_CHAIN_TEMPLATE("ba3ab0dd-3ec5-4ec5-9db9-f3dc56e3a732",
-                                      PlaceholderProperty.DISPLAY_NAME.getPlaceholder(),
-                                      PlaceholderProperty.DESCRIPTION.getPlaceholder(),
-                                      ScopeDefinition.TEMPLATE_PLACEHOLDER,
-                                      null,
-                                      null,
-                                      null,
-                                      false,
-                                      null,
-                                      "Standard information supply chain template",
-                                      "Create a new type of information supply chain"),
-
     /**
      * Identifies the data flows related to all clinical trials.
      */

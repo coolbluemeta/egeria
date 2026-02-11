@@ -13,6 +13,9 @@ import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter
 import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * ApacheAtlasPackArchiveWriter creates an open metadata archive that includes the connector type
@@ -85,36 +88,40 @@ public class ApacheAtlasPackArchiveWriter extends ContentPackBaseArchiveWriter
         this.addDataAssetCatalogTemplates(ContentPackDefinition.APACHE_ATLAS_CONTENT_PACK);
 
         /*
-         * Create a sample process
+         * Create helper processes
          */
-        this.createAndSurveyServerGovernanceActionProcess("ApacheAtlasServer",
-                                                          AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_ATLAS_SERVER,
-                                                          SoftwareServerTemplateDefinition.APACHE_ATLAS_TEMPLATE,
-                                                          RequestTypeDefinition.SURVEY_ATLAS_SERVER,
-                                                          AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getQualifiedName());
-        
-        this.createAndCatalogServerGovernanceActionProcess("ApacheAtlasServer",
-                                                           AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getDeployedImplementationType(),
-                                                           RequestTypeDefinition.CREATE_ATLAS_SERVER,
-                                                           SoftwareServerTemplateDefinition.APACHE_ATLAS_TEMPLATE,
-                                                           RequestTypeDefinition.CATALOG_ATLAS_SERVER,
-                                                           AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getQualifiedName());
+        List<String> additionalSolutionComponents = new ArrayList<>();
 
-        this.deleteAsCatalogTargetGovernanceActionProcess("ApacheAtlasServer",
-                                                          AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getAssociatedTypeName(),
-                                                          AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_ATLAS_SERVER,
-                                                          AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getQualifiedName());
+        String solutionComponentGUID = this.createAndSurveyServerGovernanceActionProcess("ApacheAtlasServer",
+                                                                                         AtlasDeployedImplementationType.APACHE_ATLAS_SERVER,
+                                                                                         "https://egeria-project.org/egeria-solutions/leveraging-apache-atlas/overview/",
+                                                                                         RequestTypeDefinition.CREATE_ATLAS_SERVER,
+                                                                                         SoftwareServerTemplateDefinition.APACHE_ATLAS_TEMPLATE,
+                                                                                         RequestTypeDefinition.SURVEY_ATLAS_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndCatalogServerGovernanceActionProcess("ApacheAtlasServer",
+                                                                                   AtlasDeployedImplementationType.APACHE_ATLAS_SERVER,
+                                                                                   "https://egeria-project.org/egeria-solutions/leveraging-apache-atlas/overview/",
+                                                                                   RequestTypeDefinition.CREATE_ATLAS_SERVER,
+                                                                                   SoftwareServerTemplateDefinition.APACHE_ATLAS_TEMPLATE,
+                                                                                   RequestTypeDefinition.CATALOG_ATLAS_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("ApacheAtlasServer",
+                                                                                  AtlasDeployedImplementationType.APACHE_ATLAS_SERVER,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-apache-atlas/overview/",
+                                                                                  RequestTypeDefinition.DELETE_ATLAS_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
 
         /*
          * Define the solution components for this solution.
          */
-        this.addSolutionBlueprints(ContentPackDefinition.APACHE_ATLAS_CONTENT_PACK);
+        this.addSolutionBlueprints(ContentPackDefinition.APACHE_ATLAS_CONTENT_PACK, additionalSolutionComponents);
         this.addSolutionLinkingWires(ContentPackDefinition.APACHE_ATLAS_CONTENT_PACK);
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();

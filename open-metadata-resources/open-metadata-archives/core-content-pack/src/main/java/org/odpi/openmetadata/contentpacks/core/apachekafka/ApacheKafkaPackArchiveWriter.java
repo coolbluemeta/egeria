@@ -2,7 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.contentpacks.core.apachekafka;
 
-import org.odpi.openmetadata.adapters.connectors.apachekafka.control.KafkaDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.controls.KafkaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.integration.KafkaTopicIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.resource.ApacheKafkaAdminProvider;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.survey.SurveyApacheKafkaServerProvider;
@@ -13,6 +13,9 @@ import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter
 import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
 import org.odpi.openmetadata.contentpacks.core.IntegrationGroupDefinition;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -86,34 +89,40 @@ public class ApacheKafkaPackArchiveWriter extends ContentPackBaseArchiveWriter
         super.createRequestTypes(ContentPackDefinition.APACHE_KAFKA_CONTENT_PACK);
 
         /*
-         * Create a sample process
+         * Create helper processes
          */
-        this.createAndSurveyServerGovernanceActionProcess("ApacheKafkaServer",
-                                                          KafkaDeployedImplementationType.APACHE_KAFKA_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.CREATE_KAFKA_SERVER,
-                                                          SoftwareServerTemplateDefinition.KAFKA_SERVER_TEMPLATE,
-                                                          RequestTypeDefinition.SURVEY_KAFKA_SERVER,
-                                                          KafkaDeployedImplementationType.APACHE_KAFKA_SERVER.getQualifiedName());
-        this.createAndCatalogServerGovernanceActionProcess("ApacheKafkaServer",
-                                                           KafkaDeployedImplementationType.APACHE_KAFKA_SERVER.getDeployedImplementationType(),
-                                                           RequestTypeDefinition.CREATE_KAFKA_SERVER,
-                                                           SoftwareServerTemplateDefinition.KAFKA_SERVER_TEMPLATE,
-                                                           RequestTypeDefinition.CATALOG_KAFKA_SERVER,
-                                                           KafkaDeployedImplementationType.APACHE_KAFKA_SERVER.getQualifiedName());
-        this.deleteAsCatalogTargetGovernanceActionProcess("ApacheKafkaServer",
-                                                          KafkaDeployedImplementationType.APACHE_KAFKA_SERVER.getAssociatedTypeName(),
-                                                          KafkaDeployedImplementationType.APACHE_KAFKA_SERVER.getDeployedImplementationType(),
-                                                          RequestTypeDefinition.DELETE_KAFKA_SERVER,
-                                                          KafkaDeployedImplementationType.APACHE_KAFKA_SERVER.getQualifiedName());
+        List<String> additionalSolutionComponents = new ArrayList<>();
+
+        String solutionComponentGUID = this.createAndSurveyServerGovernanceActionProcess("ApacheKafkaServer",
+                                                                                         KafkaDeployedImplementationType.APACHE_KAFKA_SERVER,
+                                                                                         "https://egeria-project.org/egeria-solutions/leveraging-apache-kafka/overview/",
+                                                                                         RequestTypeDefinition.CREATE_KAFKA_SERVER,
+                                                                                         SoftwareServerTemplateDefinition.KAFKA_SERVER_TEMPLATE,
+                                                                                         RequestTypeDefinition.SURVEY_KAFKA_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.createAndCatalogServerGovernanceActionProcess("ApacheKafkaServer",
+                                                                                   KafkaDeployedImplementationType.APACHE_KAFKA_SERVER,
+                                                                                   "https://egeria-project.org/egeria-solutions/leveraging-apache-kafka/overview/",
+                                                                                   RequestTypeDefinition.CREATE_KAFKA_SERVER,
+                                                                                   SoftwareServerTemplateDefinition.KAFKA_SERVER_TEMPLATE,
+                                                                                   RequestTypeDefinition.CATALOG_KAFKA_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
+        solutionComponentGUID = this.deleteAsCatalogTargetGovernanceActionProcess("ApacheKafkaServer",
+                                                                                  KafkaDeployedImplementationType.APACHE_KAFKA_SERVER,
+                                                                                  "https://egeria-project.org/egeria-solutions/leveraging-apache-kafka/overview/",
+                                                                                  RequestTypeDefinition.DELETE_KAFKA_SERVER);
+        additionalSolutionComponents.add(solutionComponentGUID);
 
         /*
          * Define the solution components for this solution.
          */
-        this.addSolutionBlueprints(ContentPackDefinition.APACHE_KAFKA_CONTENT_PACK);
+        this.addSolutionBlueprints(ContentPackDefinition.APACHE_KAFKA_CONTENT_PACK, additionalSolutionComponents);
         this.addSolutionLinkingWires(ContentPackDefinition.APACHE_KAFKA_CONTENT_PACK);
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();

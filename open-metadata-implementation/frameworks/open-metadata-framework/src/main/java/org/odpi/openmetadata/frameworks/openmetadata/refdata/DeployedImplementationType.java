@@ -58,7 +58,11 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
                OpenMetadataType.DATA_ASSET.typeName,
                null,
                "A collection of data, either at rest or in motion.",
-               "https://egeria-project.org/concepts/asset/"),
+               "https://egeria-project.org/concepts/asset/",
+               "ff63580f-2780-4972-bae2-04b56d4bc784",
+               SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+               "DATA-ASSET",
+               null),
 
     /**
      * A collection of data, either at rest or in motion.
@@ -81,7 +85,11 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
                      OpenMetadataType.TABULAR_DATA_SET.typeName,
                      null,
                      "A logical collection of data, either at rest or in motion, organized into a tabular (columnar) format.",
-                     "https://egeria-project.org/concepts/tabular-data-set/"),
+                     "https://egeria-project.org/concepts/tabular-data-set/",
+                     "5ec9db1a-14e8-4e36-b727-7a3fdfa511ea",
+                     SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                     "TABULAR-DATA-SET",
+                     new SolutionComponentDefinition[]{DATA_ASSET.getSolutionComponent()}),
 
     /**
      * A collection of tabular data sets.
@@ -92,7 +100,11 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
                                 OpenMetadataType.TABULAR_DATA_SET.typeName,
                                 null,
                                 "A collection of tabular data sets.",
-                                "https://egeria-project.org/concepts/tabular-data-set/"),
+                                "https://egeria-project.org/concepts/tabular-data-set/",
+                                "1c06aeff-cee7-4d0d-87c5-65876a8a395e",
+                                SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                                "TABULAR-DATA-SET-COLLECTION",
+                                new SolutionComponentDefinition[]{TABULAR_DATA_SET.getSolutionComponent()}),
 
 
     /**
@@ -181,7 +193,11 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
               OpenMetadataType.DATA_FILE.typeName,
               null,
               "A file containing data.  This may be structured data, text or some form or media file.",
-              OpenMetadataWikiPages.MODEL_0220_FILE_AND_FOLDERS),
+              OpenMetadataWikiPages.MODEL_0220_FILE_AND_FOLDERS,
+              "f689b431-3d7a-4f3e-8162-de475d050033",
+              SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+              "DATA-FILE",
+              null),
 
     /**
      * CSV Data File.
@@ -192,7 +208,11 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
              OpenMetadataType.CSV_FILE.typeName,
              null,
              OpenMetadataType.CSV_FILE.description,
-             OpenMetadataWikiPages.MODEL_0220_FILE_AND_FOLDERS),
+             OpenMetadataWikiPages.MODEL_0220_FILE_AND_FOLDERS,
+             "9f95ea51-562c-4762-abfe-9a4acbe80f3b",
+             SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+             "CSV-FILE",
+             null),
 
     /**
      * Avro Data File
@@ -1328,7 +1348,11 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
                                     OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
                                     null,
                                     "Reads and writes records to the Open Metadata Repository Services (OMRS) audit log.",
-                                    "https://egeria-project.org/concepts/audit-log/"),
+                                    "https://egeria-project.org/concepts/audit-log/",
+                                    "c11370f9-5f84-408a-911a-b2e13696b1b1",
+                                    SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                                    "AUDIT_LOG_DESTINATION",
+                                    null),
 
     /**
      * Provides the list of integration connectors that should run in an Integration Daemon.  The Integration Daemon is configured with the qualified names of the integration group(s) that provide its connector list.

@@ -767,7 +767,7 @@ public class MermaidGraphBuilderBase
         }
         if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName))
         {
-            return VisualStyle.GOVERNANCE_ACTION;
+            return VisualStyle.GOVERNANCE_ACTION_PROCESS;
         }
         if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.GOVERNANCE_ACTION_TYPE.typeName))
         {
@@ -1849,10 +1849,6 @@ public class MermaidGraphBuilderBase
             }
             if (nodeDisplayName == null)
             {
-                nodeDisplayName = properties.getExtendedProperties().get(OpenMetadataProperty.STARS.name);
-            }
-            if (nodeDisplayName == null)
-            {
                 nodeDisplayName = properties.getExtendedProperties().get(OpenMetadataProperty.URL.name);
             }
             if (nodeDisplayName == null)
@@ -1863,7 +1859,8 @@ public class MermaidGraphBuilderBase
 
         if (nodeDisplayName == null)
         {
-            if (elementHeader.getType().getTypeName().equals(OpenMetadataType.LIKE.typeName))
+            if ((elementHeader.getType().getTypeName().equals(OpenMetadataType.LIKE.typeName)) ||
+                (elementHeader.getType().getTypeName().equals(OpenMetadataType.REVIEW.typeName)))
             {
                 nodeDisplayName = elementHeader.getVersions().getCreatedBy();
             }

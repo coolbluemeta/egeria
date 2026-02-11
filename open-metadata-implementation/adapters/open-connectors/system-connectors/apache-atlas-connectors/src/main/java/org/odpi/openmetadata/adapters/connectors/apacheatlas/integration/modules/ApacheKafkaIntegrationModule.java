@@ -7,7 +7,6 @@ import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ffdc.At
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ffdc.AtlasIntegrationErrorCode;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ApacheAtlasRESTConnector;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedException;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.frameworks.integration.context.IntegrationContext;
@@ -15,7 +14,6 @@ import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataOutTopic
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.PermittedSynchronization;
 
-import java.util.List;
 
 /**
  * ApacheKafkaIntegrationModule maps Apache Kafka resources catalogued in Apache Atlas into the open metadata ecosystem.
@@ -41,7 +39,6 @@ public class ApacheKafkaIntegrationModule extends AtlasRegisteredIntegrationModu
      * @param myContext integration context
      * @param targetRootURL URL to connect to Apache Atlas
      * @param atlasClient client to connect to Apache Atlas
-     * @param embeddedConnectors list of any embedded connectors (such as secrets connector and topic connector
      * @throws UserNotAuthorizedException security problem
      */
     public ApacheKafkaIntegrationModule(String                   connectorName,
@@ -49,8 +46,7 @@ public class ApacheKafkaIntegrationModule extends AtlasRegisteredIntegrationModu
                                         AuditLog                 auditLog,
                                         IntegrationContext       myContext,
                                         String                   targetRootURL,
-                                        ApacheAtlasRESTConnector atlasClient,
-                                        List<Connector>          embeddedConnectors) throws UserNotAuthorizedException
+                                        ApacheAtlasRESTConnector atlasClient) throws UserNotAuthorizedException
     {
         super(connectorName,
               kafkaModuleName,
@@ -59,7 +55,6 @@ public class ApacheKafkaIntegrationModule extends AtlasRegisteredIntegrationModu
               myContext,
               targetRootURL,
               atlasClient,
-              embeddedConnectors,
               new String[]{atlasKafkaTypeName, atlasJMSTypeName},
               null);
     }

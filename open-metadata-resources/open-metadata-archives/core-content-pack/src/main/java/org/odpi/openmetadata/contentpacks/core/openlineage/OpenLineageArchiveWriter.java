@@ -11,6 +11,9 @@ import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * OrganizationInsightArchiveWriter creates an open metadata archive that includes the connectors that
@@ -68,22 +71,25 @@ public class OpenLineageArchiveWriter extends ContentPackBaseArchiveWriter
         /*
          * Set up the governance action process that associates a kafka topic with the open lineage listener.
          */
-        this.createAndHarvestToAssetGovernanceActionProcess("HarvestOpenLineageEvents",
-                                                            DeployedImplementationType.APACHE_KAFKA_TOPIC.getAssociatedTypeName(),
-                                                            DeployedImplementationType.APACHE_KAFKA_TOPIC.getDeployedImplementationType(),
-                                                            RequestTypeDefinition.CREATE_KAFKA_TOPIC,
-                                                            DataAssetTemplateDefinition.KAFKA_TOPIC_TEMPLATE,
-                                                            RequestTypeDefinition.HARVEST_OPEN_LINEAGE_TOPIC,
-                                                            DeployedImplementationType.APACHE_KAFKA_TOPIC.getQualifiedName());
+        List<String> additionalSolutionComponents = new ArrayList<>();
+
+        String solutionComponentGUID = this.createAndHarvestToAssetGovernanceActionProcess("HarvestOpenLineageEvents",
+                                                                                           DeployedImplementationType.APACHE_KAFKA_TOPIC,
+                                                                                           "https://egeria-project.org/egeria-solutions/leveraging-open-lineage/overview/",
+                                                                                           RequestTypeDefinition.CREATE_KAFKA_TOPIC,
+                                                                                           DataAssetTemplateDefinition.KAFKA_TOPIC_TEMPLATE,
+                                                                                           RequestTypeDefinition.HARVEST_OPEN_LINEAGE_TOPIC);
+        additionalSolutionComponents.add(solutionComponentGUID);
+
 
         /*
          * Define the solution components for this solution.
          */
-        super.addSolutionBlueprints(ContentPackDefinition.OPEN_LINEAGE_CONTENT_PACK);
+        super.addSolutionBlueprints(ContentPackDefinition.OPEN_LINEAGE_CONTENT_PACK, additionalSolutionComponents);
         super.addSolutionLinkingWires(ContentPackDefinition.OPEN_LINEAGE_CONTENT_PACK);
 
         /*
-         * Saving the GUIDs means tha the guids in the archive are stable between runs of the archive writer.
+         * Saving the GUIDs means that the guids in the archive are stable between runs of the archive writer.
          */
         archiveHelper.saveGUIDs();
         archiveHelper.saveUsedGUIDs();
