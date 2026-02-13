@@ -32,7 +32,7 @@ public class OpenMetadataEnumDef extends OpenMetadataAttributeTypeDef
      */
     public OpenMetadataEnumDef()
     {
-        super(OpenMetadataAttributeTypeDefCategory.ENUM_DEF);
+        super(OpenMetadataAttributeTypeDefCategory.ENUM);
     }
 
 

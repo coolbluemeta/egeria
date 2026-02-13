@@ -266,7 +266,8 @@ public class OpenMetadataStoreRESTServices
 
 
     /**
-     * Returns all the AttributeTypeDefs for a specific category.
+     * Returns all the AttributeTypeDefs for an optional specific category.  If the category is null then
+     * all attribute type defs are returned.
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
@@ -277,11 +278,11 @@ public class OpenMetadataStoreRESTServices
      * RepositoryErrorException a problem communicating with the metadata repository or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    public AttributeTypeDefListResponse findAttributeTypeDefsByCategory(String                               serverName,
-                                                                        String                               userId,
-                                                                        OpenMetadataAttributeTypeDefCategory category)
+    public AttributeTypeDefListResponse getAttributeTypeDefs(String                               serverName,
+                                                             String                               userId,
+                                                             OpenMetadataAttributeTypeDefCategory category)
     {
-        final String methodName = "findAttributeTypeDefsByCategory";
+        final String methodName = "getAttributeTypeDefs";
 
         RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
 
@@ -300,7 +301,8 @@ public class OpenMetadataStoreRESTServices
 
                 for (AttributeTypeDef attributeTypeDef : allAttributeTypeDefs)
                 {
-                    if (((category == OpenMetadataAttributeTypeDefCategory.ENUM_DEF) && (attributeTypeDef.getCategory() == AttributeTypeDefCategory.ENUM_DEF)) ||
+                    if ((category == null) ||
+                                ((category == OpenMetadataAttributeTypeDefCategory.ENUM) && (attributeTypeDef.getCategory() == AttributeTypeDefCategory.ENUM_DEF)) ||
                                 ((category == OpenMetadataAttributeTypeDefCategory.COLLECTION) && (attributeTypeDef.getCategory() == AttributeTypeDefCategory.COLLECTION)) ||
                                 ((category == OpenMetadataAttributeTypeDefCategory.PRIMITIVE) && (attributeTypeDef.getCategory() == AttributeTypeDefCategory.PRIMITIVE)))
                     {
@@ -4169,7 +4171,7 @@ public class OpenMetadataStoreRESTServices
                 openMetadataEnumDef.setDefaultValue(getEnumElementDef(enumDef.getDefaultValue()));
 
                 openMetadataAttributeTypeDef = openMetadataEnumDef;
-                openMetadataAttributeTypeDef.setCategory(OpenMetadataAttributeTypeDefCategory.ENUM_DEF);
+                openMetadataAttributeTypeDef.setCategory(OpenMetadataAttributeTypeDefCategory.ENUM);
             }
             else
             {

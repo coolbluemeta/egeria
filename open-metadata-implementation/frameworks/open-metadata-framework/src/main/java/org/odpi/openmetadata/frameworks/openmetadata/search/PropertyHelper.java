@@ -1442,6 +1442,36 @@ public class PropertyHelper
 
 
     /**
+     * Construct the classification search properties for locating specific properties in the named classification.
+     *
+     * @param propertyConditions properties to match
+     * @param classificationName name of the classification
+     * @return search classification structure
+     */
+    public SearchClassifications getSearchClassifications(List<PropertyCondition> propertyConditions,
+                                                          String                  classificationName)
+    {
+        List<ClassificationCondition> classificationConditions = new ArrayList<>();
+        ClassificationCondition classificationCondition = new ClassificationCondition();
+        SearchProperties        searchProperties        = new SearchProperties();
+
+        searchProperties.setConditions(propertyConditions);
+        searchProperties.setMatchCriteria(MatchCriteria.ALL);
+
+        classificationCondition.setName(classificationName);
+        classificationCondition.setSearchProperties(searchProperties);
+
+        classificationConditions.add(classificationCondition);
+
+        SearchClassifications searchClassifications = new SearchClassifications();
+        searchClassifications.setConditions(classificationConditions);
+        searchClassifications.setMatchCriteria(MatchCriteria.ALL);
+
+        return searchClassifications;
+    }
+
+
+    /**
      * Add the supplied map property to an element properties object.  The supplied map is stored as a single
      * property in the instances properties.   If the element properties object
      * supplied is null, a new element properties object is created.

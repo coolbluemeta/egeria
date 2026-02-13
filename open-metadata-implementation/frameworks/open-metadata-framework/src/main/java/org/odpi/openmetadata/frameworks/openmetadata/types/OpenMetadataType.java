@@ -1648,6 +1648,16 @@ public enum OpenMetadataType
                         TaskProperties.class),
 
     /**
+     * Capturing the description of a project's governance and the expectation of how the results will be used.
+     */
+    PROJECT_CLASSIFICATION_CLASSIFICATION("0a40aa24-aebc-42a9-8b49-2299a9e1f628",
+                        "ProjectClassification",
+                        OpenMetadataWikiPages.MODEL_0130_PROJECTS,
+                        "f2feb0b5-90da-45b4-8638-4af786b448e1",
+                        "Capturing the description of a project's governance and the expectation of how the results will be used.",
+                        ProjectClassificationProperties.class),
+
+    /**
      * This is an informal project that has been created by an individual to help them organize their work.
      */
     PERSONAL_PROJECT_CLASSIFICATION("3d7b8500-cebd-4f18-b85c-a459bec3e3ef",

@@ -1,4 +1,4 @@
-# Egeria-project-manager-view-service
+# Egeria-project-manager-api
 
 @baseURL=https://localhost:9443
 @viewServer=view-server
@@ -51,6 +51,21 @@ Content-Type: application/json
 {
   "filter" : ""
 }
+
+###
+# @name getProjectsByClassificationProperties
+# Returns the list of projects with a ProjectClassification classification and with matching properties.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/by-classification-properties
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindProjectClassificationProperties",
+  "approach" : "",
+  "managementStyle" : "",
+  "resultsUsage" : ""
+}
+
 
 ###
 # @name getProjectTeam
@@ -356,5 +371,47 @@ Content-Type: application/json
   "class" : "DeleteRelationshipRequestBody"
 }
 
+
+###
+# @name addProjectClassification
+# Classify the project to indicate the approach and style of project based on its intended outcome.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{projectGUID}}/classification-properties/classify
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+{
+  "class" : "NewClassificationRequestBody",
+  "properties": {
+    "class": "ProjectClassificationProperties",
+    "approach": "",
+    "managementStyle": "",
+    "ResultsUsage": "",
+    "effectiveFrom": "{{$isoTimestamp}}",
+    "effectiveTo": "{{$isoTimestamp}}"
+  },
+  "externalSourceGUID": "add guid here",
+  "externalSourceName": "add qualified name here",
+  "effectiveTime" : "{{$isoTimestamp}}",
+  "forLineage" : false,
+  "forDuplicateProcessing" : false
+}
+
+
+###
+# @name clearProjectClassification
+# Remove the ProjectClassification classification from the element.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{projectGUID}}/classification-properties/declassify
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "DeleteClassificationRequestBody",
+  "externalSourceGUID": "add guid here",
+  "externalSourceName": "add qualified name here",
+  "effectiveTime" : "{{$isoTimestamp}}",
+  "forLineage" : false,
+  "forDuplicateProcessing" : false
+}
 
 ###

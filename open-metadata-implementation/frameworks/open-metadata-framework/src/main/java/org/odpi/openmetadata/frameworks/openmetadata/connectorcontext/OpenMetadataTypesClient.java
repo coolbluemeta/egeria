@@ -90,7 +90,8 @@ public class OpenMetadataTypesClient extends ConnectorContextClientBase
 
 
     /**
-     * Returns all the AttributeTypeDefs for a specific category.
+     * Returns all the AttributeTypeDefs for an optional specific category.  If the category is null then
+     * all attribute type defs are returned.
      *
      * @param category enum value for the category of an AttributeTypeDef to return.
      *
@@ -100,11 +101,11 @@ public class OpenMetadataTypesClient extends ConnectorContextClientBase
      * @throws PropertyServerException    a problem communicating with the metadata repository.
      * @throws UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    public List<OpenMetadataAttributeTypeDef> findAttributeTypeDefsByCategory(OpenMetadataAttributeTypeDefCategory category) throws InvalidParameterException,
-                                                                                                                                    PropertyServerException,
-                                                                                                                                    UserNotAuthorizedException
+    public List<OpenMetadataAttributeTypeDef> getAttributeTypeDefs(OpenMetadataAttributeTypeDefCategory category) throws InvalidParameterException,
+                                                                                                                         PropertyServerException,
+                                                                                                                         UserNotAuthorizedException
     {
-        return openMetadataClient.findAttributeTypeDefsByCategory(connectorUserId, category);
+        return openMetadataClient.getAttributeTypeDefs(connectorUserId, category);
     }
 
 

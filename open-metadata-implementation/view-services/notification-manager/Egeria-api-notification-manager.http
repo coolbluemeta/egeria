@@ -1,4 +1,4 @@
-# Egeria-notification-manager-view-service
+# Egeria-notification-manager-api
 ## Sets up the definitions of the resources to monitor and the subscribers to receive notifications from.
 
 @baseURL=https://localhost:9443

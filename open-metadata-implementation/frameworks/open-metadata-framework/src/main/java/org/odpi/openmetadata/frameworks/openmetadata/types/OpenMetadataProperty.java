@@ -1792,6 +1792,21 @@ public enum OpenMetadataProperty
     MISSION("mission", DataType.STRING, DataType.STRING.getName(), "The high-level goal of the activity.", "To share new data science techniques.", "cb870681-de85-406b-bea6-6d138777cfe9"),
 
     /**
+     * The method used to control the activity.
+     */
+    APPROACH("approach", DataType.STRING, DataType.STRING.getName(), "The method used to control the activity.", "Agile Development", "197126b3-42a2-4736-914b-2b71a8e3e054"),
+
+    /**
+     * The management style used to monitor and record progress.
+     */
+    MANAGEMENT_STYLE("managementStyle", DataType.STRING, DataType.STRING.getName(), "The management style used to monitor and record progress.", "Informal", "e95c1559-a94a-46fa-94ad-28e66b5b46ca"),
+
+    /**
+     * How are the results expected to be used.
+     */
+    RESULTS_USAGE("resultsUsage", DataType.STRING, DataType.STRING.getName(), "How are the results expected to be used.", "Experimental Project", "8fea95ac-157a-4248-a6ce-1204ba9a8d49"),
+
+    /**
      * The measures used to assess the success of the project.
      */
     SUCCESS_CRITERIA("successCriteria", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getName(), "The measures used to assess the success of the project.", "The customer satisfaction index increases by 20%.", "7ba5b44d-6174-4e62-a9d7-e22d4d65bb2a"),

@@ -3332,30 +3332,30 @@ public class SimpleCatalogArchiveHelper
 
 
     /**
-     * Add an BusinessCapabilityTeam relationship.
+     * Add a membership relationship between a business capability and a team.
      *
      * @param businessCapabilityQName qualified name of the specialized term
-     * @param teamQName qualified name of the generalized term
-     * @param assignmentType assignmentType of the team's ability to support the business capability
-     * @param description description of the team's ability to support the business capability
+     * @param teamQName qualified name of the team
+     * @param membershipType membershipType of the team's ability to support the business capability
+     * @param membershipRationale description of the team's ability to support the business capability
      */
     public void addBusinessCapabilityTeamRelationship(String businessCapabilityQName,
                                                       String teamQName,
-                                                      String assignmentType,
-                                                      String description)
+                                                      String membershipType,
+                                                      String membershipRationale)
     {
         final String methodName = "addBusinessCapabilityTeamRelationship";
 
-        String end1GUID = idToGUIDMap.getGUID(teamQName);
-        String end2GUID = idToGUIDMap.getGUID(businessCapabilityQName);
+        String end1GUID = idToGUIDMap.getGUID(businessCapabilityQName);
+        String end2GUID = idToGUIDMap.getGUID(teamQName);
         EntityProxy end1 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(end1GUID));
         EntityProxy end2 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(end2GUID));
 
-        InstanceProperties properties = archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.ASSIGNMENT_TYPE.name, assignmentType, methodName);
-        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
+        InstanceProperties properties = archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.MEMBERSHIP_TYPE.name, membershipType, methodName);
+        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.MEMBERSHIP_RATIONALE.name, membershipRationale, methodName);
 
-        archiveBuilder.addRelationship(archiveHelper.getRelationship(OpenMetadataType.ASSIGNMENT_SCOPE_RELATIONSHIP.typeName,
-                                                                     idToGUIDMap.getGUID(end1GUID + "_to_" + end2GUID + "_assignment_scope_relationship"),
+        archiveBuilder.addRelationship(archiveHelper.getRelationship(OpenMetadataType.COLLECTION_MEMBERSHIP_RELATIONSHIP.typeName,
+                                                                     idToGUIDMap.getGUID(end1GUID + "_to_" + end2GUID + "_business_capability_membership_relationship"),
                                                                      properties,
                                                                      InstanceStatus.ACTIVE,
                                                                      end1,

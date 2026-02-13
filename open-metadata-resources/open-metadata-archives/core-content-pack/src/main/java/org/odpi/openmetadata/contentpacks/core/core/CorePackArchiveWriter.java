@@ -213,6 +213,11 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
             this.addOpenMetadataType(openMetadataType);
         }
 
+        for (OpenMetadataProperty openMetadataProperty : OpenMetadataProperty.values())
+        {
+            this.addOpenMetadataProperty(openMetadataProperty);
+        }
+
         /*===========================================
          * Add the open metadata type enums
          */
@@ -647,7 +652,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
 
 
     /**
-     * Add a new valid values record for a deployed implementation type.
+     * Add a new valid values record for an open metadata type.
      *
      * @param openMetadataType preferred value
      */
@@ -687,11 +692,52 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                                                  OpenMetadataValidValues.OPEN_METADATA_ECOSYSTEM_SCOPE,
                                                                  openMetadataType.typeName,
                                                                  openMetadataType.wikiURL,
-                                                                 false,
+                                                                 true,
                                                                  additionalProperties);
 
         assert(openMetadataType.descriptionGUID.equals(validValueGUID));
     }
+
+
+
+    /**
+     * Add a new valid values record for an open metadata property.
+     *
+     * @param openMetadataProperty preferred values
+     */
+    private void addOpenMetadataProperty(OpenMetadataProperty openMetadataProperty)
+    {
+        String parentSetGUID = this.getParentSet(OpenMetadataProperty.PROPERTY_NAME.name);
+
+        String qualifiedName = constructValidValueQualifiedName(null,
+                                                                OpenMetadataProperty.PROPERTY_NAME.name,
+                                                                null,
+                                                                openMetadataProperty.name);
+
+        String validValueGUID = this.archiveHelper.addValidValue(openMetadataProperty.descriptionGUID,
+                                                                 parentSetGUID,
+                                                                 parentSetGUID,
+                                                                 OpenMetadataType.VALID_METADATA_VALUE.typeName,
+                                                                 OpenMetadataType.VALID_VALUE_DEFINITION.typeName,
+                                                                 null,
+                                                                 OpenMetadataType.VALID_METADATA_VALUE.typeName,
+                                                                 qualifiedName,
+                                                                 Category.OPEN_METADATA_TYPES.getName(),
+                                                                 OpenMetadataProperty.PROPERTY_NAME.name,
+                                                                 openMetadataProperty.name,
+                                                                 openMetadataProperty.description,
+                                                                 null,
+                                                                 openMetadataProperty.example,
+                                                                 openMetadataProperty.type,
+                                                                 OpenMetadataValidValues.OPEN_METADATA_ECOSYSTEM_SCOPE,
+                                                                 openMetadataProperty.name,
+                                                                 null,
+                                                                 true,
+                                                                 null);
+
+        assert(openMetadataProperty.descriptionGUID.equals(validValueGUID));
+    }
+
 
 
     /**

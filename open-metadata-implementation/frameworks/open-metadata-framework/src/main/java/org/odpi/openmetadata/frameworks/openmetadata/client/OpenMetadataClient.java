@@ -111,7 +111,8 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
 
 
     /**
-     * Returns all the AttributeTypeDefs for a specific category.
+     * Returns all the AttributeTypeDefs for an optional specific category.  If the category is null then
+     * all attribute type defs are returned.
      *
      * @param userId   unique identifier for requesting user.
      * @param category enum value for the category of an AttributeTypeDef to return.
@@ -123,10 +124,10 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
      * @throws UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
     @Override
-    public abstract List<OpenMetadataAttributeTypeDef> findAttributeTypeDefsByCategory(String                               userId,
-                                                                                       OpenMetadataAttributeTypeDefCategory category) throws InvalidParameterException,
-                                                                                                                                             PropertyServerException,
-                                                                                                                                             UserNotAuthorizedException;
+    public abstract List<OpenMetadataAttributeTypeDef> getAttributeTypeDefs(String                               userId,
+                                                                            OpenMetadataAttributeTypeDefCategory category) throws InvalidParameterException,
+                                                                                                                                  PropertyServerException,
+                                                                                                                                  UserNotAuthorizedException;
 
 
     /**

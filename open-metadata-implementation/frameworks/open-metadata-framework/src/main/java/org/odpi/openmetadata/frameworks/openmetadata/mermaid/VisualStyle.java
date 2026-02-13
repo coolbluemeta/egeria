@@ -46,6 +46,8 @@ public enum VisualStyle
 
     HOST(Colour.WHITE.getColourNumber(), Colour.DARK_GRAY.getColourNumber(), Colour.YELLOW.getColourNumber(), "rect"),
 
+    BUSINESS_CAPABILITY(Colour.BLACK.getColourNumber(), Colour.SILVER.getColourNumber(), Colour.BLACK.getColourNumber(), "odd"),
+
     INFORMATION_SUPPLY_CHAIN(Colour.WHITE.getColourNumber(), Colour.SLATE.getColourNumber(), Colour.LIGHT_GRAY.getColourNumber(), "flip-tri"),
     INFORMATION_SUPPLY_CHAIN_SEG(Colour.SLATE.getColourNumber(), Colour.LIGHT_GRAY.getColourNumber(), Colour.SLATE.getColourNumber(), "flip-tri"),
     PRINCIPLE_INFORMATION_SUPPLY_CHAIN(Colour.WHITE.getColourNumber(), Colour.SLATE.getColourNumber(), Colour.MUSTARD.getColourNumber(), "flip-tri"),
@@ -81,7 +83,9 @@ public enum VisualStyle
     ENGINE_ACTION(Colour.BLACK.getColourNumber(), Colour.AQUAMARINE.getColourNumber(), Colour.BLACK.getColourNumber(), "trap-t"),
     ACTION_TARGET(Colour.BLACK.getColourNumber(), Colour.MUSTARD.getColourNumber(), Colour.BLACK.getColourNumber(), "rect"),
     REQUEST_PARAMETERS(Colour.BLACK.getColourNumber(), Colour.SAND.getColourNumber(), Colour.BLACK.getColourNumber(), "flag"),
-    FAILED_GOVERNANCE_ACTION_PROCESS_STEP(Colour.WHITE.getColourNumber(), Colour.RED.getColourNumber(), Colour.BLACK.getColourNumber(), "rounded"),
+    FAILED_GOVERNANCE_ACTION_PROCESS_STEP(Colour.WHITE.getColourNumber(), Colour.ORANGE_RED.getColourNumber(), Colour.BLACK.getColourNumber(), "rounded"),
+
+    LOCATION(Colour.BLACK.getColourNumber(), Colour.GOLD.getColourNumber(), Colour.BLACK.getColourNumber(), "circle"),
 
 
     GOVERNANCE_DEFINITION(Colour.WHITE.getColourNumber(), Colour.DARK_GREEN.getColourNumber(), Colour.BLACK.getColourNumber(), "doc"),
@@ -90,7 +94,8 @@ public enum VisualStyle
     EXTERNAL_REFERENCE(Colour.BLACK.getColourNumber(), Colour.YELLOW.getColourNumber(), Colour.BLACK.getColourNumber(), "docs"),
     GOVERNED_ELEMENT(Colour.BLACK.getColourNumber(), Colour.LIGHT_BLUE.getColourNumber(), Colour.BLACK.getColourNumber(), "rounded"),
     GOVERNANCE_ACTOR(Colour.BLACK.getColourNumber(), Colour.LIGHT_ORANGE.getColourNumber(), Colour.BLACK.getColourNumber(), "trap-t"),
-    GOVERNANCE_TEAM(Colour.BLACK.getColourNumber(), Colour.LIGHT_ORANGE.getColourNumber(), Colour.BLACK.getColourNumber(), "tri"),
+    GOVERNANCE_TEAM(Colour.BLACK.getColourNumber(), Colour.LIGHT_ORANGE.getColourNumber(), Colour.BLACK.getColourNumber(), "trap-b"),
+    ORGANIZATION(Colour.BLACK.getColourNumber(), Colour.LIGHT_ORANGE.getColourNumber(), Colour.BLACK.getColourNumber(), "tri"),
     USER_IDENTITY(Colour.BLACK.getColourNumber(), Colour.DARK_ORANGE.getColourNumber(), Colour.BLACK.getColourNumber(), "bow-rect"),
 
 

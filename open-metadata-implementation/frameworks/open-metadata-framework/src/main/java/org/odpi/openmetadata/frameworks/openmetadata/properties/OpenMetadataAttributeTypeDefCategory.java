@@ -35,7 +35,7 @@ public enum OpenMetadataAttributeTypeDefCategory
     /**
      * A pre-defined list of valid values.
      */
-    ENUM_DEF           (4, "OpenMetadataEnumDef",           "A pre-defined list of valid values.");
+    ENUM               (4, "OpenMetadataEnum", "A pre-defined list of valid values.");
 
     private final int            typeCode;
     private final String         typeName;
@@ -76,7 +76,7 @@ public enum OpenMetadataAttributeTypeDefCategory
      *
      * @return String default name
      */
-    public String getName()
+    public String getTypeName()
     {
         return typeName;
     }

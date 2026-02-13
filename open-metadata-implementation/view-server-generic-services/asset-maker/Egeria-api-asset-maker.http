@@ -1,4 +1,4 @@
-# Egeria-asset-maker-view-service
+# Egeria-asset-maker-api
 # The Asset Maker OMVS provides APIs for supporting the creation and editing of assets.
 
 @baseURL=https://localhost:9443

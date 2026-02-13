@@ -1,4 +1,4 @@
-# Egeria-devops-pipeline-view-service
+# Egeria-devops-pipeline-api
 
 @baseURL=https://localhost:9443
 @viewServer=view-server

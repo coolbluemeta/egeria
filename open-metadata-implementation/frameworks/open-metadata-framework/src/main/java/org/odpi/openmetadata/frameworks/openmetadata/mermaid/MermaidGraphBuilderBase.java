@@ -701,7 +701,11 @@ public class MermaidGraphBuilderBase
             {
                 return VisualStyle.USER_IDENTITY;
             }
-            if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.TEAM.typeName))
+            if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.ORGANIZATION.typeName))
+            {
+                return VisualStyle.ORGANIZATION;
+            }
+            else if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.TEAM.typeName))
             {
                 return VisualStyle.GOVERNANCE_TEAM;
             }
@@ -729,7 +733,10 @@ public class MermaidGraphBuilderBase
 
                 return VisualStyle.AGREEMENT;
             }
-
+            if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.BUSINESS_CAPABILITY.typeName))
+            {
+                return VisualStyle.BUSINESS_CAPABILITY;
+            }
             if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.DATA_DICTIONARY_COLLECTION.typeName))
             {
                 return VisualStyle.DATA_DICTIONARY;
@@ -764,6 +771,10 @@ public class MermaidGraphBuilderBase
         if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.HOST.typeName))
         {
             return VisualStyle.HOST;
+        }
+        if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.LOCATION.typeName))
+        {
+            return VisualStyle.LOCATION;
         }
         if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName))
         {

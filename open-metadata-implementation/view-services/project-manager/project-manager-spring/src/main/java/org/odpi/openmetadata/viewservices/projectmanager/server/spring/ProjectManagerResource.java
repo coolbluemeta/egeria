@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.odpi.openmetadata.commonservices.ffdc.rest.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.search.FindProjectClassificationProperties;
 import org.odpi.openmetadata.viewservices.projectmanager.server.ProjectManagerRESTServices;
 import org.springframework.web.bind.annotation.*;
 
@@ -103,6 +104,32 @@ public class ProjectManagerResource
                                                                   @RequestBody  FilterRequestBody requestBody)
     {
         return restAPI.getClassifiedProjects(serverName, requestBody);
+    }
+
+
+    /**
+     * Returns the list of projects with a ProjectClassification classification and with matching properties.
+     *
+     * @param serverName         name of called server
+     * @param requestBody        name of the classification - if null, all projects are returned
+     *
+     * @return a list of projects
+     *  InvalidParameterException  one of the parameters is null or invalid.
+     *  PropertyServerException    a problem retrieving information from the property server(s).
+     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    @PostMapping(path = "/projects/by-classification-properties")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="getProjectsByClassificationProperties",
+            description="Returns the list of projects with a ProjectClassification classification and with matching properties.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/project"))
+
+    public OpenMetadataRootElementsResponse getProjectsByClassificationProperties(@PathVariable String                             serverName,
+                                                                                  @RequestBody  FindProjectClassificationProperties requestBody)
+    {
+        return restAPI.getProjectsByClassificationProperties(serverName, requestBody);
     }
 
 
@@ -600,6 +627,63 @@ public class ProjectManagerResource
                                                @RequestBody(required = false) DeleteRelationshipRequestBody requestBody)
     {
         return restAPI.clearProjectDependency(serverName, projectGUID, dependsOnProjectGUID, requestBody);
+    }
+
+
+    /**
+     * Classify the project to indicate the approach and style of project based on its intended outcome.
+     *
+     * @param serverName  name of the server instance to connect to
+     * @param projectGUID unique identifier of the metadata element to classify
+     * @param requestBody properties for the request
+     *
+     * @return void or
+     *      InvalidParameterException guid or userId is null or
+     *      PropertyServerException problem accessing property server or
+     *      UserNotAuthorizedException security access problem
+     */
+    @PostMapping(path = "/projects/{projectGUID}/classification-properties/classify")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="addProjectClassification",
+            description="Classify the project to indicate the approach and style of project based on its intended outcome.",
+            externalDocs=@ExternalDocumentation(description="Projects",
+                    url="https://egeria-project.org/concepts/projects/"))
+
+    public VoidResponse addProjectClassification(@PathVariable String                    serverName,
+                                                @PathVariable String                    projectGUID,
+                                                @RequestBody  (required = false) NewClassificationRequestBody requestBody)
+    {
+        return restAPI.addProjectClassification(serverName, projectGUID, requestBody);
+    }
+
+
+    /**
+     * Remove the ProjectClassification classification from the element.
+     *
+     * @param serverName  name of the server instance to connect to
+     * @param projectGUID unique identifier of the project to declassify
+     * @param requestBody properties for the request
+     *
+     * @return void or
+     *      InvalidParameterException guid or userId is null or
+     *       PropertyServerException problem accessing property server or
+     *       UserNotAuthorizedException security access problem
+     */
+    @PostMapping(path = "/projects/{projectGUID}/classification-properties/declassify")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="clearProjectClassification",
+            description="Remove the ProjectClassification classification from the project.",
+            externalDocs=@ExternalDocumentation(description="Projects",
+                    url="https://egeria-project.org/concepts/projects/"))
+
+    public VoidResponse clearProjectClassification(@PathVariable String                    serverName,
+                                                   @PathVariable String projectGUID,
+                                                   @RequestBody  (required = false)
+                                                       DeleteClassificationRequestBody requestBody)
+    {
+        return restAPI.clearProjectClassification(serverName, projectGUID, requestBody);
     }
 }
 

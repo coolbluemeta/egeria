@@ -1,4 +1,4 @@
-# Egeria-governance-officer-view-service
+# Egeria-governance-officer-api
 
 @baseURL=https://localhost:9443
 @viewServer=view-server

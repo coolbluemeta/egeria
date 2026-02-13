@@ -10,6 +10,7 @@ import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.ProjectHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.AssignmentScopeProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.*;
+import org.odpi.openmetadata.frameworks.openmetadata.search.FindProjectClassificationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.NewElementOptions;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.tokencontroller.TokenController;
@@ -42,7 +43,7 @@ public class ProjectManagerRESTServices extends TokenController
      */
 
     /**
-     * Returns the list of projects that are linked off of the supplied element.
+     * Returns the list of projects that are linked to the supplied element.
      *
      * @param serverName     name of called server
      * @param parentGUID     unique identifier of referenceable object (typically a personal profile, project or
@@ -95,7 +96,7 @@ public class ProjectManagerRESTServices extends TokenController
 
 
     /**
-     * Returns the list of actors that are linked off of the project.
+     * Returns the list of actors that are linked from the project.
      *
      * @param serverName     name of called server
      * @param projectGUID     unique identifier of the project
@@ -290,6 +291,62 @@ public class ProjectManagerRESTServices extends TokenController
                 response.setElements(handler.getProjectsByName(userId,
                                                                null,
                                                                null));
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response.toString());
+        return response;
+    }
+
+
+    /**
+     * Returns the list of projects matching the project classification properties.
+     *
+     * @param serverName    name of called server
+     * @param requestBody      classification properties of the projects to return
+     *
+     * @return a list of projects
+     *  InvalidParameterException  one of the parameters is null or invalid.
+     *  PropertyServerException    a problem retrieving information from the property server(s).
+     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public OpenMetadataRootElementsResponse getProjectsByClassificationProperties(String                              serverName,
+                                                                                  FindProjectClassificationProperties requestBody)
+    {
+        final String methodName = "getProjectsByClassificationProperties";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
+        AuditLog                         auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            ProjectHandler handler = instanceHandler.getProjectHandler(userId, serverName, methodName);
+
+            if (requestBody != null)
+            {
+                response.setElements(handler.getProjectsByClassificationProperties(userId,
+                                                                                   requestBody.getApproach(),
+                                                                                   requestBody.getManagementStyle(),
+                                                                                   requestBody.getResultsUsage(),
+                                                                                   requestBody));
+            }
+            else
+            {
+                response.setElements(handler.getClassifiedProjects(userId,
+                                                                   OpenMetadataType.PROJECT_CLASSIFICATION_CLASSIFICATION.typeName,
+                                                                   null));
             }
         }
         catch (Throwable error)
@@ -1083,6 +1140,110 @@ public class ProjectManagerRESTServices extends TokenController
             ProjectHandler handler = instanceHandler.getProjectHandler(userId, serverName, methodName);
 
             handler.clearProjectHierarchy(userId, projectGUID, managedProjectGUID, requestBody);
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response.toString());
+        return response;
+    }
+
+
+
+    /**
+     * Add the ProjectClassification classification for a project.
+     *
+     * @param serverName  name of the server instance to connect to
+     * @param projectGUID unique identifier of the project to classify/reclassify
+     * @param requestBody properties for the request
+     *
+     * @return void or
+     *      InvalidParameterException the full path or userId is null or
+     *      PropertyServerException problem accessing property server or
+     *      UserNotAuthorizedException security access problem
+     */
+    public VoidResponse addProjectClassification(String                       serverName,
+                                                 String                       projectGUID,
+                                                 NewClassificationRequestBody requestBody)
+    {
+        final String methodName = "addProjectClassification";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            if (requestBody != null)
+            {
+                if (requestBody.getProperties() instanceof ProjectClassificationProperties properties)
+                {
+                    ProjectHandler handler = instanceHandler.getProjectHandler(userId, serverName, methodName);
+
+                    handler.addProjectClassification(userId, projectGUID, properties, requestBody);
+                }
+                else
+                {
+                    restExceptionHandler.handleInvalidPropertiesObject(ProjectClassificationProperties.class.getName(), methodName);
+                }
+            }
+            else
+            {
+                restExceptionHandler.handleNoRequestBody(userId, methodName, serverName);
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response.toString());
+        return response;
+    }
+
+
+    /**
+     * Remove the ProjectClassification classification from a project.
+     *
+     * @param serverName  name of the server instance to connect to
+     * @param projectGUID unique identifier of the project to declassify
+     * @param requestBody properties for the request
+     *
+     * @return void or
+     *       InvalidParameterException the full path or userId is null or
+     *       PropertyServerException problem accessing property server or
+     *       UserNotAuthorizedException security access problem
+     */
+    public VoidResponse clearProjectClassification(String                          serverName,
+                                                   String                          projectGUID,
+                                                   DeleteClassificationRequestBody requestBody)
+    {
+        final String   methodName = "clearProjectClassification";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+            ProjectHandler handler = instanceHandler.getProjectHandler(userId, serverName, methodName);
+
+            handler.clearProjectClassification(userId, projectGUID, requestBody);
         }
         catch (Throwable error)
         {

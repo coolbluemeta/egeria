@@ -17,6 +17,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.EntityProperties
 import org.odpi.openmetadata.frameworks.openmetadata.properties.OpenMetadataElement;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.RelationshipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.AssignmentScopeProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectClassificationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectDependencyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectHierarchyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectProperties;
@@ -516,7 +517,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
         {
             OpenMetadataRootHierarchy openMetadataRootHierarchy = new OpenMetadataRootHierarchy(rootElement);
 
-            Set<String>  processedProjects = new HashSet<>(Collections.singletonList(projectGUID));
+            Set<String>  processedProjects = new HashSet<>();
 
             openMetadataRootHierarchy.setOpenMetadataRootHierarchies(this.getRelatedProjects(userId,
                                                                                              new OpenMetadataRootHierarchy(rootElement),
@@ -527,7 +528,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
              * Replaces the graph added by addMermaidToRootElement().
              */
             OpenMetadataRootHierarchyMermaidGraphBuilder mermaidGraphBuilder = new OpenMetadataRootHierarchyMermaidGraphBuilder(openMetadataRootHierarchy,
-                                                                                                                                "Related Projects",
+                                                                                                                                "Other Related Projects",
                                                                                                                                 VisualStyle.PROJECT,
                                                                                                                                 queryOptions.getMaxMermaidNodeCount());
 
@@ -563,6 +564,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
 
         if (! processedProjects.contains(startingProject.getElementHeader().getGUID()))
         {
+            processedProjects.add(startingProject.getElementHeader().getGUID());
             if (startingProject.getManagedProjects() != null)
             {
                 for (RelatedMetadataElementSummary relatedDefinition : startingProject.getManagedProjects())
@@ -941,5 +943,113 @@ public class ProjectHandler extends OpenMetadataHandlerBase
         propertyHelper.validateGUID(projectGUID, guidParameterName, methodName);
 
         return super.getRootElementByGUID(userId, projectGUID, getOptions, methodName);
+    }
+
+
+    /**
+     * Return projects that are classified with a particular value in the project classification.
+     *
+     * @param userId calling user
+     * @param approach       description of the query
+     * @param managementStyle    description of the query
+     * @param resultsUsage       description of the query
+     * @param queryOptions multiple options to control the query
+     *
+     * @return list of elements
+     *
+     * @throws InvalidParameterException qualifiedName or userId is null
+     * @throws PropertyServerException problem accessing property server
+     * @throws UserNotAuthorizedException security access problem
+     */
+    public List<OpenMetadataRootElement> getProjectsByClassificationProperties(String       userId,
+                                                                               String       approach,
+                                                                               String       managementStyle,
+                                                                               String       resultsUsage,
+                                                                               QueryOptions queryOptions) throws InvalidParameterException,
+                                                                                                 UserNotAuthorizedException,
+                                                                                                 PropertyServerException
+    {
+        final String methodName = "getClassifiedProjects";
+
+        List<PropertyCondition> propertyConditions = propertyHelper.addStringProperty(null,
+                                                                                      OpenMetadataProperty.APPROACH.name,
+                                                                                      approach,
+                                                                                      PropertyComparisonOperator.EQ);
+        propertyConditions = propertyHelper.addStringProperty(propertyConditions,
+                                                              OpenMetadataProperty.MANAGEMENT_STYLE.name,
+                                                              managementStyle,
+                                                              PropertyComparisonOperator.EQ);
+        propertyConditions = propertyHelper.addStringProperty(propertyConditions,
+                                                              OpenMetadataProperty.RESULTS_USAGE.name,
+                                                              resultsUsage,
+                                                              PropertyComparisonOperator.EQ);
+
+        if (propertyConditions != null)
+        {
+            List<OpenMetadataElement> matchingElements = openMetadataClient.findMetadataElements(userId,
+                                                                                                 null,
+                                                                                                 propertyHelper.getSearchClassifications(propertyConditions,
+                                                                                                                                         OpenMetadataType.PROJECT_CLASSIFICATION_CLASSIFICATION.typeName),
+                                                                                                 queryOptions);
+
+            return convertRootElements(userId, matchingElements, queryOptions, methodName);
+        }
+        else
+        {
+            return super.getElementsByClassification(userId,
+                                                    OpenMetadataType.PROJECT_CLASSIFICATION_CLASSIFICATION.typeName,
+                                                    queryOptions);
+        }
+    }
+
+
+    /**
+     * Add the ProjectClassification classification for a project.
+     *
+     * @param userId calling user
+     * @param elementGUID element to link it to
+     * @param properties details of the origin
+     * @param metadataSourceOptions  options to control access to open metadata
+     *
+     * @throws InvalidParameterException element not known, null userId or guid
+     * @throws PropertyServerException problem accessing property server
+     * @throws UserNotAuthorizedException security access problem
+     */
+    public void addProjectClassification(String                          userId,
+                                         String                          elementGUID,
+                                         ProjectClassificationProperties properties,
+                                         MetadataSourceOptions           metadataSourceOptions) throws InvalidParameterException,
+                                                                                                       UserNotAuthorizedException,
+                                                                                                       PropertyServerException
+    {
+        openMetadataClient.classifyMetadataElementInStore(userId,
+                                                          elementGUID,
+                                                          OpenMetadataType.PROJECT_CLASSIFICATION_CLASSIFICATION.typeName,
+                                                          metadataSourceOptions,
+                                                          classificationBuilder.getNewElementProperties(properties));
+    }
+
+
+    /**
+     * Remove the ProjectClassification classification from a project.
+     *
+     * @param userId calling user
+     * @param elementGUID element where the classification needs to be removed.
+     * @param metadataSourceOptions  options to control access to open metadata
+     *
+     * @throws InvalidParameterException asset or element not known, null userId or guid
+     * @throws PropertyServerException problem accessing property server
+     * @throws UserNotAuthorizedException security access problem
+     */
+    public void clearProjectClassification(String                userId,
+                                           String                elementGUID,
+                                           MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
+                                                                                        UserNotAuthorizedException,
+                                                                                        PropertyServerException
+    {
+        openMetadataClient.declassifyMetadataElementInStore(userId,
+                                                            elementGUID,
+                                                            OpenMetadataType.PROJECT_CLASSIFICATION_CLASSIFICATION.typeName,
+                                                            metadataSourceOptions);
     }
 }

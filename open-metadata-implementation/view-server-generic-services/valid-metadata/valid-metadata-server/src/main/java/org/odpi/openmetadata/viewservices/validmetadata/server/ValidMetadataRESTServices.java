@@ -1010,6 +1010,52 @@ public class ValidMetadataRESTServices extends TokenController
 
 
     /**
+     * Returns all the AttributeTypeDefs for an optional specific category.  If the category is null then
+     * all attribute type defs are returned.
+     *
+     * @param serverName unique identifier for requested server.
+     * @param urlMarker  view service URL marker
+     * @param category find parameters used to limit the returned results.
+     * @return TypeDefListResponse:
+     * TypeDefs list or
+     * InvalidParameterException the TypeDefCategory is null or
+     * RepositoryErrorException a problem communicating with the metadata repository or
+     * UserNotAuthorizedException the userId is not permitted to perform this operation.
+     */
+    public AttributeTypeDefListResponse getAttributeTypeDefs(String                      serverName,
+                                                             String                     urlMarker,
+                                                             OpenMetadataAttributeTypeDefCategory category)
+    {
+        final String methodName = "getAttributeTypeDefs";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        AttributeTypeDefListResponse response = new AttributeTypeDefListResponse();
+        AuditLog            auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            OpenMetadataClient client = instanceHandler.getOpenMetadataStoreClient(userId, serverName, urlMarker, methodName);
+
+            response.setAttributeTypeDefs(client.getAttributeTypeDefs(userId, category));
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response.toString());
+        return response;
+    }
+
+
+    /**
      * Returns all the TypeDefs for a specific subtype.  If a null result is returned it means the
      * type has no subtypes.
      *

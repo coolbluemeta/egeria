@@ -1914,9 +1914,9 @@ public class ClassificationExplorerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementsResponse getElementsByClassification(String         serverName,
-                                                                        String         urlMarker,
-                                                                        String         classificationName,
+    public OpenMetadataRootElementsResponse getElementsByClassification(String             serverName,
+                                                                        String             urlMarker,
+                                                                        String             classificationName,
                                                                         ResultsRequestBody requestBody)
     {
         final String methodName = "getElementsByClassification";

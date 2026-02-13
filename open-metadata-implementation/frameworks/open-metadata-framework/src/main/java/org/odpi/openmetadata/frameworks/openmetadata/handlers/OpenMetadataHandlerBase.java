@@ -10,13 +10,10 @@ import org.odpi.openmetadata.frameworks.openmetadata.builders.OpenMetadataRelati
 import org.odpi.openmetadata.frameworks.openmetadata.client.OpenMetadataClient;
 import org.odpi.openmetadata.frameworks.openmetadata.converters.OpenMetadataRootConverter;
 import org.odpi.openmetadata.frameworks.openmetadata.converters.SpecificationPropertyConverter;
+import org.odpi.openmetadata.frameworks.openmetadata.mermaid.*;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.SequencingOrder;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.*;
-import org.odpi.openmetadata.frameworks.openmetadata.mermaid.OpenMetadataRootMermaidGraphBuilder;
-import org.odpi.openmetadata.frameworks.openmetadata.mermaid.SolutionBlueprintMermaidGraphBuilder;
-import org.odpi.openmetadata.frameworks.openmetadata.mermaid.SolutionComponentMermaidGraphBuilder;
-import org.odpi.openmetadata.frameworks.openmetadata.mermaid.SpecificationMermaidGraphBuilder;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.MetadataElementSummary;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.OpenMetadataRootElement;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.RelatedMetadataElementSummary;
@@ -1155,6 +1152,13 @@ public class OpenMetadataHandlerBase
                                                                     queryOptions,
                                                                     1));
 
+            rootElement.setSubTeams(this.getElementHierarchies(userId,
+                                                               rootElement.getSubTeams(),
+                                                               1,
+                                                               OpenMetadataType.TEAM_STRUCTURE_RELATIONSHIP.typeName,
+                                                               queryOptions,
+                                                               1));
+
             rootElement.setSchemaAttributes(this.getElementHierarchies(userId,
                                                                         rootElement.getSchemaAttributes(),
                                                                         1,
@@ -1426,6 +1430,12 @@ public class OpenMetadataHandlerBase
                 SolutionComponentMermaidGraphBuilder solutionComponentMermaidGraphBuilder = new SolutionComponentMermaidGraphBuilder(rootElement);
 
                 rootElement.setSolutionSubcomponentMermaidGraph(solutionComponentMermaidGraphBuilder.getMermaidGraph());
+            }
+            if ((propertyHelper.isTypeOf(rootElement.getElementHeader(), OpenMetadataType.TEAM.typeName)) && (rootElement.getSubTeams() != null))
+            {
+                OrganizationTreeMermaidGraphBuilder organizationTreeMermaidGraphBuilder = new OrganizationTreeMermaidGraphBuilder(rootElement);
+
+                rootElement.setOrganizationTreeMermaidGraph(organizationTreeMermaidGraphBuilder.getMermaidGraph());
             }
 
         }
@@ -2207,5 +2217,39 @@ public class OpenMetadataHandlerBase
                                                                                                            searchOptions);
 
         return convertRootElements(userId, openMetadataElements, searchOptions, methodName);
+    }
+
+
+    /**
+     * Retrieve elements with the requested classification name. It is also possible to limit the results
+     * by specifying a type name for the elements that should be returned. If no type name is specified then
+     * any type of element may be returned.
+     *
+     * @param userId calling user
+     * @param classificationName name of classification
+     * @param queryOptions               multiple options to control the query
+     *
+     * @return list of related elements
+     * @throws InvalidParameterException  one of the parameters is invalid
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
+     * @throws PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    public List<OpenMetadataRootElement> getElementsByClassification(String       userId,
+                                                                     String       classificationName,
+                                                                     QueryOptions queryOptions) throws InvalidParameterException,
+                                                                                                       UserNotAuthorizedException,
+                                                                                                       PropertyServerException
+    {
+        final String methodName                 = "getElementsByClassification";
+        final String classificationNameProperty = "classificationName";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateMandatoryName(classificationName, classificationNameProperty, methodName);
+
+        List<OpenMetadataElement> elements = openMetadataClient.getMetadataElementsByClassification(userId,
+                                                                                                    classificationName,
+                                                                                                    queryOptions);;
+
+        return this.convertRootElements(userId, elements, queryOptions, methodName);
     }
 }

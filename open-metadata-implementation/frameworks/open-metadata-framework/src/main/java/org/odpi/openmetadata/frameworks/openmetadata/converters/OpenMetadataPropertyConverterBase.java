@@ -1044,7 +1044,7 @@ public class OpenMetadataPropertyConverterBase
 
 
     /**
-     * Extract and delete the mission property from the supplied element properties.
+     * Extract and delete the property from the supplied element properties.
      *
      * @param elementProperties properties from element
      * @return string text or null
@@ -1057,6 +1057,72 @@ public class OpenMetadataPropertyConverterBase
         {
             return propertyHelper.removeStringProperty(localServiceName,
                                                        OpenMetadataProperty.MISSION.name,
+                                                       elementProperties,
+                                                       methodName);
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return string text or null
+     */
+    protected String removeApproach(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeApproach";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeStringProperty(localServiceName,
+                                                       OpenMetadataProperty.APPROACH.name,
+                                                       elementProperties,
+                                                       methodName);
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return string text or null
+     */
+    protected String removeManagementStyle(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeManagementStyle";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeStringProperty(localServiceName,
+                                                       OpenMetadataProperty.MANAGEMENT_STYLE.name,
+                                                       elementProperties,
+                                                       methodName);
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return string text or null
+     */
+    protected String removeResultsUsage(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeResultsUsage";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeStringProperty(localServiceName,
+                                                       OpenMetadataProperty.RESULTS_USAGE.name,
                                                        elementProperties,
                                                        methodName);
         }
@@ -11657,6 +11723,14 @@ public class OpenMetadataPropertyConverterBase
 
                 ((PrimaryKeyProperties)beanProperties).setDisplayName(this.removeDisplayName(elementProperties));
                 ((PrimaryKeyProperties)beanProperties).setKeyPattern(this.removeKeyPattern(elementProperties));
+            }
+            else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.PROJECT_CLASSIFICATION_CLASSIFICATION.typeName))
+            {
+                beanProperties = new ProjectClassificationProperties();
+
+                ((ProjectClassificationProperties)beanProperties).setApproach(this.removeApproach(elementProperties));
+                ((ProjectClassificationProperties)beanProperties).setManagementStyle(this.removeManagementStyle(elementProperties));
+                ((ProjectClassificationProperties)beanProperties).setResultsUsage(this.removeResultsUsage(elementProperties));
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.PUBLISHER_INTERFACE_CLASSIFICATION.typeName))
             {

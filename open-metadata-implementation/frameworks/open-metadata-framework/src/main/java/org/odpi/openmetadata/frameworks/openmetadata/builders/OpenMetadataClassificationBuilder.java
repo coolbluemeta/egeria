@@ -18,6 +18,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatfor
 import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatforms.CloudProviderProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatforms.CloudServiceProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatforms.CloudTenantProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectClassificationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.CalculatedValueProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.PrimaryKeyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.TypeEmbeddedAttributeProperties;
@@ -413,6 +414,18 @@ public class OpenMetadataClassificationBuilder
                                                                        primaryKeyProperties.getKeyPattern().getName());
                 }
 
+            }
+            else if (properties instanceof ProjectClassificationProperties projectClassificationProperties)
+            {
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.APPROACH.name,
+                                                                     projectClassificationProperties.getApproach());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.MANAGEMENT_STYLE.name,
+                                                                     projectClassificationProperties.getManagementStyle());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.RESULTS_USAGE.name,
+                                                                     projectClassificationProperties.getResultsUsage());
             }
             else if (properties instanceof RetentionProperties retentionProperties)
             {

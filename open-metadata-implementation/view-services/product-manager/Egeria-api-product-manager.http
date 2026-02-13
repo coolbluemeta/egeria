@@ -1,4 +1,4 @@
-# Egeria-product-manager-view-service
+# Egeria-product-manager-api
 # Manage the definition of a digital product (works with collection manager)
 
 @baseURL=https://localhost:9443
