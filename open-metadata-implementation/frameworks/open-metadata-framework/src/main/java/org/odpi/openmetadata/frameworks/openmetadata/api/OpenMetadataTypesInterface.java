@@ -56,8 +56,8 @@ public interface OpenMetadataTypesInterface
      * @throws PropertyServerException  a problem communicating with the metadata repository.
      * @throws UserNotAuthorizedException  the userId is not permitted to perform this operation.
      */
-    List<OpenMetadataAttributeTypeDef> findAttributeTypeDefsByCategory(String                               userId,
-                                                                       OpenMetadataAttributeTypeDefCategory category) throws InvalidParameterException,
+    List<OpenMetadataAttributeTypeDef> getAttributeTypeDefs(String                               userId,
+                                                            OpenMetadataAttributeTypeDefCategory category) throws InvalidParameterException,
                                                                                                                              PropertyServerException,
                                                                                                                              UserNotAuthorizedException;
 

@@ -219,7 +219,8 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
 
 
     /**
-     * Returns all the AttributeTypeDefs for a specific category.
+     * Returns all the AttributeTypeDefs for an optional specific category.  If the category is null then
+     * all attribute type defs are returned.
      *
      * @param userId   unique identifier for requesting user.
      * @param category enum value for the category of an AttributeTypeDef to return.
@@ -231,23 +232,34 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
      * @throws UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
     @Override
-    public List<OpenMetadataAttributeTypeDef> findAttributeTypeDefsByCategory(String                               userId,
-                                                                              OpenMetadataAttributeTypeDefCategory category) throws InvalidParameterException,
-                                                                                                                                    PropertyServerException,
-                                                                                                                                    UserNotAuthorizedException
+    public List<OpenMetadataAttributeTypeDef> getAttributeTypeDefs(String                               userId,
+                                                                   OpenMetadataAttributeTypeDefCategory category) throws InvalidParameterException,
+                                                                                                                         PropertyServerException,
+                                                                                                                         UserNotAuthorizedException
     {
-        final String methodName  = "findAttributeTypeDefsByCategory";
-        final String categoryParameterName  = "category";
-        final String urlTemplate = serverPlatformURLRoot + "/servers/{0}/open-metadata/access-services/open-metadata-store/users/{1}/open-metadata-attribute-types/category/{2}";
+        final String methodName  = "getAttributeTypeDefs";
+        final String urlTemplate = serverPlatformURLRoot + "/servers/{0}/open-metadata/access-services/open-metadata-store/users/{1}/open-metadata-types/attribute-defs?category={2}";
 
         invalidParameterHandler.validateUserId(userId, methodName);
-        invalidParameterHandler.validateEnum(category, categoryParameterName, methodName);
 
-        AttributeTypeDefListResponse restResult = restClient.callAttributeTypeDefListGetRESTCall(methodName,
-                                                                                                 urlTemplate,
-                                                                                                 serverName,
-                                                                                                 userId,
-                                                                                                 category);
+        AttributeTypeDefListResponse restResult;
+
+        if (category == null)
+        {
+            restResult = restClient.callAttributeTypeDefListGetRESTCall(methodName,
+                                                                        urlTemplate,
+                                                                        serverName,
+                                                                        userId,
+                                                                        null);
+        }
+        else
+        {
+            restResult = restClient.callAttributeTypeDefListGetRESTCall(methodName,
+                                                                        urlTemplate,
+                                                                        serverName,
+                                                                        userId,
+                                                                        category.name());
+        }
 
         return restResult.getAttributeTypeDefs();
     }

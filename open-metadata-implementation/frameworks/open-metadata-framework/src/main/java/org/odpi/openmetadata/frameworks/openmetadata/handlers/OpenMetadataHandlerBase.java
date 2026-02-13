@@ -10,13 +10,10 @@ import org.odpi.openmetadata.frameworks.openmetadata.builders.OpenMetadataRelati
 import org.odpi.openmetadata.frameworks.openmetadata.client.OpenMetadataClient;
 import org.odpi.openmetadata.frameworks.openmetadata.converters.OpenMetadataRootConverter;
 import org.odpi.openmetadata.frameworks.openmetadata.converters.SpecificationPropertyConverter;
+import org.odpi.openmetadata.frameworks.openmetadata.mermaid.*;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.SequencingOrder;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.*;
-import org.odpi.openmetadata.frameworks.openmetadata.mermaid.OpenMetadataRootMermaidGraphBuilder;
-import org.odpi.openmetadata.frameworks.openmetadata.mermaid.SolutionBlueprintMermaidGraphBuilder;
-import org.odpi.openmetadata.frameworks.openmetadata.mermaid.SolutionComponentMermaidGraphBuilder;
-import org.odpi.openmetadata.frameworks.openmetadata.mermaid.SpecificationMermaidGraphBuilder;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.MetadataElementSummary;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.OpenMetadataRootElement;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.RelatedMetadataElementSummary;
@@ -1155,6 +1152,13 @@ public class OpenMetadataHandlerBase
                                                                     queryOptions,
                                                                     1));
 
+            rootElement.setSubTeams(this.getElementHierarchies(userId,
+                                                               rootElement.getSubTeams(),
+                                                               1,
+                                                               OpenMetadataType.TEAM_STRUCTURE_RELATIONSHIP.typeName,
+                                                               queryOptions,
+                                                               1));
+
             rootElement.setSchemaAttributes(this.getElementHierarchies(userId,
                                                                         rootElement.getSchemaAttributes(),
                                                                         1,
@@ -1426,6 +1430,12 @@ public class OpenMetadataHandlerBase
                 SolutionComponentMermaidGraphBuilder solutionComponentMermaidGraphBuilder = new SolutionComponentMermaidGraphBuilder(rootElement);
 
                 rootElement.setSolutionSubcomponentMermaidGraph(solutionComponentMermaidGraphBuilder.getMermaidGraph());
+            }
+            if ((propertyHelper.isTypeOf(rootElement.getElementHeader(), OpenMetadataType.TEAM.typeName)) && (rootElement.getSubTeams() != null))
+            {
+                OrganizationTreeMermaidGraphBuilder organizationTreeMermaidGraphBuilder = new OrganizationTreeMermaidGraphBuilder(rootElement);
+
+                rootElement.setOrganizationTreeMermaidGraph(organizationTreeMermaidGraphBuilder.getMermaidGraph());
             }
 
         }

@@ -247,6 +247,18 @@ GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/open-met
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
+####
+# ENUM, PRIMITIVE, COLLECTION
+@category=
+
+###
+# @name getAttributeTypes
+# Returns all the AttributeTypeDefs used in the open metadata types.
+#
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/open-metadata-types/attribute-defs?category={{category}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
 ###
 
 @standard=

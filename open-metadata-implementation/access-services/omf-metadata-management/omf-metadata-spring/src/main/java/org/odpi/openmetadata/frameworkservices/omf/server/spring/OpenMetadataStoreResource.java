@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.odpi.openmetadata.commonservices.ffdc.rest.*;
 import org.odpi.openmetadata.commonservices.ffdc.rest.MetadataSourceRequestBody;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.OpenMetadataAttributeTypeDefCategory;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.OpenMetadataTypeDefCategory;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.translations.TranslationDetailProperties;
 import org.odpi.openmetadata.frameworkservices.omf.rest.*;
@@ -118,6 +119,34 @@ public class OpenMetadataStoreResource
                                              @PathVariable String userId)
     {
         return restAPI.findTypeDefsByCategory(serverName, userId, OpenMetadataTypeDefCategory.ENTITY_DEF);
+    }
+
+
+    /**
+     * Returns all the AttributeTypeDefs for an optional specific category.  If the category is null then
+     * all attribute type defs are returned.
+     *
+     * @param serverName unique identifier for requested server.
+     * @param userId unique identifier for requesting user.
+     * @return AttributeTypeDefListResponse:
+     * TypeDefs list or
+     * InvalidParameterException the TypeDefCategory is null or
+     * RepositoryErrorException a problem communicating with the metadata repository or
+     * UserNotAuthorizedException the userId is not permitted to perform this operation.
+     */
+    @GetMapping(path = "/open-metadata-types/attribute-defs")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="getAttributeTypeDefs",
+            description=" Returns all the AttributeTypeDefs for an optional specific category.  If the category is null then all attribute type defs are returned.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/types/"))
+
+    public AttributeTypeDefListResponse getAttributeTypeDefs(@PathVariable String serverName,
+                                                             @PathVariable String userId,
+                                                             @RequestParam(required = false) OpenMetadataAttributeTypeDefCategory category)
+    {
+        return restAPI.getAttributeTypeDefs(serverName, userId, category);
     }
 
 
