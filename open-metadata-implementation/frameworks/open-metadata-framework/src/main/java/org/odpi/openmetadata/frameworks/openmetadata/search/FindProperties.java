@@ -21,6 +21,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = LevelIdentifierQueryProperties.class, name = "LevelIdentifierQueryProperties"),
                 @JsonSubTypes.Type(value = FindDigitalResourceOriginProperties.class, name = "FindDigitalResourceOriginProperties"),
                 @JsonSubTypes.Type(value = FindPropertyNamesProperties.class, name = "FindPropertyNamesProperties"),
+                @JsonSubTypes.Type(value = FindProjectClassificationProperties.class, name = "FindProjectClassificationProperties"),
                 @JsonSubTypes.Type(value = SecurityTagQueryProperties.class, name = "SecurityTagQueryProperties"),
                 @JsonSubTypes.Type(value = SemanticAssignmentQueryProperties.class, name = "SemanticAssignmentQueryProperties"),
         })

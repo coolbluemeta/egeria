@@ -285,47 +285,17 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
 
             List<OpenMetadataElement> matchingElements = openMetadataClient.findMetadataElements(userId,
                                                                                                  null,
-                                                                                                 getSearchClassifications(propertyConditions, classificationName),
+                                                                                                 propertyHelper.getSearchClassifications(propertyConditions, classificationName),
                                                                                                  queryOptions);
 
             return super.convertRootElements(userId, matchingElements, queryOptions, methodName);
         }
         else
         {
-            return this.getElementsByClassification(userId,
-                                                    OpenMetadataType.RETENTION_CLASSIFICATION.typeName,
-                                                    queryOptions);
+            return super.getElementsByClassification(userId,
+                                                     OpenMetadataType.RETENTION_CLASSIFICATION.typeName,
+                                                     queryOptions);
         }
-    }
-
-
-    /**
-     * Construct the classification search properties for locating specific properties in the named classification.
-     *
-     * @param propertyConditions properties to match
-     * @param classificationName name of the classification
-     * @return search classification structure
-     */
-    private SearchClassifications getSearchClassifications(List<PropertyCondition> propertyConditions,
-                                                           String                  classificationName)
-    {
-        List<ClassificationCondition> classificationConditions = new ArrayList<>();
-        ClassificationCondition classificationCondition = new ClassificationCondition();
-        SearchProperties        searchProperties        = new SearchProperties();
-
-        searchProperties.setConditions(propertyConditions);
-        searchProperties.setMatchCriteria(MatchCriteria.ALL);
-
-        classificationCondition.setName(classificationName);
-        classificationCondition.setSearchProperties(searchProperties);
-
-        classificationConditions.add(classificationCondition);
-
-        SearchClassifications searchClassifications = new SearchClassifications();
-        searchClassifications.setConditions(classificationConditions);
-        searchClassifications.setMatchCriteria(MatchCriteria.ALL);
-
-        return searchClassifications;
     }
 
 
@@ -372,16 +342,16 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
         {
             List<OpenMetadataElement> matchingElements = openMetadataClient.findMetadataElements(userId,
                                                                                                  null,
-                                                                                                 getSearchClassifications(propertyConditions, OpenMetadataType.SECURITY_TAGS_CLASSIFICATION.typeName),
+                                                                                                 propertyHelper.getSearchClassifications(propertyConditions, OpenMetadataType.SECURITY_TAGS_CLASSIFICATION.typeName),
                                                                                                  queryOptions);
 
             return convertRootElements(userId, matchingElements, queryOptions, methodName);
         }
         else
         {
-            return this.getElementsByClassification(userId,
-                                                    OpenMetadataType.SECURITY_TAGS_CLASSIFICATION.typeName,
-                                                    queryOptions);
+            return super.getElementsByClassification(userId,
+                                                     OpenMetadataType.SECURITY_TAGS_CLASSIFICATION.typeName,
+                                                     queryOptions);
         }
     }
 
@@ -464,16 +434,16 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
         {
             List<OpenMetadataElement> matchingElements = openMetadataClient.findMetadataElements(userId,
                                                                                                  null,
-                                                                                                 getSearchClassifications(propertyConditions, OpenMetadataType.DIGITAL_RESOURCE_ORIGIN_CLASSIFICATION.typeName),
+                                                                                                 propertyHelper.getSearchClassifications(propertyConditions, OpenMetadataType.DIGITAL_RESOURCE_ORIGIN_CLASSIFICATION.typeName),
                                                                                                  queryOptions);
 
             return super.convertRootElements(userId, matchingElements, queryOptions, methodName);
         }
         else
         {
-            return this.getElementsByClassification(userId,
-                                                    OpenMetadataType.DIGITAL_RESOURCE_ORIGIN_CLASSIFICATION.typeName,
-                                                    queryOptions);
+            return super.getElementsByClassification(userId,
+                                                     OpenMetadataType.DIGITAL_RESOURCE_ORIGIN_CLASSIFICATION.typeName,
+                                                     queryOptions);
         }
     }
 
@@ -3017,40 +2987,6 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
                                                                                                  queryOptions);;
 
         return super.convertRootElements(userId, openMetadataElements, queryOptions, methodName);
-    }
-
-
-    /**
-     * Retrieve elements with the requested classification name. It is also possible to limit the results
-     * by specifying a type name for the elements that should be returned. If no type name is specified then
-     * any type of element may be returned.
-     *
-     * @param userId calling user
-     * @param classificationName name of classification
-     * @param queryOptions               multiple options to control the query
-     *
-     * @return list of related elements
-     * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException the user is not authorized to issue this request
-     * @throws PropertyServerException    a problem reported in the open metadata server(s)
-     */
-    public List<OpenMetadataRootElement> getElementsByClassification(String       userId,
-                                                                     String       classificationName,
-                                                                     QueryOptions queryOptions) throws InvalidParameterException,
-                                                                                                       UserNotAuthorizedException,
-                                                                                                       PropertyServerException
-    {
-        final String methodName                 = "getElementsByClassification";
-        final String classificationNameProperty = "classificationName";
-
-        propertyHelper.validateUserId(userId, methodName);
-        propertyHelper.validateMandatoryName(classificationName, classificationNameProperty, methodName);
-
-        List<OpenMetadataElement> elements = openMetadataClient.getMetadataElementsByClassification(userId,
-                                                                                                    classificationName,
-                                                                                                    queryOptions);;
-
-        return super.convertRootElements(userId, elements, queryOptions, methodName);
     }
 
 

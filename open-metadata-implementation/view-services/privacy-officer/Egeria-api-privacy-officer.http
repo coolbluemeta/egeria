@@ -1,4 +1,4 @@
-# Egeria-privacy-officer-view-service
+# Egeria-privacy-officer-api
 
 @baseURL=https://localhost:9443
 @viewServer=view-server

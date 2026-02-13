@@ -3216,6 +3216,7 @@ public class OpenMetadataTypesArchive1_2
         this.archiveBuilder.addClassificationDef(getProjectCategoryClassification());
         this.archiveBuilder.addClassificationDef(getTaskClassification());
         this.archiveBuilder.addClassificationDef(getCampaignClassification());
+        this.archiveBuilder.addClassificationDef(getProjectClassification());
     }
 
 
@@ -3378,6 +3379,28 @@ public class OpenMetadataTypesArchive1_2
                                                   this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_ROLE_CLASSIFICATION.typeName),
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
                                                   false);
+    }
+
+
+    private ClassificationDef getProjectClassification()
+    {
+        ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.PROJECT_CLASSIFICATION_CLASSIFICATION,
+                                                                                 null,
+                                                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
+                                                                                 false);
+
+        /*
+         * Build the attributes
+         */
+        List<TypeDefAttribute> properties = new ArrayList<>();
+
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.APPROACH));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.MANAGEMENT_STYLE));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.RESULTS_USAGE));
+
+        classificationDef.setPropertiesDefinition(properties);
+
+        return classificationDef;
     }
 
 

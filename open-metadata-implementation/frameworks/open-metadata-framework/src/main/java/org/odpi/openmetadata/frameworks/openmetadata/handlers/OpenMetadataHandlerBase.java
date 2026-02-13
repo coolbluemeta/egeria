@@ -2218,4 +2218,38 @@ public class OpenMetadataHandlerBase
 
         return convertRootElements(userId, openMetadataElements, searchOptions, methodName);
     }
+
+
+    /**
+     * Retrieve elements with the requested classification name. It is also possible to limit the results
+     * by specifying a type name for the elements that should be returned. If no type name is specified then
+     * any type of element may be returned.
+     *
+     * @param userId calling user
+     * @param classificationName name of classification
+     * @param queryOptions               multiple options to control the query
+     *
+     * @return list of related elements
+     * @throws InvalidParameterException  one of the parameters is invalid
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
+     * @throws PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    public List<OpenMetadataRootElement> getElementsByClassification(String       userId,
+                                                                     String       classificationName,
+                                                                     QueryOptions queryOptions) throws InvalidParameterException,
+                                                                                                       UserNotAuthorizedException,
+                                                                                                       PropertyServerException
+    {
+        final String methodName                 = "getElementsByClassification";
+        final String classificationNameProperty = "classificationName";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateMandatoryName(classificationName, classificationNameProperty, methodName);
+
+        List<OpenMetadataElement> elements = openMetadataClient.getMetadataElementsByClassification(userId,
+                                                                                                    classificationName,
+                                                                                                    queryOptions);;
+
+        return this.convertRootElements(userId, elements, queryOptions, methodName);
+    }
 }

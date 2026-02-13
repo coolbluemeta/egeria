@@ -1,4 +1,4 @@
-# Egeria-multi-language-view-service
+# Egeria-multi-language-api
 
 @baseURL=https://localhost:9443
 @viewServer=view-server

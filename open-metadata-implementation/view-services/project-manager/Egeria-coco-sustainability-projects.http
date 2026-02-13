@@ -1,0 +1,289 @@
+# Egeria-coco-sustainability-projects
+
+@baseURL=https://localhost:9443
+@viewServer=view-server
+
+###
+# =====================================================================================================================
+# Manage the authentication token.  Run this request to create/refresh the token.
+
+# @name Token (RequestBody)
+POST {{baseURL}}/api/token
+Content-Type: application/json
+
+{
+  "userId" : "tomtally",
+  "password" : "secret"
+}
+
+> {% client.global.set("token", response.body); %}
+
+###
+# =====================================================================================================================
+# Retrieving Projects: https://egeria-project.org/concepts/project
+#
+
+@sustainabilityCampaignQName=Campaign:Sustainability
+@sustainabilityBootstrapQName=Project:Sustainability Bootstrap
+@clinicalTrialsManagementQName=Campaign:Clinical Trials Management
+
+###
+# @name Get the sustainability campaign GUID
+# Retrieve the metadata element GUID using its unique name (typically the qualified name, but it is possible to specify a different property name in the request body as long as it is unique).  If multiple matching instances are found, and exception is thrown.
+#
+# https://egeria-project.org/services/gaf-metadata-management/
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/classification-explorer/elements/guid-by-unique-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "class" : "FindPropertyNameProperties",
+    "propertyValue" : "{{sustainabilityCampaignQName}}",
+    "propertyName" : "qualifiedName"
+}
+
+> {% client.global.set("sustainabilityCampaignGUID", response.body.guid); %}
+
+###
+# @name getProjectByGUID
+# Return the properties of a specific project.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{sustainabilityCampaignGUID}}
+Authorization: Bearer {{token}}
+
+###
+# @name getProjectGraph
+# Returns the graph of related projects and resources starting with a supplied project guid..
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{sustainabilityCampaignGUID}}/graph
+Authorization: Bearer {{token}}
+
+###
+# @name Get the sustainability bootstrap project GUID
+# Retrieve the metadata element GUID using its unique name (typically the qualified name, but it is possible to specify a different property name in the request body as long as it is unique).  If multiple matching instances are found, and exception is thrown.
+#
+# https://egeria-project.org/services/gaf-metadata-management/
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/classification-explorer/elements/guid-by-unique-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "class" : "FindPropertyNameProperties",
+    "propertyValue" : "{{sustainabilityBootstrapQName}}",
+    "propertyName" : "qualifiedName"
+}
+
+> {% client.global.set("sustainabilityBootstrapGUID", response.body.guid); %}
+
+
+###
+# @name getProjectByGUID
+# Return the properties of a specific project.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{sustainabilityBootstrapGUID}}
+Authorization: Bearer {{token}}
+
+###
+# @name getProjectGraph
+# Returns the graph of related projects and resources starting with a supplied project guid..
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{sustainabilityBootstrapGUID}}/graph
+Authorization: Bearer {{token}}
+
+
+###
+# @name Get the clinical trials management project GUID
+# Retrieve the metadata element GUID using its unique name (typically the qualified name, but it is possible to specify a different property name in the request body as long as it is unique).  If multiple matching instances are found, and exception is thrown.
+#
+# https://egeria-project.org/services/gaf-metadata-management/
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/classification-explorer/elements/guid-by-unique-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "class" : "FindPropertyNameProperties",
+    "propertyValue" : "{{clinicalTrialsManagementQName}}",
+    "propertyName" : "qualifiedName"
+}
+
+> {% client.global.set("clinicalTrialsManagementGUID", response.body.guid); %}
+
+
+###
+# @name getProjectByGUID
+# Return the properties of a specific project.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{clinicalTrialsManagementGUID}}
+Authorization: Bearer {{token}}
+
+###
+# @name getProjectGraph
+# Returns the graph of related projects and resources starting with a supplied project guid..
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{clinicalTrialsManagementGUID}}/graph
+Authorization: Bearer {{token}}
+
+# =====================================================================================================================
+###
+# @name getLinkedProjects
+# Returns the list of projects that are linked off of the supplied element.  Any relationship will do.
+# The request body is optional, but if supplied acts as a filter on project status.
+
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/metadata-elements/{{sustainabilityCampaignGUID}}/projects
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : ""
+}
+
+
+###
+# @name getClassifiedProjects
+# Returns the list of projects with a particular classification.  The name of the classification is supplied in the request body.
+# Examples of these classifications include "StudyProject", "PersonalProject", "Campaign" or "Task".
+# There is also "GlossaryProject" and "GovernanceProject".
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/by-classifications
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : "Campaign"
+}
+
+
+
+###
+# @name addProjectClassification
+# Classify the project to indicate the approach and style of project based on its intended outcome.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{clinicalTrialsManagementGUID}}/classification-properties/classify
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+{
+  "class" : "NewClassificationRequestBody",
+  "properties": {
+    "class": "ProjectClassificationProperties",
+    "approach": "Regulated Clinical Trial",
+    "managementStyle": "Regulated Project",
+    "ResultsUsage": "Business Critical"
+  }
+}
+
+
+###
+# @name getProjectsByClassificationProperties
+# Returns the list of projects with a ProjectClassification classification and with matching properties.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/by-classification-properties
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindProjectClassificationProperties",
+  "approach" : "Agile Development",
+  "managementStyle" : "",
+  "resultsUsage" : ""
+}
+
+
+###
+# @name getProjectsByClassificationProperties
+# Returns the list of projects with a ProjectClassification classification and with matching properties.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/by-classification-properties
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindProjectClassificationProperties",
+  "approach": "Regulated Clinical Trial",
+  "managementStyle": "Regulated Project",
+  "ResultsUsage": "Business Critical"
+}
+
+
+###
+# @name getProjectsByClassificationProperties
+# Returns the list of projects with a ProjectClassification classification and with matching properties.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/by-classification-properties
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindProjectClassificationProperties",
+  "approach": "Regulated Clinical Trial"
+}
+
+###
+# @name getProjectsByClassificationProperties
+# Returns the list of projects with a ProjectClassification classification and with matching properties.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/by-classification-properties
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindProjectClassificationProperties",
+  "managementStyle": "Regulated Project"
+}
+
+###
+# @name getProjectsByClassificationProperties
+# Returns the list of projects with a ProjectClassification classification and with matching properties.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/by-classification-properties
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindProjectClassificationProperties",
+  "ResultsUsage": "Business Critical"
+}
+
+###
+# @name getProjectsByClassificationProperties
+# Returns the list of projects with a ProjectClassification classification and with matching properties.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/by-classification-properties
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindProjectClassificationProperties",
+  "approach": "Agile Development",
+  "managementStyle": "Regulated Project",
+  "ResultsUsage": "Business Critical"
+}
+
+###
+# @name clearProjectClassification
+# Remove the ProjectClassification classification from the element.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{clinicalTrialsManagementGUID}}/classification-properties/declassify
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+###
+# @name getProjectTeam
+# Returns the list of actors that are linked off of the project.  This includes the project managers.
+# The optional request body allows a teamRole to be specified as a filter.  To retrieve the project managers,
+# specify "Leader" as the filter.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/{{sustainabilityBootstrapGUID}}/team
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filter" : ""
+}
+
+
+###
+# @name findProjects
+# Returns the list of projects matching the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/project-manager/projects/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "searchString" : "Clinical",
+  "startsWith" : false,
+  "endsWith" : false,
+  "ignoreCase" : true,
+  "startFrom" : 0,
+  "pageSize": 10
+}
+
+
+###

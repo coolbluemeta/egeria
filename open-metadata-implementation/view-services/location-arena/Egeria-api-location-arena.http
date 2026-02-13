@@ -1,4 +1,4 @@
-# Egeria-location-arena-view-service
+# Egeria-location-arena-api
 
 @baseURL=https://localhost:9443
 @viewServer=view-server

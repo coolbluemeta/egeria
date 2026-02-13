@@ -14,6 +14,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.ClassificationPr
 import org.odpi.openmetadata.frameworks.openmetadata.properties.EntityProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.RelationshipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.AssignmentScopeProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectClassificationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectDependencyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectHierarchyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectProperties;
@@ -366,5 +367,72 @@ public class ProjectClient extends ConnectorContextClientBase
                                                                                            PropertyServerException
     {
         return projectHandler.findProjects(connectorUserId, searchString, searchOptions);
+    }
+
+
+
+
+    /**
+     * Return projects that are classified with a particular value in the project classification.
+     *
+     * @param approach       description of the query
+     * @param managementStyle    description of the query
+     * @param resultsUsage       description of the query
+     * @param queryOptions multiple options to control the query
+     *
+     * @return list of elements
+     *
+     * @throws InvalidParameterException qualifiedName or userId is null
+     * @throws PropertyServerException problem accessing property server
+     * @throws UserNotAuthorizedException security access problem
+     */
+    public List<OpenMetadataRootElement> getClassifiedProjects(String       approach,
+                                                               String       managementStyle,
+                                                               String       resultsUsage,
+                                                               QueryOptions queryOptions) throws InvalidParameterException,
+                                                                                                 UserNotAuthorizedException,
+                                                                                                 PropertyServerException
+    {
+        return projectHandler.getProjectsByClassificationProperties(connectorUserId, approach, managementStyle, resultsUsage, queryOptions);
+    }
+
+
+    /**
+     * Add the ProjectClassification classification for a project.
+     *
+     * @param elementGUID element to link it to
+     * @param properties details of the origin
+     * @param metadataSourceOptions  options to control access to open metadata
+     *
+     * @throws InvalidParameterException element not known, null userId or guid
+     * @throws PropertyServerException problem accessing property server
+     * @throws UserNotAuthorizedException security access problem
+     */
+    public void addProjectClassification(String                          elementGUID,
+                                         ProjectClassificationProperties properties,
+                                         MetadataSourceOptions           metadataSourceOptions) throws InvalidParameterException,
+                                                                                                       UserNotAuthorizedException,
+                                                                                                       PropertyServerException
+    {
+        projectHandler.addProjectClassification(connectorUserId, elementGUID, properties, metadataSourceOptions);
+    }
+
+
+    /**
+     * Remove the ProjectClassification classification from a project.
+     *
+     * @param elementGUID element where the classification needs to be removed.
+     * @param metadataSourceOptions  options to control access to open metadata
+     *
+     * @throws InvalidParameterException asset or element not known, null userId or guid
+     * @throws PropertyServerException problem accessing property server
+     * @throws UserNotAuthorizedException security access problem
+     */
+    public void clearProjectClassification(String                elementGUID,
+                                           MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
+                                                                                               UserNotAuthorizedException,
+                                                                                               PropertyServerException
+    {
+        projectHandler.clearProjectClassification(connectorUserId, elementGUID, metadataSourceOptions);
     }
 }

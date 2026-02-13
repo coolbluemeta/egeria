@@ -40,7 +40,7 @@ public class CanonicalVocabularyProperties extends ClassificationBeanProperties
 
 
     /**
-     * Copy/clone constructor for a primary key.
+     * Copy/clone constructor.
      *
      * @param template template object to copy.
      */
