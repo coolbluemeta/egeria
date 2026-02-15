@@ -532,7 +532,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
                                                                                                                                 VisualStyle.PROJECT,
                                                                                                                                 queryOptions.getMaxMermaidNodeCount());
 
-            openMetadataRootHierarchy.setMermaidGraph(mermaidGraphBuilder.getMermaidGraph());
+            openMetadataRootHierarchy.setRootHierarchyMermaidGraph(mermaidGraphBuilder.getMermaidGraph());
 
             return openMetadataRootHierarchy;
         }
@@ -737,7 +737,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
                                                                                                                                 VisualStyle.PROJECT,
                                                                                                                                 queryOptions.getMaxMermaidNodeCount());
 
-            openMetadataRootHierarchy.setMermaidGraph(mermaidGraphBuilder.getMermaidGraph());
+            openMetadataRootHierarchy.setRootHierarchyMermaidGraph(mermaidGraphBuilder.getMermaidGraph());
 
             return openMetadataRootHierarchy;
         }

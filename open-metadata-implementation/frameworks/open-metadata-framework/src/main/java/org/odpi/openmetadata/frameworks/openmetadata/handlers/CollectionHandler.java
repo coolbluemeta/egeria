@@ -1728,7 +1728,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
                                                                                                                          VisualStyle.COLLECTION,
                                                                                                                          queryOptions.getMaxMermaidNodeCount());
 
-            collectionHierarchy.setMermaidGraph(graphBuilder.getMermaidGraph());
+            collectionHierarchy.setRootHierarchyMermaidGraph(graphBuilder.getMermaidGraph());
 
             return collectionHierarchy;
         }

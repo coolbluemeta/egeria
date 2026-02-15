@@ -93,7 +93,7 @@ public enum OpenMetadataProperty
      */
 
     /**
-     * Unique identifier of an open metadata entity, classification or relationship.
+     * Name of the metadata data type extracted from an instance.
      */
     INSTANCE_METADATA_TYPE_NAME("instanceMetadataTypeName", DataType.STRING, DataType.STRING.getName(), "Name of the metadata data type extracted from an instance.", "JPEG", "7c5a7e83-2709-4789-b014-d23082a659bd"),
 
@@ -1644,7 +1644,7 @@ public enum OpenMetadataProperty
     /**
      * The type name of the PersonRole that the UserIdentity is used for.
      */
-    ROLE_TYPE_NAME("roleTypeName", DataType.STRING, DataType.STRING.getName(), "", null, "3216d40f-58e0-435c-90cd-980af2645ee7"),
+    ROLE_TYPE_NAME("roleTypeName", DataType.STRING, DataType.STRING.getName(), "The open metadata type name of the element used to identify the role", "ActorProfile", "3216d40f-58e0-435c-90cd-980af2645ee7"),
 
     /**
      * The unique identifier of the specific PersonRole that the UserIdentity is used for.
@@ -2059,7 +2059,7 @@ public enum OpenMetadataProperty
     /**
      * Defines, in milliseconds, the length of time that the event is expected to last.
      */
-    PLANNED_DURATION("plannedDuration", DataType.LONG, DataType.LONG.getName(), "Defines, in milliseconds, the length of time that the event is expected to last.", null, ""),
+    PLANNED_DURATION("plannedDuration", DataType.LONG, DataType.LONG.getName(), "Defines, in milliseconds, the length of time that the event is expected to last.", null, "63ccec87-8c1a-4b02-bb6f-e3995a0a59cc"),
 
     /**
      * Defines, in milliseconds, the length of time that the event did last.
@@ -2139,7 +2139,7 @@ public enum OpenMetadataProperty
     /**
      * If the height above ground is relevant, this is the highest height that the data covers.
      */
-    MAX_HEIGHT("maxHeight", DataType.FLOAT, DataType.FLOAT.getName(), "", null, "cd188a84-17b7-410a-8aba-6195141268ec"),
+    MAX_HEIGHT("maxHeight", DataType.FLOAT, DataType.FLOAT.getName(), "If the height above ground is relevant, this is the highest height that the data covers.", null, "cd188a84-17b7-410a-8aba-6195141268ec"),
 
     /**
      * If the data is bound by time, this is the start time.

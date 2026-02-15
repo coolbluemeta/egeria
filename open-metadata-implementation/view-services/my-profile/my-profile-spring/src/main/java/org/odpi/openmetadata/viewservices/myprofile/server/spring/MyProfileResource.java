@@ -62,15 +62,41 @@ public class MyProfileResource
 
     public OpenMetadataRootElementResponse getMyProfile(@PathVariable String serverName)
     {
-        return restAPI.getMyProfile(serverName);
+        return restAPI.getMyProfile(serverName, null);
+    }
+
+
+    /**
+     * Return the profile for this user.
+     *
+     * @param serverName name of the server instances for this request
+     * @param requestBody optional properties to restrict search by and control how the results are formatted
+     *
+     * @return profile response object or
+     * InvalidParameterException the userId is null or invalid or
+     * PropertyServerException a problem retrieving information from the property server(s) or
+     * UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    @PostMapping(path = "")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="getMyProfile",
+            description="Return the personal profile of the logged on user (details of the user is extracted from the bearer token).",
+            externalDocs=@ExternalDocumentation(description="Personal Profiles",
+                    url="https://egeria-project.org/concepts/personal-profile"))
+
+    public OpenMetadataRootElementResponse getMyProfile(@PathVariable String serverName,
+                                                        @RequestBody (required = false) GetRequestBody requestBody)
+    {
+        return restAPI.getMyProfile(serverName, requestBody);
     }
 
 
     /**
      * Return the list of actors linked to the user's profile.
      *
-     * @param serverName name of the server instances for this request
-     *
+     * @param serverName  name of the server instances for this request
+     * @param requestBody optional properties to restrict search by and control how the results are formatted
      * @return profile response object or
      * InvalidParameterException the userId is null or invalid or
      * PropertyServerException a problem retrieving information from the property server(s) or
@@ -79,13 +105,13 @@ public class MyProfileResource
     @PostMapping(path = "/actors")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    @Operation(summary="getMyActors",
-            description="Return the list of actors linked to the user's profile.",
-            externalDocs=@ExternalDocumentation(description="Personal Profiles",
-                    url="https://egeria-project.org/concepts/personal-profile"))
+    @Operation(summary = "getMyActors",
+            description = "Return the list of actors linked to the user's profile.",
+            externalDocs = @ExternalDocumentation(description = "Personal Profiles",
+                    url = "https://egeria-project.org/concepts/personal-profile"))
 
     public OpenMetadataRootElementsResponse getMyActors(@PathVariable String serverName,
-                                                        @RequestBody (required = false) GetRequestBody requestBody)
+                                                        @RequestBody(required = false) GetRequestBody requestBody)
     {
         return restAPI.getMyActors(serverName, requestBody);
     }
@@ -177,7 +203,7 @@ public class MyProfileResource
      * PropertyServerException a problem retrieving information from the property server(s) or
      * UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @PostMapping(path = "")
+    @PostMapping(path = "/new")
     @SecurityRequirement(name = "BearerAuthorization")
 
     @Operation(summary="addMyProfile",
