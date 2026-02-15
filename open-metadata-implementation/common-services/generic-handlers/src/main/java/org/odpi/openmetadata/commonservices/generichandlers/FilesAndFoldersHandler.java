@@ -4,6 +4,7 @@ package org.odpi.openmetadata.commonservices.generichandlers;
 
 
 import org.odpi.openmetadata.commonservices.ffdc.InvalidParameterHandler;
+import org.odpi.openmetadata.commonservices.generichandlers.ffdc.GenericHandlersAuditCode;
 import org.odpi.openmetadata.commonservices.repositoryhandler.RepositoryHandler;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
@@ -38,6 +39,7 @@ public class FilesAndFoldersHandler<FILESYSTEM, FOLDER, FILE>
     private final AssetHandler<FOLDER>                  folderHandler;
     private final AssetHandler<FILE>                    fileHandler;
 
+    private final AuditLog                              auditLog;
 
     private final static String folderDivider = "/";
     private final static String fileSystemDivider    = "://";
@@ -82,6 +84,7 @@ public class FilesAndFoldersHandler<FILESYSTEM, FOLDER, FILE>
         this.localServerUserId       = localServerUserId;
         this.repositoryHandler       = repositoryHandler;
         this.repositoryHelper        = repositoryHelper;
+        this.auditLog                = auditLog;
 
         this.fileSystemHandler       = new SoftwareCapabilityHandler<>(fileSystemConverter,
                                                                        fileSystemBeanClass,
@@ -449,6 +452,7 @@ public class FilesAndFoldersHandler<FILESYSTEM, FOLDER, FILE>
      * @param userId calling user
      * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName name of the software capability entity that represented the external source
+     * @param filePathName name of file
      * @param connectToGUID root object to connect the folder to
      * @param fileSystemName name of the root of the file system (can be null)
      * @param folderNames list of the folder names
@@ -460,13 +464,11 @@ public class FilesAndFoldersHandler<FILESYSTEM, FOLDER, FILE>
      * @param methodName calling method
      *
      * @return list of GUIDs from the top level to the leaf of the supplied pathname
-     * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws PropertyServerException problem accessing property server
-     * @throws UserNotAuthorizedException security access problem
      */
     public  List<String> createFolderStructureInCatalog(String         userId,
                                                         String         externalSourceGUID,
                                                         String         externalSourceName,
+                                                        String         filePathName,
                                                         String         connectToGUID,
                                                         String         fileSystemName,
                                                         List<String>   folderNames,
@@ -475,88 +477,104 @@ public class FilesAndFoldersHandler<FILESYSTEM, FOLDER, FILE>
                                                         boolean        forLineage,
                                                         boolean        forDuplicateProcessing,
                                                         Date           effectiveTime,
-                                                        String         methodName) throws InvalidParameterException,
-                                                                                          UserNotAuthorizedException,
-                                                                                          PropertyServerException
+                                                        String         methodName)
     {
         final String localMethodName = "->createFolderStructureInCatalog";
 
-        List<String>  folderGUIDs = new ArrayList<>();
-
-        if ((folderNames != null) && (! folderNames.isEmpty()))
+        try
         {
-            String pathName = null;
-            String folderName = null;
-            String nextConnectToGUID = connectToGUID;
+            List<String> folderGUIDs = new ArrayList<>();
 
-            for (String folderFragment : folderNames)
+            if ((folderNames != null) && (!folderNames.isEmpty()))
             {
-                if (pathName == null)
+                String pathName          = null;
+                String folderName        = null;
+                String nextConnectToGUID = connectToGUID;
+
+                for (String folderFragment : folderNames)
                 {
-                    if (fileSystemName != null)
+                    if (pathName == null)
                     {
-                        pathName = fileSystemName + folderFragment;
+                        if (fileSystemName != null)
+                        {
+                            pathName = fileSystemName + folderFragment;
+                        }
+                        else
+                        {
+                            pathName = folderDivider + folderFragment;
+                        }
                     }
                     else
                     {
-                        pathName = folderDivider + folderFragment;
+                        pathName = pathName + folderDivider + folderFragment;
+                    }
+
+                    if (folderName != null)
+                    {
+                        folderName = folderName + folderDivider + folderFragment;
+                    }
+                    else
+                    {
+                        folderName = folderFragment;
+                    }
+
+                    String currentFolderGUID = this.getFolderGUIDByPathName(userId,
+                                                                            pathName,
+                                                                            forLineage,
+                                                                            forDuplicateProcessing,
+                                                                            effectiveTime,
+                                                                            methodName);
+
+                    if (currentFolderGUID == null)
+                    {
+                        String folderGUID = createFolderInCatalog(userId,
+                                                                  externalSourceGUID,
+                                                                  externalSourceName,
+                                                                  nextConnectToGUID,
+                                                                  pathName,
+                                                                  folderName,
+                                                                  null,
+                                                                  DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
+                                                                  effectiveFrom,
+                                                                  effectiveTo,
+                                                                  forLineage,
+                                                                  forDuplicateProcessing,
+                                                                  effectiveTime,
+                                                                  methodName + localMethodName);
+
+                        auditLog.logMessage(methodName,
+                                            GenericHandlersAuditCode.ADDING_FILE_FOLDER_HIERARCHY.getMessageDefinition(methodName,
+                                                                                                                       pathName,
+                                                                                                                       filePathName));
+
+                        folderGUIDs.add(folderGUID);
+                        nextConnectToGUID = folderGUID;
+                    }
+                    else
+                    {
+                        folderGUIDs.add(currentFolderGUID);
+                        nextConnectToGUID = currentFolderGUID;
                     }
                 }
-                else
-                {
-                    pathName = pathName + folderDivider + folderFragment;
-                }
-
-                if (folderName != null)
-                {
-                    folderName = folderName + folderDivider + folderFragment;
-                }
-                else
-                {
-                    folderName = folderFragment;
-                }
-
-                String currentFolderGUID = this.getFolderGUIDByPathName(userId,
-                                                                        pathName,
-                                                                        forLineage,
-                                                                        forDuplicateProcessing,
-                                                                        effectiveTime,
-                                                                        methodName);
-
-                if (currentFolderGUID == null)
-                {
-                    String folderGUID = createFolderInCatalog(userId,
-                                                              externalSourceGUID,
-                                                              externalSourceName,
-                                                              nextConnectToGUID,
-                                                              pathName,
-                                                              folderName,
-                                                              null,
-                                                              DeployedImplementationType.FILE_SYSTEM_DIRECTORY.getDeployedImplementationType(),
-                                                              effectiveFrom,
-                                                              effectiveTo,
-                                                              forLineage,
-                                                              forDuplicateProcessing,
-                                                              effectiveTime,
-                                                              methodName + localMethodName);
-
-                    folderGUIDs.add(folderGUID);
-                    nextConnectToGUID = folderGUID;
-                }
-                else
-                {
-                    folderGUIDs.add(currentFolderGUID);
-                    nextConnectToGUID = currentFolderGUID;
-                }
             }
-        }
 
-        if (folderGUIDs.isEmpty())
+            if (folderGUIDs.isEmpty())
+            {
+                return null;
+            }
+
+            return folderGUIDs;
+        }
+        catch (Exception error)
         {
-            return null;
+            auditLog.logMessage(methodName,
+                                GenericHandlersAuditCode.UNEXPECTED_ERROR_BUILDING_FILE_FOLDER_HIERARCHY.getMessageDefinition(methodName,
+                                                                                                                              filePathName,
+                                                                                                                              error.getClass().getName(),
+                                                                                                                              error.getMessage()));
         }
 
-        return folderGUIDs;
+        return null;
     }
 
 
@@ -660,6 +678,7 @@ public class FilesAndFoldersHandler<FILESYSTEM, FOLDER, FILE>
             folderGUIDs = this.createFolderStructureInCatalog(localServerUserId,
                                                               externalSourceGUID,
                                                               externalSourceName,
+                                                              pathName,
                                                               fileSystemGUID,
                                                               fileSystemName,
                                                               folderNames,

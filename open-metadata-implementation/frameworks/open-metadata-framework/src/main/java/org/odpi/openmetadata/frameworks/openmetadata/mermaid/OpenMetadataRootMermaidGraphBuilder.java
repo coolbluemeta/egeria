@@ -4,6 +4,7 @@
 package org.odpi.openmetadata.frameworks.openmetadata.mermaid;
 
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.OpenMetadataRootElement;
+import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.OpenMetadataRootHierarchy;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.RelatedBy;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.ReferenceableProperties;
 
@@ -42,7 +43,14 @@ public class OpenMetadataRootMermaidGraphBuilder extends MermaidGraphBuilderBase
         mermaidGraph.append("---\n");
         mermaidGraph.append("title: ");
         mermaidGraph.append(openMetadataRootElement.getElementHeader().getType().getTypeName());
-        mermaidGraph.append(" - ");
+        if (openMetadataRootElement instanceof OpenMetadataRootHierarchy)
+        {
+            mermaidGraph.append(" Hierarchy - ");
+        }
+        else
+        {
+            mermaidGraph.append(" - ");
+        }
         if (currentDisplayName != null)
         {
             mermaidGraph.append(currentDisplayName);

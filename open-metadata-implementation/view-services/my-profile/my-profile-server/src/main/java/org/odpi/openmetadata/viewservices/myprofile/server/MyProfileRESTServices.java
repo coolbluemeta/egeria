@@ -47,13 +47,15 @@ public class MyProfileRESTServices extends TokenController
      * Return the profile for this user.
      *
      * @param serverName name of the server instances for this request
+     * @param requestBody optional properties to restrict search by and control how the results are formatted
      *
      * @return profile response object or null or
      * InvalidParameterException the userId is null or invalid or
      * PropertyServerException a problem retrieving information from the property server(s) or
      * UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public OpenMetadataRootElementResponse getMyProfile(String serverName)
+    public OpenMetadataRootElementResponse getMyProfile(String serverName,
+                                                        GetRequestBody requestBody)
     {
         final String methodName = "getMyProfile";
 
@@ -71,7 +73,7 @@ public class MyProfileRESTServices extends TokenController
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
             ActorProfileHandler client = instanceHandler.getActorProfileHandler(userId, serverName, methodName);
 
-            response.setElement(client.getActorProfileByUserId(userId, userId, null));
+            response.setElement(client.getActorProfileByUserId(userId, userId, requestBody));
         }
         catch (Throwable error)
         {

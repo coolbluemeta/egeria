@@ -94,7 +94,6 @@ public class OMRSArchiveBuilder implements OpenMetadataArchiveBuilder, OpenMetad
 
     /**
      * Constructor for licensed material.
-     *
      * It passes parameters used to build the open metadata archive's property header including the
      * default license string.  This determines the license and copyright for all instances in the
      * archive that do not have their own explicit license string.  The default license string
@@ -144,7 +143,6 @@ public class OMRSArchiveBuilder implements OpenMetadataArchiveBuilder, OpenMetad
 
     /**
      * Full constructor.
-     *
      * It passes parameters used to build the open metadata archive's property header including the
      * default license string.  This determines the license and copyright for all instances in the
      * archive that do not have their own explicit license string.  The default license string
@@ -1322,6 +1320,14 @@ public class OMRSArchiveBuilder implements OpenMetadataArchiveBuilder, OpenMetad
         {
             log.debug("Adding Entity: " + entity);
 
+            if ((entity.getGUID() == null) || (entity.getGUID().isEmpty()))
+            {
+                throw new OMRSLogicErrorException(OMRSErrorCode.INVALID_INSTANCE.getMessageDefinition(methodName,
+                                                                                                      entity.toString()),
+                                                  this.getClass().getName(),
+                                                  methodName);
+            }
+
             EntityDetail   duplicateElement = entityDetailMap.put(entity.getGUID(), entity);
 
             if (duplicateElement != null)
@@ -1424,6 +1430,30 @@ public class OMRSArchiveBuilder implements OpenMetadataArchiveBuilder, OpenMetad
                                                   methodName);
             }
 
+            if ((relationship.getEntityOneProxy() == null) || (relationship.getEntityTwoProxy() == null))
+            {
+                throw new OMRSLogicErrorException(OMRSErrorCode.INVALID_INSTANCE.getMessageDefinition(methodName,
+                                                                                                      relationship.toString()),
+                                                  this.getClass().getName(),
+                                                  methodName);
+            }
+
+            if ((relationship.getEntityOneProxy().getGUID() == null) || (relationship.getEntityOneProxy().getGUID().isEmpty()))
+            {
+                throw new OMRSLogicErrorException(OMRSErrorCode.INVALID_INSTANCE.getMessageDefinition(methodName,
+                                                                                                      relationship.toString()),
+                                                  this.getClass().getName(),
+                                                  methodName);
+            }
+
+            if ((relationship.getEntityTwoProxy().getGUID() == null) || (relationship.getEntityTwoProxy().getGUID().isEmpty()))
+            {
+                throw new OMRSLogicErrorException(OMRSErrorCode.INVALID_INSTANCE.getMessageDefinition(methodName,
+                                                                                                      relationship.toString()),
+                                                  this.getClass().getName(),
+                                                  methodName);
+            }
+
             relationshipList.add(relationship);
         }
     }
@@ -1480,6 +1510,15 @@ public class OMRSArchiveBuilder implements OpenMetadataArchiveBuilder, OpenMetad
         if (classification != null)
         {
             log.debug("Adding Classification: " + classification);
+
+
+            if ((classification.getEntityToClassify().getGUID() == null) || (classification.getEntityToClassify().getGUID().isEmpty()))
+            {
+                throw new OMRSLogicErrorException(OMRSErrorCode.INVALID_INSTANCE.getMessageDefinition(methodName,
+                                                                                                      classification.getEntityToClassify().toString()),
+                                                  this.getClass().getName(),
+                                                  methodName);
+            }
 
             String classificationId = classification.getEntityToClassify().getGUID() + "::" + classification.getClassification().getName();
 

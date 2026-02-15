@@ -214,6 +214,24 @@ public enum GenericHandlersAuditCode implements AuditLogMessageSet
                                 "The bulk retrieval is more efficient.  However, one or more of the repositories in use may not support this request.  " +
                                                "The individual retrieval still provides the same security protection - it is just slower to execute."),
 
+    /**
+     * OMAG-GENERIC-HANDLERS-0029 - Method {0} stopped creating a hierarchy of folders for file {1} due to a {2} exception with message {3}
+     */
+    UNEXPECTED_ERROR_BUILDING_FILE_FOLDER_HIERARCHY("OMAG-GENERIC-HANDLERS-0029",
+                                AuditLogRecordSeverityLevel.INFO,
+                                "Method {0} stopped creating a hierarchy of folders for file {1} due to a {2} exception with message {3}",
+                                "The generic handlers were unable to complete the creation of folders in a file's path due to an exception.",
+                                "Validate that this error is not a reflection of a more serious problem."),
+
+    /**
+     * OMAG-GENERIC-HANDLERS-0030 - Method {0} added folder {1} for file {2}
+     */
+    ADDING_FILE_FOLDER_HIERARCHY("OMAG-GENERIC-HANDLERS-0030",
+                                 AuditLogRecordSeverityLevel.INFO,
+                                 "Method {0} added folder {1} for file {2}",
+                                 "The generic handlers is building a hierarchy of folders for a file's path.",
+                                 "Validate that the folder is valid for this file."),
+
     ;
 
     private final String                      logMessageId;
