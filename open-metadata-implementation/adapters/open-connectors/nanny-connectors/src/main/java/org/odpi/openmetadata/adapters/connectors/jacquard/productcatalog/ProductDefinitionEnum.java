@@ -469,7 +469,7 @@ public enum ProductDefinitionEnum implements ProductDefinition
                       ProductDataFieldDefinition.LOCATION_GUID},
               new ProductDataFieldDefinition[]{
                       ProductDataFieldDefinition.OPEN_METADATA_TYPE_NAME,
-                      ProductDataFieldDefinition.LOCATION_ROLE,
+                      ProductDataFieldDefinition.LOCATION_KIND,
                       ProductDataFieldDefinition.CATEGORY,
                       ProductDataFieldDefinition.IDENTIFIER,
                       ProductDataFieldDefinition.DISPLAY_NAME,

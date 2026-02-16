@@ -597,7 +597,7 @@ public enum ProductDataFieldDefinition
     /**
      * The name of the properties bean class to use in REST API calls.
      */
-    LOCATION_ROLE("Location Classification Name",
+    LOCATION_KIND("Location Classification Name",
                   "Location Classification Name",
                   "The classification assigned to the location that describes the type of location.",
                   DataType.STRING,

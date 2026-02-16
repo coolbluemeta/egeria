@@ -300,7 +300,7 @@ public class OpenMetadataTypesArchive5_0
     private ClassificationDef getPersonalProjectClassification()
     {
         return archiveHelper.getClassificationDef(OpenMetadataType.PERSONAL_PROJECT_CLASSIFICATION,
-                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_ROLE_CLASSIFICATION.typeName),
+                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_KIND_CLASSIFICATION.typeName),
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
                                                   false);
     }
@@ -315,7 +315,7 @@ public class OpenMetadataTypesArchive5_0
     private ClassificationDef getStudyProjectClassification()
     {
         return archiveHelper.getClassificationDef(OpenMetadataType.STUDY_PROJECT_CLASSIFICATION,
-                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_ROLE_CLASSIFICATION.typeName),
+                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_KIND_CLASSIFICATION.typeName),
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
                                                   false);
     }

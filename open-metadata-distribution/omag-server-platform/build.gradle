@@ -337,8 +337,6 @@ distributions {
                         { include 'Egeria*.http' }
                 from { "$rootProject.projectDir/open-metadata-implementation/view-server-generic-services/classification-explorer" }
                         { include 'Egeria*.http' }
-                from { "$rootProject.projectDir/open-metadata-implementation/view-server-generic-services/classification-manager" }
-                        { include 'Egeria*.http' }
                 from { "$rootProject.projectDir/open-metadata-implementation/view-server-generic-services/collection-manager" }
                         { include 'Egeria*.http' }
                 from { "$rootProject.projectDir/open-metadata-implementation/view-server-generic-services/connection-maker" }
@@ -352,8 +350,6 @@ distributions {
                 from { "$rootProject.projectDir/open-metadata-implementation/view-server-generic-services/lineage-linker" }
                         { include 'Egeria*.http' }
                 from { "$rootProject.projectDir/open-metadata-implementation/view-server-generic-services/metadata-expert" }
-                        { include 'Egeria*.http' }
-                from { "$rootProject.projectDir/open-metadata-implementation/view-server-generic-services/metadata-explorer" }
                         { include 'Egeria*.http' }
                 from { "$rootProject.projectDir/open-metadata-implementation/view-server-generic-services/multi-language" }
                         { include 'Egeria*.http' }

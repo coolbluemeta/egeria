@@ -267,7 +267,7 @@ public class OpenMetadataTypesArchive4_1
     private ClassificationDef getEditingCollectionClassification()
     {
         ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.EDITING_COLLECTION_CLASSIFICATION,
-                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_ROLE_CLASSIFICATION.typeName),
+                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_KIND_CLASSIFICATION.typeName),
                                                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.COLLECTION.typeName),
                                                                                  false);
 
@@ -287,7 +287,7 @@ public class OpenMetadataTypesArchive4_1
     private ClassificationDef getStagingCollectionClassification()
     {
         ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.STAGING_COLLECTION_CLASSIFICATION,
-                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_ROLE_CLASSIFICATION.typeName),
+                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_KIND_CLASSIFICATION.typeName),
                                                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.COLLECTION.typeName),
                                                                                  false);
 
@@ -307,7 +307,7 @@ public class OpenMetadataTypesArchive4_1
     private ClassificationDef getScopingCollectionClassification()
     {
         ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.SCOPING_COLLECTION_CLASSIFICATION,
-                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_ROLE_CLASSIFICATION.typeName),
+                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_KIND_CLASSIFICATION.typeName),
                                                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.COLLECTION.typeName),
                                                                                  false);
 

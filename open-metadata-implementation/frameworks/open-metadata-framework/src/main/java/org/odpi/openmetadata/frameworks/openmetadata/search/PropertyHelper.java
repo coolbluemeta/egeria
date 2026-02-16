@@ -606,6 +606,10 @@ public class PropertyHelper
                     {
                         elementHeader.setPrimaryKey(this.getElementClassification(attachedClassification));
                     }
+                    else if (this.isTypeOf(attachedClassification, OpenMetadataType.PROJECT_CLASSIFICATION_CLASSIFICATION.typeName))
+                    {
+                        elementHeader.setProjectClassification(this.getElementClassification(attachedClassification));
+                    }
                     else if (this.isTypeOf(attachedClassification, OpenMetadataType.KNOWN_DUPLICATE_CLASSIFICATION.typeName))
                     {
                         elementHeader.setKnownDuplicate(this.getElementClassification(attachedClassification));
@@ -614,11 +618,11 @@ public class PropertyHelper
                     {
                         elementHeader.setConsolidateDuplicate(this.getElementClassification(attachedClassification));
                     }
-                    else if (this.isTypeOf(attachedClassification, OpenMetadataType.COLLECTION_ROLE_CLASSIFICATION.typeName))
+                    else if (this.isTypeOf(attachedClassification, OpenMetadataType.COLLECTION_KIND_CLASSIFICATION.typeName))
                     {
                         collectionRoles.add(this.getElementClassification(attachedClassification));
                     }
-                    else if (this.isTypeOf(attachedClassification, OpenMetadataType.PROJECT_ROLE_CLASSIFICATION.typeName))
+                    else if (this.isTypeOf(attachedClassification, OpenMetadataType.PROJECT_KIND_CLASSIFICATION.typeName))
                     {
                         projectRoles.add(this.getElementClassification(attachedClassification));
                     }
@@ -648,17 +652,17 @@ public class PropertyHelper
 
             if (! collectionRoles.isEmpty())
             {
-                elementHeader.setCollectionRoles(collectionRoles);
+                elementHeader.setCollectionKinds(collectionRoles);
             }
 
             if (! locationRoles.isEmpty())
             {
-                elementHeader.setLocationRoles(locationRoles);
+                elementHeader.setLocationKinds(locationRoles);
             }
 
             if (! projectRoles.isEmpty())
             {
-                elementHeader.setProjectRoles(projectRoles);
+                elementHeader.setProjectKinds(projectRoles);
             }
 
             if (! otherClassifications.isEmpty())
@@ -4313,7 +4317,7 @@ public class PropertyHelper
                 return classification;
             }
 
-            classification = getClassification(elementHeader.getProjectRoles(), classificationName);
+            classification = getClassification(elementHeader.getProjectKinds(), classificationName);
 
             if (classification != null)
             {

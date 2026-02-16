@@ -277,9 +277,9 @@ public class MermaidGraphBuilderBase
                 return VisualStyle.TEMPLATE;
             }
 
-            if (elementHeader.getCollectionRoles() != null)
+            if (elementHeader.getCollectionKinds() != null)
             {
-                for (ElementClassification classification : elementHeader.getCollectionRoles())
+                for (ElementClassification classification : elementHeader.getCollectionKinds())
                 {
                     if (classification != null)
                     {
@@ -293,9 +293,9 @@ public class MermaidGraphBuilderBase
                 }
             }
 
-            if (elementHeader.getProjectRoles() != null)
+            if (elementHeader.getProjectKinds() != null)
             {
-                for (ElementClassification classification : elementHeader.getProjectRoles())
+                for (ElementClassification classification : elementHeader.getProjectKinds())
                 {
                     if (classification != null)
                     {
@@ -425,17 +425,17 @@ public class MermaidGraphBuilderBase
                 }
             }
 
-            if (elementHeader.getCollectionRoles() != null)
+            if (elementHeader.getCollectionKinds() != null)
             {
-                for (ElementClassification classification : elementHeader.getCollectionRoles())
+                for (ElementClassification classification : elementHeader.getCollectionKinds())
                 {
                     addClassificationToGraph(elementHeader.getGUID(), classification);
                 }
             }
 
-            if (elementHeader.getProjectRoles() != null)
+            if (elementHeader.getProjectKinds() != null)
             {
-                for (ElementClassification classification : elementHeader.getProjectRoles())
+                for (ElementClassification classification : elementHeader.getProjectKinds())
                 {
                     addClassificationToGraph(elementHeader.getGUID(), classification);
                 }
@@ -539,9 +539,9 @@ public class MermaidGraphBuilderBase
         }
 
 
-        if (elementHeader.getProjectRoles() != null)
+        if (elementHeader.getProjectKinds() != null)
         {
-            for (ElementClassification classification : elementHeader.getProjectRoles())
+            for (ElementClassification classification : elementHeader.getProjectKinds())
             {
                 if (classification != null)
                 {
@@ -550,9 +550,9 @@ public class MermaidGraphBuilderBase
             }
         }
 
-        if (elementHeader.getCollectionRoles() != null)
+        if (elementHeader.getCollectionKinds() != null)
         {
-            for (ElementClassification classification : elementHeader.getCollectionRoles())
+            for (ElementClassification classification : elementHeader.getCollectionKinds())
             {
                 if (classification != null)
                 {

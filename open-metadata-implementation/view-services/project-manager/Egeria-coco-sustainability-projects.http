@@ -161,7 +161,7 @@ Content-Type: application/json
     "class": "ProjectClassificationProperties",
     "approach": "Regulated Clinical Trial",
     "managementStyle": "Regulated Project",
-    "ResultsUsage": "Business Critical"
+    "resultsUsage": "Business Critical"
   }
 }
 
@@ -192,7 +192,7 @@ Content-Type: application/json
   "class" : "FindProjectClassificationProperties",
   "approach": "Regulated Clinical Trial",
   "managementStyle": "Regulated Project",
-  "ResultsUsage": "Business Critical"
+  "resultsUsage": "Business Critical"
 }
 
 
@@ -229,7 +229,7 @@ Content-Type: application/json
 
 {
   "class" : "FindProjectClassificationProperties",
-  "ResultsUsage": "Business Critical"
+  "resultsUsage": "Business Critical"
 }
 
 ###

@@ -93,9 +93,9 @@ public enum ContentPackDefinition
      * Open metadata collections packaged into dynamic digital products.
      */
     PRODUCTS_CONTENT_PACK("e8e06304-2eb9-4ebe-bb8c-1ae44635244b",
-                          "JacquardHarvesterContentPack",
+                          "OpenMetadataDigitalProductsContentPack",
                           "Open metadata collections packaged into dynamic digital products.",
-                          "JacquardHarvesterContentPack.omarchive"),
+                          "OpenMetadataDigitalProductsContentPack.omarchive"),
 
     /**
      * Monitoring, analysis, and capture of insight into organization activity and effectiveness.
