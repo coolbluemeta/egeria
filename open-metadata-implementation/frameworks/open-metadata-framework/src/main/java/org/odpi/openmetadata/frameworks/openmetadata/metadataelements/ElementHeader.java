@@ -58,9 +58,10 @@ public class ElementHeader extends ElementControlHeader
     private ElementClassification       primaryKey               = null;
     private ElementClassification       knownDuplicate           = null;
     private ElementClassification       consolidateDuplicate     = null;
-    private List<ElementClassification> collectionRoles          = null;
-    private List<ElementClassification> locationRoles            = null;
-    private List<ElementClassification> projectRoles             = null;
+    private ElementClassification       projectClassification    = null;
+    private List<ElementClassification> collectionKinds          = null;
+    private List<ElementClassification> locationKinds            = null;
+    private List<ElementClassification> projectKinds             = null;
     private List<ElementClassification> otherClassifications     = null;
 
 
@@ -107,9 +108,10 @@ public class ElementHeader extends ElementControlHeader
             this.primaryKey               = template.getPrimaryKey();
             this.knownDuplicate           = template.getKnownDuplicate();
             this.consolidateDuplicate     = template.getConsolidateDuplicate();
-            this.collectionRoles          = template.getCollectionRoles();
-            this.locationRoles            = template.getLocationRoles();
-            this.projectRoles             = template.getProjectRoles();
+            this.projectClassification    = template.getProjectClassification();
+            this.collectionKinds          = template.getCollectionKinds();
+            this.locationKinds            = template.getLocationKinds();
+            this.projectKinds             = template.getProjectKinds();
             this.otherClassifications     = template.getOtherClassifications();
         }
     }
@@ -658,24 +660,46 @@ public class ElementHeader extends ElementControlHeader
 
 
     /**
+     * Return the properties that are used to classify the style and purpose of the project.
+     *
+     * @return classification
+     */
+    public ElementClassification getProjectClassification()
+    {
+        return projectClassification;
+    }
+
+
+    /**
+     * Set up the properties that are used to classify the style and purpose of the project.
+     *
+     * @param projectClassification classification
+     */
+    public void setProjectClassification(ElementClassification projectClassification)
+    {
+        this.projectClassification = projectClassification;
+    }
+
+
+    /**
      * Return the optional list of category classifications found on a collection entity that indicate how a collection is being used.
      *
      * @return list of classifications
      */
-    public List<ElementClassification> getCollectionRoles()
+    public List<ElementClassification> getCollectionKinds()
     {
-        return collectionRoles;
+        return collectionKinds;
     }
 
 
     /**
      * Set up the optional list of category classifications found on a collection entity that indicate how a collection is being used.
 
-     * @param collectionRoles list of classifications
+     * @param collectionKinds list of classifications
      */
-    public void setCollectionRoles(List<ElementClassification> collectionRoles)
+    public void setCollectionKinds(List<ElementClassification> collectionKinds)
     {
-        this.collectionRoles = collectionRoles;
+        this.collectionKinds = collectionKinds;
     }
 
 
@@ -684,20 +708,20 @@ public class ElementHeader extends ElementControlHeader
      *
      * @return list of classifications
      */
-    public List<ElementClassification> getLocationRoles()
+    public List<ElementClassification> getLocationKinds()
     {
-        return locationRoles;
+        return locationKinds;
     }
 
 
     /**
      * Set up the classifications associated with locations.
      *
-     * @param locationRoles list of classifications
+     * @param locationKinds list of classifications
      */
-    public void setLocationRoles(List<ElementClassification> locationRoles)
+    public void setLocationKinds(List<ElementClassification> locationKinds)
     {
-        this.locationRoles = locationRoles;
+        this.locationKinds = locationKinds;
     }
 
 
@@ -706,20 +730,20 @@ public class ElementHeader extends ElementControlHeader
      *
      * @return list of classifications
      */
-    public List<ElementClassification> getProjectRoles()
+    public List<ElementClassification> getProjectKinds()
     {
-        return projectRoles;
+        return projectKinds;
     }
 
 
     /**
      * Set up the optional list of category classifications found on a project entity that indicate how a collection is being used.
 
-     * @param projectRoles list of classifications
+     * @param projectKinds list of classifications
      */
-    public void setProjectRoles(List<ElementClassification> projectRoles)
+    public void setProjectKinds(List<ElementClassification> projectKinds)
     {
-        this.projectRoles = projectRoles;
+        this.projectKinds = projectKinds;
     }
 
 
@@ -770,19 +794,21 @@ public class ElementHeader extends ElementControlHeader
                 ", ownership=" + ownership +
                 ", memento=" + memento +
                 ", template=" + template +
+                ", templateSubstitute=" + templateSubstitute +
                 ", schemaType=" + schemaType +
                 ", dataScope=" + dataScope +
                 ", dataAssetEncoding=" + dataAssetEncoding +
                 ", calculatedValue=" + calculatedValue +
                 ", primaryKey=" + primaryKey +
-                ", collectionRoles=" + collectionRoles +
-                ", locationRoles=" + locationRoles +
-                ", projectRoles=" + projectRoles +
+                ", knownDuplicate=" + knownDuplicate +
+                ", consolidateDuplicate=" + consolidateDuplicate +
+                ", projectClassification=" + projectClassification +
+                ", collectionRoles=" + collectionKinds +
+                ", locationRoles=" + locationKinds +
+                ", projectRoles=" + projectKinds +
                 ", otherClassifications=" + otherClassifications +
-                ", GUID='" + getGUID() + '\'' +
                 "} " + super.toString();
     }
-
 
     /**
      * Compare the values of the supplied object with those stored in the current object.
@@ -821,9 +847,10 @@ public class ElementHeader extends ElementControlHeader
                 Objects.equals(primaryKey, that.primaryKey) &&
                 Objects.equals(knownDuplicate, that.knownDuplicate) &&
                 Objects.equals(consolidateDuplicate, that.consolidateDuplicate) &&
-                Objects.equals(collectionRoles, that.collectionRoles) &&
-                Objects.equals(locationRoles, that.locationRoles) &&
-                Objects.equals(projectRoles, that.projectRoles) &&
+                Objects.equals(projectClassification, that.projectClassification) &&
+                Objects.equals(collectionKinds, that.collectionKinds) &&
+                Objects.equals(locationKinds, that.locationKinds) &&
+                Objects.equals(projectKinds, that.projectKinds) &&
                 Objects.equals(otherClassifications, that.otherClassifications);
     }
 
@@ -841,7 +868,7 @@ public class ElementHeader extends ElementControlHeader
                             executionPoints, duplicateClassifications, ownership, digitalResourceOrigin, memento,
                             dataScope, dataAssetEncoding,
                             template, templateSubstitute, schemaType, calculatedValue, primaryKey,
-                            knownDuplicate, consolidateDuplicate,
-                            collectionRoles, locationRoles, projectRoles, otherClassifications);
+                            knownDuplicate, consolidateDuplicate, projectClassification,
+                            collectionKinds, locationKinds, projectKinds, otherClassifications);
     }
 }

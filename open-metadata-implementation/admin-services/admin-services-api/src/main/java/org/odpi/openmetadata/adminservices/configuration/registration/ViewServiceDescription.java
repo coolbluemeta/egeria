@@ -123,7 +123,7 @@ public enum ViewServiceDescription
      * Define and search for new data resources.
      */
     DATA_DISCOVERY  (214,
-                      ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                      ComponentDevelopmentStatus.STABLE,
                       "Data Discovery",
                       "data-discovery",
                       "Define and search for new data resources."),
@@ -141,7 +141,7 @@ public enum ViewServiceDescription
      * Work with code tables and associated reference data.
      */
     REFERENCE_DATA  (216,
-                       ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                       ComponentDevelopmentStatus.STABLE,
                        "Reference Data",
                        "reference-data",
                        "Work with code tables and associated reference data."),
@@ -159,7 +159,7 @@ public enum ViewServiceDescription
      * Maintain classifications and relationships used to organize open metadata elements.
      */
     CLASSIFICATION_MANAGER (218,
-                            ComponentDevelopmentStatus.STABLE,
+                            ComponentDevelopmentStatus.DEPRECATED,
                             "Classification Manager",
                             "classification-manager",
                             "Maintain classifications and relationships used to organize open metadata elements."),
@@ -206,7 +206,7 @@ public enum ViewServiceDescription
      * Describe teams and organizational structure.
      */
     PEOPLE_ORGANIZER (223,
-                  ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                  ComponentDevelopmentStatus.STABLE,
                   "People Organizer",
                   "people-organizer",
                   "Describe teams, roles and organizational structure."),
@@ -244,7 +244,7 @@ public enum ViewServiceDescription
      * Provides generic search, query, and retrieval operations for open metadata.
      */
     METADATA_EXPLORER (227,
-                   ComponentDevelopmentStatus.STABLE,
+                   ComponentDevelopmentStatus.DEPRECATED,
                    "Metadata Explorer",
                    "metadata-explorer",
                    "Provides generic search, query, and retrieval operations for open metadata."),
@@ -254,7 +254,7 @@ public enum ViewServiceDescription
      * Manages the definitions of notifications.  This includes the definition of the trigger for the notification, the style of notification and the recipient.
      */
     NOTIFICATION_MANAGER (228,
-                       ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                       ComponentDevelopmentStatus.STABLE,
                        "Notification Manager",
                        "notification-manager",
                        "Manages the definitions of notifications.  This includes the definition of the trigger for the notification, the style of notification and the recipient."),
@@ -281,7 +281,7 @@ public enum ViewServiceDescription
      * Manages context events and other time-related behaviour.
      */
     TIME_KEEPER (231,
-                             ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                             ComponentDevelopmentStatus.STABLE,
                              "Time Keeper",
                              "time-keeper",
                              "Manages context events and other time related-behaviour."),
@@ -300,7 +300,7 @@ public enum ViewServiceDescription
      * Manages the definitions of communities, their leaders and membership.
      */
     COMMUNITY_MATTERS (233,
-                   ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                   ComponentDevelopmentStatus.STABLE,
                    "Community Matters",
                    "community-matters",
                    "Manages the definitions of communities, their leaders and membership."),
@@ -309,7 +309,7 @@ public enum ViewServiceDescription
      * Manages the definition of subject areas and reporting on their contents.
      */
     SUBJECT_AREA (234,
-                       ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                       ComponentDevelopmentStatus.STABLE,
                        "Subject Area",
                        "subject-area",
                        "Manages the definition of subject areas and reporting on their contents."),
@@ -318,7 +318,7 @@ public enum ViewServiceDescription
      * Manages the creation and maintenance of connections, connector types and endpoints.
      */
     CONNECTION_MAKER (235,
-                      ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                      ComponentDevelopmentStatus.STABLE,
                       "Connection Maker",
                       "connection-maker",
                       "Manages the creation and maintenance of connections, connector types and endpoints."),
@@ -328,7 +328,7 @@ public enum ViewServiceDescription
      * Manages the creation and maintenance of connections, connector types and endpoints.
      */
     SCHEMA_MAKER (236,
-                      ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                      ComponentDevelopmentStatus.STABLE,
                       "Schema Maker",
                       "schema-maker",
                       "Manages the creation and maintenance of schema elements."),
@@ -338,7 +338,7 @@ public enum ViewServiceDescription
      * Manages the creation and maintenance of locations.
      */
     LOCATION_ARENA(237,
-                   ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                   ComponentDevelopmentStatus.STABLE,
                    "Location Arena",
                    "location-arena",
                    "Manages the creation and maintenance of locations."),
@@ -357,7 +357,7 @@ public enum ViewServiceDescription
      * Manages the creation and maintenance of lineage relationships.
      */
     LINEAGE_LINKER(239,
-                   ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                   ComponentDevelopmentStatus.STABLE,
                    "Lineage Linker",
                    "lineage-linker",
                    "Manages the creation and maintenance of lineage relationships."),
@@ -366,7 +366,7 @@ public enum ViewServiceDescription
      * Manages the creation and maintenance of external reference and external identifiers.
      */
     EXTERNAL_LINKS(240,
-                   ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                   ComponentDevelopmentStatus.STABLE,
                    "External Links",
                    "external-links",
                    "Manages the creation and maintenance of external reference and external identifiers."),
@@ -375,7 +375,7 @@ public enum ViewServiceDescription
      * Manages the creation and maintenance of locations.
      */
     DIGITAL_BUSINESS(241,
-                   ComponentDevelopmentStatus.IN_DEVELOPMENT,
+                   ComponentDevelopmentStatus.STABLE,
                    "Digital Business",
                    "digital-business",
                    "Manages the definition and maintenance of the business context description used to identify where business value is being derived from."),

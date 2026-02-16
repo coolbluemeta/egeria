@@ -88,7 +88,7 @@ POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/omag-s
 Authorization: Bearer {{token}}
 Content-Type: text/plain
 
-content-packs/OpenMetadataProductsContentPack.omarchive
+content-packs/OpenMetadataDigitalProductsContentPack.omarchive
 
 
 ###

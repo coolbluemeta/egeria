@@ -406,7 +406,7 @@ public class OpenMetadataTypesArchive
     private ClassificationDef getDataSharingAgreementClassification()
     {
         return archiveHelper.getClassificationDef(OpenMetadataType.DATA_SHARING_AGREEMENT_CLASSIFICATION,
-                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_ROLE_CLASSIFICATION.typeName),
+                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_KIND_CLASSIFICATION.typeName),
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.AGREEMENT.typeName),
                                                   false);
     }

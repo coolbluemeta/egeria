@@ -550,8 +550,8 @@ public enum OpenMetadataType
     /**
      * Defines how the collection is being used.
      */
-    COLLECTION_ROLE_CLASSIFICATION("a68bae73-40c7-4a93-8e07-a1247baaae3d",
-                                   "CollectionRole",
+    COLLECTION_KIND_CLASSIFICATION("a68bae73-40c7-4a93-8e07-a1247baaae3d",
+                                   "CollectionKind",
                                    OpenMetadataWikiPages.MODEL_0021_COLLECTIONS,
                                    "db68722e-39a3-49b3-ba6f-ad00a880c91c",
                                    "Defines how the collection is being used."),
@@ -1621,8 +1621,8 @@ public enum OpenMetadataType
     /**
      * A superclass for the project classifications that identify the role that the project is playing.
      */
-    PROJECT_ROLE_CLASSIFICATION("42621da6-3001-479d-be1d-90f47b1fcb7f",
-                                "ProjectRole",
+    PROJECT_KIND_CLASSIFICATION("42621da6-3001-479d-be1d-90f47b1fcb7f",
+                                "ProjectKind",
                                 OpenMetadataWikiPages.MODEL_0130_PROJECTS,
                                 "bac56f15-e51f-4b53-9b95-a49fd1b2aa0f",
                                 "A superclass for the project classifications that identify the role that the project is playing."),

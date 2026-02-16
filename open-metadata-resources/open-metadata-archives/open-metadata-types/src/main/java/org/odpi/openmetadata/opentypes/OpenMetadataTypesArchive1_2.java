@@ -3184,7 +3184,7 @@ public class OpenMetadataTypesArchive1_2
 
     private ClassificationDef getCollectionCategoryClassification()
     {
-        return archiveHelper.getClassificationDef(OpenMetadataType.COLLECTION_ROLE_CLASSIFICATION,
+        return archiveHelper.getClassificationDef(OpenMetadataType.COLLECTION_KIND_CLASSIFICATION,
                                                   null,
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.COLLECTION.typeName),
                                                   false);
@@ -3358,7 +3358,7 @@ public class OpenMetadataTypesArchive1_2
 
     private ClassificationDef getProjectCategoryClassification()
     {
-        return archiveHelper.getClassificationDef(OpenMetadataType.PROJECT_ROLE_CLASSIFICATION,
+        return archiveHelper.getClassificationDef(OpenMetadataType.PROJECT_KIND_CLASSIFICATION,
                                                   null,
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
                                                   false);
@@ -3367,7 +3367,7 @@ public class OpenMetadataTypesArchive1_2
     private ClassificationDef getTaskClassification()
     {
         return archiveHelper.getClassificationDef(OpenMetadataType.TASK_CLASSIFICATION,
-                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_ROLE_CLASSIFICATION.typeName),
+                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_KIND_CLASSIFICATION.typeName),
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
                                                   false);
     }
@@ -3376,7 +3376,7 @@ public class OpenMetadataTypesArchive1_2
     private ClassificationDef getCampaignClassification()
     {
         return archiveHelper.getClassificationDef(OpenMetadataType.CAMPAIGN_CLASSIFICATION,
-                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_ROLE_CLASSIFICATION.typeName),
+                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_KIND_CLASSIFICATION.typeName),
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
                                                   false);
     }
@@ -5601,7 +5601,7 @@ public class OpenMetadataTypesArchive1_2
     private ClassificationDef getTaxonomyClassification()
     {
         ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.TAXONOMY_CLASSIFICATION,
-                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_ROLE_CLASSIFICATION.typeName),
+                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_KIND_CLASSIFICATION.typeName),
                                                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.GLOSSARY.typeName),
                                                                                  false);
 
@@ -5621,7 +5621,7 @@ public class OpenMetadataTypesArchive1_2
     private ClassificationDef getCanonicalVocabularyClassification()
     {
         ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.CANONICAL_VOCABULARY_CLASSIFICATION,
-                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_ROLE_CLASSIFICATION.typeName),
+                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.COLLECTION_KIND_CLASSIFICATION.typeName),
                                                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.GLOSSARY.typeName),
                                                                                  false);
 
@@ -6383,7 +6383,7 @@ public class OpenMetadataTypesArchive1_2
     private ClassificationDef getGlossaryProjectClassification()
     {
         return archiveHelper.getClassificationDef(OpenMetadataType.GLOSSARY_PROJECT_CLASSIFICATION,
-                                                  null,
+                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_KIND_CLASSIFICATION.typeName),
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
                                                   false);
     }
@@ -6720,7 +6720,7 @@ public class OpenMetadataTypesArchive1_2
     private ClassificationDef getGovernanceProjectClassification()
     {
         return archiveHelper.getClassificationDef(OpenMetadataType.GOVERNANCE_PROJECT_CLASSIFICATION,
-                                                  null,
+                                                  this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_KIND_CLASSIFICATION.typeName),
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
                                                   false);
     }

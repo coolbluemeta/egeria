@@ -796,10 +796,20 @@ public class OMAGServerOperationalServices extends TokenController
         final String methodName = "initializeAccessServices";
         final String actionDescription = "Initialize Access Services";
 
+
         List<AccessServiceAdmin> operationalAccessServiceAdminList = instance.getOperationalAccessServiceAdminList();
         if (accessServiceConfigList != null)
         {
             auditLog.logMessage(actionDescription, ServerOpsAuditCode.STARTING_ACCESS_SERVICES.getMessageDefinition());
+            Map<String, ServiceOperationalStatus> registeredOperationalStatus = new HashMap<>();
+
+            /*
+             * Determine which access services always need to be activated
+             */
+            for (AccessServiceRegistrationEntry registrationEntry : OMAGAccessServiceRegistration.getAccessServiceRegistrationList())
+            {
+                registeredOperationalStatus.put(registrationEntry.getAccessServiceName(), registrationEntry.getAccessServiceOperationalStatus());
+            }
 
             /*
              * Need to count the access services because of the possibility of deprecated or disabled access services in the list.
@@ -813,7 +823,11 @@ public class OMAGServerOperationalServices extends TokenController
                 {
                     configuredAccessServiceCount ++;
 
-                    if (ServiceOperationalStatus.ENABLED.equals(accessServiceConfig.getAccessServiceOperationalStatus()))
+                    /*
+                     * Make sure it is enabled both in the config and in the platform.
+                     */
+                    if ((ServiceOperationalStatus.ENABLED.equals(accessServiceConfig.getAccessServiceOperationalStatus())) &&
+                        (registeredOperationalStatus.get(accessServiceConfig.getAccessServiceName()) == ServiceOperationalStatus.ENABLED))
                     {
                         enabledAccessServiceCount ++;
                         instance.setServerServiceActiveStatus(accessServiceConfig.getAccessServiceName(), ServerActiveStatus.STARTING);
@@ -934,14 +948,17 @@ public class OMAGServerOperationalServices extends TokenController
         {
             auditLog.logMessage(actionDescription, ServerOpsAuditCode.STARTING_VIEW_SERVICES.getMessageDefinition());
 
-            List<ViewServiceRegistrationEntry> genericServices = new ArrayList<>();
-            Map<String, Object>                registeredAdminClasses = new HashMap<>();
+            List<ViewServiceRegistrationEntry>    genericServices = new ArrayList<>();
+            Map<String, Object>                   registeredAdminClasses = new HashMap<>();
+            Map<String, ServiceOperationalStatus> registeredOperationalStatus = new HashMap<>();
 
             /*
              * Determine which view services always need to be activated
              */
             for (ViewServiceRegistrationEntry registrationEntry : OMAGViewServiceRegistration.getViewServiceRegistrationList())
             {
+                registeredOperationalStatus.put(registrationEntry.getViewServiceName(), registrationEntry.getViewServiceOperationalStatus());
+
                 if (registrationEntry.getViewServiceOperationalStatus() == ServiceOperationalStatus.ENABLED)
                 {
                     try
@@ -988,7 +1005,11 @@ public class OMAGServerOperationalServices extends TokenController
             {
                 configuredViewServiceCount++;
 
-                if (ServiceOperationalStatus.ENABLED.equals(viewServiceConfig.getViewServiceOperationalStatus()))
+                /*
+                 * Check it is both configured in the config and registered in the platform.
+                 */
+                if ((viewServiceConfig.getViewServiceOperationalStatus() == ServiceOperationalStatus.ENABLED) &&
+                        (registeredOperationalStatus.get(viewServiceConfig.getViewServiceName()) == ServiceOperationalStatus.ENABLED))
                 {
                     enabledViewServiceCount++;
                     activeURLMarkers.add(viewServiceConfig.getViewServiceURLMarker());
@@ -1102,7 +1123,7 @@ public class OMAGServerOperationalServices extends TokenController
                     }
                 }
 
-                if (! alreadyActive)
+                if ((! alreadyActive) && (registeredOperationalStatus.get(genericService.getViewServiceName()) == ServiceOperationalStatus.ENABLED))
                 {
                     if (unconfiguredViewServiceCount == 0)
                     {

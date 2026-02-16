@@ -383,7 +383,7 @@ public class OpenAPIMonitorIntegrationConnector extends IntegrationConnectorBase
                                                 String apiOperationQualifiedName = command.toUpperCase() + " " + pathName;
                                                 apiOperationGUID = getAPIOperationGUID(apiGUIDMap, apiOperationQualifiedName, pathDescription.get(command));
 
-                                                if (apiOperationGUID != null)
+                                                if (apiOperationGUID == null)
                                                 {
                                                     apiOperationGUIDMap.put(apiOperationQualifiedName, apiOperationGUID);
                                                 }

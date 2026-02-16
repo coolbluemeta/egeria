@@ -454,13 +454,13 @@ public abstract class OpenMetadataDataSetConnectorBase extends ConnectorBase imp
             recordValues.add(Long.toString(updateTime.getTime()));
             return true;
         }
-        else if (ProductDataFieldDefinition.LOCATION_ROLE.getDisplayName().equals(columnName))
+        else if (ProductDataFieldDefinition.LOCATION_KIND.getDisplayName().equals(columnName))
         {
-            if (elementHeader.getLocationRoles() != null)
+            if (elementHeader.getLocationKinds() != null)
             {
-                for (ElementClassification locationRole : elementHeader.getLocationRoles())
+                for (ElementClassification locationKind : elementHeader.getLocationKinds())
                 {
-                    recordValues.add(locationRole.getClassificationName());
+                    recordValues.add(locationKind.getClassificationName());
                     return true;
                 }
             }

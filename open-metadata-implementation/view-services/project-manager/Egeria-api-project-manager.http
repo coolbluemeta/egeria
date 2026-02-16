@@ -386,7 +386,7 @@ Content-Type: application/json
     "class": "ProjectClassificationProperties",
     "approach": "",
     "managementStyle": "",
-    "ResultsUsage": "",
+    "resultsUsage": "",
     "effectiveFrom": "{{$isoTimestamp}}",
     "effectiveTo": "{{$isoTimestamp}}"
   },
