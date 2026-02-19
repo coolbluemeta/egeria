@@ -129,14 +129,18 @@ public class QueryBuilder
                 return " and " + getPropertySubSelect(null,
                                                       null,
                                                       " ~* ",
-                                                      this.getSafeRegex(searchString));
+                                                      this.getSafeRegex(searchString),
+                                                      principleTableName,
+                                                      propertyTableName);
             }
             else
             {
                 return " and " + getPropertySubSelect(null,
                                                       null,
                                                       " ~ ",
-                                                      this.getSafeRegex(searchString));
+                                                      this.getSafeRegex(searchString),
+                                                      principleTableName,
+                                                      propertyTableName);
             }
         }
 
@@ -153,12 +157,16 @@ public class QueryBuilder
      * @param propertyColumn is the property name an attribute name or a nested property name?
      * @param operator operator to compare the property value
      * @param propertyValue property value to look for (already validated and escaped).
+     * @param principleTableName name of header table
+     * @param propertyTableName name of attribute table
      * @return sub select statement
      */
     private String getPropertySubSelect(String propertyName,
                                         String propertyColumn,
                                         String operator,
-                                        String propertyValue)
+                                        String propertyValue,
+                                        String principleTableName,
+                                        String propertyTableName)
     {
         String subSelect  = " (" + RepositoryColumn.INSTANCE_GUID.getColumnName(principleTableName) +
                                    " in (select " + RepositoryColumn.INSTANCE_GUID.getColumnName(propertyTableName) + " from " + propertyTableName +
@@ -363,13 +371,17 @@ public class QueryBuilder
      * @param stringPropertyOperator how to compare the property value stored with the property value supplied.
      * @param numericPropertyOperator how to compare the property value stored with the property value supplied.
      * @param matchOperand how to combine the results from different properties
+     * @param principleTableName name of header table
+     * @param propertyTableName name of attribute table
      * @return sql fragment wrapped in parentheses.  Forms part of a where clause
      */
     private String getPropertyComparisonFromInstanceProperties(InstanceProperties         instanceProperties,
                                                                String                     topLevelPropertyName,
                                                                PropertyComparisonOperator stringPropertyOperator,
                                                                PropertyComparisonOperator numericPropertyOperator,
-                                                               String                     matchOperand) throws RepositoryErrorException
+                                                               String                     matchOperand,
+                                                               String                     principleTableName,
+                                                               String                     propertyTableName) throws RepositoryErrorException
     {
         if ((instanceProperties != null) && (instanceProperties.getPropertyCount() > 0))
         {
@@ -403,14 +415,18 @@ public class QueryBuilder
                         stringBuilder.append(this.getNestedPropertyComparisonClause(topLevelPropertyName,
                                                                                     leafPropertyName,
                                                                                     stringPropertyOperator,
-                                                                                    this.escapePropertyValue(primitivePropertyValue.getPrimitiveValue())));
+                                                                                    this.escapePropertyValue(primitivePropertyValue.getPrimitiveValue()),
+                                                                                    principleTableName,
+                                                                                    propertyTableName));
                     }
                     else
                     {
                         stringBuilder.append(this.getNestedPropertyComparisonClause(topLevelPropertyName,
                                                                                     leafPropertyName,
                                                                                     numericPropertyOperator,
-                                                                                    primitivePropertyValue.getPrimitiveValue()));
+                                                                                    primitivePropertyValue.getPrimitiveValue(),
+                                                                                    principleTableName,
+                                                                                    propertyTableName));
                     }
                 }
                 else if (instancePropertyValue instanceof EnumPropertyValue enumPropertyValue)
@@ -418,7 +434,9 @@ public class QueryBuilder
                     stringBuilder.append(this.getNestedPropertyComparisonClause(topLevelPropertyName,
                                                                                 leafPropertyName,
                                                                                 stringPropertyOperator,
-                                                                                this.escapePropertyValue(enumPropertyValue.getSymbolicName())));
+                                                                                this.escapePropertyValue(enumPropertyValue.getSymbolicName()),
+                                                                                principleTableName,
+                                                                                propertyTableName));
                 }
                 else if (instancePropertyValue instanceof MapPropertyValue mapPropertyValue)
                 {
@@ -426,7 +444,9 @@ public class QueryBuilder
                                                                                      leafPropertyName,
                                                                                      stringPropertyOperator,
                                                                                      numericPropertyOperator,
-                                                                                     matchOperand));
+                                                                                     matchOperand,
+                                                                                     principleTableName,
+                                                                                     propertyTableName));
                 }
                 else if (instancePropertyValue instanceof ArrayPropertyValue arrayPropertyValue)
                 {
@@ -434,7 +454,9 @@ public class QueryBuilder
                                                                                      leafPropertyName,
                                                                                      stringPropertyOperator,
                                                                                      numericPropertyOperator,
-                                                                                     matchOperand));
+                                                                                     matchOperand,
+                                                                                     principleTableName,
+                                                                                     propertyTableName));
                 }
                 else if (instancePropertyValue instanceof StructPropertyValue structPropertyValue)
                 {
@@ -442,7 +464,9 @@ public class QueryBuilder
                                                                                      leafPropertyName,
                                                                                      stringPropertyOperator,
                                                                                      numericPropertyOperator,
-                                                                                     matchOperand));
+                                                                                     matchOperand,
+                                                                                     principleTableName,
+                                                                                     propertyTableName));
                 }
             }
 
@@ -462,13 +486,17 @@ public class QueryBuilder
      * @param leafPropertyName name of leaf property to look for
      * @param operator operator
      * @param propertyValue value to look for
+     * @param principleTableName name of header table
+     * @param propertyTableName name of attribute table
      * @return sql fragment
      * @throws RepositoryErrorException the property does not make sense with the operator
      */
     private String getNestedPropertyComparisonClause(String                     topLevelPropertyName,
                                                      String                     leafPropertyName,
                                                      PropertyComparisonOperator operator,
-                                                     Object                     propertyValue) throws RepositoryErrorException
+                                                     Object                     propertyValue,
+                                                     String                     principleTableName,
+                                                     String                     propertyTableName) throws RepositoryErrorException
     {
         final String methodName = "getNestedPropertyComparisonClause";
 
@@ -476,84 +504,70 @@ public class QueryBuilder
 
         if (propertyColumn.equals(RepositoryColumn.ATTRIBUTE_NAME.getColumnName()) || propertyColumn.equals(RepositoryColumn.PROPERTY_NAME.getColumnName()))
         {
+            String propertyNameMatchClause = this.getPropertyNameMatchClause(propertyTableName,
+                                                                             topLevelPropertyName,
+                                                                             leafPropertyName);
+            String rowMatchClause = "select 1 from " + propertyTableName +
+                    " where " + RepositoryColumn.INSTANCE_GUID.getColumnName(principleTableName) + " = " + RepositoryColumn.INSTANCE_GUID.getColumnName(propertyTableName) +
+                    " and " + RepositoryColumn.VERSION.getColumnName(principleTableName) + " = " + RepositoryColumn.VERSION.getColumnName(propertyTableName);
+
             if (operator == PropertyComparisonOperator.IS_NULL)
             {
                 if (propertyTableName != null)
                 {
-                    String subSelect = " (" + RepositoryColumn.INSTANCE_GUID.getColumnName(principleTableName) +
-                            " not in (select " + RepositoryColumn.INSTANCE_GUID.getColumnName(propertyTableName) + " from " + propertyTableName +
-                            " where (";
-                    if (topLevelPropertyName == null)
-                    {
-                        return subSelect + RepositoryColumn.ATTRIBUTE_NAME.getColumnName() + " = '" + leafPropertyName + "'))) ";
-                    }
-                    else
-                    {
-                        return subSelect + RepositoryColumn.ATTRIBUTE_NAME.getColumnName() + " = '" + topLevelPropertyName + "' and " + RepositoryColumn.PROPERTY_NAME.getColumnName() + " like '%:" + leafPropertyName + "'))) ";
-                    }
+                    return " not exists (" + rowMatchClause + " and " + propertyNameMatchClause + ") ";
                 }
             }
             else
             {
-                String sqlClause = " (" + RepositoryColumn.INSTANCE_GUID.getColumnName(principleTableName) +
-                        " in (select " + RepositoryColumn.INSTANCE_GUID.getColumnName(propertyTableName) + " from " + propertyTableName +
-                        " where (";;
+                String sqlClause = " exists (" + rowMatchClause + " and " + propertyNameMatchClause;
 
-                if (topLevelPropertyName == null)
-                {
-                    sqlClause = sqlClause + RepositoryColumn.ATTRIBUTE_NAME.getColumnName() + " = '" + leafPropertyName + "'";
-                }
-                else
-                {
-                    sqlClause = sqlClause + RepositoryColumn.ATTRIBUTE_NAME.getColumnName() + " = '" + topLevelPropertyName + "' and ";
-                    sqlClause = sqlClause + RepositoryColumn.PROPERTY_NAME.getColumnName() + " like '%:" + leafPropertyName + "'";
-                }
                 switch (operator)
                 {
                     case EQ ->
                     {
-                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " = '" + this.getSafeRegex(propertyValue) + "'))) ";
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " = '" + this.getSafeRegex(propertyValue) + "') ";
                     }
                     case NEQ ->
                     {
-                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " != '" + this.getSafeRegex(propertyValue) + "'))) ";
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " != '" + this.getSafeRegex(propertyValue) + "') ";
                     }
                     case LT ->
                     {
-                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " < '" + propertyValue + "'))) ";
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " < '" + propertyValue + "') ";
                     }
                     case LTE ->
                     {
-                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " <= '" + propertyValue + "'))) ";
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " <= '" + propertyValue + "') ";
                     }
                     case GT ->
                     {
-                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " > '" + propertyValue + "'))) ";
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " > '" + propertyValue + "') ";
                     }
                     case GTE ->
                     {
-                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " >= '" + propertyValue + "'))) ";
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " >= '" + propertyValue + "') ";
                     }
                     case LIKE ->
                     {
                         if (repositoryHelper.isCaseInsensitiveRegex(propertyValue.toString()))
                         {
-                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ~* '" + this.getSafeRegex(propertyValue) + "'))) ";
+                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ~* '" + this.getSafeRegex(propertyValue) + "') ";
                         }
                         else
                         {
-                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ~ '" + this.getSafeRegex(propertyValue) + "'))) ";
+                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ~ '" + this.getSafeRegex(propertyValue) + "') ";
                         }
                     }
                     case NOT_LIKE ->
                     {
                         if (repositoryHelper.isCaseInsensitiveRegex(propertyValue.toString()))
                         {
-                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " !~* '" + this.getSafeRegex(propertyValue) + "'))) ";
+                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " !~* '" + this.getSafeRegex(propertyValue) + "') ";
                         }
                         else
                         {
-                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " !~ '" + this.getSafeRegex(propertyValue) + "'))) ";
+                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " !~ '" + this.getSafeRegex(propertyValue) + "') ";
                         }
                     }
                     case NOT_NULL ->
@@ -593,11 +607,11 @@ public class QueryBuilder
                 }
                 case IS_NULL ->
                 {
-                    return " (" + principleTableName + "." + propertyColumn + " is null)";
+                    return " (" + principleTableName + "." + propertyColumn + " is null) ";
                 }
                 case NOT_NULL ->
                 {
-                    return " (" + principleTableName + "." + propertyColumn + " is not null)";
+                    return " (" + principleTableName + "." + propertyColumn + " is not null) ";
                 }
                 case LIKE ->
                 {
@@ -633,6 +647,31 @@ public class QueryBuilder
 
 
     /**
+     * Construct the cluse in the SQL that matches the property name.  This may be a simple
+     * primitive name (topLevelName==null) or a nested property in a complex attribute type like a map.
+     *
+     * @param propertyTableName table to search
+     * @param topLevelPropertyName name of the top-level attribute or null
+     * @param leafPropertyName name of the requested property
+     * @return SQL fragment
+     */
+    private String getPropertyNameMatchClause(String propertyTableName,
+                                              String topLevelPropertyName,
+                                              String leafPropertyName)
+    {
+        if (topLevelPropertyName == null)
+        {
+            return RepositoryColumn.ATTRIBUTE_NAME.getColumnName(propertyTableName) + " = '" + leafPropertyName + "'";
+        }
+        else
+        {
+            return RepositoryColumn.ATTRIBUTE_NAME.getColumnName(propertyTableName) + " = '" + topLevelPropertyName + "' and " +
+                   RepositoryColumn.PROPERTY_NAME.getColumnName(propertyTableName) + " like '%:" + leafPropertyName + "'";
+        }
+    }
+
+
+    /**
      * Set up the search properties.
      *
      * @param searchProperties Optional list of entity property conditions to match.
@@ -645,16 +684,23 @@ public class QueryBuilder
 
     /**
      * Derive the SQL fragment to describe the search properties.
+     * This method searches the principle table for matching properties in the property table.
      *
+     * @param principleTableName name of table holding the header
+     * @param propertyTableName name of table holding the properties
+     * @param searchProperties properties to search for
      * @return fragment of SQL
      */
-    private String getSearchPropertiesClause() throws RepositoryErrorException
+    private String getSearchPropertiesClause(String           principleTableName,
+                                             String           propertyTableName,
+                                             SearchProperties searchProperties) throws RepositoryErrorException
     {
         if (searchProperties != null)
         {
-            return " and " + this.getPropertyComparisonFromPropertyConditions(searchProperties,
-                                                                              propertyTableName,
-                                                                              null);
+            return this.getPropertyComparisonFromPropertyConditions(searchProperties,
+                                                                    principleTableName,
+                                                                    propertyTableName,
+                                                                    null);
         }
 
         return " ";
@@ -665,11 +711,13 @@ public class QueryBuilder
      * Step through the hierarchy of properties, building out the nested clauses of the search query.
      *
      * @param searchProperties collection of properties to work on (most will be primitives)
+     * @param principleTableName name of table holding the header
      * @param propertyTableName name of table holding the properties
      * @param topLevelPropertyName parent attribute name - not null when dealing with nested properties
      * @return sql fragment wrapped in parentheses.  Forms part of a where clause
      */
     private String getPropertyComparisonFromPropertyConditions(SearchProperties searchProperties,
+                                                               String           principleTableName,
                                                                String           propertyTableName,
                                                                String           topLevelPropertyName) throws RepositoryErrorException
     {
@@ -682,7 +730,7 @@ public class QueryBuilder
                 matchOperand = " or ";
             }
 
-            StringBuilder stringBuilder = new StringBuilder("(");
+            StringBuilder stringBuilder = new StringBuilder();
             boolean       firstProperty = true;
 
             for (PropertyCondition propertyCondition : searchProperties.getConditions())
@@ -691,6 +739,7 @@ public class QueryBuilder
                 {
                     if (firstProperty)
                     {
+                        stringBuilder.append(" and (");
                         firstProperty = false;
                     }
                     else
@@ -699,6 +748,7 @@ public class QueryBuilder
                     }
 
                     stringBuilder.append(this.getPropertyComparisonFromPropertyConditions(propertyCondition.getNestedConditions(),
+                                                                                          principleTableName,
                                                                                           propertyTableName,
                                                                                           topLevelPropertyName));
                 }
@@ -710,6 +760,7 @@ public class QueryBuilder
 
                     if (firstProperty)
                     {
+                        stringBuilder.append(" and (");
                         firstProperty = false;
                     }
                     else
@@ -724,14 +775,18 @@ public class QueryBuilder
                             stringBuilder.append(this.getNestedPropertyComparisonClause(topLevelPropertyName,
                                                                                         leafPropertyName,
                                                                                         propertyCondition.getOperator(),
-                                                                                        this.escapePropertyValue(primitivePropertyValue.getPrimitiveValue())));
+                                                                                        this.escapePropertyValue(primitivePropertyValue.getPrimitiveValue()),
+                                                                                        principleTableName,
+                                                                                        propertyTableName));
                         }
                         else
                         {
                             stringBuilder.append(this.getNestedPropertyComparisonClause(topLevelPropertyName,
                                                                                         leafPropertyName,
                                                                                         propertyCondition.getOperator(),
-                                                                                        primitivePropertyValue.getPrimitiveValue()));
+                                                                                        primitivePropertyValue.getPrimitiveValue(),
+                                                                                        principleTableName,
+                                                                                        propertyTableName));
                         }
                     }
                     else if (instancePropertyValue instanceof EnumPropertyValue enumPropertyValue)
@@ -739,7 +794,9 @@ public class QueryBuilder
                         stringBuilder.append(this.getNestedPropertyComparisonClause(topLevelPropertyName,
                                                                                     leafPropertyName,
                                                                                     propertyCondition.getOperator(),
-                                                                                    this.escapePropertyValue(enumPropertyValue.getSymbolicName())));
+                                                                                    this.escapePropertyValue(enumPropertyValue.getSymbolicName()),
+                                                                                    principleTableName,
+                                                                                    propertyTableName));
                     }
                     else if (instancePropertyValue instanceof MapPropertyValue mapPropertyValue)
                     {
@@ -747,7 +804,9 @@ public class QueryBuilder
                                                                                          leafPropertyName,
                                                                                          propertyCondition.getOperator(),
                                                                                          propertyCondition.getOperator(),
-                                                                                         matchOperand));
+                                                                                         matchOperand,
+                                                                                         principleTableName,
+                                                                                         propertyTableName));
                     }
                     else if (instancePropertyValue instanceof ArrayPropertyValue arrayPropertyValue)
                     {
@@ -755,7 +814,9 @@ public class QueryBuilder
                                                                                          leafPropertyName,
                                                                                          propertyCondition.getOperator(),
                                                                                          propertyCondition.getOperator(),
-                                                                                         matchOperand));
+                                                                                         matchOperand,
+                                                                                         principleTableName,
+                                                                                         propertyTableName));
                     }
                     else if (instancePropertyValue instanceof StructPropertyValue structPropertyValue)
                     {
@@ -763,14 +824,18 @@ public class QueryBuilder
                                                                                          leafPropertyName,
                                                                                          propertyCondition.getOperator(),
                                                                                          propertyCondition.getOperator(),
-                                                                                         matchOperand));
+                                                                                         matchOperand,
+                                                                                         principleTableName,
+                                                                                         propertyTableName));
                     }
                     else // null property value
                     {
                         stringBuilder.append(this.getNestedPropertyComparisonClause(topLevelPropertyName,
                                                                                     leafPropertyName,
                                                                                     propertyCondition.getOperator(),
-                                                                                    null));
+                                                                                    null,
+                                                                                    principleTableName,
+                                                                                    propertyTableName));
                     }
                 }
             }
@@ -785,7 +850,7 @@ public class QueryBuilder
 
 
     /**
-     * Set up optional list of entity classifications to match.
+     * Set up an optional list of entity classifications to match.
      *
      * @param matchClassifications match classifications
      */
@@ -824,24 +889,23 @@ public class QueryBuilder
                 {
                     stringBuilder.append(matchOperand);
                     stringBuilder.append(" (");
-                    stringBuilder.append(RepositoryColumn.CLASSIFICATION_NAME.getColumnName(RepositoryTable.CLASSIFICATION.getTableName()));
+                    stringBuilder.append(RepositoryColumn.TYPE_NAME.getColumnName(RepositoryTable.CLASSIFICATION.getTableName()));
                     if (operator == PropertyComparisonOperator.EQ)
                     {
-                        stringBuilder.append(" = '");
+                        stringBuilder.append(" like '%:");
                     }
                     else
                     {
-                        stringBuilder.append(" != '");
+                        stringBuilder.append(" not like '%:");
                     }
                     stringBuilder.append(classificationCondition.getName());
-                    stringBuilder.append("' ");
+                    stringBuilder.append(":%' ");
 
                     if (classificationCondition.getMatchProperties() != null)
                     {
-                        stringBuilder.append(" and ");
-                        stringBuilder.append(this.getPropertyComparisonFromPropertyConditions(classificationCondition.getMatchProperties(),
-                                                                                              RepositoryTable.CLASSIFICATION_ATTRIBUTE_VALUE.getTableName(),
-                                                                                              null));
+                        stringBuilder.append(this.getSearchPropertiesClause(RepositoryTable.CLASSIFICATION.getTableName(),
+                                                                            RepositoryTable.CLASSIFICATION_ATTRIBUTE_VALUE.getTableName(),
+                                                                            classificationCondition.getMatchProperties()));
                     }
 
                     stringBuilder.append(") ");
@@ -888,10 +952,11 @@ public class QueryBuilder
                 {
                     stringBuilder.append(" or ");
                 }
-                stringBuilder.append(RepositoryColumn.CLASSIFICATION_NAME.getColumnName(RepositoryTable.CLASSIFICATION.getTableName()));
-                stringBuilder.append(" = '");
+
+                stringBuilder.append(RepositoryColumn.TYPE_NAME.getColumnName(RepositoryTable.CLASSIFICATION.getTableName()));
+                stringBuilder.append(" like '%:");
                 stringBuilder.append(classificationName);
-                stringBuilder.append("'");
+                stringBuilder.append(":%'");
             }
 
             stringBuilder.append(")");
@@ -1239,7 +1304,7 @@ public class QueryBuilder
      * Set up the required paging.
      *
      * @param fromElement starting from element (0 for first)
-     * @param pageSize maximum number of elements that can be returned
+     * @param pageSize maximum  elements that can be returned
      */
     public void setPaging(int fromElement,
                           int pageSize)
@@ -1438,7 +1503,7 @@ public class QueryBuilder
                 getRelationshipEndGUIDClause() +
                 getGUIDListClause() +
                 getSearchStringClause() +
-                getSearchPropertiesClause() +
+                getSearchPropertiesClause(principleTableName, propertyTableName, searchProperties) +
                 getSearchClassificationsClause() +
                 getTypeClause() +
                 getLimitResultsByClassificationClaus() +

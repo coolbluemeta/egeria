@@ -935,14 +935,51 @@ class PostgresOMRSMetadataStore
 
         ClassificationMapper storedClassification = databaseStore.getClassificationForUpdate(entityGUID, classification.getName());
 
-        if (storedClassification == null)
+        if ((storedClassification == null) || (storedClassification.getClassification() == null))
         {
             databaseStore.saveClassification(new ClassificationMapper(entityGUID, classification, repositoryHelper, repositoryName));
         }
         else if (classification.getVersion() > storedClassification.getClassification().getVersion())
         {
+            /*
+             * Update the previous version of the classification to the end time of the current version
+             */
             databaseStore.updatePreviousClassificationVersionEndTime(storedClassification, databaseStore.getVersionEndDate(classification.getUpdateTime()));
             databaseStore.saveClassification(new ClassificationMapper(entityGUID, classification, repositoryHelper, repositoryName));
+        }
+        else
+        {
+            /*
+             * Has the classification been deleted and now a new one is being created?
+             */
+            Classification originallyStoredClassification = storedClassification.getClassification();
+
+            if ((classification.getVersion() == 1) &&
+                    (originallyStoredClassification.getStatus() == InstanceStatus.DELETED) &&
+                    (originallyStoredClassification.getUpdateTime().getTime() < classification.getCreateTime().getTime()))
+            {
+                Set<String> modifiedByList = new HashSet<>();
+                modifiedByList.add(classification.getCreatedBy());
+                modifiedByList.add(originallyStoredClassification.getCreatedBy());
+                if (originallyStoredClassification.getMaintainedBy() != null)
+                {
+                    modifiedByList.addAll(originallyStoredClassification.getMaintainedBy());
+                }
+                if (originallyStoredClassification.getUpdatedBy() != null)
+                {
+                    modifiedByList.add(originallyStoredClassification.getUpdatedBy());
+                }
+                classification.setMaintainedBy(new ArrayList<>(modifiedByList));
+                classification.setVersion(originallyStoredClassification.getVersion() + 1);
+                classification.setUpdatedBy(classification.getCreatedBy());
+                classification.setUpdateTime(new Date());
+
+                classification.setCreatedBy(originallyStoredClassification.getCreatedBy());
+                classification.setCreateTime(originallyStoredClassification.getCreateTime());
+
+                databaseStore.updatePreviousClassificationVersionEndTime(storedClassification, databaseStore.getVersionEndDate(classification.getUpdateTime()));
+                databaseStore.saveClassification(new ClassificationMapper(entityGUID, classification, repositoryHelper, repositoryName));
+            }
         }
 
         databaseStore.disconnect();
