@@ -226,7 +226,7 @@ public class DataFilesMonitorForTarget extends DirectoryToMonitor
 
                 FileClassification fileClassification = fileClassifier.classifyFile(file);
 
-                OpenMetadataRootElement cataloguedElement = fileClient.getAssetByUniqueName(file.getCanonicalPath(),
+                OpenMetadataRootElement cataloguedElement = fileClient.getAssetByUniqueName(fileClassification.getPathName(),
                                                                                             OpenMetadataProperty.PATH_NAME.name,
                                                                                             fileClient.getGetOptions());
 

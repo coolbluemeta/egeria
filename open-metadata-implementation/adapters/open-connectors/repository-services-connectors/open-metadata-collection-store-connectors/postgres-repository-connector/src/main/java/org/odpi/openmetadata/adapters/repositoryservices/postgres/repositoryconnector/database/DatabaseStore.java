@@ -389,10 +389,10 @@ public class DatabaseStore
             }
             else
             {
-                String sqlClassificationQuery = classificationQueryBuilder.getPropertyJoinQuery(RepositoryTable.CLASSIFICATION.getTableName(),
-                                                                                                RepositoryTable.CLASSIFICATION_ATTRIBUTE_VALUE.getTableName(),
-                                                                                                RepositoryColumn.INSTANCE_GUID.getColumnName(RepositoryTable.CLASSIFICATION_ATTRIBUTE_VALUE.getTableName())) +
-                        " where " + classificationQueryBuilder.getAsOfTimeWhereClause();
+                String sqlClassificationQuery =
+                        "select " + RepositoryColumn.INSTANCE_GUID.getColumnName(RepositoryTable.CLASSIFICATION.getTableName()) +
+                                " from " + RepositoryTable.CLASSIFICATION.getTableName() +
+                                " where " + classificationQueryBuilder.getAsOfTimeWhereClause();
 
                 entityRows = jdbcResourceConnector.getMatchingRows(jdbcConnection,
                                                                    sqlEntityQuery + " and " +
