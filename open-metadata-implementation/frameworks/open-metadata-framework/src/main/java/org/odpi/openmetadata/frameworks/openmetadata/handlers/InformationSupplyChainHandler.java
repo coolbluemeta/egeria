@@ -54,7 +54,7 @@ public class InformationSupplyChainHandler extends CollectionHandler
     /**
      * Connect two peers in an information supply chains.  The linked elements are of type 'Referenceable' to allow significant data stores to be included in the definition of the information supply chain.
      *
-     * @param userId          userId of user making request
+     * @param userId          userId of the user making the request
      * @param peerOneGUID  unique identifier of the end one element in the relationship
      * @param peerTwoGUID  unique identifier of the end two element in the relationship
      * @param makeAnchorOptions  options to control access to open metadata
@@ -93,7 +93,7 @@ public class InformationSupplyChainHandler extends CollectionHandler
     /**
      * Detach two peers in an information supply chain from one another.    The linked elements are of type 'Referenceable' to allow significant data stores to be included in the definition of the information supply chain.
      *
-     * @param userId          userId of user making request.
+     * @param userId          userId of the user making the request.
      * @param peerOneGUID  unique identifier of the end one element in the relationship
      * @param peerTwoGUID  unique identifier of the end two element in the relationship
      * @param deleteOptions  options to control access to open metadata
@@ -129,7 +129,7 @@ public class InformationSupplyChainHandler extends CollectionHandler
     /**
      * Returns the list of information supply chains with a particular name.
      *
-     * @param userId     userId of user making request
+     * @param userId     userId of the user making the request
      * @param name       name of the element to return - match is full text match in qualifiedName or name
      * @param addImplementation    should details of the implementation of the information supply chain be extracted too?
      * @param queryOptions           multiple options to control the query
@@ -174,7 +174,7 @@ public class InformationSupplyChainHandler extends CollectionHandler
     /**
      * Return the properties of a specific information supply chain.
      *
-     * @param userId            userId of user making request
+     * @param userId            userId of the user making the request
      * @param informationSupplyChainGUID    unique identifier of the required element
      * @param addImplementation    should details of the implementation of the information supply chain be extracted too?
      * @param getOptions multiple options to control the query
@@ -341,6 +341,10 @@ public class InformationSupplyChainHandler extends CollectionHandler
 
                 OpenMetadataRelationshipList relationshipList = openMetadataClient.findRelationshipsBetweenMetadataElements(userId,
                                                                                                                             null,
+                                                                                                                            null,
+                                                                                                                            null,
+                                                                                                                            null,
+                                                                                                                            null,
                                                                                                                             searchProperties,
                                                                                                                             workingQueryOptions);
 
@@ -351,9 +355,13 @@ public class InformationSupplyChainHandler extends CollectionHandler
                     workingQueryOptions.setStartFrom(workingQueryOptions.getStartFrom() + openMetadataClient.getMaxPagingSize());
 
                     relationshipList = openMetadataClient.findRelationshipsBetweenMetadataElements(userId,
-                                                                                                        null,
-                                                                                                        searchProperties,
-                                                                                                        workingQueryOptions);
+                                                                                                   null,
+                                                                                                   null,
+                                                                                                   null,
+                                                                                                   null,
+                                                                                                   null,
+                                                                                                   searchProperties,
+                                                                                                   workingQueryOptions);
                 }
             }
 

@@ -974,7 +974,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
         softwareServerPlatformProperties.setDisplayName(platformProperties.getPlatformPublicProperties().getDisplayName());
         softwareServerPlatformProperties.setDescription(platformProperties.getPlatformPublicProperties().getDescription());
         softwareServerPlatformProperties.setURL(this.getURL(null));
-        softwareServerPlatformProperties.setNamespace(platformProperties.getPlatformOrganization());
+        softwareServerPlatformProperties.setNamespacePath(platformProperties.getPlatformOrganization());
         softwareServerPlatformProperties.setVersionIdentifier(platformProperties.getPlatformBuildProperties().getVersion());
         softwareServerPlatformProperties.setCategory(EGERIA_DEPLOYMENT_CATEGORY);
 
@@ -1195,7 +1195,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                                                                           omagServerProperties.getOrganizationName()));
         softwareServerProperties.setVersionIdentifier(platformProperties.getPlatformBuildProperties().getVersion());
 
-        softwareServerProperties.setNamespace(omagServerProperties.getOrganizationName());
+        softwareServerProperties.setNamespacePath(omagServerProperties.getOrganizationName());
         softwareServerProperties.setDeployedImplementationType(omagServerProperties.getServerType());
         softwareServerProperties.setCategory(EGERIA_DEPLOYMENT_CATEGORY);
         softwareServerProperties.setURL(this.getURL(omagServerProperties.getServerType()));

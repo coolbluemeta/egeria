@@ -80,7 +80,7 @@ public class EndpointHandler<B> extends ReferenceableHandler<B>
      * @param methodName calling method
      * @return unique identifier of the endpoint or null
      * @throws InvalidParameterException  the endpoint bean properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the property server
      */
     private String findEndpoint(String   userId,
@@ -185,7 +185,7 @@ public class EndpointHandler<B> extends ReferenceableHandler<B>
      * @param methodName calling method
      * @return unique identifier of the endpoint in the repository.
      * @throws InvalidParameterException  the endpoint bean properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the property server
      */
     String saveEndpoint(String   userId,
@@ -260,7 +260,7 @@ public class EndpointHandler<B> extends ReferenceableHandler<B>
     /**
      * Creates a new endpoint and returns the unique identifier for it.
      *
-     * @param userId           userId of user making request
+     * @param userId           userId of the user making the request
      * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName name of the software capability entity that represented the external source
      * @param anchorGUID the unique identifier for the anchor entity (null for unanchored endpoints)
@@ -365,7 +365,7 @@ public class EndpointHandler<B> extends ReferenceableHandler<B>
      * Retrieves an endpoint based on network address.  Returns it if found.  If not creates a new endpoint and returns the unique identifier
      * for it.
      *
-     * @param userId           userId of user making request
+     * @param userId           userId of the user making the request
      * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName name of the software capability entity that represented the external source
      * @param anchorGUID the unique identifier for the anchor entity (null for unanchored endpoints)
@@ -467,7 +467,7 @@ public class EndpointHandler<B> extends ReferenceableHandler<B>
     /**
      * Updates the properties of an existing endpoint.
      *
-     * @param userId          userId of user making request.
+     * @param userId          userId of the user making the request.
      * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName name of the software capability entity that represented the external source
      * @param endpointGUID         unique identifier for the endpoint

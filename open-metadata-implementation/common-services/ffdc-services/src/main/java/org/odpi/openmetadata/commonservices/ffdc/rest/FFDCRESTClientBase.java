@@ -32,7 +32,6 @@ public class FFDCRESTClientBase
 
     private final RESTClientConnector clientConnector;        /* Initialized in constructor */
 
-
     /**
      * Constructor for no authentication with audit log.
      *
@@ -338,6 +337,7 @@ public class FFDCRESTClientBase
         return null;
     }
 
+
     /**
      * Issue a PUT REST call that returns a response object.  This is typically an update.
      * It's working only with {@link SpringRESTClientConnector}
@@ -393,7 +393,7 @@ public class FFDCRESTClientBase
     {
         try
         {
-           return clientConnector.callDeleteRESTCall(methodName, returnClass, urlTemplate, requestBody, params);
+            return clientConnector.callDeleteRESTCall(methodName, returnClass, urlTemplate, requestBody, params);
         }
         catch (Exception error)
         {

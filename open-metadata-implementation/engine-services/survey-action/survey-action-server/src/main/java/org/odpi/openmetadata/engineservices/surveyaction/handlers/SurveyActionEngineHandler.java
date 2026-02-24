@@ -99,7 +99,7 @@ public class SurveyActionEngineHandler extends GovernanceEngineHandler
      * @param actionTargetElements metadata elements that need to be worked on by the governance service
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the governance engine.
      */
     @Override
@@ -275,7 +275,7 @@ public class SurveyActionEngineHandler extends GovernanceEngineHandler
      * @return unique identifier for this request.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the survey action engine.
      */
     private SurveyActionServiceHandler getSurveyActionServiceHandler(String                    assetGUID,
@@ -292,7 +292,7 @@ public class SurveyActionEngineHandler extends GovernanceEngineHandler
         Date                creationTime = new Date();
         Map<String, String> analysisParameters = governanceServiceCache.getRequestParameters(requestParameters);
 
-        String reportQualifiedName = "SurveyReportProperties::" + requestType + "::" + assetGUID + "::" + creationTime;
+        String reportQualifiedName = "SurveyReport::" + requestType + "::" + assetGUID + "::" + creationTime;
         String reportDisplayName   = "Survey Report for " + assetGUID;
         String reportDescription   = "This is the " + requestType + " survey report for asset " + assetGUID + " generated at " +
                                              creationTime +

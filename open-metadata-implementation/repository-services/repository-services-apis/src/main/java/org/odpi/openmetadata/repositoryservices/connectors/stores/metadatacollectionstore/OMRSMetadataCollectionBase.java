@@ -8,6 +8,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.MatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.SequencingOrder;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.*;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchClassifications;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.*;
@@ -2272,6 +2273,9 @@ public abstract class OMRSMetadataCollectionBase extends OMRSMetadataCollection
      *                             (but may be slow so not recommended).
      * @param relationshipSubtypeGUIDs optional list of the unique identifiers (guids) for subtypes of the
      *                                 relationshipTypeGUID to include in the search results. Null means all subtypes.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param matchProperties Optional list of relationship property conditions to match.
      * @param fromRelationshipElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
@@ -2292,12 +2296,15 @@ public abstract class OMRSMetadataCollectionBase extends OMRSMetadataCollection
      * @throws RepositoryErrorException a problem communicating with the metadata repository where
      *                                    the metadata collection is stored.
      * @throws PagingErrorException the paging/sequencing parameters are set up incorrectly.
-     * @see #findRelationships(String, String, List, SearchProperties, int, List, Date, String, SequencingOrder, int)
+     * @see #findRelationships(String, String, List, List, List, EndMatchCriteria, SearchProperties, int, List, Date, String, SequencingOrder, int)
      */
     @SuppressWarnings(value = "unused")
     protected void findRelationshipsParameterValidation(String                    userId,
                                                         String                    relationshipTypeGUID,
                                                         List<String>              relationshipSubtypeGUIDs,
+                                                        List<String>              end1EntityGUIDs,
+                                                        List<String>              end2EntityGUIDs,
+                                                        EndMatchCriteria          endMatchCriteria,
                                                         SearchProperties          matchProperties,
                                                         int                       fromRelationshipElement,
                                                         List<InstanceStatus>      limitResultsByStatus,
@@ -2309,17 +2316,29 @@ public abstract class OMRSMetadataCollectionBase extends OMRSMetadataCollection
                                                                                                    RepositoryErrorException,
                                                                                                    PagingErrorException
     {
-        final String methodName                   = "findRelationships";
-        final String matchPropertiesParameterName = "matchProperties";
-        final String guidParameterName            = "relationshipTypeGUID";
-        final String subtypeGuidsParameterName    = "relationshipSubtypeGUIDs";
-        final String asOfTimeParameter            = "asOfTime";
-        final String pageSizeParameter            = "pageSize";
+        final String methodName                    = "findRelationships";
+        final String matchPropertiesParameterName  = "matchProperties";
+        final String endMatchCriteriaParameterName = "matchProperties";
+        final String guidParameterName             = "relationshipTypeGUID";
+        final String subtypeGuidsParameterName     = "relationshipSubtypeGUIDs";
+        final String asOfTimeParameter             = "asOfTime";
+        final String pageSizeParameter             = "pageSize";
 
         /*
          * Validate parameters
          */
         super.basicRequestValidation(userId, methodName);
+
+        if ((endMatchCriteria != null) &&
+                ((end1EntityGUIDs == null) || (end1EntityGUIDs.isEmpty())) &&
+                ((end2EntityGUIDs == null) || (end2EntityGUIDs.isEmpty())))
+        {
+            throw new InvalidParameterException(OMRSErrorCode.INVALID_FIND_RELATIONSHIP_END_CRITERIA.getMessageDefinition(endMatchCriteria.getName(), methodName),
+                                                this.getClass().getName(),
+                                                methodName,
+                                                endMatchCriteriaParameterName);
+        }
+
         repositoryValidator.validateOptionalTypeGUIDs(repositoryName, guidParameterName, relationshipTypeGUID, subtypeGuidsParameterName, relationshipSubtypeGUIDs, methodName);
         repositoryValidator.validateAsOfTime(repositoryName, asOfTimeParameter, asOfTime, methodName);
         repositoryValidator.validatePageSize(repositoryName, pageSizeParameter, pageSize, methodName);
@@ -3302,6 +3321,9 @@ public abstract class OMRSMetadataCollectionBase extends OMRSMetadataCollection
     public  List<Relationship> findRelationships(String                    userId,
                                                  String                    relationshipTypeGUID,
                                                  List<String>              relationshipSubtypeGUIDs,
+                                                 List<String>              end1EntityGUIDs,
+                                                 List<String>              end2EntityGUIDs,
+                                                 EndMatchCriteria          endMatchCriteria,
                                                  SearchProperties          matchProperties,
                                                  int                       fromRelationshipElement,
                                                  List<InstanceStatus>      limitResultsByStatus,
@@ -3316,11 +3338,14 @@ public abstract class OMRSMetadataCollectionBase extends OMRSMetadataCollection
                                                                                             FunctionNotSupportedException,
                                                                                             UserNotAuthorizedException
     {
-        final String  methodName = "findRelationships";
+        final String methodName = "findRelationships";
 
         this.findRelationshipsParameterValidation(userId,
                                                   relationshipTypeGUID,
                                                   relationshipSubtypeGUIDs,
+                                                  end1EntityGUIDs,
+                                                  end2EntityGUIDs,
+                                                  endMatchCriteria,
                                                   matchProperties,
                                                   fromRelationshipElement,
                                                   limitResultsByStatus,

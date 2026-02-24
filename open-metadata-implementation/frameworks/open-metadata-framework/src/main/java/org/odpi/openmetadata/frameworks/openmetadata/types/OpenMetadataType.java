@@ -105,6 +105,36 @@ public enum OpenMetadataType
                        OpenMetadataRootProperties.class),
 
     /**
+     * Common root for relationships that have a label and a description.
+     */
+    LABELED_RELATIONSHIP("d2214e68-86c2-41fb-b835-b37163f5d762",
+                         "LabeledRelationship",
+                         OpenMetadataWikiPages.MODEL_0010_BASE_MODEL,
+                         "fc2f1b34-d77b-4f2f-b97d-b188fe2f6d22",
+                         "Common root for relationships that have a label and a description.",
+                         LabeledRelationshipProperties.class),
+
+    /**
+     * Common root for relationships that have a role and a description.
+     */
+    ROLED_RELATIONSHIP("a5681154-c45d-4c10-a6ab-7b4f54f68f70",
+                       "RoledRelationship",
+                       OpenMetadataWikiPages.MODEL_0010_BASE_MODEL,
+                       "1a1fa3e4-0a87-40d4-b346-ee8f06a6dcf8",
+                       "Common root for relationships that have a role and a description.",
+                       RoledRelationshipProperties.class),
+
+    /**
+     * Common root for lineage relationships.
+     */
+    LINEAGE_RELATIONSHIP("a6b24b82-fa2a-4ac6-9a04-6f0e438920f0",
+                         "LineageRelationship",
+                         OpenMetadataWikiPages.MODEL_0010_BASE_MODEL,
+                         "35485031-7dff-43d5-915e-eea508c25d09",
+                         "Common root for lineage relationships.",
+                         LineageRelationshipProperties.class),
+
+    /**
      * An element whose real-world counterpart has been deleted or moved to offline archived.
      */
     MEMENTO_CLASSIFICATION("ecdcd472-6701-4303-8dec-267bcb54feb9",
@@ -486,7 +516,6 @@ public enum OpenMetadataType
                                        "Identifies a member of a collection.",
                                        CollectionMembershipProperties.class),
 
-
     /**
      * This collection is the root collection in a collection hierarchy.
      */
@@ -506,6 +535,16 @@ public enum OpenMetadataType
                       "06af0148-0fc4-4bb0-a972-3af64592e080",
                       "Defines that a collection should be treated like a folder.",
                       CollectionFolderProperties.class),
+
+    /**
+     * This collection identifies a set of elements that are part of a folio of work or responsibility.
+     */
+    FOLIO_COLLECTION("69edc84c-e3d2-4f13-b746-bf6eaffd26bb",
+                    "Folio",
+                    OpenMetadataWikiPages.MODEL_0021_COLLECTIONS,
+                    "0b904bcf-796f-40e1-b562-87bdbcff11e6",
+                    "This collection identifies a set of elements that are part of a folio of work or responsibility.",
+                    FolioProperties.class),
 
     /**
      * This collection is the home collection for a referenceable.
@@ -1651,11 +1690,11 @@ public enum OpenMetadataType
      * Capturing the description of a project's governance and the expectation of how the results will be used.
      */
     PROJECT_CLASSIFICATION_CLASSIFICATION("0a40aa24-aebc-42a9-8b49-2299a9e1f628",
-                        "ProjectClassification",
-                        OpenMetadataWikiPages.MODEL_0130_PROJECTS,
-                        "f2feb0b5-90da-45b4-8638-4af786b448e1",
-                        "Capturing the description of a project's governance and the expectation of how the results will be used.",
-                        ProjectClassificationProperties.class),
+                                          "ProjectClassification",
+                                          OpenMetadataWikiPages.MODEL_0130_PROJECTS,
+                                          "f2feb0b5-90da-45b4-8638-4af786b448e1",
+                                          "Capturing the description of a project's governance and the expectation of how the results will be used.",
+                                          ProjectClassificationProperties.class),
 
     /**
      * This is an informal project that has been created by an individual to help them organize their work.
@@ -2824,12 +2863,12 @@ public enum OpenMetadataType
     /**
      * Identifies that this glossary term describes a data value.
      */
-    DATA_VALUE_CLASSIFICATION("ab253e31-3d8a-45a7-8592-24329a189b9e",
-                              "DataValue",
-                              OpenMetadataWikiPages.MODEL_0340_DICTIONARY,
-                              "1f9cefee-9987-437c-accf-0786821d6c27",
-                              "Identifies that this glossary term describes a data value.",
-                              DataValueProperties.class),
+    DATA_VALUE_MEANING_CLASSIFICATION("ab253e31-3d8a-45a7-8592-24329a189b9e",
+                                      "DataValueMeaning",
+                                      OpenMetadataWikiPages.MODEL_0340_DICTIONARY,
+                                      "1f9cefee-9987-437c-accf-0786821d6c27",
+                                      "Identifies that this glossary term describes a data value.",
+                                      DataValueMeaningProperties.class),
 
     /**
      * Link between similar glossary terms.
@@ -3383,11 +3422,11 @@ public enum OpenMetadataType
      * Technical control identifies the scope of data for a particular type of processing. The attributes of this governance definition identify the scope of the data in space and time.
      */
     DATA_LENS("bd9a8c9b-5434-46be-bbd7-71081475a36d",
-                    "DataLens",
-                    OpenMetadataWikiPages.MODEL_0430_TECHNICAL_CONTROLS,
-                    "c46593aa-692d-4315-953b-6765b9152a3b",
-                    "identifies the scope of data for a particular type of processing. The attributes of this governance definition identify the scope of the data in space and time.",
-                    DataLensProperties.class),
+              "DataLens",
+              OpenMetadataWikiPages.MODEL_0430_TECHNICAL_CONTROLS,
+              "c46593aa-692d-4315-953b-6765b9152a3b",
+              "identifies the scope of data for a particular type of processing. The attributes of this governance definition identify the scope of the data in space and time.",
+              DataLensProperties.class),
 
     /**
      * The set of behaviour-related objectives that an asset or capability seeks to achieve.
@@ -4857,55 +4896,104 @@ public enum OpenMetadataType
                      "A data field that is returned by a query."),
 
     /**
+     * A specification for a data value.
+     */
+    DATA_VALUE_SPECIFICATION("62ff0f4c-ddd8-4f77-b015-da700a57f08f",
+                             "DataValueSpecification",
+                             OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
+                             "9cbe6b63-b160-4d5e-a54d-ffcebf4fe44c",
+                             "A specification for a data value.",
+                             DataValueSpecificationProperties.class),
+
+    /**
+     * Links a data class to an asset or schema element to define its logical data type.
+     */
+    DATA_VALUE_ASSIGNMENT_RELATIONSHIP("4df37335-7f0c-4ced-82df-3b2fd07be1bd",
+                                       "DataValueAssignment",
+                                       OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
+                                       "296c55bc-0d5e-4a84-bb58-c5484d363ec2",
+                                       "Links a data value to an element describing a data source to define its logical data type.",
+                                       DataValueAssignmentProperties.class),
+
+    /**
+     * Links a referencable with its data value specifications.
+     */
+    DATA_VALUE_DEFINITION_RELATIONSHIP("6fa9eec1-e5b0-44da-ace9-09e4de91c8ca",
+                                       "DataValueDefinition",
+                                       OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
+                                       "e83f0ff2-b8f9-4dd6-8d2d-7cce39345953",
+                                       "Links a referencable with its data value specifications.",
+                                       DataValueDefinitionProperties.class),
+
+    /**
+     * Links a data class to another in a parent child hierarchy.
+     */
+    DATA_VALUE_HIERARCHY_RELATIONSHIP("6b947ccc-1a70-4785-9ca3-d6326bc51291",
+                                      "DataValueHierarchy",
+                                      OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
+                                      "1949ace2-59c2-4f8f-9f3b-62def8b3d029",
+                                      "Links a data value to another in a parent-child hierarchy.",
+                                      DataValueHierarchyProperties.class),
+
+    /**
      * A logical data type specification.
      */
     DATA_CLASS("6bc727dc-e855-4979-8736-78ac3cfcd32f",
                "DataClass",
-               OpenMetadataWikiPages.MODEL_0540_DATA_CLASSES,
+               OpenMetadataWikiPages.MODEL_0541_DATA_CLASSES_AND_GRAINS,
                "b5ee2d50-c30f-4cf1-869b-d83294fab681",
                "A logical data type specification.",
                DataClassProperties.class),
 
     /**
-     * Links a data class to an asset or schema element to define its logical data type.
-     */
-    DATA_CLASS_ASSIGNMENT_RELATIONSHIP("4df37335-7f0c-4ced-82df-3b2fd07be1bd",
-                                       "DataClassAssignment",
-                                       OpenMetadataWikiPages.MODEL_0540_DATA_CLASSES,
-                                       "296c55bc-0d5e-4a84-bb58-c5484d363ec2",
-                                       "Links a data class to an asset or schema element to define its logical data type.",
-                                       DataClassAssignmentProperties.class),
-
-    /**
-     * Links a referencable with its data value specification in the form of a data class.
-     */
-    DATA_CLASS_DEFINITION_RELATIONSHIP("6fa9eec1-e5b0-44da-ace9-09e4de91c8ca",
-                                       "DataClassDefinition",
-                                       OpenMetadataWikiPages.MODEL_0540_DATA_CLASSES,
-                                       "e83f0ff2-b8f9-4dd6-8d2d-7cce39345953",
-                                       "Links a referencable with its data value specification in the form of a data class.",
-                                       DataClassDefinitionProperties.class),
-
-    /**
-     * Links a data class to another in a parent child hierarchy.
-     */
-    DATA_CLASS_HIERARCHY_RELATIONSHIP("6b947ccc-1a70-4785-9ca3-d6326bc51291",
-                                      "DataClassHierarchy",
-                                      OpenMetadataWikiPages.MODEL_0540_DATA_CLASSES,
-                                      "1949ace2-59c2-4f8f-9f3b-62def8b3d029",
-                                      "Links a data class to another in a parent child hierarchy.",
-                                      DataClassHierarchyProperties.class),
-
-    /**
-     * Links a data class to another in a part of hierarchy.
+     * Links a data class to another in a part of a structural hierarchy.
      */
     DATA_CLASS_COMPOSITION_RELATIONSHIP("767fb343-4699-49c1-a0f8-af6da78505f8",
                                         "DataClassComposition",
-                                        OpenMetadataWikiPages.MODEL_0540_DATA_CLASSES,
+                                        OpenMetadataWikiPages.MODEL_0541_DATA_CLASSES_AND_GRAINS,
                                         "e11693b6-f2f7-4693-aac7-a7a98c6c1c49",
-                                        "Links a data class to another in a part of hierarchy.",
+                                        "Links a data class to another in a part of a structural hierarchy.",
                                         DataClassCompositionProperties.class),
 
+    /**
+     * A characterization of the granularity of data - usually expressed per row/object in a data source.
+     */
+    DATA_GRAIN("79cfda44-ba86-41e7-bba3-0c5c7f9050e8",
+               "DataGrain",
+               OpenMetadataWikiPages.MODEL_0541_DATA_CLASSES_AND_GRAINS,
+               "dd7027ec-04da-4d59-9d9b-679507255e0f",
+               "A characterization of the granularity of data - usually expressed per row/object in a data source.",
+               DataGrainProperties.class),
+
+    /**
+     * Links a data grain to an element to define the granularity of its data.
+     */
+    DATA_GRAIN_ASSIGNMENT_RELATIONSHIP("46ade3dd-50bf-4619-b056-ac40ed61a800",
+                                       "DataGrainAssignment",
+                                       OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
+                                       "f971a531-8066-4077-88f0-8d3f5c1c23be",
+                                       "Links a data grain to an element to define the granularity of its data.",
+                                       DataGrainAssignmentProperties.class),
+
+    /**
+     * Links an element with its granularity definition in the form of a data grain.
+     */
+    DATA_GRAIN_DEFINITION_RELATIONSHIP("a9d32b5d-f133-4fdc-8eb3-a8b0b51085ad",
+                                       "DataGrainDefinition",
+                                       OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
+                                       "37b3fa4b-8282-45d6-a0fe-9b5914485a49",
+                                       "Links an element with its granularity definition in the form of a data grain.",
+                                       DataGrainDefinitionProperties.class),
+
+    /**
+     * Links a data grain to another in a parent child hierarchy.
+     */
+    DATA_GRAIN_HIERARCHY_RELATIONSHIP("85f27314-90c2-4e8c-9de7-72f7b7b01b36",
+                                      "DataGrainHierarchy",
+                                      OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
+                                      "546aedf6-65b5-4293-b7e4-7722907692e8",
+                                      "Links a data grain to another in a parent child hierarchy.",
+                                      DataGrainHierarchyProperties.class),
     /**
      * A single valid value for a referenceable.
      */
@@ -5199,13 +5287,13 @@ public enum OpenMetadataType
                                         ConceptBeadExtensionProperties.class),
 
     /**
-     * Links a element to its concept model.
+     * Links an element to its concept model.
      */
     CONCEPT_DESIGN_RELATIONSHIP("75043479-3775-4195-b45a-154ccd308f93",
                                 "ConceptDesign",
                                 OpenMetadataWikiPages.MODEL_0571_CONCEPT_MODELS,
                                 "f8ad95eb-5c6f-4eaf-83d5-ca65831c1b32",
-                                "Links a element to its concept model.",
+                                "Links an element to its concept model.",
                                 ConceptDesignProperties.class),
 
     /**
@@ -5310,22 +5398,24 @@ public enum OpenMetadataType
                                    NestedDataFieldProperties.class),
 
     /**
-     * Link between data field analysis and the identified schema attribute definition.
+     * Link between a data field and the identified schema attribute definition.
      */
     SCHEMA_ATTRIBUTE_DEFINITION_RELATIONSHIP("60f1e263-e24d-4f20-8c0d-b5e21232cd54",
                                              "SchemaAttributeDefinition",
                                              OpenMetadataWikiPages.MODEL_0581_DATA_FIELD_IMPLEMENTATION,
                                              "d21adefa-7721-4820-8f40-228647e6cbe8",
-                                             "Link between data field analysis and the identified schema attribute definition."),
+                                             "Link between a data field and the identified schema attribute definition.",
+                                             SchemaAttributeDefinitionProperties.class),
 
     /**
-     * Link between data structure and an equivalent schema type.
+     * Link between a data structure and an equivalent schema type.
      */
     SCHEMA_TYPE_DEFINITION_RELATIONSHIP("51a2d263-e24d-4f20-8c0d-b5e12356cd54",
                                         "SchemaTypeDefinition",
                                         OpenMetadataWikiPages.MODEL_0581_DATA_FIELD_IMPLEMENTATION,
                                         "d59f28e7-fdd4-4310-a0fb-dfc20cae5b49",
-                                        "Link between data structure and an equivalent schema type."),
+                                        "Link between a data structure and an equivalent schema type.",
+                                        SchemaTypeDefinitionProperties.class),
 
 
     /**
@@ -5403,6 +5493,16 @@ public enum OpenMetadataType
                           DataFieldAnnotationProperties.class),
 
     /**
+     * The link between an annotation and the matching element, such as a data class, data grain, or glossary term.
+     */
+    ANNOTATION_MATCH_RELATIONSHIP("30173b58-d0ab-4e9c-beba-72adc820d696",
+                                  "AnnotationMatch",
+                                  OpenMetadataWikiPages.MODEL_0610_ANNOTATIONS,
+                                  "f9727e59-ad9e-4d56-8510-38d8910825c9",
+                                  "The link between an annotation and the matching element, such as a data class, data grain, or glossary term.",
+                                  AnnotationMatchProperties.class),
+
+    /**
      * Additional information to augment an annotation.
      */
     ANNOTATION_EXTENSION_RELATIONSHIP("605aaa6d-682e-405c-964b-ca6aaa94be1b",
@@ -5417,7 +5517,7 @@ public enum OpenMetadataType
      */
     ANNOTATION_REVIEW("b893d6fc-642a-454b-beaf-809ee4dd876a",
                       "AnnotationReview",
-                      OpenMetadataWikiPages.MODEL_0610_ANNOTATIONS,
+                      OpenMetadataWikiPages.MODEL_0612_ANNOTATION_REVIEWS,
                       "0b625826-4663-44a0-b524-b04e1eddd7d0",
                       "The results of a stewardship review of an annotation.",
                       AnnotationReviewProperties.class),
@@ -5432,16 +5532,6 @@ public enum OpenMetadataType
                                "32dde7be-5c68-41ea-89f4-31b53fa2e9f2",
                                "A description of the internal structure of an Asset.",
                                SchemaAnalysisAnnotationProperties.class),
-
-    /**
-     * Link between schema analysis annotation and the identified schema type definition.
-     */
-    DISCOVERED_SCHEMA_TYPE_RELATIONSHIP("60f2d263-e24d-4f20-8c0d-b5e24648cd54",
-                                        "DiscoveredSchemaType",
-                                        OpenMetadataWikiPages.MODEL_0615_SCHEMA_EXTRACTION,
-                                        "3be9ad33-e88a-465f-a2a9-db2228eac90c",
-                                        "Link between schema analysis annotation and the identified schema type definition.",
-                                        DiscoveredSchemaTypeProperties.class),
 
     /**
      * Attached data field level annotations.
@@ -5484,24 +5574,24 @@ public enum OpenMetadataType
                            FingerprintAnnotationProperties.class),
 
     /**
-     * An assessment of the match between a data class and the values stored in a data field, or number of data fields, in a resource.
+     * An assessment of the match between a data class and the values stored in a data field, or multiple data fields, in a resource.
      */
     DATA_CLASS_ANNOTATION("0c8a3673-04ef-406f-899d-e88de67f6176",
                           "DataClassAnnotation",
                           OpenMetadataWikiPages.MODEL_0625_DATA_CLASS_DISCOVERY,
                           "d0c467cf-6be0-4bf0-9260-6a5aeeee1e52",
-                          "An assessment of the match between a data class and the values stored in a data field, or number of data fields, in a resource.",
+                          "An assessment of the match between a data class and the values stored in a data field, or multiple data fields, in a resource.",
                           DataClassAnnotationProperties.class),
 
     /**
-     * The link between a data class annotation and the matching data class.
+     * An assessment of the match between a data grain and the values stored in a data row or object of a resource.
      */
-    DATA_CLASS_MATCH_RELATIONSHIP("30173b58-d0ab-4e9c-beba-72adc820d696",
-                                  "DataClassMatch",
-                                  OpenMetadataWikiPages.MODEL_0625_DATA_CLASS_DISCOVERY,
-                                  "f9727e59-ad9e-4d56-8510-38d8910825c9",
-                                  "The link between a data class annotation and the matching data class.",
-                                  DataClassMatchProperties.class),
+    DATA_GRAIN_ANNOTATION("1f49ab97-5d0e-429c-82b8-c147b2fd1508",
+                          "DataGrainAnnotation",
+                          OpenMetadataWikiPages.MODEL_0626_DATA_GRAIN_DISCOVERY,
+                          "b8432a15-942c-456f-9e29-3540a14d5410",
+                          "An assessment of the match between a data grain and the values stored in a data row or object of a resource.",
+                          DataGrainAnnotationProperties.class),
 
     /**
      * A recommendation of likely mappings to Glossary Terms for all or part of an Asset.
@@ -6037,11 +6127,11 @@ public enum OpenMetadataType
      * @param description     description of this type
      * @param beanClass       class of the bean that maps the attributes of the type
      */
-    OpenMetadataType(String   typeGUID,
-                     String   typeName,
-                     String   wikiURL,
-                     String   descriptionGUID,
-                     String   description,
+    OpenMetadataType(String typeGUID,
+                     String typeName,
+                     String wikiURL,
+                     String descriptionGUID,
+                     String description,
                      Class<?> beanClass)
     {
         this.typeGUID        = typeGUID;

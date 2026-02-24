@@ -10,6 +10,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.solutions.Soluti
 import org.odpi.openmetadata.frameworks.openmetadata.properties.solutions.SolutionComponentPortProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.solutions.SolutionCompositionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.solutions.SolutionPortDelegationProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.Objects;
 
@@ -47,6 +48,7 @@ public class RoledRelationshipProperties extends RelationshipBeanProperties
     public RoledRelationshipProperties()
     {
         super();
+        super.typeName = OpenMetadataType.ROLED_RELATIONSHIP.typeName;
     }
 
 

@@ -5,6 +5,7 @@ package org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.LabeledRelationshipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.RelationshipBeanProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
@@ -14,12 +15,12 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
 /**
- * DataClassMatchProperties is used to link an annotation from a data class and identify how closely it matches.
+ * AnnotationMatchProperties is used to link an annotation from a data class and identify how closely it matches.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class DataClassMatchProperties extends RelationshipBeanProperties
+public class AnnotationMatchProperties extends LabeledRelationshipProperties
 {
     private String method = null;
     private int    threshold = 0;
@@ -28,10 +29,10 @@ public class DataClassMatchProperties extends RelationshipBeanProperties
     /**
      * Default constructor used by subclasses
      */
-    public DataClassMatchProperties()
+    public AnnotationMatchProperties()
     {
         super();
-        super.typeName = OpenMetadataType.DATA_CLASS_MATCH_RELATIONSHIP.typeName;
+        super.typeName = OpenMetadataType.ANNOTATION_MATCH_RELATIONSHIP.typeName;
     }
 
 
@@ -40,7 +41,7 @@ public class DataClassMatchProperties extends RelationshipBeanProperties
      *
      * @param template template object to copy.
      */
-    public DataClassMatchProperties(DataClassMatchProperties template)
+    public AnnotationMatchProperties(AnnotationMatchProperties template)
     {
         super(template);
 
@@ -104,7 +105,7 @@ public class DataClassMatchProperties extends RelationshipBeanProperties
     @Override
     public String toString()
     {
-        return "DataClassMatchProperties{" +
+        return "AnnotationMatchProperties{" +
                 "method='" + method + '\'' +
                 ", threshold=" + threshold +
                 "} " + super.toString();
@@ -123,7 +124,7 @@ public class DataClassMatchProperties extends RelationshipBeanProperties
         if (this == objectToCompare) return true;
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         if (!super.equals(objectToCompare)) return false;
-        DataClassMatchProperties that = (DataClassMatchProperties) objectToCompare;
+        AnnotationMatchProperties that = (AnnotationMatchProperties) objectToCompare;
         return threshold == that.threshold && Objects.equals(method, that.method);
     }
 

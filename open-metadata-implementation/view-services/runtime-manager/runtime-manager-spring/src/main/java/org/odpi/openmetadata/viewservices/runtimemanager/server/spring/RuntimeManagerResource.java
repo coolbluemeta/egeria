@@ -727,7 +727,7 @@ public class RuntimeManagerResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  GovernanceEngineException there was a problem detected by the governance engine.
      */
     @GetMapping(path = "/engine-hosts/{serverGUID}/governance-engines/{governanceEngineName}/refresh-config")
@@ -761,7 +761,7 @@ public class RuntimeManagerResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  GovernanceEngineException there was a problem detected by the governance engine.
      */
     @GetMapping(path = "/engine-hosts/{serverGUID}/governance-engines/refresh-config")
@@ -797,7 +797,7 @@ public class RuntimeManagerResource
      *
      * @return properties map or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     @GetMapping(path = "/integration-daemons/{serverGUID}/integration-connectors/{connectorName}/configuration-properties")
@@ -826,7 +826,7 @@ public class RuntimeManagerResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     @PostMapping(path = "/integration-daemons/{serverGUID}/integration-connectors/configuration-properties")
@@ -856,7 +856,7 @@ public class RuntimeManagerResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     @PostMapping(path = "/integration-daemons/{serverGUID}/integration-connectors/{connectorName}/endpoint-network-address")
@@ -887,7 +887,7 @@ public class RuntimeManagerResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     @PostMapping(path = "/integration-daemons/{serverGUID}/integration-connectors/{connectorName}/connection")
@@ -917,7 +917,7 @@ public class RuntimeManagerResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration daemon.
      */
     @PostMapping(path = "/integration-daemons/{serverGUID}/integration-connectors/refresh")
@@ -946,7 +946,7 @@ public class RuntimeManagerResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration daemon.
      */
     @PostMapping(path = "/integration-daemons/{serverGUID}/integration-connectors/restart")
@@ -978,7 +978,7 @@ public class RuntimeManagerResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  IntegrationGroupException there was a problem detected by the integration group.
      */
     @GetMapping(path = "/integration-daemons/{serverGUID}/integration-groups/{integrationGroupName}/refresh-config")

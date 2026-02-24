@@ -60,7 +60,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "createAsset";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -100,7 +100,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -124,7 +124,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "createAssetFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -158,7 +158,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -183,7 +183,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "updateAsset";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog     auditLog = null;
@@ -222,7 +222,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -247,7 +247,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "deleteAsset";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -269,7 +269,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -292,7 +292,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getAssetsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -323,7 +323,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -346,7 +346,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getProcessesByCategory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog      auditLog = null;
@@ -377,7 +377,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -403,7 +403,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getAssetByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -425,7 +425,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -442,13 +442,13 @@ public class AssetMakerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementsResponse findAssets(String            serverName,
-                                                       String            urlMarker,
+    public OpenMetadataRootElementsResponse findAssets(String                  serverName,
+                                                       String                  urlMarker,
                                                        SearchStringRequestBody requestBody)
     {
         final String methodName = "findAssets";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -477,7 +477,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -501,7 +501,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "findProcesses";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog      auditLog = null;
@@ -535,7 +535,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -564,7 +564,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "findInfrastructure";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -593,7 +593,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -616,7 +616,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getInfrastructureByCategory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -645,7 +645,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -672,7 +672,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "deployITAsset";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -709,7 +709,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -737,7 +737,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "unDeployITAsset";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -759,7 +759,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -788,7 +788,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "linkSoftwareCapability";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -825,7 +825,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -853,7 +853,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "detachSoftwareCapability";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -875,7 +875,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -905,7 +905,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "findDataAssets";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -934,7 +934,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -957,7 +957,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getDataAssetsByCategory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -986,7 +986,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1013,7 +1013,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "linkDataSetContent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1050,7 +1050,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1078,7 +1078,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "detachDataSetContent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1100,7 +1100,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1127,7 +1127,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "createAction";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -1162,7 +1162,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1180,7 +1180,7 @@ public class AssetMakerRESTServices extends TokenController
      *
      * @return void or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the catalog target definition.
      */
     public GUIDResponse addActionTarget(String                     serverName,
@@ -1191,7 +1191,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "addActionTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog                    auditLog = null;
@@ -1231,7 +1231,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1256,7 +1256,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "updateActionTargetProperties";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1287,7 +1287,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1304,7 +1304,7 @@ public class AssetMakerRESTServices extends TokenController
      *
      * @return details of the governance service and the asset types it is registered for or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     public OpenMetadataRelationshipResponse getActionTarget(String         serverName,
@@ -1314,7 +1314,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getActionTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRelationshipResponse response = new OpenMetadataRelationshipResponse();
         AuditLog                         auditLog = null;
@@ -1336,7 +1336,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1351,17 +1351,17 @@ public class AssetMakerRESTServices extends TokenController
      *
      * @return list of unique identifiers or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
-    public OpenMetadataRootElementsResponse getActionTargets(String             serverName,
-                                                             String             urlMarker,
-                                                             String             integrationConnectorGUID,
+    public OpenMetadataRootElementsResponse getActionTargets(String                    serverName,
+                                                             String                    urlMarker,
+                                                             String                    integrationConnectorGUID,
                                                              ActivityStatusRequestBody requestBody)
     {
         final String methodName = "getActionTargets";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1390,7 +1390,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1416,7 +1416,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getActionsForActionTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog      auditLog = null;
@@ -1450,7 +1450,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1478,7 +1478,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "assignAction";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1510,7 +1510,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1538,7 +1538,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "reassignAction";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1570,7 +1570,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1598,7 +1598,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "unassignAction";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1619,7 +1619,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1645,7 +1645,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getActionsForSponsor";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog      auditLog = null;
@@ -1679,7 +1679,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1706,7 +1706,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getActionsFromRequester";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog      auditLog = null;
@@ -1740,7 +1740,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1766,7 +1766,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getAssignedActions";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog      auditLog = null;
@@ -1800,7 +1800,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1822,18 +1822,18 @@ public class AssetMakerRESTServices extends TokenController
      *
      * @return void or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the catalog target definition.
      */
-    public GUIDResponse addCatalogTarget(String                  serverName,
-                                         String                  urlMarker,
-                                         String                  integrationConnectorGUID,
-                                         String                  metadataElementGUID,
+    public GUIDResponse addCatalogTarget(String                     serverName,
+                                         String                     urlMarker,
+                                         String                     integrationConnectorGUID,
+                                         String                     metadataElementGUID,
                                          NewRelationshipRequestBody requestBody)
     {
         final String methodName = "addCatalogTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog                    auditLog = null;
@@ -1873,7 +1873,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1888,7 +1888,7 @@ public class AssetMakerRESTServices extends TokenController
      *
      * @return void or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the catalog target definition.
      */
     public VoidResponse updateCatalogTarget(String                        serverName,
@@ -1898,7 +1898,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "updateCatalogTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog                    auditLog = null;
@@ -1934,7 +1934,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1949,17 +1949,17 @@ public class AssetMakerRESTServices extends TokenController
      *
      * @return details of the governance service and the asset types it is registered for or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
-    public OpenMetadataRelationshipResponse getCatalogTarget(String serverName,
-                                                             String urlMarker,
-                                                             String relationshipGUID,
+    public OpenMetadataRelationshipResponse getCatalogTarget(String         serverName,
+                                                             String         urlMarker,
+                                                             String         relationshipGUID,
                                                              GetRequestBody requestBody)
     {
         final String methodName = "getCatalogTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRelationshipResponse response = new OpenMetadataRelationshipResponse();
         AuditLog                         auditLog = null;
@@ -1981,7 +1981,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1996,7 +1996,7 @@ public class AssetMakerRESTServices extends TokenController
      *
      * @return list of unique identifiers or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     public OpenMetadataRootElementsResponse getCatalogTargets(String             serverName,
@@ -2006,7 +2006,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "getCatalogTargets";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -2028,7 +2028,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2043,7 +2043,7 @@ public class AssetMakerRESTServices extends TokenController
      *
      * @return void or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     public VoidResponse removeCatalogTarget(String                        serverName,
@@ -2053,7 +2053,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "removeCatalogTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog                    auditLog = null;
@@ -2075,7 +2075,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2091,7 +2091,7 @@ public class AssetMakerRESTServices extends TokenController
      *
      * @return void or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     public VoidResponse removeCatalogTarget(String                        serverName,
@@ -2102,7 +2102,7 @@ public class AssetMakerRESTServices extends TokenController
     {
         final String methodName = "removeCatalogTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog                    auditLog = null;
@@ -2124,7 +2124,7 @@ public class AssetMakerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 

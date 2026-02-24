@@ -27,6 +27,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.contextevents.Co
 import org.odpi.openmetadata.frameworks.openmetadata.properties.contextevents.DependentContextEventProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.contextevents.RelatedContextEventProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.reports.ConnectorActivityReportWriter;
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestId;
 import org.odpi.openmetadata.frameworks.openmetadata.search.ElementProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.NewElementProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.PropertyHelper;
@@ -69,6 +70,7 @@ public class ConnectorContextBase
 
     protected final FileClassifier       fileClassifier;
     private   final FilesListenerManager listenerManager;
+    private final   RequestId            requestId = new RequestId();
 
 
     protected final OpenMetadataStore              openMetadataStore;
@@ -86,7 +88,7 @@ public class ConnectorContextBase
     private final   ContactDetailsClient           contactDetailsClient;
     private final   ContextEventClient             contextEventClient;
     private final   ContributionRecordClient       contributionRecordClient;
-    private final   DataClassClient                dataClassClient;
+    private final   DataValueSpecificationClient   dataValueSpecificationClient;
     private final   DataFieldClient                dataFieldClient;
     private final   DataStructureClient            dataStructureClient;
     private final   EndpointClient                 endpointClient;
@@ -334,16 +336,16 @@ public class ConnectorContextBase
                                                                      auditLog,
                                                                      maxPageSize);
 
-        this.dataClassClient = new DataClassClient(this,
-                                                   localServerName,
-                                                   localServiceName,
-                                                   connectorUserId,
-                                                   connectorGUID,
-                                                   externalSourceGUID,
-                                                   externalSourceName,
-                                                   openMetadataClient,
-                                                   auditLog,
-                                                   maxPageSize);
+        this.dataValueSpecificationClient = new DataValueSpecificationClient(this,
+                                                                             localServerName,
+                                                                             localServiceName,
+                                                                             connectorUserId,
+                                                                             connectorGUID,
+                                                                             externalSourceGUID,
+                                                                             externalSourceName,
+                                                                             openMetadataClient,
+                                                                             auditLog,
+                                                                             maxPageSize);
 
         this.dataFieldClient = new DataFieldClient(this,
                                                    localServerName,
@@ -671,7 +673,7 @@ public class ConnectorContextBase
 
     /**
      * Return the current release of egeria that is running.  This can be used to set up the versionIdentifier attribute
-     * or other release related values.
+     * or other release-related values.
      *
      * @return string release name
      */
@@ -679,6 +681,23 @@ public class ConnectorContextBase
     {
         return egeriaRelease;
     }
+
+
+
+    /* ========================================================
+     * Return the current requestId for this thread
+     */
+
+    /**
+     * Return the current request id for this thread.
+     *
+     * @return string GUID
+     */
+    public String getRequestId()
+    {
+        return requestId.getRequestId();
+    }
+
 
 
     /* ========================================================
@@ -973,9 +992,9 @@ public class ConnectorContextBase
      *
      * @return connector context client
      */
-    public DataClassClient getDataClassClient()
+    public DataValueSpecificationClient getDataValueSpecificationClient()
     {
-        return dataClassClient;
+        return dataValueSpecificationClient;
     }
 
 

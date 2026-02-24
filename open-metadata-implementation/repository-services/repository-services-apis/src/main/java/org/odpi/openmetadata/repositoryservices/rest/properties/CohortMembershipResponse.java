@@ -23,8 +23,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class CohortMembershipResponse extends OMRSAPIResponse
 {
-    private static final long    serialVersionUID = 1L;
-
     private MemberRegistration cohortMember = null;
 
 
@@ -102,7 +100,7 @@ public class CohortMembershipResponse extends OMRSAPIResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof CohortMembershipResponse))
+        if (!(objectToCompare instanceof CohortMembershipResponse that))
         {
             return false;
         }
@@ -110,8 +108,6 @@ public class CohortMembershipResponse extends OMRSAPIResponse
         {
             return false;
         }
-        CohortMembershipResponse
-                that = (CohortMembershipResponse) objectToCompare;
         return Objects.equals(getCohortMember(), that.getCohortMember());
     }
 
@@ -124,7 +120,6 @@ public class CohortMembershipResponse extends OMRSAPIResponse
     @Override
     public int hashCode()
     {
-
         return Objects.hash(super.hashCode(), getCohortMember());
     }
 }

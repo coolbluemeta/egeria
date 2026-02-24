@@ -152,7 +152,7 @@ public class EngineHostClient
      * @param governanceEngineName qualifiedName of the governance engine to target
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the governance engine.
      */
     public  void refreshConfig(String governanceEngineName) throws InvalidParameterException,
@@ -180,7 +180,7 @@ public class EngineHostClient
      * is in use.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the governance engine.
      */
     public  void refreshConfig() throws InvalidParameterException,

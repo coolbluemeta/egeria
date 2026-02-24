@@ -51,7 +51,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Create a new glossary term.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -119,7 +119,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a glossary term.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID       unique identifier of the glossary term (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -180,7 +180,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
      * Move a glossary term from one glossary to another.  This involves anchoring to the new glossary and
      * changing the term anchor relationship
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param glossaryTermGUID       unique identifier of the glossary term
      * @param glossaryGUID           unique identifier of the location
      * @param deleteOptions  options to control access to open metadata
@@ -224,7 +224,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Link two terms together using a specialist relationship.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param relationshipTypeName name of the type of relationship to create
      * @param glossaryTermOneGUID unique identifier of the glossary term at end 1
      * @param glossaryTermTwoGUID unique identifier of the glossary term at end 2
@@ -265,7 +265,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Update the relationship properties for the two terms.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param relationshipTypeName name of the type of relationship to create
      * @param glossaryTermOneGUID unique identifier of the glossary term at end 1
      * @param glossaryTermTwoGUID unique identifier of the glossary term at end 2
@@ -306,7 +306,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Remove the relationship between two terms.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param relationshipTypeName name of the type of relationship to create
      * @param glossaryTermOneGUID unique identifier of the glossary term at end 1
      * @param glossaryTermTwoGUID unique identifier of the glossary term at end 2
@@ -345,7 +345,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Classify the glossary term to indicate that it describes an abstract concept.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID    unique identifier of the term.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -379,7 +379,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Remove the abstract concept designation from the glossary term.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID    unique identifier of the term.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -408,7 +408,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Classify the glossary term to indicate that it describes a data value.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID    unique identifier of the term.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -416,12 +416,12 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
      * @throws PropertyServerException    a problem retrieving information from the property server(s).
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public void setTermAsDataValue(String                    userId,
-                                   String                    glossaryTermGUID,
-                                   DataValueProperties       properties,
-                                   MetadataSourceOptions     metadataSourceOptions) throws InvalidParameterException,
-                                                                                           PropertyServerException,
-                                                                                           UserNotAuthorizedException
+    public void setTermAsDataValue(String                     userId,
+                                   String                     glossaryTermGUID,
+                                   DataValueMeaningProperties properties,
+                                   MetadataSourceOptions      metadataSourceOptions) throws InvalidParameterException,
+                                                                                            PropertyServerException,
+                                                                                            UserNotAuthorizedException
     {
         final String methodName = "setTermAsDataValue";
         final String guidParameterName = "glossaryTermGUID";
@@ -433,7 +433,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
 
         openMetadataClient.classifyMetadataElementInStore(userId,
                                                           glossaryTermGUID,
-                                                          OpenMetadataType.DATA_VALUE_CLASSIFICATION.typeName,
+                                                          OpenMetadataType.DATA_VALUE_MEANING_CLASSIFICATION.typeName,
                                                           metadataSourceOptions,
                                                           classificationBuilder.getNewElementProperties(properties));
     }
@@ -442,7 +442,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Remove the data value designation from the glossary term.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID    unique identifier of the term.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -463,7 +463,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
 
         openMetadataClient.declassifyMetadataElementInStore(userId,
                                                             glossaryTermGUID,
-                                                            OpenMetadataType.DATA_VALUE_CLASSIFICATION.typeName,
+                                                            OpenMetadataType.DATA_VALUE_MEANING_CLASSIFICATION.typeName,
                                                             metadataSourceOptions);
     }
 
@@ -471,7 +471,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Classify the glossary term to indicate that it describes an activity.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID    unique identifier of the term.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -505,7 +505,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Remove the activity designation from the glossary term.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID    unique identifier of the term.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -534,7 +534,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Classify the glossary term to indicate that it describes a context.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID    unique identifier of the term.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -568,7 +568,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Remove the context definition designation from the glossary term.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID    unique identifier of the term.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -597,7 +597,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Delete a glossary term.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryTermGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -623,7 +623,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of glossary terms with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -650,7 +650,7 @@ public class GlossaryTermHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific glossary term.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param glossaryTermGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

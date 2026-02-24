@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.io.Serializable;
-
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
@@ -16,14 +14,14 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
  * against the properties supplied on the search request.
  * <ul>
  *     <li>ALL means all properties must match.</li>
- *     <li>ANY means a match on any of properties is good enough.</li>
+ *     <li>ANY means a match on any of the properties is good enough.</li>
  *     <li>NONE means return instances where none of the supplied properties match.</li>
  * </ul>
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public enum MatchCriteria implements Serializable
+public enum MatchCriteria
 {
     /**
      * All - All properties must match.
@@ -40,7 +38,6 @@ public enum MatchCriteria implements Serializable
      */
     NONE (2, "None", "Return instances where none of the supplied properties match.");
 
-    private static final long serialVersionUID = 1L;
 
     private final int     ordinal;
     private final String  name;

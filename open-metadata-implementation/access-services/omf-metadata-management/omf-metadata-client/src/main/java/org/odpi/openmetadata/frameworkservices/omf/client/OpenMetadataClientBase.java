@@ -1215,6 +1215,10 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
      * @param userId caller's userId
      * @param relationshipTypeName relationship's type.  Null means all types
      *                             (but may be slow so not recommended).
+     * @param relationshipSubtypeGUIDs optional list of the GUIDs for subtypes of the requested type to include in the search results.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param searchProperties Optional list of relationship property conditions to match.
      * @param queryOptions multiple options to control the query
      *
@@ -1227,10 +1231,14 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
     @Override
     public OpenMetadataRelationshipList findRelationshipsBetweenMetadataElements(String           userId,
                                                                                  String           relationshipTypeName,
+                                                                                 List<String>     relationshipSubtypeGUIDs,
+                                                                                 List<String>     end1EntityGUIDs,
+                                                                                 List<String>     end2EntityGUIDs,
+                                                                                 EndMatchCriteria endMatchCriteria,
                                                                                  SearchProperties searchProperties,
                                                                                  QueryOptions     queryOptions) throws InvalidParameterException,
-                                                                                                                   UserNotAuthorizedException,
-                                                                                                                   PropertyServerException
+                                                                                                                       UserNotAuthorizedException,
+                                                                                                                       PropertyServerException
     {
         final String methodName = "findRelationshipsBetweenMetadataElements";
         final String urlTemplate = serverPlatformURLRoot + "/servers/{0}/open-metadata/access-services/open-metadata-store/users/{1}/relationships/by-search-conditions";
@@ -1240,7 +1248,11 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
         FindRelationshipRequestBody requestBody = new FindRelationshipRequestBody(queryOptions);
 
         requestBody.setRelationshipTypeName(relationshipTypeName);
+        requestBody.setRelationshipSubtypeGUIDs(relationshipSubtypeGUIDs);
         requestBody.setSearchProperties(searchProperties);
+        requestBody.setEnd1EntityGUIDs(end1EntityGUIDs);
+        requestBody.setEnd2EntityGUIDs(end2EntityGUIDs);
+        requestBody.setEndMatchCriteria(endMatchCriteria);
 
         OpenMetadataRelationshipListResponse restResult = restClient.callOpenMetadataRelationshipListPostRESTCall(methodName,
                                                                                                                   urlTemplate,

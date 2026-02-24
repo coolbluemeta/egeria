@@ -2439,7 +2439,7 @@ public class SimpleCatalogArchiveHelper
      * @param description description about the data field
      * @param versionIdentifier version
      * @param dataType logical data type
-     * @param namespace type of data field
+     * @param namespacePath qualifying path for name
      * @param additionalProperties any other properties
      * @param otherClassifications additional classifications for the data field (eg Template)
      * @param extendedProperties additional properties defined in the subtype
@@ -2456,7 +2456,7 @@ public class SimpleCatalogArchiveHelper
                                String               displayName,
                                String               description,
                                String               versionIdentifier,
-                               String               namespace,
+                               String               namespacePath,
                                String               dataType,
                                Map<String, String>  additionalProperties,
                                List<Classification> otherClassifications,
@@ -2498,7 +2498,7 @@ public class SimpleCatalogArchiveHelper
         InstanceProperties properties = archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.QUALIFIED_NAME.name, qualifiedName, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, displayName, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
-        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.NAMESPACE.name, namespace, methodName);
+        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.NAMESPACE_PATH.name, namespacePath, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DATA_TYPE.name, dataType, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.VERSION_IDENTIFIER.name, versionIdentifier, methodName);
         properties = archiveHelper.addStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ADDITIONAL_PROPERTIES.name, additionalProperties, methodName);
@@ -2594,7 +2594,7 @@ public class SimpleCatalogArchiveHelper
      * @param displayName display name for the data structure
      * @param description description about the data structure
      * @param versionIdentifier version
-     * @param namespace type of data structure
+     * @param namespacePath qualifying path name for data structure
      * @param additionalProperties any other properties
      * @param otherClassifications additional classifications for the data structure (eg Template)
      * @param extendedProperties additional properties defined in the subtype
@@ -2610,7 +2610,7 @@ public class SimpleCatalogArchiveHelper
                                    String               displayName,
                                    String               description,
                                    String               versionIdentifier,
-                                   String               namespace,
+                                   String               namespacePath,
                                    Map<String, String>  additionalProperties,
                                    List<Classification> otherClassifications,
                                    Map<String, Object>  extendedProperties)
@@ -2644,7 +2644,7 @@ public class SimpleCatalogArchiveHelper
         InstanceProperties properties = archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.QUALIFIED_NAME.name, qualifiedName, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, displayName, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
-        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.NAMESPACE.name, namespace, methodName);
+        properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.NAMESPACE_PATH.name, namespacePath, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.VERSION_IDENTIFIER.name, versionIdentifier, methodName);
         properties = archiveHelper.addStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ADDITIONAL_PROPERTIES.name, additionalProperties, methodName);
         properties = archiveHelper.addPropertyMapToInstance(archiveRootName, properties, extendedProperties, methodName);
@@ -6582,7 +6582,7 @@ public class SimpleCatalogArchiveHelper
      * @param category category of valid value
      * @param identifier identifier for valid value
      * @param displayName display displayName of the valid value
-     * @param namespace namespace of the valid value
+     * @param namespacePath namespace of the valid value
      * @param scope short description of the valid value
      * @param dataType type for preferred value
      * @param description description of the valid value
@@ -6606,7 +6606,7 @@ public class SimpleCatalogArchiveHelper
                                 String              identifier,
                                 String              displayName,
                                 String              description,
-                                String              namespace,
+                                String              namespacePath,
                                 String              usage,
                                 String              dataType,
                                 String              scope,
@@ -6636,7 +6636,7 @@ public class SimpleCatalogArchiveHelper
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, displayName, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.VERSION_IDENTIFIER.name, versionName, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
-            properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.NAMESPACE.name, namespace, methodName);
+            properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.NAMESPACE_PATH.name, namespacePath, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.USAGE.name, usage, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DATA_TYPE.name, dataType, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.SCOPE.name, scope, methodName);

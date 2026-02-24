@@ -22,8 +22,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ClassificationRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private ClassificationOrigin classificationOrigin     = null;
     private String               classificationOriginGUID = null;
     private InstanceProperties   classificationProperties = null;
@@ -184,11 +182,14 @@ public class ClassificationRequest extends OMRSAPIRequest
     @Override
     public String toString()
     {
-        return "InstancePropertiesRequest{" +
-                "instanceProperties=" + classificationProperties +
-                '}';
+        return "ClassificationRequest{" +
+                "classificationOrigin=" + classificationOrigin +
+                ", classificationOriginGUID='" + classificationOriginGUID + '\'' +
+                ", classificationProperties=" + classificationProperties +
+                ", metadataCollectionId='" + metadataCollectionId + '\'' +
+                ", metadataCollectionName='" + metadataCollectionName + '\'' +
+                "} " + super.toString();
     }
-
 
     /**
      * Compare the values of the supplied object with those stored in the current object.
@@ -199,19 +200,11 @@ public class ClassificationRequest extends OMRSAPIRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (!(objectToCompare instanceof ClassificationRequest))
-        {
-            return false;
-        }
-        ClassificationRequest
-                that = (ClassificationRequest) objectToCompare;
-        return Objects.equals(getClassificationProperties(), that.getClassificationProperties());
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        ClassificationRequest that = (ClassificationRequest) objectToCompare;
+        return classificationOrigin == that.classificationOrigin && Objects.equals(classificationOriginGUID, that.classificationOriginGUID) && Objects.equals(classificationProperties, that.classificationProperties) && Objects.equals(metadataCollectionId, that.metadataCollectionId) && Objects.equals(metadataCollectionName, that.metadataCollectionName);
     }
-
 
     /**
      * Create a hash code for this element type.
@@ -221,6 +214,6 @@ public class ClassificationRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(getClassificationProperties());
+        return Objects.hash(super.hashCode(), classificationOrigin, classificationOriginGUID, classificationProperties, metadataCollectionId, metadataCollectionName);
     }
 }

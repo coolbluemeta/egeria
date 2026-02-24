@@ -51,7 +51,7 @@ public class CommunityHandler extends OpenMetadataHandlerBase
     /**
      * Create a new community.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -119,7 +119,7 @@ public class CommunityHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a community.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param communityGUID       unique identifier of the community (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -150,7 +150,7 @@ public class CommunityHandler extends OpenMetadataHandlerBase
     /**
      * Delete a community.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param communityGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -176,7 +176,7 @@ public class CommunityHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of communities with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -207,7 +207,7 @@ public class CommunityHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific community.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param communityGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

@@ -3421,6 +3421,9 @@ public class TestSupportedRelationshipSearch extends RepositoryConformanceTestCa
                 result = metadataCollection.findRelationships(workPad.getLocalServerUserId(),
                                                               relationshipDef.getGUID(),
                                                               null,  // no subtype GUID filtering
+                                                              null,
+                                                              null,
+                                                              null,
                                                               searchProperties1,
                                                               0,
                                                               null,
@@ -3921,6 +3924,9 @@ public class TestSupportedRelationshipSearch extends RepositoryConformanceTestCa
             result = metadataCollection.findRelationships(workPad.getLocalServerUserId(),
                                                           relationshipDef.getGUID(),
                                                           null,  // no subtype GUID filtering
+                                                          null,
+                                                          null,
+                                                          null,
                                                           null,
                                                           0,
                                                           null,

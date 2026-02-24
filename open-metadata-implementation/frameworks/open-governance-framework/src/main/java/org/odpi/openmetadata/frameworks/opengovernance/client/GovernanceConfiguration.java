@@ -45,7 +45,7 @@ public abstract class GovernanceConfiguration
      * @return properties from the governance engine definition.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the governance engine definition.
      */
     public abstract GovernanceEngineElement getGovernanceEngineByName(String    userId,
@@ -63,7 +63,7 @@ public abstract class GovernanceConfiguration
      * @return details of the governance service and the asset types it is registered for.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the governance service and/or governance engine definitions.
      */
     public abstract RegisteredGovernanceServiceElement getRegisteredGovernanceService(String userId,
@@ -84,7 +84,7 @@ public abstract class GovernanceConfiguration
      * @return list of unique identifiers
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the governance service and/or governance engine definitions.
      */
     public abstract List<RegisteredGovernanceServiceElement>  getRegisteredGovernanceServices(String userId,
@@ -105,7 +105,7 @@ public abstract class GovernanceConfiguration
      * @return properties from the integration group definition.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration group definition.
      */
     public abstract IntegrationGroupElement getIntegrationGroupByName(String    userId,
@@ -122,7 +122,7 @@ public abstract class GovernanceConfiguration
      * @return list of integration group unique identifiers (guids)
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector and/or integration group definitions.
      */
     public abstract List<String>  getIntegrationConnectorRegistrations(String   userId,
@@ -140,7 +140,7 @@ public abstract class GovernanceConfiguration
      * @return details of the integration connector and the asset types it is registered for.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector and/or integration group definitions.
      */
     public abstract RegisteredIntegrationConnectorElement getRegisteredIntegrationConnector(String userId,
@@ -161,7 +161,7 @@ public abstract class GovernanceConfiguration
      * @return list of unique identifiers
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector and/or integration group definitions.
      */
     public abstract List<RegisteredIntegrationConnectorElement>  getRegisteredIntegrationConnectors(String userId,

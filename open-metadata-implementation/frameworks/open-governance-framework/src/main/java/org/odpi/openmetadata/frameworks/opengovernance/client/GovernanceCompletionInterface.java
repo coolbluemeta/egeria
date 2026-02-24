@@ -27,7 +27,7 @@ public interface GovernanceCompletionInterface
      * @param activityStatus new status enum
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     void updateEngineActionStatus(String             userId,
@@ -43,12 +43,12 @@ public interface GovernanceCompletionInterface
      *
      * @param userId userId of caller
      * @param governanceEngineGUID unique identifier of governance engine
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      * @return list of engine action elements
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     List<EngineActionElement> getActiveClaimedEngineActions(String userId,
@@ -66,7 +66,7 @@ public interface GovernanceCompletionInterface
      * @param engineActionGUID identifier of the engine action request.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     void claimEngineAction(String userId,

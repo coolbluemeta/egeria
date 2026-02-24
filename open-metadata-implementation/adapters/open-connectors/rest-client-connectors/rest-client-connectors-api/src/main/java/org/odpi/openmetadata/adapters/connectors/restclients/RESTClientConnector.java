@@ -17,7 +17,7 @@ public abstract class RESTClientConnector extends ConnectorBase implements RESTC
                                                                            SecureConnectorExtension,
                                                                            AuditLoggingComponent
 {
-    protected AuditLog                  auditLog = null;
+    protected AuditLog auditLog = null;
 
     /**
      * Default constructor

@@ -52,7 +52,7 @@ public class MetadataRepositoryCohortHandler extends OpenMetadataHandlerBase
     /**
      * Create a new open metadata repository cohort.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -120,7 +120,7 @@ public class MetadataRepositoryCohortHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of an open metadata repository cohort.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param metadataRepositoryCohortGUID       unique identifier of the open metadata repository cohort (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -151,7 +151,7 @@ public class MetadataRepositoryCohortHandler extends OpenMetadataHandlerBase
     /**
      * Attach an open metadata cohort to a cohort member.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param metadataRepositoryCohortGUID             unique identifier of the cohort
      * @param cohortMemberGUID            unique identifier of the member
      * @param makeAnchorOptions  options to control access to open metadata
@@ -188,7 +188,7 @@ public class MetadataRepositoryCohortHandler extends OpenMetadataHandlerBase
     /**
      * Detach an open metadata cohort from a cohort member.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param metadataRepositoryCohortGUID             unique identifier of the cohort
      * @param cohortMemberGUID            unique identifier of the member
      * @param deleteOptions  options to control access to open metadata
@@ -223,7 +223,7 @@ public class MetadataRepositoryCohortHandler extends OpenMetadataHandlerBase
     /**
      * Delete an open metadata repository cohort.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param metadataRepositoryCohortGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -249,7 +249,7 @@ public class MetadataRepositoryCohortHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of open metadata repository cohorts with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -280,7 +280,7 @@ public class MetadataRepositoryCohortHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific open metadata repository cohort.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param metadataRepositoryCohortGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

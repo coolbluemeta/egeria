@@ -87,7 +87,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Create a new governance definition.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param properties                   properties for the new element.
      * @param parentRelationshipProperties properties to include in parent relationship
      * @return unique identifier of the newly created element
@@ -153,7 +153,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a governance definition.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param governanceDefinitionGUID      unique identifier of the governance definition (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -184,7 +184,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach two peer governance definitions.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param governanceDefinitionOneGUID unique identifier of the first governance definition
      * @param governanceDefinitionTwoGUID unique identifier of the second governance definition
      * @param relationshipTypeName name of the relationship to use
@@ -223,7 +223,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a governance definition from one of its peers.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param governanceDefinitionOneGUID unique identifier of the first governance definition
      * @param governanceDefinitionTwoGUID unique identifier of the second governance definition
      * @param relationshipTypeName name of the relationship to use
@@ -260,7 +260,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a supporting governance definition.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param governanceDefinitionOneGUID unique identifier of the parent governance definition
      * @param governanceDefinitionTwoGUID unique identifier of the child governance definition
      * @param relationshipTypeName name of the relationship to use
@@ -300,7 +300,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a governance definition from a supporting governance definition.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param governanceDefinitionOneGUID unique identifier of the parent governance definition
      * @param governanceDefinitionTwoGUID unique identifier of the child governance definition
      * @param relationshipTypeName name of the relationship to use
@@ -401,7 +401,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach an actor to an element that describes its scope.
      *
-     * @param userId                        userId of user making request
+     * @param userId                        userId of the user making the request
      * @param scopeElementGUID            unique identifier of the element
      * @param actorGUID unique identifier of the actor
      * @param makeAnchorOptions         options to control access to open metadata
@@ -438,7 +438,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach an actor from the element that describes its scope.
      *
-     * @param userId                      userId of user making request.
+     * @param userId                      userId of the user making the request.
      * @param scopeElementGUID            unique identifier of the element
      * @param actorGUID                   unique identifier of the actor
      * @param deleteOptions               options to control access to open metadata
@@ -473,7 +473,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a monitored resource to a notification type.
      *
-     * @param userId                        userId of user making request
+     * @param userId                        userId of the user making the request
      * @param notificationTypeGUID            unique identifier of the notification type
      * @param elementGUID             unique identifier of the element to monitor
      * @param makeAnchorOptions         options to control access to open metadata
@@ -510,7 +510,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a monitored resource from a notification type.
      *
-     * @param userId                      userId of user making request.
+     * @param userId                      userId of the user making the request.
      * @param notificationTypeGUID            unique identifier of the notification type
      * @param elementGUID             unique identifier of the element to monitor
      * @param deleteOptions               options to control access to open metadata
@@ -545,7 +545,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach subscriber to a notification type.
      *
-     * @param userId                        userId of user making request
+     * @param userId                        userId of the user making the request
      * @param notificationTypeGUID            unique identifier of the notification type
      * @param elementGUID             unique identifier of the subscriber element
      * @param makeAnchorOptions         options to control access to open metadata
@@ -582,7 +582,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a subscriber from a notification type.
      *
-     * @param userId                      userId of user making request.
+     * @param userId                      userId of the user making the request.
      * @param notificationTypeGUID            unique identifier of the notification type
      * @param elementGUID             unique identifier of the subscriber element
      * @param deleteOptions               options to control access to open metadata
@@ -617,7 +617,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a governance metric to an asset that represents the data store where the measurements are located.
      *
-     * @param userId                        userId of user making request
+     * @param userId                        userId of the user making the request
      * @param governanceMetricGUID            unique identifier of the metric
      * @param dataSourceGUID unique identifier of the asset
      * @param makeAnchorOptions         options to control access to open metadata
@@ -654,7 +654,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a governance metric from an asset that represents the data store where the measurements are located.
      *
-     * @param userId                      userId of user making request.
+     * @param userId                      userId of the user making the request.
      * @param governanceMetricGUID            unique identifier of the metric
      * @param dataSourceGUID                   unique identifier of the asset
      * @param deleteOptions               options to control access to open metadata
@@ -689,7 +689,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach governance zones in a hierarchy.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param governanceZoneGUID        unique identifier of the parent
      * @param nestedGovernanceZoneGUID             unique identifier of the actor profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -726,7 +726,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach governance zone from a hierarchical relationship.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param governanceZoneGUID       unique identifier of the parent actor profile
      * @param nestedGovernanceZoneGUID            unique identifier of the nested actor profile
      * @param deleteOptions  options to control access to open metadata
@@ -761,7 +761,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Link subject area definitions in a hierarchy.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param subjectAreaGUID        unique identifier of the parent
      * @param nestedSubjectAreaGUID             unique identifier of the actor profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -798,7 +798,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach subject area definitions from their hierarchical relationship.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param subjectAreaGUID       unique identifier of the parent actor profile
      * @param nestedSubjectAreaGUID            unique identifier of the nested actor profile
      * @param deleteOptions  options to control access to open metadata
@@ -833,7 +833,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Link a governance action to the element it is to work on (action target).
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param governanceActionGUID        unique identifier of the governance action
      * @param elementGUID             unique identifier of the target
      * @param makeAnchorOptions  options to control access to open metadata
@@ -870,7 +870,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a governance action from the element it is to work on (action target).
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param governanceActionGUID        unique identifier of the governance action
      * @param elementGUID             unique identifier of the target
      * @param deleteOptions  options to control access to open metadata
@@ -906,7 +906,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Link a governance action type to the governance engine that it is to call.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param governanceActionTypeGUID        unique identifier of the governance action type
      * @param governanceEngineGUID             unique identifier of the governance engine to call
      * @param makeAnchorOptions  options to control access to open metadata
@@ -943,7 +943,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a governance action type from the governance engine that it is to call.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param governanceActionTypeGUID        unique identifier of the governance action type
      * @param governanceEngineGUID             unique identifier of the governance engine to call
      * @param deleteOptions  options to control access to open metadata
@@ -979,7 +979,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Link a governance action process to the first step in the process.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param governanceActionProcessGUID        unique identifier of the governance action process
      * @param firstProcessStepGUID             unique identifier of the first step in the process
      * @param makeAnchorOptions  options to control access to open metadata
@@ -1016,7 +1016,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a governance action process from the first step in the process.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param governanceActionProcessGUID        unique identifier of the governance action process
      * @param firstProcessStepGUID             unique identifier of the first step in the process
      * @param deleteOptions  options to control access to open metadata
@@ -1284,7 +1284,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Delete a governance definition.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param governanceDefinitionGUID      unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1310,7 +1310,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of governance definitions with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -1360,7 +1360,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific governance definition.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param governanceDefinitionGUID      unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -1383,7 +1383,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a design object such as a solution component or governance definition to its implementation via the ImplementedBy relationship.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param designGUID              unique identifier of the  governance definition or solution component etc
      * @param implementationGUID      unique identifier of the implementation
      * @param makeAnchorOptions  options to control access to open metadata
@@ -1420,7 +1420,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a design object such as a solution component or governance definition from its implementation.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param designGUID             unique identifier of the  governance definition, solution component etc
      * @param implementationGUID     unique identifier of the implementation
      * @param deleteOptions  options to control access to open metadata
@@ -1455,7 +1455,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a design object such as a solution component or governance definition to one of its implementation resources via the ImplementationResource relationship.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param designGUID              unique identifier of the  governance definition or solution component etc
      * @param implementationResourceGUID      unique identifier of the implementation
      * @param relationshipProperties  additional properties for the relationship.
@@ -1492,7 +1492,7 @@ public class GovernanceDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a design object such as a solution component or governance definition from one of its implementation resources.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param designGUID             unique identifier of the  governance definition, solution component etc
      * @param implementationResourceGUID     unique identifier of the implementation
      * @param deleteOptions  options to control access to open metadata

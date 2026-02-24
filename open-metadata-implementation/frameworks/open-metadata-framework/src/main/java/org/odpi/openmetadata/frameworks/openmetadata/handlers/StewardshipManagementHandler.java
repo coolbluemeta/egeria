@@ -2039,7 +2039,7 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
     /**
      * Attach an actor to an element.
      *
-     * @param userId                        userId of user making request
+     * @param userId                        userId of the user making the request
      * @param elementGUID            unique identifier of the element (project, product, etc.)
      * @param actorGUID unique identifier of the actor
      * @param makeAnchorOptions         options to control access to open metadata
@@ -2076,7 +2076,7 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
     /**
      * Detach an actor from an element.
      *
-     * @param userId                    userId of user making request.
+     * @param userId                    userId of the user making the request.
      * @param elementGUID            unique identifier of the element (project, product, etc.)
      * @param actorGUID unique identifier of the actor
      * @param deleteOptions             options to control access to open metadata
@@ -2767,6 +2767,10 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
     {
         OpenMetadataRelationshipList relationshipList = openMetadataClient.findRelationshipsBetweenMetadataElements(userId,
                                                                                                                     relationshipTypeName,
+                                                                                                                    null,
+                                                                                                                    null,
+                                                                                                                    null,
+                                                                                                                    null,
                                                                                                                     propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, PropertyComparisonOperator.EQ),
                                                                                                                     queryOptions);
 
@@ -2815,6 +2819,10 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
 
         OpenMetadataRelationshipList relationshipList = openMetadataClient.findRelationshipsBetweenMetadataElements(userId,
                                                                                                                     relationshipTypeName,
+                                                                                                                    null,
+                                                                                                                    null,
+                                                                                                                    null,
+                                                                                                                    null,
                                                                                                                     propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, PropertyComparisonOperator.LIKE),
                                                                                                                     queryOptions);
 
@@ -3012,6 +3020,10 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
 
         OpenMetadataRelationshipList openMetadataRelationships = openMetadataClient.findRelationshipsBetweenMetadataElements(userId,
                                                                                                                              relationshipTypeName,
+                                                                                                                             null,
+                                                                                                                             null,
+                                                                                                                             null,
+                                                                                                                             null,
                                                                                                                              null,
                                                                                                                              queryOptions);
 

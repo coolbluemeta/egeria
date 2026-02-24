@@ -883,6 +883,10 @@ public class MermaidGraphBuilderBase
         {
             return VisualStyle.HOME_COLLECTION;
         }
+        else if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.FOLIO_COLLECTION.typeName))
+        {
+            return VisualStyle.FOLIO_COLLECTION;
+        }
         else if (propertyHelper.isTypeOf(elementControlHeader, OpenMetadataType.RESULTS_SET_COLLECTION.typeName))
         {
             return VisualStyle.RESULTS_SET;

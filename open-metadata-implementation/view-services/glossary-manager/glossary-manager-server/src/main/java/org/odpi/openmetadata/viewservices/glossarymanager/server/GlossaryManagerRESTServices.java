@@ -68,13 +68,13 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse setGlossaryAsTaxonomy(String                    serverName,
-                                              String                    glossaryGUID,
+    public VoidResponse setGlossaryAsTaxonomy(String                       serverName,
+                                              String                       glossaryGUID,
                                               NewClassificationRequestBody requestBody)
     {
         final String methodName = "setGlossaryAsTaxonomy";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -114,7 +114,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -138,7 +138,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "clearGlossaryAsTaxonomy";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -160,7 +160,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -187,7 +187,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "setGlossaryAsCanonical";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -227,7 +227,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -251,7 +251,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "clearGlossaryAsCanonical";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -273,7 +273,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -314,7 +314,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -350,7 +350,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -386,7 +386,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -404,12 +404,12 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public GUIDResponse createGlossaryTerm(String              serverName,
+    public GUIDResponse createGlossaryTerm(String                serverName,
                                            NewElementRequestBody requestBody)
     {
         final String methodName = "createGlossaryTerm";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -449,7 +449,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -474,7 +474,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "createGlossaryTermFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -508,7 +508,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -526,13 +526,13 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public BooleanResponse updateGlossaryTerm(String                         serverName,
-                                              String                    glossaryTermGUID,
+    public BooleanResponse updateGlossaryTerm(String                   serverName,
+                                              String                   glossaryTermGUID,
                                               UpdateElementRequestBody requestBody)
     {
         final String methodName = "updateGlossaryTerm";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -568,7 +568,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -595,7 +595,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "updateGlossaryTermFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -624,7 +624,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -650,7 +650,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "moveGlossaryTerm";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -679,7 +679,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -719,7 +719,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -738,15 +738,15 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse setupTermRelationship(String                  serverName,
-                                              String                  glossaryTermOneGUID,
-                                              String                  relationshipTypeName,
-                                              String                  glossaryTermTwoGUID,
+    public VoidResponse setupTermRelationship(String                     serverName,
+                                              String                     glossaryTermOneGUID,
+                                              String                     relationshipTypeName,
+                                              String                     glossaryTermTwoGUID,
                                               NewRelationshipRequestBody requestBody)
     {
         final String methodName = "setupTermRelationship";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -787,7 +787,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -815,7 +815,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "updateTermRelationship";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -856,7 +856,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -885,7 +885,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "clearTermRelationship";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -911,7 +911,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -930,13 +930,13 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse setTermAsAbstractConcept(String                    serverName,
-                                                 String                    glossaryTermGUID,
+    public VoidResponse setTermAsAbstractConcept(String                       serverName,
+                                                 String                       glossaryTermGUID,
                                                  NewClassificationRequestBody requestBody)
     {
         final String methodName = "setTermAsAbstractConcept";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -976,7 +976,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1000,7 +1000,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "clearTermAsAbstractConcept";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1022,7 +1022,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1040,13 +1040,13 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse setTermAsDataValue(String                    serverName,
-                                           String                    glossaryTermGUID,
+    public VoidResponse setTermAsDataValue(String                       serverName,
+                                           String                       glossaryTermGUID,
                                            NewClassificationRequestBody requestBody)
     {
         final String methodName = "setTermAsDataValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1063,7 +1063,7 @@ public class GlossaryManagerRESTServices extends TokenController
 
             if (requestBody != null)
             {
-                if (requestBody.getProperties() instanceof DataValueProperties properties)
+                if (requestBody.getProperties() instanceof DataValueMeaningProperties properties)
                 {
                     handler.setTermAsDataValue(userId, glossaryTermGUID, properties, requestBody);
                 }
@@ -1073,7 +1073,7 @@ public class GlossaryManagerRESTServices extends TokenController
                 }
                 else
                 {
-                    restExceptionHandler.handleInvalidPropertiesObject(DataValueProperties.class.getName(), methodName);
+                    restExceptionHandler.handleInvalidPropertiesObject(DataValueMeaningProperties.class.getName(), methodName);
                 }
             }
             else
@@ -1086,7 +1086,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1110,7 +1110,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "clearTermAsDataValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1132,7 +1132,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1150,13 +1150,13 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse setTermAsActivity(String                    serverName,
-                                          String                    glossaryTermGUID,
+    public VoidResponse setTermAsActivity(String                       serverName,
+                                          String                       glossaryTermGUID,
                                           NewClassificationRequestBody requestBody)
     {
         final String methodName = "setTermAsActivity";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1196,7 +1196,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1220,7 +1220,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "clearTermAsActivity";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1242,7 +1242,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1260,13 +1260,13 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse setTermAsContext(String                    serverName,
-                                         String                    glossaryTermGUID,
+    public VoidResponse setTermAsContext(String                       serverName,
+                                         String                       glossaryTermGUID,
                                          NewClassificationRequestBody requestBody)
     {
         final String methodName = "setTermAsContext";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1306,7 +1306,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1330,7 +1330,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "clearTermAsContext";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1352,7 +1352,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1377,7 +1377,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "deleteGlossaryTerm";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1399,7 +1399,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1424,7 +1424,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "findGlossaryTerms";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                 auditLog = null;
@@ -1456,7 +1456,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1479,7 +1479,7 @@ public class GlossaryManagerRESTServices extends TokenController
     {
         final String methodName = "getGlossaryTermsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1508,7 +1508,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1526,13 +1526,13 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementResponse getGlossaryTermByGUID(String             serverName,
-                                                                 String             guid,
+    public OpenMetadataRootElementResponse getGlossaryTermByGUID(String         serverName,
+                                                                 String         guid,
                                                                  GetRequestBody requestBody)
     {
         final String methodName = "getGlossaryTermByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -1555,7 +1555,7 @@ public class GlossaryManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

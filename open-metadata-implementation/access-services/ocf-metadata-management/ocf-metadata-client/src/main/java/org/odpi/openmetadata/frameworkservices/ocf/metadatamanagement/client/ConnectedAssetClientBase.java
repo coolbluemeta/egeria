@@ -110,7 +110,7 @@ public class ConnectedAssetClientBase extends ConnectedAssetClient
      * Returns the connection corresponding to the supplied connection GUID.
      *
      * @param restClient client that calls REST APIs
-     * @param userId userId of user making request.
+     * @param userId userId of the user making the request.
      * @param guid   the unique id for the connection within the metadata repository.
      *
      * @return connection instance.
@@ -142,7 +142,7 @@ public class ConnectedAssetClientBase extends ConnectedAssetClient
      * Returns the connection object corresponding to the supplied connection name.
      *
      * @param restClient client that calls REST APIs
-     * @param userId  String - userId of user making request.
+     * @param userId  String - userId of the user making the request.
      * @param name  this is the qualifiedName of the connection.
      *
      * @return Connection retrieved from property server.
@@ -174,7 +174,7 @@ public class ConnectedAssetClientBase extends ConnectedAssetClient
      * Returns the connection corresponding to the supplied asset GUID.
      *
      * @param restClient client that calls REST APIs
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param assetGUID   the unique id for the asset within the metadata repository.
      *
      * @return connection
@@ -293,7 +293,7 @@ public class ConnectedAssetClientBase extends ConnectedAssetClient
     /**
      * Returns the connector corresponding to the supplied connection name.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param connectionName   this may be the qualifiedName or displayName of the connection.
      *
      * @return   connector instance - or null if there is no connection
@@ -333,7 +333,7 @@ public class ConnectedAssetClientBase extends ConnectedAssetClient
     /**
      * Returns the connector corresponding to the supplied asset GUID.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param assetGUID   the unique id for the asset within the metadata repository.
      *
      * @return    connector instance - or null if there is no connection
@@ -360,7 +360,7 @@ public class ConnectedAssetClientBase extends ConnectedAssetClient
     /**
      * Returns the connector corresponding to the supplied asset GUID.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param assetGUID   the unique id for the asset within the metadata repository.
      * @param auditLog    optional logging destination
      *
@@ -412,7 +412,7 @@ public class ConnectedAssetClientBase extends ConnectedAssetClient
     /**
      * Returns the connector corresponding to the supplied connection GUID.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param connectionGUID   the unique id for the connection within the metadata repository.
      *
      * @return  connector instance - or null if there is no connection
@@ -452,7 +452,7 @@ public class ConnectedAssetClientBase extends ConnectedAssetClient
     /**
      * Returns the connector corresponding to the supplied connection.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param connection   the connection object that contains the properties needed to create the connection.
      *
      * @return  connector instance

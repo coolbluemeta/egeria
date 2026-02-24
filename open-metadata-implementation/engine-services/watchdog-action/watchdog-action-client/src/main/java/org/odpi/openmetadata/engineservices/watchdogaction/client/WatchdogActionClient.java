@@ -96,7 +96,7 @@ public class WatchdogActionClient implements WatchdogActionAPI
      * @return connector report for this connector
      *
      * @throws InvalidParameterException the connector provider class name is not a valid connector fo this service
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration service
      */
     @Override

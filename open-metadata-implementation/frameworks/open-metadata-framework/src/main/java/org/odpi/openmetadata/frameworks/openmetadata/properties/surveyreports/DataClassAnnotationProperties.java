@@ -21,10 +21,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataClassAnnotationProperties extends DataFieldAnnotationProperties
 {
+    private String       specification = null;
     private List<String> candidateDataClassGUIDs = null;
-    private long         matchingValues          = 0L;
-    private long         nonMatchingValues       = 0L;
-
 
     /**
      * Default constructor
@@ -47,10 +45,32 @@ public class DataClassAnnotationProperties extends DataFieldAnnotationProperties
 
         if (template != null)
         {
+            specification = template.getSpecification();
             candidateDataClassGUIDs = template.getCandidateDataClassGUIDs();
-            matchingValues = template.getMatchingValues();
-            nonMatchingValues = template.getNonMatchingValues();
+
         }
+    }
+
+
+    /**
+     * Return the specification for this data class annotation.
+     *
+     * @return string
+     */
+    public String getSpecification()
+    {
+        return specification;
+    }
+
+
+    /**
+     * Set up the specification for this data class annotation.
+     *
+     * @param specification string
+     */
+    public void setSpecification(String specification)
+    {
+        this.specification = specification;
     }
 
 
@@ -77,50 +97,6 @@ public class DataClassAnnotationProperties extends DataFieldAnnotationProperties
 
 
     /**
-     * Return the count of matching values that match the specification of these data classes.
-     *
-     * @return long
-     */
-    public long getMatchingValues()
-    {
-        return matchingValues;
-    }
-
-
-    /**
-     * Set up the count of matching values that match the specification of these data classes.
-     *
-     * @param matchingValues long
-     */
-    public void setMatchingValues(long matchingValues)
-    {
-        this.matchingValues = matchingValues;
-    }
-
-
-    /**
-     * Return the count of values that do not match the specification of these data classes.
-     *
-     * @return long
-     */
-    public long getNonMatchingValues()
-    {
-        return nonMatchingValues;
-    }
-
-
-    /**
-     * Set up the count of values that do not match the specification of these data classes.
-     *
-     * @param nonMatchingValues long
-     */
-    public void setNonMatchingValues(long nonMatchingValues)
-    {
-        this.nonMatchingValues = nonMatchingValues;
-    }
-
-
-    /**
      * Standard toString method.
      *
      * @return print out of variables in a JSON-style
@@ -129,9 +105,8 @@ public class DataClassAnnotationProperties extends DataFieldAnnotationProperties
     public String toString()
     {
         return "DataClassAnnotationProperties{" +
-                "candidateDataClassGUIDs=" + candidateDataClassGUIDs +
-                ", matchingValues=" + matchingValues +
-                ", nonMatchingValues=" + nonMatchingValues +
+                "specification='" + specification + '\'' +
+                ", candidateDataClassGUIDs=" + candidateDataClassGUIDs +
                 "} " + super.toString();
     }
 
@@ -158,8 +133,7 @@ public class DataClassAnnotationProperties extends DataFieldAnnotationProperties
             return false;
         }
         DataClassAnnotationProperties that = (DataClassAnnotationProperties) objectToCompare;
-        return matchingValues == that.matchingValues &&
-                nonMatchingValues == that.nonMatchingValues &&
+        return Objects.equals(specification, that.specification) &&
                 Objects.equals(candidateDataClassGUIDs, that.candidateDataClassGUIDs);
     }
 
@@ -172,6 +146,6 @@ public class DataClassAnnotationProperties extends DataFieldAnnotationProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), candidateDataClassGUIDs, matchingValues, nonMatchingValues);
+        return Objects.hash(super.hashCode(), candidateDataClassGUIDs, specification);
     }
 }

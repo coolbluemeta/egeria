@@ -3,7 +3,7 @@
 package org.odpi.openmetadata.frameworks.openmetadata.properties.externalreferences;
 
 import com.fasterxml.jackson.annotation.*;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.ReferenceableProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.AuthoredReferenceableProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.List;
@@ -31,7 +31,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = ExternalSourceCodeProperties.class, name = "ExternalSourceCodeProperties"),
                 @JsonSubTypes.Type(value = RelatedMediaProperties.class, name = "RelatedMediaProperties"),
         })
-public class ExternalReferenceProperties extends ReferenceableProperties
+public class ExternalReferenceProperties extends AuthoredReferenceableProperties
 {
     private String              referenceTitle    = null;
     private String              referenceAbstract = null;

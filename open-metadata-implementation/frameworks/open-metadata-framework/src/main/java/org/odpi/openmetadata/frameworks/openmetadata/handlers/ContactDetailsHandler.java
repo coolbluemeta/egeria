@@ -47,7 +47,7 @@ public class ContactDetailsHandler extends OpenMetadataHandlerBase
     /**
      * Create a new contact method.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -114,7 +114,7 @@ public class ContactDetailsHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a contact method.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contactDetailsGUID       unique identifier of the contact method (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -145,7 +145,7 @@ public class ContactDetailsHandler extends OpenMetadataHandlerBase
     /**
      * Attach an element to its contact details.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID       unique identifier of the parent element
      * @param contactDetailsGUID           unique identifier of the contactDetails
      * @param makeAnchorOptions  options to control access to open metadata
@@ -182,7 +182,7 @@ public class ContactDetailsHandler extends OpenMetadataHandlerBase
     /**
      * Detach an element from its contact details.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID            unique identifier of the parent element
      * @param contactDetailsGUID       unique identifier of the contact details element
      * @param deleteOptions  options to control access to open metadata
@@ -217,7 +217,7 @@ public class ContactDetailsHandler extends OpenMetadataHandlerBase
     /**
      * Delete a contact method.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contactDetailsGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -243,7 +243,7 @@ public class ContactDetailsHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of contact methods with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -270,7 +270,7 @@ public class ContactDetailsHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific contact method.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param contactDetailsGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

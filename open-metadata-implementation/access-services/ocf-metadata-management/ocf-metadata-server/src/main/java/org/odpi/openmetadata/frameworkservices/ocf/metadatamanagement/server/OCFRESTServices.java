@@ -42,7 +42,7 @@ public class OCFRESTServices
      * Returns the connection object corresponding to the supplied connection GUID.
      *
      * @param serverName name of the server instances for this request
-     * @param userId userId of user making request.
+     * @param userId userId of the user making the request.
      * @param guid  the unique id for the connection within the property server.
      *
      * @return connection object or
@@ -82,7 +82,7 @@ public class OCFRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -92,7 +92,7 @@ public class OCFRESTServices
      * Returns the connection object corresponding to the supplied connection name.
      *
      * @param serverName name of the server instances for this request
-     * @param userId userId of user making request.
+     * @param userId userId of the user making the request.
      * @param name   this may be the qualifiedName or displayName of the connection.
      *
      * @return connection object or
@@ -139,7 +139,7 @@ public class OCFRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -148,7 +148,7 @@ public class OCFRESTServices
      * Returns the connection corresponding to the supplied asset GUID.
      *
      * @param serverName  name of the server instances for this request
-     * @param userId      userId of user making request.
+     * @param userId      userId of the user making the request.
      * @param assetGUID   the unique id for the asset within the metadata repository.
      *
      * @return connection object or
@@ -187,7 +187,7 @@ public class OCFRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -197,7 +197,7 @@ public class OCFRESTServices
      * Save the connection optionally linked to the supplied asset GUID.
      *
      * @param serverName  name of the server instances for this request
-     * @param userId      userId of user making request.
+     * @param userId      userId of the user making the request.
      * @param assetGUID   the unique id for the asset within the metadata repository. This optional.
      *                    However, if specified then the new connection is attached to the asset
      * @param connection connection to save
@@ -279,7 +279,7 @@ public class OCFRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

@@ -161,6 +161,7 @@ public class OpenMetadataTypesArchive
         update0021Collections();
         update04xxGovernanceDefinitions();
         update0461GovernanceEngines();
+        add0626DataGrainDiscovery();
         update0711Agreements();
         update07xxImplementationRelationships();
     }
@@ -390,6 +391,40 @@ public class OpenMetadataTypesArchive
                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.GOVERNANCE_SERVICE.typeName));
     }
 
+
+    /*
+     * -------------------------------------------------------------------------------------------------------
+     */
+
+    /**
+     * 0626 Data Grain Discovery records potential data grains that match the data source, and the level of
+     * error in the match.
+     */
+    private void add0626DataGrainDiscovery()
+    {
+        this.archiveBuilder.addEntityDef(getDataGrainAnnotationEntity());
+    }
+
+
+    private EntityDef getDataGrainAnnotationEntity()
+    {
+        EntityDef entityDef = archiveHelper.getDefaultEntityDef(OpenMetadataType.DATA_GRAIN_ANNOTATION,
+                                                                this.archiveBuilder.getEntityDef(OpenMetadataType.DATA_FIELD_ANNOTATION.typeName));
+
+        /*
+         * Build the attributes
+         */
+        List<TypeDefAttribute> properties = new ArrayList<>();
+
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CANDIDATE_DATA_GRAIN_GUIDS));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.GRANULARITY_BASIS));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.GRAIN_STATEMENT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.INTERVAL));
+
+        entityDef.setPropertiesDefinition(properties);
+
+        return entityDef;
+    }
 
     /*
      * -------------------------------------------------------------------------------------------------------

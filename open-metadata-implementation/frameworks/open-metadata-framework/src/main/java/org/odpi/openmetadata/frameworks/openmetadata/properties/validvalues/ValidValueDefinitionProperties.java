@@ -28,8 +28,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class ValidValueDefinitionProperties extends AuthoredReferenceableProperties
 {
-    private String  namespace         = null;
-    private String  usage             = null;
+    private String namespacePath = null;
+    private String usage         = null;
     private String  scope             = null;
     private String  preferredValue    = null;
     private String  dataType          = null;
@@ -57,8 +57,8 @@ public class ValidValueDefinitionProperties extends AuthoredReferenceablePropert
 
         if (template != null)
         {
-            namespace         = template.getNamespace();
-            usage             = template.getUsage();
+            namespacePath = template.getNamespacePath();
+            usage         = template.getUsage();
             scope             = template.getScope();
             preferredValue    = template.getPreferredValue();
             dataType          = template.getDataType();
@@ -72,20 +72,20 @@ public class ValidValueDefinitionProperties extends AuthoredReferenceablePropert
      *
      * @return string name
      */
-    public String getNamespace()
+    public String getNamespacePath()
     {
-        return namespace;
+        return namespacePath;
     }
 
 
     /**
      * Set up the name of the namespace that this type belongs to.
      *
-     * @param namespace string name
+     * @param namespacePath string name
      */
-    public void setNamespace(String namespace)
+    public void setNamespacePath(String namespacePath)
     {
-        this.namespace = namespace;
+        this.namespacePath = namespacePath;
     }
 
 

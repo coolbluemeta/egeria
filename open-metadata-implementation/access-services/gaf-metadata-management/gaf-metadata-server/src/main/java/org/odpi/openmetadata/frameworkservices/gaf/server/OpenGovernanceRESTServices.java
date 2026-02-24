@@ -67,7 +67,7 @@ public class OpenGovernanceRESTServices
      *
      * @return connection object for the out topic or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem retrieving the discovery engine definition.
      */
     public OCFConnectionResponse getOutTopicConnection(String serverName,
@@ -103,7 +103,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -243,7 +243,7 @@ public class OpenGovernanceRESTServices
         final String methodName = "getGovernanceActionProcessGraph";
         final String processGUIDParameterName = "processGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GovernanceActionProcessGraphResponse response = new GovernanceActionProcessGraphResponse();
         AuditLog     auditLog = null;
@@ -339,7 +339,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -350,7 +350,7 @@ public class OpenGovernanceRESTServices
      * @param userId calling user
      * @param handler access to metadata
      * @param processStepGUID current step
-     * @param governanceActionProcessGraph current state of the graph
+     * @param governanceActionProcessGraph the current state of the graph
      * @param processedGUIDs the guids we have processed
      * @param pageSize max page size
      * @throws InvalidParameterException bad property
@@ -806,7 +806,7 @@ public class OpenGovernanceRESTServices
      *
      * @return engine action properties and status or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     public EngineActionElementResponse getEngineAction(String serverName,
@@ -836,7 +836,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -846,12 +846,12 @@ public class OpenGovernanceRESTServices
      *
      * @param serverName     name of server instance to route request to
      * @param userId userId of caller
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      *
      * @return list of engine action elements or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     public EngineActionElementsResponse getActiveEngineActions(String serverName,
@@ -883,7 +883,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -895,12 +895,12 @@ public class OpenGovernanceRESTServices
      * @param serverName     name of server instance to route request to
      * @param userId userId of caller
      * @param governanceEngineGUID unique identifier of governance engine
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      *
      * @return list of engine action elements or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     public EngineActionElementsResponse getActiveClaimedEngineActions(String serverName,
@@ -934,7 +934,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -949,18 +949,17 @@ public class OpenGovernanceRESTServices
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
-    @SuppressWarnings(value = "unused")
-    public VoidResponse claimEngineAction(String          serverName,
-                                          String          userId,
-                                          String          engineActionGUID,
-                                          NullRequestBody requestBody)
+    public VoidResponse claimEngineAction(String        serverName,
+                                          String        userId,
+                                          String        engineActionGUID,
+                                          GAFAPIRequest requestBody)
     {
         final String methodName = "claimEngineAction";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -981,7 +980,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -996,18 +995,17 @@ public class OpenGovernanceRESTServices
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
-    @SuppressWarnings(value = "unused")
-    public VoidResponse cancelEngineAction(String          serverName,
-                                           String          userId,
-                                           String          engineActionGUID,
-                                           NullRequestBody requestBody)
+    public VoidResponse cancelEngineAction(String        serverName,
+                                           String        userId,
+                                           String        engineActionGUID,
+                                           GAFAPIRequest requestBody)
     {
         final String methodName = "cancelEngineAction";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -1028,7 +1026,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1044,7 +1042,7 @@ public class OpenGovernanceRESTServices
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     public VoidResponse updateEngineActionStatus(String                        serverName,
@@ -1054,7 +1052,7 @@ public class OpenGovernanceRESTServices
     {
         final String methodName = "updateEngineActionStatus";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -1090,7 +1088,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1117,7 +1115,7 @@ public class OpenGovernanceRESTServices
     {
         final String methodName = "updateActionTargetStatus";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -1155,7 +1153,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1181,7 +1179,7 @@ public class OpenGovernanceRESTServices
     {
         final String methodName = "recordCompletionStatus";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -1221,7 +1219,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1248,7 +1246,7 @@ public class OpenGovernanceRESTServices
     {
         final String methodName = "initiateEngineAction";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         GUIDResponse response = new GUIDResponse();
@@ -1323,7 +1321,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1346,7 +1344,7 @@ public class OpenGovernanceRESTServices
     {
         final String methodName = "initiateGovernanceActionType";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         GUIDResponse response = new GUIDResponse();
@@ -1380,7 +1378,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1403,7 +1401,7 @@ public class OpenGovernanceRESTServices
     {
         final String methodName = "initiateGovernanceActionProcess";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         GUIDResponse response = new GUIDResponse();
@@ -1437,7 +1435,7 @@ public class OpenGovernanceRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

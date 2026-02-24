@@ -10,8 +10,6 @@ import java.util.Objects;
  */
 public class EntityPropertyFindRequest extends PropertyMatchFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private List<String> limitResultsByClassification = null;
 
 
@@ -83,15 +81,7 @@ public class EntityPropertyFindRequest extends PropertyMatchFindRequest
     {
         return "EntityPropertyFindRequest{" +
                 "limitResultsByClassification=" + limitResultsByClassification +
-                ", matchProperties=" + getMatchProperties() +
-                ", matchCriteria=" + getMatchCriteria() +
-                ", typeGUID='" + getTypeGUID() + '\'' +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -108,7 +98,7 @@ public class EntityPropertyFindRequest extends PropertyMatchFindRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof EntityPropertyFindRequest))
+        if (!(objectToCompare instanceof EntityPropertyFindRequest that))
         {
             return false;
         }
@@ -116,8 +106,6 @@ public class EntityPropertyFindRequest extends PropertyMatchFindRequest
         {
             return false;
         }
-        EntityPropertyFindRequest
-                that = (EntityPropertyFindRequest) objectToCompare;
         return Objects.equals(getLimitResultsByClassification(), that.getLimitResultsByClassification());
     }
 
@@ -130,7 +118,6 @@ public class EntityPropertyFindRequest extends PropertyMatchFindRequest
     @Override
     public int hashCode()
     {
-
-        return Objects.hash(super.hashCode(), getLimitResultsByClassification());
+        return Objects.hash(super.hashCode(), limitResultsByClassification);
     }
 }

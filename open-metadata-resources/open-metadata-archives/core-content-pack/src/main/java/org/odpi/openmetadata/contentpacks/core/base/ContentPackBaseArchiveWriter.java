@@ -391,7 +391,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * @param softwareCapabilityType           type of the associated capability
      * @param softwareCapabilityName           name for the associated capability
      * @param serverName                       name for the server
-     * @param namespace                        namespace
+     * @param namespacePath                    qualifying path name of the server
      * @param serverVersionIdentifier          server version identifier
      * @param description                      description for the server
      * @param userId                           userId for the connection
@@ -414,7 +414,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                        DeployedImplementationTypeDefinition softwareCapabilityType,
                                                        String                               softwareCapabilityName,
                                                        String                               serverName,
-                                                       String                               namespace,
+                                                       String                               namespacePath,
                                                        String                               serverVersionIdentifier,
                                                        String                               description,
                                                        String                               userId,
@@ -434,7 +434,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
         List<Classification> classifications    = new ArrayList<>();
 
         extendedProperties.put(OpenMetadataProperty.RESOURCE_NAME.name, serverName);
-        extendedProperties.put(OpenMetadataProperty.NAMESPACE.name, namespace);
+        extendedProperties.put(OpenMetadataProperty.NAMESPACE_PATH.name, namespacePath);
 
         if (deployedImplementationType.getAssociatedClassification() != null)
         {

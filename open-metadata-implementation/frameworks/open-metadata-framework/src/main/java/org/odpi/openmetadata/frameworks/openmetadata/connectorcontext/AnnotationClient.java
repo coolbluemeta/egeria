@@ -295,48 +295,6 @@ public class AnnotationClient extends ConnectorContextClientBase
 
 
     /**
-     * Attach a schema analysis annotation to a matching schema type.
-     *
-     * @param annotationGUID       unique identifier of the annotation
-     * @param schemaTypeGUID            unique identifier of the schema type
-     * @param makeAnchorOptions  options to control access to open metadata
-     * @param relationshipProperties description of the relationship.
-     * @throws InvalidParameterException  one of the parameters is null or invalid.
-     * @throws PropertyServerException    a problem retrieving information from the property server(s).
-     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    public void linkDiscoveredSchemaType(String                         annotationGUID,
-                                         String                         schemaTypeGUID,
-                                         MakeAnchorOptions              makeAnchorOptions,
-                                         DiscoveredSchemaTypeProperties relationshipProperties) throws InvalidParameterException,
-                                                                                                       PropertyServerException,
-                                                                                                       UserNotAuthorizedException
-    {
-        annotationHandler.linkDiscoveredSchemaType(connectorUserId, annotationGUID, schemaTypeGUID, makeAnchorOptions, relationshipProperties);
-    }
-
-
-    /**
-     * Detach a schema analysis annotation from a matching schema type.
-     *
-     * @param annotationGUID              unique identifier of the parent process
-     * @param schemaTypeGUID          unique identifier of the child process
-     * @param deleteOptions  options to control access to open metadata
-     * @throws InvalidParameterException  one of the parameters is null or invalid.
-     * @throws PropertyServerException    a problem retrieving information from the property server(s).
-     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    public void detachDiscoveredSchemaType(String        annotationGUID,
-                                           String        schemaTypeGUID,
-                                           DeleteOptions deleteOptions) throws InvalidParameterException,
-                                                                               PropertyServerException,
-                                                                               UserNotAuthorizedException
-    {
-        annotationHandler.detachDiscoveredSchemaType(connectorUserId, annotationGUID, schemaTypeGUID, deleteOptions);
-    }
-
-
-    /**
      * Attach a resource profile log annotation to an asset where the profile data is stored.
      *
      * @param annotationGUID               unique identifier of the annotation
@@ -392,11 +350,11 @@ public class AnnotationClient extends ConnectorContextClientBase
     public void linkDataClassMatch(String                   annotationGUID,
                                    String                   dataClassGUID,
                                    MakeAnchorOptions        makeAnchorOptions,
-                                   DataClassMatchProperties relationshipProperties) throws InvalidParameterException,
-                                                                                           PropertyServerException,
-                                                                                           UserNotAuthorizedException
+                                   AnnotationMatchProperties relationshipProperties) throws InvalidParameterException,
+                                                                                            PropertyServerException,
+                                                                                            UserNotAuthorizedException
     {
-        annotationHandler.linkDataClassMatch(connectorUserId, annotationGUID, dataClassGUID, makeAnchorOptions, relationshipProperties);
+        annotationHandler.linkAnnotationMatch(connectorUserId, annotationGUID, dataClassGUID, makeAnchorOptions, relationshipProperties);
     }
 
 
@@ -416,7 +374,7 @@ public class AnnotationClient extends ConnectorContextClientBase
                                                                          PropertyServerException,
                                                                          UserNotAuthorizedException
     {
-        annotationHandler.detachDataClassMatch(connectorUserId, annotationGUID, dataClassGUID, deleteOptions);
+        annotationHandler.detachAnnotationMatch(connectorUserId, annotationGUID, dataClassGUID, deleteOptions);
     }
 
 

@@ -48,7 +48,7 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
     /**
      * Create a new externalId.  It should be anchored to its scope (external source GUID)
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -116,7 +116,7 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of an externalId.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param externalIdGUID      unique identifier of the externalId (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -147,7 +147,7 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
     /**
      * Attach an externalId to an element.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param externalIdGUID            unique identifier of the externalId
      * @param elementGUID             unique identifier of the element
      * @param makeAnchorOptions  options to control access to open metadata
@@ -185,11 +185,11 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
      * Confirm that the values of a particular metadata element have been synchronized.  This is important
      * from an audit point of view, and to allow bidirectional updates of metadata using optimistic locking.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param externalIdLinkGUID unique identifier of the ExternalIdLink relationship to update
      *
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the property server
      */
     public void confirmSynchronization(String                   userId,
@@ -206,7 +206,7 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
     /**
      * Detach an externalId from an element.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID            unique identifier of the infrastructure asset
      * @param externalIdGUID       unique identifier of the externalId
      * @param deleteOptions  options to control access to open metadata
@@ -241,7 +241,7 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
     /**
      * Delete an externalId.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param externalIdGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -267,7 +267,7 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of externalIds with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -295,7 +295,7 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific externalId.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param externalIdGUID      unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -319,7 +319,7 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
      * Retrieve the list of externalId metadata elements with a matching identifier.
      * There are no wildcards supported on this request.
      *
-     * @param userId         userId of user making request
+     * @param userId         userId of the user making the request
      * @param identifier identifier to search for
      * @param queryOptions           multiple options to control the query
      *
@@ -350,7 +350,7 @@ public class ExternalIdHandler extends OpenMetadataHandlerBase
     /**
      * Retrieve the list of externalId metadata elements that are attached to a specific infrastructure element.
      *
-     * @param userId         userId of user making request
+     * @param userId         userId of the user making the request
      * @param elementGUID element to search for
      * @param queryOptions multiple options to control the query
      *

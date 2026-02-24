@@ -23,8 +23,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class DataFieldProperties extends AuthoredReferenceableProperties
 {
-    private String            namespace         = null;
-    private List<String>      aliases           = null;
+    private String       namespacePath = null;
+    private List<String> aliases       = null;
     private List<String>      namePatterns      = null;
     private String            defaultValue      = null;
     private boolean           isNullable        = true;
@@ -58,8 +58,8 @@ public class DataFieldProperties extends AuthoredReferenceableProperties
 
         if (template != null)
         {
-            namespace         = template.getNamespace();
-            aliases           = template.getAliases();
+            namespacePath = template.getNamespacePath();
+            aliases       = template.getAliases();
             namePatterns      = template.getNamePatterns();
             defaultValue      = template.getDefaultValue();
             isNullable        = template.getIsNullable();
@@ -79,20 +79,20 @@ public class DataFieldProperties extends AuthoredReferenceableProperties
      *
      * @return string name
      */
-    public String getNamespace()
+    public String getNamespacePath()
     {
-        return namespace;
+        return namespacePath;
     }
 
 
     /**
      * Set up the name of the namespace that this type belongs to.
      *
-     * @param namespace string name
+     * @param namespacePath string name
      */
-    public void setNamespace(String namespace)
+    public void setNamespacePath(String namespacePath)
     {
-        this.namespace = namespace;
+        this.namespacePath = namespacePath;
     }
 
 
@@ -347,7 +347,7 @@ public class DataFieldProperties extends AuthoredReferenceableProperties
     public String toString()
     {
         return "DataFieldProperties{" +
-                "namespace='" + namespace + '\'' +
+                "namespace='" + namespacePath + '\'' +
                 ", aliases=" + aliases +
                 ", namePatterns=" + namePatterns +
                 ", defaultValue='" + defaultValue + '\'' +
@@ -379,7 +379,7 @@ public class DataFieldProperties extends AuthoredReferenceableProperties
         return isNullable == that.isNullable &&
                 minimumLength == that.minimumLength && length == that.length && precision == that.precision &&
                 orderedValues == that.orderedValues &&
-                Objects.equals(namespace, that.namespace) && Objects.equals(aliases, that.aliases) &&
+                Objects.equals(namespacePath, that.namespacePath) && Objects.equals(aliases, that.aliases) &&
                 Objects.equals(namePatterns, that.namePatterns) &&
                 Objects.equals(defaultValue, that.defaultValue) &&
                 Objects.equals(dataType, that.dataType) &&
@@ -395,7 +395,7 @@ public class DataFieldProperties extends AuthoredReferenceableProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), namespace, aliases, namePatterns,
+        return Objects.hash(super.hashCode(), namespacePath, aliases, namePatterns,
                             defaultValue, isNullable, dataType, units,
                             minimumLength, length, precision, orderedValues, sortOrder);
     }

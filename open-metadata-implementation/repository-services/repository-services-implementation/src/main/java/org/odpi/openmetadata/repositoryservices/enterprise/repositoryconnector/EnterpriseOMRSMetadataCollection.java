@@ -11,6 +11,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.MatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.SequencingOrder;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.*;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchClassifications;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.*;
@@ -2008,6 +2009,9 @@ class EnterpriseOMRSMetadataCollection extends OMRSMetadataCollectionBase
      *                             (but may be slow so not recommended).
      * @param relationshipSubtypeGUIDs optional list of the unique identifiers (guids) for subtypes of the
      *                                 relationshipTypeGUID to include in the search results. Null means all subtypes.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param matchProperties Optional list of relationship property conditions to match.
      * @param fromRelationshipElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
@@ -2039,6 +2043,9 @@ class EnterpriseOMRSMetadataCollection extends OMRSMetadataCollectionBase
     public  List<Relationship> findRelationships(String               userId,
                                                  String               relationshipTypeGUID,
                                                  List<String>         relationshipSubtypeGUIDs,
+                                                 List<String>         end1EntityGUIDs,
+                                                 List<String>         end2EntityGUIDs,
+                                                 EndMatchCriteria     endMatchCriteria,
                                                  SearchProperties     matchProperties,
                                                  int                  fromRelationshipElement,
                                                  List<InstanceStatus> limitResultsByStatus,
@@ -2061,6 +2068,9 @@ class EnterpriseOMRSMetadataCollection extends OMRSMetadataCollectionBase
         super.findRelationshipsParameterValidation(userId,
                                                    relationshipTypeGUID,
                                                    relationshipSubtypeGUIDs,
+                                                   end1EntityGUIDs,
+                                                   end2EntityGUIDs,
+                                                   endMatchCriteria,
                                                    matchProperties,
                                                    fromRelationshipElement,
                                                    limitResultsByStatus,
@@ -2081,6 +2091,9 @@ class EnterpriseOMRSMetadataCollection extends OMRSMetadataCollectionBase
         FindRelationshipsExecutor executor          = new FindRelationshipsExecutor(userId,
                                                                                     relationshipTypeGUID,
                                                                                     relationshipSubtypeGUIDs,
+                                                                                    end1EntityGUIDs,
+                                                                                    end2EntityGUIDs,
+                                                                                    endMatchCriteria,
                                                                                     matchProperties,
                                                                                     fromRelationshipElement,
                                                                                     limitResultsByStatus,

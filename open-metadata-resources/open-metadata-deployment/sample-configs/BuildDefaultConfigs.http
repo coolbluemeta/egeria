@@ -181,7 +181,7 @@ POST {{baseURL}}/open-metadata/admin-services/servers/active-metadata-store/open
 Authorization: Bearer {{token}}
 Content-Type: text/plain
 
-content-packs/JacquardHarvesterContentPack.omarchive
+content-packs/OpenMetadataDigitalProductsContentPack.omarchive
 
 ###
 # -------------------------

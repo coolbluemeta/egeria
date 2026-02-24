@@ -554,8 +554,8 @@ public class OpenMetadataClassificationBuilder
                                                                      OpenMetadataProperty.ENCODING_STANDARD.name,
                                                                      typeEmbeddedAttributeProperties.getEncodingStandard());
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.NAMESPACE.name,
-                                                                     typeEmbeddedAttributeProperties.getNamespace());
+                                                                     OpenMetadataProperty.NAMESPACE_PATH.name,
+                                                                     typeEmbeddedAttributeProperties.getNamespacePath());
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.DEFAULT_VALUE.name,
                                                                      typeEmbeddedAttributeProperties.getDefaultValue());

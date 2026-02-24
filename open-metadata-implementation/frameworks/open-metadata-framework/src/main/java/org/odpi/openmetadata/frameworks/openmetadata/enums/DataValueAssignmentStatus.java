@@ -13,13 +13,14 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues.constructValidValueQualifiedName;
 
 /**
- * The DataClassAssignmentStatus defines the status of the relationship between a data class and an element that represents data.
+ * The DataDefinitionAssignmentStatus defines the status of the relationship between a data definition
+ * (such as a data class or data grain) and an element that represents data.
  * It indicates how much trust a steward or process should give to the relationship based on its source.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public enum DataClassAssignmentStatus implements OpenMetadataEnum
+public enum DataValueAssignmentStatus implements OpenMetadataEnum
 {
     /**
      * Discovered - The term assignment was discovered by an automated process.
@@ -58,11 +59,11 @@ public enum DataClassAssignmentStatus implements OpenMetadataEnum
     ;
 
     private static final String ENUM_TYPE_GUID  = "2611892f-0527-478f-8843-a3aa2b9abb47";
-    private static final String ENUM_TYPE_NAME  = "DataClassAssignmentStatus";
+    private static final String ENUM_TYPE_NAME  = "DataDefinitionAssignmentStatus";
 
-    private static final String ENUM_DESCRIPTION = "Defines the provenance and confidence of a data class assignment.";
+    private static final String ENUM_DESCRIPTION = "Defines the provenance and confidence of an assignment of a data definition such as a data class or a data grain to an element.";
     private static final String ENUM_DESCRIPTION_GUID = "36d8a171-1b8d-4f7e-88f1-f89b9566f33a";
-    private static final String ENUM_DESCRIPTION_WIKI = OpenMetadataWikiPages.MODEL_0540_DATA_CLASSES;
+    private static final String ENUM_DESCRIPTION_WIKI = OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION;
 
     private final String descriptionGUID;
 
@@ -81,7 +82,7 @@ public enum DataClassAssignmentStatus implements OpenMetadataEnum
      * @param description default string description of the enumeration
      * @param isDefault is this the default value for the enum?
      */
-    DataClassAssignmentStatus(String  descriptionGUID,
+    DataValueAssignmentStatus(String  descriptionGUID,
                               int     ordinal,
                               String  name,
                               String  description,
@@ -203,7 +204,7 @@ public enum DataClassAssignmentStatus implements OpenMetadataEnum
     public String getQualifiedName()
     {
         return constructValidValueQualifiedName(ENUM_TYPE_NAME,
-                                                OpenMetadataProperty.DATA_CLASS_ASSIGNMENT_STATUS.name,
+                                                OpenMetadataProperty.ASSIGNMENT_STATUS.name,
                                                 null,
                                                 name);
     }
@@ -217,7 +218,7 @@ public enum DataClassAssignmentStatus implements OpenMetadataEnum
     @Override
     public String toString()
     {
-        return "DataClassAssignmentStatus{" + 
+        return "DataDefinitionAssignmentStatus{" +
             "ordinal=" + ordinal +
             ", name='" + name + '\'' +
             ", description='" + description + '\'' +

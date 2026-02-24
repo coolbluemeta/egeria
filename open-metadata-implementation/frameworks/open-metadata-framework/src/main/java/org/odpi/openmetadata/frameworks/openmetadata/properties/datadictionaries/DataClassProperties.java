@@ -6,11 +6,9 @@ package org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionarie
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.AuthoredReferenceableProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
@@ -23,14 +21,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataClassProperties extends AuthoredReferenceableProperties
+public class DataClassProperties extends DataValueSpecificationProperties
 {
-    private List<String>        matchPropertyNames    = null;
-    private String              namespace             = null;
-    private int                 matchThreshold        = 100;
-    private String              specification         = null;
-    private Map<String, String> specificationDetails  = null;
-    private String              dataType              = null;
     private boolean             allowsDuplicateValues = true;
     private boolean             isCaseSensitive       = false;
     private boolean             isNullable            = true;
@@ -64,12 +56,6 @@ public class DataClassProperties extends AuthoredReferenceableProperties
 
         if (template != null)
         {
-            matchPropertyNames    = template.getMatchPropertyNames();
-            namespace             = template.getNamespace();
-            specification         = template.getSpecification();
-            specificationDetails  = template.getSpecificationDetails();
-            dataType              = template.getDataType();
-            matchThreshold        = template.getMatchThreshold();
             allowsDuplicateValues = template.getAllowsDuplicateValues();
             isCaseSensitive       = template.getIsCaseSensitive();
             isNullable            = template.getIsNullable();
@@ -81,113 +67,6 @@ public class DataClassProperties extends AuthoredReferenceableProperties
             sampleValues          = template.getSampleValues();
             dataPatterns          = template.getDataPatterns();
         }
-    }
-
-
-    /**
-     * Return the list of property values filled out in this annotation.
-     *
-     * @return list of property names
-     */
-    public List<String> getMatchPropertyNames()
-    {
-        return matchPropertyNames;
-    }
-
-
-    /**
-     * Set up the list of property values filled out in this annotation.
-     *
-     * @param matchPropertyNames list of property names
-     */
-    public void setMatchPropertyNames(List<String> matchPropertyNames)
-    {
-        this.matchPropertyNames = matchPropertyNames;
-    }
-
-
-    /**
-     * Return the match threshold that a data field is expected to achieve to be assigned this data class.
-     *
-     * @return float
-     */
-    public int getMatchThreshold()
-    {
-        return matchThreshold;
-    }
-
-
-    /**
-     * Set up the match threshold that a data field is expected to achieve to be assigned this data class.
-     *
-     * @param matchThreshold float
-     */
-    public void setMatchThreshold(int matchThreshold)
-    {
-        this.matchThreshold = matchThreshold;
-    }
-
-
-    /**
-     * Return the parsing string used to identify values of this data class.
-     *
-     * @return string
-     */
-    public String getSpecification()
-    {
-        return specification;
-    }
-
-
-    /**
-     *  Set up the parsing string used to identify values of this data class.
-     *
-     * @param specification string
-     */
-    public void setSpecification(String specification)
-    {
-        this.specification = specification;
-    }
-
-
-    /**
-     * Return any additional properties used in the specification.
-     *
-     * @return property map
-     */
-    public Map<String, String> getSpecificationDetails()
-    {
-        return specificationDetails;
-    }
-
-
-    /**
-     * Set up any additional properties used in the specification.
-     *
-     * @param specificationDetails property map
-     */
-    public void setSpecificationDetails(Map<String, String> specificationDetails)
-    {
-        this.specificationDetails = specificationDetails;
-    }
-
-
-    /**
-     * Return the data type for this element.  Null means unknown data type.
-     *
-     * @return String data type name
-     */
-    public String getDataType() { return dataType; }
-
-
-    /**
-     * Set up the data type for this element.  Null means unknown data type.
-     *
-     * @param dataType data type name
-     */
-    public void setDataType(String dataType)
-    {
-        this.dataType = dataType;
     }
 
 
@@ -254,28 +133,6 @@ public class DataClassProperties extends AuthoredReferenceableProperties
     public void setIsNullable(boolean nullable)
     {
         isNullable = nullable;
-    }
-
-
-    /**
-     * Return the name of the namespace that this type belongs to.
-     *
-     * @return string name
-     */
-    public String getNamespace()
-    {
-        return namespace;
-    }
-
-
-    /**
-     * Set up the name of the namespace that this type belongs to.
-     *
-     * @param namespace string name
-     */
-    public void setNamespace(String namespace)
-    {
-        this.namespace = namespace;
     }
 
 
@@ -442,13 +299,7 @@ public class DataClassProperties extends AuthoredReferenceableProperties
     public String toString()
     {
         return "DataClassProperties{" +
-                "matchPropertyNames=" + matchPropertyNames +
-                ", namespace='" + namespace + '\'' +
-                ", matchThreshold=" + matchThreshold +
-                ", specification='" + specification + '\'' +
-                ", specificationDetails=" + specificationDetails +
-                ", dataType='" + dataType + '\'' +
-                ", allowsDuplicateValues=" + allowsDuplicateValues +
+                "allowsDuplicateValues=" + allowsDuplicateValues +
                 ", isCaseSensitive=" + isCaseSensitive +
                 ", isNullable=" + isNullable +
                 ", defaultValue='" + defaultValue + '\'' +
@@ -478,12 +329,6 @@ public class DataClassProperties extends AuthoredReferenceableProperties
         return allowsDuplicateValues == that.allowsDuplicateValues &&
                 isNullable == that.isNullable &&
                 isCaseSensitive == that.isCaseSensitive &&
-                Objects.equals(matchPropertyNames, that.matchPropertyNames) &&
-                Objects.equals(namespace, that.namespace) &&
-                Objects.equals(matchThreshold, that.matchThreshold) &&
-                Objects.equals(specification, that.specification) &&
-                Objects.equals(specificationDetails, that.specificationDetails) &&
-                Objects.equals(dataType, that.dataType) &&
                 Objects.equals(defaultValue, that.defaultValue) &&
                 Objects.equals(averageValue, that.averageValue) &&
                 Objects.equals(valueList, that.valueList) &&
@@ -501,8 +346,7 @@ public class DataClassProperties extends AuthoredReferenceableProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), matchPropertyNames, namespace,
-                            matchThreshold, specification, specificationDetails, dataType, allowsDuplicateValues,
+        return Objects.hash(super.hashCode(), allowsDuplicateValues,
                             isCaseSensitive, isNullable, defaultValue, averageValue, valueList, valueRangeFrom,
                             valueRangeTo, sampleValues, dataPatterns);
     }

@@ -20,8 +20,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TypeDefDeleteRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private String obsoleteTypeDefName = null;
 
 
@@ -82,9 +80,9 @@ public class TypeDefDeleteRequest extends OMRSAPIRequest
     @Override
     public String toString()
     {
-        return "TypeDefCategoryFindRequest{" +
-                "obsoleteTypeDefName=" + obsoleteTypeDefName +
-                '}';
+        return "TypeDefDeleteRequest{" +
+                "obsoleteTypeDefName='" + obsoleteTypeDefName + '\'' +
+                "} " + super.toString();
     }
 
 
@@ -97,19 +95,11 @@ public class TypeDefDeleteRequest extends OMRSAPIRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (!(objectToCompare instanceof TypeDefDeleteRequest))
-        {
-            return false;
-        }
-        TypeDefDeleteRequest
-                that = (TypeDefDeleteRequest) objectToCompare;
-        return Objects.equals(getObsoleteTypeDefName(), that.getObsoleteTypeDefName());
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        TypeDefDeleteRequest that = (TypeDefDeleteRequest) objectToCompare;
+        return Objects.equals(obsoleteTypeDefName, that.obsoleteTypeDefName);
     }
-
 
     /**
      * Create a hash code for this element type.
@@ -119,6 +109,6 @@ public class TypeDefDeleteRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(getObsoleteTypeDefName());
+        return Objects.hash(super.hashCode(), obsoleteTypeDefName);
     }
 }

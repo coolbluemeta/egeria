@@ -6,6 +6,7 @@ import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.MatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.*;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchClassifications;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.*;
@@ -1401,6 +1402,22 @@ public interface OMRSRepositoryValidator
                                                  String              guid,
                                                  InstanceAuditHeader instanceHeader,
                                                  InstanceProperties  instanceProperties) throws InvalidParameterException;
+
+
+    /**
+     * Test that the ends of this relationship match the requested end guids and match criteria.
+     *
+     * @param end1EntityGUIDs optional list of the unique identifiers (guids) for entities that must be at end 1 of the relationship.
+     * @param end2EntityGUIDs optional list of the unique identifiers (guids) for entities that must be at end 2 of the relationship.
+     * @param endMatchCriteria criteria for matching the ends of the relationship.
+     * @param relationship relationship to test
+     * @return boolean property indicating whether the ends match
+     * @throws InvalidParameterException invalid search criteria
+     */
+    boolean verifyMatchingRelationshipEnds(List<String>          end1EntityGUIDs,
+                                           List<String>          end2EntityGUIDs,
+                                           EndMatchCriteria      endMatchCriteria,
+                                           Relationship          relationship) throws InvalidParameterException;
 
 
     /**

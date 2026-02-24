@@ -1858,7 +1858,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * @param methodName calling method
      * @return unique identifier of the governance engine
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     private String validateGovernanceEngineName(String       userId,
@@ -1961,7 +1961,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * @return status enum
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public B getEngineAction(String       userId,
@@ -2000,7 +2000,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      *
      * @return status enum
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public B getEngineAction(String       userId,
@@ -2151,7 +2151,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * @param methodName calling method
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public void claimEngineAction(String       userId,
@@ -2262,7 +2262,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * @param methodName calling method
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public void cancelEngineAction(String       userId,
@@ -2377,7 +2377,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * @param methodName calling method
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public void updateEngineActionStatus(String       userId,
@@ -2690,7 +2690,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * @param effectiveTime  the time that the retrieved elements must be effective for (null for any time, new Date() for now)
      *
      * @throws InvalidParameterException problem with guid
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     private void markActionTargetsAsComplete(String       userId,
@@ -2799,7 +2799,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * @param methodName calling method
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     private void initiateNextEngineActions(String                userId,
@@ -3002,7 +3002,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * @return list of mandatory guards (or null)
      *
      * @throws InvalidParameterException problem with GUID
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     private List<String> getMandatoryGuards(String userId,
@@ -3073,14 +3073,14 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * Retrieve the engine actions that are known to this server.
      *
      * @param userId userId of caller
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      * @param effectiveTime the time that the retrieved elements must be effective for (null for any time, new Date() for now)
      * @param methodName calling method
      * @return list of engine action elements
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public List<B> getEngineActions(String       userId,
@@ -3133,14 +3133,14 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      * Retrieve the engine actions that are still in progress.
      *
      * @param userId userId of caller
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      * @param effectiveTime the time that the retrieved elements must be effective for (null for any time, new Date() for now)
      * @param methodName calling method
      * @return list of engine action elements
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public List<B> getActiveEngineActions(String       userId,
@@ -3204,14 +3204,14 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
      *
      * @param userId userId of caller
      * @param governanceEngineGUID unique identifier of governance engine
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      * @param effectiveTime             the time that the retrieved elements must be effective for (null for any time, new Date() for now)
      * @param methodName calling method
      * @return list of engine action elements
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public List<B> getActiveClaimedEngineActions(String       userId,

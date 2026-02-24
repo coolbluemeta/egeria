@@ -80,7 +80,7 @@ public class ConnectorTypeHandler<B> extends ReferenceableHandler<B>
      * @return unique identifier of the connectorType or null
      *
      * @throws InvalidParameterException the connectorType bean properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException problem accessing the property server
      */
     private String findConnectorType(String        userId,
@@ -180,7 +180,7 @@ public class ConnectorTypeHandler<B> extends ReferenceableHandler<B>
      *
      * @return unique identifier of the connectorType in the repository.
      * @throws InvalidParameterException the connectorType bean properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException problem accessing the property server
      */
     String saveConnectorType(String                 userId,
@@ -282,7 +282,7 @@ public class ConnectorTypeHandler<B> extends ReferenceableHandler<B>
     /**
      * Creates a new connectorType and returns the unique identifier for it.
      *
-     * @param userId           userId of user making request
+     * @param userId           userId of the user making the request
      * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName name of the software capability entity that represented the external source
      * @param anchorGUID unique identifier of the anchor entity (or null if freestanding)
@@ -417,7 +417,7 @@ public class ConnectorTypeHandler<B> extends ReferenceableHandler<B>
     /**
      * Retrieves the connector type for the named asset type and if found, returns its unique identifier.
      *
-     * @param userId           userId of user making request
+     * @param userId           userId of the user making the request
      * @param supportedAssetTypeName the type of asset that the connector implementation supports
      * @param forLineage return elements marked with the Memento classification?
      * @param forDuplicateProcessing do not merge elements marked as duplicates?
@@ -512,7 +512,7 @@ public class ConnectorTypeHandler<B> extends ReferenceableHandler<B>
      * Retrieves the connector type for the qualified name and if found, returns its unique identifier.
      * Otherwise, it creates a new connectorType and returns the unique identifier for it.
      *
-     * @param userId           userId of user making request
+     * @param userId           userId of the user making the request
      * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName name of the software capability entity that represented the external source
      * @param anchorGUID unique identifier for the anchor of this connector type (or null if freestanding)
@@ -650,7 +650,7 @@ public class ConnectorTypeHandler<B> extends ReferenceableHandler<B>
     /**
      * Updates the properties of an existing connectorType.
      *
-     * @param userId          userId of user making request.
+     * @param userId          userId of the user making the request.
      * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName name of the software capability entity that represented the external source
      * @param connectorTypeGUID         unique identifier for the connectorType

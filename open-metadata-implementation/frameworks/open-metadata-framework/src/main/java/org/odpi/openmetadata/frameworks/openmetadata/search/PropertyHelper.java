@@ -26,9 +26,9 @@ import java.util.regex.Pattern;
  */
 public class PropertyHelper
 {
-    private static final String serviceName = "Open Metadata Framework (OMF)";
-    private final OpenMetadataPropertyConverterBase propertyConverter = new OpenMetadataPropertyConverterBase(this,
-                                                                                                              serviceName);
+    private static final String                            serviceName       = "Open Metadata Framework (OMF)";
+    private final        OpenMetadataPropertyConverterBase propertyConverter = new OpenMetadataPropertyConverterBase(this,
+                                                                                                                     serviceName);
 
 
     /**

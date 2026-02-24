@@ -15,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 /**
  * TypeLimitedHistoricalFindRequest provides an extension to the search parameters to include the
- * point in time that the request should be based on.  This extension is used since
+ * point-in-time that the request should be based on.  This extension is used since
  * historical queries are optional support.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
@@ -23,8 +23,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class EntityNeighborhoodHistoricalFindRequest extends EntityNeighborhoodFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private Date asOfTime = null;
 
     /**
@@ -53,7 +51,7 @@ public class EntityNeighborhoodHistoricalFindRequest extends EntityNeighborhoodF
 
 
     /**
-     * Return the point in time for the search.
+     * Return the point-in-time for the search.
      *
      * @return date object
      */
@@ -64,7 +62,7 @@ public class EntityNeighborhoodHistoricalFindRequest extends EntityNeighborhoodF
 
 
     /**
-     * Set up the point in time for the search.
+     * Set up the point-in-time for the search.
      *
      * @param asOfTime date object
      */
@@ -84,10 +82,7 @@ public class EntityNeighborhoodHistoricalFindRequest extends EntityNeighborhoodF
     {
         return "EntityNeighborhoodHistoricalFindRequest{" +
                 "asOfTime=" + asOfTime +
-                ", relationshipTypeGUIDs=" + getRelationshipTypeGUIDs() +
-                ", entityTypeGUIDs=" + getEntityTypeGUIDs() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -104,7 +99,7 @@ public class EntityNeighborhoodHistoricalFindRequest extends EntityNeighborhoodF
         {
             return true;
         }
-        if (!(objectToCompare instanceof EntityNeighborhoodHistoricalFindRequest))
+        if (!(objectToCompare instanceof EntityNeighborhoodHistoricalFindRequest that))
         {
             return false;
         }
@@ -112,8 +107,6 @@ public class EntityNeighborhoodHistoricalFindRequest extends EntityNeighborhoodF
         {
             return false;
         }
-        EntityNeighborhoodHistoricalFindRequest
-                that = (EntityNeighborhoodHistoricalFindRequest) objectToCompare;
         return Objects.equals(getAsOfTime(), that.getAsOfTime());
     }
 
@@ -126,7 +119,6 @@ public class EntityNeighborhoodHistoricalFindRequest extends EntityNeighborhoodF
     @Override
     public int hashCode()
     {
-
-        return Objects.hash(super.hashCode(), getAsOfTime());
+        return Objects.hash(super.hashCode(), asOfTime);
     }
 }

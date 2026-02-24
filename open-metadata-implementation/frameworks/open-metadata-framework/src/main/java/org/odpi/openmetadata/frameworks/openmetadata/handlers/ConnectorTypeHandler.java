@@ -47,7 +47,7 @@ public class ConnectorTypeHandler extends OpenMetadataHandlerBase
     /**
      * Create a new connector type.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -115,7 +115,7 @@ public class ConnectorTypeHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a connector type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param connectorTypeGUID      unique identifier of the connector type (returned from create)
      * @param updateOptions          provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -146,7 +146,7 @@ public class ConnectorTypeHandler extends OpenMetadataHandlerBase
     /**
      * Delete a connector type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param connectorTypeGUID      unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -172,7 +172,7 @@ public class ConnectorTypeHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of connector types with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions multiple options to control the query
      * @return a list of elements
@@ -199,7 +199,7 @@ public class ConnectorTypeHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of connector types with a particular connector provider class name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the connector provider's class name (including package; but without .class)
      * @param queryOptions multiple options to control the query
      * @return a list of elements
@@ -224,7 +224,7 @@ public class ConnectorTypeHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific connector type.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param connectorTypeGUID      unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

@@ -25,6 +25,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 public class QualityAnnotationProperties extends DataFieldAnnotationProperties
 {
+    private String qualityDescription = null;
     private String qualityDimension = null;
     private int    qualityScore = 0;
 
@@ -79,6 +80,28 @@ public class QualityAnnotationProperties extends DataFieldAnnotationProperties
 
 
     /**
+     * Return a description of the quality being measured.
+     *
+     * @return String
+     */
+    public String getQualityDescription()
+    {
+        return qualityDescription;
+    }
+
+
+    /**
+     * Set up a description of the quality being measured.
+     *
+     * @param qualityDescription string
+     */
+    public void setQualityDescription(String qualityDescription)
+    {
+        this.qualityDescription = qualityDescription;
+    }
+
+
+    /**
      * Return a quality score between 0 and 100 - 100 is the best.
      *
      * @return int
@@ -109,7 +132,8 @@ public class QualityAnnotationProperties extends DataFieldAnnotationProperties
     public String toString()
     {
         return "QualityAnnotationProperties{" +
-                "qualityDimension='" + qualityDimension + '\'' +
+                "qualityDescription='" + qualityDescription + '\'' +
+                ", qualityDimension='" + qualityDimension + '\'' +
                 ", qualityScore=" + qualityScore +
                 "} " + super.toString();
     }
@@ -138,7 +162,8 @@ public class QualityAnnotationProperties extends DataFieldAnnotationProperties
         }
         QualityAnnotationProperties that = (QualityAnnotationProperties) objectToCompare;
         return qualityScore == that.qualityScore &&
-                Objects.equals(qualityDimension, that.qualityDimension);
+                Objects.equals(qualityDimension, that.qualityDimension) &&
+                Objects.equals(qualityDescription, that.qualityDescription);
     }
 
 
@@ -150,6 +175,6 @@ public class QualityAnnotationProperties extends DataFieldAnnotationProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), qualityDimension, qualityScore);
+        return Objects.hash(super.hashCode(), qualityDescription, qualityDimension, qualityScore);
     }
 }

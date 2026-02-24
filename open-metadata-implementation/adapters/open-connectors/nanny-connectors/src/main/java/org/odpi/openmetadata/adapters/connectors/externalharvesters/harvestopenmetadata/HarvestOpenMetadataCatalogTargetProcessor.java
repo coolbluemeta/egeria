@@ -288,6 +288,10 @@ public class HarvestOpenMetadataCatalogTargetProcessor extends CatalogTargetProc
 
             OpenMetadataRelationshipList personRoleAppointments = openMetadataStore.findRelationshipsBetweenMetadataElements(OpenMetadataType.PERSON_ROLE_APPOINTMENT_RELATIONSHIP.typeName,
                                                                                                                              null,
+                                                                                                                             null,
+                                                                                                                             null,
+                                                                                                                             null,
+                                                                                                                             null,
                                                                                                                              workingSearchOptions);
 
             while ((personRoleAppointments != null) && (personRoleAppointments.getRelationships() != null))
@@ -305,6 +309,10 @@ public class HarvestOpenMetadataCatalogTargetProcessor extends CatalogTargetProc
 
                 workingSearchOptions.setStartFrom(workingSearchOptions.getStartFrom() + openMetadataStore.getMaxPagingSize());
                 personRoleAppointments = openMetadataStore.findRelationshipsBetweenMetadataElements(OpenMetadataType.PERSON_ROLE_APPOINTMENT_RELATIONSHIP.typeName,
+                                                                                                    null,
+                                                                                                    null,
+                                                                                                    null,
+                                                                                                    null,
                                                                                                     null,
                                                                                                     workingSearchOptions);
             }

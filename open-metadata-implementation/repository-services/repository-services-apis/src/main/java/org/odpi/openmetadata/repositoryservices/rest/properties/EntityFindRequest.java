@@ -20,8 +20,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class EntityFindRequest extends InstanceFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private SearchClassifications matchClassifications = null;
 
 
@@ -82,14 +80,7 @@ public class EntityFindRequest extends InstanceFindRequest
     {
         return "EntityFindRequest{" +
                 "matchClassifications=" + matchClassifications +
-                ", matchProperties=" + getMatchProperties() +
-                ", typeGUID='" + getTypeGUID() + '\'' +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -106,7 +97,7 @@ public class EntityFindRequest extends InstanceFindRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof EntityFindRequest))
+        if (!(objectToCompare instanceof EntityFindRequest that))
         {
             return false;
         }
@@ -114,7 +105,6 @@ public class EntityFindRequest extends InstanceFindRequest
         {
             return false;
         }
-        EntityFindRequest that = (EntityFindRequest) objectToCompare;
         return Objects.equals(getMatchClassifications(), that.getMatchClassifications());
     }
 

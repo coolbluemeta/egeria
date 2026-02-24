@@ -3,6 +3,7 @@
 package org.odpi.openmetadata.governanceservers.enginehostservices.admin;
 
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestId;
 import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedException;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.ActivityStatus;
@@ -41,6 +42,7 @@ public abstract class GovernanceServiceHandler implements Runnable
     private final Date                    requestedStartDate;
 
 
+    private static final RequestId requestId = new RequestId();
 
 
     /**
@@ -83,6 +85,8 @@ public abstract class GovernanceServiceHandler implements Runnable
         this.governanceService          = governanceService;
         this.requestedStartDate         = requestedStartDate;
         this.auditLog                   = auditLog;
+
+        requestId.setRequestId(engineActionGUID);
     }
 
 
@@ -294,13 +298,15 @@ public abstract class GovernanceServiceHandler implements Runnable
 
 
     /**
-     * Disconnect the governance action service.  Called because the governance action service had set a completion status or
+     * Disconnect the governance service.  Called because the governance service had set a completion status or
      * the server is shutting down.
      *
      * @throws ConnectorCheckedException connector is in trouble
      */
     public void disconnect() throws ConnectorCheckedException
     {
+        requestId.clearRequestId();
+
         if (governanceService != null)
         {
             governanceService.disconnect();

@@ -18,6 +18,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstanceProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstanceStatus;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Relationship;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchClassifications;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.AttributeTypeDef;
@@ -841,7 +842,10 @@ public abstract class RepositoryGovernanceContext
      */
     public abstract List<Relationship> findRelationships(String                    relationshipTypeGUID,
                                                          List<String>              relationshipSubtypeGUIDs,
-                                                         SearchProperties matchProperties,
+                                                         List<String>              end1EntityGUIDs,
+                                                         List<String>              end2EntityGUIDs,
+                                                         EndMatchCriteria          endMatchCriteria,
+                                                         SearchProperties          matchProperties,
                                                          int                       fromRelationshipElement,
                                                          List<InstanceStatus>      limitResultsByStatus,
                                                          Date                      asOfTime,

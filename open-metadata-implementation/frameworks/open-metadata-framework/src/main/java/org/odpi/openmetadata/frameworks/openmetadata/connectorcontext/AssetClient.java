@@ -628,7 +628,7 @@ public class AssetClient extends ConnectorContextClientBase
      *
      * @return details of the integration connector and the elements it is to catalog
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector definition.
      */
     public OpenMetadataRelationship getActionTarget(String     relationshipGUID,
@@ -1230,7 +1230,7 @@ public class AssetClient extends ConnectorContextClientBase
      *
      * @return details of the integration connector and the elements it is to catalog
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector definition.
      */
     public OpenMetadataRelationship getCatalogTarget(String     relationshipGUID,

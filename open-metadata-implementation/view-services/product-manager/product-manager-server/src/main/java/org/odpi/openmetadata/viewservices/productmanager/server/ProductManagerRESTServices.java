@@ -52,14 +52,14 @@ public class ProductManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkDigitalProductDependency(String                  serverName,
-                                                     String                  consumerDigitalProductGUID,
-                                                     String                  consumedDigitalProductGUID,
+    public VoidResponse linkDigitalProductDependency(String                     serverName,
+                                                     String                     consumerDigitalProductGUID,
+                                                     String                     consumedDigitalProductGUID,
                                                      NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkDigitalProductDependency";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -110,7 +110,7 @@ public class ProductManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -128,14 +128,14 @@ public class ProductManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachDigitalProductDependency(String                   serverName,
-                                                       String                   consumerDigitalProductGUID,
-                                                       String                   consumedDigitalProductGUID,
+    public VoidResponse detachDigitalProductDependency(String                        serverName,
+                                                       String                        consumerDigitalProductGUID,
+                                                       String                        consumedDigitalProductGUID,
                                                        DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachDigitalProductDependency";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -160,7 +160,7 @@ public class ProductManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -185,7 +185,7 @@ public class ProductManagerRESTServices extends TokenController
     {
         final String methodName = "linkProductManager";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -236,7 +236,7 @@ public class ProductManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -261,7 +261,7 @@ public class ProductManagerRESTServices extends TokenController
     {
         final String methodName = "detachProductManager";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -286,7 +286,7 @@ public class ProductManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 

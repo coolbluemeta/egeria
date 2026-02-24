@@ -3,6 +3,7 @@
 package org.odpi.openmetadata.governanceservers.integrationdaemonservices.handlers;
 
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestId;
 import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorBroker;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.*;
@@ -71,9 +72,10 @@ public class IntegrationConnectorHandler
     private volatile String                              failingExceptionMessage             = null;
     private volatile Date                                lastRefreshTime                     = null;
 
+    private static final RequestId requestId = new RequestId();
 
     /**
-     * Constructor creates the integration connector and manages it state.
+     * Constructor creates the integration connector and manages its state.
      *
      * @param connectorId identifier of the connector (for controlling event receipts)
      * @param connectorGUID unique identifier of metadata entity for the connector (maybe null)
@@ -696,6 +698,7 @@ public class IntegrationConnectorHandler
                     }
                 }
 
+
                 integrationConnector.refresh();
                 afterRefreshConnector(actionDescription, refreshStart);
             }
@@ -830,7 +833,9 @@ public class IntegrationConnectorHandler
                     integrationConnector.setConnectorName(integrationConnectorName);
                 }
 
+                requestId.setRequestId(null);
                 integrationConnector.start();
+                requestId.clearRequestId();
                 updateStatus(nextStatus);
             }
         }

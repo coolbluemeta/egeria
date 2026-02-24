@@ -138,7 +138,7 @@ public interface ActionControlInterface
      * @return status enum
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     EngineActionElement getEngineAction(String userId,
@@ -154,7 +154,7 @@ public interface ActionControlInterface
      * @param engineActionGUID identifier of the engine action request.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     void cancelEngineAction(String userId,
@@ -167,12 +167,12 @@ public interface ActionControlInterface
      * Retrieve the engine actions that are still in process.
      *
      * @param userId userId of caller
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      * @return list of engine action elements
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     List<EngineActionElement> getActiveEngineActions(String userId,

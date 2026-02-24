@@ -552,7 +552,7 @@ public class AnnotationStore
      * @param annotationGUID parent annotation
      * @return list of AnnotationProperties objects
      * @throws InvalidParameterException  one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException    there was a problem that occurred within the property server.
      */
     public List<OpenMetadataRootElement> getExtendedAnnotations(String annotationGUID) throws InvalidParameterException,

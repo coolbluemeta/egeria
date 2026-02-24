@@ -27,8 +27,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class OMRSAPIPagedFindRequest extends OMRSAPIFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private String               sequencingProperty   = null;
     private SequencingOrder      sequencingOrder      = null;
     private int                  offset               = 0;
@@ -166,10 +164,8 @@ public class OMRSAPIPagedFindRequest extends OMRSAPIFindRequest
                 ", sequencingOrder=" + sequencingOrder +
                 ", offset=" + offset +
                 ", pageSize=" + pageSize +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
-
 
     /**
      * Compare the values of the supplied object with those stored in the current object.
@@ -184,7 +180,7 @@ public class OMRSAPIPagedFindRequest extends OMRSAPIFindRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof OMRSAPIPagedFindRequest))
+        if (!(objectToCompare instanceof OMRSAPIPagedFindRequest that))
         {
             return false;
         }
@@ -192,8 +188,6 @@ public class OMRSAPIPagedFindRequest extends OMRSAPIFindRequest
         {
             return false;
         }
-        OMRSAPIPagedFindRequest
-                that = (OMRSAPIPagedFindRequest) objectToCompare;
         return getOffset() == that.getOffset() &&
                 getPageSize() == that.getPageSize() &&
                 Objects.equals(getSequencingProperty(), that.getSequencingProperty()) &&
@@ -209,11 +203,6 @@ public class OMRSAPIPagedFindRequest extends OMRSAPIFindRequest
     @Override
     public int hashCode()
     {
-
-        return Objects.hash(super.hashCode(),
-                            getSequencingProperty(),
-                            getSequencingOrder(),
-                            getOffset(),
-                            getPageSize());
+        return Objects.hash(super.hashCode(), sequencingProperty, sequencingOrder, offset, pageSize);
     }
 }

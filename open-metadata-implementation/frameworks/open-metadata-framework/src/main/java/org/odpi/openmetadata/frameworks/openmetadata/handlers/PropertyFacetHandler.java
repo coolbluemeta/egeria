@@ -47,7 +47,7 @@ public class PropertyFacetHandler extends OpenMetadataHandlerBase
     /**
      * Adds a property facet to the element.
      *
-     * @param userId        userId of user making request
+     * @param userId        userId of the user making the request
      * @param elementGUID     unique identifier for the element
      * @param metadataSourceOptions options for the request
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
@@ -96,7 +96,7 @@ public class PropertyFacetHandler extends OpenMetadataHandlerBase
     /**
      * Update an existing property facet.
      *
-     * @param userId        userId of user making request.
+     * @param userId        userId of the user making the request.
      * @param propertyFacetGUID   unique identifier for the property facet to change.
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties   properties of the propertyFacet
@@ -125,7 +125,7 @@ public class PropertyFacetHandler extends OpenMetadataHandlerBase
     /**
      * Removes a property facet added to the element by this user.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param propertyFacetGUID  unique identifier for the property facet object.
      * @param deleteOptions options for a delete request
      *
@@ -146,7 +146,7 @@ public class PropertyFacetHandler extends OpenMetadataHandlerBase
     /**
      * Return the requested property facet.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param propertyFacetGUID  unique identifier for the property facet object.
      * @param getOptions multiple options to control the query
      * @return property facet properties

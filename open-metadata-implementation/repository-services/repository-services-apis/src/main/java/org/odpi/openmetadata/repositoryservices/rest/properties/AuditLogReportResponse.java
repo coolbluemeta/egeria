@@ -106,7 +106,7 @@ public class AuditLogReportResponse extends OMRSAPIResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof AuditLogReportResponse))
+        if (!(objectToCompare instanceof AuditLogReportResponse that))
         {
             return false;
         }
@@ -114,8 +114,6 @@ public class AuditLogReportResponse extends OMRSAPIResponse
         {
             return false;
         }
-        AuditLogReportResponse
-                that = (AuditLogReportResponse) objectToCompare;
         return Objects.equals(getReport(), that.getReport());
     }
 

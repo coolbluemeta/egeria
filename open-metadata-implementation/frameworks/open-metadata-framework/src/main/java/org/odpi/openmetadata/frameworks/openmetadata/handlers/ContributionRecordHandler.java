@@ -53,7 +53,7 @@ public class ContributionRecordHandler extends OpenMetadataHandlerBase
     /**
      * Create a new contribution record.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -85,7 +85,7 @@ public class ContributionRecordHandler extends OpenMetadataHandlerBase
     /**
      * Adds a contribution record to the element.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param elementGUID     unique identifier for the element
      * @param metadataSourceOptions options for the request
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
@@ -161,7 +161,7 @@ public class ContributionRecordHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a contribution record.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contributionRecordGUID       unique identifier of the contribution record (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -192,7 +192,7 @@ public class ContributionRecordHandler extends OpenMetadataHandlerBase
     /**
      * Attach a profile to a contribution record.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param contributionRecordGUID       unique identifier of the contribution record
      * @param profileGUID           unique identifier of the profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -229,7 +229,7 @@ public class ContributionRecordHandler extends OpenMetadataHandlerBase
     /**
      * Detach a contribution record from a profile.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contributionRecordGUID       unique identifier of the contribution record
      * @param profileGUID           unique identifier of the profile
      * @param deleteOptions  options to control access to open metadata
@@ -264,7 +264,7 @@ public class ContributionRecordHandler extends OpenMetadataHandlerBase
     /**
      * Delete a contribution record.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contributionRecordGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -290,7 +290,7 @@ public class ContributionRecordHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of contribution records with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -317,7 +317,7 @@ public class ContributionRecordHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific contribution record.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param contributionRecordGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

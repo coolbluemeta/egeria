@@ -258,17 +258,20 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "class" : "ProjectProperties",
-  "qualifiedName": "Must provide a unique name here",
-  "identifier" : "Add business identifier",
-  "displayName" : "Add display name here",
-  "description" : "Add description of the task here",
-  "projectPhase" : "lifecycle phase of the task",
-  "projectStatus": "Add appropriate valid value for type",
-  "projectHealth" : "Add how well the task is tracking to plan",
-  "priority" : 0,
-  "startDate" : "date/time",
-  "plannedEndDate" : "date/time"
+   "class": "NewAttachmentRequestBody",
+   "properties" : {
+        "class" : "ProjectProperties",
+        "qualifiedName": "Must provide a unique name here",
+        "identifier": "Add business identifier",
+        "displayName": "Add display name here",
+        "description": "Add description of the task here",
+        "projectPhase": "lifecycle phase of the task",
+        "projectStatus": "Add appropriate valid value for type",
+        "projectHealth": "Add how well the task is tracking to plan",
+        "priority": 0,
+        "startDate": "date/time",
+        "plannedEndDate": "date/time"
+    }
 }
 
 ###

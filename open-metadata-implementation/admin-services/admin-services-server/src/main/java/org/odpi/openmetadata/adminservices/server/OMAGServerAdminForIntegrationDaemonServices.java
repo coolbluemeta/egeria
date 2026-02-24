@@ -80,7 +80,7 @@ public class OMAGServerAdminForIntegrationDaemonServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -140,7 +140,7 @@ public class OMAGServerAdminForIntegrationDaemonServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -219,7 +219,7 @@ public class OMAGServerAdminForIntegrationDaemonServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -257,7 +257,7 @@ public class OMAGServerAdminForIntegrationDaemonServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -320,7 +320,7 @@ public class OMAGServerAdminForIntegrationDaemonServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -442,7 +442,7 @@ public class OMAGServerAdminForIntegrationDaemonServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -502,7 +502,7 @@ public class OMAGServerAdminForIntegrationDaemonServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -552,7 +552,7 @@ public class OMAGServerAdminForIntegrationDaemonServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

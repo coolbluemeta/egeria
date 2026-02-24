@@ -30,7 +30,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 public class AssetProperties extends ReferenceableProperties
 {
     private String resourceName               = null;
-    private String namespace                  = null;
+    private String namespacePath              = null;
     private String deployedImplementationType = null;
     private String source                     = null;
 
@@ -56,7 +56,7 @@ public class AssetProperties extends ReferenceableProperties
         if (template != null)
         {
             resourceName               = template.getResourceName();
-            namespace                  = template.getNamespace();
+            namespacePath              = template.getNamespacePath();
             deployedImplementationType = template.getDeployedImplementationType();
             source                     = template.getSource();
         }
@@ -88,20 +88,20 @@ public class AssetProperties extends ReferenceableProperties
      *
      * @return string name
      */
-    public String getNamespace()
+    public String getNamespacePath()
     {
-        return namespace;
+        return namespacePath;
     }
 
 
     /**
      * Set up the name of the namespace that this type belongs to.
      *
-     * @param namespace string name
+     * @param namespacePath string name
      */
-    public void setNamespace(String namespace)
+    public void setNamespacePath(String namespacePath)
     {
-        this.namespace = namespace;
+        this.namespacePath = namespacePath;
     }
 
 
@@ -160,7 +160,7 @@ public class AssetProperties extends ReferenceableProperties
     {
         return "AssetProperties{" +
                 "resourceName='" + resourceName + '\'' +
-                ", namespace='" + namespace + '\'' +
+                ", namespace='" + namespacePath + '\'' +
                 ", deployedImplementationType='" + deployedImplementationType + '\'' +
                 ", source='" + source + '\'' +
                 "} " + super.toString();
@@ -180,7 +180,7 @@ public class AssetProperties extends ReferenceableProperties
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         if (!super.equals(objectToCompare)) return false;
         AssetProperties that = (AssetProperties) objectToCompare;
-        return Objects.equals(namespace, that.namespace) &&
+        return Objects.equals(namespacePath, that.namespacePath) &&
                 Objects.equals(resourceName, that.resourceName) &&
                 Objects.equals(deployedImplementationType, that.deployedImplementationType) &&
                 Objects.equals(source, that.source);
@@ -194,6 +194,6 @@ public class AssetProperties extends ReferenceableProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), namespace, resourceName, deployedImplementationType, source);
+        return Objects.hash(super.hashCode(), namespacePath, resourceName, deployedImplementationType, source);
     }
 }

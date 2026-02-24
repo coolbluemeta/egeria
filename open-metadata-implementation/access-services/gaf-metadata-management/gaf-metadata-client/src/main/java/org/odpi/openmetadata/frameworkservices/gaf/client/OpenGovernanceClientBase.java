@@ -12,6 +12,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerExceptio
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.opengovernance.properties.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.NewActionTarget;
+import org.odpi.openmetadata.frameworks.openmetadata.search.QueryOptions;
 import org.odpi.openmetadata.frameworkservices.gaf.client.rest.GAFRESTClient;
 import org.odpi.openmetadata.frameworkservices.gaf.rest.*;
 
@@ -28,7 +29,6 @@ public class OpenGovernanceClientBase extends OpenGovernanceClient
     protected final GAFRESTClient           restClient;               /* Initialized in constructor */
 
     protected final InvalidParameterHandler invalidParameterHandler = new InvalidParameterHandler();
-    protected final NullRequestBody         nullRequestBody = new NullRequestBody();
 
 
 
@@ -279,7 +279,7 @@ public class OpenGovernanceClientBase extends OpenGovernanceClient
      * @return status enum
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     @Override
@@ -313,7 +313,7 @@ public class OpenGovernanceClientBase extends OpenGovernanceClient
      * @param engineActionGUID identifier of the engine action request.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     @Override
@@ -331,7 +331,7 @@ public class OpenGovernanceClientBase extends OpenGovernanceClient
 
         restClient.callVoidPostRESTCall(methodName,
                                         urlTemplate,
-                                        nullRequestBody,
+                                        new GAFAPIRequest(),
                                         serverName,
                                         userId,
                                         engineActionGUID);
@@ -342,12 +342,12 @@ public class OpenGovernanceClientBase extends OpenGovernanceClient
      * Retrieve the engine actions that are still in process.
      *
      * @param userId userId of caller
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      * @return list of engine action elements
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     @Override
@@ -387,7 +387,7 @@ public class OpenGovernanceClientBase extends OpenGovernanceClient
      *
      * @param userId calling user
      * @param processGUID unique identifier of the requested metadata element
-     * @param effectiveTime effective date/time for query
+     * @param queryOptions effective date/time for query
      *
      * @return requested metadata element
      *
@@ -396,11 +396,11 @@ public class OpenGovernanceClientBase extends OpenGovernanceClient
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
     @Override
-    public GovernanceActionProcessGraph getGovernanceActionProcessGraph(String userId,
-                                                                        String processGUID,
-                                                                        Date   effectiveTime) throws InvalidParameterException,
-                                                                                                     UserNotAuthorizedException,
-                                                                                                     PropertyServerException
+    public GovernanceActionProcessGraph getGovernanceActionProcessGraph(String       userId,
+                                                                        String       processGUID,
+                                                                        QueryOptions queryOptions) throws InvalidParameterException,
+                                                                                                          UserNotAuthorizedException,
+                                                                                                          PropertyServerException
     {
         final String methodName = "getGovernanceActionProcessGraph";
         final String guidParameterName = "processGUID";
@@ -409,8 +409,7 @@ public class OpenGovernanceClientBase extends OpenGovernanceClient
         invalidParameterHandler.validateUserId(userId, methodName);
         invalidParameterHandler.validateGUID(processGUID, guidParameterName, methodName);
 
-        ResultsRequestBody requestBody = new ResultsRequestBody();
-        requestBody.setEffectiveTime(effectiveTime);
+        ResultsRequestBody requestBody = new ResultsRequestBody(queryOptions);
 
         GovernanceActionProcessGraphResponse restResult = restClient.callGovernanceActionProcessGraphPostRESTCall(methodName,
                                                                                                                   urlTemplate,

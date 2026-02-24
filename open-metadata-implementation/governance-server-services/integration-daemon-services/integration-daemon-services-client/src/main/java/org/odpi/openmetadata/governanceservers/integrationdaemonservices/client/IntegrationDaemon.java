@@ -103,7 +103,7 @@ public class IntegrationDaemon
      * @return connector type and other capabilities for this connector
      *
      * @throws InvalidParameterException the connector provider class name is not a valid connector fo this service
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration service
      */
     public ConnectorReport validateConnector(String connectorProviderClassName) throws InvalidParameterException,
@@ -134,7 +134,7 @@ public class IntegrationDaemon
      * @return property map
      *
      * @throws InvalidParameterException the connector name is not recognized
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public Map<String, Object> getConfigurationProperties(String connectorName) throws InvalidParameterException,
@@ -243,7 +243,7 @@ public class IntegrationDaemon
      * Issue a refresh() request on a specific connector
      *
      * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public void refreshConnector(String connectorName) throws InvalidParameterException,
@@ -268,7 +268,7 @@ public class IntegrationDaemon
      * Issue a refresh() request on a connector running in the integration daemon.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public void refreshConnectors() throws InvalidParameterException,
@@ -291,7 +291,7 @@ public class IntegrationDaemon
      * Issue a restart() request on a specific connector
      *
      * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public void restartConnector(String connectorName) throws InvalidParameterException,
@@ -317,7 +317,7 @@ public class IntegrationDaemon
      * Issue a restart() request on a connector running in the integration daemon.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public void restartConnectors() throws InvalidParameterException,
@@ -341,7 +341,7 @@ public class IntegrationDaemon
      * @return list of statuses - one for each assigned integration service or integration group
      *
      * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public IntegrationDaemonStatus getIntegrationDaemonStatus() throws InvalidParameterException,
@@ -421,7 +421,7 @@ public class IntegrationDaemon
      * @param integrationGroupName qualifiedName of the integration group to target
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the integration group.
      */
     public  void refreshConfig(String integrationGroupName) throws InvalidParameterException,

@@ -16,6 +16,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.MatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.SequencingOrder;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.*;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchClassifications;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.*;
@@ -38,7 +39,7 @@ import java.util.Map;
  *     <li><i>rootServiceNameInURL</i> - "/open-metadata/repository-services"</li>
  *     <li><i>userIdInURL</i> - optional - "/users/{0}"</li>
  *     <li><i>serviceURLMarker</i> - "/" for local repository services and "/enterprise/" for enterprise repository services</li>
- *     <li><i>operationSpecificURL</i> - operation specific part of the URL</li>
+ *     <li><i>operationSpecificURL</i> - the operation-specific part of the URL</li>
  * </ul>
  */
 public abstract class MetadataCollectionServicesClient implements AuditLoggingComponent
@@ -206,10 +207,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
 
         try
         {
-            restResult = restClient.callGetRESTCall(methodName,
-                                                    MetadataCollectionIdResponse.class,
-                                                    restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                    userId);
+            restResult = restClient.callPostRESTCall(methodName,
+                                                     MetadataCollectionIdResponse.class,
+                                                     restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
+                                                     new GetRequest(),
+                                                     userId);
         }
         catch (Exception error)
         {
@@ -259,9 +261,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "getAllTypes";
         final String operationSpecificURL = "types/all";
 
-        TypeDefGalleryResponse restResult = this.callTypeDefGalleryGetRESTCall(methodName,
-                                                                               restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                               userId);
+        TypeDefGalleryResponse restResult = this.callTypeDefGalleryPostRESTCall(methodName,
+                                                                                restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
+                                                                                new GetRequest(),
+                                                                                userId);
 
         this.detectAndThrowInvalidParameterException(methodName, restResult);
         this.detectAndThrowRepositoryErrorException(methodName, restResult);
@@ -291,10 +294,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "findTypesByName";
         final String operationSpecificURL = "types/by-name?name={1}";
 
-        TypeDefGalleryResponse restResult = this.callTypeDefGalleryGetRESTCall(methodName,
-                                                                               restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                               userId,
-                                                                               name);
+        TypeDefGalleryResponse restResult = this.callTypeDefGalleryPostRESTCall(methodName,
+                                                                                restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
+                                                                                new GetRequest(),
+                                                                                userId,
+                                                                                name);
 
         this.detectAndThrowInvalidParameterException(methodName, restResult);
         this.detectAndThrowUserNotAuthorizedException(methodName, restResult);
@@ -322,9 +326,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "findTypeDefsByCategory";
         final String operationSpecificURL = "types/typedefs/by-category";
 
+        TypeDefCategoryRequest requestBody = new TypeDefCategoryRequest();
+        requestBody.setCategory(category);
+
         TypeDefListResponse restResult = this.callTypeDefListPostRESTCall(methodName,
                                                                           restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                          category,
+                                                                          requestBody,
                                                                           userId);
 
         this.detectAndThrowInvalidParameterException(methodName, restResult);
@@ -353,9 +360,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "findAttributeTypeDefsByCategory";
         final String operationSpecificURL = "types/attribute-typedefs/by-category";
 
+        AttributeTypeDefCategoryRequest requestBody = new AttributeTypeDefCategoryRequest();
+        requestBody.setCategory(category);
+
         AttributeTypeDefListResponse restResult = this.callAttributeTypeDefListPostRESTCall(methodName,
                                                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                                            category,
+                                                                                            requestBody,
                                                                                             userId);
 
         this.detectAndThrowInvalidParameterException(methodName, restResult);
@@ -384,10 +394,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "findTypeDefsByProperty";
         final String operationSpecificURL = "types/typedefs/by-property";
 
-        TypeDefListResponse restResult = this.callTypeDefListGetRESTCall(methodName,
+        TypeDefPropertiesRequest requestBody = new TypeDefPropertiesRequest();
+        requestBody.setTypeDefProperties(matchCriteria);
+        TypeDefListResponse restResult = this.callTypeDefListPostRESTCall(methodName,
                                                                          restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                         userId,
-                                                                         matchCriteria);
+                                                                          requestBody,
+                                                                          userId);
 
         this.detectAndThrowInvalidParameterException(methodName, restResult);
         this.detectAndThrowUserNotAuthorizedException(methodName, restResult);
@@ -420,13 +432,13 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "findTypesByExternalID";
         final String operationSpecificURL = "types/typedefs/by-external-id?standard={1}&organization={2}&identifier={3}";
 
-
-        TypeDefListResponse restResult = this.callTypeDefListGetRESTCall(methodName,
+        TypeDefListResponse restResult = this.callTypeDefListPostRESTCall(methodName,
                                                                          restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                         userId,
-                                                                         standard,
-                                                                         organization,
-                                                                         identifier);
+                                                                          new GetRequest(),
+                                                                          userId,
+                                                                          standard,
+                                                                          organization,
+                                                                          identifier);
 
         this.detectAndThrowInvalidParameterException(methodName, restResult);
         this.detectAndThrowUserNotAuthorizedException(methodName, restResult);
@@ -455,10 +467,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "searchForTypeDefs";
         final String operationSpecificURL = "types/typedefs/by-property-value?searchCriteria={1}";
 
-        TypeDefListResponse restResult = this.callTypeDefListGetRESTCall(methodName,
-                                                                         restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                         userId,
-                                                                         searchCriteria);
+        TypeDefListResponse restResult = this.callTypeDefListPostRESTCall(methodName,
+                                                                          restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
+                                                                          new GetRequest(),
+                                                                          userId,
+                                                                          searchCriteria);
 
         this.detectAndThrowInvalidParameterException(methodName, restResult);
         this.detectAndThrowUserNotAuthorizedException(methodName, restResult);
@@ -489,10 +502,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "getTypeDefByGUID";
         final String operationSpecificURL = "types/typedef/{1}";
 
-        TypeDefResponse restResult = this.callTypeDefGetRESTCall(methodName,
+        TypeDefResponse restResult = this.callTypeDefPostRESTCall(methodName,
                                                                  restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                 userId,
-                                                                 guid);
+                                                                  new GetRequest(),
+                                                                  userId,
+                                                                  guid);
 
         this.detectAndThrowTypeDefNotKnownException(methodName, restResult);
         this.detectAndThrowInvalidParameterException(methodName, restResult);
@@ -524,10 +538,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "getAttributeTypeDefByGUID";
         final String operationSpecificURL = "types/attribute-typedef/{1}";
 
-        AttributeTypeDefResponse restResult = this.callAttributeTypeDefGetRESTCall(methodName,
+        AttributeTypeDefResponse restResult = this.callAttributeTypeDefPostRESTCall(methodName,
                                                                                    restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                                   userId,
-                                                                                   guid);
+                                                                                   new GetRequest(),
+                                                                                    userId,
+                                                                                    guid);
 
         this.detectAndThrowTypeDefNotKnownException(methodName, restResult);
         this.detectAndThrowInvalidParameterException(methodName, restResult);
@@ -559,10 +574,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "getTypeDefByName";
         final String operationSpecificURL = "types/typedef/name/{1}";
 
-        TypeDefResponse restResult = this.callTypeDefGetRESTCall(methodName,
+        TypeDefResponse restResult = this.callTypeDefPostRESTCall(methodName,
                                                                  restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                 userId,
-                                                                 name);
+                                                                  new GetRequest(),
+                                                                  userId,
+                                                                  name);
 
         this.detectAndThrowTypeDefNotKnownException(methodName, restResult);
         this.detectAndThrowInvalidParameterException(methodName, restResult);
@@ -594,8 +610,9 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "getAttributeTypeDefByName";
         final String operationSpecificURL = "types/attribute-typedef/name/{1}";
 
-        AttributeTypeDefResponse restResult = this.callAttributeTypeDefGetRESTCall(methodName,
+        AttributeTypeDefResponse restResult = this.callAttributeTypeDefPostRESTCall(methodName,
                                                                                    restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
+                                                                                   new GetRequest(),
                                                                                    userId,
                                                                                    name);
 
@@ -636,9 +653,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "addTypeDefGallery";
         final String operationSpecificURL = "types";
 
+        TypeDefGalleryRequest requestBody = new TypeDefGalleryRequest();
+        requestBody.setTypeDefs(newTypes.getTypeDefs());
+
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            newTypes,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowTypeDefNotSupportedException(methodName, restResult);
@@ -680,9 +700,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "addTypeDef";
         final String operationSpecificURL = "types/typedef";
 
+        TypeDefRequest requestBody = new TypeDefRequest();
+        requestBody.setTypeDef(newTypeDef);
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            newTypeDef,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowTypeDefNotSupportedException(methodName, restResult);
@@ -724,9 +746,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "addAttributeTypeDef";
         final String operationSpecificURL = "types/attribute-typedef";
 
+        AttributeTypeDefRequest requestBody = new AttributeTypeDefRequest();
+        requestBody.setAttributeTypeDef(newAttributeTypeDef);
+
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            newAttributeTypeDef,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowTypeDefNotSupportedException(methodName, restResult);
@@ -765,9 +790,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "verifyTypeDef";
         final String operationSpecificURL = "types/typedef/compatibility";
 
+        TypeDefRequest requestBody = new TypeDefRequest();
+        requestBody.setTypeDef(typeDef);
+
         BooleanResponse restResult = this.callBooleanPostRESTCall(methodName,
                                                                   restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                  typeDef,
+                                                                  requestBody,
                                                                   userId);
 
         this.detectAndThrowTypeDefNotSupportedException(methodName, restResult);
@@ -806,9 +834,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "verifyAttributeTypeDef";
         final String operationSpecificURL = "types/attribute-typedef/compatibility";
 
+        AttributeTypeDefRequest requestBody = new AttributeTypeDefRequest();
+        requestBody.setAttributeTypeDef(attributeTypeDef);
+
         BooleanResponse restResult = this.callBooleanPostRESTCall(methodName,
                                                                   restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                  attributeTypeDef,
+                                                                  requestBody,
                                                                   userId);
 
         this.detectAndThrowTypeDefNotSupportedException(methodName, restResult);
@@ -849,9 +880,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "updateTypeDef";
         final String operationSpecificURL = "types/typedef/update";
 
+        TypeDefPatchRequest requestBody = new TypeDefPatchRequest();
+        requestBody.setTypeDefPatch(typeDefPatch);
+
         TypeDefResponse restResult = this.callTypeDefPostRESTCall(methodName,
                                                                   restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                  typeDefPatch,
+                                                                  requestBody,
                                                                   userId);
 
         this.detectAndThrowTypeDefNotKnownException(methodName, restResult);
@@ -1089,9 +1123,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "isEntityKnown";
         final String operationSpecificURL = "instances/entity/{1}/existence";
 
-        EntityDetailResponse restResult = this.callEntityDetailGetRESTCall(methodName,
+        EntityDetailResponse restResult = this.callEntityDetailPostRESTCall(methodName,
                                                                            restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                           userId,
+                                                                           new GetRequest(),
+                                                                            userId,
                                                                            guid);
 
         this.detectAndThrowInvalidParameterException(methodName, restResult);
@@ -1124,10 +1159,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "getEntitySummary";
         final String operationSpecificURL = "instances/entity/{1}/summary";
 
-        EntitySummaryResponse restResult = this.callEntitySummaryGetRESTCall(methodName,
-                                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                             userId,
-                                                                             guid);
+        EntitySummaryResponse restResult = this.callEntitySummaryPostRESTCall(methodName,
+                                                                              restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
+                                                                              new GetRequest(),
+                                                                              userId,
+                                                                              guid);
 
         this.detectAndThrowEntityNotKnownException(methodName, restResult);
         this.detectAndThrowInvalidParameterException(methodName, restResult);
@@ -1161,8 +1197,9 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "getEntityDetail";
         final String operationSpecificURL = "instances/entity/{1}";
 
-        EntityDetailResponse restResult = this.callEntityDetailGetRESTCall(methodName,
+        EntityDetailResponse restResult = this.callEntityDetailPostRESTCall(methodName,
                                                                            restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
+                                                                           new GetRequest(),
                                                                            userId,
                                                                            guid);
 
@@ -1912,9 +1949,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "isRelationshipKnown";
         final String operationSpecificURL = "instances/relationship/{1}/existence";
 
-        RelationshipResponse restResult = this.callRelationshipGetRESTCall(methodName,
+        RelationshipResponse restResult = this.callRelationshipPostRESTCall(methodName,
                                                                            restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                           userId,
+                                                                           new GetRequest(),
+                                                                            userId,
                                                                            guid);
 
         this.detectAndThrowInvalidParameterException(methodName, restResult);
@@ -1947,8 +1985,9 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "getRelationship";
         final String operationSpecificURL = "instances/relationship/{1}";
 
-        RelationshipResponse restResult = this.callRelationshipGetRESTCall(methodName,
+        RelationshipResponse restResult = this.callRelationshipPostRESTCall(methodName,
                                                                            restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
+                                                                           new GetRequest(),
                                                                            userId,
                                                                            guid);
 
@@ -2074,6 +2113,9 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
      *                             (but may be slow so not recommended).
      * @param relationshipSubtypeGUIDs optional list of the unique identifiers (guids) for subtypes of the
      *                                 relationshipTypeGUID to include in the search results. Null means all subtypes.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param matchProperties Optional list of relationship property conditions to match.
      * @param fromRelationshipElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
@@ -2103,6 +2145,9 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
     public  List<Relationship> findRelationships(String                    userId,
                                                  String                    relationshipTypeGUID,
                                                  List<String>              relationshipSubtypeGUIDs,
+                                                 List<String>              end1EntityGUIDs,
+                                                 List<String>              end2EntityGUIDs,
+                                                 EndMatchCriteria          endMatchCriteria,
                                                  SearchProperties          matchProperties,
                                                  int                       fromRelationshipElement,
                                                  List<InstanceStatus>      limitResultsByStatus,
@@ -2124,10 +2169,13 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         {
             final String operationSpecificURL = "instances/relationships";
 
-            InstanceFindRequest findRequestParameters = new InstanceFindRequest();
+            RelationshipFindRequest findRequestParameters = new RelationshipFindRequest();
 
             findRequestParameters.setTypeGUID(relationshipTypeGUID);
             findRequestParameters.setSubtypeGUIDs(relationshipSubtypeGUIDs);
+            findRequestParameters.setEnd1EntityGUIDs(end1EntityGUIDs);
+            findRequestParameters.setEnd2EntityGUIDs(end2EntityGUIDs);
+            findRequestParameters.setEndMatchCriteria(endMatchCriteria);
             findRequestParameters.setMatchProperties(matchProperties);
             findRequestParameters.setOffset(fromRelationshipElement);
             findRequestParameters.setLimitResultsByStatus(limitResultsByStatus);
@@ -2144,10 +2192,13 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         {
             final String operationSpecificURL = "instances/relationships/history";
 
-            InstanceHistoricalFindRequest findRequestParameters = new InstanceHistoricalFindRequest();
+            RelationshipHistoricalFindRequest findRequestParameters = new RelationshipHistoricalFindRequest();
 
             findRequestParameters.setTypeGUID(relationshipTypeGUID);
             findRequestParameters.setSubtypeGUIDs(relationshipSubtypeGUIDs);
+            findRequestParameters.setEnd1EntityGUIDs(end1EntityGUIDs);
+            findRequestParameters.setEnd2EntityGUIDs(end2EntityGUIDs);
+            findRequestParameters.setEndMatchCriteria(endMatchCriteria);
             findRequestParameters.setMatchProperties(matchProperties);
             findRequestParameters.setAsOfTime(asOfTime);
             findRequestParameters.setOffset(fromRelationshipElement);
@@ -2829,9 +2880,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "addEntityProxy";
         final String operationSpecificURL = "instances/entity-proxy";
 
+        EntityProxyRequest requestBody = new EntityProxyRequest();
+        requestBody.setEntity(entityProxy);
+
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            entityProxy,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -2956,9 +3010,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "undoEntityUpdate";
         final String operationSpecificURL = "instances/entity/{1}/previous";
 
-        EntityDetailResponse restResult = this.callEntityDetailGetRESTCall(methodName,
+        EntityDetailResponse restResult = this.callEntityDetailPostRESTCall(methodName,
                                                                            restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                           userId,
+                                                                           new GetRequest(),
+                                                                            userId,
                                                                            entityGUID);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -3094,9 +3149,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "restoreEntity";
         final String operationSpecificURL = "instances/entity/{1}/restore";
 
-        EntityDetailResponse restResult = this.callEntityDetailGetRESTCall(methodName,
+        EntityDetailResponse restResult = this.callEntityDetailPostRESTCall(methodName,
                                                                            restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                           userId,
+                                                                           new GetRequest(),
+                                                                            userId,
                                                                            deletedEntityGUID);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -3388,11 +3444,9 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "declassifyEntity";
         final String operationSpecificURL = "instances/entity/{1}/classification/{2}/delete";
 
-        OMRSAPIRequest requestBody = new OMRSAPIRequest();
-
         EntityDetailResponse restResult = this.callEntityDetailPostRESTCall(methodName,
                                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                            requestBody,
+                                                                            new GetRequest(),
                                                                             userId,
                                                                             entityGUID,
                                                                             classificationName);
@@ -3435,9 +3489,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName = "declassifyEntityProxy";
         final String operationSpecificURL = "instances/entity/classification/{1}/delete";
 
+        EntityProxyRequest requestBody = new EntityProxyRequest();
+        requestBody.setEntity(entityProxy);
+
         ClassificationResponse restResult = this.callClassificationPostRESTCall(methodName,
                                                                                restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                                entityProxy,
+                                                                                requestBody,
                                                                                 userId,
                                                                                 classificationName);
 
@@ -3702,51 +3759,6 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
 
 
     /**
-     * Update the status of a specific relationship.
-     *
-     * @param userId unique identifier for requesting user.
-     * @param relationshipGUID String unique identifier (guid) for the relationship.
-     * @param newStatus new InstanceStatus for the relationship.
-     * @return Resulting relationship structure with the new status set.
-     * @throws InvalidParameterException one of the parameters is invalid or null.
-     * @throws RepositoryErrorException a problem communicating with the metadata repository where
-     *                                  the metadata collection is stored.
-     * @throws RelationshipNotKnownException the requested relationship is not known in the metadata collection.
-     * @throws StatusNotSupportedException invalid status for instance.
-     * @throws FunctionNotSupportedException the repository does not support maintenance of metadata.
-     * @throws UserNotAuthorizedException the userId is not permitted to perform this operation.
-     */
-    public Relationship updateRelationshipStatus(String         userId,
-                                                 String         relationshipGUID,
-                                                 InstanceStatus newStatus) throws InvalidParameterException,
-                                                                                  RepositoryErrorException,
-                                                                                  RelationshipNotKnownException,
-                                                                                  StatusNotSupportedException,
-                                                                                  FunctionNotSupportedException,
-                                                                                  UserNotAuthorizedException
-    {
-        final String methodName  = "updateRelationshipStatus";
-        final String operationSpecificURL = "instances/relationship/{1}/status";
-
-        RelationshipResponse restResult = this.callRelationshipPostRESTCall(methodName,
-                                                                            restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                            newStatus,
-                                                                            userId,
-                                                                            relationshipGUID);
-
-        this.detectAndThrowRelationshipNotKnownException(methodName, restResult);
-        this.detectAndThrowStatusNotSupportedException(methodName, restResult);
-        this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
-
-        this.detectAndThrowInvalidParameterException(methodName, restResult);
-        this.detectAndThrowUserNotAuthorizedException(methodName, restResult);
-        this.detectAndThrowRepositoryErrorException(methodName, restResult);
-
-        return restResult.getRelationship();
-    }
-
-
-    /**
      * Update the properties of a specific relationship.
      *
      * @param userId unique identifier for requesting user.
@@ -3818,9 +3830,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "undoRelationshipUpdate";
         final String operationSpecificURL = "instances/relationship/{1}/previous";
 
-        RelationshipResponse restResult = this.callRelationshipGetRESTCall(methodName,
+        RelationshipResponse restResult = this.callRelationshipPostRESTCall(methodName,
                                                                            restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                           userId,
+                                                                           new GetRequest(),
+                                                                            userId,
                                                                            relationshipGUID);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -3956,10 +3969,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "restoreRelationship";
         final String operationSpecificURL = "instances/relationship/{1}/restore";
 
-        RelationshipResponse restResult = this.callRelationshipGetRESTCall(methodName,
+        RelationshipResponse restResult = this.callRelationshipPostRESTCall(methodName,
                                                                            restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                           userId,
-                                                                           deletedRelationshipGUID);
+                                                                            new GetRequest(),
+                                                                            userId,
+                                                                            deletedRelationshipGUID);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
         this.detectAndThrowRelationshipNotKnownException(methodName, restResult);
@@ -4387,9 +4401,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "saveEntityReferenceCopy";
         final String operationSpecificURL = "instances/entities/reference-copy";
 
+        EntityDetailRequest requestBody = new EntityDetailRequest();
+        requestBody.setEntity(entity);
+
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            entity,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -4428,9 +4445,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName = "getHomeClassifications";
         final String operationSpecificURL = "instances/entity/{1}/home-classifications";
 
-        ClassificationListResponse restResult = this.callClassificationListGetRESTCall(methodName,
+        ClassificationListResponse restResult = this.callClassificationListPostRESTCall(methodName,
                                                                                        restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                                                       userId,
+                                                                                       new GetRequest(),
+                                                                                        userId,
                                                                                        entityGUID);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -4523,9 +4541,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "deleteEntityReferenceCopy";
         final String operationSpecificURL = "instances/entities/reference-copy/delete";
 
+        EntityDetailRequest requestBody = new EntityDetailRequest();
+        requestBody.setEntity(entity);
+
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            entity,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -4545,7 +4566,6 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
      * remove reference copies from the local cohort, repositories that have left the cohort,
      * or entities that have come from open metadata archives.  It is also an opportunity to remove
      * relationships attached to the entity.
-     *
      * This method is called when a remote repository calls the variant of purgeEntity that
      * passes the EntityDetail object.  This is typically used if purge is called without a previous soft-delete.
      * However, it may also be used to purge after a soft-delete.
@@ -4580,9 +4600,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "purgeEntityReferenceCopy";
         final String operationSpecificURL = "instances/entities/reference-copy/purge";
 
+        EntityDetailRequest requestBody = new EntityDetailRequest();
+        requestBody.setEntity(entity);
+
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            entity,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -4962,9 +4985,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "saveRelationshipReferenceCopy";
         final String operationSpecificURL = "instances/relationships/reference-copy";
 
+        RelationshipRequest requestBody = new RelationshipRequest();
+        requestBody.setRelationship(relationship);
+
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            relationship,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -5019,9 +5045,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "deleteRelationshipReferenceCopy";
         final String operationSpecificURL = "instances/relationships/reference-copy/delete";
 
+        RelationshipRequest requestBody = new RelationshipRequest();
+        requestBody.setRelationship(relationship);
+
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            relationship,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -5041,7 +5070,6 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
      * This method is called when a remote repository calls the variant of purgeRelationship that
      * passes the relationship object.  This is typically used if purge is called without a previous soft-delete.
      * However, it may also be used to purge after a soft-delete.
-     *
      * Remove the reference copy of the relationship from the local repository. This method can be used to
      * remove reference copies from the local cohort, repositories that have left the cohort,
      * or relationships that have come from open metadata archives.
@@ -5079,9 +5107,12 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
         final String methodName  = "purgeRelationshipReferenceCopy";
         final String operationSpecificURL = "instances/relationships/reference-copy/purge";
 
+        RelationshipRequest requestBody = new RelationshipRequest();
+        requestBody.setRelationship(relationship);
+
         VoidResponse restResult = this.callVoidPostRESTCall(methodName,
                                                             restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
-                                                            relationship,
+                                                            requestBody,
                                                             userId);
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -5387,26 +5418,6 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
 
 
     /**
-     * Issue a GET REST call that returns a AttributeTypeDefResponse object.
-     *
-     * @param methodName name of the method being called
-     * @param operationSpecificURL template of the URL for the REST API call, with place-holders for the parameters
-     * @param params a list of parameters that are slotted into the url template
-     * @return AttributeTypeDefResponse
-     * @throws RepositoryErrorException something went wrong with the REST call stack.
-     */
-    private AttributeTypeDefResponse callAttributeTypeDefGetRESTCall(String    methodName,
-                                                                     String    operationSpecificURL,
-                                                                     Object... params) throws RepositoryErrorException
-    {
-        return this.callGetRESTCall(methodName,
-                                    AttributeTypeDefResponse.class,
-                                    operationSpecificURL,
-                                    params);
-    }
-
-
-    /**
      * Issue a POST REST call that returns a AttributeTypeDefResponse object.
      *
      * @param methodName name of the method being called
@@ -5451,25 +5462,6 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
                                      params);
     }
 
-
-    /**
-     * Issue a GET REST call that returns a EntityDetailResponse object.
-     *
-     * @param methodName name of the method being called
-     * @param operationSpecificURL template of the URL for the REST API call, with place-holders for the parameters
-     * @param params a list of parameters that are slotted into the url template
-     * @return EntityDetailResponse
-     * @throws RepositoryErrorException something went wrong with the REST call stack.
-     */
-    private EntityDetailResponse callEntityDetailGetRESTCall(String    methodName,
-                                                             String    operationSpecificURL,
-                                                             Object... params) throws RepositoryErrorException
-    {
-        return this.callGetRESTCall(methodName,
-                                    EntityDetailResponse.class,
-                                    operationSpecificURL,
-                                    params);
-    }
 
 
     /**
@@ -5519,26 +5511,6 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
 
 
     /**
-     * Issue a GET REST call that returns a ClassificationListResponse object.
-     *
-     * @param methodName name of the method being called
-     * @param operationSpecificURL template of the URL for the REST API call, with place-holders for the parameters
-     * @param params a list of parameters that are slotted into the url template
-     * @return EntityDetailResponse
-     * @throws RepositoryErrorException something went wrong with the REST call stack.
-     */
-    private ClassificationListResponse callClassificationListGetRESTCall(String    methodName,
-                                                                         String    operationSpecificURL,
-                                                                         Object... params) throws RepositoryErrorException
-    {
-        return this.callGetRESTCall(methodName,
-                                    ClassificationListResponse.class,
-                                    operationSpecificURL,
-                                    params);
-    }
-
-
-    /**
      * Issue a POST REST call that returns a ClassificationListResponse object.
      *
      * @param methodName name of the method being called
@@ -5564,39 +5536,21 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
     /**
      * Issue a GET REST call that returns a EntitySummaryResponse object.
      *
-     * @param methodName name of the method being called
+     * @param methodName           name of the method being called
      * @param operationSpecificURL template of the URL for the REST API call, with place-holders for the parameters
-     * @param params a list of parameters that are slotted into the url template
+     * @param params               a list of parameters that are slotted into the url template
      * @return EntitySummaryResponse
      * @throws RepositoryErrorException something went wrong with the REST call stack.
      */
-    private EntitySummaryResponse callEntitySummaryGetRESTCall(String    methodName,
-                                                               String    operationSpecificURL,
-                                                               Object... params) throws RepositoryErrorException
+    private EntitySummaryResponse callEntitySummaryPostRESTCall(String methodName,
+                                                                String operationSpecificURL,
+                                                                Object requestBody,
+                                                                Object... params) throws RepositoryErrorException
     {
-        return this.callGetRESTCall(methodName,
+        return this.callPostRESTCall(methodName,
                                     EntitySummaryResponse.class,
                                     operationSpecificURL,
-                                    params);
-    }
-
-
-    /**
-     * Issue a GET REST call that returns a RelationshipResponse object.
-     *
-     * @param methodName name of the method being called
-     * @param operationSpecificURL template of the URL for the REST API call, with place-holders for the parameters
-     * @param params a list of parameters that are slotted into the url template
-     * @return RelationshipResponse
-     * @throws RepositoryErrorException something went wrong with the REST call stack.
-     */
-    private RelationshipResponse callRelationshipGetRESTCall(String    methodName,
-                                                             String    operationSpecificURL,
-                                                             Object... params) throws RepositoryErrorException
-    {
-        return this.callGetRESTCall(methodName,
-                                    RelationshipResponse.class,
-                                    operationSpecificURL,
+                                    requestBody,
                                     params);
     }
 
@@ -5696,40 +5650,23 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
     /**
      * Issue a GET REST call that returns a TypeDefGalleryResponse object.
      *
-     * @param methodName name of the method being called
+     * @param methodName           name of the method being called
      * @param operationSpecificURL template of the URL for the REST API call, with place-holders for the parameters
-     * @param params a list of parameters that are slotted into the url template
+     * @param requestBody          request body object
+     * @param params               a list of parameters that are slotted into the url template
      * @return TypeDefGalleryResponseObject
      * @throws RepositoryErrorException something went wrong with the REST call stack.
      */
-    private TypeDefGalleryResponse callTypeDefGalleryGetRESTCall(String    methodName,
-                                                                 String    operationSpecificURL,
-                                                                 Object... params) throws RepositoryErrorException
+    private TypeDefGalleryResponse callTypeDefGalleryPostRESTCall(String methodName,
+                                                                  String operationSpecificURL,
+                                                                  Object requestBody,
+                                                                  Object... params) throws RepositoryErrorException
     {
-        return this.callGetRESTCall(methodName,
-                                    TypeDefGalleryResponse.class,
-                                    operationSpecificURL,
-                                    params);
-    }
-
-
-    /**
-     * Issue a GET REST call that returns a TypeDefListResponse object.
-     *
-     * @param methodName  name of the method being called
-     * @param operationSpecificURL  template of the URL for the REST API call, with place-holders for the parameters
-     * @param params  a list of parameters that are slotted into the url template
-     * @return TypeDefListResponse
-     * @throws RepositoryErrorException something went wrong with the REST call stack.
-     */
-    private TypeDefListResponse callTypeDefListGetRESTCall(String    methodName,
-                                                           String    operationSpecificURL,
-                                                           Object... params) throws RepositoryErrorException
-    {
-        return this.callGetRESTCall(methodName,
-                                    TypeDefListResponse.class,
-                                    operationSpecificURL,
-                                    params);
+        return this.callPostRESTCall(methodName,
+                                     TypeDefGalleryResponse.class,
+                                     operationSpecificURL,
+                                     requestBody,
+                                     params);
     }
 
 
@@ -5753,26 +5690,6 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
                                      operationSpecificURL,
                                      requestBody,
                                      params);
-    }
-
-
-    /**
-     * Issue a GET REST call that returns a TypeDefResponse object.
-     *
-     * @param methodName  name of the method being called
-     * @param operationSpecificURL  template of the URL for the REST API call, with place-holders for the parameters
-     * @param params  a list of parameters that are slotted into the url template
-     * @return TypeDefResponse
-     * @throws RepositoryErrorException something went wrong with the REST call stack.
-     */
-    private TypeDefResponse callTypeDefGetRESTCall(String    methodName,
-                                                   String    operationSpecificURL,
-                                                   Object... params) throws RepositoryErrorException
-    {
-        return this.callGetRESTCall(methodName,
-                                    TypeDefResponse.class,
-                                    operationSpecificURL,
-                                    params);
     }
 
 
@@ -5821,58 +5738,6 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
                                      params);
     }
 
-
-    /**
-     * Issue a GET REST call that returns the requested object.
-     *
-     * @param <T> class name
-     * @param methodName  name of the method being called
-     * @param returnClass class name of response object
-     * @param operationSpecificURL  template of the URL for the REST API call, with place-holders for the parameters
-     * @return TypeDefResponse
-     * @throws RepositoryErrorException something went wrong with the REST call stack.
-     */
-    private <T> T callGetRESTCall(String    methodName,
-                                  Class<T>  returnClass,
-                                  String    operationSpecificURL) throws RepositoryErrorException
-    {
-        return this.callGetRESTCall(methodName, returnClass, operationSpecificURL, (Object[])null);
-    }
-
-
-    /**
-     * Issue a GET REST call that returns a TypeDefResponse object.
-     *
-     * @param <T> class name
-     * @param methodName  name of the method being called
-     * @param returnClass class name of response object
-     * @param operationSpecificURL  template of the URL for the REST API call, with place-holders for the parameters
-     * @param params  a list of parameters that are slotted into the url template
-     * @return TypeDefResponse
-     * @throws RepositoryErrorException something went wrong with the REST call stack.
-     */
-    private <T> T callGetRESTCall(String    methodName,
-                                  Class<T>  returnClass,
-                                  String    operationSpecificURL,
-                                  Object... params) throws RepositoryErrorException
-    {
-        try
-        {
-            return restClient.callGetRESTCall(methodName,
-                                              returnClass,
-                                              operationSpecificURL,
-                                              params);
-        }
-        catch (Exception error)
-        {
-            throw new RepositoryErrorException(OMRSErrorCode.CLIENT_SIDE_REST_API_ERROR.getMessageDefinition(methodName,
-                                                                                                             repositoryName,
-                                                                                                             error.getMessage()),
-                                               this.getClass().getName(),
-                                               methodName,
-                                               error);
-        }
-    }
 
     /**
      * Issue a POST REST call that returns the requested type of object.

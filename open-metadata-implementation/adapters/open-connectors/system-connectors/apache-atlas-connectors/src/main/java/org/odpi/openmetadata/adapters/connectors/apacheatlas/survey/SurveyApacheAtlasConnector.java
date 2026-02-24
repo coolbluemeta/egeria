@@ -1049,7 +1049,7 @@ public class SurveyApacheAtlasConnector extends SurveyActionServiceConnector
                                                                       atlasCategoryName);
 
                     typeProperties = propertyHelper.addStringProperty(typeProperties,
-                                                                      OpenMetadataProperty.NAMESPACE.name,
+                                                                      OpenMetadataProperty.NAMESPACE_PATH.name,
                                                                       atlasTypeDef.getServiceType());
 
                     typeProperties = propertyHelper.addStringProperty(typeProperties,

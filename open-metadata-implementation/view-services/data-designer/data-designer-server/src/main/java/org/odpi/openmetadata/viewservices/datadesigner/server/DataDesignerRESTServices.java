@@ -8,7 +8,7 @@ import org.odpi.openmetadata.commonservices.ffdc.RESTCallToken;
 import org.odpi.openmetadata.commonservices.ffdc.RESTExceptionHandler;
 import org.odpi.openmetadata.commonservices.ffdc.rest.*;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.openmetadata.handlers.DataClassHandler;
+import org.odpi.openmetadata.frameworks.openmetadata.handlers.DataValueSpecificationHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.DataFieldHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.DataStructureHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.*;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The DataDesignerRESTServices provides the server-side implementation of the Data Designer Open Metadata
- * View Service (OMVS).  This interface provides access to data fields, data structures and data classes.
+ * View Service (OMVS).  This interface provides access to data fields, data structures and data value specifications.
  */
 public class DataDesignerRESTServices extends TokenController
 {
@@ -53,7 +53,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "createDataStructure";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -101,7 +101,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -123,7 +123,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "createDataStructureFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -157,7 +157,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -180,7 +180,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "updateDataStructure";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -219,7 +219,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -237,14 +237,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkMemberDataField(String                  serverName,
-                                            String                  dataStructureGUID,
-                                            String                  dataFieldGUID,
+    public VoidResponse linkMemberDataField(String                     serverName,
+                                            String                     dataStructureGUID,
+                                            String                     dataFieldGUID,
                                             NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkMemberDataField";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -295,7 +295,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -313,14 +313,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachMemberDataField(String            serverName,
-                                              String            dataStructureGUID,
-                                              String            dataFieldGUID,
+    public VoidResponse detachMemberDataField(String                        serverName,
+                                              String                        dataStructureGUID,
+                                              String                        dataFieldGUID,
                                               DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachMemberDataField";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -342,7 +342,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -359,13 +359,13 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse deleteDataStructure(String            serverName,
-                                            String            dataStructureGUID,
+    public VoidResponse deleteDataStructure(String                   serverName,
+                                            String                   dataStructureGUID,
                                             DeleteElementRequestBody requestBody)
     {
         final String methodName = "deleteDataStructure";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -387,7 +387,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -408,7 +408,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "getDataStructuresByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -437,7 +437,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -454,13 +454,13 @@ public class DataDesignerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementResponse getDataStructureByGUID(String             serverName,
-                                                                  String             dataStructureGUID,
+    public OpenMetadataRootElementResponse getDataStructureByGUID(String         serverName,
+                                                                  String         dataStructureGUID,
                                                                   GetRequestBody requestBody)
     {
         final String methodName = "getDataStructureByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -482,7 +482,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -503,7 +503,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "findDataStructures";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -536,7 +536,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -557,7 +557,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "createDataField";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -605,7 +605,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -627,7 +627,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "createDataFieldFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -661,7 +661,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -684,7 +684,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "updateDataField";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -723,7 +723,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -741,14 +741,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkNestedDataFields(String                  serverName,
-                                             String                  parentDataFieldGUID,
-                                             String                  nestedDataFieldGUID,
+    public VoidResponse linkNestedDataFields(String                     serverName,
+                                             String                     parentDataFieldGUID,
+                                             String                     nestedDataFieldGUID,
                                              NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkNestedDataFields";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -799,7 +799,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -817,14 +817,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachNestedDataFields(String                   serverName,
-                                               String                   parentDataFieldGUID,
-                                               String                   nestedDataFieldGUID,
+    public VoidResponse detachNestedDataFields(String                        serverName,
+                                               String                        parentDataFieldGUID,
+                                               String                        nestedDataFieldGUID,
                                                DeleteRelationshipRequestBody requestBody)
     {
-        final String methodName = "detachNestedDataClass";
+        final String methodName = "detachNestedDataValueSpecification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -846,7 +846,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -869,7 +869,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "deleteDataField";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -891,7 +891,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -912,7 +912,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "getDataFieldsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -941,7 +941,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -962,7 +962,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "findDataFields";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -993,7 +993,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1010,13 +1010,13 @@ public class DataDesignerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementResponse getDataFieldByGUID(String             serverName,
-                                                              String             dataFieldGUID,
+    public OpenMetadataRootElementResponse getDataFieldByGUID(String         serverName,
+                                                              String         dataFieldGUID,
                                                               GetRequestBody requestBody)
     {
         final String methodName = "getDataFieldByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -1038,29 +1038,29 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
 
     /**
-     * Create a data class.
+     * Create a data value specification.
      *
      * @param serverName                 name of called server.
-     * @param requestBody             properties for the data class.
+     * @param requestBody             properties for the data value specification.
      *
      * @return unique identifier of the newly created element
      *  InvalidParameterException  one of the parameters is invalid.
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public GUIDResponse createDataClass(String                serverName,
+    public GUIDResponse createDataValueSpecification(String                serverName,
                                         NewElementRequestBody requestBody)
     {
-        final String methodName = "createDataClass";
+        final String methodName = "createDataValueSpecification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -1075,27 +1075,27 @@ public class DataDesignerRESTServices extends TokenController
 
             if (requestBody != null)
             {
-                DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+                DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
-                if (requestBody.getProperties() instanceof DataClassProperties dataClassProperties)
+                if (requestBody.getProperties() instanceof DataValueSpecificationProperties dataValueSpecificationProperties)
                 {
-                    response.setGUID(handler.createDataClass(userId,
-                                                             requestBody,
-                                                             requestBody.getInitialClassifications(),
-                                                             dataClassProperties,
-                                                             requestBody.getParentRelationshipProperties()));
+                    response.setGUID(handler.createDataValueSpecification(userId,
+                                                                          requestBody,
+                                                                          requestBody.getInitialClassifications(),
+                                                                          dataValueSpecificationProperties,
+                                                                          requestBody.getParentRelationshipProperties()));
                 }
                 else if (requestBody.getProperties() == null)
                 {
-                    response.setGUID(handler.createDataClass(userId,
-                                                             requestBody,
-                                                             requestBody.getInitialClassifications(),
-                                                             null,
-                                                             requestBody.getParentRelationshipProperties()));
+                    response.setGUID(handler.createDataValueSpecification(userId,
+                                                                          requestBody,
+                                                                          requestBody.getInitialClassifications(),
+                                                                          null,
+                                                                          requestBody.getParentRelationshipProperties()));
                 }
                 else
                 {
-                    restExceptionHandler.handleInvalidPropertiesObject(DataClassProperties.class.getName(), methodName);
+                    restExceptionHandler.handleInvalidPropertiesObject(DataValueSpecificationProperties.class.getName(), methodName);
                 }
             }
             else
@@ -1108,13 +1108,13 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Create a new metadata element to represent a data class using an existing metadata element as a template.
+     * Create a new metadata element to represent a data value specification using an existing metadata element as a template.
      * The template defines additional classifications and relationships that should be added to the new element.
      *
      * @param serverName             calling user
@@ -1125,12 +1125,12 @@ public class DataDesignerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public GUIDResponse createDataClassFromTemplate(String              serverName,
+    public GUIDResponse createDataValueSpecificationFromTemplate(String              serverName,
                                                     TemplateRequestBody requestBody)
     {
-        final String methodName = "createDataClassFromTemplate";
+        final String methodName = "createDataValueSpecificationFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -1145,14 +1145,14 @@ public class DataDesignerRESTServices extends TokenController
 
             if (requestBody != null)
             {
-                DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+                DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
-                response.setGUID(handler.createDataClassFromTemplate(userId,
-                                                                     requestBody,
-                                                                     requestBody.getTemplateGUID(),
-                                                                     requestBody.getReplacementProperties(),
-                                                                     requestBody.getPlaceholderPropertyValues(),
-                                                                     requestBody.getParentRelationshipProperties()));
+                response.setGUID(handler.createDataValueSpecificationFromTemplate(userId,
+                                                                                  requestBody,
+                                                                                  requestBody.getTemplateGUID(),
+                                                                                  requestBody.getReplacementProperties(),
+                                                                                  requestBody.getPlaceholderPropertyValues(),
+                                                                                  requestBody.getParentRelationshipProperties()));
             }
             else
             {
@@ -1164,16 +1164,16 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Update the properties of a data class.
+     * Update the properties of a data value specification.
      *
      * @param serverName         name of called server.
-     * @param dataClassGUID unique identifier of the data class (returned from create)
+     * @param dataValueSpecificationGUID unique identifier of the data value specification (returned from create)
      * @param requestBody     properties for the new element.
      *
      * @return boolean or
@@ -1181,13 +1181,13 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public BooleanResponse updateDataClass(String                   serverName,
-                                           String                   dataClassGUID,
+    public BooleanResponse updateDataValueSpecification(String                   serverName,
+                                           String                   dataValueSpecificationGUID,
                                            UpdateElementRequestBody requestBody)
     {
-        final String methodName = "updateDataClass";
+        final String methodName = "updateDataValueSpecification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog     auditLog = null;
@@ -1202,18 +1202,18 @@ public class DataDesignerRESTServices extends TokenController
 
             if (requestBody != null)
             {
-                DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+                DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
-                if (requestBody.getProperties() instanceof DataClassProperties dataClassProperties)
+                if (requestBody.getProperties() instanceof DataValueSpecificationProperties dataValueSpecificationProperties)
                 {
-                    response.setFlag(handler.updateDataClass(userId,
-                                                             dataClassGUID,
+                    response.setFlag(handler.updateDataValueSpecification(userId,
+                                                             dataValueSpecificationGUID,
                                                              requestBody,
-                                                             dataClassProperties));
+                                                             dataValueSpecificationProperties));
                 }
                 else
                 {
-                    restExceptionHandler.handleInvalidPropertiesObject(DataClassProperties.class.getName(), methodName);
+                    restExceptionHandler.handleInvalidPropertiesObject(DataValueSpecificationProperties.class.getName(), methodName);
                 }
             }
             else
@@ -1226,7 +1226,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1251,7 +1251,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "linkNestedDataClass";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1263,7 +1263,7 @@ public class DataDesignerRESTServices extends TokenController
             restCallLogger.setUserId(token, userId);
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
-            DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
             if (requestBody != null)
             {
@@ -1302,13 +1302,13 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Detach two nested data classes from one another.
+     * Detach two nested data value specifications from one another.
      *
      * @param serverName         name of called server
      * @param parentDataClassGUID  unique identifier of the first data class
@@ -1327,7 +1327,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "detachNestedDataClass";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1340,7 +1340,7 @@ public class DataDesignerRESTServices extends TokenController
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
 
-            DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
             handler.detachNestedDataClass(userId, parentDataClassGUID, childDataClassGUID, requestBody);
         }
@@ -1349,17 +1349,17 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Connect two data classes to show that one provides a more specialist evaluation.
+     * Connect two data value specifications to show that one provides a more specialist evaluation.
      *
      * @param serverName         name of called server
-     * @param parentDataClassGUID  unique identifier of the first data class
-     * @param childDataClassGUID      unique identifier of the second data class
+     * @param parentDataValueSpecificationGUID  unique identifier of the first data value specification
+     * @param childDataValueSpecificationGUID      unique identifier of the second data value specification
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -1367,14 +1367,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkSpecializedDataClass(String                  serverName,
-                                                 String                  parentDataClassGUID,
-                                                 String                  childDataClassGUID,
-                                                 NewRelationshipRequestBody requestBody)
+    public VoidResponse linkSpecializedDataValueSpecification(String                     serverName,
+                                                              String                     parentDataValueSpecificationGUID,
+                                                              String                     childDataValueSpecificationGUID,
+                                                              NewRelationshipRequestBody requestBody)
     {
-        final String methodName = "linkSpecializedDataClass";
+        final String methodName = "linkSpecializedDataValueSpecification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1386,36 +1386,36 @@ public class DataDesignerRESTServices extends TokenController
             restCallLogger.setUserId(token, userId);
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
-            DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
             if (requestBody != null)
             {
-                if (requestBody.getProperties() instanceof DataClassHierarchyProperties dataClassHierarchyProperties)
+                if (requestBody.getProperties() instanceof DataValueHierarchyProperties dataValueHierarchyProperties)
                 {
-                    handler.linkSpecializedDataClass(userId,
-                                                     parentDataClassGUID,
-                                                     childDataClassGUID,
+                    handler.linkSpecializedDataValueSpecification(userId,
+                                                     parentDataValueSpecificationGUID,
+                                                     childDataValueSpecificationGUID,
                                                      requestBody,
-                                                     dataClassHierarchyProperties);
+                                                     dataValueHierarchyProperties);
                 }
                 else if (requestBody.getProperties() == null)
                 {
-                    handler.linkSpecializedDataClass(userId,
-                                                     parentDataClassGUID,
-                                                     childDataClassGUID,
+                    handler.linkSpecializedDataValueSpecification(userId,
+                                                     parentDataValueSpecificationGUID,
+                                                     childDataValueSpecificationGUID,
                                                      requestBody,
                                                      null);
                 }
                 else
                 {
-                    restExceptionHandler.handleInvalidPropertiesObject(DataClassHierarchyProperties.class.getName(), methodName);
+                    restExceptionHandler.handleInvalidPropertiesObject(DataValueHierarchyProperties.class.getName(), methodName);
                 }
             }
             else
             {
-                handler.linkSpecializedDataClass(userId,
-                                                 parentDataClassGUID,
-                                                 childDataClassGUID,
+                handler.linkSpecializedDataValueSpecification(userId,
+                                                 parentDataValueSpecificationGUID,
+                                                 childDataValueSpecificationGUID,
                                                  null,
                                                  null);
             }
@@ -1425,17 +1425,17 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Detach two data classes from one another.
+     * Detach two data value specifications from one another.
      *
      * @param serverName         name of called server
-     * @param parentDataClassGUID  unique identifier of the first data class
-     * @param childDataClassGUID      unique identifier of the second data class
+     * @param parentDataValueSpecificationGUID  unique identifier of the first data value specification
+     * @param childDataValueSpecificationGUID      unique identifier of the second data value specification
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -1443,14 +1443,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachSpecializedDataClass(String                        serverName,
-                                                   String                        parentDataClassGUID,
-                                                   String                        childDataClassGUID,
-                                                   DeleteRelationshipRequestBody requestBody)
+    public VoidResponse detachSpecializedDataValueSpecification(String                        serverName,
+                                                                String                        parentDataValueSpecificationGUID,
+                                                                String                        childDataValueSpecificationGUID,
+                                                                DeleteRelationshipRequestBody requestBody)
     {
-        final String methodName = "detachSpecializedDataClass";
+        final String methodName = "detachSpecializedDataValueSpecification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1463,25 +1463,27 @@ public class DataDesignerRESTServices extends TokenController
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
 
-            DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
-            handler.detachSpecializedDataClass(userId, parentDataClassGUID, childDataClassGUID, requestBody);
+            handler.detachSpecializedDataValueSpecification(userId, parentDataValueSpecificationGUID, childDataValueSpecificationGUID, requestBody);
         }
         catch (Throwable error)
         {
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
+
     /**
-     * Delete a data class.
+     * Connect an element to a data value specification that describes the data associated with this element.
      *
      * @param serverName         name of called server
-     * @param dataClassGUID  unique identifier of the element to delete
+     * @param elementGUID  unique identifier of the first data value specification
+     * @param dataValueSpecificationGUID      unique identifier of the second data value specification
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -1489,13 +1491,135 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse deleteDataClass(String                   serverName,
-                                        String                   dataClassGUID,
+    public VoidResponse assignDataValueSpecification(String                     serverName,
+                                                     String                     elementGUID,
+                                                     String                     dataValueSpecificationGUID,
+                                                     NewRelationshipRequestBody requestBody)
+    {
+        final String methodName = "assignDataValueSpecification";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
+
+            if (requestBody != null)
+            {
+                if (requestBody.getProperties() instanceof DataValueAssignmentProperties dataValueAssignmentProperties)
+                {
+                    handler.linkDataValueAssignment(userId,
+                                                    elementGUID,
+                                                    dataValueSpecificationGUID,
+                                                    requestBody,
+                                                    dataValueAssignmentProperties);
+                }
+                else if (requestBody.getProperties() == null)
+                {
+                    handler.linkSpecializedDataValueSpecification(userId,
+                                                                  elementGUID,
+                                                                  dataValueSpecificationGUID,
+                                                                  requestBody,
+                                                                  null);
+                }
+                else
+                {
+                    restExceptionHandler.handleInvalidPropertiesObject(DataValueHierarchyProperties.class.getName(), methodName);
+                }
+            }
+            else
+            {
+                handler.linkSpecializedDataValueSpecification(userId,
+                                                              elementGUID,
+                                                              dataValueSpecificationGUID,
+                                                              null,
+                                                              null);
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+        return response;
+    }
+
+
+    /**
+     * Detach an element from one of its assigned data value specifications.
+     *
+     * @param serverName         name of called server
+     * @param elementGUID  unique identifier of the element
+     * @param dataValueSpecificationGUID      unique identifier of the  data value specification
+     * @param requestBody  description of the relationship.
+     *
+     * @return void or
+     *  InvalidParameterException  one of the parameters is null or invalid.
+     *  PropertyServerException    a problem retrieving information from the property server(s).
+     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public VoidResponse detachDataValueSpecificationAssignment(String                        serverName,
+                                                                String                        elementGUID,
+                                                                String                        dataValueSpecificationGUID,
+                                                                DeleteRelationshipRequestBody requestBody)
+    {
+        final String methodName = "detachDataValueSpecificationAssignment";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
+
+            handler.detachDataValueAssignment(userId, elementGUID, dataValueSpecificationGUID, requestBody);
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+        return response;
+    }
+
+
+    /**
+     * Delete a data value specification.
+     *
+     * @param serverName         name of called server
+     * @param dataValueSpecificationGUID  unique identifier of the element to delete
+     * @param requestBody  description of the relationship.
+     *
+     * @return void or
+     *  InvalidParameterException  one of the parameters is null or invalid.
+     *  PropertyServerException    a problem retrieving information from the property server(s).
+     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public VoidResponse deleteDataValueSpecification(String                   serverName,
+                                        String                   dataValueSpecificationGUID,
                                         DeleteElementRequestBody requestBody)
     {
-        final String methodName = "deleteDataClass";
+        final String methodName = "deleteDataValueSpecification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1508,22 +1632,22 @@ public class DataDesignerRESTServices extends TokenController
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
 
-            DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
-            handler.deleteDataClass(userId, dataClassGUID, requestBody);
+            handler.deleteDataValueSpecification(userId, dataValueSpecificationGUID, requestBody);
         }
         catch (Throwable error)
         {
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Retrieve the list of data class metadata elements that contain the search string.
+     * Retrieve the list of data value specification metadata elements that contain the search string.
      *
      * @param serverName name of the service to route the request to
      * @param requestBody string to find in the properties
@@ -1533,12 +1657,12 @@ public class DataDesignerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementsResponse getDataClassesByName(String            serverName,
+    public OpenMetadataRootElementsResponse getDataValueSpecificationsByName(String            serverName,
                                                                  FilterRequestBody requestBody)
     {
-        final String methodName = "getDataClassesByName";
+        final String methodName = "getDataValueSpecificationsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1551,11 +1675,11 @@ public class DataDesignerRESTServices extends TokenController
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
 
-            DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
             if (requestBody != null)
             {
-                response.setElements(handler.getDataClassesByName(userId, requestBody.getFilter(), requestBody));
+                response.setElements(handler.getDataValueSpecificationsByName(userId, requestBody.getFilter(), requestBody));
             }
             else
             {
@@ -1567,13 +1691,13 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Retrieve the list of data class metadata elements that contain the search string.
+     * Retrieve the list of data value specification metadata elements that contain the search string.
      *
      * @param serverName name of the service to route the request to
      * @param requestBody string to find in the properties
@@ -1583,12 +1707,12 @@ public class DataDesignerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementsResponse findDataClasses(String                  serverName,
+    public OpenMetadataRootElementsResponse findDataValueSpecifications(String                  serverName,
                                                             SearchStringRequestBody requestBody)
     {
-        final String methodName = "findDataClasses";
+        final String methodName = "findDataValueSpecifications";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1601,17 +1725,17 @@ public class DataDesignerRESTServices extends TokenController
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
 
-            DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
             if (requestBody != null)
             {
-                response.setElements(handler.findDataClasses(userId,
+                response.setElements(handler.findDataValueSpecifications(userId,
                                                              requestBody.getSearchString(),
                                                              requestBody));
             }
             else
             {
-                response.setElements(handler.findDataClasses(userId,
+                response.setElements(handler.findDataValueSpecifications(userId,
                                                              null,
                                                              null));
             }
@@ -1621,16 +1745,16 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Retrieve the list of data class metadata elements that contain the search string.
+     * Retrieve the list of data value specification metadata elements that contain the search string.
      *
      * @param serverName name of the service to route the request to
-     * @param dataClassGUID    unique identifier of the required element
+     * @param dataValueSpecificationGUID    unique identifier of the required element
      * @param requestBody string to find in the properties
      *
      * @return list of matching metadata elements or
@@ -1638,13 +1762,13 @@ public class DataDesignerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementResponse getDataClassByGUID(String             serverName,
-                                                              String             dataClassGUID,
+    public OpenMetadataRootElementResponse getDataValueSpecificationByGUID(String         serverName,
+                                                              String         dataValueSpecificationGUID,
                                                               GetRequestBody requestBody)
     {
-        final String methodName = "getDataClassByGUID";
+        final String methodName = "getDataValueSpecificationByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -1657,27 +1781,27 @@ public class DataDesignerRESTServices extends TokenController
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
 
-            DataClassHandler handler = instanceHandler.getDataClassHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
-            response.setElement(handler.getDataClassByGUID(userId, dataClassGUID, requestBody));
+            response.setElement(handler.getDataValueSpecificationByGUID(userId, dataValueSpecificationGUID, requestBody));
         }
         catch (Throwable error)
         {
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Connect an element that is part of a data design to a data class to show that the data class should be used
+     * Connect an element that is part of a data design to a data value specification to show that the data value specification should be used
      * as the specification for the data values when interpreting the data definition.
      *
      * @param serverName         name of called server
-     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
-     * @param dataClassGUID          unique identifier of the data class
+     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data value specification
+     * @param dataValueSpecificationGUID          unique identifier of the data value specification
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -1685,14 +1809,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkDataClassDefinition(String                  serverName,
-                                                String                  dataDefinitionGUID,
-                                                String                  dataClassGUID,
-                                                NewRelationshipRequestBody requestBody)
+    public VoidResponse linkDataValueSpecificationDefinition(String                     serverName,
+                                                             String                     dataDefinitionGUID,
+                                                             String                     dataValueSpecificationGUID,
+                                                             NewRelationshipRequestBody requestBody)
     {
-        final String methodName = "linkDataClassDefinition";
+        final String methodName = "linkDataValueSpecificationDefinition";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1705,36 +1829,36 @@ public class DataDesignerRESTServices extends TokenController
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
 
-            DataStructureHandler handler = instanceHandler.getDataStructureHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
             if (requestBody != null)
             {
-                if (requestBody.getProperties() instanceof DataClassDefinitionProperties dataClassDefinitionProperties)
+                if (requestBody.getProperties() instanceof DataValueDefinitionProperties dataValueDefinitionProperties)
                 {
-                    handler.linkDataClassDefinition(userId,
+                    handler.linkDataValueDefinition(userId,
                                                     dataDefinitionGUID,
-                                                    dataClassGUID,
+                                                    dataValueSpecificationGUID,
                                                     requestBody,
-                                                    dataClassDefinitionProperties);
+                                                    dataValueDefinitionProperties);
                 }
                 else if (requestBody.getProperties() != null)
                 {
-                    handler.linkDataClassDefinition(userId,
+                    handler.linkDataValueDefinition(userId,
                                                     dataDefinitionGUID,
-                                                    dataClassGUID,
+                                                    dataValueSpecificationGUID,
                                                     requestBody,
                                                     null);
                 }
                 else
                 {
-                    restExceptionHandler.handleInvalidPropertiesObject(DataClassDefinitionProperties.class.getName(), methodName);
+                    restExceptionHandler.handleInvalidPropertiesObject(DataValueDefinitionProperties.class.getName(), methodName);
                 }
             }
             else
             {
-                handler.linkDataClassDefinition(userId,
+                handler.linkDataValueDefinition(userId,
                                                 dataDefinitionGUID,
-                                                dataClassGUID,
+                                                dataValueSpecificationGUID,
                                                 null,
                                                 null);
             }
@@ -1744,17 +1868,17 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
 
     /**
-     * Detach a data definition from a data class.
+     * Detach a data definition from a data value specification.
      *
      * @param serverName         name of called server
-     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
-     * @param dataClassGUID          unique identifier of the data class
+     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data value specification
+     * @param dataValueSpecificationGUID          unique identifier of the data value specification
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -1762,14 +1886,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachDataClassDefinition(String                        serverName,
+    public VoidResponse detachDataValueSpecificationDefinition(String                        serverName,
                                                   String                        dataDefinitionGUID,
-                                                  String                        dataClassGUID,
+                                                  String                        dataValueSpecificationGUID,
                                                   DeleteRelationshipRequestBody requestBody)
     {
-        final String methodName = "detachDataClassDefinition";
+        final String methodName = "detachDataValueSpecificationDefinition";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1782,16 +1906,16 @@ public class DataDesignerRESTServices extends TokenController
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
 
-            DataStructureHandler handler = instanceHandler.getDataStructureHandler(userId, serverName, methodName);
+            DataValueSpecificationHandler handler = instanceHandler.getDataValueSpecificationHandler(userId, serverName, methodName);
 
-            handler.detachDataClassDefinition(userId, dataDefinitionGUID, dataClassGUID, requestBody);
+            handler.detachDataValueDefinition(userId, dataDefinitionGUID, dataValueSpecificationGUID, requestBody);
         }
         catch (Throwable error)
         {
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1801,7 +1925,7 @@ public class DataDesignerRESTServices extends TokenController
      * as the semantic definition for the data values when interpreting the data definition.
      *
      * @param serverName         name of called server
-     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
+     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data value specification
      * @param glossaryTermGUID       unique identifier of the glossary term
      * @param requestBody  description of the relationship.
      *
@@ -1810,14 +1934,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkSemanticDefinition(String                  serverName,
-                                               String                  dataDefinitionGUID,
-                                               String                  glossaryTermGUID,
+    public VoidResponse linkSemanticDefinition(String                     serverName,
+                                               String                     dataDefinitionGUID,
+                                               String                     glossaryTermGUID,
                                                NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkSemanticDefinition";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1868,7 +1992,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1877,7 +2001,7 @@ public class DataDesignerRESTServices extends TokenController
      * Detach a data definition from a glossary term.
      *
      * @param serverName         name of called server
-     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
+     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data value specification
      * @param glossaryTermGUID       unique identifier of the glossary term
      * @param requestBody  description of the relationship.
      *
@@ -1893,7 +2017,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "detachSemanticDefinition";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1915,7 +2039,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1924,7 +2048,7 @@ public class DataDesignerRESTServices extends TokenController
      * Connect a certification type to a data structure to guide the survey action service (that checks the data
      * quality of a data resource as part of certifying it with the supplied certification type) to the definition
      * of the data structure to use as a specification of how the data should be both structured and (if
-     * data classes are attached to the associated data fields using the DataClassDefinition relationship)
+     * data value specifications are attached to the associated data fields using the DataValueSpecificationDefinition relationship)
      * contain the valid values.
      *
      * @param serverName         name of called server
@@ -1937,14 +2061,14 @@ public class DataDesignerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkCertificationTypeToDataStructure(String                  serverName,
-                                                             String                  certificationTypeGUID,
-                                                             String                  dataStructureGUID,
+    public VoidResponse linkCertificationTypeToDataStructure(String                     serverName,
+                                                             String                     certificationTypeGUID,
+                                                             String                     dataStructureGUID,
                                                              NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkCertificationTypeToDataStructure";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1995,7 +2119,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2020,7 +2144,7 @@ public class DataDesignerRESTServices extends TokenController
     {
         final String methodName = "detachCertificationTypeToDataStructure";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2042,7 +2166,7 @@ public class DataDesignerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

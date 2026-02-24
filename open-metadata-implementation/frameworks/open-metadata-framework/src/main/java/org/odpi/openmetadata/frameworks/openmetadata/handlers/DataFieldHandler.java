@@ -45,7 +45,7 @@ public class DataFieldHandler extends OpenMetadataHandlerBase
     /**
      * Create a new data field.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -111,7 +111,7 @@ public class DataFieldHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a data field.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param dataFieldGUID          unique identifier of the data field (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -142,7 +142,7 @@ public class DataFieldHandler extends OpenMetadataHandlerBase
     /**
      * Connect two data fields as parent and child.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param parentDataFieldGUID    unique identifier of the parent data field
      * @param nestedDataFieldGUID    unique identifier of the child data field
      * @param relationshipProperties description of the relationship.
@@ -178,7 +178,7 @@ public class DataFieldHandler extends OpenMetadataHandlerBase
     /**
      * Detach two data fields from one another.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param parentDataFieldGUID    unique identifier of the parent data field.
      * @param nestedDataFieldGUID    unique identifier of the child data field.
      * @param deleteOptions  options to control access to open metadata
@@ -212,7 +212,7 @@ public class DataFieldHandler extends OpenMetadataHandlerBase
     /**
      * Delete a data field.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param dataFieldGUID          unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -238,7 +238,7 @@ public class DataFieldHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of data fields with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -256,7 +256,7 @@ public class DataFieldHandler extends OpenMetadataHandlerBase
 
         List<String> propertyNames = Arrays.asList(OpenMetadataProperty.QUALIFIED_NAME.name,
                                                    OpenMetadataProperty.IDENTIFIER.name,
-                                                   OpenMetadataProperty.NAMESPACE.name,
+                                                   OpenMetadataProperty.NAMESPACE_PATH.name,
                                                    OpenMetadataProperty.DISPLAY_NAME.name);
 
         return super.getRootElementsByName(userId, name, propertyNames, queryOptions, methodName);
@@ -266,7 +266,7 @@ public class DataFieldHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific data field.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param dataFieldGUID          unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

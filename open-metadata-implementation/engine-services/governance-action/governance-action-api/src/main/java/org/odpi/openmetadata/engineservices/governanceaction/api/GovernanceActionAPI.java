@@ -22,7 +22,7 @@ public interface GovernanceActionAPI
      * @return connector type and other capabilities for this connector
      *
      * @throws InvalidParameterException the connector provider class name is not a valid connector fo this service
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration service
      */
     ConnectorReport validateConnector(String connectorProviderClassName) throws InvalidParameterException,

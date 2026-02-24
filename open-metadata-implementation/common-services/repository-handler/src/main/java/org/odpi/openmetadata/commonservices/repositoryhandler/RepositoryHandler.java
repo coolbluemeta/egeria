@@ -12,6 +12,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.MatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.SequencingOrder;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.*;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchClassifications;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.repositoryconnector.OMRSRepositoryHelper;
@@ -199,7 +200,7 @@ public class RepositoryHandler
      * @param methodName calling method
      * @return entity to return to the caller - or null to mean the retrieved entity is not appropriate for the caller
      * @throws InvalidParameterException bad parameter
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException problem accessing the repository services
      */
     public EntityDetail validateRetrievedEntity(String               userId,
@@ -2995,7 +2996,7 @@ public class RepositoryHandler
      * @return entity detail object
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public EntityDetail   getEntityByGUID(String  userId,
@@ -3030,7 +3031,7 @@ public class RepositoryHandler
      * @return entity detail object
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public EntityDetail   getEntityByGUID(String  userId,
@@ -3164,7 +3165,7 @@ public class RepositoryHandler
      * @return boolean flag
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public boolean isEntityATypeOf(String userId,
@@ -3232,7 +3233,7 @@ public class RepositoryHandler
      *
      * @return list of returned entities - null means no more to retrieve; list (even if empty) means more to receive
      *
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public List<EntityDetail>  getEntitiesByName(String               userId,
@@ -3314,7 +3315,7 @@ public class RepositoryHandler
      *
      * @return list of returned entities - null means no more to retrieve; list (even if empty) means more to receive
      *
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public List<EntityDetail>  getEntitiesByValue(String               userId,
@@ -3393,7 +3394,7 @@ public class RepositoryHandler
      * @param methodName calling method
      *
      * @return list of returned entities - null means no more to retrieve; list (even if empty) means more to receive
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public List<EntityDetail> getEntitiesByType(String               userId,
@@ -3478,7 +3479,7 @@ public class RepositoryHandler
      * @param methodName calling method
      * @return a list of entities matching the supplied criteria; null means no matching entities in the metadata
      * collection; list (even if empty) means more to receive
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public List<EntityDetail> findEntities(String                userId,
@@ -3547,6 +3548,9 @@ public class RepositoryHandler
      * @param relationshipTypeGUID String unique identifier for the entity type of interest (null means any entity type).
      * @param relationshipSubtypeGUIDs optional list of the unique identifiers (guids) for subtypes of the relationshipTypeGUID to
      *                           include in the search results. Null means all subtypes.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param searchProperties Optional list of entity property conditions to match.
      * @param limitResultsByStatus By default, entities in all statuses are returned.  However, it is possible
      *                             to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
@@ -3564,12 +3568,15 @@ public class RepositoryHandler
      * @param effectiveTime the time that the retrieved elements must be effective for (null for any time, new Date() for now)
      * @param methodName calling method
      * @return a list of relationships.  Null means no matching relationships.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public List<Relationship> findRelationships(String                userId,
                                                 String                relationshipTypeGUID,
                                                 List<String>          relationshipSubtypeGUIDs,
+                                                List<String>          end1EntityGUIDs,
+                                                List<String>          end2EntityGUIDs,
+                                                EndMatchCriteria      endMatchCriteria,
                                                 SearchProperties      searchProperties,
                                                 List<InstanceStatus>  limitResultsByStatus,
                                                 Date                  asOfTime,
@@ -3589,6 +3596,9 @@ public class RepositoryHandler
             List<Relationship> relationships = metadataCollection.findRelationships(userId,
                                                                                     relationshipTypeGUID,
                                                                                     relationshipSubtypeGUIDs,
+                                                                                    end1EntityGUIDs,
+                                                                                    end2EntityGUIDs,
+                                                                                    endMatchCriteria,
                                                                                     searchProperties,
                                                                                     startingFrom,
                                                                                     limitResultsByStatus,
@@ -4159,7 +4169,7 @@ public class RepositoryHandler
      * @param methodName calling method
      *
      * @return list of returned relationship - null means no more to retrieve; list (even if empty) means more to receive
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public List<Relationship> getRelationshipsForType(String               userId,

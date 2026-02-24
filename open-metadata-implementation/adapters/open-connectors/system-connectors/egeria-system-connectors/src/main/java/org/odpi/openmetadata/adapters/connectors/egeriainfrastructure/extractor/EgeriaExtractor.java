@@ -1128,7 +1128,7 @@ public class EgeriaExtractor
      * @return property map
      *
      * @throws InvalidParameterException the connector name is not recognized
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public Map<String, Object> getConfigurationProperties(String connectorName) throws InvalidParameterException,
@@ -1197,7 +1197,7 @@ public class EgeriaExtractor
      * Issue a refresh() request on a specific connector
      *
      * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public void refreshConnector(String connectorName) throws InvalidParameterException,
@@ -1214,7 +1214,7 @@ public class EgeriaExtractor
      * Issue a refresh() request on a connector running in the integration daemon.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public void refreshConnectors() throws InvalidParameterException,
@@ -1233,7 +1233,7 @@ public class EgeriaExtractor
      * @param connectorName connector
      *
      * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public void restartConnector(String connectorName) throws InvalidParameterException,
@@ -1250,7 +1250,7 @@ public class EgeriaExtractor
      * Issue a restart() request on a connector running in the integration daemon.
      **
      * @throws InvalidParameterException one of the parameters is null or invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException there was a problem detected by the integration daemon
      */
     public void restartConnectors() throws InvalidParameterException,
@@ -1271,7 +1271,7 @@ public class EgeriaExtractor
      * @param integrationGroupName qualifiedName of the integration group to target
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the integration group.
      */
     public  void refreshIntegrationGroupConfig(String integrationGroupName) throws InvalidParameterException,
@@ -1338,7 +1338,7 @@ public class EgeriaExtractor
      * @param governanceEngineName qualifiedName of the governance engine to target
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the governance engine.
      */
     public  void refreshEngineConfig(String governanceEngineName) throws InvalidParameterException,
@@ -1357,7 +1357,7 @@ public class EgeriaExtractor
      * is in use.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the governance engine.
      */
     public  void refreshEngineConfig() throws InvalidParameterException,

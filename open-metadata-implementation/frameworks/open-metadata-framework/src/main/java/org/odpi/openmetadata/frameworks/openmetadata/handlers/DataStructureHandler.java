@@ -48,7 +48,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Create a new data structure.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -116,7 +116,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a data structure.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param actorProfileGUID       unique identifier of the actor profile (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -147,7 +147,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Attach a data field to a data structure.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param dataStructureGUID unique identifier of the data structure
      * @param dataFieldGUID     unique identifier of the data field
      * @param makeAnchorOptions  options to control access to open metadata
@@ -184,7 +184,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Detach a data field from a data structure.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param dataStructureGUID    unique identifier of the data structure.
      * @param dataFieldGUID    unique identifier of the nested data field.
      * @param deleteOptions  options to control access to open metadata
@@ -219,7 +219,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Delete a data structure.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param dataStructureGUID      unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -245,7 +245,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of data structures with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -268,7 +268,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
         List<String> propertyNames = Arrays.asList(OpenMetadataProperty.QUALIFIED_NAME.name,
                                                    OpenMetadataProperty.IDENTIFIER.name,
                                                    OpenMetadataProperty.DISPLAY_NAME.name,
-                                                   OpenMetadataProperty.NAMESPACE.name);
+                                                   OpenMetadataProperty.NAMESPACE_PATH.name);
 
         return super.getRootElementsByName(userId,
                                            name,
@@ -281,7 +281,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific data structure.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param dataStructureGUID      unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -332,7 +332,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
      * Connect an element that is part of a data design to a data class to show that the data class should be used
      * as the specification for the data values when interpreting the data definition.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
      * @param dataClassGUID          unique identifier of the data class
      * @param makeAnchorOptions  options to control access to open metadata
@@ -345,7 +345,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
                                         String                        dataDefinitionGUID,
                                         String                        dataClassGUID,
                                         MakeAnchorOptions             makeAnchorOptions,
-                                        DataClassDefinitionProperties relationshipProperties) throws InvalidParameterException,
+                                        DataValueDefinitionProperties relationshipProperties) throws InvalidParameterException,
                                                                                                      PropertyServerException,
                                                                                                      UserNotAuthorizedException
     {
@@ -358,7 +358,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
         propertyHelper.validateGUID(dataClassGUID, end2GUIDParameterName, methodName);
 
         openMetadataClient.createRelatedElementsInStore(userId,
-                                                        OpenMetadataType.DATA_CLASS_DEFINITION_RELATIONSHIP.typeName,
+                                                        OpenMetadataType.DATA_VALUE_DEFINITION_RELATIONSHIP.typeName,
                                                         dataDefinitionGUID,
                                                         dataClassGUID,
                                                         makeAnchorOptions,
@@ -369,7 +369,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Detach a data definition from a data class.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
      * @param dataClassGUID          unique identifier of the data class
      * @param deleteOptions  options to control access to open metadata
@@ -394,7 +394,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
         propertyHelper.validateGUID(dataClassGUID, end2GUIDParameterName, methodName);
 
         openMetadataClient.detachRelatedElementsInStore(userId,
-                                                        OpenMetadataType.DATA_CLASS_DEFINITION_RELATIONSHIP.typeName,
+                                                        OpenMetadataType.DATA_VALUE_DEFINITION_RELATIONSHIP.typeName,
                                                         dataDefinitionGUID,
                                                         dataClassGUID,
                                                         deleteOptions);
@@ -405,7 +405,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
      * Connect an element that is part of a data design to a glossary term to show that the term should be used
      * as the semantic definition for the data values when interpreting the data definition.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
      * @param glossaryTermGUID       unique identifier of the glossary term
      * @param makeAnchorOptions  options to control access to open metadata
@@ -442,7 +442,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Detach a data definition from a glossary term.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
      * @param glossaryTermGUID       unique identifier of the glossary term
      * @param deleteOptions  options to control access to open metadata
@@ -481,7 +481,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
      * data classes are attached to the associated data fields using the DataClassDefinition relationship)
      * contain the valid values.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param certificationTypeGUID  unique identifier of the certification type
      * @param dataStructureGUID      unique identifier of the data structure
      * @param makeAnchorOptions  options to control access to open metadata
@@ -518,7 +518,7 @@ public class DataStructureHandler extends OpenMetadataHandlerBase
     /**
      * Detach a data structure from a certification type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param certificationTypeGUID  unique identifier of the certification type
      * @param dataStructureGUID      unique identifier of the data structure
      * @param deleteOptions  options to control access to open metadata

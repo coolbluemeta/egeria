@@ -104,7 +104,7 @@ public class AssetHandler<B> extends ReferenceableHandler<B>
      * @return unique identifier of the new asset
      *
      * @throws InvalidParameterException the bean properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException problem accessing the property server
      */
     public String  createAssetInRepository(String               userId,
@@ -202,7 +202,7 @@ public class AssetHandler<B> extends ReferenceableHandler<B>
      * @return unique identifier of the new asset
      *
      * @throws InvalidParameterException the bean properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException problem accessing the property server
      */
     public String  createAssetWithConnection(String              userId,
@@ -343,7 +343,7 @@ public class AssetHandler<B> extends ReferenceableHandler<B>
      * @param methodName calling method
      * @return connection object
      * @throws InvalidParameterException the parameters are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException problem accessing the property server
      */
     private B getAssetWithConnectionBean(String       userId,
@@ -490,7 +490,7 @@ public class AssetHandler<B> extends ReferenceableHandler<B>
      * @param effectiveTime the time that the retrieved elements must be effective for (null for any time, new Date() for now)
      * @param methodName calling method
      * @return list of relationships
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException problem accessing the property server
      */
     private List<Relationship> getEmbeddedConnectionRelationships(String        userId,

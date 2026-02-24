@@ -45,7 +45,7 @@ public class CommentHandler extends OpenMetadataHandlerBase
     /**
      * Adds a comment to the element.
      *
-     * @param userId        userId of user making request.
+     * @param userId        userId of the user making the request.
      * @param elementGUID     unique identifier for the element.
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties   properties of the comment
@@ -111,7 +111,7 @@ public class CommentHandler extends OpenMetadataHandlerBase
     /**
      * Update an existing comment.
      *
-     * @param userId        userId of user making request.
+     * @param userId        userId of the user making the request.
      * @param commentGUID   unique identifier for the comment to change.
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties   properties of the comment
@@ -211,7 +211,7 @@ public class CommentHandler extends OpenMetadataHandlerBase
     /**
      * Removes a comment added to the element by this user.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param commentGUID  unique identifier for the comment object.
      * @param deleteOptions options for a delete request
      *
@@ -232,7 +232,7 @@ public class CommentHandler extends OpenMetadataHandlerBase
     /**
      * Return the requested comment.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param commentGUID  unique identifier for the comment object.
      * @param getOptions multiple options to control the query
      * @return comment properties
@@ -255,7 +255,7 @@ public class CommentHandler extends OpenMetadataHandlerBase
     /**
      * Return the comments attached to an element.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param elementGUID    unique identifier for the element that the comments are connected to (maybe a comment too).
      * @param queryOptions multiple options to control the query
      *

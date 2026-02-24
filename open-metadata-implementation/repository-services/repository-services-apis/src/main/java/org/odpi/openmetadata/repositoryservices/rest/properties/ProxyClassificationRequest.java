@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.EntityProxy;
 
+import java.util.Objects;
+
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
@@ -19,8 +21,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ProxyClassificationRequest extends InstancePropertiesRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private EntityProxy entityProxy = null;
 
 
@@ -80,9 +80,8 @@ public class ProxyClassificationRequest extends InstancePropertiesRequest
     public String toString()
     {
         return "ProxyClassificationRequest{" +
-                       "instanceProperties=" + getInstanceProperties() +
-                       ", entityProxy=" + entityProxy +
-                       '}';
+                "entityProxy=" + entityProxy +
+                "} " + super.toString();
     }
 
 
@@ -99,7 +98,7 @@ public class ProxyClassificationRequest extends InstancePropertiesRequest
         {
             return true;
         }
-        if (! (objectToCompare instanceof ProxyClassificationRequest))
+        if (! (objectToCompare instanceof ProxyClassificationRequest that))
         {
             return false;
         }
@@ -107,8 +106,6 @@ public class ProxyClassificationRequest extends InstancePropertiesRequest
         {
             return false;
         }
-
-        ProxyClassificationRequest that = (ProxyClassificationRequest) objectToCompare;
 
         return entityProxy != null ? entityProxy.equals(that.entityProxy) : that.entityProxy == null;
     }
@@ -122,8 +119,6 @@ public class ProxyClassificationRequest extends InstancePropertiesRequest
     @Override
     public int hashCode()
     {
-        int result = super.hashCode();
-        result = 31 * result + (entityProxy != null ? entityProxy.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), entityProxy);
     }
 }

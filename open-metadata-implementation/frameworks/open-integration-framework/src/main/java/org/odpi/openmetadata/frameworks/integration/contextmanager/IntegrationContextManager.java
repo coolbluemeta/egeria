@@ -173,7 +173,7 @@ public abstract class IntegrationContextManager implements OpenLineageListenerMa
      *
      * @return the new integration context
      * @throws InvalidParameterException the connector is not of the correct type
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException problem accessing the property server
      */
     public IntegrationContext setContext(String                   connectorId,

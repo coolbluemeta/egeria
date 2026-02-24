@@ -664,7 +664,7 @@ Content-Type: application/json
     "qualifiedName": "DataStructure::ClinicalTrial::PROJ-CT-TBDF::Onboarding",
     "displayName": "Teddy Bear Drop Foot Data Structure for Subject Onboarding",
     "description" : "Provides the description of the data structure that must be used when sending the initial patient (subject) data).",
-    "namespace": "clinical_trials.teddy_bear_drop_foot",
+    "namespacePath": "clinical_trials.teddy_bear_drop_foot",
     "versionIdentifier": "1.0"
   }
 }
@@ -697,7 +697,7 @@ Content-Type: application/json
     "qualifiedName": "DataStructure::ClinicalTrial::PROJ-CT-TBDF::WeeklyMeasurements",
     "displayName": "Teddy Bear Drop Foot Data Structure for Weekly Weekly Measurements",
     "description" : "Provides the description of the data structure that must be used when sending patient weekly measurements.",
-    "namespace": "clinical_trials.teddy_bear_drop_foot",
+    "namespacePath": "clinical_trials.teddy_bear_drop_foot",
     "versionIdentifier": "1.0"
   }
 }

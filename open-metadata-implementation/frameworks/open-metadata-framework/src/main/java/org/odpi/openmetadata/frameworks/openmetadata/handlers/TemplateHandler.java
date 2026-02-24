@@ -173,7 +173,7 @@ public class TemplateHandler extends OpenMetadataHandlerBase
     /**
      * Attach a template to an element that was created from it.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID     unique identifier of the element
      * @param templateGUID      unique identifier of the template
      * @param makeAnchorOptions  options to control access to open metadata
@@ -210,7 +210,7 @@ public class TemplateHandler extends OpenMetadataHandlerBase
     /**
      * Detach a source template for an element.
      *
-     * @param userId            userId of user making request
+     * @param userId            userId of the user making the request
      * @param elementGUID     unique identifier of the element
      * @param templateGUID      unique identifier of the template
      * @param deleteOptions     options to control access to open metadata
@@ -245,7 +245,7 @@ public class TemplateHandler extends OpenMetadataHandlerBase
     /**
      * Attach a template to an element that this template is relevant to.   For example, a project.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID     unique identifier of the element
      * @param templateGUID      unique identifier of the template
      * @param makeAnchorOptions  options to control access to open metadata
@@ -282,7 +282,7 @@ public class TemplateHandler extends OpenMetadataHandlerBase
     /**
      * Detach a template for an element that this template is relevant to.   For example, a project.
      *
-     * @param userId            userId of user making request.
+     * @param userId            userId of the user making the request.
      * @param elementGUID     unique identifier of the element
      * @param templateGUID      unique identifier of the template
      * @param deleteOptions     options to control access to open metadata

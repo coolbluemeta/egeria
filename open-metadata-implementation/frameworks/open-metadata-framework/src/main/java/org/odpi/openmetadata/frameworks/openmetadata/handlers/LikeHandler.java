@@ -44,7 +44,7 @@ public class LikeHandler extends FeedbackHandler
     /**
      * Adds a "Like" to the element.
      *
-     * @param userId      userId of user making request
+     * @param userId      userId of the user making the request
      * @param elementGUID   unique identifier for the element
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties properties
@@ -76,7 +76,7 @@ public class LikeHandler extends FeedbackHandler
     /**
      * Removes a "Like" added to the element by this user.
      *
-     * @param userId   userId of user making request.
+     * @param userId   userId of the user making the request.
      * @param elementGUID unique identifier for the like object.
      * @param metadataSourceOptions  options to control access to open metadata
      * @return guid of like
@@ -117,7 +117,7 @@ public class LikeHandler extends FeedbackHandler
     /**
      * Return the likes attached to an element.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param elementGUID    unique identifier for the element that the comments are connected to (maybe a comment too).
      * @param queryOptions multiple options to control the query
      *

@@ -62,7 +62,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Create a new schema attribute.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -130,7 +130,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a schema attribute.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaAttributeGUID      unique identifier of the schema attribute (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -161,7 +161,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Attach a nested schema attribute to a schema attribute.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param schemaAttributeGUID        unique identifier of the parent schema attribute
      * @param nestedSchemaAttributeGUID             unique identifier of the nested schema attribute
      * @param makeAnchorOptions  options to control access to open metadata
@@ -198,7 +198,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Detach a nested schema attribute for a schema attribute.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaAttributeGUID       unique identifier of the parent schema attribute
      * @param nestedSchemaAttributeGUID            unique identifier of the nested schema attribute
      * @param deleteOptions  options to control access to open metadata
@@ -235,7 +235,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Attach a nested schema attribute to a schema type.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param schemaTypeGUID        unique identifier of the parent schema type
      * @param nestedSchemaAttributeGUID             unique identifier of the nested schema attribute
      * @param makeAnchorOptions  options to control access to open metadata
@@ -272,7 +272,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Detach a  schema attribute from a schema type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaTypeGUID       unique identifier of the parent schema type
      * @param nestedSchemaAttributeGUID            unique identifier of the nested schema attribute
      * @param deleteOptions  options to control access to open metadata
@@ -307,7 +307,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Attach a foreign key relationship to a relational column.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param primaryKeyColumnGUID        unique identifier of the primary key
      * @param foreignKeyColumnGUID             unique identifier of the foreign key
      * @param makeAnchorOptions  options to control access to open metadata
@@ -344,7 +344,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Detach a foreign key relationship for a relational column.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param primaryKeyColumnGUID        unique identifier of the primary key
      * @param foreignKeyColumnGUID             unique identifier of the foreign key
      * @param deleteOptions  options to control access to open metadata
@@ -380,7 +380,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Attach a schema element to an external schema type.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param schemaElementGUID        unique identifier of the schema element (typically this is a schema attribute
      *                                 but may be a root schema type
      * @param schemaTypeGUID             unique identifier of the linked schema type
@@ -418,7 +418,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Detach a schema element to an external schema type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaElementGUID        unique identifier of the primary key
      * @param schemaTypeGUID             unique identifier of the foreign key
      * @param deleteOptions  options to control access to open metadata
@@ -453,7 +453,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Attach a schema element to a "mapFrom" schema type.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param schemaElementGUID        unique identifier of the schema element (typically this is a schema attribute
      *                                 but may be a root schema type
      * @param schemaTypeGUID             unique identifier of the linked schema type
@@ -491,7 +491,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Detach a schema element from a "mapFrom" schema type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaElementGUID        unique identifier of the primary key
      * @param schemaTypeGUID             unique identifier of the foreign key
      * @param deleteOptions  options to control access to open metadata
@@ -526,7 +526,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Attach a schema element to a "mapTo" schema type.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param schemaElementGUID        unique identifier of the schema element (typically this is a schema attribute
      *                                 but may be a root schema type
      * @param schemaTypeGUID             unique identifier of the linked schema type
@@ -564,7 +564,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Detach a schema element from a "mapTo" schema type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaElementGUID        unique identifier of the primary key
      * @param schemaTypeGUID             unique identifier of the foreign key
      * @param deleteOptions  options to control access to open metadata
@@ -600,7 +600,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Attach a graph edge schema element to a graph vertex schema element.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param graphEdgeGUID        unique identifier of the schema element (typically this is a schema attribute
      *                                 but may be a root schema type
      * @param graphVertexGUID             unique identifier of the linked schema type
@@ -638,7 +638,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Detach a graph edge schema element from a graph vertex schema element.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param graphEdgeGUID        unique identifier of the primary key
      * @param graphVertexGUID             unique identifier of the foreign key
      * @param deleteOptions  options to control access to open metadata
@@ -673,7 +673,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Attach a schema element to a "mapTo" schema type.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param schemaElementGUID        unique identifier of the schema element (typically this is a schema attribute
      *                                 but may be a root schema type
      * @param queryTargetSchemaElementGUID  unique identifier of the schema element supplying all/part of the data
@@ -711,7 +711,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Detach a schema element from a "mapTo" schema type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaElementGUID        unique identifier of the primary key
      * @param schemaTypeGUID             unique identifier of the foreign key
      * @param deleteOptions  options to control access to open metadata
@@ -746,7 +746,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Add the PrimaryKey classification to a relational column.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param relationalColumnGUID    unique identifier of the schema attribute.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -780,7 +780,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Remove the PrimaryKey classification for a relational column.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param relationalColumnGUID    unique identifier of the schema attribute.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -809,7 +809,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Add the TypeEmbeddedAttribute classification to the schema attribute.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaAttributeGUID    unique identifier of the schema attribute.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -843,7 +843,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Update the TypeEmbeddedAttribute classification for the schema attribute.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaAttributeGUID    unique identifier of the schema attribute.
      * @param updateOptions provides a structure for the additional options when updating a classification.
      * @param properties            properties for the classification
@@ -884,7 +884,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Remove the TypeEmbeddedAttribute classification from the schema attribute.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaAttributeGUID    unique identifier of the schema attribute.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -913,7 +913,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Add the CalculatedValue classification to the schema attribute.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaAttributeGUID    unique identifier of the schema attribute.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -947,7 +947,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Update the CalculatedValue classification for the schema attribute.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaAttributeGUID    unique identifier of the schema attribute.
      * @param updateOptions provides a structure for the additional options when updating a classification.
      * @param properties            properties for the classification
@@ -988,7 +988,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Remove the CalculatedValue classification from the schema attribute.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaAttributeGUID    unique identifier of the schema attribute.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1017,7 +1017,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Delete a schema attribute.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaAttributeGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1043,7 +1043,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of schema attributes with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions multiple options to control the query
      * @return a list of elements
@@ -1070,7 +1070,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific schema attribute.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param schemaAttributeGUID      unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -1117,7 +1117,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of schema attributes nested under a schema attribute.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param schemaTypeGUID           unique identifier of the starting schema attribute
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -1148,7 +1148,7 @@ public class SchemaAttributeHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of schema attributes nested under a schema attribute.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param schemaAttributeGUID           unique identifier of the starting schema attribute
      * @param queryOptions           multiple options to control the query
      * @return a list of elements

@@ -24,8 +24,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class EntityCreateRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private String               entityTypeGUID         = null;
     private InstanceProperties   initialProperties      = null;
     private List<Classification> initialClassifications = null;
@@ -227,10 +225,10 @@ public class EntityCreateRequest extends OMRSAPIRequest
                 "entityTypeGUID='" + entityTypeGUID + '\'' +
                 ", initialProperties=" + initialProperties +
                 ", initialClassifications=" + initialClassifications +
-                ", initialStatus=" + initialStatus + '\'' +
+                ", initialStatus=" + initialStatus +
                 ", metadataCollectionId='" + metadataCollectionId + '\'' +
                 ", metadataCollectionName='" + metadataCollectionName + '\'' +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -247,11 +245,10 @@ public class EntityCreateRequest extends OMRSAPIRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof EntityCreateRequest))
+        if (!(objectToCompare instanceof EntityCreateRequest that))
         {
             return false;
         }
-        EntityCreateRequest that = (EntityCreateRequest) objectToCompare;
         return Objects.equals(getEntityTypeGUID(), that.getEntityTypeGUID()) &&
                 Objects.equals(getInitialProperties(), that.getInitialProperties()) &&
                 Objects.equals(getInitialClassifications(), that.getInitialClassifications()) &&
@@ -269,10 +266,7 @@ public class EntityCreateRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-
-        return Objects.hash(getEntityTypeGUID(),
-                            getInitialProperties(),
-                            getInitialClassifications(),
-                            getInitialStatus());
+        return Objects.hash(super.hashCode(), entityTypeGUID, initialProperties, initialClassifications,
+                            initialStatus, metadataCollectionId, metadataCollectionName);
     }
 }

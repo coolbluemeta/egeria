@@ -158,7 +158,6 @@ public class OpenMetadataTypesArchive4_0
          * Add the type updates
          */
         add0220DataFileCollectionDataSet();
-        add0239DeployedReportType();
         create0464DynamicIntegrationGroups();
         update0720InformationSupplyChains();
     }
@@ -180,35 +179,6 @@ public class OpenMetadataTypesArchive4_0
                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.DATA_SET.typeName));
     }
 
-
-    /*
-     * -------------------------------------------------------------------------------------------------------
-     */
-
-    private void add0239DeployedReportType()
-    {
-        this.archiveBuilder.addEntityDef(getDeployedReportTypeEntity());
-    }
-
-    private EntityDef getDeployedReportTypeEntity()
-    {
-        EntityDef entityDef = archiveHelper.getDefaultEntityDef(OpenMetadataType.REPORT_TYPE,
-                                                                this.archiveBuilder.getEntityDef(OpenMetadataType.DATA_ASSET.typeName));
-
-        /*
-         * Build the attributes
-         */
-        List<TypeDefAttribute> properties = new ArrayList<>();
-
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.PURPOSE));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CREATED_TIME));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LAST_MODIFIED_TIME));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LAST_MODIFIER));
-
-        entityDef.setPropertiesDefinition(properties);
-
-        return entityDef;
-    }
 
 
     /*
@@ -400,7 +370,7 @@ public class OpenMetadataTypesArchive4_0
     private RelationshipDef getInformationSupplyChainLinkRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.INFORMATION_SUPPLY_CHAIN_LINK_RELATIONSHIP,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         RelationshipEndDef relationshipEndDef;
@@ -433,16 +403,6 @@ public class OpenMetadataTypesArchive4_0
                                                                  end2AttributeDescriptionGUID,
                                                                  RelationshipEndCardinality.ANY_NUMBER);
         relationshipDef.setEndDef2(relationshipEndDef);
-
-        /*
-         * Build the attributes
-         */
-        List<TypeDefAttribute> properties = new ArrayList<>();
-
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
-
-        relationshipDef.setPropertiesDefinition(properties);
 
         return relationshipDef;
     }

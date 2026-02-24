@@ -6,10 +6,7 @@ package org.odpi.openmetadata.adapters.connectors.resource.jdbc.ddl.postgres;
 import org.odpi.openmetadata.adapters.connectors.resource.jdbc.ffdc.JDBCErrorCode;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Builds up the definition of a schema, its tables, columns, primary keys, foreign keys and comments.
@@ -75,6 +72,12 @@ public class PostgreSQLSchemaDDL
                                                                  table.getDataColumns(),
                                                                  table.getForeignKeys()) + ");");
 
+                    if (table.getNewColumns() != null)
+                    {
+                        ddlStatements.addAll(this.getAlterTableDDL(table.getTableName(), table.getNewColumns()));
+                    }
+
+
                     /*
                      * Add the table comment.
                      */
@@ -90,10 +93,31 @@ public class PostgreSQLSchemaDDL
                      */
                     ddlStatements.addAll(getColumnCommentStatements(table.getTableName(), table.getPrimaryKeys()));
                     ddlStatements.addAll(getColumnCommentStatements(table.getTableName(), table.getDataColumns()));
+                    ddlStatements.addAll(getColumnCommentStatements(table.getTableName(), table.getNewColumns()));
                 }
             }
         }
 
+        return ddlStatements;
+    }
+
+
+    /**
+     * Return the DDL for ALTER TABLE statements to add new columns.
+     *
+     * @param tableName  name of table
+     * @param newColumns list of columns to add
+     * @return list of statements
+     */
+    private Collection<String> getAlterTableDDL(String                 tableName,
+                                                List<PostgreSQLColumn> newColumns)
+    {
+        Collection<String> ddlStatements = new ArrayList<>();
+
+        for (PostgreSQLColumn column : newColumns)
+        {
+            ddlStatements.add("alter table " + tableName + " add column if not exists " + column.getColumnName() + " " + column.getColumnType().getPostgresType() + ";");
+        }
         return ddlStatements;
     }
 

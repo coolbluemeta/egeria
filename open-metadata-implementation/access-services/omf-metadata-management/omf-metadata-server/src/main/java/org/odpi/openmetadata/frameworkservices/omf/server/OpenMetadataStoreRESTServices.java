@@ -75,7 +75,7 @@ public class OpenMetadataStoreRESTServices
      *
      * @return connection object for the out topic or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem retrieving the discovery engine definition.
      */
     public OCFConnectionResponse getOutTopicConnection(String serverName,
@@ -111,7 +111,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -121,14 +121,14 @@ public class OpenMetadataStoreRESTServices
      * Log an audit message about this asset.
      *
      * @param serverName     name of server instance to route request to
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param assetGUID      unique identifier for asset.
      * @param governanceService name of governance service
      * @param message        message to log
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem that occurred within the property server.
      */
     public VoidResponse logAssetAuditMessage(String serverName,
@@ -157,7 +157,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -198,7 +198,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -260,7 +260,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -321,7 +321,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -393,7 +393,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -473,7 +473,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -520,7 +520,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -565,7 +565,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -608,7 +608,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -651,7 +651,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -669,14 +669,14 @@ public class OpenMetadataStoreRESTServices
      *  UserNotAuthorizedException the governance action service is not able to access the element
      *  PropertyServerException a problem accessing the metadata store
      */
-    public OpenMetadataElementResponse getMetadataElementByGUID(String             serverName,
-                                                                String             userId,
-                                                                String             elementGUID,
+    public OpenMetadataElementResponse getMetadataElementByGUID(String         serverName,
+                                                                String         userId,
+                                                                String         elementGUID,
                                                                 GetRequestBody requestBody)
     {
         final String methodName = "getMetadataElementByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataElementResponse response = new OpenMetadataElementResponse();
@@ -715,7 +715,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -738,7 +738,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "getMetadataElementByUniqueName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataElementResponse response = new OpenMetadataElementResponse();
@@ -775,7 +775,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -792,13 +792,13 @@ public class OpenMetadataStoreRESTServices
      *  UserNotAuthorizedException the governance action service is not able to access the element or
      *  PropertyServerException a problem accessing the metadata store
      */
-    public GUIDResponse getMetadataElementGUIDByUniqueName(String          serverName,
-                                                           String          userId,
+    public GUIDResponse getMetadataElementGUIDByUniqueName(String                serverName,
+                                                           String                userId,
                                                            UniqueNameRequestBody requestBody)
     {
         final String methodName = "getMetadataElementGUIDByUniqueName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         GUIDResponse response = new GUIDResponse();
@@ -835,7 +835,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -862,7 +862,7 @@ public class OpenMetadataStoreRESTServices
         final String methodName = "getMetadataElementHistory";
         final String guidParameterName  = "elementGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataElementsResponse response = new OpenMetadataElementsResponse();
@@ -918,7 +918,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -946,7 +946,7 @@ public class OpenMetadataStoreRESTServices
         final String methodName = "getClassificationHistory";
         final String guidParameterName  = "elementGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         AttachedClassificationsResponse response = new AttachedClassificationsResponse();
@@ -1004,7 +1004,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1028,7 +1028,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "findMetadataElementsWithString";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataElementsResponse response = new OpenMetadataElementsResponse();
@@ -1095,7 +1095,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1194,7 +1194,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "findElementsForAnchor";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AnchorSearchMatchesResponse response = new AnchorSearchMatchesResponse();
         AuditLog                    auditLog = null;
@@ -1244,7 +1244,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1271,7 +1271,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "findElementsInAnchorDomain";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AnchorSearchMatchesListResponse response = new AnchorSearchMatchesListResponse();
         AuditLog                        auditLog = null;
@@ -1321,7 +1321,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1348,7 +1348,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "findElementsInAnchorScope";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AnchorSearchMatchesListResponse response = new AnchorSearchMatchesListResponse();
         AuditLog                        auditLog = null;
@@ -1398,7 +1398,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1660,7 +1660,7 @@ public class OpenMetadataStoreRESTServices
         propertyList.add(OpenMetadataProperty.REVIEW.name);
         propertyList.add(OpenMetadataProperty.KEY.name);
         propertyList.add(OpenMetadataProperty.DESCRIPTION.name);
-        propertyList.add(OpenMetadataProperty.NAMESPACE.name);
+        propertyList.add(OpenMetadataProperty.NAMESPACE_PATH.name);
 
         return propertyList;
     }
@@ -1691,7 +1691,7 @@ public class OpenMetadataStoreRESTServices
         final String methodName = "getRelatedMetadataElements";
         final String guidParameterName = "elementGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog                           auditLog = null;
         RelatedMetadataElementListResponse response = new RelatedMetadataElementListResponse();
@@ -1779,7 +1779,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1808,7 +1808,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "getMetadataElementRelationships";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog                             auditLog = null;
         OpenMetadataRelationshipListResponse response = new OpenMetadataRelationshipListResponse();
@@ -1868,7 +1868,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1891,7 +1891,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "findMetadataElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataElementsResponse response = new OpenMetadataElementsResponse();
@@ -1948,7 +1948,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1974,7 +1974,7 @@ public class OpenMetadataStoreRESTServices
         final String parameterName = "elementGUID";
         final String methodName    = "getAnchoredElementsGraph";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         OpenMetadataGraphResponse response = new OpenMetadataGraphResponse();
         AuditLog                  auditLog = null;
@@ -2174,7 +2174,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2197,7 +2197,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "findRelationshipsBetweenMetadataElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog                             auditLog = null;
         OpenMetadataRelationshipListResponse response = new OpenMetadataRelationshipListResponse();
@@ -2216,6 +2216,10 @@ public class OpenMetadataStoreRESTServices
                 {
                     relationshipList.setRelationships(handler.findRelationshipsBetweenMetadataElements(userId,
                                                                                                        requestBody.getRelationshipTypeName(),
+                                                                                                       requestBody.getRelationshipSubtypeGUIDs(),
+                                                                                                       requestBody.getEnd1EntityGUIDs(),
+                                                                                                       requestBody.getEnd2EntityGUIDs(),
+                                                                                                       requestBody.getEndMatchCriteria(),
                                                                                                        requestBody.getSearchProperties(),
                                                                                                        requestBody.getLimitResultsByStatus(),
                                                                                                        requestBody.getAsOfTime(),
@@ -2262,7 +2266,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2290,7 +2294,7 @@ public class OpenMetadataStoreRESTServices
         final String methodName = "getRelationshipByGUID";
         final String guidParameterName = "relationshipGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog                         auditLog = null;
         OpenMetadataRelationshipResponse response = new OpenMetadataRelationshipResponse();
@@ -2342,7 +2346,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2369,7 +2373,7 @@ public class OpenMetadataStoreRESTServices
         final String methodName = "getRelationshipHistory";
         final String guidParameterName  = "relationshipGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog                             auditLog = null;
         OpenMetadataRelationshipListResponse response = new OpenMetadataRelationshipListResponse();
@@ -2429,7 +2433,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2455,7 +2459,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "createMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         GUIDResponse response = new GUIDResponse();
@@ -2496,7 +2500,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2520,7 +2524,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "createMetadataElementFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         GUIDResponse response = new GUIDResponse();
@@ -2565,7 +2569,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2592,7 +2596,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "updateMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         BooleanResponse response = new BooleanResponse();
@@ -2626,7 +2630,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2651,7 +2655,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "publishMetadataElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -2690,7 +2694,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2715,7 +2719,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "withdrawMetadataElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -2753,7 +2757,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2778,7 +2782,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "updateMetadataElementEffectivityInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -2812,7 +2816,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2838,7 +2842,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "deleteMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -2878,7 +2882,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2903,7 +2907,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "archiveMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -2943,7 +2947,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2973,7 +2977,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "classifyMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -3007,7 +3011,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3035,7 +3039,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "reclassifyMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -3070,7 +3074,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3098,7 +3102,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "updateClassificationStatusInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -3133,7 +3137,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3161,7 +3165,7 @@ public class OpenMetadataStoreRESTServices
         final String methodName = "declassifyMetadataElementInStore";
         final String metadataElementGUIDParameterName = "metadataElementGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -3196,7 +3200,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3221,7 +3225,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "createRelatedElementsInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         GUIDResponse response = new GUIDResponse();
@@ -3258,7 +3262,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3284,7 +3288,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "updateRelatedElementsInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -3318,7 +3322,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3344,7 +3348,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "updateRelatedElementsStatusInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -3378,7 +3382,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3403,7 +3407,7 @@ public class OpenMetadataStoreRESTServices
     {
         final String methodName = "deleteRelationshipInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         AuditLog auditLog = null;
         VoidResponse response = new VoidResponse();
@@ -3436,7 +3440,7 @@ public class OpenMetadataStoreRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3468,7 +3472,7 @@ public class OpenMetadataStoreRESTServices
 
         // todo
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3504,7 +3508,7 @@ public class OpenMetadataStoreRESTServices
 
         // todo
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3538,7 +3542,7 @@ public class OpenMetadataStoreRESTServices
 
         // todo
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3571,7 +3575,7 @@ public class OpenMetadataStoreRESTServices
 
         // todo
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 

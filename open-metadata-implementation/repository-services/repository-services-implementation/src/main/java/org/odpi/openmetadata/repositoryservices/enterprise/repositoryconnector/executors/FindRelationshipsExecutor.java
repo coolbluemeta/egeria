@@ -9,6 +9,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.SequencingOrder;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstanceStatus;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Relationship;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.repositoryconnector.OMRSRepositoryValidator;
 import org.odpi.openmetadata.repositoryservices.enterprise.repositoryconnector.EnterpriseOMRSRepositoryConnector;
@@ -27,7 +28,9 @@ public class FindRelationshipsExecutor extends PageableRepositoryExecutorBase
 {
     private final SearchProperties matchProperties;
     private final List<String>     instanceSubtypeGUIDs;
-
+    private final List<String>     end1EntityGUIDs;
+    private final List<String>     end2EntityGUIDs;
+    private final EndMatchCriteria endMatchCriteria;
     private final RelationshipsAccumulator accumulator;
 
     /**
@@ -39,6 +42,9 @@ public class FindRelationshipsExecutor extends PageableRepositoryExecutorBase
      *                             (but may be slow so not recommended).
      * @param relationshipSubtypeGUIDs optional list of the unique identifiers (guids) for subtypes of the
      *                                 relationshipTypeGUID to include in the search results. Null means all subtypes.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param matchProperties Optional list of relationship property conditions to match.
      * @param fromRelationshipElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
@@ -61,6 +67,9 @@ public class FindRelationshipsExecutor extends PageableRepositoryExecutorBase
     public FindRelationshipsExecutor(String                  userId,
                                      String                  relationshipTypeGUID,
                                      List<String>            relationshipSubtypeGUIDs,
+                                     List<String>            end1EntityGUIDs,
+                                     List<String>            end2EntityGUIDs,
+                                     EndMatchCriteria        endMatchCriteria,
                                      SearchProperties        matchProperties,
                                      int                     fromRelationshipElement,
                                      List<InstanceStatus>    limitResultsByStatus,
@@ -76,6 +85,9 @@ public class FindRelationshipsExecutor extends PageableRepositoryExecutorBase
         this(userId,
              relationshipTypeGUID,
              relationshipSubtypeGUIDs,
+             end1EntityGUIDs,
+             end2EntityGUIDs,
+             endMatchCriteria,
              matchProperties,
              fromRelationshipElement,
              limitResultsByStatus,
@@ -97,6 +109,9 @@ public class FindRelationshipsExecutor extends PageableRepositoryExecutorBase
      *                             (but may be slow so not recommended).
      * @param relationshipSubtypeGUIDs optional list of the unique identifiers (guids) for subtypes of the
      *                                 relationshipTypeGUID to include in the search results. Null means all subtypes.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param matchProperties Optional list of relationship property conditions to match.
      * @param fromRelationshipElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
@@ -117,6 +132,9 @@ public class FindRelationshipsExecutor extends PageableRepositoryExecutorBase
     private FindRelationshipsExecutor(String                  userId,
                                       String                  relationshipTypeGUID,
                                       List<String>            relationshipSubtypeGUIDs,
+                                      List<String>            end1EntityGUIDs,
+                                      List<String>            end2EntityGUIDs,
+                                      EndMatchCriteria        endMatchCriteria,
                                       SearchProperties        matchProperties,
                                       int                     fromRelationshipElement,
                                       List<InstanceStatus>    limitResultsByStatus,
@@ -140,6 +158,9 @@ public class FindRelationshipsExecutor extends PageableRepositoryExecutorBase
 
         this.matchProperties = matchProperties;
         this.instanceSubtypeGUIDs = relationshipSubtypeGUIDs;
+        this.end1EntityGUIDs = end1EntityGUIDs;
+        this.end2EntityGUIDs = end2EntityGUIDs;
+        this.endMatchCriteria = endMatchCriteria;
 
         this.accumulator = accumulator;
     }
@@ -157,6 +178,9 @@ public class FindRelationshipsExecutor extends PageableRepositoryExecutorBase
         return new FindRelationshipsExecutor(userId,
                                              instanceTypeGUID,
                                              instanceSubtypeGUIDs,
+                                             end1EntityGUIDs,
+                                             end2EntityGUIDs,
+                                             endMatchCriteria,
                                              matchProperties,
                                              startingElement,
                                              limitResultsByStatus,
@@ -187,6 +211,9 @@ public class FindRelationshipsExecutor extends PageableRepositoryExecutorBase
             List<Relationship> results = metadataCollection.findRelationships(userId,
                                                                               instanceTypeGUID,
                                                                               instanceSubtypeGUIDs,
+                                                                              end1EntityGUIDs,
+                                                                              end2EntityGUIDs,
+                                                                              endMatchCriteria,
                                                                               matchProperties,
                                                                               startingElement,
                                                                               limitResultsByStatus,

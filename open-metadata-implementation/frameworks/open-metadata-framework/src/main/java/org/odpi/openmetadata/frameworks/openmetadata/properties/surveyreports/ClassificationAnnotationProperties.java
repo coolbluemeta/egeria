@@ -22,7 +22,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 public class ClassificationAnnotationProperties extends DataFieldAnnotationProperties
 {
-    private Map<String, String> candidateClassifications = null;
+    private String classificationName = null;
+    private Map<String, String> properties = null;
 
     /**
      * Default constructor
@@ -45,30 +46,52 @@ public class ClassificationAnnotationProperties extends DataFieldAnnotationPrope
 
         if (template != null)
         {
-            candidateClassifications = template.getCandidateClassifications();
+            classificationName = template.getClassificationName();
+            properties = template.getProperties();
         }
     }
 
+
+    /**
+     * Return the name of the classification to be recommended.
+     *
+     * @return string
+     */
+    public String getClassificationName()
+    {
+        return classificationName;
+    }
+
+
+    /**
+     * Set up the name of the classification to be recommended.
+     *
+     * @param classificationName string
+     */
+    public void setClassificationName(String classificationName)
+    {
+        this.classificationName = classificationName;
+    }
 
     /**
      * Return a map of candidate classification names to additional characteristics
      *
      * @return map of classification names to string
      */
-    public Map<String, String> getCandidateClassifications()
+    public Map<String, String> getProperties()
     {
-        return candidateClassifications;
+        return properties;
     }
 
 
     /**
      * Set up a map of candidate classification names to additional characteristics.
      *
-     * @param candidateClassifications map of classification names to string
+     * @param properties map of classification names to string
      */
-    public void setCandidateClassifications(Map<String, String> candidateClassifications)
+    public void setProperties(Map<String, String> properties)
     {
-        this.candidateClassifications = candidateClassifications;
+        this.properties = properties;
     }
 
 
@@ -81,7 +104,8 @@ public class ClassificationAnnotationProperties extends DataFieldAnnotationPrope
     public String toString()
     {
         return "ClassificationAnnotationProperties{" +
-                "candidateClassifications=" + candidateClassifications +
+                "classificationName='" + classificationName + '\'' +
+                ", properties=" + properties +
                 "} " + super.toString();
     }
 
@@ -108,7 +132,8 @@ public class ClassificationAnnotationProperties extends DataFieldAnnotationPrope
             return false;
         }
         ClassificationAnnotationProperties that = (ClassificationAnnotationProperties) objectToCompare;
-        return Objects.equals(candidateClassifications, that.candidateClassifications);
+        return Objects.equals(classificationName, that.classificationName) &&
+                Objects.equals(properties, that.properties);
     }
 
 
@@ -120,6 +145,6 @@ public class ClassificationAnnotationProperties extends DataFieldAnnotationPrope
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), candidateClassifications);
+        return Objects.hash(super.hashCode(), classificationName, properties);
     }
 }

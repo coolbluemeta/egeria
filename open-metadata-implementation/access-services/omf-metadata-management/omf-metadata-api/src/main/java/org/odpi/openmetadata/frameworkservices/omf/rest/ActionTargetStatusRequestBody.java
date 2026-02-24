@@ -6,6 +6,7 @@ package org.odpi.openmetadata.frameworkservices.omf.rest;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.odpi.openmetadata.commonservices.ffdc.rest.GetRequestBody;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.ActivityStatus;
 
 import java.util.Date;
@@ -20,13 +21,13 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ActionTargetStatusRequestBody
+public class ActionTargetStatusRequestBody extends GetRequestBody
 {
     private String         actionTargetGUID = null;
     private ActivityStatus status           = null;
     private Date           startDate        = null;
-    private Date               completionDate    = null;
-    private String             completionMessage = null;
+    private Date           completionDate    = null;
+    private String         completionMessage = null;
 
 
     /**

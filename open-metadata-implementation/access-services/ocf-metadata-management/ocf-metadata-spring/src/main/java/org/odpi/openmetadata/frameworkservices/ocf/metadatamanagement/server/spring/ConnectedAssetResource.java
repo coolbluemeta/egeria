@@ -50,7 +50,7 @@ public class ConnectedAssetResource
      * Returns the connection object corresponding to the supplied connection GUID.
      *
      * @param serverName name of the server instances for this request.
-     * @param userId userId of user making request.
+     * @param userId userId of the user making the request.
      * @param guid  the unique id for the connection within the property server.
      *
      * @return connection object or
@@ -79,7 +79,7 @@ public class ConnectedAssetResource
      * Returns the connection object corresponding to the supplied connection name.
      *
      * @param serverName name of the server instances for this request.
-     * @param userId userId of user making request.
+     * @param userId userId of the user making the request.
      * @param name  the unique name for the connection within the property server.
      *
      * @return connection object or
@@ -108,7 +108,7 @@ public class ConnectedAssetResource
      * Save the connection optionally linked to the supplied asset GUID.
      *
      * @param serverName  name of the server instances for this request
-     * @param userId      userId of user making request.
+     * @param userId      userId of the user making the request.
      * @param assetGUID   the unique id for the asset within the metadata repository. This optional.
      *                    However, if specified then the new connection is attached to the asset
      * @param connection connection to save
@@ -141,7 +141,7 @@ public class ConnectedAssetResource
      * Returns the connection corresponding to the supplied asset GUID.
      *
      * @param serverName  name of the server instances for this request
-     * @param userId      userId of user making request.
+     * @param userId      userId of the user making the request.
      * @param assetGUID   the unique id for the asset within the metadata repository.
      *
      * @return connection object or

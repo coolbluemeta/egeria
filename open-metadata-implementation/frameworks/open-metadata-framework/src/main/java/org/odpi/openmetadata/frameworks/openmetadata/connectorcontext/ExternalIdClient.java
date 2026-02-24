@@ -402,7 +402,7 @@ public class ExternalIdClient extends ConnectorContextClientBase
      * @param externalIdLinkGUID unique identifier of the ExternalIdLink relationship to update
      *
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the property server
      */
     public void confirmSynchronization(String externalIdLinkGUID) throws InvalidParameterException,

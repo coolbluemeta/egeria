@@ -5,10 +5,8 @@ package org.odpi.openmetadata.contentpacks.core.core;
 import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.adapters.connectors.EgeriaRoleDefinition;
 import org.odpi.openmetadata.adapters.connectors.controls.EgeriaDeployedImplementationType;
-import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.servers.*;
 import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.DaysOfWeekGuard;
 import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.WriteAuditLogRequestParameter;
-import org.odpi.openmetadata.adapters.connectors.integration.openlineage.*;
 import org.odpi.openmetadata.contentpacks.core.*;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorProvider;
@@ -298,9 +296,9 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                       CrowdSourcingRole.getOpenTypeName(),
                                       new ArrayList<>(Arrays.asList(CrowdSourcingRole.values())));
 
-        addOpenMetadataEnumValidNames(OpenMetadataProperty.DATA_CLASS_ASSIGNMENT_STATUS.name,
-                                      DataClassAssignmentStatus.getOpenTypeName(),
-                                      new ArrayList<>(Arrays.asList(DataClassAssignmentStatus.values())));
+        addOpenMetadataEnumValidNames(OpenMetadataProperty.ASSIGNMENT_STATUS.name,
+                                      DataValueAssignmentStatus.getOpenTypeName(),
+                                      new ArrayList<>(Arrays.asList(DataValueAssignmentStatus.values())));
 
         addOpenMetadataEnumValidNames(OpenMetadataProperty.SORT_ORDER.name,
                                       DataItemSortOrder.getOpenTypeName(),

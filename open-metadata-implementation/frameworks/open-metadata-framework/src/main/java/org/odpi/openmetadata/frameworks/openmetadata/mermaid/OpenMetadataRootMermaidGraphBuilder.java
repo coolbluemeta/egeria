@@ -410,12 +410,12 @@ public class OpenMetadataRootMermaidGraphBuilder extends MermaidGraphBuilderBase
             super.addRelatedElementSummaries(openMetadataRootElement.getVertices(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
             super.addRelatedElementSummaries(openMetadataRootElement.getEdges(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
 
-            super.addRelatedElementSummaries(openMetadataRootElement.getDescribedByDataClass(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
-            super.addRelatedElementSummary(openMetadataRootElement.getDataClassDefinition(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
-            super.addRelatedElementSummaries(openMetadataRootElement.getAssignedToDataClass(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
-            super.addRelatedElementSummaries(openMetadataRootElement.getAssignedDataClasses(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
-            super.addRelatedElementSummary(openMetadataRootElement.getSuperDataClass(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
-            super.addRelatedElementSummaries(openMetadataRootElement.getSubDataClasses(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
+            super.addRelatedElementSummaries(openMetadataRootElement.getDescribedByDataValueSpecifications(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
+            super.addRelatedElementSummaries(openMetadataRootElement.getDataValueSpecifications(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
+            super.addRelatedElementSummaries(openMetadataRootElement.getAssignedToDataValueSpecifications(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
+            super.addRelatedElementSummaries(openMetadataRootElement.getAssignedDataValueSpecifications(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
+            super.addRelatedElementSummary(openMetadataRootElement.getSuperDataValueSpecification(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
+            super.addRelatedElementSummaries(openMetadataRootElement.getSubDataValueSpecifications(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
             super.addRelatedElementSummaries(openMetadataRootElement.getMadeOfDataClasses(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
             super.addRelatedElementSummaries(openMetadataRootElement.getPartOfDataClasses(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
 

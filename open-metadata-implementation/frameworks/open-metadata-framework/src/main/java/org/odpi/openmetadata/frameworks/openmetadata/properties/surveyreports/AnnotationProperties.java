@@ -3,6 +3,7 @@
 package org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports;
 
 import com.fasterxml.jackson.annotation.*;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.AuthoredReferenceableProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.OpenMetadataRootProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
@@ -27,16 +28,21 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = ResourceMeasureAnnotationProperties.class, name = "DataSourceMeasurementAnnotation"),
                 @JsonSubTypes.Type(value = DataFieldAnnotationProperties.class, name = "DataFieldAnnotationProperties"),
         })
-public class AnnotationProperties extends OpenMetadataRootProperties
+public class AnnotationProperties extends AuthoredReferenceableProperties
 {
-    private String              annotationType       = null;
-    private String              summary              = null;
-    private int                 confidenceLevel      = 0;
-    private String              expression           = null;
-    private String              explanation          = null;
-    private String              analysisStep         = null;
-    private String              jsonProperties       = null;
-    private Map<String, String> additionalProperties = null;
+    private String annotationType      = null;
+    private String summary             = null;
+    private long   sampleSize          = 0L;
+    private int    samplePercent       = 0;
+    private String samplingMethod      = null;
+    private int    confidenceLevel     = 0;
+    private String units               = null;
+    private long   absoluteUncertainty = 0L;
+    private long   relativeUncertainty = 0L;
+    private String expression          = null;
+    private String explanation         = null;
+    private String analysisStep        = null;
+    private String jsonProperties      = null;
 
 
     /**
@@ -60,14 +66,19 @@ public class AnnotationProperties extends OpenMetadataRootProperties
 
         if (template != null)
         {
-            this.annotationType = template.getAnnotationType();
-            this.summary = template.getSummary();
-            this.confidenceLevel = template.getConfidenceLevel();
-            this.expression = template.getExpression();
-            this.explanation = template.getExplanation();
-            this.analysisStep = template.getAnalysisStep();
-            this.jsonProperties = template.getJsonProperties();
-            this.additionalProperties = template.getAdditionalProperties();
+            this.annotationType      = template.getAnnotationType();
+            this.summary             = template.getSummary();
+            this.sampleSize          = template.getSampleSize();
+            this.samplePercent       = template.getSamplePercent();
+            this.samplingMethod      = template.getSamplingMethod();
+            this.units               = template.getUnits();
+            this.absoluteUncertainty = template.getAbsoluteUncertainty();
+            this.relativeUncertainty = template.getRelativeUncertainty();
+            this.confidenceLevel     = template.getConfidenceLevel();
+            this.expression          = template.getExpression();
+            this.explanation         = template.getExplanation();
+            this.analysisStep        = template.getAnalysisStep();
+            this.jsonProperties      = template.getJsonProperties();
         }
     }
 
@@ -117,6 +128,72 @@ public class AnnotationProperties extends OpenMetadataRootProperties
 
 
     /**
+     * Retrieve the sample size associated with the annotation.
+     *
+     * @return long
+     */
+    public long getSampleSize()
+    {
+        return sampleSize;
+    }
+
+
+    /**
+     * Set up the sample size associated with the annotation.
+     *
+     * @param sampleSize long
+     */
+    public void setSampleSize(long sampleSize)
+    {
+        this.sampleSize = sampleSize;
+    }
+
+
+    /**
+     * Retrieve the sample percent associated with the annotation.
+     *
+     * @return int
+     */
+    public int getSamplePercent()
+    {
+        return samplePercent;
+    }
+
+
+    /**
+     * Set up the sample percent associated with the annotation.
+     *
+     * @param samplePercent int
+     */
+    public void setSamplePercent(int samplePercent)
+    {
+        this.samplePercent = samplePercent;
+    }
+
+
+    /**
+     * Retrieve the sampling method associated with the annotation.
+     *
+     * @return string
+     */
+    public String getSamplingMethod()
+    {
+        return samplingMethod;
+    }
+
+
+    /**
+     * Set up the sampling method associated with the annotation.
+     *
+     * @param samplingMethod string
+     */
+    public void setSamplingMethod(String samplingMethod)
+    {
+        this.samplingMethod = samplingMethod;
+    }
+
+
+    /**
      * Return the confidence level of the survey action service that the annotation is correct.
      *
      * @return int confidence level
@@ -135,6 +212,72 @@ public class AnnotationProperties extends OpenMetadataRootProperties
     public void setConfidenceLevel(int confidenceLevel)
     {
         this.confidenceLevel = confidenceLevel;
+    }
+
+
+    /**
+     * Return the units used to describe the granularity.
+     *
+     * @return string description
+     */
+    public String getUnits()
+    {
+        return units;
+    }
+
+
+    /**
+     * Set up the units used to describe the granularity.
+     *
+     * @param units string description
+     */
+    public void setUnits(String units)
+    {
+        this.units = units;
+    }
+
+
+    /**
+     * Return the absolute uncertainty.
+     *
+     * @return long
+     */
+    public long getAbsoluteUncertainty()
+    {
+        return absoluteUncertainty;
+    }
+
+
+    /**
+     * Set up the absolute uncertainty.
+     *
+     * @param absoluteUncertainty long
+     */
+    public void setAbsoluteUncertainty(long absoluteUncertainty)
+    {
+        this.absoluteUncertainty = absoluteUncertainty;
+    }
+
+
+    /**
+     * Return the relative uncertainty.
+     *
+     * @return long
+     */
+    public long getRelativeUncertainty()
+    {
+        return relativeUncertainty;
+    }
+
+
+    /**
+     * Set up the relative uncertainty.
+     *
+     * @param relativeUncertainty long
+     */
+    public void setRelativeUncertainty(long relativeUncertainty)
+    {
+        this.relativeUncertainty = relativeUncertainty;
     }
 
 
@@ -226,28 +369,6 @@ public class AnnotationProperties extends OpenMetadataRootProperties
 
 
     /**
-     * Return the additional properties for the AnnotationProperties.
-     *
-     * @return properties map
-     */
-    public Map<String, String> getAdditionalProperties()
-    {
-        return additionalProperties;
-    }
-
-
-    /**
-     * Set up the additional properties for the AnnotationProperties.
-     *
-     * @param additionalProperties properties map
-     */
-    public void setAdditionalProperties(Map<String, String> additionalProperties)
-    {
-        this.additionalProperties = additionalProperties;
-    }
-
-
-    /**
      * Standard toString method.
      *
      * @return print out of variables in a JSON-style
@@ -258,12 +379,17 @@ public class AnnotationProperties extends OpenMetadataRootProperties
         return "AnnotationProperties{" +
                 "annotationType='" + annotationType + '\'' +
                 ", summary='" + summary + '\'' +
+                ", sampleSize=" + sampleSize +
+                ", samplePercent=" + samplePercent +
+                ", samplingMethod='" + samplingMethod + '\'' +
                 ", confidenceLevel=" + confidenceLevel +
+                ", units='" + units + '\'' +
+                ", absoluteUncertainty=" + absoluteUncertainty +
+                ", relativeUncertainty=" + relativeUncertainty +
                 ", expression='" + expression + '\'' +
                 ", explanation='" + explanation + '\'' +
                 ", analysisStep='" + analysisStep + '\'' +
                 ", jsonProperties='" + jsonProperties + '\'' +
-                ", additionalProperties=" + additionalProperties +
                 "} " + super.toString();
     }
 
@@ -277,18 +403,22 @@ public class AnnotationProperties extends OpenMetadataRootProperties
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare) return true;
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         if (!super.equals(objectToCompare)) return false;
         AnnotationProperties that = (AnnotationProperties) objectToCompare;
-        return confidenceLevel == that.confidenceLevel &&
+        return sampleSize == that.sampleSize &&
+                samplePercent == that.samplePercent &&
+                confidenceLevel == that.confidenceLevel &&
+                absoluteUncertainty == that.absoluteUncertainty &&
+                relativeUncertainty == that.relativeUncertainty &&
                 Objects.equals(annotationType, that.annotationType) &&
                 Objects.equals(summary, that.summary) &&
+                Objects.equals(samplingMethod, that.samplingMethod) &&
+                Objects.equals(units, that.units) &&
                 Objects.equals(expression, that.expression) &&
                 Objects.equals(explanation, that.explanation) &&
                 Objects.equals(analysisStep, that.analysisStep) &&
-                Objects.equals(jsonProperties, that.jsonProperties) &&
-                Objects.equals(additionalProperties, that.additionalProperties);
+                Objects.equals(jsonProperties, that.jsonProperties);
     }
 
 
@@ -300,6 +430,6 @@ public class AnnotationProperties extends OpenMetadataRootProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), annotationType, summary, confidenceLevel, expression, explanation, analysisStep, jsonProperties, additionalProperties);
+        return Objects.hash(super.hashCode(), annotationType, summary, sampleSize, samplePercent, samplingMethod, confidenceLevel, units, absoluteUncertainty, relativeUncertainty, expression, explanation, analysisStep, jsonProperties);
     }
 }

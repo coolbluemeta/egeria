@@ -65,7 +65,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "getAttachedCollections";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -87,7 +87,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -110,7 +110,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "findCollections";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -139,7 +139,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -162,7 +162,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "findDigitalProducts";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -191,7 +191,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -214,7 +214,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "getDigitalProductByCategory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -243,7 +243,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -267,7 +267,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "getCollectionsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -296,7 +296,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -319,7 +319,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "getCollectionsByCategory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -352,7 +352,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -370,14 +370,14 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public OpenMetadataRootElementResponse getCollectionByGUID(String             serverName,
-                                                               String             urlMarker,
-                                                               String             collectionGUID,
+    public OpenMetadataRootElementResponse getCollectionByGUID(String         serverName,
+                                                               String         urlMarker,
+                                                               String         collectionGUID,
                                                                GetRequestBody requestBody)
     {
         final String methodName = "getCollectionByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -399,7 +399,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -422,7 +422,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "createCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -462,7 +462,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -486,7 +486,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "createCollectionFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -520,7 +520,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -545,7 +545,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "updateCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -581,7 +581,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -608,7 +608,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "attachCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -660,7 +660,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -687,7 +687,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "detachCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -709,7 +709,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -737,7 +737,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "attachDataDescription";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -789,7 +789,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -808,15 +808,15 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachDataDescription(String            serverName,
-                                              String            urlMarker,
-                                              String            parentGUID,
-                                              String            collectionGUID,
+    public VoidResponse detachDataDescription(String                        serverName,
+                                              String                        urlMarker,
+                                              String                        parentGUID,
+                                              String                        collectionGUID,
                                               DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachDataDescription";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -838,7 +838,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -865,7 +865,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "linkSubscriber";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -916,7 +916,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -935,15 +935,15 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachSubscriber(String                   serverName,
-                                         String                   urlMarker,
-                                         String                   digitalSubscriberGUID,
-                                         String                   digitalSubscriptionGUID,
+    public VoidResponse detachSubscriber(String                        serverName,
+                                         String                        urlMarker,
+                                         String                        digitalSubscriberGUID,
+                                         String                        digitalSubscriptionGUID,
                                          DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachSubscriber";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -968,7 +968,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -987,15 +987,15 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public GUIDResponse linkAgreementActor(String                  serverName,
-                                           String                  urlMarker,
-                                           String                  agreementGUID,
-                                           String                  actorGUID,
+    public GUIDResponse linkAgreementActor(String                     serverName,
+                                           String                     urlMarker,
+                                           String                     agreementGUID,
+                                           String                     actorGUID,
                                            NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkAgreementActor";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -1046,7 +1046,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1064,14 +1064,14 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachAgreementActor(String                   serverName,
-                                             String                   urlMarker,
-                                             String                   agreementActorRelationshipGUID,
+    public VoidResponse detachAgreementActor(String                        serverName,
+                                             String                        urlMarker,
+                                             String                        agreementActorRelationshipGUID,
                                              DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachAgreementActor";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1093,7 +1093,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1112,15 +1112,15 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkAgreementItem(String                  serverName,
-                                          String                  urlMarker,
-                                          String                  agreementGUID,
-                                          String                  agreementItemGUID,
+    public VoidResponse linkAgreementItem(String                     serverName,
+                                          String                     urlMarker,
+                                          String                     agreementGUID,
+                                          String                     agreementItemGUID,
                                           NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkAgreementItem";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1171,7 +1171,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1190,15 +1190,15 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachAgreementItem(String                   serverName,
-                                            String                   urlMarker,
-                                            String                   agreementGUID,
-                                            String                   agreementItemGUID,
+    public VoidResponse detachAgreementItem(String                        serverName,
+                                            String                        urlMarker,
+                                            String                        agreementGUID,
+                                            String                        agreementItemGUID,
                                             DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachAgreementItem";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1220,7 +1220,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1239,15 +1239,15 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkContract(String                  serverName,
-                                     String                  urlMarker,
-                                     String                  agreementGUID,
-                                     String                  externalReferenceGUID,
+    public VoidResponse linkContract(String                     serverName,
+                                     String                     urlMarker,
+                                     String                     agreementGUID,
+                                     String                     externalReferenceGUID,
                                      NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkContract";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1298,7 +1298,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1317,15 +1317,15 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachContract(String                   serverName,
-                                       String                   urlMarker,
-                                       String                   agreementGUID,
-                                       String                   externalReferenceGUID,
+    public VoidResponse detachContract(String                        serverName,
+                                       String                        urlMarker,
+                                       String                        agreementGUID,
+                                       String                        externalReferenceGUID,
                                        DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachContract";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1347,7 +1347,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1373,7 +1373,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "setEditingCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1413,7 +1413,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1439,7 +1439,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "clearEditingCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1461,7 +1461,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1488,7 +1488,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "setStagingCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1528,7 +1528,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1554,7 +1554,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "clearStagingCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1576,7 +1576,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1603,7 +1603,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "setScopingCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1643,7 +1643,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1669,7 +1669,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "clearScopingCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1691,7 +1691,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1711,14 +1711,14 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse deleteCollection(String            serverName,
-                                         String            urlMarker,
-                                         String            collectionGUID,
+    public VoidResponse deleteCollection(String                   serverName,
+                                         String                   urlMarker,
+                                         String                   collectionGUID,
                                          DeleteElementRequestBody requestBody)
     {
         final String methodName = "deleteCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1740,7 +1740,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1764,7 +1764,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "getCollectionMembers";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1786,7 +1786,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1812,7 +1812,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "getCollectionHierarchy";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -1834,7 +1834,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1853,15 +1853,15 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem updating information in the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse addToCollection(String                  serverName,
-                                        String                  urlMarker,
-                                        String                  collectionGUID,
-                                        String                  elementGUID,
+    public VoidResponse addToCollection(String                     serverName,
+                                        String                     urlMarker,
+                                        String                     collectionGUID,
+                                        String                     elementGUID,
                                         NewRelationshipRequestBody requestBody)
     {
         final String methodName = "addToCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1913,7 +1913,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1940,7 +1940,7 @@ public class CollectionManagerRESTServices extends TokenController
     {
         final String methodName = "updateCollectionMembership";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1992,7 +1992,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2012,16 +2012,15 @@ public class CollectionManagerRESTServices extends TokenController
      *  PropertyServerException    a problem updating information in the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @SuppressWarnings(value = "unused")
-    public VoidResponse removeFromCollection(String                   serverName,
-                                             String                   urlMarker,
-                                             String                   collectionGUID,
-                                             String                   elementGUID,
+    public VoidResponse removeFromCollection(String                        serverName,
+                                             String                        urlMarker,
+                                             String                        collectionGUID,
+                                             String                        elementGUID,
                                              DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "removeFromCollection";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2046,7 +2045,7 @@ public class CollectionManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

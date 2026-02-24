@@ -54,6 +54,14 @@ public interface PostgreSQLTable
 
 
     /**
+     * Return the columns that are added as an extension using ALTER TABLE.
+     *
+     * @return list of columns
+     */
+    List<PostgreSQLColumn> getNewColumns();
+
+
+    /**
      * Return the list of foreign keys for this table.
      *
      * @return list

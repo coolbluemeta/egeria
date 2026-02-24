@@ -20,8 +20,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TypeDefReIdentifyRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private String originalTypeDefName = null;
     private String newTypeDefGUID = null;
     private String newTypeDefName = null;
@@ -129,11 +127,11 @@ public class TypeDefReIdentifyRequest extends OMRSAPIRequest
     @Override
     public String toString()
     {
-        return "TypeDefCategoryFindRequest{" +
-                "originalTypeDefName=" + originalTypeDefName +
-                "newTypeDefGUID=" + newTypeDefGUID +
-                "newTypeDefName=" + newTypeDefName +
-                '}';
+        return "TypeDefReIdentifyRequest{" +
+                "originalTypeDefName='" + originalTypeDefName + '\'' +
+                ", newTypeDefGUID='" + newTypeDefGUID + '\'' +
+                ", newTypeDefName='" + newTypeDefName + '\'' +
+                "} " + super.toString();
     }
 
 
@@ -146,21 +144,11 @@ public class TypeDefReIdentifyRequest extends OMRSAPIRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (!(objectToCompare instanceof TypeDefReIdentifyRequest))
-        {
-            return false;
-        }
-        TypeDefReIdentifyRequest
-                that = (TypeDefReIdentifyRequest) objectToCompare;
-        return Objects.equals(getOriginalTypeDefName(), that.getOriginalTypeDefName()) &&
-               Objects.equals(getNewTypeDefGUID(), that.getNewTypeDefGUID()) &&
-                Objects.equals(getNewTypeDefName(), that.getNewTypeDefName());
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        TypeDefReIdentifyRequest that = (TypeDefReIdentifyRequest) objectToCompare;
+        return Objects.equals(originalTypeDefName, that.originalTypeDefName) && Objects.equals(newTypeDefGUID, that.newTypeDefGUID) && Objects.equals(newTypeDefName, that.newTypeDefName);
     }
-
 
     /**
      * Create a hash code for this element type.
@@ -170,6 +158,6 @@ public class TypeDefReIdentifyRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(getOriginalTypeDefName(), getNewTypeDefGUID(), getNewTypeDefName());
+        return Objects.hash(super.hashCode(), originalTypeDefName, newTypeDefGUID, newTypeDefName);
     }
 }

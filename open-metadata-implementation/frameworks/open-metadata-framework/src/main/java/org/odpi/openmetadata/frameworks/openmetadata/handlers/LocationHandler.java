@@ -55,7 +55,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Create a new location.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -123,7 +123,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a location.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param locationGUID       unique identifier of the location (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -155,7 +155,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Attach a location to one of its peers.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param locationOneGUID          unique identifier of the first location
      * @param locationTwoGUID          unique identifier of the second location
      * @param makeAnchorOptions  options to control access to open metadata
@@ -192,7 +192,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Detach a location from one of its peers.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param locationOneGUID          unique identifier of the first location
      * @param locationTwoGUID          unique identifier of the second location
      * @param deleteOptions  options to control access to open metadata
@@ -226,7 +226,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Attach a super location to a nested location.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param locationGUID          unique identifier of the super location
      * @param nestedLocationGUID            unique identifier of the nested location
      * @param makeAnchorOptions  options to control access to open metadata
@@ -263,7 +263,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Detach a super location from a nested location.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param locationGUID          unique identifier of the super location
      * @param nestedLocationGUID            unique identifier of the nested location
      * @param deleteOptions  options to control access to open metadata
@@ -297,7 +297,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Attach an element to its location.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID       unique identifier of the element to connect
      * @param locationGUID            unique identifier of the location
      * @param makeAnchorOptions  options to control access to open metadata
@@ -334,7 +334,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Detach an element from its location.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID              unique identifier of the element
      * @param locationGUID          unique identifier of the location
      * @param deleteOptions  options to control access to open metadata
@@ -368,7 +368,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Delete a location.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param locationGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -394,7 +394,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of locations with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName, identifier or displayName
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -425,7 +425,7 @@ public class LocationHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific location.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param locationGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

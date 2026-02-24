@@ -612,7 +612,12 @@ public class OpenMetadataWikiPages
     /**
      * <a href="https://egeria-project.org/types/5/0540-Data-Classes/">...</a>
      */
-    public static final String MODEL_0540_DATA_CLASSES                 = "https://egeria-project.org/types/5/0540-Data-Classes/";
+    public static final String MODEL_0540_DATA_VALUE_SSPECIFICATION = "https://egeria-project.org/types/5/0540-Data-Value-Specification/";
+
+    /**
+     * <a href="https://egeria-project.org/types/5/0541-Data-Classes-and-Data-Grains/">...</a>
+     */
+    public static final String MODEL_0541_DATA_CLASSES_AND_GRAINS                 = "https://egeria-project.org/types/5/0541-Data-Classes-and-Data-Grains/";
 
     /**
      * <a href="https://egeria-project.org/types/5/0545-Reference-Data/">...</a>
@@ -686,6 +691,11 @@ public class OpenMetadataWikiPages
      * <a href="https://egeria-project.org/types/6/0625-Data-Class-Discovery/">...</a>
      */
     public static final String MODEL_0625_DATA_CLASS_DISCOVERY         = "https://egeria-project.org/types/6/0625-Data-Class-Discovery/";
+
+    /**
+     * <a href="https://egeria-project.org/types/6/0626-Data-Grain-Discovery/">...</a>
+     */
+    public static final String MODEL_0626_DATA_GRAIN_DISCOVERY         = "https://egeria-project.org/types/6/0626-Data-Grain-Discovery/";
 
     /**
      * <a href="https://egeria-project.org/types/6/0630-Semantic-Discovery/">...</a>

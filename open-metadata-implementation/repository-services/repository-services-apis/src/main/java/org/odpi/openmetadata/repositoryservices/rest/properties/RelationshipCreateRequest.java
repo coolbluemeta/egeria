@@ -23,8 +23,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class RelationshipCreateRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private String             relationshipTypeGUID   = null;
     private InstanceProperties initialProperties      = null;
     private String             entityOneGUID          = null;
@@ -240,10 +238,10 @@ public class RelationshipCreateRequest extends OMRSAPIRequest
                 ", initialProperties=" + initialProperties +
                 ", entityOneGUID='" + entityOneGUID + '\'' +
                 ", entityTwoGUID='" + entityTwoGUID + '\'' +
-                ", initialStatus=" + initialStatus + '\'' +
+                ", initialStatus=" + initialStatus +
                 ", metadataCollectionId='" + metadataCollectionId + '\'' +
                 ", metadataCollectionName='" + metadataCollectionName + '\'' +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -256,24 +254,11 @@ public class RelationshipCreateRequest extends OMRSAPIRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (objectToCompare == null || getClass() != objectToCompare.getClass())
-        {
-            return false;
-        }
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
         RelationshipCreateRequest that = (RelationshipCreateRequest) objectToCompare;
-        return Objects.equals(getRelationshipTypeGUID(), that.getRelationshipTypeGUID()) &&
-                Objects.equals(getInitialProperties(), that.getInitialProperties()) &&
-                Objects.equals(getEntityOneGUID(), that.getEntityOneGUID()) &&
-                Objects.equals(getEntityTwoGUID(), that.getEntityTwoGUID()) &&
-                getInitialStatus() == that.getInitialStatus() &&
-                Objects.equals(getMetadataCollectionId(), that.getMetadataCollectionId()) &&
-                Objects.equals(getMetadataCollectionName(), that.getMetadataCollectionName());
+        return Objects.equals(relationshipTypeGUID, that.relationshipTypeGUID) && Objects.equals(initialProperties, that.initialProperties) && Objects.equals(entityOneGUID, that.entityOneGUID) && Objects.equals(entityTwoGUID, that.entityTwoGUID) && initialStatus == that.initialStatus && Objects.equals(metadataCollectionId, that.metadataCollectionId) && Objects.equals(metadataCollectionName, that.metadataCollectionName);
     }
-
 
 
     /**
@@ -284,7 +269,6 @@ public class RelationshipCreateRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(getRelationshipTypeGUID(), getInitialProperties(), getEntityOneGUID(), getEntityTwoGUID(),
-                            getInitialStatus(), getMetadataCollectionId(), getMetadataCollectionName());
+        return Objects.hash(super.hashCode(), relationshipTypeGUID, initialProperties, entityOneGUID, entityTwoGUID, initialStatus, metadataCollectionId, metadataCollectionName);
     }
 }

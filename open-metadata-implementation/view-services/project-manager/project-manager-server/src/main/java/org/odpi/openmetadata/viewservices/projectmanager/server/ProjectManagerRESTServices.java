@@ -61,7 +61,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "getLinkedProjects";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -90,7 +90,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -113,7 +113,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "getProjectTeam";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                          auditLog = null;
@@ -142,7 +142,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -163,7 +163,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "getClassifiedProjects";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -192,7 +192,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -213,7 +213,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "findProjects";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -244,7 +244,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -265,7 +265,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "getProjectsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -298,7 +298,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -319,7 +319,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "getProjectsByClassificationProperties";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -354,7 +354,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -377,7 +377,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "getProject";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog        auditLog = null;
@@ -399,7 +399,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -423,7 +423,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "getProjectGraph";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -445,7 +445,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -470,7 +470,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "getProjectHierarchy";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -492,7 +492,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -515,7 +515,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "createProject";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -556,7 +556,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -567,7 +567,7 @@ public class ProjectManagerRESTServices extends TokenController
      *
      * @param serverName                 name of called server.
      * @param projectGUID             unique identifier of the project
-     * @param properties             properties for the project.
+     * @param requestBody             properties for the project.
      *
      * @return unique identifier of the newly created Project
      *  InvalidParameterException  one of the parameters is invalid.
@@ -576,11 +576,11 @@ public class ProjectManagerRESTServices extends TokenController
      */
     public GUIDResponse createTaskForProject(String            serverName,
                                              String            projectGUID,
-                                             ProjectProperties properties)
+                                             NewAttachmentRequestBody requestBody)
     {
         final String methodName = "createTaskForProject";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -593,11 +593,11 @@ public class ProjectManagerRESTServices extends TokenController
 
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
 
-            if (properties != null)
+            if ((requestBody != null) && (requestBody.getProperties() instanceof ProjectProperties properties))
             {
                 ProjectHandler handler = instanceHandler.getProjectHandler(userId, serverName, methodName);
 
-                NewElementOptions newElementOptions = new NewElementOptions();
+                NewElementOptions newElementOptions = new NewElementOptions(requestBody);
 
                 if (projectGUID != null)
                 {
@@ -625,7 +625,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -647,7 +647,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "createProjectFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -681,7 +681,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -704,7 +704,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "updateProject";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -740,7 +740,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -764,7 +764,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "deleteProject";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -786,7 +786,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -804,14 +804,14 @@ public class ProjectManagerRESTServices extends TokenController
      *  PropertyServerException    a problem updating information in the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse addToProjectTeam(String                  serverName,
-                                         String                  projectGUID,
-                                         String                  actorGUID,
+    public VoidResponse addToProjectTeam(String                     serverName,
+                                         String                     projectGUID,
+                                         String                     actorGUID,
                                          NewRelationshipRequestBody requestBody)
     {
         final String methodName = "addToProjectTeam";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -851,7 +851,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -876,7 +876,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "removeFromProjectTeam";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -898,7 +898,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -916,14 +916,14 @@ public class ProjectManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse setupProjectDependency(String                  serverName,
-                                               String                  projectGUID,
-                                               String                  dependsOnProjectGUID,
+    public VoidResponse setupProjectDependency(String                     serverName,
+                                               String                     projectGUID,
+                                               String                     dependsOnProjectGUID,
                                                NewRelationshipRequestBody requestBody)
     {
         final String methodName = "setupProjectDependency";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -975,7 +975,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1000,7 +1000,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "clearProjectDependency";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1022,7 +1022,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1040,14 +1040,14 @@ public class ProjectManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse setupProjectHierarchy(String                  serverName,
-                                              String                  projectGUID,
-                                              String                  managedProjectGUID,
+    public VoidResponse setupProjectHierarchy(String                    serverName,
+                                              String                     projectGUID,
+                                              String                     managedProjectGUID,
                                               NewRelationshipRequestBody requestBody)
     {
         final String methodName = "setupProjectHierarchy";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1099,7 +1099,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1124,7 +1124,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "clearProjectHierarchy";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1146,7 +1146,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1170,7 +1170,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String methodName = "addProjectClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1206,7 +1206,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1229,7 +1229,7 @@ public class ProjectManagerRESTServices extends TokenController
     {
         final String   methodName = "clearProjectClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1250,7 +1250,7 @@ public class ProjectManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

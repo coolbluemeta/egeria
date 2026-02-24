@@ -15,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 /**
  * OMRSAPIHistoricalFindRequest provides an extension to the search parameters to include the
- * point in time that the request should be based on.  This extension is used since
+ * point-in-time that the request should be based on.  This extension is used since
  * historical queries are optional support.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
@@ -23,8 +23,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class OMRSAPIHistoricalFindRequest extends OMRSAPIFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private Date asOfTime = null;
 
     /**
@@ -53,7 +51,7 @@ public class OMRSAPIHistoricalFindRequest extends OMRSAPIFindRequest
 
 
     /**
-     * Return the point in time for the search.
+     * Return the point-in-time for the search.
      *
      * @return date object
      */
@@ -64,7 +62,7 @@ public class OMRSAPIHistoricalFindRequest extends OMRSAPIFindRequest
 
 
     /**
-     * Set up the point in time for the search.
+     * Set up the point-in-time for the search.
      *
      * @param asOfTime date object
      */
@@ -82,12 +80,10 @@ public class OMRSAPIHistoricalFindRequest extends OMRSAPIFindRequest
     @Override
     public String toString()
     {
-        return "EntityPropertyHistoricalFindRequest{" +
+        return "OMRSAPIHistoricalFindRequest{" +
                 "asOfTime=" + asOfTime +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
-
 
 
     /**
@@ -103,7 +99,7 @@ public class OMRSAPIHistoricalFindRequest extends OMRSAPIFindRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof OMRSAPIHistoricalFindRequest))
+        if (!(objectToCompare instanceof OMRSAPIHistoricalFindRequest that))
         {
             return false;
         }
@@ -111,8 +107,6 @@ public class OMRSAPIHistoricalFindRequest extends OMRSAPIFindRequest
         {
             return false;
         }
-        OMRSAPIHistoricalFindRequest
-                that = (OMRSAPIHistoricalFindRequest) objectToCompare;
         return Objects.equals(getAsOfTime(), that.getAsOfTime());
     }
 
@@ -125,6 +119,6 @@ public class OMRSAPIHistoricalFindRequest extends OMRSAPIFindRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), getAsOfTime());
+        return Objects.hash(super.hashCode(), asOfTime);
     }
 }

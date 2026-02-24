@@ -5,6 +5,7 @@ package org.odpi.openmetadata.frameworks.auditlog;
 
 import org.odpi.openmetadata.frameworks.auditlog.messagesets.AuditLogMessageDefinition;
 import org.odpi.openmetadata.frameworks.auditlog.messagesets.AuditLogRecordSeverity;
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,8 @@ import java.util.*;
 public class AuditLog extends MessageFormatter
 {
     private static final Logger log = LoggerFactory.getLogger(AuditLog.class);
+
+    private static final RequestId requestId = new RequestId();
 
     private final AuditLogDestination        destination;          /* Initialized in the constructor */
     private final AuditLogReportingComponent reportingComponent;   /* Initialized in the constructor */
@@ -280,6 +283,7 @@ public class AuditLog extends MessageFormatter
         logRecord.setActionDescription(actionDescription);
         logRecord.setThreadId(Thread.currentThread().getId());
         logRecord.setThreadName(Thread.currentThread().getName());
+        logRecord.setRequestId(requestId.getRequestId());
 
         if (messageDefinition != null)
         {

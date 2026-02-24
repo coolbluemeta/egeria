@@ -65,7 +65,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "createExternalReference";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -105,7 +105,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -129,7 +129,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "createExternalReferenceFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -163,7 +163,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -188,7 +188,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "updateExternalReference";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -227,7 +227,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -254,7 +254,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "linkExternalReference";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -305,7 +305,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -332,7 +332,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "detachExternalReference";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -354,7 +354,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -381,7 +381,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "linkMediaReference";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -432,7 +432,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -459,7 +459,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "detachMediaReference";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -481,7 +481,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -502,15 +502,15 @@ public class ExternalLinksRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkCitedDocumentReference(String                  serverName,
-                                                   String                  urlMarker,
-                                                   String                  elementGUID,
-                                                   String                  externalReferenceGUID,
+    public VoidResponse linkCitedDocumentReference(String                     serverName,
+                                                   String                     urlMarker,
+                                                   String                     elementGUID,
+                                                   String                     externalReferenceGUID,
                                                    NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkCitedDocumentReference";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -561,7 +561,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -588,7 +588,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "detachCitedDocumentReference";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -610,7 +610,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -635,7 +635,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "deleteExternalReference";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -657,7 +657,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -680,7 +680,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "getExternalReferencesByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -711,7 +711,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -729,14 +729,14 @@ public class ExternalLinksRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementResponse getExternalReferenceByGUID(String             serverName,
-                                                                      String             urlMarker,
-                                                                      String             externalReferenceGUID,
+    public OpenMetadataRootElementResponse getExternalReferenceByGUID(String         serverName,
+                                                                      String         urlMarker,
+                                                                      String         externalReferenceGUID,
                                                                       GetRequestBody requestBody)
     {
         final String methodName = "getExternalReferenceByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -758,7 +758,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -775,13 +775,13 @@ public class ExternalLinksRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementsResponse findExternalReferences(String            serverName,
-                                                                   String              urlMarker,
+    public OpenMetadataRootElementsResponse findExternalReferences(String                  serverName,
+                                                                   String                  urlMarker,
                                                                    SearchStringRequestBody requestBody)
     {
         final String methodName = "findExternalReferences";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -810,7 +810,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -830,7 +830,7 @@ public class ExternalLinksRESTServices extends TokenController
      *
      * @return void or
      * InvalidParameterException  one of the parameters is invalid
-     * UserNotAuthorizedException user not authorized to issue this request
+     * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    problem accessing the property server
      */
     public VoidResponse addExternalIdentifier(String                   serverName,
@@ -840,7 +840,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "addExternalIdentifier";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -893,7 +893,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -909,7 +909,7 @@ public class ExternalLinksRESTServices extends TokenController
      *
      * @return boolean or
      * InvalidParameterException  one of the parameters is invalid
-     * UserNotAuthorizedException user not authorized to issue this request
+     * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    problem accessing the property server
      */
     public BooleanResponse updateExternalIdentifier(String                   serverName,
@@ -919,7 +919,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "updateExternalIdentifier";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -963,7 +963,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -980,7 +980,7 @@ public class ExternalLinksRESTServices extends TokenController
      *
      * @return void or
      * InvalidParameterException  one of the parameters is invalid
-     * UserNotAuthorizedException user not authorized to issue this request
+     * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    problem accessing the property server
      */
     public VoidResponse deleteExternalIdentifier(String                   serverName,
@@ -990,7 +990,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "removeExternalIdentifier";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1024,7 +1024,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1041,7 +1041,7 @@ public class ExternalLinksRESTServices extends TokenController
      *
      * @return void or
      * InvalidParameterException  one of the parameters is invalid
-     * UserNotAuthorizedException user not authorized to issue this request
+     * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    problem accessing the property server
      */
     public VoidResponse confirmSynchronization(String                        serverName,
@@ -1051,7 +1051,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "confirmSynchronization";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1109,7 +1109,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1133,7 +1133,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "getExternalIdsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1164,7 +1164,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1189,7 +1189,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "getExternalIdByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -1211,7 +1211,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1234,7 +1234,7 @@ public class ExternalLinksRESTServices extends TokenController
     {
         final String methodName = "findExternalIds";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1263,7 +1263,7 @@ public class ExternalLinksRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

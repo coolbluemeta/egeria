@@ -41,7 +41,7 @@ public abstract class FeedbackHandler extends OpenMetadataHandlerBase
      * Adds a star rating and optional review text to the element.  If the user has already attached
      * a rating then the original one is over-ridden.
      *
-     * @param userId      userId of user making request
+     * @param userId      userId of the user making the request
      * @param elementGUID   unique identifier for the element
      * @param feedbackTypeName type of feedback element
      * @param relationshipTypeName type of attaching relationship
@@ -101,7 +101,7 @@ public abstract class FeedbackHandler extends OpenMetadataHandlerBase
     /**
      * Retrieve any feedback previously added by this user.
      *
-     * @param userId      userId of user making request.
+     * @param userId      userId of the user making the request.
      * @param elementGUID   unique identifier for the element.
      * @param relationshipTypeName name of the relationship type
      * @param attachmentEntityTypeName requested type name for retrieved entities

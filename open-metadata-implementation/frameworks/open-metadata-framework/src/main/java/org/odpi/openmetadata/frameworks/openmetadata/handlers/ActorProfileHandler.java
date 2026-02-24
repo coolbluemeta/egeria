@@ -86,7 +86,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Create a new actor profile.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -154,7 +154,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of an actor profile.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param actorProfileGUID       unique identifier of the actor profile (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -186,7 +186,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Attach a person profile to one of its peers.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param personOneGUID          unique identifier of the first person profile
      * @param personTwoGUID          unique identifier of the second person profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -223,7 +223,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Detach a person profile from one of its peers.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param personOneGUID          unique identifier of the first person profile
      * @param personTwoGUID          unique identifier of the second person profile
      * @param deleteOptions  options to control access to open metadata
@@ -257,7 +257,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Attach a super team to a subteam.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param superTeamGUID          unique identifier of the super team
      * @param subteamGUID            unique identifier of the subteam
      * @param makeAnchorOptions  options to control access to open metadata
@@ -294,7 +294,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Detach a super team from a subteam.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param superTeamGUID          unique identifier of the super team
      * @param subteamGUID            unique identifier of the subteam
      * @param deleteOptions  options to control access to open metadata
@@ -328,7 +328,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Attach an asset to an IT profile.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param assetGUID       unique identifier of the asset
      * @param itProfileGUID            unique identifier of the IT profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -365,7 +365,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Detach an asset from an IT profile.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param assetGUID              unique identifier of the asset
      * @param itProfileGUID          unique identifier of the IT profile
      * @param deleteOptions  options to control access to open metadata
@@ -399,7 +399,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Delete a actor profile.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param actorProfileGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -425,7 +425,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of actor profiles with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -456,7 +456,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific actor profile.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param actorProfileGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -482,7 +482,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific actor profile retrieved using an associated userId.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param requiredUserId         identifier of user
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -535,7 +535,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Return the actor roles of a specific actor profile retrieved using an associated userId.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param requiredUserId         identifier of user
      * @param includeRoles         include the assigned actor roles
      * @param includeUserIdentities include the associated user identities
@@ -601,7 +601,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     /**
      * Return the resources of a specific actor profile retrieved using an associated userId.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param requiredUserId         identifier of user
      * @param getOptions multiple options to control the query
      * @return retrieved properties

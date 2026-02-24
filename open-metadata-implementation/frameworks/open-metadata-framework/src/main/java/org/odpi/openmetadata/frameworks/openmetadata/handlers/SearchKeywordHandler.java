@@ -46,7 +46,7 @@ public class SearchKeywordHandler extends OpenMetadataHandlerBase
     /**
      * Adds a search keyword to the element.
      *
-     * @param userId        userId of user making request
+     * @param userId        userId of the user making the request
      * @param elementGUID     unique identifier for the element
      * @param metadataSourceOptions options for the request
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
@@ -93,7 +93,7 @@ public class SearchKeywordHandler extends OpenMetadataHandlerBase
     /**
      * Update an existing search keyword.
      *
-     * @param userId        userId of user making request.
+     * @param userId        userId of the user making the request.
      * @param searchKeywordGUID   unique identifier for the search keyword to change.
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties   properties of the searchKeyword
@@ -122,7 +122,7 @@ public class SearchKeywordHandler extends OpenMetadataHandlerBase
     /**
      * Removes a search keyword added to the element by this user.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param searchKeywordGUID  unique identifier for the search keyword object.
      * @param deleteOptions options for a delete request
      *
@@ -143,7 +143,7 @@ public class SearchKeywordHandler extends OpenMetadataHandlerBase
     /**
      * Return the requested search keyword.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param searchKeywordGUID  unique identifier for the search keyword object.
      * @param getOptions multiple options to control the query
      * @return search keyword properties

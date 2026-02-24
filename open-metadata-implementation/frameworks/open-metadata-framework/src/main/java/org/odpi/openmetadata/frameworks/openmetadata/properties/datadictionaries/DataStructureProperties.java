@@ -22,8 +22,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class DataStructureProperties extends AuthoredReferenceableProperties
 {
-    private String       namespace         = null;
-    private List<String> namePatterns      = null;
+    private String       namespacePath = null;
+    private List<String> namePatterns  = null;
 
 
 
@@ -48,8 +48,8 @@ public class DataStructureProperties extends AuthoredReferenceableProperties
 
         if (template != null)
         {
-            namespace         = template.getNamespace();
-            namePatterns      = template.getNamePatterns();
+            namespacePath = template.getNamespacePath();
+            namePatterns  = template.getNamePatterns();
         }
     }
 
@@ -59,20 +59,20 @@ public class DataStructureProperties extends AuthoredReferenceableProperties
      *
      * @return string name
      */
-    public String getNamespace()
+    public String getNamespacePath()
     {
-        return namespace;
+        return namespacePath;
     }
 
 
     /**
      * Set up the name of the namespace that this type belongs to.
      *
-     * @param namespace string name
+     * @param namespacePath string name
      */
-    public void setNamespace(String namespace)
+    public void setNamespacePath(String namespacePath)
     {
-        this.namespace = namespace;
+        this.namespacePath = namespacePath;
     }
 
 
@@ -109,7 +109,7 @@ public class DataStructureProperties extends AuthoredReferenceableProperties
     public String toString()
     {
         return "DataStructureProperties{" +
-                "namespace='" + namespace + '\'' +
+                "namespace='" + namespacePath + '\'' +
                 ", namePatterns=" + namePatterns +
                 "} " + super.toString();
     }
@@ -128,7 +128,7 @@ public class DataStructureProperties extends AuthoredReferenceableProperties
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         if (!super.equals(objectToCompare)) return false;
         DataStructureProperties that = (DataStructureProperties) objectToCompare;
-        return Objects.equals(namespace, that.namespace) &&
+        return Objects.equals(namespacePath, that.namespacePath) &&
                 Objects.equals(namePatterns, that.namePatterns);
     }
 
@@ -140,6 +140,6 @@ public class DataStructureProperties extends AuthoredReferenceableProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), namespace, namePatterns);
+        return Objects.hash(super.hashCode(), namespacePath, namePatterns);
     }
 }

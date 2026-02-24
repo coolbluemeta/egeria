@@ -575,7 +575,7 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
      *
      * @return current progress of the template replication
      * @throws InvalidParameterException the guids or something related are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException problem accessing the repositories
      */
     private TemplateProgress addAttachmentsFromTemplate(String              userId,

@@ -19,10 +19,10 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 /**
  * EngineActionRequestBody provides a structure for passing the properties for a new engine action.
  */
-@JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
+@JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class InitiateEngineActionRequestBody
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class InitiateEngineActionRequestBody extends GAFAPIRequest
 {
     private String                qualifiedName         = null;
     private int                   domainIdentifier      = 0;
@@ -56,6 +56,8 @@ public class InitiateEngineActionRequestBody
      */
     public InitiateEngineActionRequestBody(InitiateEngineActionRequestBody template)
     {
+        super(template);
+
         if (template != null)
         {
             qualifiedName         = template.getQualifiedName();
@@ -451,7 +453,7 @@ public class InitiateEngineActionRequestBody
                 ", requestSourceName='" + requestSourceName + '\'' +
                 ", originatorServiceName='" + originatorServiceName + '\'' +
                 ", originatorEngineName='" + originatorEngineName + '\'' +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -464,31 +466,25 @@ public class InitiateEngineActionRequestBody
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (objectToCompare == null || getClass() != objectToCompare.getClass())
-        {
-            return false;
-        }
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
         InitiateEngineActionRequestBody that = (InitiateEngineActionRequestBody) objectToCompare;
         return domainIdentifier == that.domainIdentifier &&
-                       Objects.equals(qualifiedName, that.qualifiedName) &&
-                       Objects.equals(displayName, that.displayName) &&
-                       Objects.equals(description, that.description) &&
-                       Objects.equals(actionSourceGUIDs, that.actionSourceGUIDs) &&
-                       Objects.equals(actionCauseGUIDs, that.actionCauseGUIDs) &&
-                       Objects.equals(actionTargets, that.actionTargets) &&
-                       Objects.equals(startDate, that.startDate) &&
-                       Objects.equals(requestType, that.requestType) &&
-                       Objects.equals(processName, that.processName) &&
-                       Objects.equals(requestSourceName, that.requestSourceName) &&
-                       Objects.equals(originatorServiceName, that.originatorServiceName) &&
-                       Objects.equals(originatorEngineName, that.originatorEngineName) &&
-                       Objects.equals(requestParameters, that.requestParameters);
+                Objects.equals(qualifiedName, that.qualifiedName) &&
+                Objects.equals(displayName, that.displayName) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(actionSourceGUIDs, that.actionSourceGUIDs) &&
+                Objects.equals(actionCauseGUIDs, that.actionCauseGUIDs) &&
+                Objects.equals(actionTargets, that.actionTargets) &&
+                Objects.equals(receivedGuards, that.receivedGuards) &&
+                Objects.equals(startDate, that.startDate) &&
+                Objects.equals(requestType, that.requestType) &&
+                Objects.equals(requestParameters, that.requestParameters) &&
+                Objects.equals(processName, that.processName) &&
+                Objects.equals(requestSourceName, that.requestSourceName) &&
+                Objects.equals(originatorServiceName, that.originatorServiceName) &&
+                Objects.equals(originatorEngineName, that.originatorEngineName);
     }
-
 
     /**
      * Return hash code for this object
@@ -498,8 +494,9 @@ public class InitiateEngineActionRequestBody
     @Override
     public int hashCode()
     {
-        return Objects.hash(qualifiedName, domainIdentifier, displayName, description, actionSourceGUIDs,
-                            actionCauseGUIDs, actionTargets, startDate, requestType,
-                            processName, requestSourceName, requestParameters, originatorServiceName, originatorEngineName);
+        return Objects.hash(super.hashCode(), qualifiedName, domainIdentifier, displayName, description,
+                            actionSourceGUIDs, actionCauseGUIDs, actionTargets, receivedGuards, startDate,
+                            requestType, requestParameters, processName, requestSourceName, originatorServiceName,
+                            originatorEngineName);
     }
 }

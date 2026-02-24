@@ -1319,7 +1319,7 @@ public class OpenMetadataAccessSecurityConnector extends OpenMetadataSecurityCon
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      */
     @Override
     public void validateUserForElementRead(String               userId,
@@ -1341,7 +1341,7 @@ public class OpenMetadataAccessSecurityConnector extends OpenMetadataSecurityCon
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      */
     @Override
     public void validateUserForAnchorMemberRead(String               userId,

@@ -8,11 +8,11 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.odpi.openmetadata.commonservices.ffdc.rest.NullRequestBody;
 import org.odpi.openmetadata.commonservices.ffdc.rest.VoidResponse;
 import org.odpi.openmetadata.frameworkservices.gaf.rest.CompletionStatusRequestBody;
 import org.odpi.openmetadata.frameworkservices.gaf.rest.EngineActionElementsResponse;
 import org.odpi.openmetadata.frameworkservices.gaf.rest.EngineActionStatusRequestBody;
+import org.odpi.openmetadata.frameworkservices.gaf.rest.GAFAPIRequest;
 import org.odpi.openmetadata.frameworkservices.gaf.server.OpenGovernanceRESTServices;
 import org.odpi.openmetadata.frameworkservices.omf.rest.ActionTargetStatusRequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,7 +56,7 @@ public class GovernanceContextResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     @PostMapping(path = "/engine-actions/{engineActionGUID}/status/update")
@@ -78,12 +78,12 @@ public class GovernanceContextResource
      * @param serverName     name of server instance to route request to
      * @param userId userId of caller
      * @param governanceEngineGUID unique identifier of governance engine
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      *
      * @return list of governance engine elements or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     @GetMapping(path = "/governance-engines/{governanceEngineGUID}/active-engine-actions")
@@ -109,16 +109,16 @@ public class GovernanceContextResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     @PostMapping(path = "/engine-actions/{engineActionGUID}/claim")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    public VoidResponse claimEngineAction(@PathVariable                  String          serverName,
-                                          @PathVariable                  String          userId,
-                                          @PathVariable                  String          engineActionGUID,
-                                          @RequestBody(required = false) NullRequestBody requestBody)
+    public VoidResponse claimEngineAction(@PathVariable                  String        serverName,
+                                          @PathVariable                  String        userId,
+                                          @PathVariable                  String        engineActionGUID,
+                                          @RequestBody(required = false) GAFAPIRequest requestBody)
     {
         return restAPI.claimEngineAction(serverName, userId, engineActionGUID, requestBody);
     }

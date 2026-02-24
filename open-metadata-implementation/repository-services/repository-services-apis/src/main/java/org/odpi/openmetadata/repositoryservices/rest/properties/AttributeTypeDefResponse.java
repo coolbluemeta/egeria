@@ -24,8 +24,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class AttributeTypeDefResponse extends OMRSAPIResponse
 {
-    private static final long    serialVersionUID = 1L;
-
     private AttributeTypeDef attributeTypeDef = null;
 
 
@@ -110,7 +108,7 @@ public class AttributeTypeDefResponse extends OMRSAPIResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof AttributeTypeDefResponse))
+        if (!(objectToCompare instanceof AttributeTypeDefResponse that))
         {
             return false;
         }
@@ -118,8 +116,6 @@ public class AttributeTypeDefResponse extends OMRSAPIResponse
         {
             return false;
         }
-        AttributeTypeDefResponse
-                that = (AttributeTypeDefResponse) objectToCompare;
         return Objects.equals(getAttributeTypeDef(), that.getAttributeTypeDef());
     }
 

@@ -7,7 +7,7 @@ import org.odpi.openmetadata.commonservices.multitenant.OMVSServiceInstance;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.openmetadata.client.OpenMetadataClient;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
-import org.odpi.openmetadata.frameworks.openmetadata.handlers.DataClassHandler;
+import org.odpi.openmetadata.frameworks.openmetadata.handlers.DataValueSpecificationHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.DataFieldHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.DataStructureHandler;
 import org.odpi.openmetadata.frameworkservices.omf.client.EgeriaOpenMetadataStoreClient;
@@ -21,8 +21,8 @@ public class DataDesignerInstance extends OMVSServiceInstance
 {
     private static final ViewServiceDescription myDescription = ViewServiceDescription.DATA_DESIGNER;
 
-    private final DataClassHandler     dataClassHandler;
-    private final DataFieldHandler     dataFieldHandler;
+    private final DataValueSpecificationHandler dataValueSpecificationHandler;
+    private final DataFieldHandler              dataFieldHandler;
     private final DataStructureHandler dataStructureHandler;
 
 
@@ -67,10 +67,10 @@ public class DataDesignerInstance extends OMVSServiceInstance
                                                                                   maxPageSize,
                                                                                   auditLog);
 
-        dataClassHandler = new DataClassHandler(serverName,
-                                                auditLog,
-                                                myDescription.getViewServiceFullName(),
-                                                openMetadataClient);
+        dataValueSpecificationHandler = new DataValueSpecificationHandler(serverName,
+                                                                          auditLog,
+                                                                          myDescription.getViewServiceFullName(),
+                                                                          openMetadataClient);
 
         dataFieldHandler = new DataFieldHandler(serverName,
                                                 auditLog,
@@ -90,9 +90,9 @@ public class DataDesignerInstance extends OMVSServiceInstance
      *
      * @return client
      */
-    public DataClassHandler getDataClassHandler()
+    public DataValueSpecificationHandler getDataValueSpecificationHandler()
     {
-        return dataClassHandler;
+        return dataValueSpecificationHandler;
     }
 
 

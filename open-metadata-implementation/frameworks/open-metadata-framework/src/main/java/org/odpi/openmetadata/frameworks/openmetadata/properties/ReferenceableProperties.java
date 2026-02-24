@@ -54,12 +54,10 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = ContributionRecordProperties.class, name = "ContributionRecordProperties"),
                 @JsonSubTypes.Type(value = EndpointProperties.class, name = "EndpointProperties"),
                 @JsonSubTypes.Type(value = ExternalIdProperties.class, name = "ExternalIdProperties"),
-                @JsonSubTypes.Type(value = ExternalReferenceProperties.class, name = "ExternalReferenceProperties"),
                 @JsonSubTypes.Type(value = InformalTagProperties.class, name = "InformalTagProperties"),
                 @JsonSubTypes.Type(value = LocationProperties.class, name = "LocationProperties"),
                 @JsonSubTypes.Type(value = NoteLogProperties.class, name = "NoteLogProperties"),
                 @JsonSubTypes.Type(value = PortProperties.class, name = "PortProperties"),
-                @JsonSubTypes.Type(value = ProjectProperties.class, name = "ProjectProperties"),
                 @JsonSubTypes.Type(value = PropertyFacetProperties.class, name = "PropertyFacetProperties"),
                 @JsonSubTypes.Type(value = SoftwareCapabilityProperties.class, name = "SoftwareCapabilityProperties"),
         })

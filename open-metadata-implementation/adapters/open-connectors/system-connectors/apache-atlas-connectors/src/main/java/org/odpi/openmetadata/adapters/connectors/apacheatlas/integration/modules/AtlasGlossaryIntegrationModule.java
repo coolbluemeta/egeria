@@ -848,7 +848,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
      * @param egeriaGlossary open metadata glossary
      * @return equivalent atlas glossary
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing Egeria or Apache Atlas
      */
     private AtlasEntityWithExtInfo syncEgeriaGlossaryInAtlas(OpenMetadataRootElement egeriaGlossary) throws InvalidParameterException,
@@ -892,7 +892,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
      * @param egeriaGlossary glossary to copy
      * @return Atlas entity that has been created
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing Egeria or Apache Atlas
      */
     AtlasEntityWithExtInfo createEgeriaGlossaryInAtlas(OpenMetadataRootElement egeriaGlossary) throws PropertyServerException,
@@ -964,7 +964,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
      * @param egeriaGlossaryElement open metadata glossary
      * @param atlasGlossary glossary retrieved from Apache Atlas
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the property server
      */
     private AtlasEntityWithExtInfo updateEgeriaGlossaryInAtlas(OpenMetadataRootElement egeriaGlossaryElement,
@@ -1074,7 +1074,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
      * @param atlasGlossaryDestination the Atlas glossary where the term is to be copied to
      * @return Atlas entity that has been created
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing Egeria or Apache Atlas
      */
     AtlasEntityWithExtInfo createEgeriaGlossaryTermInAtlas(OpenMetadataRootElement    egeriaGlossaryTerm,
@@ -1151,7 +1151,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
      * @param atlasGlossaryTerm glossary retrieved from Apache Atlas
      * @param atlasGlossaryDestination the Atlas glossary where the term is to be copied to
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the property server
      */
     private AtlasEntityWithExtInfo updateEgeriaGlossaryTermInAtlas(OpenMetadataRootElement    egeriaGlossaryTerm,

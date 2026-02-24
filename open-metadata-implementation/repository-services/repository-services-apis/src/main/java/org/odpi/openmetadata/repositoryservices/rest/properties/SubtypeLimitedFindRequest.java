@@ -28,8 +28,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class SubtypeLimitedFindRequest extends TypeLimitedFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private List<String>             subtypeGUIDs = null;
 
 
@@ -93,14 +91,8 @@ public class SubtypeLimitedFindRequest extends TypeLimitedFindRequest
     public String toString()
     {
         return "SubtypeLimitedFindRequest{" +
-                "typeGUID='" + getTypeGUID() + '\'' +
-                ", subtypeGUIDs='" + getSubtypeGUIDs() + '\'' +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "subtypeGUIDs=" + subtypeGUIDs +
+                "} " + super.toString();
     }
 
 

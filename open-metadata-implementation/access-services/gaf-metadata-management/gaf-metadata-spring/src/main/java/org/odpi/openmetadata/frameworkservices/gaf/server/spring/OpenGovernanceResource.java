@@ -46,7 +46,7 @@ public class OpenGovernanceResource
      *
      * @return connection object for the out topic or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem retrieving the discovery engine definition.
      */
     @GetMapping(path = "/topics/out-topic-connection/{callerId}")
@@ -189,7 +189,7 @@ public class OpenGovernanceResource
      *
      * @return engine action properties and status or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     @GetMapping(path = "/engine-actions/{engineActionGUID}")
@@ -218,7 +218,7 @@ public class OpenGovernanceResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     @PostMapping(path = "/engine-actions/{engineActionGUID}/cancel")
@@ -229,10 +229,10 @@ public class OpenGovernanceResource
             externalDocs=@ExternalDocumentation(description="Further Information",
                     url="https://egeria-project.org/concepts/engine-action"))
 
-    public VoidResponse cancelEngineAction(@PathVariable                  String          serverName,
-                                           @PathVariable                  String          userId,
-                                           @PathVariable                  String          engineActionGUID,
-                                           @RequestBody(required = false) NullRequestBody requestBody)
+    public VoidResponse cancelEngineAction(@PathVariable                  String        serverName,
+                                           @PathVariable                  String        userId,
+                                           @PathVariable                  String        engineActionGUID,
+                                           @RequestBody(required = false) GAFAPIRequest requestBody)
     {
         return restAPI.cancelEngineAction(serverName, userId, engineActionGUID, requestBody);
     }
@@ -243,12 +243,12 @@ public class OpenGovernanceResource
      *
      * @param serverName     name of server instance to route request to
      * @param userId userId of caller
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      *
      * @return list of engine action elements or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     @GetMapping(path = "/engine-actions/active")

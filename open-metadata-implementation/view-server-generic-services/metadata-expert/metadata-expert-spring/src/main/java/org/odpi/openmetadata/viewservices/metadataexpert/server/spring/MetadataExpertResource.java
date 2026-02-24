@@ -1003,8 +1003,8 @@ public class MetadataExpertResource
             externalDocs=@ExternalDocumentation(description="Further Information",
                     url="https://egeria-project.org/services/omvs/metadata-explorer/overview/"))
 
-    public OpenMetadataRelationshipListResponse findRelationshipsBetweenMetadataElements(@PathVariable String          serverName,
-                                                                                         @PathVariable String          urlMarker,
+    public OpenMetadataRelationshipListResponse findRelationshipsBetweenMetadataElements(@PathVariable String                      serverName,
+                                                                                         @PathVariable String                      urlMarker,
                                                                                          @RequestBody  FindRelationshipRequestBody requestBody)
     {
         return restAPI.findRelationshipsBetweenMetadataElements(serverName, urlMarker, requestBody);

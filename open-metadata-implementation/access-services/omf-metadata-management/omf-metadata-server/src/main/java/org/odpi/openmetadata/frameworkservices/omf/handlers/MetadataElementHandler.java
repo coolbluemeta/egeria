@@ -1229,6 +1229,32 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
 
 
     /**
+     * Convert the omf matchCriteria to OMRS matchCriteria.
+     *
+     * @param omfEndMatchCriteria omf EndMatchCriteria
+     * @return OMRS EndMatchCriteria
+     */
+    private org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria
+    getEndMatchCriteria(EndMatchCriteria omfEndMatchCriteria)
+    {
+        if (omfEndMatchCriteria != null)
+        {
+            return switch (omfEndMatchCriteria)
+            {
+                case BOTH ->
+                        org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria.BOTH;
+                case ANY ->
+                        org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria.ANY;
+                case NONE ->
+                        org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria.NONE;
+            };
+        }
+
+        return null;
+    }
+
+
+    /**
      * Convert the omf propertyComparisonOperator to the OMRS propertyComparisonOperator.
      *
      * @param omfPropertyComparisonOperator omf propertyComparisonOperator
@@ -1363,6 +1389,10 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
      * @param userId caller's userId
      * @param relationshipTypeName relationship's type.  Null means all types
      *                             (but may be slow so not recommended).
+     * @param relationshipSubtypeGUIDs optional list of the GUIDs for subtypes of the requested type to include in the search results.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param limitResultsByStatus By default, relationships in all statuses (other than DELETE) are returned.  However, it is possible
      *                             to specify a list of statuses (for example ACTIVE) to restrict the results to.  Null means all status values.
      * @param asOfTime Requests a historical query of the entity.  Null means return the present values.
@@ -1384,6 +1414,10 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
      */
     public  List<OpenMetadataRelationship> findRelationshipsBetweenMetadataElements(String              userId,
                                                                                     String              relationshipTypeName,
+                                                                                    List<String>        relationshipSubtypeGUIDs,
+                                                                                    List<String>        end1EntityGUIDs,
+                                                                                    List<String>        end2EntityGUIDs,
+                                                                                    EndMatchCriteria    endMatchCriteria,
                                                                                     SearchProperties    searchProperties,
                                                                                     List<ElementStatus> limitResultsByStatus,
                                                                                     Date                asOfTime,
@@ -1395,13 +1429,17 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                                                                     int                 startFrom,
                                                                                     int                 pageSize,
                                                                                     String              methodName) throws InvalidParameterException,
-                                                                                                                          UserNotAuthorizedException,
-                                                                                                                          PropertyServerException
+                                                                                                                           UserNotAuthorizedException,
+                                                                                                                           PropertyServerException
     {
         invalidParameterHandler.validateUserId(userId, methodName);
 
         List<Relationship> relationships = this.findAttachmentLinks(userId,
                                                                     relationshipTypeName,
+                                                                    relationshipSubtypeGUIDs,
+                                                                    end1EntityGUIDs,
+                                                                    end2EntityGUIDs,
+                                                                    this.getEndMatchCriteria(endMatchCriteria),
                                                                     this.getSearchProperties(searchProperties),
                                                                     this.getInstanceStatuses(limitResultsByStatus),
                                                                     asOfTime,

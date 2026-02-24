@@ -354,7 +354,7 @@ public class ProjectManagerResource
 
     public GUIDResponse createTaskProject(@PathVariable String            serverName,
                                           @PathVariable String            projectGUID,
-                                          @RequestBody  ProjectProperties requestBody)
+                                          @RequestBody  NewAttachmentRequestBody requestBody)
     {
         return restAPI.createTaskForProject(serverName, projectGUID, requestBody);
     }

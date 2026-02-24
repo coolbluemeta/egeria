@@ -2,11 +2,12 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.repositoryservices.rest.properties;
 
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.EntityProxy;
 
-import java.util.Date;
 import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
@@ -14,23 +15,20 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 
 /**
- * InstanceHistoricalFindRequest provides an extension to the search parameters to include the
- * point in time that the request should be based on.  This extension is used since
- * historical queries are optional support.
+ * EntityProxyRequest describes the response structure for an OMRS REST API that sends
+ * an EntityProxy object.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class InstanceHistoricalFindRequest extends InstanceFindRequest
+public class EntityProxyRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
-    private Date asOfTime = null;
+    private EntityProxy entity = null;
 
     /**
      * Default constructor
      */
-    public InstanceHistoricalFindRequest()
+    public EntityProxyRequest()
     {
         super();
     }
@@ -41,36 +39,43 @@ public class InstanceHistoricalFindRequest extends InstanceFindRequest
      *
      * @param template object to copy
      */
-    public InstanceHistoricalFindRequest(InstanceHistoricalFindRequest template)
+    public EntityProxyRequest(EntityProxyRequest template)
     {
         super(template);
 
         if (template != null)
         {
-            this.asOfTime = template.getAsOfTime();
+            entity = template.getEntity();
         }
     }
 
 
     /**
-     * Return the point in time for the search.
+     * Return the resulting entity object.
      *
-     * @return date object
+     * @return entity object
      */
-    public Date getAsOfTime()
+    public EntityProxy getEntity()
     {
-        return asOfTime;
+        if (entity == null)
+        {
+            return null;
+        }
+        else
+        {
+            return new EntityProxy(entity);
+        }
     }
 
 
     /**
-     * Set up the point in time for the search.
+     * Set up the resulting entity object.
      *
-     * @param asOfTime date object
+     * @param entity entity object
      */
-    public void setAsOfTime(Date asOfTime)
+    public void setEntity(EntityProxy entity)
     {
-        this.asOfTime = asOfTime;
+        this.entity = entity;
     }
 
 
@@ -82,18 +87,10 @@ public class InstanceHistoricalFindRequest extends InstanceFindRequest
     @Override
     public String toString()
     {
-        return "InstanceHistoricalFindRequest{" +
-                "asOfTime=" + asOfTime +
-                ", matchProperties=" + getMatchProperties() +
-                ", typeGUID='" + getTypeGUID() + '\'' +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+        return "EntityProxyRequest{" +
+                "entity=" + entity +
+                "} " + super.toString();
     }
-
 
 
     /**
@@ -109,7 +106,7 @@ public class InstanceHistoricalFindRequest extends InstanceFindRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof EntityPropertyHistoricalFindRequest))
+        if (!(objectToCompare instanceof EntityProxyRequest that))
         {
             return false;
         }
@@ -117,9 +114,7 @@ public class InstanceHistoricalFindRequest extends InstanceFindRequest
         {
             return false;
         }
-        EntityPropertyHistoricalFindRequest
-                that = (EntityPropertyHistoricalFindRequest) objectToCompare;
-        return Objects.equals(getAsOfTime(), that.getAsOfTime());
+        return Objects.equals(getEntity(), that.getEntity());
     }
 
 
@@ -131,7 +126,6 @@ public class InstanceHistoricalFindRequest extends InstanceFindRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), getAsOfTime());
+        return Objects.hash(super.hashCode(), getEntity());
     }
-
 }

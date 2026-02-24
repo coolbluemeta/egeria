@@ -6,27 +6,28 @@ package org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionarie
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.RelationshipBeanProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.LabeledRelationshipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
 /**
- * DataClassHierarchyProperties describes the inheritance link between two data classes.
+ * DataClassDefinitionProperties describes the link between an element and the related data class
+ * that identifies the intended associated data values.
  */
 @JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataClassHierarchyProperties extends RelationshipBeanProperties
+public class DataValueDefinitionProperties extends LabeledRelationshipProperties
 {
     /**
      * Default constructor
      */
-    public DataClassHierarchyProperties()
+    public DataValueDefinitionProperties()
     {
         super();
-        super.typeName = OpenMetadataType.DATA_CLASS_HIERARCHY_RELATIONSHIP.typeName;
+        super.typeName = OpenMetadataType.DATA_VALUE_DEFINITION_RELATIONSHIP.typeName;
     }
 
 
@@ -35,7 +36,7 @@ public class DataClassHierarchyProperties extends RelationshipBeanProperties
      *
      * @param template template object to copy.
      */
-    public DataClassHierarchyProperties(DataClassHierarchyProperties template)
+    public DataValueDefinitionProperties(DataValueDefinitionProperties template)
     {
         super(template);
     }
@@ -49,6 +50,6 @@ public class DataClassHierarchyProperties extends RelationshipBeanProperties
     @Override
     public String toString()
     {
-        return "DataClassHierarchyProperties{} " + super.toString();
+        return "DataClassDefinitionProperties{} " + super.toString();
     }
 }

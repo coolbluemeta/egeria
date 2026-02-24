@@ -5,6 +5,7 @@ package org.odpi.openmetadata.frameworks.openmetadata.properties.collections;
 import com.fasterxml.jackson.annotation.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.AuthoredReferenceableProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.ReferenceableProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportTypeProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataDictionaryProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataSpecProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.designmodels.DesignModelProperties;
@@ -16,6 +17,8 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.glossaries.Gloss
 import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.SubjectAreaProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.informationsupplychains.InformationSupplyChainProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
+
+import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
@@ -55,6 +58,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class CollectionProperties extends AuthoredReferenceableProperties
 {
+    private String purpose = null;
+
     /**
      * Default constructor
      */
@@ -73,30 +78,34 @@ public class CollectionProperties extends AuthoredReferenceableProperties
     public CollectionProperties(CollectionProperties template)
     {
         super(template);
+
+        if (template != null)
+        {
+            purpose          = template.getPurpose();
+        }
+    }
+
+
+
+    /**
+     * Return the purpose of the report.
+     *
+     * @return string
+     */
+    public String getPurpose()
+    {
+        return purpose;
     }
 
 
     /**
-     * Copy/clone constructor
+     * Set up the purpose for the report.
      *
-     * @param template object to copy
+     * @param purpose string
      */
-    public CollectionProperties(AuthoredReferenceableProperties template)
+    public void setPurpose(String purpose)
     {
-        super(template);
-        super.typeName = OpenMetadataType.COLLECTION.typeName;
-    }
-
-
-    /**
-     * Copy/clone constructor
-     *
-     * @param template object to copy
-     */
-    public CollectionProperties(ReferenceableProperties template)
-    {
-        super(template);
-        super.typeName = OpenMetadataType.COLLECTION.typeName;
+        this.purpose = purpose;
     }
 
 
@@ -109,6 +118,36 @@ public class CollectionProperties extends AuthoredReferenceableProperties
     public String toString()
     {
         return "CollectionProperties{" +
+                "purpose='" + purpose + '\'' +
                 "} " + super.toString();
     }
+
+
+    /**
+     * Compare the values of the supplied object with those stored in the current object.
+     *
+     * @param objectToCompare supplied object
+     * @return boolean result of comparison
+     */
+    @Override
+    public boolean equals(Object objectToCompare)
+    {
+        if (this == objectToCompare) return true;
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        CollectionProperties that = (CollectionProperties) objectToCompare;
+        return Objects.equals(purpose, that.purpose);
+    }
+
+    /**
+     * Return hash code based on properties.
+     *
+     * @return int
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(super.hashCode(), purpose);
+    }
+
 }

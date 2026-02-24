@@ -21,8 +21,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class BooleanResponse extends OMRSAPIResponse
 {
-    private static final long    serialVersionUID = 1L;
-
     private boolean   flag = false;
 
 
@@ -100,7 +98,7 @@ public class BooleanResponse extends OMRSAPIResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof BooleanResponse))
+        if (!(objectToCompare instanceof BooleanResponse that))
         {
             return false;
         }
@@ -108,8 +106,6 @@ public class BooleanResponse extends OMRSAPIResponse
         {
             return false;
         }
-        BooleanResponse
-                that = (BooleanResponse) objectToCompare;
         return isFlag() == that.isFlag();
     }
 
@@ -122,6 +118,6 @@ public class BooleanResponse extends OMRSAPIResponse
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), isFlag());
+        return Objects.hash(super.hashCode(), flag);
     }
 }

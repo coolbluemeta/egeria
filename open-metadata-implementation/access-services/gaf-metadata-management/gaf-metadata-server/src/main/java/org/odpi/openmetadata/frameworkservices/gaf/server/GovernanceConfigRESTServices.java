@@ -43,7 +43,7 @@ public class GovernanceConfigRESTServices
      *
      * @return properties from the governance engine definition or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the governance engine definition.
      */
     public  GovernanceEngineElementResponse getGovernanceEngineByName(String          serverName,
@@ -52,7 +52,7 @@ public class GovernanceConfigRESTServices
     {
         final String        methodName = "getGovernanceEngineByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, userId, methodName, requestBody);
 
         GovernanceEngineElementResponse response = new GovernanceEngineElementResponse();
         AuditLog                        auditLog = null;
@@ -76,7 +76,7 @@ public class GovernanceConfigRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -93,7 +93,7 @@ public class GovernanceConfigRESTServices
      *
      * @return details of the governance service and the asset types it is registered for or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the governance engine definition.
      */
     public RegisteredGovernanceServiceResponse getRegisteredGovernanceService(String serverName,
@@ -122,7 +122,7 @@ public class GovernanceConfigRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -139,7 +139,7 @@ public class GovernanceConfigRESTServices
      *
      * @return list of unique identifiers or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the governance engine definition.
      */
     public RegisteredGovernanceServicesResponse  getRegisteredGovernanceServices(String  serverName,
@@ -170,7 +170,7 @@ public class GovernanceConfigRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -189,7 +189,7 @@ public class GovernanceConfigRESTServices
      *
      * @return properties from the integration group definition or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration group definition.
      */
     public  IntegrationGroupElementResponse getIntegrationGroupByName(String    serverName,
@@ -215,7 +215,7 @@ public class GovernanceConfigRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -232,7 +232,7 @@ public class GovernanceConfigRESTServices
      *
      * @return list of integration group unique identifiers (guids) or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration group definition.
      */
     public GUIDListResponse getIntegrationConnectorRegistrations(String   serverName,
@@ -258,7 +258,7 @@ public class GovernanceConfigRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -274,7 +274,7 @@ public class GovernanceConfigRESTServices
      *
      * @return details of the integration connector and the asset types it is registered for or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration group definition.
      */
     public RegisteredIntegrationConnectorResponse getRegisteredIntegrationConnector(String serverName,
@@ -303,7 +303,7 @@ public class GovernanceConfigRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -320,7 +320,7 @@ public class GovernanceConfigRESTServices
      *
      * @return list of unique identifiers or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration group definition.
      */
     public RegisteredIntegrationConnectorsResponse  getRegisteredIntegrationConnectors(String  serverName,
@@ -351,7 +351,7 @@ public class GovernanceConfigRESTServices
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

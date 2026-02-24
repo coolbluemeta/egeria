@@ -38,6 +38,17 @@ public class TypeDefGallery extends TypeDefElementHeader
 
 
     /**
+     * Set up the list of attribute type definitions and type definitions from the gallery.
+     */
+    public TypeDefGallery(List<AttributeTypeDef> attributeTypeDefs,
+                          List<TypeDef> typeDefs)
+    {
+        this.attributeTypeDefs = attributeTypeDefs;
+        this.typeDefs          = typeDefs;
+    }
+
+
+    /**
      * Copy/clone constructor
      *
      * @param template template to copy

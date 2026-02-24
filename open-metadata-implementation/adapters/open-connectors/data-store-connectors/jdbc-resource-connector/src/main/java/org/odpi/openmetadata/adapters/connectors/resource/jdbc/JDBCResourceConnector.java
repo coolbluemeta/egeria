@@ -222,15 +222,11 @@ public class JDBCResourceConnector extends ConnectorBase implements AuditLogging
     {
         final String methodName = "issueSQLCommand";
 
-        try
+        try (PreparedStatement preparedStatement = jdbcConnection.prepareStatement(sqlCommand))
         {
             log.debug(sqlCommand);
 
-            PreparedStatement preparedStatement = jdbcConnection.prepareStatement(sqlCommand);
-
             preparedStatement.execute();
-
-            preparedStatement.close();
         }
         catch (SQLException sqlException)
         {

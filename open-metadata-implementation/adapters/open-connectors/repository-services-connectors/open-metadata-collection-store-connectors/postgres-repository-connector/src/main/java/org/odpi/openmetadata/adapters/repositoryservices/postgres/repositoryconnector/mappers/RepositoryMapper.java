@@ -170,6 +170,7 @@ public class RepositoryMapper extends BaseMapper
             }
             instanceAuditHeader.setVersion(super.getLongPropertyFromColumn(RepositoryColumn.VERSION.getColumnName(), instanceTableRow, true));
             instanceAuditHeader.setStatus(this.getInstanceStatus(RepositoryColumn.CURRENT_STATUS.getColumnName(), instanceTableRow, true));
+            instanceAuditHeader.setLastRequestId(this.getStringPropertyFromColumn(RepositoryColumn.LAST_REQUEST_ID.getColumnName(), instanceTableRow, false));
             instanceAuditHeader.setStatusOnDelete(this.getInstanceStatus(RepositoryColumn.STATUS_ON_DELETE.getColumnName(), instanceTableRow, false));
             instanceAuditHeader.setMappingProperties(super.getSerializableMapPropertyFromColumn(RepositoryColumn.MAPPING_PROPERTIES.getColumnName(), instanceTableRow, false));
         }
@@ -788,6 +789,7 @@ public class RepositoryMapper extends BaseMapper
         }
 
         super.setUpLongValueInRow(instanceTableRow, instanceAuditHeader.getVersion(), RepositoryColumn.VERSION.getColumnName());
+        super.setUpStringValueInRow(instanceTableRow, instanceAuditHeader.getLastRequestId(), RepositoryColumn.LAST_REQUEST_ID.getColumnName(), false);
 
         super.setUpStringValueInRow(instanceTableRow, instanceAuditHeader.getType().getTypeDefGUID(), RepositoryColumn.TYPE_GUID.getColumnName(), true);
         this.setUpTypeNameInRow(instanceTableRow, instanceAuditHeader.getType().getTypeDefName());

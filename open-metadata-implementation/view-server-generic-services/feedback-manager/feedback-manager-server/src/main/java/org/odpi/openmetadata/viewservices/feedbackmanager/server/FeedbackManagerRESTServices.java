@@ -59,7 +59,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "addRatingToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -95,7 +95,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -121,7 +121,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "removeRatingFromElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -143,7 +143,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -167,7 +167,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getAttachedRatings";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -189,7 +189,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -215,7 +215,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName  = "addLikeToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -252,7 +252,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -278,7 +278,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "removeLikeFromElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -300,7 +300,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -325,7 +325,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getAttachedLikes";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -347,7 +347,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -373,7 +373,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "addCommentToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse  response = new GUIDResponse();
         AuditLog      auditLog = null;
@@ -410,7 +410,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -435,7 +435,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "updateComment";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse  response = new BooleanResponse();
         AuditLog      auditLog = null;
@@ -471,7 +471,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -499,7 +499,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "setupAcceptedAnswer";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -521,7 +521,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -541,15 +541,15 @@ public class FeedbackManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse clearAcceptedAnswer(String            serverName,
-                                            String            urlMarker,
-                                            String            questionCommentGUID,
-                                            String            answerCommentGUID,
+    public VoidResponse clearAcceptedAnswer(String                        serverName,
+                                            String                        urlMarker,
+                                            String                        questionCommentGUID,
+                                            String                        answerCommentGUID,
                                             DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "clearAcceptedAnswer";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -571,7 +571,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -591,14 +591,14 @@ public class FeedbackManagerRESTServices extends TokenController
      *                                   the metadata repository or
      * UserNotAuthorizedException - the requesting user is not authorized to issue this request.
      */
-    public VoidResponse removeCommentFromElement(String            serverName,
-                                                 String            urlMarker,
-                                                 String            commentGUID,
+    public VoidResponse removeCommentFromElement(String                   serverName,
+                                                 String                   urlMarker,
+                                                 String                   commentGUID,
                                                  DeleteElementRequestBody requestBody)
     {
         final String methodName = "removeElementComment";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -620,7 +620,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -644,7 +644,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getComment";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog        auditLog = null;
@@ -666,7 +666,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -690,7 +690,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getAttachedComments";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -712,7 +712,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -735,7 +735,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "findComments";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                auditLog = null;
@@ -766,7 +766,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -789,7 +789,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String   methodName = "createTag";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse  response = new GUIDResponse();
         AuditLog      auditLog = null;
@@ -821,7 +821,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -846,7 +846,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "updateTagDescription";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse  response = new BooleanResponse();
         AuditLog         auditLog = null;
@@ -882,7 +882,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -900,14 +900,14 @@ public class FeedbackManagerRESTServices extends TokenController
      * PropertyServerException - a problem retrieving information from the property server(s) or
      * UserNotAuthorizedException - the requesting user is not authorized to issue this request.
      */
-    public VoidResponse   deleteTag(String            serverName,
-                                    String            urlMarker,
-                                    String            tagGUID,
+    public VoidResponse   deleteTag(String                   serverName,
+                                    String                   urlMarker,
+                                    String                   tagGUID,
                                     DeleteElementRequestBody requestBody)
     {
         final String methodName = "deleteTag";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -929,7 +929,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -954,7 +954,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getTag";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -976,7 +976,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -999,7 +999,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getTagsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1030,7 +1030,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1053,7 +1053,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "findTags";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog             auditLog = null;
@@ -1084,7 +1084,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1107,7 +1107,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "findMyTags";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1138,7 +1138,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1165,7 +1165,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "addTagToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -1187,7 +1187,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1214,7 +1214,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String   methodName  = "removeTagFromElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -1236,7 +1236,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1262,7 +1262,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getElementsByTag";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                            auditLog = null;
@@ -1284,7 +1284,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1308,7 +1308,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getAttachedTags";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1330,7 +1330,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1353,14 +1353,14 @@ public class FeedbackManagerRESTServices extends TokenController
      * PropertyServerException - a problem retrieving information from the property server(s) or
      * UserNotAuthorizedException - the requesting user is not authorized to issue this request.
      */
-    public GUIDResponse createNoteLog(String                 serverName,
-                                      String                 urlMarker,
-                                      String                 elementGUID,
+    public GUIDResponse createNoteLog(String                   serverName,
+                                      String                   urlMarker,
+                                      String                   elementGUID,
                                       NewAttachmentRequestBody requestBody)
     {
         final String   methodName = "createNoteLog";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse  response = new GUIDResponse();
         AuditLog      auditLog = null;
@@ -1396,7 +1396,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1419,7 +1419,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String   methodName = "createNoteLog";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse  response = new GUIDResponse();
         AuditLog      auditLog = null;
@@ -1458,7 +1458,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1483,7 +1483,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "updateNoteLog";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse  response = new BooleanResponse();
         AuditLog         auditLog = null;
@@ -1519,7 +1519,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1537,14 +1537,14 @@ public class FeedbackManagerRESTServices extends TokenController
      * PropertyServerException - a problem retrieving information from the property server(s) or
      * UserNotAuthorizedException - the requesting user is not authorized to issue this request.
      */
-    public VoidResponse   deleteNoteLog(String            serverName,
-                                        String            urlMarker,
-                                        String            noteLogGUID,
+    public VoidResponse   deleteNoteLog(String                   serverName,
+                                        String                   urlMarker,
+                                        String                   noteLogGUID,
                                         DeleteElementRequestBody requestBody)
     {
         final String methodName = "deleteNoteLog";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -1566,7 +1566,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1590,7 +1590,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "findNoteLogs";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1619,7 +1619,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1644,7 +1644,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getNoteLogsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1673,7 +1673,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1700,7 +1700,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getNotesForNoteLog";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1722,7 +1722,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1749,7 +1749,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getNoteLogByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -1770,7 +1770,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1801,7 +1801,7 @@ public class FeedbackManagerRESTServices extends TokenController
     {
         final String methodName = "getNotesForNoteLog";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1823,7 +1823,7 @@ public class FeedbackManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

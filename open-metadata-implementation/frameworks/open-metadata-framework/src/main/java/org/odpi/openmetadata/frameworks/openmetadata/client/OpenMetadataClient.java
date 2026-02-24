@@ -1123,7 +1123,10 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
      *
      * @param userId caller's userId
      * @param relationshipTypeName relationship's type.  Null means all types
-     *                             (but may be slow so not recommended).
+     * @param relationshipSubtypeGUIDs optional list of the GUIDs for subtypes of the requested type to include in the search results.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param searchProperties Optional list of relationship property conditions to match.
      * @param queryOptions multiple options to control the query
      *
@@ -1135,6 +1138,10 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
     @Override
     public  abstract OpenMetadataRelationshipList findRelationshipsBetweenMetadataElements(String           userId,
                                                                                            String           relationshipTypeName,
+                                                                                           List<String>     relationshipSubtypeGUIDs,
+                                                                                           List<String>     end1EntityGUIDs,
+                                                                                           List<String>     end2EntityGUIDs,
+                                                                                           EndMatchCriteria endMatchCriteria,
                                                                                            SearchProperties searchProperties,
                                                                                            QueryOptions     queryOptions) throws InvalidParameterException,
                                                                                                                                  UserNotAuthorizedException,

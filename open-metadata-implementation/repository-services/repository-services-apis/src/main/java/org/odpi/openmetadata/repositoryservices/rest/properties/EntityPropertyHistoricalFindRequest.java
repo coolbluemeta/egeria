@@ -15,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 /**
  * EntityPropertyHistoricalFindRequest provides an extension to the search parameters to include the
- * point in time that the request should be based on.  This extension is used since
+ * point-in-time that the request should be based on.  This extension is used since
  * historical queries are optional support.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
@@ -23,8 +23,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class EntityPropertyHistoricalFindRequest extends EntityPropertyFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private Date asOfTime = null;
 
     /**
@@ -53,7 +51,7 @@ public class EntityPropertyHistoricalFindRequest extends EntityPropertyFindReque
 
 
     /**
-     * Return the point in time for the search.
+     * Return the point-in-time for the search.
      *
      * @return date object
      */
@@ -64,7 +62,7 @@ public class EntityPropertyHistoricalFindRequest extends EntityPropertyFindReque
 
 
     /**
-     * Set up the point in time for the search.
+     * Set up the point-in-time for the search.
      *
      * @param asOfTime date object
      */
@@ -84,18 +82,8 @@ public class EntityPropertyHistoricalFindRequest extends EntityPropertyFindReque
     {
         return "EntityPropertyHistoricalFindRequest{" +
                 "asOfTime=" + asOfTime +
-                ", limitResultsByClassification=" + getLimitResultsByClassification() +
-                ", matchProperties=" + getMatchProperties() +
-                ", matchCriteria=" + getMatchCriteria() +
-                ", typeGUID='" + getTypeGUID() + '\'' +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
-
 
 
     /**
@@ -111,7 +99,7 @@ public class EntityPropertyHistoricalFindRequest extends EntityPropertyFindReque
         {
             return true;
         }
-        if (!(objectToCompare instanceof EntityPropertyHistoricalFindRequest))
+        if (!(objectToCompare instanceof EntityPropertyHistoricalFindRequest that))
         {
             return false;
         }
@@ -119,8 +107,6 @@ public class EntityPropertyHistoricalFindRequest extends EntityPropertyFindReque
         {
             return false;
         }
-        EntityPropertyHistoricalFindRequest
-                that = (EntityPropertyHistoricalFindRequest) objectToCompare;
         return Objects.equals(getAsOfTime(), that.getAsOfTime());
     }
 
@@ -133,7 +119,6 @@ public class EntityPropertyHistoricalFindRequest extends EntityPropertyFindReque
     @Override
     public int hashCode()
     {
-
-        return Objects.hash(super.hashCode(), getAsOfTime());
+        return Objects.hash(super.hashCode(), asOfTime);
     }
 }

@@ -5,6 +5,7 @@ package org.odpi.openmetadata.frameworks.openmetadata.search;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestIdService;
 
 import java.util.Date;
 import java.util.Objects;
@@ -18,8 +19,9 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class BasicOptions
+public class BasicOptions implements RequestIdService
 {
+    private String       requestId              = null;
     private boolean      forLineage             = false;
     private boolean      forDuplicateProcessing = false;
     private Date         effectiveTime          = null;
@@ -42,10 +44,35 @@ public class BasicOptions
     {
         if (template != null)
         {
+            requestId              = template.getRequestId();
             forLineage             = template.getForLineage();
             forDuplicateProcessing = template.getForDuplicateProcessing();
             effectiveTime          = template.getEffectiveTime();
         }
+    }
+
+
+    /**
+     * Return the unique identifier for this request.
+     *
+     * @return string guid
+     */
+    @Override
+    public String getRequestId()
+    {
+        return requestId;
+    }
+
+
+    /**
+     * Set up the unique identifier for this request.
+     *
+     * @param requestId string guid
+     */
+    @Override
+    public void setRequestId(String requestId)
+    {
+        this.requestId = requestId;
     }
 
 
@@ -121,14 +148,19 @@ public class BasicOptions
      *
      * @return return string containing the property names and values
      */
+
+
     @Override
     public String toString()
     {
         return "BasicOptions{" +
-                "forLineage=" + forLineage +
+                "requestId='" + requestId + '\'' +
+                ", forLineage=" + forLineage +
                 ", forDuplicateProcessing=" + forDuplicateProcessing +
-                ", effectiveTime=" + effectiveTime +  '}';
+                ", effectiveTime=" + effectiveTime +
+                '}';
     }
+
 
     /**
      * Return comparison result based on the content of the properties.
@@ -150,6 +182,7 @@ public class BasicOptions
         BasicOptions that = (BasicOptions) objectToCompare;
         return forLineage == that.forLineage &&
                 forDuplicateProcessing == that.forDuplicateProcessing &&
+                Objects.equals(requestId, that.requestId) &&
                 Objects.equals(effectiveTime, that.effectiveTime);
     }
 
@@ -162,6 +195,6 @@ public class BasicOptions
     @Override
     public int hashCode()
     {
-        return Objects.hash(forLineage, forDuplicateProcessing, effectiveTime);
+        return Objects.hash(requestId, forLineage, forDuplicateProcessing, effectiveTime);
     }
 }

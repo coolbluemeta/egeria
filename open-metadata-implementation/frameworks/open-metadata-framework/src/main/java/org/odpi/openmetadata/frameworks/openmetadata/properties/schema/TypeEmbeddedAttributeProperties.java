@@ -30,9 +30,9 @@ public class TypeEmbeddedAttributeProperties extends ClassificationBeanPropertie
     private String              category             = null;
     private Map<String, String> additionalProperties = null;
     private String              usage                = null;
-    private String              encodingStandard     = null;
-    private String              namespace            = null;
-    private String              dataType             = null;
+    private String encodingStandard = null;
+    private String namespacePath    = null;
+    private String dataType         = null;
     private String              defaultValue         = null;
     private String              fixedValue           = null;
 
@@ -67,9 +67,9 @@ public class TypeEmbeddedAttributeProperties extends ClassificationBeanPropertie
             category             = template.getCategory();
             additionalProperties = template.getAdditionalProperties();
             usage                = template.getUsage();
-            encodingStandard     = template.getEncodingStandard();
-            namespace            = template.getNamespace();
-            dataType             = template.getDataType();
+            encodingStandard = template.getEncodingStandard();
+            namespacePath    = template.getNamespacePath();
+            dataType         = template.getDataType();
             defaultValue         = template.getDefaultValue();
             fixedValue           = template.getFixedValue();
         }
@@ -280,20 +280,20 @@ public class TypeEmbeddedAttributeProperties extends ClassificationBeanPropertie
      *
      * @return string name
      */
-    public String getNamespace()
+    public String getNamespacePath()
     {
-        return namespace;
+        return namespacePath;
     }
 
 
     /**
      * Set up the name of the namespace that this type belongs to.
      *
-     * @param namespace string name
+     * @param namespacePath string name
      */
-    public void setNamespace(String namespace)
+    public void setNamespacePath(String namespacePath)
     {
-        this.namespace = namespace;
+        this.namespacePath = namespacePath;
     }
 
 
@@ -372,7 +372,7 @@ public class TypeEmbeddedAttributeProperties extends ClassificationBeanPropertie
                 ", additionalProperties=" + additionalProperties +
                 ", usage='" + usage + '\'' +
                 ", encodingStandard='" + encodingStandard + '\'' +
-                ", namespace='" + namespace + '\'' +
+                ", namespace='" + namespacePath + '\'' +
                 ", dataType='" + dataType + '\'' +
                 ", defaultValue='" + defaultValue + '\'' +
                 ", fixedValue='" + fixedValue + '\'' +
@@ -402,7 +402,7 @@ public class TypeEmbeddedAttributeProperties extends ClassificationBeanPropertie
                 Objects.equals(additionalProperties, that.additionalProperties) &&
                 Objects.equals(usage, that.usage) &&
                 Objects.equals(encodingStandard, that.encodingStandard) &&
-                Objects.equals(namespace, that.namespace) &&
+                Objects.equals(namespacePath, that.namespacePath) &&
                 Objects.equals(dataType, that.dataType) &&
                 Objects.equals(defaultValue, that.defaultValue) &&
                 Objects.equals(fixedValue, that.fixedValue);
@@ -417,6 +417,6 @@ public class TypeEmbeddedAttributeProperties extends ClassificationBeanPropertie
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), schemaTypeName, qualifiedName, displayName, description, versionIdentifier, category, additionalProperties, usage, encodingStandard, namespace, dataType, defaultValue, fixedValue);
+        return Objects.hash(super.hashCode(), schemaTypeName, qualifiedName, displayName, description, versionIdentifier, category, additionalProperties, usage, encodingStandard, namespacePath, dataType, defaultValue, fixedValue);
     }
 }
