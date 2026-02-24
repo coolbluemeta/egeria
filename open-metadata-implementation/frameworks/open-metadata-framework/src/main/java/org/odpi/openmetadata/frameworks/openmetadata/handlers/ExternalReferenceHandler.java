@@ -51,7 +51,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Create a new external reference.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -119,7 +119,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of an external reference.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param externalReferenceGUID       unique identifier of the external reference (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -150,7 +150,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Attach an external reference to an element.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID          unique identifier of the element
      * @param externalReferenceGUID          unique identifier of the external reference
      * @param makeAnchorOptions  options to control access to open metadata
@@ -187,7 +187,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Detach an external reference from an element.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID          unique identifier of the first external reference
      * @param externalReferenceGUID          unique identifier of the second external reference
      * @param deleteOptions  options to control access to open metadata
@@ -221,7 +221,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Attach an external media reference to an element.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID          unique identifier of the first external reference
      * @param externalReferenceGUID          unique identifier of the second external reference
      * @param makeAnchorOptions  options to control access to open metadata
@@ -258,7 +258,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Detach an external media reference from an element.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID          unique identifier of the first external reference
      * @param externalReferenceGUID          unique identifier of the second external reference
      * @param deleteOptions  options to control access to open metadata
@@ -292,7 +292,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Attach an element to its external document reference.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID       unique identifier of the element to connect
      * @param externalReferenceGUID            unique identifier of the external reference
      * @param makeAnchorOptions  options to control access to open metadata
@@ -329,7 +329,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Detach an element from its external document reference.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID              unique identifier of the element
      * @param externalReferenceGUID          unique identifier of the external reference
      * @param deleteOptions  options to control access to open metadata
@@ -363,7 +363,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Delete an external reference.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param externalReferenceGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -389,7 +389,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of external references with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -421,7 +421,7 @@ public class ExternalReferenceHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific external reference.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param externalReferenceGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

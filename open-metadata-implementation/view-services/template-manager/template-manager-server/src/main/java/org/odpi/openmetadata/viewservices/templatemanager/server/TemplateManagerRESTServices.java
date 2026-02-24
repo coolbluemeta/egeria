@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The TemplateManagerRESTServices provides the server-side implementation of the Template Manager Open Metadata
- * View Service (OMVS).  This interface provides access to a person's profile, roles and network.
+ * View Service (OMVS).  This interface provides support for building templates.
  */
 public class TemplateManagerRESTServices extends TokenController
 {
@@ -56,7 +56,7 @@ public class TemplateManagerRESTServices extends TokenController
     {
         final String methodName = "addTemplateClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -96,7 +96,7 @@ public class TemplateManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -119,7 +119,7 @@ public class TemplateManagerRESTServices extends TokenController
     {
         final String   methodName = "removeTemplateClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -140,7 +140,7 @@ public class TemplateManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -166,7 +166,7 @@ public class TemplateManagerRESTServices extends TokenController
     {
         final String methodName = "linkSourcedFrom";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -217,7 +217,7 @@ public class TemplateManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -243,7 +243,7 @@ public class TemplateManagerRESTServices extends TokenController
     {
         final String methodName = "detachSourcedFrom";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -264,7 +264,7 @@ public class TemplateManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -288,7 +288,7 @@ public class TemplateManagerRESTServices extends TokenController
     {
         final String methodName = "addTemplateSubstituteClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -328,7 +328,7 @@ public class TemplateManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -351,7 +351,7 @@ public class TemplateManagerRESTServices extends TokenController
     {
         final String   methodName = "removeTemplateSubstituteClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -372,7 +372,7 @@ public class TemplateManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -391,14 +391,14 @@ public class TemplateManagerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse linkCatalogTemplate(String                    serverName,
+    public VoidResponse linkCatalogTemplate(String                     serverName,
                                             String                     elementGUID,
                                             String                     templateGUID,
                                             NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkCatalogTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -449,7 +449,7 @@ public class TemplateManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -475,7 +475,7 @@ public class TemplateManagerRESTServices extends TokenController
     {
         final String methodName = "detachCatalogTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -496,7 +496,7 @@ public class TemplateManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 

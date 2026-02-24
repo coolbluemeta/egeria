@@ -107,7 +107,7 @@ public class GovernanceEngineConfigurationHandler
      * @return properties from the governance engine definition.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the governance engine definition.
      */
     public GovernanceEngineElement getGovernanceEngineByName(String       userId,
@@ -147,7 +147,7 @@ public class GovernanceEngineConfigurationHandler
      * @return properties of the governance service.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the governance service definition.
      */
     public  GovernanceServiceElement getGovernanceServiceByGUID(String       userId,
@@ -184,7 +184,7 @@ public class GovernanceEngineConfigurationHandler
      * @param serviceSupportedZones supported zones for calling service
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the governance service and/or governance engine definitions.
      */
     @SuppressWarnings(value = "unused")
@@ -342,7 +342,7 @@ public class GovernanceEngineConfigurationHandler
      * @return details of the governance service and the asset types it is registered for.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the governance service and/or governance engine definitions.
      */
     public RegisteredGovernanceServiceElement getRegisteredGovernanceService(String       userId,
@@ -398,7 +398,7 @@ public class GovernanceEngineConfigurationHandler
      * @return list of unique identifiers
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the governance service and/or governance engine definitions.
      */
     public List<RegisteredGovernanceServiceElement> getRegisteredGovernanceServices(String       userId,

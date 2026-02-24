@@ -52,14 +52,14 @@ public class PeopleOrganizerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkPeerPerson(String                  serverName,
-                                       String                  personOneGUID,
-                                       String                  personTwoGUID,
+    public VoidResponse linkPeerPerson(String                     serverName,
+                                       String                     personOneGUID,
+                                       String                     personTwoGUID,
                                        NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkPeerPerson";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -102,7 +102,7 @@ public class PeopleOrganizerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -127,7 +127,7 @@ public class PeopleOrganizerRESTServices extends TokenController
     {
         final String methodName = "detachPeerPerson";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -149,7 +149,7 @@ public class PeopleOrganizerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -175,7 +175,7 @@ public class PeopleOrganizerRESTServices extends TokenController
     {
         final String methodName = "linkTeamStructure";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -218,7 +218,7 @@ public class PeopleOrganizerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -243,7 +243,7 @@ public class PeopleOrganizerRESTServices extends TokenController
     {
         final String methodName = "detachTeamStructure";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -265,7 +265,7 @@ public class PeopleOrganizerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

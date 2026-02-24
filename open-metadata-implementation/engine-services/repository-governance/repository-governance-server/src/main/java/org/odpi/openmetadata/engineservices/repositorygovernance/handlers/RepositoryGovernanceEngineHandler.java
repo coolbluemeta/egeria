@@ -75,7 +75,7 @@ public class RepositoryGovernanceEngineHandler extends GovernanceEngineHandler
      * @param actionTargetElements metadata elements that need to be worked on by the governance action service
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the governance action engine.
      */
     @Override

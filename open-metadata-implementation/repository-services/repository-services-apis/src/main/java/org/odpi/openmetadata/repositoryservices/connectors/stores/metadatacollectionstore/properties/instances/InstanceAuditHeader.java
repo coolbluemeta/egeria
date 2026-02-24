@@ -13,7 +13,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 /**
  * InstanceAuditHeader manages the attributes that are common to classifications,
- * entities and relationships.  We need to be able to audit when these fundamental elements change and
+ * entities, and relationships.  We need to be able to audit when these fundamental elements change and
  * by whom.  Thus, they share this header.  The fields in this header are managed as follows:
  * <ul>
  *     <li>
@@ -64,6 +64,9 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
  *         metadata (typically the Open Metadata Access Services (OMASs)
  *     </li>
  *     <li>
+ *         RequestId is a unique identifier used by the caller to synchronize requests between the open metadata.
+ *     </li>
+ *     <li>
  *         StatusOnDelete is populated when the instance is deleted and is se to the status when the deleted was
  *         called - it is used set the status if the instance is restored.
  *     </li>
@@ -76,9 +79,9 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
  * </ul>
  *
  */
-@JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
+@JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -100,33 +103,34 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
     /*
      * Summary information about this element's type
      */
-    private InstanceType   type = null;
+    private InstanceType type = null;
 
     /*
      * Provenance information defining where the instance came from and whether this is a master or reference copy.
      */
-    private InstanceProvenanceType    instanceProvenanceType = null;
-    private String                    metadataCollectionId   = null;
-    private String                    metadataCollectionName = null;
-    private String                    replicatedBy           = null;
-    private String                    instanceLicense        = null;
+    private InstanceProvenanceType instanceProvenanceType = null;
+    private String                 metadataCollectionId   = null;
+    private String                 metadataCollectionName = null;
+    private String                 replicatedBy           = null;
+    private String                 instanceLicense        = null;
 
 
     /*
      * Standard header information for a classification, entity and relationship.
      */
-    private String         createdBy         = null;
-    private String         updatedBy         = null;
-    private List<String>   maintainedBy      = null;
-    private Date           createTime        = null;
-    private Date           updateTime        = null;
-    private long           version           = 0L;
-    private InstanceStatus currentStatus     = null;
+    private String         createdBy     = null;
+    private String         updatedBy     = null;
+    private List<String>   maintainedBy  = null;
+    private Date           createTime    = null;
+    private Date           updateTime    = null;
+    private long           version       = 0L;
+    private InstanceStatus currentStatus = null;
+    private String         lastRequestId = null;
 
     /*
      * Used only if the status is DELETED.  It defines the status to use if the instance is restored.
      */
-    private InstanceStatus statusOnDelete  = null;
+    private InstanceStatus statusOnDelete = null;
 
     /*
      * Used by connector implementations that are mapping between an existing repository and open metadata.
@@ -134,7 +138,7 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      * instances stored with the open metadata equivalent.  These values should be maintained by the
      * master repository and stored by any repository that is saving the reference copy.
      */
-    private Map<String, Serializable>  mappingProperties = null;
+    private Map<String, Serializable> mappingProperties = null;
 
     /**
      * Default Constructor sets the instance to nulls.
@@ -156,21 +160,22 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
 
         if (template != null)
         {
-            this.type = template.getType();
+            this.type                   = template.getType();
             this.instanceProvenanceType = template.getInstanceProvenanceType();
-            this.metadataCollectionId = template.getMetadataCollectionId();
+            this.metadataCollectionId   = template.getMetadataCollectionId();
             this.metadataCollectionName = template.getMetadataCollectionName();
-            this.replicatedBy = template.getReplicatedBy();
-            this.instanceLicense = template.getInstanceLicense();
-            this.createdBy = template.getCreatedBy();
-            this.updatedBy = template.getUpdatedBy();
-            this.maintainedBy = template.getMaintainedBy();
-            this.createTime = template.getCreateTime();
-            this.updateTime = template.getUpdateTime();
-            this.version = template.getVersion();
-            this.currentStatus = template.getStatus();
-            this.statusOnDelete = template.getStatusOnDelete();
-            this.mappingProperties = template.getMappingProperties();
+            this.replicatedBy           = template.getReplicatedBy();
+            this.instanceLicense        = template.getInstanceLicense();
+            this.createdBy              = template.getCreatedBy();
+            this.updatedBy              = template.getUpdatedBy();
+            this.maintainedBy           = template.getMaintainedBy();
+            this.createTime             = template.getCreateTime();
+            this.updateTime             = template.getUpdateTime();
+            this.version                = template.getVersion();
+            this.currentStatus          = template.getStatus();
+            this.lastRequestId          = template.getLastRequestId();
+            this.statusOnDelete         = template.getStatusOnDelete();
+            this.mappingProperties      = template.getMappingProperties();
         }
     }
 
@@ -209,7 +214,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @return InstanceProvenanceType enum
      */
-    public InstanceProvenanceType getInstanceProvenanceType() { return instanceProvenanceType; }
+    public InstanceProvenanceType getInstanceProvenanceType()
+    {
+        return instanceProvenanceType;
+    }
 
 
     /**
@@ -229,7 +237,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @return metadataCollectionId String unique identifier for the repository
      */
-    public String getMetadataCollectionId() { return metadataCollectionId; }
+    public String getMetadataCollectionId()
+    {
+        return metadataCollectionId;
+    }
 
 
     /**
@@ -238,7 +249,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @param metadataCollectionId String unique identifier for the repository
      */
-    public void setMetadataCollectionId(String metadataCollectionId) { this.metadataCollectionId = metadataCollectionId; }
+    public void setMetadataCollectionId(String metadataCollectionId)
+    {
+        this.metadataCollectionId = metadataCollectionId;
+    }
 
 
     /**
@@ -257,9 +271,9 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
 
     /**
      * Set up a display name for the metadata collection that this instance belongs to.  The source of this name is
-     * dependent on the type of origin it has.  For example, this may be the
-     * name of the server where the metadata is hosted, the archive that the instance came from or the name
-     * of the tool, platform or engine that originated the metadata.
+     * dependent on its origin.  For example, this may be the
+     * name of the server where the metadata is hosted, the archive that the instance came from, or the name
+     * of the tool, platform, or engine that originated the metadata.
      *
      * @param metadataCollectionName display name or null
      */
@@ -324,7 +338,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @return InstanceStatus
      */
-    public InstanceStatus getStatus() { return currentStatus; }
+    public InstanceStatus getStatus()
+    {
+        return currentStatus;
+    }
 
 
     /**
@@ -332,7 +349,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @param newStatus InstanceStatus
      */
-    public void setStatus(InstanceStatus newStatus) { this.currentStatus = newStatus; }
+    public void setStatus(InstanceStatus newStatus)
+    {
+        this.currentStatus = newStatus;
+    }
 
 
     /**
@@ -340,7 +360,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @return String user name
      */
-    public String getCreatedBy() { return createdBy; }
+    public String getCreatedBy()
+    {
+        return createdBy;
+    }
 
 
     /**
@@ -348,7 +371,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @param createdBy String user name
      */
-    public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
+    public void setCreatedBy(String createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
 
     /**
@@ -356,7 +382,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @return String user name
      */
-    public String getUpdatedBy() { return updatedBy; }
+    public String getUpdatedBy()
+    {
+        return updatedBy;
+    }
 
 
     /**
@@ -364,7 +393,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @param updatedBy String user name
      */
-    public void setUpdatedBy(String updatedBy) { this.updatedBy = updatedBy; }
+    public void setUpdatedBy(String updatedBy)
+    {
+        this.updatedBy = updatedBy;
+    }
 
 
     /**
@@ -423,7 +455,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @param createTime Date/Time of creation
      */
-    public void setCreateTime(Date createTime) { this.createTime = createTime; }
+    public void setCreateTime(Date createTime)
+    {
+        this.createTime = createTime;
+    }
 
 
     /**
@@ -449,7 +484,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @param updateTime Date/Time last updated
      */
-    public void setUpdateTime(Date updateTime) { this.updateTime = updateTime; }
+    public void setUpdateTime(Date updateTime)
+    {
+        this.updateTime = updateTime;
+    }
 
 
     /**
@@ -457,7 +495,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @return Long version number
      */
-    public long getVersion() { return version; }
+    public long getVersion()
+    {
+        return version;
+    }
 
 
     /**
@@ -465,8 +506,32 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @param version Long version number
      */
-    public void setVersion(long version) { this.version = version; }
+    public void setVersion(long version)
+    {
+        this.version = version;
+    }
 
+
+    /**
+     * Return the request id used on the create/last update request.
+     *
+     * @return string GUID
+     */
+    public String getLastRequestId()
+    {
+        return lastRequestId;
+    }
+
+
+    /**
+     * Set up the request id used on the create/last update request.
+     *
+     * @param lastRequestId string GUID
+     */
+    public void setLastRequestId(String lastRequestId)
+    {
+        this.lastRequestId = lastRequestId;
+    }
 
 
     /**
@@ -475,7 +540,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @return InstanceStatus
      */
-    public InstanceStatus getStatusOnDelete() { return statusOnDelete; }
+    public InstanceStatus getStatusOnDelete()
+    {
+        return statusOnDelete;
+    }
 
 
     /**
@@ -484,7 +552,10 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      *
      * @param statusOnDelete InstanceStatus Enum
      */
-    public void setStatusOnDelete(InstanceStatus statusOnDelete) { this.statusOnDelete = statusOnDelete; }
+    public void setStatusOnDelete(InstanceStatus statusOnDelete)
+    {
+        this.statusOnDelete = statusOnDelete;
+    }
 
 
     /**
@@ -526,7 +597,8 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
      * @return JSON style description of variables.
      */
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "InstanceAuditHeader{" +
                 "headerVersion=" + getHeaderVersion() +
                 ", type=" + type +
@@ -542,9 +614,9 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
                 ", updateTime=" + updateTime +
                 ", version=" + version +
                 ", currentStatus=" + currentStatus +
+                ", lastRequestId=" + lastRequestId +
                 ", statusOnDelete=" + statusOnDelete +
                 ", mappingProperties=" + mappingProperties +
-                ", status=" + getStatus() +
                 '}';
     }
 
@@ -557,80 +629,25 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (! (objectToCompare instanceof InstanceAuditHeader))
-        {
-            return false;
-        }
-        if (! super.equals(objectToCompare))
-        {
-            return false;
-        }
-
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
         InstanceAuditHeader that = (InstanceAuditHeader) objectToCompare;
-
-        if (version != that.version)
-        {
-            return false;
-        }
-        if (type != null ? ! type.equals(that.type) : that.type != null)
-        {
-            return false;
-        }
-        if (instanceProvenanceType != that.instanceProvenanceType)
-        {
-            return false;
-        }
-        if (metadataCollectionId != null ? ! metadataCollectionId.equals(that.metadataCollectionId) : that.metadataCollectionId != null)
-        {
-            return false;
-        }
-        if (metadataCollectionName != null ? ! metadataCollectionName.equals(that.metadataCollectionName) : that.metadataCollectionName != null)
-        {
-            return false;
-        }
-        if (replicatedBy != null ? ! replicatedBy.equals(that.replicatedBy) : that.replicatedBy != null)
-        {
-            return false;
-        }
-        if (instanceLicense != null ? ! instanceLicense.equals(that.instanceLicense) : that.instanceLicense != null)
-        {
-            return false;
-        }
-        if (createdBy != null ? ! createdBy.equals(that.createdBy) : that.createdBy != null)
-        {
-            return false;
-        }
-        if (updatedBy != null ? ! updatedBy.equals(that.updatedBy) : that.updatedBy != null)
-        {
-            return false;
-        }
-        if (maintainedBy != null ? ! maintainedBy.equals(that.maintainedBy) : that.maintainedBy != null)
-        {
-            return false;
-        }
-        if (createTime != null ? ! createTime.equals(that.createTime) : that.createTime != null)
-        {
-            return false;
-        }
-        if (updateTime != null ? ! updateTime.equals(that.updateTime) : that.updateTime != null)
-        {
-            return false;
-        }
-        if (currentStatus != that.currentStatus)
-        {
-            return false;
-        }
-        if (statusOnDelete != that.statusOnDelete)
-        {
-            return false;
-        }
-        return mappingProperties != null ? mappingProperties.equals(that.mappingProperties) : that.mappingProperties == null;
+        return version == that.version && Objects.equals(type, that.type) &&
+                instanceProvenanceType == that.instanceProvenanceType &&
+                Objects.equals(metadataCollectionId, that.metadataCollectionId) &&
+                Objects.equals(metadataCollectionName, that.metadataCollectionName) &&
+                Objects.equals(replicatedBy, that.replicatedBy) &&
+                Objects.equals(instanceLicense, that.instanceLicense) &&
+                Objects.equals(createdBy, that.createdBy) &&
+                Objects.equals(updatedBy, that.updatedBy) &&
+                Objects.equals(maintainedBy, that.maintainedBy) &&
+                Objects.equals(createTime, that.createTime) &&
+                Objects.equals(updateTime, that.updateTime) &&
+                currentStatus == that.currentStatus &&
+                Objects.equals(lastRequestId, that.lastRequestId) &&
+                statusOnDelete == that.statusOnDelete &&
+                Objects.equals(mappingProperties, that.mappingProperties);
     }
-
 
     /**
      * Return a hash code based on the values of this object.
@@ -640,22 +657,8 @@ public abstract class InstanceAuditHeader extends InstanceElementHeader
     @Override
     public int hashCode()
     {
-        int result = super.hashCode();
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (instanceProvenanceType != null ? instanceProvenanceType.hashCode() : 0);
-        result = 31 * result + (metadataCollectionId != null ? metadataCollectionId.hashCode() : 0);
-        result = 31 * result + (metadataCollectionName != null ? metadataCollectionName.hashCode() : 0);
-        result = 31 * result + (replicatedBy != null ? replicatedBy.hashCode() : 0);
-        result = 31 * result + (instanceLicense != null ? instanceLicense.hashCode() : 0);
-        result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
-        result = 31 * result + (updatedBy != null ? updatedBy.hashCode() : 0);
-        result = 31 * result + (maintainedBy != null ? maintainedBy.hashCode() : 0);
-        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
-        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
-        result = 31 * result + (int) (version ^ (version >>> 32));
-        result = 31 * result + (currentStatus != null ? currentStatus.hashCode() : 0);
-        result = 31 * result + (statusOnDelete != null ? statusOnDelete.hashCode() : 0);
-        result = 31 * result + (mappingProperties != null ? mappingProperties.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), type, instanceProvenanceType, metadataCollectionId,
+                            metadataCollectionName, replicatedBy, instanceLicense, createdBy, updatedBy, maintainedBy,
+                            createTime, updateTime, version, currentStatus, lastRequestId, statusOnDelete, mappingProperties);
     }
 }

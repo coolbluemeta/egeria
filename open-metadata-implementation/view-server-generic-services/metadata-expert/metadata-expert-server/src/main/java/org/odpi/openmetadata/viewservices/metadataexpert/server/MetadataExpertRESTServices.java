@@ -58,7 +58,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "createMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -91,7 +91,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -115,7 +115,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "createMetadataElementFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -149,7 +149,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -176,7 +176,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "updateMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog     auditLog = null;
@@ -207,7 +207,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -232,7 +232,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "publishMetadataElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -253,7 +253,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -278,7 +278,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "withdrawMetadataElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -299,7 +299,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -324,7 +324,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "updateMetadataElementEffectivityInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -356,7 +356,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -381,7 +381,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "deleteMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -409,7 +409,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -434,7 +434,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "archiveMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -464,7 +464,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -486,15 +486,15 @@ public class MetadataExpertRESTServices extends TokenController
      *  UserNotAuthorizedException the governance action service is not authorized to update this element
      *  PropertyServerException a problem with the metadata store
      */
-    public VoidResponse classifyMetadataElementInStore(String                       serverName,
-                                                       String                       urlMarker,
-                                                       String                       metadataElementGUID,
-                                                       String                       classificationName,
+    public VoidResponse classifyMetadataElementInStore(String                                   serverName,
+                                                       String                                   urlMarker,
+                                                       String                                   metadataElementGUID,
+                                                       String                                   classificationName,
                                                        NewOpenMetadataClassificationRequestBody requestBody)
     {
         final String methodName = "classifyMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -526,7 +526,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -554,7 +554,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "reclassifyMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -586,7 +586,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -614,7 +614,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "updateClassificationEffectivityInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -647,7 +647,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -674,7 +674,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "declassifyMetadataElementInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -705,7 +705,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -730,7 +730,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "createRelatedElementsInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -763,7 +763,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -789,7 +789,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "updateRelatedElementsInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -820,7 +820,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -846,7 +846,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "updateRelatedElementsEffectivityInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -878,7 +878,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -903,7 +903,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "deleteRelatedElementsInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -933,7 +933,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -963,7 +963,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "detachRelatedElementsInStore";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -995,7 +995,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1015,14 +1015,14 @@ public class MetadataExpertRESTServices extends TokenController
      *  UserNotAuthorizedException the governance action service is not able to access the element
      *  PropertyServerException a problem accessing the metadata store
      */
-    public OpenMetadataElementResponse getMetadataElementByGUID(String             serverName,
-                                                                String             elementGUID,
-                                                                String             urlMarker,
+    public OpenMetadataElementResponse getMetadataElementByGUID(String         serverName,
+                                                                String         elementGUID,
+                                                                String         urlMarker,
                                                                 GetRequestBody requestBody)
     {
         final String methodName = "getMetadataElementByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog                    auditLog = null;
         OpenMetadataElementResponse response = new OpenMetadataElementResponse();
@@ -1044,7 +1044,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1067,7 +1067,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "getMetadataElementByUniqueName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataElementResponse response = new OpenMetadataElementResponse();
@@ -1099,7 +1099,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1122,7 +1122,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "getMetadataElementGUIDByUniqueName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         GUIDResponse response = new GUIDResponse();
@@ -1154,7 +1154,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1179,7 +1179,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "getMetadataElementHistory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataElementsResponse response = new OpenMetadataElementsResponse();
@@ -1201,7 +1201,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1228,7 +1228,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "getMetadataElementHistory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         AttachedClassificationsResponse response = new AttachedClassificationsResponse();
@@ -1250,7 +1250,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1273,7 +1273,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "findMetadataElementsWithString";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataElementsResponse response = new OpenMetadataElementsResponse();
@@ -1304,7 +1304,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1333,7 +1333,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "findElementsForAnchor";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         AnchorSearchMatchesResponse response = new AnchorSearchMatchesResponse();
@@ -1365,7 +1365,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1392,7 +1392,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "findElementsInAnchorDomain";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         AnchorSearchMatchesListResponse response = new AnchorSearchMatchesListResponse();
@@ -1424,7 +1424,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1451,7 +1451,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "findElementsInAnchorScope";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         AnchorSearchMatchesListResponse response = new AnchorSearchMatchesListResponse();
@@ -1483,7 +1483,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1512,7 +1512,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "getRelatedMetadataElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog                           auditLog = null;
         RelatedMetadataElementListResponse response = new RelatedMetadataElementListResponse();
@@ -1538,7 +1538,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1564,7 +1564,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName    = "getAnchoredElementsGraph";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataGraphResponse response = new OpenMetadataGraphResponse();
         AuditLog                  auditLog = null;
@@ -1586,7 +1586,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1615,7 +1615,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "getMetadataElementRelationships";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog                             auditLog = null;
         OpenMetadataRelationshipListResponse response = new OpenMetadataRelationshipListResponse();
@@ -1641,7 +1641,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1664,7 +1664,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "findMetadataElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataElementsResponse response = new OpenMetadataElementsResponse();
@@ -1696,7 +1696,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1719,7 +1719,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "findRelationshipsBetweenMetadataElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog                             auditLog = null;
         OpenMetadataRelationshipListResponse response = new OpenMetadataRelationshipListResponse();
@@ -1738,6 +1738,10 @@ public class MetadataExpertRESTServices extends TokenController
 
                 response.setRelationshipList(handler.findRelationshipsBetweenMetadataElements(userId,
                                                                                               requestBody.getRelationshipTypeName(),
+                                                                                              requestBody.getRelationshipSubtypeGUIDs(),
+                                                                                              requestBody.getEnd1EntityGUIDs(),
+                                                                                              requestBody.getEnd2EntityGUIDs(),
+                                                                                              requestBody.getEndMatchCriteria(),
                                                                                               requestBody.getSearchProperties(),
                                                                                               requestBody));
             }
@@ -1751,7 +1755,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1771,15 +1775,15 @@ public class MetadataExpertRESTServices extends TokenController
      *  PropertyServerException a problem accessing the metadata store
      */
     @SuppressWarnings(value = "unused")
-    public OpenMetadataRelationshipResponse getRelationshipByGUID(String             serverName,
-                                                                  String             relationshipGUID,
-                                                                  String             urlMarker,
+    public OpenMetadataRelationshipResponse getRelationshipByGUID(String         serverName,
+                                                                  String         relationshipGUID,
+                                                                  String         urlMarker,
                                                                   GetRequestBody requestBody)
     {
         final String methodName = "getRelationshipByGUID";
         final String guidParameterName = "relationshipGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog                         auditLog = null;
         OpenMetadataRelationshipResponse response = new OpenMetadataRelationshipResponse();
@@ -1801,7 +1805,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1827,7 +1831,7 @@ public class MetadataExpertRESTServices extends TokenController
     {
         final String methodName = "getRelationshipHistory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         AuditLog auditLog = null;
         OpenMetadataRelationshipListResponse response = new OpenMetadataRelationshipListResponse();
@@ -1849,7 +1853,7 @@ public class MetadataExpertRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

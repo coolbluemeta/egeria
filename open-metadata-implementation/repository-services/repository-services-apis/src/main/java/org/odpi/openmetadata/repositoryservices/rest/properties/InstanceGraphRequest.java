@@ -24,8 +24,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class InstanceGraphRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private List<EntityDetail> entityElementList       = null;
     private List<Relationship> relationshipElementList = null;
 
@@ -143,10 +141,10 @@ public class InstanceGraphRequest extends OMRSAPIRequest
     @Override
     public String toString()
     {
-        return "InstanceGraphResponse{" +
+        return "InstanceGraphRequest{" +
                 "entityElementList=" + entityElementList +
                 ", relationshipElementList=" + relationshipElementList +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -163,7 +161,7 @@ public class InstanceGraphRequest extends OMRSAPIRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof InstanceGraphRequest))
+        if (!(objectToCompare instanceof InstanceGraphRequest that))
         {
             return false;
         }
@@ -171,8 +169,6 @@ public class InstanceGraphRequest extends OMRSAPIRequest
         {
             return false;
         }
-        InstanceGraphRequest
-                that = (InstanceGraphRequest) objectToCompare;
         return Objects.equals(getEntityElementList(), that.getEntityElementList()) &&
                 Objects.equals(getRelationshipElementList(), that.getRelationshipElementList());
     }
@@ -186,6 +182,6 @@ public class InstanceGraphRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), getEntityElementList(), getRelationshipElementList());
+        return Objects.hash(super.hashCode(), entityElementList, relationshipElementList);
     }
 }

@@ -184,7 +184,7 @@ public  class StewardshipAction extends ConnectorContextClientBase
      * @param engineActionGUID identifier of the engine action request.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public void cancelEngineAction(String engineActionGUID) throws InvalidParameterException,
@@ -199,12 +199,12 @@ public  class StewardshipAction extends ConnectorContextClientBase
     /**
      * Retrieve the engine actions that are still in process.
      *
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      * @return list of engine action elements
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     public List<EngineActionElement>  getActiveEngineActions(int    startFrom,

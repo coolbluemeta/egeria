@@ -54,7 +54,7 @@ public class OpenMetadataStoreResource
      *
      * @return connection object for the out topic or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem retrieving the discovery engine definition.
      */
     @GetMapping(path = "/topics/out-topic-connection/{callerId}")
@@ -1593,13 +1593,13 @@ public class OpenMetadataStoreResource
      * Log an audit message about an asset.
      *
      * @param serverName            name of server instance to route request to
-     * @param userId                userId of user making request.
+     * @param userId                userId of the user making the request.
      * @param assetGUID             unique identifier for asset.
      * @param callingService     unique name for governance service.
      * @param message               message to log
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem that occurred within the property server.
      */
     @PostMapping(path = "/assets/{assetGUID}/log-records/{callingService}")

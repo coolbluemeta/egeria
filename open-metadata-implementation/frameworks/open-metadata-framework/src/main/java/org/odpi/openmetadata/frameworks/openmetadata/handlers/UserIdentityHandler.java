@@ -52,7 +52,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Create a new user identity.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -120,7 +120,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a user identity.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param userIdentityGUID      unique identifier of the user identity (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -151,7 +151,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Attach a profile to a user identity.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param userIdentityGUID        unique identifier of the parent
      * @param profileGUID             unique identifier of the actor profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -188,7 +188,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Detach an actor profile from a user identity.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param userIdentityGUID       unique identifier of the parent actor profile
      * @param profileGUID            unique identifier of the nested actor profile
      * @param deleteOptions  options to control access to open metadata
@@ -223,7 +223,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Add the SecurityGroupMembership classification to the user identity.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param userIdentityGUID    unique identifier of the user identity.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -260,7 +260,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Update the SecurityGroupMembership classification for the user identity.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param userIdentityGUID    unique identifier of the user identity.
      * @param updateOptions provides a structure for the additional options when updating a classification.
      * @param properties            properties for the classification
@@ -303,7 +303,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Remove the SecurityGroupMembership classification from the user identity.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param userIdentityGUID    unique identifier of the user identity.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -332,7 +332,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Delete a user identity.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param userIdentityGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -358,7 +358,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of user identities with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions multiple options to control the query
      * @return a list of elements
@@ -386,7 +386,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Returns the named user identity.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param getOptions multiple options to control the query
      * @return a list of elements
@@ -409,7 +409,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific user identity.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param userIdentityGUID      unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

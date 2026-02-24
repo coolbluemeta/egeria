@@ -33,6 +33,11 @@ public class QueryBuilder
 
 
     private String                relationshipEndGUID          = null;
+
+    private List<String>          end1EntityGUIDs              = null;
+    private List<String>          end2EntityGUIDs              = null;
+    private EndMatchCriteria      endMatchCriteria             = null;
+
     private String                searchString                 = null;
     private SearchProperties      searchProperties             = null;
     private String                principleTableName           = null;
@@ -668,6 +673,116 @@ public class QueryBuilder
             return RepositoryColumn.ATTRIBUTE_NAME.getColumnName(propertyTableName) + " = '" + topLevelPropertyName + "' and " +
                    RepositoryColumn.PROPERTY_NAME.getColumnName(propertyTableName) + " like '%:" + leafPropertyName + "'";
         }
+    }
+
+
+    /**
+     * Capture the criteria for matching the ends in a findRelationship search.
+     *
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
+     */
+    public void setRelationshipEndCriteria(List<String>     end1EntityGUIDs,
+                                           List<String>     end2EntityGUIDs,
+                                           EndMatchCriteria endMatchCriteria)
+    {
+        this.end1EntityGUIDs = end1EntityGUIDs;
+        this.end2EntityGUIDs = end2EntityGUIDs;
+        this.endMatchCriteria = endMatchCriteria;
+    }
+
+
+    /**
+     * Derive the SQL fragment to describe the relationship end criteria.
+     *
+     * @return SQL fragment or null if no criteria
+     */
+    private String getRelationshipEndCriteriaClause()
+    {
+        if (endMatchCriteria != null)
+        {
+            String endMatchOperand = " and ";
+            String guidMatchOperand = " or ";
+            String matchComparison = " = ";
+
+            if (endMatchCriteria == EndMatchCriteria.ANY)
+            {
+                endMatchOperand = " or ";
+            }
+            else if (endMatchCriteria == EndMatchCriteria.NONE)
+            {
+                matchComparison = " != ";
+                guidMatchOperand = " and ";
+            }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            boolean firstGUID = true;
+
+            if (end1EntityGUIDs != null)
+            {
+                stringBuilder.append(" (");
+
+                for (String end1EntityGUID : end1EntityGUIDs)
+                {
+                    if (firstGUID)
+                    {
+                        firstGUID = false;
+                    }
+                    else
+                    {
+                        stringBuilder.append(guidMatchOperand);
+                    }
+
+                    stringBuilder.append(RepositoryColumn.END_1_GUID.getColumnName());
+                    stringBuilder.append(matchComparison);
+                    stringBuilder.append("'");
+                    stringBuilder.append(end1EntityGUID);
+                    stringBuilder.append("'");
+                }
+
+                stringBuilder.append(") ");
+
+                if (end2EntityGUIDs != null)
+                {
+                    stringBuilder.append(endMatchOperand);
+                }
+            }
+
+            if (end2EntityGUIDs != null)
+            {
+                stringBuilder.append(" (");
+
+                for (String end2EntityGUID : end2EntityGUIDs)
+                {
+                    if (firstGUID)
+                    {
+                        firstGUID = false;
+                    }
+                    else
+                    {
+                        stringBuilder.append(guidMatchOperand);
+                    }
+
+                    stringBuilder.append(RepositoryColumn.END_2_GUID.getColumnName());
+                    stringBuilder.append(matchComparison);
+                    stringBuilder.append("'");
+                    stringBuilder.append(end2EntityGUID);
+                    stringBuilder.append("'");
+                }
+
+                stringBuilder.append(") ");
+            }
+
+            if (! stringBuilder.isEmpty())
+            {
+                return " and (" + stringBuilder + ") ";
+            }
+
+            return " ";
+        }
+
+        return " ";
     }
 
 
@@ -1501,6 +1616,7 @@ public class QueryBuilder
         String whereClause =
                 getAsOfTimeClause() +
                 getRelationshipEndGUIDClause() +
+                getRelationshipEndCriteriaClause() +
                 getGUIDListClause() +
                 getSearchStringClause() +
                 getSearchPropertiesClause(principleTableName, propertyTableName, searchProperties) +

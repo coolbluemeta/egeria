@@ -53,7 +53,7 @@ public class CommunityMattersRESTServices extends TokenController
     {
         final String methodName = "createCommunity";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -93,7 +93,7 @@ public class CommunityMattersRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -115,7 +115,7 @@ public class CommunityMattersRESTServices extends TokenController
     {
         final String methodName = "createCommunityFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -149,7 +149,7 @@ public class CommunityMattersRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -167,12 +167,12 @@ public class CommunityMattersRESTServices extends TokenController
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
     public BooleanResponse updateCommunity(String                   serverName,
-                                        String                   communityGUID,
-                                        UpdateElementRequestBody requestBody)
+                                           String                   communityGUID,
+                                           UpdateElementRequestBody requestBody)
     {
         final String methodName = "updateCommunity";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -211,7 +211,7 @@ public class CommunityMattersRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -234,7 +234,7 @@ public class CommunityMattersRESTServices extends TokenController
     {
         final String methodName = "deleteCommunity";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -256,7 +256,7 @@ public class CommunityMattersRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -277,7 +277,7 @@ public class CommunityMattersRESTServices extends TokenController
     {
         final String methodName = "getCommunitiesByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -306,7 +306,7 @@ public class CommunityMattersRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -323,13 +323,13 @@ public class CommunityMattersRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementResponse getCommunityByGUID(String             serverName,
-                                                              String             communityGUID,
+    public OpenMetadataRootElementResponse getCommunityByGUID(String         serverName,
+                                                              String         communityGUID,
                                                               GetRequestBody requestBody)
     {
         final String methodName = "getCommunityByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                         auditLog = null;
@@ -351,7 +351,7 @@ public class CommunityMattersRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -372,7 +372,7 @@ public class CommunityMattersRESTServices extends TokenController
     {
         final String methodName = "findCommunities";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -401,7 +401,7 @@ public class CommunityMattersRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

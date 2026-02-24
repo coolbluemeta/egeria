@@ -13,6 +13,7 @@ public enum AuditLogColumn implements PostgreSQLColumn
 {
     LOG_RECORD_ID           ("log_record_id", ColumnType.STRING, "Unique identifier of a log record", true),
     THREAD_ID               ( "thread_id", ColumnType.LONG, "Unique identifier of the thread creating the audit log record.", true),
+    LAST_REQUEST_ID         ("last_request_id", ColumnType.STRING, "Unique identifier of the last requestId to update the element.",  false),
     SERVER_NAME             ( "server_name", ColumnType.STRING, "Name of the server creating the audit log record.", true),
     SERVER_TYPE             ( "server_type", ColumnType.STRING, "Type of the server creating the audit log record.", false),
     METADATA_COLLECTION_ID  ( "metadata_collection_id", ColumnType.STRING, "Optional Metadata CollectionId of the server creating the audit log record.", false),

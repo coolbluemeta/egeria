@@ -47,7 +47,7 @@ public class InformalTagHandler extends OpenMetadataHandlerBase
     /**
      * Creates a new informal tag and returns the unique identifier for it.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param requestedNewElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties       name of the tag and (optional) description.  Setting a description, particularly in a public tag
@@ -120,7 +120,7 @@ public class InformalTagHandler extends OpenMetadataHandlerBase
     /**
      * Updates the description of an existing tag (either private or public).
      *
-     * @param userId          userId of user making request.
+     * @param userId          userId of the user making the request.
      * @param tagGUID         unique identifier for the tag.
      * @param properties  description of the tag.  Setting a description, particularly in a public tag
      *                        makes the tag more valuable to other users and can act as an embryonic glossary term.
@@ -149,7 +149,7 @@ public class InformalTagHandler extends OpenMetadataHandlerBase
      * A private tag can be deleted by its creator and all the references are lost;
      * a public tag can be deleted by anyone, but only if it is not attached to any referenceable.
      *
-     * @param userId    userId of user making request.
+     * @param userId    userId of the user making the request.
      * @param tagGUID   unique id for the tag.
      * @param deleteOptions options for a delete request
      *
@@ -292,7 +292,7 @@ public class InformalTagHandler extends OpenMetadataHandlerBase
     /**
      * Adds a tag (either private or public) to an element.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param elementGUID        unique id for the element.
      * @param tagGUID          unique id of the tag.
      * @param metadataSourceOptions  options to control access to open metadata
@@ -320,7 +320,7 @@ public class InformalTagHandler extends OpenMetadataHandlerBase
     /**
      * Removes a tag from the element that was added by this user.
      *
-     * @param userId    userId of user making request.
+     * @param userId    userId of the user making the request.
      * @param elementGUID unique id for the element.
      * @param tagGUID   unique id for the tag.
      * @param deleteOptions  options to control access to open metadata
@@ -393,7 +393,7 @@ public class InformalTagHandler extends OpenMetadataHandlerBase
     /**
      * Return the informal tags attached to an element.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param elementGUID    unique identifier for the element that the comments are connected to (maybe a comment too).
      * @param queryOptions multiple options to control the query
      * @return list of tags

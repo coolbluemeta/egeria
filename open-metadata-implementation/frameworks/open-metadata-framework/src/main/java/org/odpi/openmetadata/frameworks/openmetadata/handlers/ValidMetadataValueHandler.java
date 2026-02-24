@@ -62,7 +62,7 @@ public class ValidMetadataValueHandler extends OpenMetadataHandlerBase
                                                                                                                mapName,
                                                                                                                validMetadataValue.getPreferredValue()));
         validMetadataValueProperties.setIdentifier(propertyName);
-        validMetadataValueProperties.setNamespace(mapName);
+        validMetadataValueProperties.setNamespacePath(mapName);
         validMetadataValueProperties.setUsage(typeName);
         validMetadataValueProperties.setScope(OpenMetadataValidValues.OPEN_METADATA_ECOSYSTEM_SCOPE);
         validMetadataValueProperties.setCategory(validMetadataValue.getCategory());
@@ -255,7 +255,7 @@ public class ValidMetadataValueHandler extends OpenMetadataHandlerBase
                                                                             openMetadataElement.getElementProperties(),
                                                                             methodName));
             validMetadataValue.setMapName(propertyHelper.getStringProperty(localServiceName,
-                                                                            OpenMetadataProperty.NAMESPACE.name,
+                                                                            OpenMetadataProperty.NAMESPACE_PATH.name,
                                                                             openMetadataElement.getElementProperties(),
                                                                             methodName));
 
@@ -929,22 +929,22 @@ public class ValidMetadataValueHandler extends OpenMetadataHandlerBase
                                                                         relatedMetadataElement.getElement().getElementProperties(),
                                                                         methodName);
 
-                        String namespace = propertyHelper.getStringProperty(localServiceName,
-                                                                            OpenMetadataProperty.NAMESPACE.name,
-                                                                            relatedMetadataElement.getElement().getElementProperties(),
-                                                                            methodName);
+                        String namespacePath = propertyHelper.getStringProperty(localServiceName,
+                                                                                OpenMetadataProperty.NAMESPACE_PATH.name,
+                                                                                relatedMetadataElement.getElement().getElementProperties(),
+                                                                                methodName);
 
                         if ((typeName == null) || (usage == null) || (usage.equals(typeName))) // todo need to do a proper subtype test
                         {
                             ValidMetadataValueDetail validMetadataValue = this.convertValidValue(relatedMetadataElement.getElement());
 
-                            if (namespace == null)
+                            if (namespacePath == null)
                             {
                                 results.add(validMetadataValue);
                             }
                             else
                             {
-                                List<ValidMetadataValue> mapList = mapValues.get(namespace);
+                                List<ValidMetadataValue> mapList = mapValues.get(namespacePath);
 
                                 if (mapList == null)
                                 {
@@ -953,7 +953,7 @@ public class ValidMetadataValueHandler extends OpenMetadataHandlerBase
 
                                 mapList.add(validMetadataValue);
 
-                                mapValues.put(namespace, mapList);
+                                mapValues.put(namespacePath, mapList);
                             }
                         }
                     }

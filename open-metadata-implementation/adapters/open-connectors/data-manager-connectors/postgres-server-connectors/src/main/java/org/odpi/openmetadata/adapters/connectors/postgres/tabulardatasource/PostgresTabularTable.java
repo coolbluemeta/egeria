@@ -29,7 +29,9 @@ public class PostgresTabularTable implements PostgreSQLTable
      * @param tableDescription description of the table
      * @param columnDescriptions list of columns
      */
-    public PostgresTabularTable(String tableName, String tableDescription, List<TabularColumnDescription> columnDescriptions)
+    public PostgresTabularTable(String                         tableName,
+                                String                         tableDescription,
+                                List<TabularColumnDescription> columnDescriptions)
     {
         this.tableName          = tableName;
         this.tableDescription   = tableDescription;
@@ -129,6 +131,18 @@ public class PostgresTabularTable implements PostgreSQLTable
             }
         }
 
+        return null;
+    }
+
+
+    /**
+     * Return the columns that are added as an extension using ALTER TABLE.
+     *
+     * @return list of columns
+     */
+    @Override
+    public List<PostgreSQLColumn> getNewColumns()
+    {
         return null;
     }
 

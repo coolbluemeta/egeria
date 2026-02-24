@@ -402,6 +402,18 @@ public enum HarvestSurveysTable implements PostgreSQLTable
 
 
     /**
+     * Return the columns that are added as an extension using ALTER TABLE.
+     *
+     * @return list of columns
+     */
+    @Override
+    public List<PostgreSQLColumn> getNewColumns()
+    {
+        return null;
+    }
+
+
+    /**
      * Return the name to type map for the columns in this table.
      *
      * @return map

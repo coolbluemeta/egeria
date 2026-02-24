@@ -127,7 +127,7 @@ public class IntegrationGroupConfigurationHandler
      * @return properties from the integration group definition.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration group definition.
      */
     public IntegrationGroupElement getIntegrationGroupByName(String       userId,
@@ -168,7 +168,7 @@ public class IntegrationGroupConfigurationHandler
      * @return properties of the integration connector.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector definition.
      */
     public  IntegrationConnectorElement getIntegrationConnectorByGUID(String       userId,
@@ -199,7 +199,7 @@ public class IntegrationGroupConfigurationHandler
      * @return list of integration group unique identifiers (guids)
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector and/or integration group definitions.
      */
     public List<String> getIntegrationConnectorRegistrations(String       userId,
@@ -283,7 +283,7 @@ public class IntegrationGroupConfigurationHandler
      * @return details of the integration connector and the asset types it is registered for.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector and/or integration group definitions.
      */
     public RegisteredIntegrationConnectorElement getRegisteredIntegrationConnector(String       userId,
@@ -341,7 +341,7 @@ public class IntegrationGroupConfigurationHandler
      * @return list of unique identifiers
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector and/or integration group definitions.
      */
     public List<RegisteredIntegrationConnectorElement> getRegisteredIntegrationConnectors(String       userId,

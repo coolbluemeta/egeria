@@ -29,8 +29,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class OMRSAPIFindRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private List<InstanceStatus> limitResultsByStatus = null;
 
 
@@ -97,9 +95,9 @@ public class OMRSAPIFindRequest extends OMRSAPIRequest
     @Override
     public String toString()
     {
-        return "OMRSAPISearchRequest{" +
+        return "OMRSAPIFindRequest{" +
                 "limitResultsByStatus=" + limitResultsByStatus +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -112,19 +110,11 @@ public class OMRSAPIFindRequest extends OMRSAPIRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (!(objectToCompare instanceof OMRSAPIFindRequest))
-        {
-            return false;
-        }
-        OMRSAPIFindRequest
-                that = (OMRSAPIFindRequest) objectToCompare;
-        return Objects.equals(getLimitResultsByStatus(), that.getLimitResultsByStatus());
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        OMRSAPIFindRequest that = (OMRSAPIFindRequest) objectToCompare;
+        return Objects.equals(limitResultsByStatus, that.limitResultsByStatus);
     }
-
 
     /**
      * Create a hash code for this element type.
@@ -134,7 +124,6 @@ public class OMRSAPIFindRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-
-        return Objects.hash(getLimitResultsByStatus());
+        return Objects.hash(super.hashCode(), limitResultsByStatus);
     }
 }

@@ -87,7 +87,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Create a new validValueDefinition.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -155,7 +155,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a validValueDefinition.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param validValueDefinitionGUID       unique identifier of the validValueDefinition (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -186,7 +186,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a valid value to an implementation - probably a referenceable.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param validValueDefinitionGUID       unique identifier of the validValueDefinition
      * @param elementGUID           unique identifier of the location
      * @param makeAnchorOptions  options to control access to open metadata
@@ -223,7 +223,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a valid value from an implementation - probably a referenceable.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param validValueDefinitionGUID       unique identifier of the validValueDefinition
      * @param elementGUID           unique identifier of the location
      * @param deleteOptions  options to control access to open metadata
@@ -258,7 +258,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a valid value to a consumer - probably a schema element or data set.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID           unique identifier of the location
      * @param validValueDefinitionGUID       unique identifier of the validValueDefinition
      * @param makeAnchorOptions  options to control access to open metadata
@@ -295,7 +295,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a valid value from a consumer - probably a schema element or data set.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID           unique identifier of the location
      * @param validValueDefinitionGUID       unique identifier of the validValueDefinition
      * @param deleteOptions  options to control access to open metadata
@@ -330,7 +330,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a valid value to a tagged element.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID           unique identifier of the location
      * @param validValueDefinitionGUID       unique identifier of the validValueDefinition
      * @param makeAnchorOptions  options to control access to open metadata
@@ -367,7 +367,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a valid value from a tagged element.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID           unique identifier of the location
      * @param validValueDefinitionGUID       unique identifier of the validValueDefinition
      * @param deleteOptions  options to control access to open metadata
@@ -402,7 +402,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a valid value to one of its peers.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param validValueOneGUID          unique identifier of the first valid value
      * @param validValueTwoGUID          unique identifier of the second valid value
      * @param makeAnchorOptions  options to control access to open metadata
@@ -439,7 +439,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a valid value from one of its peers.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param validValueOneGUID          unique identifier of the first valid value
      * @param validValueTwoGUID          unique identifier of the second valid value
      * @param deleteOptions  options to control access to open metadata
@@ -473,7 +473,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a valid value to one of its peers.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param validValueOneGUID          unique identifier of the first valid value
      * @param validValueTwoGUID          unique identifier of the second valid value
      * @param makeAnchorOptions  options to control access to open metadata
@@ -510,7 +510,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a valid value from one of its peers.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param validValueOneGUID          unique identifier of the first valid value
      * @param validValueTwoGUID          unique identifier of the second valid value
      * @param deleteOptions  options to control access to open metadata
@@ -544,7 +544,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a valid value to one of its peers.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param validValueOneGUID          unique identifier of the first valid value
      * @param validValueTwoGUID          unique identifier of the second valid value
      * @param makeAnchorOptions  options to control access to open metadata
@@ -581,7 +581,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a valid value from one of its peers.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param validValueOneGUID          unique identifier of the first valid value
      * @param validValueTwoGUID          unique identifier of the second valid value
      * @param deleteOptions  options to control access to open metadata
@@ -615,7 +615,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a valid value to a valid value set.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param valueValueSetGUID          unique identifier of the super team
      * @param valueValueMemberGUID            unique identifier of the valueValueMember
      * @param makeAnchorOptions  options to control access to open metadata
@@ -652,7 +652,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a valid value from a valid value set.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param valueValueSetGUID          unique identifier of the super team
      * @param valueValueMemberGUID            unique identifier of the valueValueMember
      * @param deleteOptions  options to control access to open metadata
@@ -686,7 +686,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a referenceable to a specification property valid value.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param referenceableGUID       unique identifier of the referenceable
      * @param validValueDefinitionGUID            unique identifier of the IT profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -723,7 +723,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a referenceable to a specification property valid value.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param referenceableGUID              unique identifier of the referenceable
      * @param validValueDefinitionGUID          unique identifier of the IT profile
      * @param deleteOptions  options to control access to open metadata
@@ -757,7 +757,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Delete a validValueDefinition.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param validValueDefinitionGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -783,7 +783,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of validValueDefinitions with a particular name (qualifiedName, identifier, preferredValue or displayName).
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -815,7 +815,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of validValueDefinitions with a particular identifier.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -844,7 +844,7 @@ public class ValidValueDefinitionHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific validValueDefinition.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param validValueDefinitionGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

@@ -3,6 +3,7 @@
 package org.odpi.openmetadata.repositoryservices.rest.properties;
 
 import com.fasterxml.jackson.annotation.*;
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestIdService;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -42,8 +43,9 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = TypeDefResponse.class, name = "TypeDefResponse"),
                 @JsonSubTypes.Type(value = VoidResponse.class, name = "VoidResponse")
         })
-public abstract class OMRSAPIResponse
+public abstract class OMRSAPIResponse implements RequestIdService
 {
+    private String              requestId                       = null;
     private int                 relatedHTTPCode                 = 200;
     private String              exceptionClassName              = null;
     private String              exceptionSubclassName           = null;
@@ -75,6 +77,7 @@ public abstract class OMRSAPIResponse
     {
         if (template != null)
         {
+            this.requestId = template.getRequestId();
             this.relatedHTTPCode = template.getRelatedHTTPCode();
             this.exceptionClassName = template.getExceptionClassName();
             this.exceptionSubclassName = template.getExceptionSubclassName();
@@ -87,6 +90,30 @@ public abstract class OMRSAPIResponse
             this.exceptionUserAction = template.getExceptionUserAction();
             this.exceptionProperties = template.getExceptionProperties();
         }
+    }
+
+
+    /**
+     * Return the unique identifier for the request.
+     *
+     * @return string guid
+     */
+    @Override
+    public String getRequestId()
+    {
+        return requestId;
+    }
+
+
+    /**
+     * Set up the unique identifier for the request.
+     *
+     * @param requestId string guid
+     */
+    @Override
+    public void setRequestId(String requestId)
+    {
+        this.requestId = requestId;
     }
 
 
@@ -359,7 +386,8 @@ public abstract class OMRSAPIResponse
     public String toString()
     {
         return "OMRSAPIResponse{" +
-                "relatedHTTPCode=" + relatedHTTPCode +
+                "requestId='" + requestId + '\'' +
+                ", relatedHTTPCode=" + relatedHTTPCode +
                 ", exceptionClassName='" + exceptionClassName + '\'' +
                 ", exceptionSubclassName='" + exceptionSubclassName + '\'' +
                 ", exceptionCausedBy='" + exceptionCausedBy + '\'' +
@@ -392,6 +420,7 @@ public abstract class OMRSAPIResponse
             return false;
         }
         return relatedHTTPCode == that.relatedHTTPCode &&
+                Objects.equals(requestId, that.requestId) &&
                 Objects.equals(exceptionClassName, that.exceptionClassName) &&
                 Objects.equals(exceptionSubclassName, that.exceptionSubclassName) &&
                 Objects.equals(actionDescription, that.actionDescription) &&
@@ -412,8 +441,6 @@ public abstract class OMRSAPIResponse
     @Override
     public int hashCode()
     {
-        int result = Objects.hash(relatedHTTPCode, exceptionClassName, exceptionSubclassName, exceptionCausedBy, actionDescription, exceptionErrorMessage, exceptionErrorMessageId, exceptionSystemAction, exceptionUserAction, exceptionProperties);
-        result = 31 * result + Arrays.hashCode(exceptionErrorMessageParameters);
-        return result;
+        return Objects.hash(requestId, relatedHTTPCode, exceptionClassName, exceptionSubclassName, exceptionCausedBy, actionDescription, exceptionErrorMessage, exceptionErrorMessageId, Arrays.hashCode(exceptionErrorMessageParameters), exceptionSystemAction, exceptionUserAction, exceptionProperties);
     }
 }

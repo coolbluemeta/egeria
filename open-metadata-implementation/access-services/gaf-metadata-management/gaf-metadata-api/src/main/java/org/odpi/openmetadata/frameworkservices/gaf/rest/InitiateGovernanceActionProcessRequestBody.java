@@ -19,10 +19,10 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 /**
  * InitiateGovernanceActionProcessRequestBody provides a structure for passing the properties for initiating a new instance of a governance action process.
  */
-@JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
+@JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class InitiateGovernanceActionProcessRequestBody
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class InitiateGovernanceActionProcessRequestBody extends GAFAPIRequest
 {
     private String                processQualifiedName  = null;
     private Map<String, String>   requestParameters     = null;
@@ -50,6 +50,8 @@ public class InitiateGovernanceActionProcessRequestBody
      */
     public InitiateGovernanceActionProcessRequestBody(InitiateGovernanceActionProcessRequestBody template)
     {
+        super(template);
+
         if (template != null)
         {
             processQualifiedName  = template.getProcessQualifiedName();
@@ -269,9 +271,8 @@ public class InitiateGovernanceActionProcessRequestBody
                 ", startDate=" + startDate +
                 ", originatorServiceName='" + originatorServiceName + '\'' +
                 ", originatorEngineName='" + originatorEngineName + '\'' +
-                '}';
+                "} " + super.toString();
     }
-
 
 
     /**
@@ -283,22 +284,17 @@ public class InitiateGovernanceActionProcessRequestBody
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (objectToCompare == null || getClass() != objectToCompare.getClass())
-        {
-            return false;
-        }
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
         InitiateGovernanceActionProcessRequestBody that = (InitiateGovernanceActionProcessRequestBody) objectToCompare;
         return Objects.equals(processQualifiedName, that.processQualifiedName) &&
-                       Objects.equals(actionSourceGUIDs, that.actionSourceGUIDs) &&
-                       Objects.equals(requestParameters, that.requestParameters) &&
-                       Objects.equals(actionTargets, that.actionTargets) &&
-                       Objects.equals(originatorServiceName, that.originatorServiceName) &&
-                       Objects.equals(originatorEngineName, that.originatorEngineName) &&
-                       Objects.equals(startDate, that.startDate);
+                Objects.equals(requestParameters, that.requestParameters) &&
+                Objects.equals(actionSourceGUIDs, that.actionSourceGUIDs) &&
+                Objects.equals(actionCauseGUIDs, that.actionCauseGUIDs) &&
+                Objects.equals(actionTargets, that.actionTargets) &&
+                Objects.equals(startDate, that.startDate) &&
+                Objects.equals(originatorServiceName, that.originatorServiceName) &&
+                Objects.equals(originatorEngineName, that.originatorEngineName);
     }
 
 
@@ -310,7 +306,7 @@ public class InitiateGovernanceActionProcessRequestBody
     @Override
     public int hashCode()
     {
-        return Objects.hash(processQualifiedName, actionSourceGUIDs, requestParameters, actionTargets, startDate,
-                            originatorServiceName, originatorEngineName);
+        return Objects.hash(super.hashCode(), processQualifiedName, requestParameters, actionSourceGUIDs,
+                            actionCauseGUIDs, actionTargets, startDate, originatorServiceName, originatorEngineName);
     }
 }

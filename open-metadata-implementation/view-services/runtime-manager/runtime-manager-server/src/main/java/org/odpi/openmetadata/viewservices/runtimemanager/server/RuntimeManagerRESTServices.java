@@ -73,7 +73,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "getPlatformsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -102,7 +102,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -125,7 +125,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "getPlatformsByDeployedImplType";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -181,7 +181,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -215,7 +215,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "getPlatformByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -237,7 +237,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -295,7 +295,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -357,7 +357,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -379,7 +379,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "getServersByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -408,7 +408,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -431,7 +431,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "getServersByDeployedImplType";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -479,7 +479,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -502,7 +502,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "getServerByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -524,7 +524,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -581,7 +581,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -643,7 +643,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -699,7 +699,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -755,7 +755,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -780,7 +780,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "createMetadataRepositoryCohort";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -820,7 +820,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -842,7 +842,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "createMetadataRepositoryCohortFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -876,7 +876,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -899,7 +899,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "updateMetadataRepositoryCohort";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -938,7 +938,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -961,7 +961,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "deleteMetadataRepositoryCohort";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -983,7 +983,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1004,7 +1004,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "getMetadataRepositoryCohortsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1033,7 +1033,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1056,7 +1056,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "getMetadataRepositoryCohortByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                         auditLog = null;
@@ -1078,7 +1078,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1099,7 +1099,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "findMetadataRepositoryCohorts";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1128,7 +1128,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1153,7 +1153,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "linkCohortMember";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1204,7 +1204,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1229,7 +1229,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "detachCohortMember";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1251,7 +1251,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1263,7 +1263,7 @@ public class RuntimeManagerRESTServices extends TokenController
 
 
     /**
-     * Add a new open metadata archive to running repository.
+     * Add a new open metadata archive to the running repository.
      *
      * @param serverName  local server name.
      * @param serverGUID unique identifier of the server to call
@@ -1315,7 +1315,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1374,7 +1374,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1397,7 +1397,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  GovernanceEngineException there was a problem detected by the governance engine.
      */
     public  VoidResponse refreshConfig(String serverName,
@@ -1443,7 +1443,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1459,7 +1459,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  GovernanceEngineException there was a problem detected by the governance engine.
      */
     public  VoidResponse refreshConfig(String serverName,
@@ -1504,7 +1504,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1524,7 +1524,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @return properties map or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     public PropertiesResponse getConfigurationProperties(String serverName,
@@ -1570,7 +1570,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1585,7 +1585,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     public  VoidResponse updateConfigurationProperties(String                               serverName,
@@ -1633,7 +1633,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1649,7 +1649,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     public  VoidResponse updateEndpointNetworkAddress(String            serverName,
@@ -1704,7 +1704,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1720,7 +1720,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     public  VoidResponse updateConnectorConnection(String     serverName,
@@ -1767,7 +1767,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1782,7 +1782,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration daemon.
      */
     public VoidResponse refreshConnectors(String          serverName,
@@ -1791,7 +1791,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "refreshConnectors";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1837,7 +1837,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1852,7 +1852,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration daemon.
      */
     public VoidResponse restartConnectors(String          serverName,
@@ -1861,7 +1861,7 @@ public class RuntimeManagerRESTServices extends TokenController
     {
         final String methodName = "restartConnectors";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1907,7 +1907,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1925,7 +1925,7 @@ public class RuntimeManagerRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  IntegrationGroupException there was a problem detected by the integration group.
      */
     public  VoidResponse refreshIntegrationGroupConfig(String serverName,
@@ -1973,7 +1973,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2031,7 +2031,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2045,7 +2045,7 @@ public class RuntimeManagerRESTServices extends TokenController
      * @param serverGUID unique identifier of the server to call
      * @param event open lineage event to publish.
      */
-    public VoidResponse publishOpenLineageEvent(String                serverName,
+    public VoidResponse publishOpenLineageEvent(String               serverName,
                                                 String               serverGUID,
                                                 OpenLineage.RunEvent event)
     {
@@ -2090,7 +2090,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2159,7 +2159,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2221,7 +2221,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2282,7 +2282,7 @@ public class RuntimeManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

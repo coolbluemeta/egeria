@@ -16,13 +16,12 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 /**
  * EngineActionStatusRequestBody provides a structure for passing a new ActivityStatus.
  */
-@JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
+@JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class EngineActionStatusRequestBody
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class EngineActionStatusRequestBody extends GAFAPIRequest
 {
     private ActivityStatus status = null;
-
 
 
     /**
@@ -41,6 +40,8 @@ public class EngineActionStatusRequestBody
      */
     public EngineActionStatusRequestBody(EngineActionStatusRequestBody template)
     {
+        super(template);
+
         if (template != null)
         {
             status = template.getStatus();
@@ -62,7 +63,7 @@ public class EngineActionStatusRequestBody
     /**
      * Set up the status of the governance service.
      *
-     * @param status  status enum
+     * @param status status enum
      */
     public void setStatus(ActivityStatus status)
     {
@@ -79,10 +80,9 @@ public class EngineActionStatusRequestBody
     public String toString()
     {
         return "EngineActionStatusRequestBody{" +
-                       "status=" + status +
-                       '}';
+                "status=" + status +
+                "} " + super.toString();
     }
-
 
     /**
      * Equals method that returns true if containing properties are the same.
@@ -93,18 +93,11 @@ public class EngineActionStatusRequestBody
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (objectToCompare == null || getClass() != objectToCompare.getClass())
-        {
-            return false;
-        }
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
         EngineActionStatusRequestBody that = (EngineActionStatusRequestBody) objectToCompare;
         return status == that.status;
     }
-
 
     /**
      * Return hash code for this object
@@ -114,6 +107,6 @@ public class EngineActionStatusRequestBody
     @Override
     public int hashCode()
     {
-        return Objects.hash(status);
+        return Objects.hash(super.hashCode(), status);
     }
 }

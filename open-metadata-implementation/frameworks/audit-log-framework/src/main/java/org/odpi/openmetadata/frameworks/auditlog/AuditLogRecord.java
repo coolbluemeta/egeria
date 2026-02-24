@@ -26,6 +26,7 @@ public class AuditLogRecord
     private String                     actionDescription     = null;
     private long                       threadId              = 0L;
     private String                     threadName            = null;
+    private String                     requestId             = null;
     private int                        severityCode          = 0;
     private String                     severity              = null;
     private String                     messageId             = null;
@@ -63,6 +64,7 @@ public class AuditLogRecord
             this.actionDescription = template.getActionDescription();
             this.threadId = template.getThreadId();
             this.threadName = template.getThreadName();
+            this.requestId = template.getRequestId();
             this.severityCode = template.getSeverityCode();
             this.severity = template.getSeverity();
             this.messageId = template.getMessageId();
@@ -223,13 +225,35 @@ public class AuditLogRecord
 
 
     /**
-     * Set up he name of the thread where the situation occurred.
+     * Set up the name of the thread where the situation occurred.
      *
      * @param threadName string name
      */
     public void setThreadName(String threadName)
     {
         this.threadName = threadName;
+    }
+
+
+    /**
+     * Return the unique identifier of the request that caused the situation.
+     *
+     * @return string guid
+     */
+    public String getRequestId()
+    {
+        return requestId;
+    }
+
+
+    /**
+     * Set up the unique identifier of the request that caused the situation.
+     *
+     * @param requestId string guid
+     */
+    public void setRequestId(String requestId)
+    {
+        this.requestId = requestId;
     }
 
 
@@ -489,6 +513,7 @@ public class AuditLogRecord
                 ", actionDescription='" + actionDescription + '\'' +
                 ", threadId=" + threadId +
                 ", threadName='" + threadName + '\'' +
+                ", requestId=" + requestId +
                 ", severityCode=" + severityCode +
                 ", severity='" + severity + '\'' +
                 ", messageId='" + messageId + '\'' +
@@ -530,6 +555,7 @@ public class AuditLogRecord
                 Objects.equals(originatorComponent, that.originatorComponent) &&
                 Objects.equals(actionDescription, that.actionDescription) &&
                 Objects.equals(threadName, that.threadName) &&
+                Objects.equals(requestId, that.requestId) &&
                 Objects.equals(severity, that.severity) &&
                 Objects.equals(messageId, that.messageId) &&
                 Objects.equals(messageText, that.messageText) &&
@@ -551,7 +577,7 @@ public class AuditLogRecord
     @Override
     public int hashCode()
     {
-        int result = Objects.hash(guid, timeStamp, originatorProperties, originatorComponent, actionDescription, threadId, threadName, severityCode, severity,
+        int result = Objects.hash(guid, timeStamp, originatorProperties, originatorComponent, actionDescription, threadId, threadName, requestId, severityCode, severity,
                                   messageId, messageText, additionalInformation, systemAction, userAction, exceptionClassName, exceptionMessage,
                                   exceptionStackTrace);
         result = 31 * result + Arrays.hashCode(messageParameters);

@@ -147,12 +147,12 @@ public class OpenMetadataTypeTest
 
                             OpenMetadataRootProperties returnedProperties = propertyConverter.getBeanProperties(openMetadataElement);
 
-                            assertEquals(returnedProperties.getClass().getName(), beanInstance.getClass().getName());
+                            assertEquals(returnedProperties.getClass().getName(), beanInstance.getClass().getName(), "Bad entity bean class name returned: " + returnedProperties.getClass().getName() + " expected: "  + beanInstance.getClass().getName());
                         }
                     }
                     else if (beanInstance instanceof RelationshipBeanProperties relationshipBeanProperties)
                     {
-                        assertEquals(openMetadataType.typeName, relationshipBeanProperties.getTypeName(), "Bad relationship bean type name");
+                        assertEquals(openMetadataType.typeName, relationshipBeanProperties.getTypeName(), "Bad relationship bean type name " + openMetadataType.typeName);
 
                         if (currentTypeDef != null)
                         {
@@ -165,7 +165,7 @@ public class OpenMetadataTypeTest
                             RelationshipBeanProperties returnedProperties = propertyConverter.getRelationshipProperties(relationshipHeader,
                                                                                                                         relationshipProperties);
 
-                            assertEquals(returnedProperties.getClass().getName(), beanInstance.getClass().getName());
+                            assertEquals(returnedProperties.getClass().getName(), beanInstance.getClass().getName(), "Bad relationship bean class name returned: " + returnedProperties.getClass().getName() + " expected: "  + beanInstance.getClass().getName());
                         }
                     }
                     else if (beanInstance instanceof ClassificationBeanProperties classificationBeanProperties)

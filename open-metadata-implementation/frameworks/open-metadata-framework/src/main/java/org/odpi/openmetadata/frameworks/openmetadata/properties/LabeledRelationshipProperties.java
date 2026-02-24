@@ -6,9 +6,10 @@ import com.fasterxml.jackson.annotation.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.ActionRequesterProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.ActionsProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportDependencyProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportOriginatorProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportSubjectProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.contextevents.*;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataDescriptionProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataStructureDefinitionProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.designmodels.ConceptDesignProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.digitalbusiness.BusinessCapabilityDependencyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.digitalbusiness.DigitalSupportProperties;
@@ -26,7 +27,12 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.resources.MoreIn
 import org.odpi.openmetadata.frameworks.openmetadata.properties.softwarecapabilities.NetworkGatewayLinkProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.solutions.SolutionDesignProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.solutions.SolutionLinkingWireProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports.AnnotationExtensionProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports.AnnotationMatchProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports.AssociatedAnnotationProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports.ReportedAnnotationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.templates.CatalogTemplateProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.Objects;
 
@@ -47,13 +53,23 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = ActionRequesterProperties.class, name = "ActionRequesterProperties"),
                 @JsonSubTypes.Type(value = ActionsProperties.class, name = "ActionsProperties"),
                 @JsonSubTypes.Type(value = AdjacentLocationProperties.class, name = "AdjacentLocationProperties"),
+                @JsonSubTypes.Type(value = AnnotationExtensionProperties.class, name = "AnnotationExtensionProperties"),
+                @JsonSubTypes.Type(value = AnnotationMatchProperties.class, name = "AnnotationMatchProperties"),
+                @JsonSubTypes.Type(value = AssociatedAnnotationProperties.class, name = "AssociatedAnnotationProperties"),
                 @JsonSubTypes.Type(value = BusinessCapabilityDependencyProperties.class, name = "BusinessCapabilityDependencyProperties"),
                 @JsonSubTypes.Type(value = CatalogTemplateProperties.class, name = "CatalogTemplateProperties"),
                 @JsonSubTypes.Type(value = ConceptDesignProperties.class, name = "ConceptDesignProperties"),
                 @JsonSubTypes.Type(value = ContextEventEvidenceProperties.class, name = "ContextEventEvidenceProperties"),
                 @JsonSubTypes.Type(value = ContextEventForTimelineEffectsProperties.class, name = "ContextEventForTimelineEffectsProperties"),
                 @JsonSubTypes.Type(value = ContextEventImpactProperties.class, name = "ContextEventImpactProperties"),
+                @JsonSubTypes.Type(value = DataValueAssignmentProperties.class, name = "DataClassAssignmentProperties"),
+                @JsonSubTypes.Type(value = DataClassCompositionProperties.class, name = "DataClassCompositionProperties"),
+                @JsonSubTypes.Type(value = DataValueDefinitionProperties.class, name = "DataClassDefinitionProperties"),
+                @JsonSubTypes.Type(value = DataValueHierarchyProperties.class, name = "DataClassHierarchyProperties"),
                 @JsonSubTypes.Type(value = DataDescriptionProperties.class, name = "DataDescriptionProperties"),
+                @JsonSubTypes.Type(value = DataGrainAssignmentProperties.class, name = "DataGrainAssignmentProperties"),
+                @JsonSubTypes.Type(value = DataGrainDefinitionProperties.class, name = "DataGrainDefinitionProperties"),
+                @JsonSubTypes.Type(value = DataGrainHierarchyProperties.class, name = "DataGrainHierarchyProperties"),
                 @JsonSubTypes.Type(value = DataStructureDefinitionProperties.class, name = "DataStructureDefinitionProperties"),
                 @JsonSubTypes.Type(value = DependentContextEventProperties.class, name = "DependentContextEventProperties"),
                 @JsonSubTypes.Type(value = DigitalSupportProperties.class, name = "DigitalSupportProperties"),
@@ -72,8 +88,15 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = ProjectHierarchyProperties.class, name = "ProjectHierarchyProperties"),
                 @JsonSubTypes.Type(value = ReferenceableFacetProperties.class, name = "ReferenceableFacetProperties"),
                 @JsonSubTypes.Type(value = RegulationCertificationTypeProperties.class, name = "RegulationCertificationTypeProperties"),
+                @JsonSubTypes.Type(value = ReportedAnnotationProperties.class, name = "ReportedAnnotationProperties"),
+                @JsonSubTypes.Type(value = ReportDependencyProperties.class, name = "ReportDependencyProperties"),
+                @JsonSubTypes.Type(value = ReportOriginatorProperties.class, name = "ReportOriginatorProperties"),
+                @JsonSubTypes.Type(value = ReportSubjectProperties.class, name = "ReportSubjectProperties"),
                 @JsonSubTypes.Type(value = RelatedContextEventProperties.class, name = "RelatedContextEventProperties"),
                 @JsonSubTypes.Type(value = ReportDependencyProperties.class, name = "ReportDependencyProperties"),
+                @JsonSubTypes.Type(value = SchemaAttributeDefinitionProperties.class, name = "SchemaAttributeDefinitionProperties"),
+                @JsonSubTypes.Type(value = SchemaTypeDefinitionProperties.class, name = "SchemaTypeDefinitionProperties"),
+                @JsonSubTypes.Type(value = SemanticDefinitionProperties.class, name = "SemanticDefinitionProperties"),
                 @JsonSubTypes.Type(value = SolutionLinkingWireProperties.class, name = "SolutionLinkingWireProperties"),
                 @JsonSubTypes.Type(value = SolutionDesignProperties.class, name = "SolutionDesignProperties"),
         })
@@ -89,6 +112,7 @@ public class LabeledRelationshipProperties extends RelationshipBeanProperties
     public LabeledRelationshipProperties()
     {
         super();
+        super.typeName = OpenMetadataType.LABELED_RELATIONSHIP.typeName;
     }
 
 

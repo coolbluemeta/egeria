@@ -54,7 +54,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "createContextEvent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -94,7 +94,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -118,7 +118,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "createContextEventFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -152,7 +152,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -177,7 +177,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "updateContextEvent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog     auditLog = null;
@@ -223,7 +223,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -250,7 +250,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "linkDependentContextEvents";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -304,7 +304,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -331,7 +331,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "detachDependentContextEvents";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -356,7 +356,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -383,7 +383,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "linkRelatedContextEvents";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -434,7 +434,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -461,7 +461,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "detachRelatedContextEvents";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -486,7 +486,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -513,7 +513,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "linkContextEventEvidence";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -564,7 +564,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -591,7 +591,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "detachContextEventEvidence";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -616,7 +616,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -635,15 +635,15 @@ public class TimeKeeperRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkContextEventImpact(String                  serverName,
-                                               String                  urlMarker,
-                                               String                  contextEventGUID,
-                                               String                  impactedElementGUID,
+    public VoidResponse linkContextEventImpact(String                     serverName,
+                                               String                     urlMarker,
+                                               String                     contextEventGUID,
+                                               String                     impactedElementGUID,
                                                NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkContextEventImpact";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -694,7 +694,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -721,7 +721,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "detachContextEventImpact";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -746,7 +746,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -774,7 +774,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "linkContextEventTimelineEffect";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -825,7 +825,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -845,14 +845,14 @@ public class TimeKeeperRESTServices extends TokenController
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
     public VoidResponse detachContextEventTimelineEffect(String                        serverName,
-                                                    String                        urlMarker,
-                                                    String                        timelineAffectedElementGUID,
-                                                    String                        contextEventGUID,
-                                                    DeleteRelationshipRequestBody requestBody)
+                                                         String                        urlMarker,
+                                                         String                        timelineAffectedElementGUID,
+                                                         String                        contextEventGUID,
+                                                         DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachContextEventTimelineEffect";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -877,7 +877,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -902,7 +902,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "deleteContextEvent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -924,7 +924,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -947,7 +947,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "getContextEventsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -976,7 +976,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -994,14 +994,14 @@ public class TimeKeeperRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementResponse getContextEventByGUID(String             serverName,
-                                                                 String             urlMarker,
-                                                                 String             contextEventGUID,
+    public OpenMetadataRootElementResponse getContextEventByGUID(String         serverName,
+                                                                 String         urlMarker,
+                                                                 String         contextEventGUID,
                                                                  GetRequestBody requestBody)
     {
         final String methodName = "getContextEventByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -1023,7 +1023,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1045,7 +1045,7 @@ public class TimeKeeperRESTServices extends TokenController
     {
         final String methodName = "findContextEvents";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1074,7 +1074,7 @@ public class TimeKeeperRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

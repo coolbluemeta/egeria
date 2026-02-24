@@ -46,7 +46,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Create a new connection.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -113,7 +113,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a connection.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param connectionGUID       unique identifier of the connection (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -144,7 +144,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Create a ConnectionConnectorType relationship between a connection and a connector type.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param connectionGUID       unique identifier of the connection
      * @param connectorTypeGUID unique identifier of the connector type
      * @param makeAnchorOptions  options to control access to open metadata
@@ -181,7 +181,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove the ConnectionConnectorType relationship between a connection and a connector type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param connectionGUID       unique identifier of the connection
      * @param connectorTypeGUID           unique identifier of the connector type
      * @param deleteOptions  options to control access to open metadata
@@ -216,7 +216,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Create a ConnectToEndpoint relationship between a connection and an endpoint.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param connectionGUID          unique identifier of the connection
      * @param endpointGUID          unique identifier of the endpoint
      * @param makeAnchorOptions  options to control access to open metadata
@@ -253,7 +253,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove the ConnectToEndpoint relationship between a connection and an endpoint.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param connectionGUID          unique identifier of the connection
      * @param endpointGUID          unique identifier of the endpoint
      * @param deleteOptions  options to control access to open metadata
@@ -287,7 +287,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Create an EmbeddedConnection relationship between a virtual connection and an embedded connection.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param connectionGUID unique identifier of the virtual connection
      * @param embeddedConnectionGUID unique identifier of the embedded connection
      * @param makeAnchorOptions  options to control access to open metadata
@@ -324,7 +324,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove an EmbeddedConnection relationship between a virtual connection and an embedded connection.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param connectionGUID unique identifier of the virtual connection
      * @param embeddedConnectionGUID unique identifier of the embedded connection
      * @param deleteOptions  options to control access to open metadata
@@ -358,7 +358,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Create an AssetConnection relationship between an asset and its connection.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param assetGUID       unique identifier of the asset
      * @param connectionGUID            unique identifier of the connection
      * @param makeAnchorOptions  options to control access to open metadata
@@ -395,7 +395,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach an asset from one of its connections.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param assetGUID              unique identifier of the asset
      * @param connectionGUID          unique identifier of the connection
      * @param deleteOptions  options to control access to open metadata
@@ -429,7 +429,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Delete a connection.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param connectionGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -455,7 +455,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of connections with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions multiple options to control the query
      * @return a list of elements
@@ -486,7 +486,7 @@ public class ConnectionHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific connection.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param connectionGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

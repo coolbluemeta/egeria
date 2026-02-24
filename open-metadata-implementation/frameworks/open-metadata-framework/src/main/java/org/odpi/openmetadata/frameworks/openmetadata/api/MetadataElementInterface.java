@@ -340,19 +340,26 @@ public interface MetadataElementInterface
     /**
      * Return a list of relationships that match the requested conditions.  The results can be received as a series of pages.
      *
-     * @param userId caller's userId
-     * @param relationshipTypeName relationship's type.  Null means all types
-     *                             (but may be slow so not recommended).
-     * @param searchProperties Optional list of relationship property conditions to match.
-     * @param queryOptions multiple options to control the query
-     *
+     * @param userId                   caller's userId
+     * @param relationshipTypeName     relationship's type.  Null means all types
+     *                                 (but may be slow so not recommended).
+     * @param relationshipSubtypeGUIDs optional list of the GUIDs for subtypes of the requested type to include in the search results.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
+     * @param searchProperties         Optional list of relationship property conditions to match.
+     * @param queryOptions             multiple options to control the query
      * @return a list of relationships.  Null means no matching relationships.
-     * @throws InvalidParameterException one of the search parameters are is invalid
+     * @throws InvalidParameterException  one of the search parameters are is invalid
      * @throws UserNotAuthorizedException the userId is not permitted to perform this operation
-     * @throws PropertyServerException a problem accessing the metadata store
+     * @throws PropertyServerException    a problem accessing the metadata store
      */
     OpenMetadataRelationshipList findRelationshipsBetweenMetadataElements(String           userId,
                                                                           String           relationshipTypeName,
+                                                                          List<String>     relationshipSubtypeGUIDs,
+                                                                          List<String>     end1EntityGUIDs,
+                                                                          List<String>     end2EntityGUIDs,
+                                                                          EndMatchCriteria endMatchCriteria,
                                                                           SearchProperties searchProperties,
                                                                           QueryOptions     queryOptions) throws InvalidParameterException,
                                                                                                                 UserNotAuthorizedException,

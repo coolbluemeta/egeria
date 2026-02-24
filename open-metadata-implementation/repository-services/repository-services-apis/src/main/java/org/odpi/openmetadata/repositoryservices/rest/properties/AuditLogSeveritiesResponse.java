@@ -112,7 +112,7 @@ public class AuditLogSeveritiesResponse extends OMRSAPIResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof AuditLogSeveritiesResponse))
+        if (!(objectToCompare instanceof AuditLogSeveritiesResponse that))
         {
             return false;
         }
@@ -120,8 +120,6 @@ public class AuditLogSeveritiesResponse extends OMRSAPIResponse
         {
             return false;
         }
-        AuditLogSeveritiesResponse
-                that = (AuditLogSeveritiesResponse) objectToCompare;
         return Objects.equals(getSeverities(), that.getSeverities());
     }
 

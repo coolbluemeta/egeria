@@ -207,6 +207,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAssetActivity(databaseConnection,
                                           logRecord.getThreadId(),
+                                          logRecord.getRequestId(),
                                           logRecord.getOriginatorProperties().get("serverName"),
                                           logRecord.getTimeStamp(),
                                           "Asset Create",
@@ -220,6 +221,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAssetActivity(databaseConnection,
                                           logRecord.getThreadId(),
+                                          logRecord.getRequestId(),
                                           logRecord.getOriginatorProperties().get("serverName"),
                                           logRecord.getTimeStamp(),
                                           "Asset Read",
@@ -233,6 +235,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAssetActivity(databaseConnection,
                                           logRecord.getThreadId(),
+                                          logRecord.getRequestId(),
                                           logRecord.getOriginatorProperties().get("serverName"),
                                           logRecord.getTimeStamp(),
                                           "Asset Read Attachment",
@@ -246,6 +249,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAssetActivity(databaseConnection,
                                           logRecord.getThreadId(),
+                                          logRecord.getRequestId(),
                                           logRecord.getOriginatorProperties().get("serverName"),
                                           logRecord.getTimeStamp(),
                                           "Asset Update Attachment",
@@ -259,6 +263,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAssetActivity(databaseConnection,
                                           logRecord.getThreadId(),
+                                          logRecord.getRequestId(),
                                           logRecord.getOriginatorProperties().get("serverName"),
                                           logRecord.getTimeStamp(),
                                           "Asset Feedback",
@@ -272,6 +277,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAssetActivity(databaseConnection,
                                           logRecord.getThreadId(),
+                                          logRecord.getRequestId(),
                                           logRecord.getOriginatorProperties().get("serverName"),
                                           logRecord.getTimeStamp(),
                                           "Asset Update",
@@ -285,6 +291,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAssetActivity(databaseConnection,
                                           logRecord.getThreadId(),
+                                          logRecord.getRequestId(),
                                           logRecord.getOriginatorProperties().get("serverName"),
                                           logRecord.getTimeStamp(),
                                           "Asset Delete",
@@ -298,6 +305,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAssetActivity(databaseConnection,
                                           logRecord.getThreadId(),
+                                          logRecord.getRequestId(),
                                           logRecord.getOriginatorProperties().get("serverName"),
                                           logRecord.getTimeStamp(),
                                           "Asset Search",
@@ -311,6 +319,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAssetActivity(databaseConnection,
                                           logRecord.getThreadId(),
+                                          logRecord.getRequestId(),
                                           logRecord.getOriginatorProperties().get("serverName"),
                                           logRecord.getTimeStamp(),
                                           "Asset Search Attachment",
@@ -324,6 +333,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                     {
                         syncAPICall(databaseConnection,
                                     logRecord.getThreadId(),
+                                    logRecord.getRequestId(),
                                     logRecord.getMessageParameters()[3],
                                     logRecord.getMessageParameters()[0],
                                     logRecord.getMessageParameters()[1],
@@ -351,12 +361,15 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                                    logRecord.getOriginatorComponent().getComponentName(),
                                    additionalInformation,
                                    logRecord.getGUID(),
-                                   logRecord.getThreadId());
+                                   logRecord.getThreadId(),
+                                   logRecord.getRequestId());
 
                     if (logRecord.getSeverityCode() == AuditLogRecordSeverityLevel.EXCEPTION.getOrdinal())
                     {
                         syncEgeriaException(databaseConnection,
                                             logRecord.getGUID(),
+                                            logRecord.getThreadId(),
+                                            logRecord.getRequestId(),
                                             logRecord.getTimeStamp(),
                                             logRecord.getExceptionClassName(),
                                             logRecord.getExceptionMessage(),
@@ -382,26 +395,29 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
      * Process information about a specific API call.  They are just inserted into the database.  Duplicates are ignored.
      *
      * @param databaseConnection connection to the database
-     * @param threadId unique identifier of the running thread
-     * @param serverName name of the server
-     * @param userName name of the user
-     * @param operationName name of the called operation
-     * @param serviceName name of the service
-     * @param callTime time of the call
+     * @param threadId           unique identifier of the running thread
+     * @param requestId          unique identifier of the request
+     * @param serverName         name of the server
+     * @param userName           name of the user
+     * @param operationName      name of the called operation
+     * @param serviceName        name of the service
+     * @param callTime           time of the call
      */
     private void syncAPICall(java.sql.Connection databaseConnection,
-                             long   threadId,
-                             String serverName,
-                             String userName,
-                             String operationName,
-                             String serviceName,
-                             Date   callTime)
+                             long                threadId,
+                             String              requestId,
+                             String              serverName,
+                             String              userName,
+                             String              operationName,
+                             String              serviceName,
+                             Date                callTime)
     {
         final String methodName = "syncAPICall";
 
         try
         {
             Map<String, JDBCDataValue> openMetadataRecord = this.getAPICallDataValues(threadId,
+                                                                                      requestId,
                                                                                       serverName,
                                                                                       userName,
                                                                                       operationName,
@@ -422,14 +438,16 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
     /**
      * Convert the description of an API call into a set of database columns.
      *
-     * @param threadId unique identifier of the running thread
-     * @param serverName name of the server
-     * @param userName name of the user
+     * @param threadId    unique identifier of the running thread
+     * @param requestId   unique identifier of the request
+     * @param serverName  name of the server
+     * @param userName    name of the user
      * @param serviceName name of the service
-     * @param callTime time of the call
+     * @param callTime    time of the call
      * @return columns
      */
     private Map<String, JDBCDataValue> getAPICallDataValues(long   threadId,
+                                                            String requestId,
                                                             String serverName,
                                                             String userName,
                                                             String operationName,
@@ -439,6 +457,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
         Map<String, JDBCDataValue> openMetadataRecord = new HashMap<>();
 
         openMetadataRecord.put(AuditLogColumn.THREAD_ID.getColumnName(), new JDBCDataValue(threadId, AuditLogColumn.THREAD_ID.getColumnType().getJdbcType()));
+        openMetadataRecord.put(AuditLogColumn.LAST_REQUEST_ID.getColumnName(), new JDBCDataValue(requestId, AuditLogColumn.LAST_REQUEST_ID.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.SERVER_NAME.getColumnName(), new JDBCDataValue(serverName, AuditLogColumn.SERVER_NAME.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.USER_NAME.getColumnName(), new JDBCDataValue(userName, AuditLogColumn.USER_NAME.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.OPERATION_NAME.getColumnName(), new JDBCDataValue(operationName, AuditLogColumn.OPERATION_NAME.getColumnType().getJdbcType()));
@@ -454,6 +473,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
      *
      * @param databaseConnection connection to the database
      * @param threadId unique identifier of the running thread
+     * @param requestId      unique identifier of the request
      * @param serverName name of the server
      * @param callTime time of the call
      * @param assetOperation name of the operation on the asset
@@ -465,6 +485,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
      */
     private void syncAssetActivity(java.sql.Connection databaseConnection,
                                    long                threadId,
+                                   String              requestId,
                                    String              serverName,
                                    Date                callTime,
                                    String              assetOperation,
@@ -479,6 +500,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
         try
         {
             Map<String, JDBCDataValue> openMetadataRecord = this.getAssetActivityDataValues(threadId,
+                                                                                            requestId,
                                                                                             serverName,
                                                                                             callTime,
                                                                                             assetOperation,
@@ -500,18 +522,20 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
     /**
      * Convert the description of a call to an asset into a set of database columns.
      *
-     * @param threadId unique identifier of the running thread
-     * @param serverName name of the server
-     * @param callTime time of the call
+     * @param threadId       unique identifier of the running thread
+     * @param requestId      unique identifier of the request
+     * @param serverName     name of the server
+     * @param callTime       time of the call
      * @param assetOperation name of the operation on the asset
-     * @param assetGUID unique identifier of the asset
-     * @param assetType name of the asset's type
-     * @param operationName name of the called operation
-     * @param serviceName name of the service
-     * @param userName name of the user
+     * @param assetGUID      unique identifier of the asset
+     * @param assetType      name of the asset's type
+     * @param operationName  name of the called operation
+     * @param serviceName    name of the service
+     * @param userName       name of the user
      * @return columns
      */
     private Map<String, JDBCDataValue> getAssetActivityDataValues(long   threadId,
+                                                                  String requestId,
                                                                   String serverName,
                                                                   Date   callTime,
                                                                   String assetOperation,
@@ -524,6 +548,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
         Map<String, JDBCDataValue> openMetadataRecord = new HashMap<>();
 
         openMetadataRecord.put(AuditLogColumn.THREAD_ID.getColumnName(), new JDBCDataValue(threadId, AuditLogColumn.THREAD_ID.getColumnType().getJdbcType()));
+        openMetadataRecord.put(AuditLogColumn.LAST_REQUEST_ID.getColumnName(), new JDBCDataValue(requestId, AuditLogColumn.LAST_REQUEST_ID.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.SERVER_NAME.getColumnName(), new JDBCDataValue(serverName, AuditLogColumn.SERVER_NAME.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.USER_NAME.getColumnName(), new JDBCDataValue(userName, AuditLogColumn.USER_NAME.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.ASSET_OPERATION.getColumnName(), new JDBCDataValue(assetOperation, AuditLogColumn.ASSET_OPERATION.getColumnType().getJdbcType()));
@@ -561,6 +586,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
      * @param additionalInfo additional info from the log record
      * @param logRecordId unique identifier of the log record
      * @param threadId thread where the request ran
+     * @param requestId      unique identifier of the request
      */
     private void syncAuditEvent(java.sql.Connection databaseConnection,
                                 Date                messageTimestamp,
@@ -580,7 +606,8 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                                 String              componentName,
                                 String              additionalInfo,
                                 String              logRecordId,
-                                long                threadId)
+                                long                threadId,
+                                String              requestId)
     {
         final String methodName = "syncAuditEvent";
 
@@ -603,7 +630,8 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                                                                                          componentName,
                                                                                          additionalInfo,
                                                                                          logRecordId,
-                                                                                         threadId);
+                                                                                         threadId,
+                                                                                         requestId);
 
             databaseClient.insertRowIntoTable(databaseConnection, AuditLogTable.AUDIT_EVENTS.getTableName(), openMetadataRecord);
         }
@@ -617,24 +645,25 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
     /**
      * Convert the contents of an audit log record into a set of database columns.
      *
-     * @param messageTimestamp time record generated
-     * @param serverName name of server
-     * @param actionDescription name of the method
-     * @param severityCode severity code
-     * @param severity name of severity code
-     * @param messageId message id
-     * @param messageText message text
-     * @param messageParameters message parameters
-     * @param systemAction system action
-     * @param userAction user action
-     * @param exceptionClassName class of exception
-     * @param exceptionMessage message from exception
+     * @param messageTimestamp    time record generated
+     * @param serverName          name of server
+     * @param actionDescription   name of the method
+     * @param severityCode        severity code
+     * @param severity            name of severity code
+     * @param messageId           message id
+     * @param messageText         message text
+     * @param messageParameters   message parameters
+     * @param systemAction        system action
+     * @param userAction          user action
+     * @param exceptionClassName  class of exception
+     * @param exceptionMessage    message from exception
      * @param exceptionStacktrace stack trace if there is an exception
-     * @param organization organization
-     * @param componentName name of component
-     * @param additionalInfo additional info from the log record
-     * @param logRecordId unique identifier of the log record
-     * @param threadId thread where the request ran
+     * @param organization        organization
+     * @param componentName       name of component
+     * @param additionalInfo      additional info from the log record
+     * @param logRecordId         unique identifier of the log record
+     * @param threadId            thread where the request ran
+     * @param requestId           unique identifier of the request
      * @return columns
      */
     private Map<String, JDBCDataValue> getAuditEventDataValues(Date   messageTimestamp,
@@ -654,7 +683,8 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
                                                                String componentName,
                                                                String additionalInfo,
                                                                String logRecordId,
-                                                               long   threadId)
+                                                               long   threadId,
+                                                               String requestId)
     {
         Map<String, JDBCDataValue> openMetadataRecord = new HashMap<>();
 
@@ -677,6 +707,7 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
         openMetadataRecord.put(AuditLogColumn.ADDITIONAL_INFO.getColumnName(), new JDBCDataValue(additionalInfo, AuditLogColumn.ADDITIONAL_INFO.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.LOG_RECORD_ID.getColumnName(), new JDBCDataValue(logRecordId, AuditLogColumn.LOG_RECORD_ID.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.THREAD_ID.getColumnName(), new JDBCDataValue(threadId, AuditLogColumn.THREAD_ID.getColumnType().getJdbcType()));
+        openMetadataRecord.put(AuditLogColumn.LAST_REQUEST_ID.getColumnName(), new JDBCDataValue(requestId, AuditLogColumn.LAST_REQUEST_ID.getColumnType().getJdbcType()));
 
         return openMetadataRecord;
     }
@@ -745,6 +776,8 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
      *
      * @param databaseConnection connection to the database
      * @param logRecordId unique identifier of the audit log record
+     * @param threadId            thread where the request ran
+     * @param requestId           unique identifier of the request
      * @param messageTimestamp timestamp of the audit log record
      * @param exceptionClassName name of the server
      * @param exceptionMessage type of the server
@@ -754,6 +787,8 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
      */
     private void syncEgeriaException(java.sql.Connection databaseConnection,
                                      String              logRecordId,
+                                     long                threadId,
+                                     String              requestId,
                                      Date                messageTimestamp,
                                      String              exceptionClassName,
                                      String              exceptionMessage,
@@ -766,6 +801,8 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
         try
         {
             Map<String, JDBCDataValue> openMetadataRecord = this.getEgeriaExceptionDataValues(logRecordId,
+                                                                                              threadId,
+                                                                                              requestId,
                                                                                               messageTimestamp,
                                                                                               exceptionClassName,
                                                                                               exceptionMessage,
@@ -785,16 +822,20 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
     /**
      * Convert the description of an exception from the Egeria runtime into a set of database columns.
      *
-     * @param logRecordId unique identifier of the audit log record
-     * @param messageTimestamp timestamp of the audit log record
-     * @param exceptionClassName name of the server
-     * @param exceptionMessage type of the server
+     * @param logRecordId         unique identifier of the audit log record
+     * @param threadId            thread where the request ran
+     * @param requestId           unique identifier of the request
+     * @param messageTimestamp    timestamp of the audit log record
+     * @param exceptionClassName  name of the server
+     * @param exceptionMessage    type of the server
      * @param exceptionStackTrace stack trace
-     * @param systemAction running organization
-     * @param userAction unique identifier of owned metadata collection (optional)
+     * @param systemAction        running organization
+     * @param userAction          unique identifier of owned metadata collection (optional)
      * @return columns
      */
     private Map<String, JDBCDataValue> getEgeriaExceptionDataValues(String logRecordId,
+                                                                    long   threadId,
+                                                                    String requestId,
                                                                     Date   messageTimestamp,
                                                                     String exceptionClassName,
                                                                     String exceptionMessage,
@@ -805,6 +846,8 @@ public class PostgreSQLAuditLogDestinationConnector extends OMRSAuditLogStoreCon
         Map<String, JDBCDataValue> openMetadataRecord = new HashMap<>();
 
         openMetadataRecord.put(AuditLogColumn.LOG_RECORD_ID.getColumnName(), new JDBCDataValue(logRecordId, AuditLogColumn.LOG_RECORD_ID.getColumnType().getJdbcType()));
+        openMetadataRecord.put(AuditLogColumn.THREAD_ID.getColumnName(), new JDBCDataValue(threadId, AuditLogColumn.THREAD_ID.getColumnType().getJdbcType()));
+        openMetadataRecord.put(AuditLogColumn.LAST_REQUEST_ID.getColumnName(), new JDBCDataValue(requestId, AuditLogColumn.LAST_REQUEST_ID.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.MESSAGE_TIMESTAMP.getColumnName(), new JDBCDataValue(new java.sql.Timestamp(messageTimestamp.getTime()), AuditLogColumn.MESSAGE_TIMESTAMP.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.EXCEPTION_CLASS_NAME.getColumnName(), new JDBCDataValue(exceptionClassName, AuditLogColumn.EXCEPTION_CLASS_NAME.getColumnType().getJdbcType()));
         openMetadataRecord.put(AuditLogColumn.EXCEPTION_MESSAGE.getColumnName(), new JDBCDataValue(exceptionMessage, AuditLogColumn.EXCEPTION_MESSAGE.getColumnType().getJdbcType()));

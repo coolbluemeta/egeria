@@ -21,8 +21,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class InstancePropertiesRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private InstanceProperties   instanceProperties     = null;
 
 
@@ -103,19 +101,11 @@ public class InstancePropertiesRequest extends OMRSAPIRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (!(objectToCompare instanceof InstancePropertiesRequest))
-        {
-            return false;
-        }
-        InstancePropertiesRequest
-                that = (InstancePropertiesRequest) objectToCompare;
-        return Objects.equals(getInstanceProperties(), that.getInstanceProperties());
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        InstancePropertiesRequest that = (InstancePropertiesRequest) objectToCompare;
+        return Objects.equals(instanceProperties, that.instanceProperties);
     }
-
 
     /**
      * Create a hash code for this element type.
@@ -125,6 +115,6 @@ public class InstancePropertiesRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(getInstanceProperties());
+        return Objects.hash(super.hashCode(), instanceProperties);
     }
 }

@@ -25,7 +25,7 @@ public interface ConnectorFactoryInterface
     /**
      * Returns the connector corresponding to the supplied connection name.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param connectionName   this may be the qualifiedName or displayName of the connection.
      *
      * @return   connector instance.
@@ -48,7 +48,7 @@ public interface ConnectorFactoryInterface
     /**
      * Returns the connector corresponding to the supplied connection GUID.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param connectionGUID   the unique id for the connection within the metadata repository.
      *
      * @return    connector instance.
@@ -70,7 +70,7 @@ public interface ConnectorFactoryInterface
     /**
      * Returns the connector corresponding to the supplied asset GUID.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param assetGUID   the unique id for the asset within the metadata repository.
      *
      * @return    connector instance.
@@ -92,7 +92,7 @@ public interface ConnectorFactoryInterface
     /**
      * Returns the connector corresponding to the supplied asset GUID.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param assetGUID   the unique id for the asset within the metadata repository.
      * @param auditLog    logging destination
      *
@@ -117,7 +117,7 @@ public interface ConnectorFactoryInterface
     /**
      * Returns the connector corresponding to the supplied connection.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param connection   the connection object that contains the properties needed to create the connection.
      *
      * @return    connector instance

@@ -23,8 +23,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class RelatedEntitiesFindRequest extends OMRSAPIPagedFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private List<String>              entityTypeGUIDs = null;
     private List<String>              limitResultsByClassification = null;
 
@@ -50,6 +48,7 @@ public class RelatedEntitiesFindRequest extends OMRSAPIPagedFindRequest
         if (template != null)
         {
             this.entityTypeGUIDs = getEntityTypeGUIDs();
+            this.limitResultsByClassification = getLimitResultsByClassification();
         }
     }
 
@@ -131,12 +130,7 @@ public class RelatedEntitiesFindRequest extends OMRSAPIPagedFindRequest
         return "RelatedEntitiesFindRequest{" +
                 "entityTypeGUIDs=" + entityTypeGUIDs +
                 ", limitResultsByClassification=" + limitResultsByClassification +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -153,7 +147,7 @@ public class RelatedEntitiesFindRequest extends OMRSAPIPagedFindRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof RelatedEntitiesFindRequest))
+        if (!(objectToCompare instanceof RelatedEntitiesFindRequest that))
         {
             return false;
         }
@@ -161,8 +155,6 @@ public class RelatedEntitiesFindRequest extends OMRSAPIPagedFindRequest
         {
             return false;
         }
-        RelatedEntitiesFindRequest
-                that = (RelatedEntitiesFindRequest) objectToCompare;
         return Objects.equals(getEntityTypeGUIDs(), that.getEntityTypeGUIDs()) &&
                 Objects.equals(getLimitResultsByClassification(), that.getLimitResultsByClassification());
     }
@@ -176,6 +168,6 @@ public class RelatedEntitiesFindRequest extends OMRSAPIPagedFindRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), getEntityTypeGUIDs(), getLimitResultsByClassification());
+        return Objects.hash(super.hashCode(), entityTypeGUIDs, limitResultsByClassification);
     }
 }

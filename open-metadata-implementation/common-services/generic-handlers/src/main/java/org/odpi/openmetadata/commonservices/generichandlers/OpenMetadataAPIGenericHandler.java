@@ -26,7 +26,6 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.TypeDefLink;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.repositoryconnector.OMRSRepositoryHelper;
 import org.odpi.openmetadata.repositoryservices.ffdc.exception.ClassificationErrorException;
-import org.odpi.openmetadata.repositoryservices.ffdc.exception.TypeErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -226,7 +225,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
     /**
      * Validates whether an operation is valid based on the type of entity it is connecting to, who the user is and whether it is a read or an update.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param connectToGUID       unique id for the object to connect the attachment to.
      * @param connectToGUIDParameterName  name of the parameter that passed the connectTo guid
      * @param connectToType       type of the connectToElement.
@@ -296,7 +295,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * <br><br>
      * Some anchor entities have specific validation to perform.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param connectToType    name of type of connectToEntity
      * @param connectToEntity  entity retrieved from the repository
      * @param connectToGUIDParameterName  name of the parameter that passed the connectTo guid
@@ -373,7 +372,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * It validates supported zones read security and the anchor GUID.  It does not handle Mementos, effective dates
      * and element status, since they are the responsibility of the repository handler.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param retrievedEntities  entities retrieved from the repository
      * @param forLineage             the query is to support lineage retrieval
      * @param forDuplicateProcessing the query is for duplicate processing and so must not deduplicate
@@ -568,7 +567,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
     /**
      * Check that the anchor attached to an entity allows the entity to be either returned to the caller or acted upon.
      *
-     * @param userId userId of user making request.
+     * @param userId userId of the user making the request.
      * @param connectToEntity entity retrieved from the repository
      * @param anchorIdentifiers retrieved anchors information
      * @param isExplicitGetRequest Is this request an explicit get request for the asset or a find request.
@@ -647,7 +646,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
     /**
      * Check that the anchor attached to an entity allows the entity to be either returned to the caller or acted upon.
      *
-     * @param userId userId of user making request.
+     * @param userId userId of the user making the request.
      * @param connectToEntity entity retrieved from the repository
      * @param anchorEntity retrieved anchors entity
      * @param isExplicitGetRequest Is this request an explicit get request for the asset or a find request.
@@ -1665,7 +1664,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
     /**
      * Validate that the user has permission to create a new entity
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param entityTypeGUID unique identifier of the type of entity to create
      * @param entityTypeName unique name of the type of entity to create
      * @param newProperties properties for new entity
@@ -1707,7 +1706,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
     /**
      * Create a new entity in the repository assuming all parameters are ok.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName name of the software capability entity that represented the external source
      * @param entityTypeGUID unique identifier of the type of entity to create
@@ -1748,7 +1747,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
     /**
      * Create a new entity in the repository assuming all parameters are ok.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName name of the software capability entity that represented the external source
      * @param entityTypeGUID unique identifier of the type of entity to create
@@ -3451,8 +3450,8 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
                                                        userId,
                                                        dataClassGUID,
                                                        OpenMetadataType.DATA_CLASS.typeName,
-                                                       OpenMetadataType.DATA_CLASS_HIERARCHY_RELATIONSHIP.typeGUID,
-                                                       OpenMetadataType.DATA_CLASS_HIERARCHY_RELATIONSHIP.typeName,
+                                                       OpenMetadataType.DATA_VALUE_HIERARCHY_RELATIONSHIP.typeGUID,
+                                                       OpenMetadataType.DATA_VALUE_HIERARCHY_RELATIONSHIP.typeName,
                                                        2,
                                                        null,
                                                        null,
@@ -4356,8 +4355,8 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
         List<Relationship> relationships = repositoryHandler.getRelationshipsByType(userId,
                                                                                     startingEntity.getGUID(),
                                                                                     startingEntity.getType().getTypeDefName(),
-                                                                                    OpenMetadataType.DATA_CLASS_HIERARCHY_RELATIONSHIP.typeGUID,
-                                                                                    OpenMetadataType.DATA_CLASS_HIERARCHY_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.DATA_VALUE_HIERARCHY_RELATIONSHIP.typeGUID,
+                                                                                    OpenMetadataType.DATA_VALUE_HIERARCHY_RELATIONSHIP.typeName,
                                                                                     2,
                                                                                     null,
                                                                                     null,
@@ -5098,7 +5097,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return list of retrieved objects or null if none found
      *
      * @throws InvalidParameterException  the input properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the repositories
      */
     public Relationship getAttachmentLink(String       userId,
@@ -5194,7 +5193,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return list of retrieved relationships or null if none found
      *
      * @throws InvalidParameterException  the input properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the repositories
      */
     public Relationship  getUniqueAttachmentLink(String               userId,
@@ -5279,7 +5278,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return list of retrieved relationships or null if none found
      *
      * @throws InvalidParameterException  the input properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the repositories
      */
     public List<Relationship>  getAllAttachmentLinks(String               userId,
@@ -5391,7 +5390,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return list of retrieved relationships or null if none found
      *
      * @throws InvalidParameterException  the input properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the repositories
      */
     public List<Relationship>  getAttachmentLinks(String               userId,
@@ -5480,7 +5479,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return list of retrieved relationships or null if none found
      *
      * @throws InvalidParameterException  the input properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the repositories
      */
     public List<Relationship>  getAttachmentLinks(String               userId,
@@ -5682,6 +5681,10 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      *
      * @param userId caller's userId
      * @param relationshipTypeName type of interest (null means any element type)
+     * @param relationshipSubtypeGUIDs optional list of the GUIDs for subtypes of the requested type to include in the search results.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param searchProperties Optional list of entity property conditions to match.
      * @param limitResultsByStatus By default, relationships in all statuses (other than DELETE) are returned.  However, it is possible
      *                             to specify a list of statuses (eg ACTIVE) to restrict the results.  Null means all status values.
@@ -5703,6 +5706,10 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      */
     public List<Relationship> findAttachmentLinks(String                userId,
                                                   String                relationshipTypeName,
+                                                  List<String>          relationshipSubtypeGUIDs,
+                                                  List<String>          end1EntityGUIDs,
+                                                  List<String>          end2EntityGUIDs,
+                                                  EndMatchCriteria      endMatchCriteria,
                                                   SearchProperties      searchProperties,
                                                   List<InstanceStatus>  limitResultsByStatus,
                                                   Date                  asOfTime,
@@ -5734,7 +5741,10 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
 
         List<Relationship> retrievedRelationships = repositoryHandler.findRelationships(userId,
                                                                                         relationshipTypeGUID,
-                                                                                        null,
+                                                                                        relationshipSubtypeGUIDs,
+                                                                                        end1EntityGUIDs,
+                                                                                        end2EntityGUIDs,
+                                                                                        endMatchCriteria,
                                                                                         searchProperties,
                                                                                         limitResultsByStatus,
                                                                                         asOfTime,
@@ -5798,7 +5808,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return list of retrieved objects or null if none found
      *
      * @throws InvalidParameterException  the input properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the repositories
      */
     public EntityDetail getAttachedEntity(String       userId,
@@ -5892,7 +5902,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return list of retrieved objects or null if none found
      *
      * @throws InvalidParameterException  the input properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the repositories
      */
     public List<EntityDetail> getAttachedEntities(String               userId,
@@ -5984,7 +5994,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return list of retrieved objects or null if none found
      *
      * @throws InvalidParameterException  the input properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the repositories
      */
     public List<EntityDetail> getAttachedEntities(String               userId,
@@ -6131,7 +6141,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return list of retrieved objects or null if none found
      *
      * @throws InvalidParameterException  the input properties are invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the repositories
      */
     public   List<B> getAttachedElements(String               userId,
@@ -6300,7 +6310,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * It validates supported zones read security and the anchor GUID.  It does not handle Mementos, effective dates
      * and element status, since they are the responsibility of the repository handler.
      *
-     * @param userId           userId of user making request.
+     * @param userId           userId of the user making the request.
      * @param startingGUID identifier for the entity that the identifier is attached to
      * @param startingTypeName name of the type of object being attached to
      * @param retrievedRelationships  relationships retrieved from the repository
@@ -7312,7 +7322,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return matching bean.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the bean definition.
      */
     public  B getBeanByValue(String               userId,
@@ -8104,7 +8114,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @return requested entity
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the entity.
      */
     public  EntityDetail getEntityByValue(String               userId,
@@ -8215,7 +8225,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * Creates a relationship between two elements.
      * Both elements must be visible to the user to allow the link.
      *
-     * @param userId                    userId of user making request
+     * @param userId                    userId of the user making the request
      * @param externalSourceGUID        guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName        name of the software capability entity that represented the external source
      * @param startingGUID              unique id for the starting element's entity
@@ -8300,7 +8310,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * Both elements must be visible to the user to allow the link.  If the relationship already exists with matching effectivity dates,
      * the properties are updated.
      *
-     * @param userId                    userId of user making request
+     * @param userId                    userId of the user making the request
      * @param externalSourceGUID        guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName        name of the software capability entity that represented the external source
      * @param startingElementGUID       unique id for the starting element's entity
@@ -8665,7 +8675,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * Creates a relationship between two elements.
      * Both elements must be visible to the user to allow the link. No check is done for the relationship existence before creating it.
      *
-     * @param userId                    userId of user making request
+     * @param userId                    userId of the user making the request
      * @param externalSourceGUID        guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName        name of the software capability entity that represented the external source
      * @param startingElementGUID       unique id for the starting element's entity
@@ -8720,7 +8730,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * Creates a relationship between two elements.
      * Both elements must be visible to the user to allow the link.
      *
-     * @param userId                    userId of user making request
+     * @param userId                    userId of the user making the request
      * @param externalSourceGUID        guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName        name of the software capability entity that represented the external source
      * @param startingElementGUID       unique id for the starting element's entity
@@ -8968,7 +8978,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * Updates a relationship between two elements.
      * Both elements must be visible to the user to allow the update.
      *
-     * @param userId                    userId of user making request
+     * @param userId                    userId of the user making the request
      * @param externalSourceGUID        guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName        name of the software capability entity that represented the external source
      * @param startingGUID              unique id for the starting element's entity
@@ -9134,7 +9144,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * lost its anchor, then that entity is deleted. Anchored entities should not be left unanchored. This can cause a cascading effect
      * if the anchored elements are organized in a hierarchy, such as a schema or a comment conversation.
      *
-     * @param userId                    userId of user making request
+     * @param userId                    userId of the user making the request
      * @param onlyCreatorPermitted      operation only permitted if the userId was the same one that created the relationship
      * @param externalSourceGUID        guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName        name of the software capability entity that represented the external source
@@ -9220,7 +9230,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * lost its anchor, then that entity is deleted. Anchored entities should not be left unanchored. This can cause a cascading effect
      * if the anchored elements are organized in a hierarchy, such as a schema or a comment conversation.
      *
-     * @param userId                    userId of user making request
+     * @param userId                    userId of the user making the request
      * @param onlyCreatorPermitted      operation only permitted if the userId was the same one that created the relationship
      * @param externalSourceGUID        guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName        name of the software capability entity that represented the external source
@@ -9465,7 +9475,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
     /**
      * Calls unlinkElementFromElement for all relationships of a certain type emanating from the requested element.
      *
-     * @param userId                    userId of user making request
+     * @param userId                    userId of the user making the request
      * @param onlyCreatorPermitted      operation only permitted if the userId was the same one that created the relationship
      * @param externalSourceGUID        guid of the software capability entity that represented the external source - null for local
      * @param externalSourceName        name of the software capability entity that represented the external source

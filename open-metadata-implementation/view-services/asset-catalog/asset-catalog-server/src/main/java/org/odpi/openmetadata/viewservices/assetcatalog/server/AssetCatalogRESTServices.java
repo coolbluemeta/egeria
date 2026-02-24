@@ -43,20 +43,20 @@ public class AssetCatalogRESTServices extends TokenController
      *
      * @param serverName name of the server instances for this request
      * @param assetGUID  unique name for the connection.
-     * @param queryOptions options to control the query
+     * @param requestBody options to control the query
      *
      * @return graph of elements or
      * InvalidParameterException - one of the parameters is null or invalid or
      * PropertyServerException - a problem retrieving the connected asset properties from the property server or
      * UserNotAuthorizedException - the requesting user is not authorized to issue this request.
      */
-    public OpenMetadataRootElementResponse getAssetGraph(String       serverName,
-                                                         String       assetGUID,
-                                                         QueryOptions queryOptions)
+    public OpenMetadataRootElementResponse getAssetGraph(String             serverName,
+                                                         String             assetGUID,
+                                                         ResultsRequestBody requestBody)
     {
         final String methodName    = "getAssetGraph";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -71,14 +71,14 @@ public class AssetCatalogRESTServices extends TokenController
 
             AssetHandler handler = instanceHandler.getAssetHandler(userId, serverName, methodName);
 
-            response.setElement(handler.getAssetGraph(userId, assetGUID, queryOptions));
+            response.setElement(handler.getAssetGraph(userId, assetGUID, requestBody));
         }
         catch (Throwable error)
         {
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -103,7 +103,7 @@ public class AssetCatalogRESTServices extends TokenController
     {
         final String methodName = "getAssetLineageGraph";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -140,7 +140,7 @@ public class AssetCatalogRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -162,7 +162,7 @@ public class AssetCatalogRESTServices extends TokenController
     {
         final String methodName = "findInAssetDomain";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -193,7 +193,7 @@ public class AssetCatalogRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -216,7 +216,7 @@ public class AssetCatalogRESTServices extends TokenController
     {
         final String methodName = "getAssetsByMetadataCollectionId";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -249,7 +249,7 @@ public class AssetCatalogRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -288,7 +288,7 @@ public class AssetCatalogRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Classification;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,8 +22,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ClassificationListResponse extends OMRSAPIPagedResponse
 {
-    private static final long    serialVersionUID = 1L;
-
     private List<Classification> classifications = null;
 
 
@@ -120,7 +117,7 @@ public class ClassificationListResponse extends OMRSAPIPagedResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof ClassificationListResponse))
+        if (!(objectToCompare instanceof ClassificationListResponse that))
         {
             return false;
         }
@@ -128,7 +125,6 @@ public class ClassificationListResponse extends OMRSAPIPagedResponse
         {
             return false;
         }
-        ClassificationListResponse that = (ClassificationListResponse) objectToCompare;
         return Objects.equals(getClassifications(), that.getClassifications());
     }
 

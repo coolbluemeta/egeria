@@ -58,7 +58,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "createInformationSupplyChain";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -98,7 +98,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -121,7 +121,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "createInformationSupplyChainFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -155,7 +155,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -178,7 +178,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "updateInformationSupplyChain";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -217,7 +217,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -242,7 +242,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "linkPeersInInformationSupplyChain";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -295,7 +295,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -320,7 +320,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "unlinkPeersInInformationSupplyChain";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -345,7 +345,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -370,7 +370,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "composeInformationSupplyChains";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -422,7 +422,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -447,7 +447,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "decomposeInformationSupplyChains";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -472,7 +472,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -495,7 +495,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "deleteInformationSupplyChain";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -517,7 +517,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -540,7 +540,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "getInformationSupplyChainsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -572,7 +572,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -595,7 +595,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "findInformationSupplyChains";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -630,7 +630,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -655,7 +655,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "getInformationSupplyChainByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -680,7 +680,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -701,7 +701,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "createSolutionBlueprint";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -741,7 +741,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -764,7 +764,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "createSolutionBlueprintFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -798,7 +798,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -816,12 +816,12 @@ public class SolutionArchitectRESTServices extends TokenController
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
     public BooleanResponse updateSolutionBlueprint(String                   serverName,
-                                                String                   solutionBlueprintGUID,
-                                                UpdateElementRequestBody requestBody)
+                                                   String                   solutionBlueprintGUID,
+                                                   UpdateElementRequestBody requestBody)
     {
         final String methodName = "updateSolutionBlueprint";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog     auditLog = null;
@@ -857,7 +857,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -882,7 +882,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "linkSolutionComponentToBlueprint";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -933,7 +933,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -958,7 +958,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "detachSolutionComponentFromBlueprint";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -983,7 +983,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1001,14 +1001,14 @@ public class SolutionArchitectRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkSolutionDesign(String                  serverName,
-                                           String                  parentGUID,
-                                           String                  solutionBlueprintGUID,
+    public VoidResponse linkSolutionDesign(String                     serverName,
+                                           String                     parentGUID,
+                                           String                     solutionBlueprintGUID,
                                            NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkSolutionDesign";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1059,7 +1059,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1084,7 +1084,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "detachSolutionDesign";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1109,7 +1109,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1132,7 +1132,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "deleteSolutionBlueprint";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1154,7 +1154,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1175,7 +1175,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "getSolutionBlueprintsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1206,7 +1206,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1229,7 +1229,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "getSolutionBlueprintByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -1253,7 +1253,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1274,7 +1274,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "findSolutionBlueprints";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1303,7 +1303,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1321,14 +1321,14 @@ public class SolutionArchitectRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkSolutionComponentActor(String                  serverName,
-                                                   String                  solutionRoleGUID,
-                                                   String                  solutionComponentGUID,
+    public VoidResponse linkSolutionComponentActor(String                     serverName,
+                                                   String                     solutionRoleGUID,
+                                                   String                     solutionComponentGUID,
                                                    NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkSolutionComponentActor";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1379,7 +1379,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1404,7 +1404,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "detachSolutionComponentActor";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1429,7 +1429,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1450,7 +1450,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "createSolutionComponent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -1490,7 +1490,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1513,7 +1513,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "createSolutionComponentFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -1547,7 +1547,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1570,7 +1570,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "updateSolutionComponent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog        auditLog = null;
@@ -1609,7 +1609,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1627,14 +1627,14 @@ public class SolutionArchitectRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkSubcomponent(String                  serverName,
-                                         String                  parentSolutionComponentGUID,
-                                         String                  nestedSolutionComponentGUID,
+    public VoidResponse linkSubcomponent(String                     serverName,
+                                         String                     parentSolutionComponentGUID,
+                                         String                     nestedSolutionComponentGUID,
                                          NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkSubcomponent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1685,7 +1685,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1710,7 +1710,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "detachSubcomponent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1735,7 +1735,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1754,14 +1754,14 @@ public class SolutionArchitectRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkSolutionLinkingWire(String                  serverName,
-                                                String                  solutionComponentOneGUID,
-                                                String                  solutionComponentTwoGUID,
+    public VoidResponse linkSolutionLinkingWire(String                     serverName,
+                                                String                     solutionComponentOneGUID,
+                                                String                     solutionComponentTwoGUID,
                                                 NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkSolutionLinkingWire";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1812,7 +1812,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1837,7 +1837,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "detachSolutionLinkingWire";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1862,7 +1862,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1885,7 +1885,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "deleteSolutionComponent";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1907,7 +1907,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1928,7 +1928,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "getSolutionComponentsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1959,7 +1959,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1982,7 +1982,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "getSolutionComponentByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -2004,7 +2004,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2026,7 +2026,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "findSolutionComponents";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -2055,7 +2055,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2078,7 +2078,7 @@ public class SolutionArchitectRESTServices extends TokenController
     {
         final String methodName = "getSolutionComponentImplementations";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         RelatedMetadataElementsResponse response = new RelatedMetadataElementsResponse();
         AuditLog                        auditLog = null;
@@ -2102,7 +2102,7 @@ public class SolutionArchitectRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

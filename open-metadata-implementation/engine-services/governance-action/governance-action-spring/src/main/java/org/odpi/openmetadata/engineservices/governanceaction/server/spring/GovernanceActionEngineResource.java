@@ -49,7 +49,7 @@ public class GovernanceActionEngineResource
      *
      * @return connector type or
      *  InvalidParameterException the connector provider class name is not a valid connector fo this service
-     *  UserNotAuthorizedException user not authorized to issue this request
+     *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException there was a problem detected by the integration service
      */
     @GetMapping(path = "/validate-connector/{connectorProviderClassName}")

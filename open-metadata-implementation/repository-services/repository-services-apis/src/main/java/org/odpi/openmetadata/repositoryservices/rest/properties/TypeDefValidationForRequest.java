@@ -20,8 +20,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TypeDefValidationForRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private String    typeDefGUID = null;
     private String    typeDefName = null;
 
@@ -104,10 +102,10 @@ public class TypeDefValidationForRequest extends OMRSAPIRequest
     @Override
     public String toString()
     {
-        return "TypeDefCategoryFindRequest{" +
-                "typeDefGUID=" + typeDefGUID +
-                "typeDefName=" + typeDefName +
-                '}';
+        return "TypeDefValidationForRequest{" +
+                "typeDefGUID='" + typeDefGUID + '\'' +
+                ", typeDefName='" + typeDefName + '\'' +
+                "} " + super.toString();
     }
 
 
@@ -120,20 +118,11 @@ public class TypeDefValidationForRequest extends OMRSAPIRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (!(objectToCompare instanceof TypeDefValidationForRequest))
-        {
-            return false;
-        }
-        TypeDefValidationForRequest
-                that = (TypeDefValidationForRequest) objectToCompare;
-        return Objects.equals(getTypeDefGUID(), that.getTypeDefGUID()) &&
-                Objects.equals(getTypeDefName(), that.getTypeDefName());
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        TypeDefValidationForRequest that = (TypeDefValidationForRequest) objectToCompare;
+        return Objects.equals(typeDefGUID, that.typeDefGUID) && Objects.equals(typeDefName, that.typeDefName);
     }
-
 
     /**
      * Create a hash code for this element type.
@@ -143,6 +132,6 @@ public class TypeDefValidationForRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(getTypeDefGUID(), getTypeDefName());
+        return Objects.hash(super.hashCode(), typeDefGUID, typeDefName);
     }
 }

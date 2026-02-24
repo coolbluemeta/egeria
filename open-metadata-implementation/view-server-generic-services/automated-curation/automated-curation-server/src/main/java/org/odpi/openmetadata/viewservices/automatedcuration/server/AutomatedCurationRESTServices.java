@@ -70,7 +70,7 @@ public class AutomatedCurationRESTServices extends TokenController
     {
         final String methodName = "findTechnologyTypes";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         TechnologyTypeSummaryListResponse response = new TechnologyTypeSummaryListResponse();
         AuditLog                          auditLog = null;
@@ -98,7 +98,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -125,7 +125,7 @@ public class AutomatedCurationRESTServices extends TokenController
         final String methodName = "getTechnologyTypesForOpenMetadataType";
         final String parameterName = "typeName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         TechnologyTypeSummaryListResponse response = new TechnologyTypeSummaryListResponse();
         AuditLog                          auditLog = null;
@@ -165,7 +165,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -189,7 +189,7 @@ public class AutomatedCurationRESTServices extends TokenController
         final String methodName = "getTechnologyTypeDetail";
         final String parameterName = "requestBody.filter";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         TechnologyTypeReportResponse response = new TechnologyTypeReportResponse();
         AuditLog                     auditLog = null;
@@ -227,7 +227,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -251,7 +251,7 @@ public class AutomatedCurationRESTServices extends TokenController
         final String methodName = "getTechnologyTypeHierarchy";
         final String parameterName = "requestBody.filter";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         TechnologyTypeHierarchyResponse response = new TechnologyTypeHierarchyResponse();
         AuditLog                        auditLog = null;
@@ -291,7 +291,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -315,7 +315,7 @@ public class AutomatedCurationRESTServices extends TokenController
         final String methodName = "getTechnologyTypeElements";
         final String parameterName = "requestBody.filter";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -353,7 +353,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -381,7 +381,7 @@ public class AutomatedCurationRESTServices extends TokenController
     {
         final String methodName = "createElementFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -416,7 +416,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -434,7 +434,7 @@ public class AutomatedCurationRESTServices extends TokenController
      *
      * @return engine action properties and status or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     public VoidResponse cancelEngineAction(String serverName,
@@ -465,7 +465,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -475,12 +475,12 @@ public class AutomatedCurationRESTServices extends TokenController
      *
      * @param serverName     name of server instance to route request to
      * @param urlMarker  view service URL marker
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      *
      * @return list of engine action elements or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     public EngineActionElementsResponse getActiveEngineActions(String serverName,
@@ -512,7 +512,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -537,7 +537,7 @@ public class AutomatedCurationRESTServices extends TokenController
      *  PropertyServerException a problem with the metadata store
      */
     public GUIDResponse initiateEngineAction(String                          serverName,
-                                             String                urlMarker,
+                                             String                          urlMarker,
                                              String                          governanceEngineName,
                                              InitiateEngineActionRequestBody requestBody)
     {
@@ -588,7 +588,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -605,8 +605,8 @@ public class AutomatedCurationRESTServices extends TokenController
      *  UserNotAuthorizedException this governance action service is not authorized to create a governance action process
      *  PropertyServerException a problem with the metadata store
      */
-    public GUIDResponse initiateGovernanceActionType(String                          serverName,
-                                                     String                urlMarker,
+    public GUIDResponse initiateGovernanceActionType(String                                  serverName,
+                                                     String                                  urlMarker,
                                                      InitiateGovernanceActionTypeRequestBody requestBody)
     {
         final String methodName = "initiateGovernanceActionType";
@@ -648,7 +648,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -665,8 +665,8 @@ public class AutomatedCurationRESTServices extends TokenController
      *  UserNotAuthorizedException this governance action service is not authorized to create a governance action process
      *  PropertyServerException a problem with the metadata store
      */
-    public GUIDResponse initiateGovernanceActionProcess(String                             serverName,
-                                                        String                urlMarker,
+    public GUIDResponse initiateGovernanceActionProcess(String                                     serverName,
+                                                        String                                     urlMarker,
                                                         InitiateGovernanceActionProcessRequestBody requestBody)
     {
         final String methodName = "initiateGovernanceActionProcess";
@@ -708,7 +708,7 @@ public class AutomatedCurationRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 

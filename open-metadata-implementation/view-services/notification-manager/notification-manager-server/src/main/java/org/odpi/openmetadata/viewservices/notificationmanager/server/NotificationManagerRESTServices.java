@@ -54,14 +54,14 @@ public class NotificationManagerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkMonitoredResource(String                  serverName,
-                                              String                  notificationTypeGUID,
-                                              String                  elementGUID,
+    public VoidResponse linkMonitoredResource(String                     serverName,
+                                              String                     notificationTypeGUID,
+                                              String                     elementGUID,
                                               NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkMonitoredResource";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -112,7 +112,7 @@ public class NotificationManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -137,7 +137,7 @@ public class NotificationManagerRESTServices extends TokenController
     {
         final String methodName = "detachMonitoredResource";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -159,7 +159,7 @@ public class NotificationManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -186,7 +186,7 @@ public class NotificationManagerRESTServices extends TokenController
     {
         final String methodName = "linkNotificationSubscriber";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -237,7 +237,7 @@ public class NotificationManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -262,7 +262,7 @@ public class NotificationManagerRESTServices extends TokenController
     {
         final String methodName = "detachNotificationSubscriber";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -284,7 +284,7 @@ public class NotificationManagerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 

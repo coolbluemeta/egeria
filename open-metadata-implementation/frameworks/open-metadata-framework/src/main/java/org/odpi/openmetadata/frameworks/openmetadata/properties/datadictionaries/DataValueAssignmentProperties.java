@@ -6,8 +6,8 @@ package org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionarie
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.DataClassAssignmentStatus;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.RelationshipBeanProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.enums.DataValueAssignmentStatus;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.LabeledRelationshipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.Objects;
@@ -16,30 +16,30 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
 /**
- * SemanticAssignmentProperties links an element to a glossary term to indicate that the glossary term describes its meaning.
+ * DataClassAssignmentProperties links an element to a data class to indicate that the data class describes its logical data type.
  */
 @JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataClassAssignmentProperties extends RelationshipBeanProperties
+public class DataValueAssignmentProperties extends LabeledRelationshipProperties
 {
-    private String                    method                    = null;
-    private DataClassAssignmentStatus dataClassAssignmentStatus = DataClassAssignmentStatus.PROPOSED;
-    private int                       confidence                = 0;
-    private int                       threshold                 = 0;
-    private String                    steward                   = null;
-    private String                    stewardTypeName           = null;
-    private String                    stewardPropertyName       = null;
-    private String                    source                    = null;
+    private String                    method              = null;
+    private DataValueAssignmentStatus assignmentStatus    = DataValueAssignmentStatus.PROPOSED;
+    private int                       confidence          = 0;
+    private int                       threshold           = 0;
+    private String                    steward             = null;
+    private String                    stewardTypeName     = null;
+    private String                    stewardPropertyName = null;
+    private String                    source              = null;
 
 
     /**
      * Default constructor
      */
-    public DataClassAssignmentProperties()
+    public DataValueAssignmentProperties()
     {
         super();
-        super.typeName = OpenMetadataType.DATA_CLASS_ASSIGNMENT_RELATIONSHIP.typeName;
+        super.typeName = OpenMetadataType.DATA_VALUE_ASSIGNMENT_RELATIONSHIP.typeName;
     }
 
 
@@ -48,15 +48,15 @@ public class DataClassAssignmentProperties extends RelationshipBeanProperties
      *
      * @param template template object to copy.
      */
-    public DataClassAssignmentProperties(DataClassAssignmentProperties template)
+    public DataValueAssignmentProperties(DataValueAssignmentProperties template)
     {
         super(template);
 
         if (template != null)
         {
-            method                    = template.getMethod();
-            dataClassAssignmentStatus = template.getDataClassAssignmentStatus();
-            confidence                = template.getConfidence();
+            method           = template.getMethod();
+            assignmentStatus = template.getAssignmentStatus();
+            confidence       = template.getConfidence();
             threshold                 = template.getThreshold();
             steward                   = template.getSteward();
             stewardTypeName           = template.getStewardTypeName();
@@ -91,11 +91,11 @@ public class DataClassAssignmentProperties extends RelationshipBeanProperties
     /**
      * Set up whether this relationship should be used.
      *
-     * @param dataClassAssignmentStatus status enum
+     * @param assignmentStatus status enum
      */
-    public void setDataClassAssignmentStatus(DataClassAssignmentStatus dataClassAssignmentStatus)
+    public void setAssignmentStatus(DataValueAssignmentStatus assignmentStatus)
     {
-        this.dataClassAssignmentStatus = dataClassAssignmentStatus;
+        this.assignmentStatus = assignmentStatus;
     }
 
 
@@ -104,9 +104,9 @@ public class DataClassAssignmentProperties extends RelationshipBeanProperties
      *
      * @return status enum
      */
-    public DataClassAssignmentStatus getDataClassAssignmentStatus()
+    public DataValueAssignmentStatus getAssignmentStatus()
     {
-        return dataClassAssignmentStatus;
+        return assignmentStatus;
     }
 
 
@@ -253,7 +253,7 @@ public class DataClassAssignmentProperties extends RelationshipBeanProperties
     {
         return "DataClassAssignmentProperties{" +
                 "method='" + method + '\'' +
-                ", status=" + dataClassAssignmentStatus +
+                ", status=" + assignmentStatus +
                 ", confidence=" + confidence +
                 ", threshold=" + threshold +
                 ", steward='" + steward + '\'' +
@@ -277,7 +277,7 @@ public class DataClassAssignmentProperties extends RelationshipBeanProperties
         {
             return true;
         }
-        if (! (objectToCompare instanceof DataClassAssignmentProperties that))
+        if (! (objectToCompare instanceof DataValueAssignmentProperties that))
         {
             return false;
         }
@@ -287,7 +287,7 @@ public class DataClassAssignmentProperties extends RelationshipBeanProperties
         }
         return confidence == that.confidence &&
                 Objects.equals(method, that.method) &&
-                dataClassAssignmentStatus == that.dataClassAssignmentStatus &&
+                assignmentStatus == that.assignmentStatus &&
                 Objects.equals(threshold, that.threshold) &&
                 Objects.equals(steward, that.steward) &&
                 Objects.equals(stewardTypeName, that.stewardTypeName) &&
@@ -304,6 +304,6 @@ public class DataClassAssignmentProperties extends RelationshipBeanProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), method, dataClassAssignmentStatus, confidence, threshold, steward, stewardTypeName, stewardPropertyName, source);
+        return Objects.hash(super.hashCode(), method, assignmentStatus, confidence, threshold, steward, stewardTypeName, stewardPropertyName, source);
     }
 }

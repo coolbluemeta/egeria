@@ -337,7 +337,7 @@ public class AutomatedCurationResource
      *
      * @return engine action properties and status or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     @PostMapping(path = "/engine-actions/{engineActionGUID}/cancel")
@@ -361,12 +361,12 @@ public class AutomatedCurationResource
      *
      * @param serverName     name of server instance to route request to
      * @param urlMarker  view service URL marker
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      *
      * @return list of engine action elements or
      *  InvalidParameterException one of the parameters is null or invalid.
-     *  UserNotAuthorizedException user not authorized to issue this request.
+     *  UserNotAuthorizedException the user is not authorized to issue this request.
      *  PropertyServerException there was a problem detected by the metadata store.
      */
     @GetMapping(path = "/engine-actions/active")

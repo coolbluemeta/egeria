@@ -1,41 +1,42 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
 
-package org.odpi.openmetadata.frameworks.openmetadata.properties.glossaries;
+package org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.ClassificationBeanProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.LabeledRelationshipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
 /**
- * DataValueProperties is used to provide the properties for a DataValue classification.
+ * DataGrainDefinitionProperties describes the link between an element and the related data grain
+ * that identifies the intended associated data granularity.
  */
 @JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataValueProperties extends ClassificationBeanProperties
+public class DataGrainDefinitionProperties extends LabeledRelationshipProperties
 {
     /**
      * Default constructor
      */
-    public DataValueProperties()
+    public DataGrainDefinitionProperties()
     {
         super();
-        super.typeName = OpenMetadataType.DATA_VALUE_CLASSIFICATION.typeName;
+        super.typeName = OpenMetadataType.DATA_GRAIN_DEFINITION_RELATIONSHIP.typeName;
     }
 
 
     /**
-     * Copy/clone constructor for an editing glossary classification.
+     * Copy/clone constructor.
      *
      * @param template template object to copy.
      */
-    public DataValueProperties(DataValueProperties template)
+    public DataGrainDefinitionProperties(DataGrainDefinitionProperties template)
     {
         super(template);
     }
@@ -49,6 +50,6 @@ public class DataValueProperties extends ClassificationBeanProperties
     @Override
     public String toString()
     {
-        return "DataValueProperties{} " + super.toString();
+        return "DataGrainDefinitionProperties{} " + super.toString();
     }
 }

@@ -68,7 +68,7 @@ public class SpecificationPropertyHandler extends OpenMetadataHandlerBase
         specificationPropertyValueProperties.setDescription(specificationProperty.getDescription());
         specificationPropertyValueProperties.setIdentifier(specificationPropertyType.getPropertyType());
         specificationPropertyValueProperties.setCategory(Category.SPECIFICATION_PROPERTY.getName());
-        specificationPropertyValueProperties.setNamespace(specificationPropertyType.getPropertyType());
+        specificationPropertyValueProperties.setNamespacePath(specificationPropertyType.getPropertyType());
         specificationPropertyValueProperties.setUsage(specificationPropertyType.getDescription());
         specificationPropertyValueProperties.setScope(null);
         specificationPropertyValueProperties.setIsCaseSensitive(true);
@@ -260,7 +260,7 @@ public class SpecificationPropertyHandler extends OpenMetadataHandlerBase
     /**
      * Return the requested specification property.
      *
-     * @param userId       userId of user making request.
+     * @param userId       userId of the user making the request.
      * @param specificationPropertyGUID  unique identifier for the specification property object.
      * @param getOptions multiple options to control the query
      * @return specification property properties

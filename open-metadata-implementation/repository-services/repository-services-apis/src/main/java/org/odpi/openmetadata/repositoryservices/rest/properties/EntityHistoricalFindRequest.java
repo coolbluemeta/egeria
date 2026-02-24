@@ -15,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 /**
  * EntityHistoricalFindRequest provides an extension to the search parameters to include the
- * point in time that the request should be based on.  This extension is used since
+ * point-in-time that the request should be based on.  This extension is used since
  * historical queries are optional support.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
@@ -23,8 +23,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class EntityHistoricalFindRequest extends EntityFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private Date asOfTime = null;
 
     /**
@@ -53,7 +51,7 @@ public class EntityHistoricalFindRequest extends EntityFindRequest
 
 
     /**
-     * Return the point in time for the search.
+     * Return the point-in-time for the search.
      *
      * @return date object
      */
@@ -64,7 +62,7 @@ public class EntityHistoricalFindRequest extends EntityFindRequest
 
 
     /**
-     * Set up the point in time for the search.
+     * Set up the point-in-time for the search.
      *
      * @param asOfTime date object
      */
@@ -84,17 +82,8 @@ public class EntityHistoricalFindRequest extends EntityFindRequest
     {
         return "EntityHistoricalFindRequest{" +
                 "asOfTime=" + asOfTime +
-                ", matchClassifications=" + getMatchClassifications() +
-                ", matchProperties=" + getMatchProperties() +
-                ", typeGUID='" + getTypeGUID() + '\'' +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
-
 
 
     /**
@@ -106,23 +95,11 @@ public class EntityHistoricalFindRequest extends EntityFindRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (!(objectToCompare instanceof EntityPropertyHistoricalFindRequest))
-        {
-            return false;
-        }
-        if (!super.equals(objectToCompare))
-        {
-            return false;
-        }
-        EntityPropertyHistoricalFindRequest
-                that = (EntityPropertyHistoricalFindRequest) objectToCompare;
-        return Objects.equals(getAsOfTime(), that.getAsOfTime());
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        EntityHistoricalFindRequest that = (EntityHistoricalFindRequest) objectToCompare;
+        return Objects.equals(asOfTime, that.asOfTime);
     }
-
 
     /**
      * Create a hash code for this element type.
@@ -132,7 +109,6 @@ public class EntityHistoricalFindRequest extends EntityFindRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), getAsOfTime());
+        return Objects.hash(super.hashCode(), asOfTime);
     }
-
 }

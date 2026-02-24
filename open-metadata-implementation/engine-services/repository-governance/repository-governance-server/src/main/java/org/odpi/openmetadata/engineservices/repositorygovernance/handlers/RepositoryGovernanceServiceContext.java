@@ -21,6 +21,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstanceProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstanceStatus;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Relationship;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchClassifications;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.AttributeTypeDef;
@@ -887,6 +888,9 @@ public class RepositoryGovernanceServiceContext extends RepositoryGovernanceCont
      *                             (but may be slow so not recommended).
      * @param relationshipSubtypeGUIDs optional list of the unique identifiers (guids) for subtypes of the
      *                                 relationshipTypeGUID to include in the search results. Null means all subtypes.
+     * @param end1EntityGUIDs optional list of entity guids used to match end 1 of the relationships.
+     * @param end2EntityGUIDs optional list of entity guids used to match end 2 of the relationships.
+     * @param endMatchCriteria criteria for matching the ends of the relationships.
      * @param matchProperties Optional list of relationship property conditions to match.
      * @param fromRelationshipElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
@@ -913,15 +917,18 @@ public class RepositoryGovernanceServiceContext extends RepositoryGovernanceCont
      * @throws FunctionNotSupportedException the repository does not support one of the provided parameters.
      * @throws UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    public  List<Relationship> findRelationships(String                    relationshipTypeGUID,
-                                                 List<String>              relationshipSubtypeGUIDs,
-                                                 SearchProperties          matchProperties,
-                                                 int                       fromRelationshipElement,
-                                                 List<InstanceStatus>      limitResultsByStatus,
-                                                 Date                      asOfTime,
-                                                 String                    sequencingProperty,
-                                                 SequencingOrder           sequencingOrder,
-                                                 int                       pageSize) throws InvalidParameterException,
+    public  List<Relationship> findRelationships(String               relationshipTypeGUID,
+                                                 List<String>         relationshipSubtypeGUIDs,
+                                                 List<String>         end1EntityGUIDs,
+                                                 List<String>         end2EntityGUIDs,
+                                                 EndMatchCriteria     endMatchCriteria,
+                                                 SearchProperties     matchProperties,
+                                                 int                  fromRelationshipElement,
+                                                 List<InstanceStatus> limitResultsByStatus,
+                                                 Date                 asOfTime,
+                                                 String               sequencingProperty,
+                                                 SequencingOrder      sequencingOrder,
+                                                 int                  pageSize) throws InvalidParameterException,
                                                                                             TypeErrorException,
                                                                                             RepositoryErrorException,
                                                                                             PropertyErrorException,
@@ -929,7 +936,19 @@ public class RepositoryGovernanceServiceContext extends RepositoryGovernanceCont
                                                                                             FunctionNotSupportedException,
                                                                                             UserNotAuthorizedException
     {
-        return repositoryServicesClient.findRelationships(userId, relationshipTypeGUID, relationshipSubtypeGUIDs, matchProperties, fromRelationshipElement, limitResultsByStatus, asOfTime, sequencingProperty, sequencingOrder, pageSize);
+        return repositoryServicesClient.findRelationships(userId,
+                                                          relationshipTypeGUID,
+                                                          relationshipSubtypeGUIDs,
+                                                          end1EntityGUIDs,
+                                                          end2EntityGUIDs,
+                                                          endMatchCriteria,
+                                                          matchProperties,
+                                                          fromRelationshipElement,
+                                                          limitResultsByStatus,
+                                                          asOfTime,
+                                                          sequencingProperty,
+                                                          sequencingOrder,
+                                                          pageSize);
     }
 
 

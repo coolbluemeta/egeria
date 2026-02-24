@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.EntityProxy;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.*;
 import org.odpi.openmetadata.repositoryservices.rest.properties.*;
 import org.odpi.openmetadata.repositoryservices.rest.server.OMRSRepositoryRESTServices;
@@ -62,16 +61,18 @@ public class EnterpriseRepositoryServicesResource
      *
      * @param serverName unique identifier for requested server.
      * @param userId calling user
+     * @param requestBody options to attach to the request.
      * @return String metadata collection id
      * or RepositoryErrorException if a problem communicating with the metadata repository.
      */
-    @GetMapping(path = "/metadata-collection-id")
+    @PostMapping(path = "/metadata-collection-id")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public MetadataCollectionIdResponse getMetadataCollectionId(@PathVariable String   serverName,
-                                                                @PathVariable String   userId)
+                                                                @PathVariable String   userId,
+                                                                @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.getMetadataCollectionId(serverName, userId);
+        return restAPI.getMetadataCollectionId(serverName, userId, requestBody);
     }
 
 
@@ -83,23 +84,25 @@ public class EnterpriseRepositoryServicesResource
     /**
      * Returns the list of different types of metadata organized into two groups.  The first are the
      * attribute type definitions (AttributeTypeDefs).  These provide types for properties in full
-     * type definitions.  Full type definitions (TypeDefs) describe types for entities, relationships
+     * type definitions.  Full type definitions (TypeDefs) describe types for entities, relationships,
      * and classifications.
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
+     * @param requestBody options to attach to the request.
      * @return TypeDefGalleryResponse:
      * List of different categories of type definitions or
      * RepositoryErrorException a problem communicating with the metadata repository or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/types/all")
+    @PostMapping(path = "/types/all")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public TypeDefGalleryResponse getAllTypes(@PathVariable String   serverName,
-                                              @PathVariable String   userId)
+                                              @PathVariable String   userId,
+                                              @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.getAllTypes(serverName, userId);
+        return restAPI.getAllTypes(serverName, userId, requestBody);
     }
 
 
@@ -111,20 +114,22 @@ public class EnterpriseRepositoryServicesResource
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
      * @param name name of the TypeDefs to return (including wildcard characters).
+     * @param requestBody options to attach to the request.
      * @return TypeDefGalleryResponse:
      * List of different categories of type definitions or
      * RepositoryErrorException a problem communicating with the metadata repository or
      * UserNotAuthorizedException the userId is not permitted to perform this operation or
      * InvalidParameterException the name of the TypeDef is null.
      */
-    @GetMapping(path = "/types/by-name")
+    @PostMapping(path = "/types/by-name")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public TypeDefGalleryResponse findTypesByName(@PathVariable String   serverName,
                                                   @PathVariable String   userId,
-                                                  @RequestParam String   name)
+                                                  @RequestParam String   name,
+                                                  @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.findTypesByName(serverName, userId, name);
+        return restAPI.findTypesByName(serverName, userId, name, requestBody);
     }
 
 
@@ -145,7 +150,7 @@ public class EnterpriseRepositoryServicesResource
 
     public TypeDefListResponse findTypeDefsByCategory(@PathVariable String           serverName,
                                                       @PathVariable String           userId,
-                                                      @RequestBody  TypeDefCategory  category)
+                                                      @RequestBody  TypeDefCategoryRequest  category)
     {
         return restAPI.findTypeDefsByCategory(serverName, userId, category);
     }
@@ -168,7 +173,7 @@ public class EnterpriseRepositoryServicesResource
 
     public AttributeTypeDefListResponse findAttributeTypeDefsByCategory(@PathVariable String                   serverName,
                                                                         @PathVariable String                   userId,
-                                                                        @RequestBody  AttributeTypeDefCategory category)
+                                                                        @RequestBody  AttributeTypeDefCategoryRequest category)
     {
         return restAPI.findAttributeTypeDefsByCategory(serverName, userId, category);
     }
@@ -186,12 +191,12 @@ public class EnterpriseRepositoryServicesResource
      * RepositoryErrorException a problem communicating with the metadata repository or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/types/typedefs/by-property")
+    @PostMapping(path = "/types/typedefs/by-property")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public TypeDefListResponse findTypeDefsByProperty(@PathVariable String            serverName,
                                                       @PathVariable String            userId,
-                                                      @RequestBody  TypeDefProperties matchCriteria)
+                                                      @RequestBody  TypeDefPropertiesRequest matchCriteria)
     {
         return restAPI.findTypeDefsByProperty(serverName, userId, matchCriteria);
     }
@@ -205,22 +210,24 @@ public class EnterpriseRepositoryServicesResource
      * @param standard name of the standard null means any.
      * @param organization name of the organization null means any.
      * @param identifier identifier of the element in the standard null means any.
+     * @param requestBody options to attach to the request.
      * @return TypeDefsGalleryResponse:
      * A list of types or
      * InvalidParameterException all attributes of the external id are null or
      * RepositoryErrorException a problem communicating with the metadata repository or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/types/typedefs/by-external-id")
+    @PostMapping(path = "/types/typedefs/by-external-id")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public TypeDefListResponse findTypesByExternalID(@PathVariable                   String    serverName,
                                                      @PathVariable                   String    userId,
                                                      @RequestParam(required = false) String    standard,
                                                      @RequestParam(required = false) String    organization,
-                                                     @RequestParam(required = false) String    identifier)
+                                                     @RequestParam(required = false) String    identifier,
+                                                     @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.findTypesByExternalID(serverName, userId, standard, organization, identifier);
+        return restAPI.findTypesByExternalID(serverName, userId, standard, organization, identifier, requestBody);
     }
 
 
@@ -230,20 +237,22 @@ public class EnterpriseRepositoryServicesResource
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
      * @param searchCriteria String search criteria.
+     * @param requestBody options to attach to the request.
      * @return TypeDefListResponse:
      * TypeDefs list or
      * InvalidParameterException the searchCriteria is null or
      * RepositoryErrorException a problem communicating with the metadata repository or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/types/typedefs/by-property-value")
+    @PostMapping(path = "/types/typedefs/by-property-value")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public TypeDefListResponse searchForTypeDefs(@PathVariable String serverName,
                                                  @PathVariable String userId,
-                                                 @RequestParam String searchCriteria)
+                                                 @RequestParam String searchCriteria,
+                                                 @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.searchForTypeDefs(serverName, userId, searchCriteria);
+        return restAPI.searchForTypeDefs(serverName, userId, searchCriteria, requestBody);
     }
 
 
@@ -253,6 +262,7 @@ public class EnterpriseRepositoryServicesResource
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
      * @param guid String unique id of the TypeDef.
+     * @param requestBody options to attach to the request.
      * @return TypeDefResponse:
      * TypeDef structure describing its category and properties or
      * InvalidParameterException the guid is null or
@@ -261,14 +271,15 @@ public class EnterpriseRepositoryServicesResource
      * TypeDefNotKnownException The requested TypeDef is not known in the metadata collection or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/types/typedef/{guid}")
+    @PostMapping(path = "/types/typedef/{guid}")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public TypeDefResponse getTypeDefByGUID(@PathVariable String    serverName,
                                             @PathVariable String    userId,
-                                            @PathVariable String    guid)
+                                            @PathVariable String    guid,
+                                            @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.getTypeDefByGUID(serverName, userId, guid);
+        return restAPI.getTypeDefByGUID(serverName, userId, guid, requestBody);
     }
 
 
@@ -278,6 +289,7 @@ public class EnterpriseRepositoryServicesResource
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
      * @param guid String unique id of the TypeDef
+     * @param requestBody options to attach to the request.
      * @return AttributeTypeDefResponse:
      * TypeDef structure describing its category and properties or
      * InvalidParameterException the guid is null or
@@ -286,65 +298,69 @@ public class EnterpriseRepositoryServicesResource
      * TypeDefNotKnownException The requested TypeDef is not known in the metadata collection or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/types/attribute-typedef/{guid}")
+    @PostMapping(path = "/types/attribute-typedef/{guid}")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public AttributeTypeDefResponse getAttributeTypeDefByGUID(@PathVariable String    serverName,
                                                               @PathVariable String    userId,
-                                                              @PathVariable String    guid)
+                                                              @PathVariable String    guid,
+                                                              @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.getAttributeTypeDefByGUID(serverName, userId, guid);
+        return restAPI.getAttributeTypeDefByGUID(serverName, userId, guid, requestBody);
     }
-
 
 
     /**
      * Return the TypeDef identified by the unique name.
      *
-     * @param serverName unique identifier for requested server.
-     * @param userId unique identifier for requesting user.
-     * @param name String name of the TypeDef.
+     * @param serverName  unique identifier for requested server.
+     * @param userId      unique identifier for requesting user.
+     * @param name        String name of the TypeDef.
+     * @param requestBody options to attach to the request.
      * @return TypeDefResponse:
      * TypeDef structure describing its category and properties or
      * InvalidParameterException the name is null or
      * RepositoryErrorException a problem communicating with the metadata repository where
-     *                                  the metadata collection is stored or
+     * the metadata collection is stored or
      * TypeDefNotKnownException the requested TypeDef is not found in the metadata collection or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/types/typedef/name/{name}")
+    @PostMapping(path = "/types/typedef/name/{name}")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    public TypeDefResponse getTypeDefByName(@PathVariable String    serverName,
-                                            @PathVariable String    userId,
-                                            @PathVariable String    name)
+    public TypeDefResponse getTypeDefByName(@PathVariable String serverName,
+                                            @PathVariable String userId,
+                                            @PathVariable String name,
+                                            @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.getTypeDefByName(serverName, userId, name);
+        return restAPI.getTypeDefByName(serverName, userId, name, requestBody);
     }
 
 
     /**
      * Return the AttributeTypeDef identified by the unique name.
      *
-     * @param serverName unique identifier for requested server.
-     * @param userId unique identifier for requesting user.
-     * @param name String name of the TypeDef.
+     * @param serverName  unique identifier for requested server.
+     * @param userId      unique identifier for requesting user.
+     * @param name        String name of the TypeDef.
+     * @param requestBody options to attach to the request.
      * @return AttributeTypeDefResponse:
      * AttributeTypeDef structure describing its category and properties or
      * InvalidParameterException the name is null or
      * RepositoryErrorException a problem communicating with the metadata repository where
-     *                                  the metadata collection is stored or
+     * the metadata collection is stored or
      * TypeDefNotKnownException the requested TypeDef is not found in the metadata collection or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/types/attribute-typedef/name/{name}")
+    @PostMapping(path = "/types/attribute-typedef/name/{name}")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    public  AttributeTypeDefResponse getAttributeTypeDefByName(@PathVariable String    serverName,
-                                                               @PathVariable String    userId,
-                                                               @PathVariable String    name)
+    public AttributeTypeDefResponse getAttributeTypeDefByName(@PathVariable String serverName,
+                                                              @PathVariable String userId,
+                                                              @PathVariable String name,
+                                                              @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.getAttributeTypeDefByName(serverName, userId, name);
+        return restAPI.getAttributeTypeDefByName(serverName, userId, name, requestBody);
     }
 
 
@@ -369,7 +385,7 @@ public class EnterpriseRepositoryServicesResource
 
     public BooleanResponse verifyTypeDef(@PathVariable String    serverName,
                                          @PathVariable String    userId,
-                                         @RequestBody  TypeDef   typeDef)
+                                         @RequestBody  TypeDefRequest   typeDef)
     {
         return restAPI.verifyTypeDef(serverName, userId, typeDef);
     }
@@ -396,7 +412,7 @@ public class EnterpriseRepositoryServicesResource
 
     public  BooleanResponse verifyAttributeTypeDef(@PathVariable String            serverName,
                                                    @PathVariable String            userId,
-                                                   @RequestBody  AttributeTypeDef  attributeTypeDef)
+                                                   @RequestBody  AttributeTypeDefRequest  attributeTypeDef)
     {
         return restAPI.verifyAttributeTypeDef(serverName, userId, attributeTypeDef);
     }
@@ -414,20 +430,22 @@ public class EnterpriseRepositoryServicesResource
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
      * @param guid String unique identifier for the entity
+     * @param requestBody options to attach to the request.
      * @return the entity details if the entity is found in the metadata collection; otherwise return null
      * InvalidParameterException the guid is null.
      * RepositoryErrorException a problem communicating with the metadata repository where
      *                                  the metadata collection is stored.
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/instances/entity/{guid}/existence")
+    @PostMapping(path = "/instances/entity/{guid}/existence")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public EntityDetailResponse isEntityKnown(@PathVariable String     serverName,
                                               @PathVariable String     userId,
-                                              @PathVariable String     guid)
+                                              @PathVariable String     guid,
+                                              @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.isEntityKnown(serverName, userId, guid);
+        return restAPI.isEntityKnown(serverName, userId, guid, requestBody);
     }
 
 
@@ -438,6 +456,7 @@ public class EnterpriseRepositoryServicesResource
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
      * @param guid String unique identifier for the entity
+     * @param requestBody options to attach to the request.
      * @return EntitySummary structure or
      * InvalidParameterException the guid is null.
      * RepositoryErrorException a problem communicating with the metadata repository where
@@ -445,14 +464,15 @@ public class EnterpriseRepositoryServicesResource
      * EntityNotKnownException the requested entity instance is not known in the metadata collection.
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/instances/entity/{guid}/summary")
+    @PostMapping(path = "/instances/entity/{guid}/summary")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public EntitySummaryResponse getEntitySummary(@PathVariable String     serverName,
                                                   @PathVariable String     userId,
-                                                  @PathVariable String     guid)
+                                                  @PathVariable String     guid,
+                                                  @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.getEntitySummary(serverName, userId, guid);
+        return restAPI.getEntitySummary(serverName, userId, guid, requestBody);
     }
 
 
@@ -462,6 +482,7 @@ public class EnterpriseRepositoryServicesResource
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
      * @param guid String unique identifier for the entity.
+     * @param requestBody options to attach to the request.
      * @return EntityDetailResponse:
      * EntityDetail structure or
      * InvalidParameterException the guid is null or
@@ -471,14 +492,15 @@ public class EnterpriseRepositoryServicesResource
      * EntityProxyOnlyException the requested entity instance is only a proxy in the metadata collection or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/instances/entity/{guid}")
+    @PostMapping(path = "/instances/entity/{guid}")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public EntityDetailResponse getEntityDetail(@PathVariable String    serverName,
                                                 @PathVariable String    userId,
-                                                @PathVariable String    guid)
+                                                @PathVariable String    guid,
+                                                @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.getEntityDetail(serverName, userId, guid);
+        return restAPI.getEntityDetail(serverName, userId, guid, requestBody);
     }
 
 
@@ -900,6 +922,7 @@ public class EnterpriseRepositoryServicesResource
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
      * @param guid String unique identifier for the relationship.
+     * @param requestBody options to attach to the request.
      * @return RelationshipResponse:
      * relationship details if the relationship is found in the metadata collection; otherwise return null or
      * InvalidParameterException the guid is null or
@@ -907,14 +930,15 @@ public class EnterpriseRepositoryServicesResource
      *                                  the metadata collection is stored or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/instances/relationship/{guid}/existence")
+    @PostMapping(path = "/instances/relationship/{guid}/existence")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public RelationshipResponse  isRelationshipKnown(@PathVariable String     serverName,
                                                      @PathVariable String     userId,
-                                                     @PathVariable String     guid)
+                                                     @PathVariable String     guid,
+                                                     @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.isRelationshipKnown(serverName, userId, guid);
+        return restAPI.isRelationshipKnown(serverName, userId, guid, requestBody);
     }
 
 
@@ -924,6 +948,7 @@ public class EnterpriseRepositoryServicesResource
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
      * @param guid String unique identifier for the relationship.
+     * @param requestBody options to attach to the request.
      * @return RelationshipResponse:
      * a relationship structure or
      * InvalidParameterException the guid is null or
@@ -933,14 +958,15 @@ public class EnterpriseRepositoryServicesResource
      *                                         the requested GUID stored or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/instances/relationship/{guid}")
+    @PostMapping(path = "/instances/relationship/{guid}")
     @SecurityRequirement(name = "BearerAuthorization")
 
     public RelationshipResponse getRelationship(@PathVariable String     serverName,
                                                 @PathVariable String     userId,
-                                                @PathVariable String     guid)
+                                                @PathVariable String     guid,
+                                                @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.getRelationship(serverName, userId, guid);
+        return restAPI.getRelationship(serverName, userId, guid, requestBody);
     }
 
 
@@ -1024,9 +1050,9 @@ public class EnterpriseRepositoryServicesResource
     @PostMapping(path = "/instances/relationships")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    public  RelationshipListResponse findRelationships(@PathVariable String              serverName,
-                                                       @PathVariable String              userId,
-                                                       @RequestBody  InstanceFindRequest findRequestParameters)
+    public  RelationshipListResponse findRelationships(@PathVariable String                  serverName,
+                                                       @PathVariable String                  userId,
+                                                       @RequestBody  RelationshipFindRequest findRequestParameters)
     {
         return restAPI.findRelationships(serverName, userId, findRequestParameters);
     }
@@ -1053,9 +1079,9 @@ public class EnterpriseRepositoryServicesResource
     @PostMapping(path = "/instances/relationships/history")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    public  RelationshipListResponse findRelationshipsByHistory(@PathVariable String                        serverName,
-                                                                @PathVariable String                        userId,
-                                                                @RequestBody  InstanceHistoricalFindRequest findRequestParameters)
+    public  RelationshipListResponse findRelationshipsByHistory(@PathVariable String                            serverName,
+                                                                @PathVariable String                            userId,
+                                                                @RequestBody  RelationshipHistoricalFindRequest findRequestParameters)
     {
         return restAPI.findRelationshipsByHistory(serverName, userId, findRequestParameters);
     }
@@ -1283,7 +1309,7 @@ public class EnterpriseRepositoryServicesResource
 
     public VoidResponse addEntityProxy(@PathVariable String      serverName,
                                        @PathVariable String      userId,
-                                       @RequestBody  EntityProxy entityProxy)
+                                       @RequestBody  EntityProxyRequest entityProxy)
     {
         return restAPI.addEntityProxy(serverName, userId, entityProxy);
     }
@@ -1321,26 +1347,28 @@ public class EnterpriseRepositoryServicesResource
     /**
      * Undo the last update to an entity and return the previous content.
      *
-     * @param serverName unique identifier for requested server.
-     * @param userId unique identifier for requesting user.
-     * @param entityGUID String unique identifier (guid) for the entity.
+     * @param serverName  unique identifier for requested server.
+     * @param userId      unique identifier for requesting user.
+     * @param entityGUID  String unique identifier (guid) for the entity.
+     * @param requestBody options to attach to the request.
      * @return EntityDetailResponse:
-     * EntityDetail showing the resulting entity header, properties and classifications or
+     * EntityDetail showing the resulting entity header, properties, and classifications or
      * InvalidParameterException the guid is null or
      * RepositoryErrorException a problem communicating with the metadata repository where
-     *                                  the metadata collection is stored or
+     * the metadata collection is stored or
      * EntityNotKnownException the entity identified by the guid is not found in the metadata collection or
      * FunctionNotSupportedException the repository does not support undo or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/instances/entity/{entityGUID}/previous")
+    @PostMapping(path = "/instances/entity/{entityGUID}/previous")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    public EntityDetailResponse undoEntityUpdate(@PathVariable String  serverName,
-                                                 @PathVariable String  userId,
-                                                 @PathVariable String  entityGUID)
+    public EntityDetailResponse undoEntityUpdate(@PathVariable String serverName,
+                                                 @PathVariable String userId,
+                                                 @PathVariable String entityGUID,
+                                                 @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.undoEntityUpdate(serverName, userId, entityGUID);
+        return restAPI.undoEntityUpdate(serverName, userId, entityGUID, requestBody);
     }
 
 
@@ -1407,9 +1435,10 @@ public class EnterpriseRepositoryServicesResource
     /**
      * Restore the requested entity to the state it was before it was deleted.
      *
-     * @param serverName unique identifier for requested server.
-     * @param userId unique identifier for requesting user.
+     * @param serverName        unique identifier for requested server.
+     * @param userId            unique identifier for requesting user.
      * @param deletedEntityGUID String unique identifier (guid) for the entity.
+     * @param requestBody       options to attach to the request.
      * @return EntityDetailResponse:
      * EntityDetail showing the restored entity header, properties and classifications or
      * InvalidParameterException the guid is null or
@@ -1420,14 +1449,15 @@ public class EnterpriseRepositoryServicesResource
      * FunctionNotSupportedException the repository does not support soft-delete or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/instances/entity/{deletedEntityGUID}/restore")
+    @PostMapping(path = "/instances/entity/{deletedEntityGUID}/restore")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    public EntityDetailResponse restoreEntity(@PathVariable String    serverName,
-                                              @PathVariable String    userId,
-                                              @PathVariable String    deletedEntityGUID)
+    public EntityDetailResponse restoreEntity(@PathVariable String serverName,
+                                              @PathVariable String userId,
+                                              @PathVariable String deletedEntityGUID,
+                                              @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.restoreEntity(serverName, userId, deletedEntityGUID);
+        return restAPI.restoreEntity(serverName, userId, deletedEntityGUID, requestBody);
     }
 
 
@@ -1581,15 +1611,13 @@ public class EnterpriseRepositoryServicesResource
      */
     @PostMapping(path = "/instances/entity/{entityGUID}/classification/{classificationName}/delete")
     @SecurityRequirement(name = "BearerAuthorization")
-
-    @SuppressWarnings(value = "unused")
     public EntityDetailResponse declassifyEntity(@PathVariable                  String          serverName,
                                                  @PathVariable                  String          userId,
                                                  @PathVariable                  String          entityGUID,
                                                  @PathVariable                  String          classificationName,
-                                                 @RequestBody(required = false) OMRSAPIRequest  requestBody)
+                                                 @RequestBody(required = false) GetRequest  requestBody)
     {
-        return restAPI.declassifyEntity(serverName, userId, entityGUID, classificationName);
+        return restAPI.declassifyEntity(serverName, userId, entityGUID, classificationName, requestBody);
     }
 
 
@@ -1615,7 +1643,7 @@ public class EnterpriseRepositoryServicesResource
     public ClassificationResponse declassifyEntity(@PathVariable String       serverName,
                                                    @PathVariable String       userId,
                                                    @PathVariable String       classificationName,
-                                                   @RequestBody  EntityProxy  requestBody)
+                                                   @RequestBody  EntityProxyRequest  requestBody)
     {
         return restAPI.declassifyEntity(serverName, userId, classificationName, requestBody);
     }
@@ -1781,26 +1809,28 @@ public class EnterpriseRepositoryServicesResource
     /**
      * Undo the latest change to a relationship (either a change of properties or status).
      *
-     * @param serverName unique identifier for requested server.
-     * @param userId unique identifier for requesting user.
+     * @param serverName       unique identifier for requested server.
+     * @param userId           unique identifier for requesting user.
      * @param relationshipGUID String unique identifier (guid) for the relationship.
+     * @param requestBody      options to attach to the request.
      * @return RelationshipResponse:
      * Relationship structure with the new current header, requested entities and properties or
      * InvalidParameterException the guid is null or
      * RepositoryErrorException a problem communicating with the metadata repository where
-     *                                  the metadata collection is stored or
+     * the metadata collection is stored or
      * RelationshipNotKnownException the requested relationship is not known in the metadata collection or
      * FunctionNotSupportedException the repository does not support undo or
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/instances/relationship/{relationshipGUID}/previous")
+    @PostMapping(path = "/instances/relationship/{relationshipGUID}/previous")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    public RelationshipResponse undoRelationshipUpdate(@PathVariable String  serverName,
-                                                       @PathVariable String  userId,
-                                                       @PathVariable String  relationshipGUID)
+    public RelationshipResponse undoRelationshipUpdate(@PathVariable String serverName,
+                                                       @PathVariable String userId,
+                                                       @PathVariable String relationshipGUID,
+                                                       @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.undoRelationshipUpdate(serverName, userId, relationshipGUID);
+        return restAPI.undoRelationshipUpdate(serverName, userId, relationshipGUID, requestBody);
     }
 
 
@@ -1867,9 +1897,10 @@ public class EnterpriseRepositoryServicesResource
      * Restore a deleted relationship into the metadata collection.  The new status will be ACTIVE and the
      * restored details of the relationship are returned to the caller.
      *
-     * @param serverName unique identifier for requested server.
-     * @param userId unique identifier for requesting user.
+     * @param serverName              unique identifier for requested server.
+     * @param userId                  unique identifier for requesting user.
      * @param deletedRelationshipGUID String unique identifier (guid) for the relationship.
+     * @param requestBody             options to attach to the request.
      * @return RelationshipResponse:
      * Relationship structure with the restored header, requested entities and properties or
      * InvalidParameterException the guid is null or
@@ -1880,14 +1911,15 @@ public class EnterpriseRepositoryServicesResource
      * FunctionNotSupportedException the repository does not support soft-deletes
      * UserNotAuthorizedException the userId is not permitted to perform this operation.
      */
-    @GetMapping(path = "/instances/relationship/{deletedRelationshipGUID}/restore")
+    @PostMapping(path = "/instances/relationship/{deletedRelationshipGUID}/restore")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    public RelationshipResponse restoreRelationship(@PathVariable String    serverName,
-                                                    @PathVariable String    userId,
-                                                    @PathVariable String    deletedRelationshipGUID)
+    public RelationshipResponse restoreRelationship(@PathVariable String serverName,
+                                                    @PathVariable String userId,
+                                                    @PathVariable String deletedRelationshipGUID,
+                                                    @RequestBody(required = false) GetRequest requestBody)
     {
-        return restAPI.restoreRelationship(serverName, userId, deletedRelationshipGUID);
+        return restAPI.restoreRelationship(serverName, userId, deletedRelationshipGUID, requestBody);
     }
 
 

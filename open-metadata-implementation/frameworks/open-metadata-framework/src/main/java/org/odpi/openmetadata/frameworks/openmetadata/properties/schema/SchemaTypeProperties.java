@@ -33,7 +33,7 @@ public class SchemaTypeProperties extends SchemaElementProperties
 {
     private String usage            = null;
     private String encodingStandard = null;
-    private String namespace        = null;
+    private String namespacePath    = null;
 
     /*
      * Values for when the schemaType is derived from other values rather than stored
@@ -64,9 +64,9 @@ public class SchemaTypeProperties extends SchemaElementProperties
         if (template != null)
         {
             usage             = template.getUsage();
-            encodingStandard  = template.getEncodingStandard();
-            namespace         = template.getNamespace();
-            formula           = template.getFormula();
+            encodingStandard = template.getEncodingStandard();
+            namespacePath    = template.getNamespacePath();
+            formula          = template.getFormula();
             formulaType       = template.getFormulaType();
             queries           = template.getQueries();
         }
@@ -118,20 +118,20 @@ public class SchemaTypeProperties extends SchemaElementProperties
      *
      * @return string name
      */
-    public String getNamespace()
+    public String getNamespacePath()
     {
-        return namespace;
+        return namespacePath;
     }
 
 
     /**
      * Set up the name of the namespace that this type belongs to.
      *
-     * @param namespace string name
+     * @param namespacePath string name
      */
-    public void setNamespace(String namespace)
+    public void setNamespacePath(String namespacePath)
     {
-        this.namespace = namespace;
+        this.namespacePath = namespacePath;
     }
 
 
@@ -212,7 +212,7 @@ public class SchemaTypeProperties extends SchemaElementProperties
         return "SchemaTypeProperties{" +
                 "usage='" + usage + '\'' +
                 ", encodingStandard='" + encodingStandard + '\'' +
-                ", namespace='" + namespace + '\'' +
+                ", namespace='" + namespacePath + '\'' +
                 ", formula='" + formula + '\'' +
                 ", formulaType='" + formulaType + '\'' +
                 ", queries=" + queries +
@@ -244,7 +244,7 @@ public class SchemaTypeProperties extends SchemaElementProperties
         SchemaTypeProperties that = (SchemaTypeProperties) objectToCompare;
         return Objects.equals(usage, that.usage) &&
                 Objects.equals(encodingStandard, that.encodingStandard) &&
-                Objects.equals(namespace, that.namespace) &&
+                Objects.equals(namespacePath, that.namespacePath) &&
                 Objects.equals(formula, that.formula) &&
                 Objects.equals(formulaType, that.formulaType) &&
                 Objects.equals(queries, that.queries);
@@ -259,6 +259,6 @@ public class SchemaTypeProperties extends SchemaElementProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), usage, encodingStandard, namespace, formula, formulaType, queries);
+        return Objects.hash(super.hashCode(), usage, encodingStandard, namespacePath, formula, formulaType, queries);
     }
 }

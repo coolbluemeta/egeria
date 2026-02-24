@@ -63,7 +63,7 @@ public class ConnectorActivityReportClient
      * @param properties properties of the report
      *
      * @throws InvalidParameterException one of the parameters is null or invalid,
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem with the metadata server.
      */
     public void publishConnectorActivityReport(String                            userId,
@@ -108,7 +108,7 @@ public class ConnectorActivityReportClient
      *
      * @return report or null
      * @throws InvalidParameterException one of the parameters is null or invalid,
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem with the metadata server.
      */
     public ConnectorActivityReport getConnectorActivityReport(String userId,
@@ -146,7 +146,7 @@ public class ConnectorActivityReportClient
      *
      * @return list of qualifying reports
      * @throws InvalidParameterException one of the parameters is null or invalid,
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem with the metadata server.
      */
     public List<ConnectorActivityReport> getConnectorActivityReportsForElement(String  userId,
@@ -187,7 +187,7 @@ public class ConnectorActivityReportClient
      *
      * @return list of qualifying reports
      * @throws InvalidParameterException one of the parameters is null or invalid,
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem with the metadata server.
      */
     public List<ConnectorActivityReport> getConnectorActivityReports(String  userId,

@@ -23,7 +23,8 @@ public enum RepositoryTable implements PostgreSQLTable
                new RepositoryColumn[]{
                        RepositoryColumn.SERVER_NAME,
                        RepositoryColumn.LOCAL_METADATA_COLLECTION_GUID,
-                       RepositoryColumn.SCHEMA_VERSION}
+                       RepositoryColumn.SCHEMA_VERSION},
+            null
     ),
 
 
@@ -56,7 +57,9 @@ public enum RepositoryTable implements PostgreSQLTable
                    RepositoryColumn.UPDATE_TIME,
                    RepositoryColumn.STATUS_ON_DELETE,
                    RepositoryColumn.INSTANCE_LICENCE,
-                   RepositoryColumn.REIDENTIFIED_FROM_GUID}
+                   RepositoryColumn.REIDENTIFIED_FROM_GUID},
+           new RepositoryColumn[]{
+                   RepositoryColumn.LAST_REQUEST_ID}
     ),
 
     /**
@@ -89,7 +92,9 @@ public enum RepositoryTable implements PostgreSQLTable
                          RepositoryColumn.UPDATE_TIME,
                          RepositoryColumn.STATUS_ON_DELETE,
                          RepositoryColumn.INSTANCE_LICENCE,
-                         RepositoryColumn.REIDENTIFIED_FROM_GUID}
+                         RepositoryColumn.REIDENTIFIED_FROM_GUID},
+                 new RepositoryColumn[]{
+                         RepositoryColumn.LAST_REQUEST_ID}
     ),
 
 
@@ -117,7 +122,10 @@ public enum RepositoryTable implements PostgreSQLTable
                            RepositoryColumn.MAINTAINED_BY,
                            RepositoryColumn.CREATE_TIME,
                            RepositoryColumn.UPDATE_TIME,
-                           RepositoryColumn.STATUS_ON_DELETE}),
+                           RepositoryColumn.STATUS_ON_DELETE},
+                   new RepositoryColumn[]{
+                           RepositoryColumn.LAST_REQUEST_ID}
+    ),
 
     /**
      * Attributes for an entity, or for entity properties that are collections.
@@ -134,7 +142,8 @@ public enum RepositoryTable implements PostgreSQLTable
                                    RepositoryColumn.PROPERTY_CATEGORY,
                                    RepositoryColumn.IS_UNIQUE_ATTRIBUTE,
                                    RepositoryColumn.ATTRIBUTE_TYPE_GUID,
-                                   RepositoryColumn.ATTRIBUTE_TYPE_NAME}
+                                   RepositoryColumn.ATTRIBUTE_TYPE_NAME},
+                           null
     ),
 
     /**
@@ -153,7 +162,8 @@ public enum RepositoryTable implements PostgreSQLTable
                                            RepositoryColumn.PROPERTY_CATEGORY,
                                            RepositoryColumn.IS_UNIQUE_ATTRIBUTE,
                                            RepositoryColumn.ATTRIBUTE_TYPE_GUID,
-                                           RepositoryColumn.ATTRIBUTE_TYPE_NAME}
+                                           RepositoryColumn.ATTRIBUTE_TYPE_NAME},
+                                   null
     ),
 
     /**
@@ -171,7 +181,8 @@ public enum RepositoryTable implements PostgreSQLTable
                                          RepositoryColumn.PROPERTY_CATEGORY,
                                          RepositoryColumn.IS_UNIQUE_ATTRIBUTE,
                                          RepositoryColumn.ATTRIBUTE_TYPE_GUID,
-                                         RepositoryColumn.ATTRIBUTE_TYPE_NAME}
+                                         RepositoryColumn.ATTRIBUTE_TYPE_NAME},
+                                 null
     ),
 
     ;
@@ -180,6 +191,7 @@ public enum RepositoryTable implements PostgreSQLTable
     private final String                 tableDescription;
     private final RepositoryColumn[]     primaryKeys;
     private final RepositoryColumn[]     dataColumns;
+    private final RepositoryColumn[]     newColumns;
 
 
     /**
@@ -189,16 +201,19 @@ public enum RepositoryTable implements PostgreSQLTable
      * @param tableDescription description of the table
      * @param primaryKeys list of primary keys
      * @param dataColumns list of additional columns
+     * @param newColumns list of columns added as an extension using ALTER TABLE
      */
     RepositoryTable(String                 tableName,
                     String                 tableDescription,
                     RepositoryColumn[]     primaryKeys,
-                    RepositoryColumn[]     dataColumns)
+                    RepositoryColumn[]     dataColumns,
+                    RepositoryColumn[]     newColumns)
     {
         this.tableName        = tableName;
         this.tableDescription = tableDescription;
         this.primaryKeys      = primaryKeys;
         this.dataColumns      = dataColumns;
+        this.newColumns       = newColumns;
     }
 
 
@@ -301,10 +316,23 @@ public enum RepositoryTable implements PostgreSQLTable
             }
         }
 
+        if (newColumns != null)
+        {
+            for (RepositoryColumn column: newColumns)
+            {
+                columnNameTypeMap.put(column.getColumnName(), column.getColumnType().getJdbcType());
+            }
+        }
+
         return columnNameTypeMap;
     }
 
 
+    /**
+     * Return the column names qualified with the table name.
+     *
+     * @return list of column names
+     */
     public List<String> getQualifiedColumnNames()
     {
         List<String> columnNames = new ArrayList<>();
@@ -325,7 +353,34 @@ public enum RepositoryTable implements PostgreSQLTable
             }
         }
 
+        if (newColumns != null)
+        {
+            for (RepositoryColumn column: newColumns)
+            {
+                columnNames.add(column.getColumnName(tableName));
+            }
+        }
+
         return columnNames;
+    }
+
+
+
+
+    /**
+     * Return the columns that are added as an extension using ALTER TABLE.
+     *
+     * @return list of columns
+     */
+    @Override
+    public List<PostgreSQLColumn> getNewColumns()
+    {
+        if (newColumns != null)
+        {
+            return Arrays.asList(newColumns);
+        }
+
+        return null;
     }
 
 

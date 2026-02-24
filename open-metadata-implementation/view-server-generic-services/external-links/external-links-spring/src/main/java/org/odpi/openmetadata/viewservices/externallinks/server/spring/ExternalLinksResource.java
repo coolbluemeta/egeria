@@ -492,7 +492,7 @@ public class ExternalLinksResource
      *
      * @return void or
      * InvalidParameterException  one of the parameters is invalid
-     * UserNotAuthorizedException user not authorized to issue this request
+     * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    problem accessing the property server
      */
     @PostMapping(path = "/elements/{elementGUID}/external-identifiers/add")
@@ -522,7 +522,7 @@ public class ExternalLinksResource
      *
      * @return boolean or
      * InvalidParameterException  one of the parameters is invalid
-     * UserNotAuthorizedException user not authorized to issue this request
+     * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    problem accessing the property server
      */
     @PostMapping(path = "/external-identifiers/{externalIdGUID}/update")
@@ -553,7 +553,7 @@ public class ExternalLinksResource
      *
      * @return void or
      * InvalidParameterException  one of the parameters is invalid
-     * UserNotAuthorizedException user not authorized to issue this request
+     * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    problem accessing the property server
      */
     @PostMapping(path = "/external-identifiers/{externalIdGUID}/delete")
@@ -585,7 +585,7 @@ public class ExternalLinksResource
      *
      * @return void or
      * InvalidParameterException  one of the parameters is invalid
-     * UserNotAuthorizedException user not authorized to issue this request
+     * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    problem accessing the property server
      */
     @PostMapping(path = "/external-identifiers/links/{externalIdLinkGUID}/synchronized")

@@ -64,7 +64,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Create a new annotation.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -132,7 +132,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of an annotation.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param annotationGUID       unique identifier of the annotation (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -164,7 +164,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
      * Create a relationship that links a new annotation to its survey report.  This relationship is typically
      * established during the createAnnotation as the parent relationship.  It is included for completeness.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param surveyReportGUID       unique identifier of the report
      * @param newAnnotationGUID           unique identifier of the  annotation
      * @param makeAnchorOptions  options to control access to open metadata
@@ -201,7 +201,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Detach an annotation from its report (ReportedAnnotation relationship).
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param surveyReportGUID       unique identifier of the report
      * @param annotationGUID           unique identifier of the annotation
      * @param deleteOptions  options to control access to open metadata
@@ -236,7 +236,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Attach an annotation to the element that it is describing (via AssociatedAnnotation relationship).
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID          unique identifier of the described element
      * @param annotationGUID          unique identifier of the annotation
      * @param makeAnchorOptions  options to control access to open metadata
@@ -273,7 +273,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Detach an annotation from the element that it is describing (via AssociatedAnnotation relationship).
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID          unique identifier of the described element
      * @param annotationGUID          unique identifier of the annotation
      * @param deleteOptions  options to control access to open metadata
@@ -307,7 +307,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Attach an annotation to the equivalent annotation from the previous run of the survey.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param previousAnnotationGUID          unique identifier of the annotation from the previous run of the survey
      * @param newAnnotationGUID            unique identifier of the annotation from this run of the survey
      * @param metadataSourceOptions  options to control access to open metadata
@@ -344,7 +344,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Detach an annotation from an annotation from the previous run of the survey.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param previousAnnotationGUID          unique identifier of the annotation from the previous run of the survey
      * @param newAnnotationGUID            unique identifier of the annotation from this run of the survey
      * @param deleteOptions  options to control access to open metadata
@@ -376,80 +376,9 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
 
 
     /**
-     * Attach a schema analysis annotation to a matching schema type.
-     *
-     * @param userId                 userId of user making request
-     * @param annotationGUID       unique identifier of the annotation
-     * @param schemaTypeGUID            unique identifier of the schema type
-     * @param makeAnchorOptions  options to control access to open metadata
-     * @param relationshipProperties description of the relationship.
-     * @throws InvalidParameterException  one of the parameters is null or invalid.
-     * @throws PropertyServerException    a problem retrieving information from the property server(s).
-     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    public void linkDiscoveredSchemaType(String                         userId,
-                                         String                         annotationGUID,
-                                         String                         schemaTypeGUID,
-                                         MakeAnchorOptions              makeAnchorOptions,
-                                         DiscoveredSchemaTypeProperties relationshipProperties) throws InvalidParameterException,
-                                                                                                       PropertyServerException,
-                                                                                                       UserNotAuthorizedException
-    {
-        final String methodName            = "linkDiscoveredSchemaType";
-        final String end1GUIDParameterName = "annotationGUID";
-        final String end2GUIDParameterName = "schemaTypeGUID";
-
-        propertyHelper.validateUserId(userId, methodName);
-        propertyHelper.validateGUID(annotationGUID, end1GUIDParameterName, methodName);
-        propertyHelper.validateGUID(schemaTypeGUID, end2GUIDParameterName, methodName);
-
-        openMetadataClient.createRelatedElementsInStore(userId,
-                                                        OpenMetadataType.DISCOVERED_SCHEMA_TYPE_RELATIONSHIP.typeName,
-                                                        annotationGUID,
-                                                        schemaTypeGUID,
-                                                        makeAnchorOptions,
-                                                        relationshipBuilder.getNewElementProperties(relationshipProperties));
-    }
-
-
-    /**
-     * Detach a schema analysis annotation from a matching schema type.
-     *
-     * @param userId                 userId of user making request.
-     * @param annotationGUID              unique identifier of the parent process
-     * @param schemaTypeGUID          unique identifier of the child process
-     * @param deleteOptions  options to control access to open metadata
-     * @throws InvalidParameterException  one of the parameters is null or invalid.
-     * @throws PropertyServerException    a problem retrieving information from the property server(s).
-     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    public void detachDiscoveredSchemaType(String        userId,
-                                           String        annotationGUID,
-                                           String        schemaTypeGUID,
-                                           DeleteOptions deleteOptions) throws InvalidParameterException,
-                                                                               PropertyServerException,
-                                                                               UserNotAuthorizedException
-    {
-        final String methodName = "detachDiscoveredSchemaType";
-        final String end1GUIDParameterName = "annotationGUID";
-        final String end2GUIDParameterName = "schemaTypeGUID";
-
-        propertyHelper.validateUserId(userId, methodName);
-        propertyHelper.validateGUID(annotationGUID, end1GUIDParameterName, methodName);
-        propertyHelper.validateGUID(schemaTypeGUID, end2GUIDParameterName, methodName);
-
-        openMetadataClient.detachRelatedElementsInStore(userId,
-                                                        OpenMetadataType.DISCOVERED_SCHEMA_TYPE_RELATIONSHIP.typeName,
-                                                        annotationGUID,
-                                                        schemaTypeGUID,
-                                                        deleteOptions);
-    }
-
-
-    /**
      * Attach a resource profile log annotation to an asset where the profile data is stored.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param annotationGUID               unique identifier of the annotation
      * @param assetGUID         unique identifier of the associated asset
      * @param makeAnchorOptions  options to control access to open metadata
@@ -486,7 +415,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Detach a resource profile log annotation from an asset where the profile data is stored.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param annotationGUID               unique identifier of the annotation
      * @param assetGUID         unique identifier of the associated asset
      * @param deleteOptions  options to control access to open metadata
@@ -520,35 +449,35 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Attach a data class annotation to a data class.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param annotationGUID               unique identifier of the annotation
-     * @param dataClassGUID         unique identifier of the associated data class
+     * @param elementGUID         unique identifier of the associated element such as data class, data grain, and glossary term
      * @param makeAnchorOptions  options to control access to open metadata
      * @param relationshipProperties description of the relationship.
      * @throws InvalidParameterException  one of the parameters is null or invalid.
      * @throws PropertyServerException    a problem retrieving information from the property server(s).
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public void linkDataClassMatch(String                   userId,
-                                   String                   annotationGUID,
-                                   String                   dataClassGUID,
-                                   MakeAnchorOptions        makeAnchorOptions,
-                                   DataClassMatchProperties relationshipProperties) throws InvalidParameterException,
-                                                                                           PropertyServerException,
-                                                                                           UserNotAuthorizedException
+    public void linkAnnotationMatch(String                   userId,
+                                    String                   annotationGUID,
+                                    String                   elementGUID,
+                                    MakeAnchorOptions        makeAnchorOptions,
+                                    AnnotationMatchProperties relationshipProperties) throws InvalidParameterException,
+                                                                                            PropertyServerException,
+                                                                                            UserNotAuthorizedException
     {
-        final String methodName            = "linkDataClassMatch";
+        final String methodName            = "linkAnnotationMatch";
         final String end1GUIDParameterName = "annotationGUID";
-        final String end2GUIDParameterName = "dataClassGUID";
+        final String end2GUIDParameterName = "elementGUID";
 
         propertyHelper.validateUserId(userId, methodName);
         propertyHelper.validateGUID(annotationGUID, end1GUIDParameterName, methodName);
-        propertyHelper.validateGUID(dataClassGUID, end2GUIDParameterName, methodName);
+        propertyHelper.validateGUID(elementGUID, end2GUIDParameterName, methodName);
 
         openMetadataClient.createRelatedElementsInStore(userId,
-                                                        OpenMetadataType.DATA_CLASS_MATCH_RELATIONSHIP.typeName,
+                                                        OpenMetadataType.ANNOTATION_MATCH_RELATIONSHIP.typeName,
                                                         annotationGUID,
-                                                        dataClassGUID,
+                                                        elementGUID,
                                                         makeAnchorOptions,
                                                         relationshipBuilder.getNewElementProperties(relationshipProperties));
     }
@@ -557,33 +486,33 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Detach a data class annotation from a data class.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param annotationGUID               unique identifier of the annotation
-     * @param dataClassGUID         unique identifier of the associated data class
+     * @param elementGUID         unique identifier of the associated element such as data class, data grain, and glossary term
      * @param deleteOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
      * @throws PropertyServerException    a problem retrieving information from the property server(s).
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public void detachDataClassMatch(String        userId,
-                                     String        annotationGUID,
-                                     String        dataClassGUID,
-                                     DeleteOptions deleteOptions) throws InvalidParameterException,
+    public void detachAnnotationMatch(String        userId,
+                                      String        annotationGUID,
+                                      String        elementGUID,
+                                      DeleteOptions deleteOptions) throws InvalidParameterException,
                                                                          PropertyServerException,
                                                                          UserNotAuthorizedException
     {
-        final String methodName = "detachDataClassMatch";
+        final String methodName = "detachAnnotationMatch";
         final String end1GUIDParameterName = "annotationGUID";
-        final String end2GUIDParameterName = "dataClassGUID";
+        final String end2GUIDParameterName = "elementGUID";
 
         propertyHelper.validateUserId(userId, methodName);
         propertyHelper.validateGUID(annotationGUID, end1GUIDParameterName, methodName);
-        propertyHelper.validateGUID(dataClassGUID, end2GUIDParameterName, methodName);
+        propertyHelper.validateGUID(elementGUID, end2GUIDParameterName, methodName);
 
         openMetadataClient.detachRelatedElementsInStore(userId,
-                                                        OpenMetadataType.DATA_CLASS_MATCH_RELATIONSHIP.typeName,
+                                                        OpenMetadataType.ANNOTATION_MATCH_RELATIONSHIP.typeName,
                                                         annotationGUID,
-                                                        dataClassGUID,
+                                                        elementGUID,
                                                         deleteOptions);
     }
 
@@ -591,7 +520,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Attach a request for action annotation to the element that needs attention.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param annotationGUID               unique identifier of the annotation
      * @param elementGUID         unique identifier of the associated element
      * @param makeAnchorOptions  options to control access to open metadata
@@ -628,7 +557,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Detach a request for action annotation from its intended target element.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param annotationGUID               unique identifier of the annotation
      * @param elementGUID         unique identifier of the associated element
      * @param deleteOptions  options to control access to open metadata
@@ -662,7 +591,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Delete a annotation.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param annotationGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -688,7 +617,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of annotations with a particular annotation type, or summary, or expression, or analysis step.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName, resourceName or displayName
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -720,7 +649,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of annotations associated with a particular analysis step.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   deployedImplementationType name of the element to return - match is full text match
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -749,7 +678,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of annotations with a particular annotation type property.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   deployedImplementationType name of the element to return - match is full text match
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -779,7 +708,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Returns the annotations created under the supplied survey report.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param surveyReportGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -810,7 +739,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of annotations that describe the supplied element (AssociatedAnnotation relationship).
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -841,7 +770,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of annotations that extend the supplied annotation (AnnotationExtension relationship).
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param annotationGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -872,7 +801,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of annotations that are extended by the supplied annotation (AnnotationExtension relationship).
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param annotationGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -903,7 +832,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific annotation.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param annotationGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

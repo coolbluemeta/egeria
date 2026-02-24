@@ -400,7 +400,7 @@ public abstract class AtlasIntegrationModuleBase
      * @param atlasEntity atlas entity that is the source of the metadata
      *
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the property server
      */
     protected boolean egeriaUpdateRequired(OpenMetadataRootElement egeriaMetadataElement,
@@ -531,7 +531,7 @@ public abstract class AtlasIntegrationModuleBase
      * @param atlasEntity atlas entity that is the source of the metadata
      *
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the property server
      */
     protected void updateExternalIdentifierAfterAtlasUpdate(OpenMetadataRootElement egeriaElement,

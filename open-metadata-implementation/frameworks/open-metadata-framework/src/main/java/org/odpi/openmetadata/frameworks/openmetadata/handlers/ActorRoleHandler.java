@@ -75,7 +75,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Create a new actor role.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -143,7 +143,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of an actor role.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param actorRoleGUID          unique identifier of the actor role (returned from create)
      * @param updateOptions          provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -176,7 +176,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Attach a person role to a person profile.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param personRoleGUID       unique identifier of the person role
      * @param personProfileGUID            unique identifier of the person profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -213,7 +213,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Detach a person role from a profile.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param personRoleGUID       unique identifier of the person role
      * @param personProfileGUID            unique identifier of the person profile
      * @param deleteOptions  options to control access to open metadata
@@ -247,7 +247,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Attach a team role to a team profile.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param teamRoleGUID           unique identifier of the team role
      * @param teamProfileGUID        unique identifier of the team profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -284,7 +284,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Detach a team role from a team profile.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param teamRoleGUID              unique identifier of the team
      * @param teamProfileGUID          unique identifier of the team profile
      * @param metadataSourceOptions  options to control access to open metadata
@@ -318,7 +318,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Attach an IT profile role to an IT profile.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param itProfileRoleGUID       unique identifier of the IT profile role
      * @param itProfileGUID            unique identifier of the IT profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -355,7 +355,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Detach an IT profile role from an IT profile.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param itProfileRoleGUID      unique identifier of the IT profile role
      * @param itProfileGUID          unique identifier of the IT profile
      * @param deleteOptions  options to control access to open metadata
@@ -389,7 +389,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Delete a actor role.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param actorRoleGUID      unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -415,7 +415,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of actor roles with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions multiple options to control the query
      * @return a list of elements
@@ -442,7 +442,7 @@ public class ActorRoleHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific actor role.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param actorRoleGUID      unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

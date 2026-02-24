@@ -22,12 +22,11 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         property = "class")
 @JsonSubTypes(
         {
-                @JsonSubTypes.Type(value = EntityFindRequest.class, name = "EntityFindRequest")
+                @JsonSubTypes.Type(value = EntityFindRequest.class, name = "EntityFindRequest"),
+                @JsonSubTypes.Type(value = RelationshipFindRequest.class, name = "RelationshipFindRequest")
         })
 public class InstanceFindRequest extends SubtypeLimitedFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private SearchProperties      matchProperties      = null;
 
     /**
@@ -87,13 +86,7 @@ public class InstanceFindRequest extends SubtypeLimitedFindRequest
     {
         return "InstanceFindRequest{" +
                 "matchProperties=" + matchProperties +
-                ", typeGUID='" + getTypeGUID() + '\'' +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
 
 

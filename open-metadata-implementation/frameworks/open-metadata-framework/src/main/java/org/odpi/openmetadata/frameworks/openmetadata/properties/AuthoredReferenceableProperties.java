@@ -9,15 +9,16 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.AssetProp
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.DeployedSoftwareComponentProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.ActionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.collections.CollectionProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataClassProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataFieldProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataStructureProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.dataprocessing.DataProcessingActionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.dataprocessing.DataProcessingDescriptionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.designmodels.DesignModelElementProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.externalreferences.ExternalReferenceProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.glossaries.GlossaryTermProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.GovernanceDefinitionProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.SchemaElementProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports.AnnotationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.validvalues.ValidValueDefinitionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
@@ -39,21 +40,24 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         include = JsonTypeInfo.As.PROPERTY,
         property = "class")
 @JsonSubTypes({
+        @JsonSubTypes.Type(value = AnnotationProperties.class, name = "AnnotationProperties"),
         @JsonSubTypes.Type(value = CollectionProperties.class, name = "CollectionProperties"),
-        @JsonSubTypes.Type(value = DataClassProperties.class, name = "DataClassProperties"),
         @JsonSubTypes.Type(value = DataFieldProperties.class, name = "DataFieldProperties"),
         @JsonSubTypes.Type(value = DataProcessingActionProperties.class, name = "DataProcessingActionProperties"),
         @JsonSubTypes.Type(value = DataProcessingDescriptionProperties.class, name = "DataProcessingDescriptionProperties"),
         @JsonSubTypes.Type(value = DataStructureProperties.class, name = "DataStructureProperties"),
+        @JsonSubTypes.Type(value = DataValueSpecificationProperties.class, name = "DataValueSpecificationProperties"),
         @JsonSubTypes.Type(value = DesignModelElementProperties.class, name = "DesignModelElementProperties"),
+        @JsonSubTypes.Type(value = ExternalReferenceProperties.class, name = "ExternalReferenceProperties"),
         @JsonSubTypes.Type(value = GlossaryTermProperties.class, name = "GlossaryTermProperties"),
         @JsonSubTypes.Type(value = GovernanceDefinitionProperties.class, name = "GovernanceDefinitionProperties"),
+        @JsonSubTypes.Type(value = ProjectProperties.class, name = "ProjectProperties"),
         @JsonSubTypes.Type(value = SchemaElementProperties.class, name = "SchemaElementProperties"),
         @JsonSubTypes.Type(value = ValidValueDefinitionProperties.class, name = "ValidValueDefinitionProperties"),
 })
 public class AuthoredReferenceableProperties extends ReferenceableProperties
 {
-    private List<String>  authors = null;
+    private List<String>  authors                  = null;
     private ContentStatus contentStatus            = ContentStatus.ACTIVE;
     private String        userDefinedContentStatus = null;
 

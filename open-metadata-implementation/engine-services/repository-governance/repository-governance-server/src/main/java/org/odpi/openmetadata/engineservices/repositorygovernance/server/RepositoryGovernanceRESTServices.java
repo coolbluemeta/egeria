@@ -40,7 +40,7 @@ public class RepositoryGovernanceRESTServices extends TokenController
      *
      * @return connector type or
      *  InvalidParameterException the connector provider class name is not a valid connector fo this service
-     *  UserNotAuthorizedException user not authorized to issue this request
+     *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException there was a problem detected by the integration service
      */
     public ConnectorReportResponse validateConnector(String serverName,
@@ -76,7 +76,7 @@ public class RepositoryGovernanceRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

@@ -263,7 +263,7 @@ public class OpenMetadataTypesArchive2_10
     private RelationshipDef addGovernanceDriverLinkRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.GOVERNANCE_DRIVER_LINK_RELATIONSHIP,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         RelationshipEndDef relationshipEndDef;
@@ -296,16 +296,6 @@ public class OpenMetadataTypesArchive2_10
                                                                  end2AttributeDescriptionGUID,
                                                                  RelationshipEndCardinality.ANY_NUMBER);
         relationshipDef.setEndDef2(relationshipEndDef);
-
-        /*
-         * Build the attributes
-         */
-        List<TypeDefAttribute> properties = new ArrayList<>();
-
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
-
-        relationshipDef.setPropertiesDefinition(properties);
 
         return relationshipDef;
     }

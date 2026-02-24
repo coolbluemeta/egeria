@@ -24,10 +24,10 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 public class SemanticAnnotationProperties extends DataFieldAnnotationProperties
 {
-    private String       informalTerm                 = null;
-    private String       subjectAreaName              = null;
-    private List<String> candidateGlossaryTermGUIDs   = null;
-    private List<String> candidateGlossaryFolderGUIDs = null;
+    private String       informalTerm               = null;
+    private String       subjectAreaName            = null;
+    private List<String> candidateGlossaryTermGUIDs = null;
+    private List<String> candidateSubjectAreaGUIDs  = null;
 
     /**
      * Default constructor
@@ -52,8 +52,8 @@ public class SemanticAnnotationProperties extends DataFieldAnnotationProperties
         {
             informalTerm               = template.getInformalTerm();
             subjectAreaName            = template.getSubjectAreaName();
-            candidateGlossaryTermGUIDs   = template.getCandidateGlossaryTermGUIDs();
-            candidateGlossaryFolderGUIDs = template.getCandidateGlossaryFolderGUIDs();
+            candidateGlossaryTermGUIDs = template.getCandidateGlossaryTermGUIDs();
+            candidateSubjectAreaGUIDs  = template.getCandidateSubjectAreaGUIDs();
         }
     }
 
@@ -125,24 +125,24 @@ public class SemanticAnnotationProperties extends DataFieldAnnotationProperties
 
 
     /**
-     * Return a list of unique identifiers of glossary categories that describe the topic of the data.
+     * Return a list of unique identifiers of subject areas that describe the topic of the data.
      *
      * @return list of guids
      */
-    public List<String> getCandidateGlossaryFolderGUIDs()
+    public List<String> getCandidateSubjectAreaGUIDs()
     {
-        return candidateGlossaryFolderGUIDs;
+        return candidateSubjectAreaGUIDs;
     }
 
 
     /**
-     * Set up a list of unique identifiers of glossary categories that describe the topic of the data.
+     * Set up a list of unique identifiers of subject areas that describe the topic of the data.
      *
-     * @param candidateGlossaryFolderGUIDs list of guids
+     * @param candidateSubjectAreaGUIDs list of guids
      */
-    public void setCandidateGlossaryFolderGUIDs(List<String> candidateGlossaryFolderGUIDs)
+    public void setCandidateSubjectAreaGUIDs(List<String> candidateSubjectAreaGUIDs)
     {
-        this.candidateGlossaryFolderGUIDs = candidateGlossaryFolderGUIDs;
+        this.candidateSubjectAreaGUIDs = candidateSubjectAreaGUIDs;
     }
 
 
@@ -158,7 +158,7 @@ public class SemanticAnnotationProperties extends DataFieldAnnotationProperties
                 "informalTerm='" + informalTerm + '\'' +
                 ", subjectAreaName='" + subjectAreaName + '\'' +
                 ", candidateGlossaryTermGUIDs=" + candidateGlossaryTermGUIDs +
-                ", candidateGlossaryFolderGUIDs=" + candidateGlossaryFolderGUIDs +
+                ", candidateGlossaryFolderGUIDs=" + candidateSubjectAreaGUIDs +
                 "} " + super.toString();
     }
 
@@ -188,7 +188,7 @@ public class SemanticAnnotationProperties extends DataFieldAnnotationProperties
         return Objects.equals(informalTerm, that.informalTerm) &&
                 Objects.equals(subjectAreaName, that.subjectAreaName) &&
                 Objects.equals(candidateGlossaryTermGUIDs, that.candidateGlossaryTermGUIDs) &&
-                Objects.equals(candidateGlossaryFolderGUIDs, that.candidateGlossaryFolderGUIDs);
+                Objects.equals(candidateSubjectAreaGUIDs, that.candidateSubjectAreaGUIDs);
     }
 
 
@@ -200,6 +200,6 @@ public class SemanticAnnotationProperties extends DataFieldAnnotationProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), informalTerm, subjectAreaName, candidateGlossaryTermGUIDs, candidateGlossaryFolderGUIDs);
+        return Objects.hash(super.hashCode(), informalTerm, subjectAreaName, candidateGlossaryTermGUIDs, candidateSubjectAreaGUIDs);
     }
 }

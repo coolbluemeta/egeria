@@ -19,7 +19,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.communities.Crow
 import org.odpi.openmetadata.frameworks.openmetadata.properties.connections.EmbeddedConnectionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.contextevents.ContextEventImpactProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.contextevents.RelatedContextEventProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataClassAssignmentProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataValueAssignmentProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.designmodels.ConceptBeadAttributeLinkProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.designmodels.ConceptBeadRelationshipEndProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.digitalbusiness.AgreementActorProperties;
@@ -46,7 +46,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.security.Associa
 import org.odpi.openmetadata.frameworks.openmetadata.properties.softwarecapabilities.MetadataCohortPeerProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.softwarecapabilities.NetworkGatewayLinkProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.solutions.SolutionLinkingWireProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports.DataClassMatchProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports.AnnotationMatchProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports.RequestForActionTargetProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.validvalues.*;
 import org.odpi.openmetadata.frameworks.openmetadata.search.ElementProperties;
@@ -184,11 +184,57 @@ public class OpenMetadataRelationshipBuilder
                                                                              lineageBoundaryProperties.getHops());
                     }
                 }
+                else if (properties instanceof AnnotationMatchProperties annotationMatchProperties)
+                {
+                    elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                         OpenMetadataProperty.METHOD.name,
+                                                                         annotationMatchProperties.getMethod());
+
+                    elementProperties = propertyHelper.addIntProperty(elementProperties,
+                                                                      OpenMetadataProperty.THRESHOLD.name,
+                                                                      annotationMatchProperties.getThreshold());
+                }
                 else if (properties instanceof ContextEventImpactProperties contextEventImpactProperties)
                 {
                     elementProperties = propertyHelper.addIntProperty(elementProperties,
                                                                       OpenMetadataProperty.SEVERITY_LEVEL_IDENTIFIER.name,
                                                                       contextEventImpactProperties.getSeverityLevelIdentifier());
+                }
+                else if (properties instanceof DataValueAssignmentProperties dataValueAssignmentProperties)
+                {
+                    elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                         OpenMetadataProperty.METHOD.name,
+                                                                         dataValueAssignmentProperties.getMethod());
+
+                    if (dataValueAssignmentProperties.getAssignmentStatus() != null)
+                    {
+                        elementProperties = propertyHelper.addEnumProperty(elementProperties,
+                                                                           OpenMetadataProperty.ASSIGNMENT_STATUS.name,
+                                                                           DataValueAssignmentStatus.getOpenTypeName(),
+                                                                           dataValueAssignmentProperties.getAssignmentStatus().getName());
+                    }
+
+                    elementProperties = propertyHelper.addIntProperty(elementProperties,
+                                                                      OpenMetadataProperty.CONFIDENCE.name,
+                                                                      dataValueAssignmentProperties.getConfidence());
+
+                    elementProperties = propertyHelper.addIntProperty(elementProperties,
+                                                                      OpenMetadataProperty.THRESHOLD.name,
+                                                                      dataValueAssignmentProperties.getThreshold());
+
+                    elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                         OpenMetadataProperty.STEWARD.name,
+                                                                         dataValueAssignmentProperties.getSteward());
+                    elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                         OpenMetadataProperty.STEWARD_TYPE_NAME.name,
+                                                                         dataValueAssignmentProperties.getStewardTypeName());
+                    elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                         OpenMetadataProperty.STEWARD_PROPERTY_NAME.name,
+                                                                         dataValueAssignmentProperties.getStewardPropertyName());
+
+                    elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                         OpenMetadataProperty.SOURCE.name,
+                                                                         dataValueAssignmentProperties.getSource());
                 }
                 else if (properties instanceof NetworkGatewayLinkProperties networkGatewayLinkProperties)
                 {
@@ -609,52 +655,6 @@ public class OpenMetadataRelationshipBuilder
                                                                        CrowdSourcingRole.getOpenTypeName(),
                                                                        crowdSourcingContributionProperties.getRoleType().getName());
                 }
-            }
-            else if (properties instanceof DataClassAssignmentProperties dataClassAssignmentProperties)
-            {
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.METHOD.name,
-                                                                     dataClassAssignmentProperties.getMethod());
-
-                if (dataClassAssignmentProperties.getDataClassAssignmentStatus() != null)
-                {
-                    elementProperties = propertyHelper.addEnumProperty(elementProperties,
-                                                                       OpenMetadataProperty.DATA_CLASS_ASSIGNMENT_STATUS.name,
-                                                                       DataClassAssignmentStatus.getOpenTypeName(),
-                                                                       dataClassAssignmentProperties.getDataClassAssignmentStatus().getName());
-                }
-
-                elementProperties = propertyHelper.addIntProperty(elementProperties,
-                                                                  OpenMetadataProperty.CONFIDENCE.name,
-                                                                  dataClassAssignmentProperties.getConfidence());
-
-                elementProperties = propertyHelper.addIntProperty(elementProperties,
-                                                                  OpenMetadataProperty.THRESHOLD.name,
-                                                                  dataClassAssignmentProperties.getThreshold());
-
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.STEWARD.name,
-                                                                     dataClassAssignmentProperties.getSteward());
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.STEWARD_TYPE_NAME.name,
-                                                                     dataClassAssignmentProperties.getStewardTypeName());
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.STEWARD_PROPERTY_NAME.name,
-                                                                     dataClassAssignmentProperties.getStewardPropertyName());
-
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.SOURCE.name,
-                                                                     dataClassAssignmentProperties.getSource());
-            }
-            else if (properties instanceof DataClassMatchProperties dataClassMatchProperties)
-            {
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.METHOD.name,
-                                                                     dataClassMatchProperties.getMethod());
-
-                elementProperties = propertyHelper.addIntProperty(elementProperties,
-                                                                  OpenMetadataProperty.THRESHOLD.name,
-                                                                  dataClassMatchProperties.getThreshold());
             }
             else if (properties instanceof DataSetContentProperties dataSetContentProperties)
             {

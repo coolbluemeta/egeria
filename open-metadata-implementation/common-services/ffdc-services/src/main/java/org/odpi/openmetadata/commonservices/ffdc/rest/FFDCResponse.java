@@ -2,12 +2,14 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.commonservices.ffdc.rest;
 
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestIdService;
+
 import java.util.Map;
 
 /**
  * FFDCResponse is the top-level class for a response object used to return results on REST APIs.
  */
-public interface FFDCResponse
+public interface FFDCResponse extends RequestIdService
 {
     /**
      * Return the HTTP Code to use if forwarding response to HTTP client.

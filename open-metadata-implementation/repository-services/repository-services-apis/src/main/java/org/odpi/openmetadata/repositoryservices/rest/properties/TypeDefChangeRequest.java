@@ -21,8 +21,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TypeDefChangeRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private TypeDefSummary currentTypeDef = null;
     private TypeDefSummary newTypeDef     = null;
 
@@ -105,10 +103,10 @@ public class TypeDefChangeRequest extends OMRSAPIRequest
     @Override
     public String toString()
     {
-        return "TypeDefCategoryFindRequest{" +
+        return "TypeDefChangeRequest{" +
                 "currentTypeDef=" + currentTypeDef +
-                "newTypeDef=" + newTypeDef +
-                '}';
+                ", newTypeDef=" + newTypeDef +
+                "} " + super.toString();
     }
 
 
@@ -121,20 +119,11 @@ public class TypeDefChangeRequest extends OMRSAPIRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (!(objectToCompare instanceof TypeDefChangeRequest))
-        {
-            return false;
-        }
-        TypeDefChangeRequest
-                that = (TypeDefChangeRequest) objectToCompare;
-        return Objects.equals(getCurrentTypeDef(), that.getCurrentTypeDef()) &&
-                Objects.equals(getNewTypeDef(), that.getNewTypeDef());
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        TypeDefChangeRequest that = (TypeDefChangeRequest) objectToCompare;
+        return Objects.equals(currentTypeDef, that.currentTypeDef) && Objects.equals(newTypeDef, that.newTypeDef);
     }
-
 
     /**
      * Create a hash code for this element type.
@@ -144,6 +133,6 @@ public class TypeDefChangeRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(getCurrentTypeDef(), getNewTypeDef());
+        return Objects.hash(super.hashCode(), currentTypeDef, newTypeDef);
     }
 }

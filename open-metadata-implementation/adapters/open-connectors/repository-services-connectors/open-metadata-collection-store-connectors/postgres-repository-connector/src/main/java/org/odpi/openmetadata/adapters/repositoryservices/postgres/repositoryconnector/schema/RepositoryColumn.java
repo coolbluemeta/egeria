@@ -5,12 +5,14 @@ package org.odpi.openmetadata.adapters.repositoryservices.postgres.repositorycon
 
 import org.odpi.openmetadata.adapters.connectors.resource.jdbc.ddl.postgres.PostgreSQLColumn;
 import org.odpi.openmetadata.adapters.connectors.resource.jdbc.properties.ColumnType;
+import org.odpi.openmetadata.frameworks.openmetadata.types.DataType;
 
 /**
  * Describes the different types of columns found in the repository database schema
  */
 public enum RepositoryColumn implements PostgreSQLColumn
 {
+    LAST_REQUEST_ID("last_request_id", ColumnType.STRING, "Unique identifier of the last requestId to update the element.",  false),
     LOCAL_METADATA_COLLECTION_GUID("local_metadata_collection_guid", ColumnType.STRING, "Unique identifier of the local repository's metadata collection.", true),
     SERVER_NAME("server_name", ColumnType.STRING, "Unique name of the server that is hosting this repository.", true),
     SCHEMA_VERSION("schema_version", ColumnType.STRING, "Version of this database schema to manage schema migration.", true),

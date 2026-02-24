@@ -60,7 +60,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
     /**
      * Create a new project.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param optionalClassification classification of the projects - eg Campaign, Task or PersonalProjectProperties
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
@@ -421,7 +421,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of projects that are linked off of the supplied element.
      *
-     * @param userId         userId of user making request
+     * @param userId         userId of the user making the request
      * @param parentGUID     unique identifier of referenceable object (typically a personal profile, project or
      *                       community) that the projects hang off of
      * @param projectStatus filter response by project type - if null, any value will do
@@ -749,7 +749,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of projects with a particular classification.
      *
-     * @param userId             userId of user making request
+     * @param userId             userId of the user making the request
      * @param classificationName name of the classification - if null, all projects are returned
      * @param suppliedQueryOptions multiple options to control the query
      *
@@ -793,7 +793,7 @@ public class ProjectHandler extends OpenMetadataHandlerBase
     /**
      * Return a list of actors that are members of a project.
      *
-     * @param userId             userId of user making request
+     * @param userId             userId of the user making the request
      * @param projectGUID unique identifier of the project
      * @param teamRole optional team role value found in AssignmentScope's assignmentType attribute.  Used to filter the results.
      * @param queryOptions multiple options to control the query

@@ -557,16 +557,16 @@ public enum ProductDataFieldDefinition
 
 
     /**
-     * Namespace
+     * NamespacePath
      */
-    NAMESPACE("Namespace",
-              "Namespace",
-              OpenMetadataProperty.NAMESPACE.description,
-              OpenMetadataProperty.NAMESPACE.dataType,
-              null,
-              null,
-              false,
-              true),
+    NAMESPACE_PATH("NamespacePath",
+                   "NamespacePath",
+                   OpenMetadataProperty.NAMESPACE_PATH.description,
+                   OpenMetadataProperty.NAMESPACE_PATH.dataType,
+                   null,
+                   null,
+                   false,
+                   true),
 
     /**
      * Deployed Implementation Type (Technology Type)

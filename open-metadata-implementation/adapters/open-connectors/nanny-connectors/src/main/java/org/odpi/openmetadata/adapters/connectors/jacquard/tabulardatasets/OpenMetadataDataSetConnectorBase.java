@@ -552,9 +552,9 @@ public abstract class OpenMetadataDataSetConnectorBase extends ConnectorBase imp
                         recordValues.add(validValueDefinitionProperties.getPreferredValue());
                         return true;
                     }
-                    else if (ProductDataFieldDefinition.NAMESPACE.getDisplayName().equals(columnName))
+                    else if (ProductDataFieldDefinition.NAMESPACE_PATH.getDisplayName().equals(columnName))
                     {
-                        recordValues.add(validValueDefinitionProperties.getNamespace());
+                        recordValues.add(validValueDefinitionProperties.getNamespacePath());
                         return true;
                     }
                     else if (ProductDataFieldDefinition.SCOPE.getDisplayName().equals(columnName))
@@ -583,9 +583,9 @@ public abstract class OpenMetadataDataSetConnectorBase extends ConnectorBase imp
             }
             else if (referenceableProperties instanceof AssetProperties assetProperties)
             {
-                if (ProductDataFieldDefinition.NAMESPACE.getDisplayName().equals(columnName))
+                if (ProductDataFieldDefinition.NAMESPACE_PATH.getDisplayName().equals(columnName))
                 {
-                    recordValues.add(assetProperties.getNamespace());
+                    recordValues.add(assetProperties.getNamespacePath());
                     return true;
                 }
                 else if (ProductDataFieldDefinition.RESOURCE_NAME.getDisplayName().equals(columnName))

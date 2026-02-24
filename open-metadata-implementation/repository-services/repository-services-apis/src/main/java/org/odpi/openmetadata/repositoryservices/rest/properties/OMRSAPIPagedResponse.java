@@ -28,8 +28,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public abstract class OMRSAPIPagedResponse extends OMRSAPIResponse
 {
-    private static final long    serialVersionUID = 1L;
-
     protected int     offset      = 0;
     protected int     pageSize    = 0;
 
@@ -133,7 +131,7 @@ public abstract class OMRSAPIPagedResponse extends OMRSAPIResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof OMRSAPIPagedResponse))
+        if (!(objectToCompare instanceof OMRSAPIPagedResponse that))
         {
             return false;
         }
@@ -141,8 +139,6 @@ public abstract class OMRSAPIPagedResponse extends OMRSAPIResponse
         {
             return false;
         }
-        OMRSAPIPagedResponse
-                that = (OMRSAPIPagedResponse) objectToCompare;
         return getOffset() == that.getOffset() &&
                 getPageSize() == that.getPageSize();
     }
@@ -156,6 +152,6 @@ public abstract class OMRSAPIPagedResponse extends OMRSAPIResponse
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), getOffset(), getPageSize());
+        return Objects.hash(super.hashCode(), offset, pageSize);
     }
 }

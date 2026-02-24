@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * OpenMetadataStore provides access to metadata elements stored in the metadata repositories.  It is implemented by the
- * abstract class OpenMetadataClient and used by all the governance action services to retrieve metadata.
+ * abstract class OpenMetadataClient and used by all the connectors to retrieve metadata.
  * <p>
  * The concrete class for OpenMetadataClient is implemented by a metadata repository provider. In Egeria, this class is
  * implemented in the GAF Metadata Management Services.
@@ -62,7 +62,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return metadata element properties
      * @throws InvalidParameterException the unique identifier is null or not known.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public OpenMetadataElement getMetadataElementByGUID(String  elementGUID) throws InvalidParameterException,
@@ -83,7 +83,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return metadata element properties
      * @throws InvalidParameterException the unique identifier is null or not known.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public OpenMetadataElement getMetadataElementByGUID(String     elementGUID,
@@ -106,7 +106,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return metadata element properties or null if not found
      * @throws InvalidParameterException the unique identifier is null.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public OpenMetadataElement getMetadataElementByUniqueName(String  uniqueName,
@@ -130,7 +130,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return metadata element properties or null if not found
      * @throws InvalidParameterException the unique identifier is null.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public OpenMetadataElement getMetadataElementByUniqueName(String     uniqueName,
@@ -153,7 +153,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return metadata element properties or null if not found
      * @throws InvalidParameterException the unique identifier is null.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public OpenMetadataElement getLineageElementByUniqueName(String  uniqueName,
@@ -182,7 +182,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return metadata element properties or null if not found
      * @throws InvalidParameterException the unique identifier is null.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public OpenMetadataElement getDeletedElementByUniqueName(String  uniqueName,
@@ -202,7 +202,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return metadata element unique identifier (guid)
      * @throws InvalidParameterException the unique identifier is null or not known.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public String getMetadataElementGUIDByUniqueName(String  uniqueName,
@@ -226,7 +226,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return metadata element unique identifier (guid)
      * @throws InvalidParameterException the unique identifier is null or not known.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public String getMetadataElementGUIDByUniqueName(String     uniqueName,
@@ -251,7 +251,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return list of matching metadata elements (or null if no elements match the name)
      * @throws InvalidParameterException the qualified name is null
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public List<OpenMetadataElement> findMetadataElementsWithString(String  searchString,
@@ -276,7 +276,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return list of matching metadata elements (or null if no elements match the name)
      * @throws InvalidParameterException the qualified name is null
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public List<OpenMetadataElement> findMetadataElementsWithString(String  searchString,
@@ -300,7 +300,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return list of matching metadata elements (or null if no elements match the name)
      * @throws InvalidParameterException the qualified name is null
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public List<OpenMetadataElement> findMetadataElementsWithString(String        searchString,
@@ -400,7 +400,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return list of related elements
      * @throws InvalidParameterException the unique identifier is null or not known; the relationship type is invalid
-     * @throws UserNotAuthorizedException the governance action service is not able to access the elements
+     * @throws UserNotAuthorizedException the connector is not able to access the elements
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public RelatedMetadataElementList getRelatedMetadataElements(String  elementGUID,
@@ -429,7 +429,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return list of related elements
      * @throws InvalidParameterException the unique identifier is null or not known; the relationship type is invalid
-     * @throws UserNotAuthorizedException the governance action service is not able to access the elements
+     * @throws UserNotAuthorizedException the connector is not able to access the elements
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public RelatedMetadataElementList getRelatedMetadataElements(String       elementGUID,
@@ -604,7 +604,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return list of related elements
      * @throws InvalidParameterException the unique identifier is null or not known; the relationship type is invalid
-     * @throws UserNotAuthorizedException the governance action service is not able to access the elements
+     * @throws UserNotAuthorizedException the connector is not able to access the elements
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public OpenMetadataRelationshipList getMetadataElementRelationships(String  metadataElementAtEnd1GUID,
@@ -635,7 +635,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return a list of elements matching the supplied criteria; null means no matching elements in the metadata store.
      * @throws InvalidParameterException one of the search parameters are is invalid
-     * @throws UserNotAuthorizedException the governance action service is not able to access the elements
+     * @throws UserNotAuthorizedException the connector is not able to access the elements
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public List<OpenMetadataElement> findMetadataElements(String                metadataElementTypeName,
@@ -663,7 +663,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return a list of elements matching the supplied criteria; null means no matching elements in the metadata store.
      * @throws InvalidParameterException one of the search parameters are is invalid
-     * @throws UserNotAuthorizedException the governance action service is not able to access the elements
+     * @throws UserNotAuthorizedException the connector is not able to access the elements
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public List<OpenMetadataElement> findMetadataElements(SearchProperties      searchProperties,
@@ -677,35 +677,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
                                                        matchClassifications,
                                                        queryOptions);
     }
-
-
-    /**
-     * Return a list of relationships that match the requested conditions.  The results can be received as a series of pages.
-     *
-     * @param relationshipTypeName relationship's type.  Null means all types
-     *                             (but may be slow so not recommended).
-     * @param searchProperties Optional list of relationship property conditions to match.
-     * @param startFrom paging start point
-     * @param pageSize maximum results that can be returned
-     *
-     * @return a list of relationships.  Null means no matching relationships.
-     * @throws InvalidParameterException one of the search parameters are is invalid
-     * @throws UserNotAuthorizedException the governance action service is not able to access the elements
-     * @throws PropertyServerException a problem accessing the metadata store
-     */
-    public OpenMetadataRelationshipList findRelationshipsBetweenMetadataElements(String              relationshipTypeName,
-                                                                                 SearchProperties    searchProperties,
-                                                                                 int                 startFrom,
-                                                                                 int                 pageSize) throws InvalidParameterException,
-                                                                                                                      UserNotAuthorizedException,
-                                                                                                                      PropertyServerException
-    {
-        return openMetadataClient.findRelationshipsBetweenMetadataElements(connectorUserId,
-                                                                           relationshipTypeName,
-                                                                           searchProperties,
-                                                                           getQueryOptions(startFrom, pageSize));
-    }
-
+    
 
     /**
      * Return a list of relationships that match the requested conditions.  The results can be received as a series of pages.
@@ -717,17 +689,25 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return a list of relationships.  Null means no matching relationships.
      * @throws InvalidParameterException one of the search parameters are is invalid
-     * @throws UserNotAuthorizedException the governance action service is not able to access the elements
+     * @throws UserNotAuthorizedException the connector is not able to access the elements
      * @throws PropertyServerException a problem accessing the metadata store
      */
-    public OpenMetadataRelationshipList findRelationshipsBetweenMetadataElements(String              relationshipTypeName,
-                                                                                 SearchProperties    searchProperties,
-                                                                                 QueryOptions        queryOptions) throws InvalidParameterException,
-                                                                                                                          UserNotAuthorizedException,
-                                                                                                                          PropertyServerException
+    public OpenMetadataRelationshipList findRelationshipsBetweenMetadataElements(String           relationshipTypeName,
+                                                                                 List<String>     relationshipSubtypeGUIDs,
+                                                                                 List<String>     end1EntityGUIDs,
+                                                                                 List<String>     end2EntityGUIDs,
+                                                                                 EndMatchCriteria endMatchCriteria,
+                                                                                 SearchProperties searchProperties,
+                                                                                 QueryOptions     queryOptions) throws InvalidParameterException, 
+                                                                                                                       UserNotAuthorizedException,
+                                                                                                                       PropertyServerException
     {
         return openMetadataClient.findRelationshipsBetweenMetadataElements(connectorUserId,
                                                                            relationshipTypeName,
+                                                                           relationshipSubtypeGUIDs,
+                                                                           end1EntityGUIDs,
+                                                                           end2EntityGUIDs,
+                                                                           endMatchCriteria,
                                                                            searchProperties,
                                                                            queryOptions);
     }
@@ -740,7 +720,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return relationship properties
      * @throws InvalidParameterException the unique identifier is null or not known.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public OpenMetadataRelationship getRelationshipByGUID(String     relationshipGUID) throws InvalidParameterException,
@@ -759,7 +739,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return relationship properties
      * @throws InvalidParameterException the unique identifier is null or not known.
-     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws UserNotAuthorizedException the connector is not able to access the element
      * @throws PropertyServerException a problem accessing the metadata store
      */
     public OpenMetadataRelationship getRelationshipByGUID(String     relationshipGUID,
@@ -783,7 +763,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @return unique identifier of the new metadata element
      *
      * @throws InvalidParameterException the type name, status or one of the properties is invalid
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of element
+     * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
     public String createMetadataElementInStore(String               metadataElementTypeName,
@@ -816,7 +796,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @return unique identifier of the new metadata element
      *
      * @throws InvalidParameterException the type name, status or one of the properties is invalid
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of element
+     * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
     public String createMetadataElementInStore(String            metadataElementTypeName,
@@ -864,7 +844,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @return unique identifier of the new metadata element
      *
      * @throws InvalidParameterException the type name, status or one of the properties is invalid
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of element
+     * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
     public String createMetadataElementInStore(String                            metadataElementTypeName,
@@ -913,7 +893,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @return unique identifier of the new metadata element
      *
      * @throws InvalidParameterException the type name, status or one of the properties is invalid
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of element
+     * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
     public String createMetadataElementInStore(String                            metadataElementTypeName,
@@ -969,7 +949,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @return unique identifier of the new metadata element
      *
      * @throws InvalidParameterException the type name, status or one of the properties is invalid
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of element
+     * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
     public String createMetadataElementFromTemplate(String                         metadataElementTypeName,
@@ -1028,7 +1008,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @return unique identifier of the new metadata element
      *
      * @throws InvalidParameterException the type name, status or one of the properties is invalid
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of element
+     * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
     public String createMetadataElementFromTemplate(String               metadataElementTypeName,
@@ -1086,7 +1066,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @return unique identifier of the new metadata element
      *
      * @throws InvalidParameterException the type name, status or one of the properties is invalid
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of element
+     * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
     public String getMetadataElementFromTemplate(String                         metadataElementTypeName,
@@ -1137,7 +1117,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param properties new properties for the metadata element
      *
      * @throws InvalidParameterException either the unique identifier or the properties are invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this element
+     * @throws UserNotAuthorizedException the connector is not authorized to update this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public void updateMetadataElementInStore(String            metadataElementGUID,
@@ -1161,7 +1141,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @return boolean - true if an update occurred
      * @throws InvalidParameterException either the unique identifier or the properties are invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this element
+     * @throws UserNotAuthorizedException the connector is not authorized to update this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public boolean updateMetadataElementInStore(String            metadataElementGUID,
@@ -1231,7 +1211,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param effectiveTo the date when this element becomes inactive - null for active until deleted
      *
      * @throws InvalidParameterException either the unique identifier or the status are invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this element
+     * @throws UserNotAuthorizedException the connector is not authorized to update this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public void updateMetadataElementEffectivityInStore(String metadataElementGUID,
@@ -1256,7 +1236,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param effectiveTo the date when this element becomes inactive - null for active until deleted
      *
      * @throws InvalidParameterException either the unique identifier or the status are invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this element
+     * @throws UserNotAuthorizedException the connector is not authorized to update this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public void updateMetadataElementEffectivityInStore(String                metadataElementGUID,
@@ -1286,7 +1266,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param cascadedDelete     boolean indicating whether the delete request can cascade to dependent elements
      *
      * @throws InvalidParameterException the unique identifier is null or invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to delete this element
+     * @throws UserNotAuthorizedException the connector is not authorized to delete this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public void deleteMetadataElementInStore(String  metadataElementGUID,
@@ -1307,7 +1287,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param deleteOptions options for a delete request
      *
      * @throws InvalidParameterException the unique identifier is null or invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to delete this element
+     * @throws UserNotAuthorizedException the connector is not authorized to delete this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public void deleteMetadataElementInStore(String        metadataElementGUID,
@@ -1333,7 +1313,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param deleteOptions  options to control access to open metadata
      *
      * @throws InvalidParameterException the unique identifier is null or invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to delete this element
+     * @throws UserNotAuthorizedException the connector is not authorized to delete this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public void archiveMetadataElementInStore(String        metadataElementGUID,
@@ -1362,7 +1342,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @throws InvalidParameterException the unique identifier or classification name is null or invalid in some way; properties do not match the
      *                                   valid properties associated with the classification's type definition
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this element
+     * @throws UserNotAuthorizedException the connector is not authorized to update this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public void classifyMetadataElementInStore(String                metadataElementGUID,
@@ -1396,7 +1376,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @throws InvalidParameterException the unique identifier or classification name is null or invalid in some way; properties do not match the
      *                                   valid properties associated with the classification's type definition
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this element/classification
+     * @throws UserNotAuthorizedException the connector is not authorized to update this element/classification
      * @throws PropertyServerException a problem with the metadata store
      */
     public void reclassifyMetadataElementInStore(String            metadataElementGUID,
@@ -1423,7 +1403,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @throws InvalidParameterException the unique identifier or classification name is null or invalid in some way; properties do not match the
      *                                   valid properties associated with the classification's type definition
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this element/classification
+     * @throws UserNotAuthorizedException the connector is not authorized to update this element/classification
      * @throws PropertyServerException a problem with the metadata store
      */
     public void reclassifyMetadataElementInStore(String            metadataElementGUID,
@@ -1457,7 +1437,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param effectiveTo the date when this element becomes inactive - null for active until deleted
      *
      * @throws InvalidParameterException either the unique identifier or the status are invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this element
+     * @throws UserNotAuthorizedException the connector is not authorized to update this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public void updateClassificationEffectivityInStore(String                metadataElementGUID,
@@ -1490,7 +1470,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param metadataSourceOptions  options to control access to open metadata
      *
      * @throws InvalidParameterException the unique identifier or classification name is null or invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to remove this classification
+     * @throws UserNotAuthorizedException the connector is not authorized to remove this classification
      * @throws PropertyServerException a problem with the metadata store
      */
     public void declassifyMetadataElementInStore(String                metadataElementGUID,
@@ -1527,7 +1507,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @throws InvalidParameterException the unique identifier's of the metadata elements are null or invalid in some way; the properties are
      *                                    not valid for this type of relationship
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of relationship
+     * @throws UserNotAuthorizedException the connector is not authorized to create this type of relationship
      * @throws PropertyServerException a problem with the metadata store
      */
     public String createRelatedElementsInStore(String            relationshipTypeName,
@@ -1564,7 +1544,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @throws InvalidParameterException the unique identifier's of the metadata elements are null or invalid in some way; the properties are
      *                                    not valid for this type of relationship
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of relationship
+     * @throws UserNotAuthorizedException the connector is not authorized to create this type of relationship
      * @throws PropertyServerException a problem with the metadata store
      */
     public String createRelatedElementsInStore(String                relationshipTypeName,
@@ -1600,7 +1580,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @throws InvalidParameterException the unique identifier of the relationship is null or invalid in some way; the properties are
      *                                    not valid for this type of relationship
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this relationship
+     * @throws UserNotAuthorizedException the connector is not authorized to update this relationship
      * @throws PropertyServerException a problem with the metadata store
      */
     public void updateRelatedElementsInStore(String            relationshipGUID,
@@ -1631,7 +1611,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param effectiveTo the date when this element becomes inactive - null for active until deleted
      *
      * @throws InvalidParameterException either the unique identifier or the status are invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update this element
+     * @throws UserNotAuthorizedException the connector is not authorized to update this element
      * @throws PropertyServerException a problem with the metadata store
      */
     public void updateRelatedElementsEffectivityInStore(String                relationshipGUID,
@@ -1660,7 +1640,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param relationshipGUID unique identifier of the relationship to delete
      *
      * @throws InvalidParameterException the unique identifier of the relationship is null or invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to delete this relationship
+     * @throws UserNotAuthorizedException the connector is not authorized to delete this relationship
      * @throws PropertyServerException a problem with the metadata store
      */
     public void deleteRelationshipInStore(String  relationshipGUID) throws InvalidParameterException,
@@ -1678,7 +1658,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * @param deleteOptions  options to control access to open metadata
      *
      * @throws InvalidParameterException the unique identifier of the relationship is null or invalid in some way
-     * @throws UserNotAuthorizedException the governance action service is not authorized to delete this relationship
+     * @throws UserNotAuthorizedException the connector is not authorized to delete this relationship
      * @throws PropertyServerException a problem with the metadata store
      */
     public void deleteRelationshipInStore(String        relationshipGUID,

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataAssetProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataSpecProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.Date;
@@ -21,9 +22,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ReportTypeProperties extends DataAssetProperties
+public class ReportTypeProperties extends DataSpecProperties
 {
-    private String purpose           = null;
     private Date   createdTime      = null;
     private Date   lastModifiedTime = null;
     private String lastModifier      = null;
@@ -49,33 +49,10 @@ public class ReportTypeProperties extends DataAssetProperties
 
         if (template != null)
         {
-            purpose          = template.getPurpose();
             createdTime      = template.getCreatedTime();
             lastModifiedTime = template.getLastModifiedTime();
             lastModifier     = template.getLastModifier();
         }
-    }
-
-
-    /**
-     * Return the purpose of the report.
-     *
-     * @return string
-     */
-    public String getPurpose()
-    {
-        return purpose;
-    }
-
-
-    /**
-     * Set up the purpose for the report.
-     *
-     * @param purpose string
-     */
-    public void setPurpose(String purpose)
-    {
-        this.purpose = purpose;
     }
 
 
@@ -154,8 +131,7 @@ public class ReportTypeProperties extends DataAssetProperties
     public String toString()
     {
         return "ReportTypeProperties{" +
-                "purpose='" + purpose + '\'' +
-                ", createTime=" + createdTime +
+                "createTime=" + createdTime +
                 ", lastModifiedTime=" + lastModifiedTime +
                 ", lastModifier='" + lastModifier + '\'' +
                 "} " + super.toString();
@@ -175,9 +151,7 @@ public class ReportTypeProperties extends DataAssetProperties
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         if (!super.equals(objectToCompare)) return false;
         ReportTypeProperties that = (ReportTypeProperties) objectToCompare;
-        return Objects.equals(purpose, that.purpose) &&
-
-                Objects.equals(createdTime, that.createdTime) &&
+        return Objects.equals(createdTime, that.createdTime) &&
                 Objects.equals(lastModifiedTime, that.lastModifiedTime) &&
                 Objects.equals(lastModifier, that.lastModifier);
     }
@@ -190,6 +164,6 @@ public class ReportTypeProperties extends DataAssetProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), purpose, createdTime, lastModifiedTime, lastModifier);
+        return Objects.hash(super.hashCode(), createdTime, lastModifiedTime, lastModifier);
     }
 }

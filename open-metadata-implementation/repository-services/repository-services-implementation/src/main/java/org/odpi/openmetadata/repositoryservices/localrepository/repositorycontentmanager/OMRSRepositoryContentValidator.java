@@ -4437,6 +4437,36 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
 
 
     /**
+     * Test that the ends of this relationship match the requested end guids and match criteria.
+     *
+     * @param end1EntityGUIDs optional list of the unique identifiers (guids) for entities that must be at end 1 of the relationship.
+     * @param end2EntityGUIDs optional list of the unique identifiers (guids) for entities that must be at end 2 of the relationship.
+     * @param endMatchCriteria criteria for matching the ends of the relationship.
+     * @param relationship relationship to test
+     * @return boolean property indicating whether the ends match
+     * @throws InvalidParameterException invalid search criteria
+     */
+    @Override
+    public boolean verifyMatchingRelationshipEnds(List<String> end1EntityGUIDs, List<String> end2EntityGUIDs, EndMatchCriteria endMatchCriteria, Relationship relationship) throws InvalidParameterException
+    {
+        if (endMatchCriteria == EndMatchCriteria.ANY)
+        {
+            return ((end1EntityGUIDs == null) || (end1EntityGUIDs.contains(relationship.getEntityOneProxy().getGUID())))
+                || ((end2EntityGUIDs == null) || (end2EntityGUIDs.contains(relationship.getEntityTwoProxy().getGUID())));
+        }
+        if (endMatchCriteria == EndMatchCriteria.BOTH)
+        {
+            return ((end1EntityGUIDs == null) || (end1EntityGUIDs.contains(relationship.getEntityOneProxy().getGUID())))
+                    && ((end2EntityGUIDs == null) || (end2EntityGUIDs.contains(relationship.getEntityTwoProxy().getGUID())));
+        }
+
+        // EndMatchCriteria.NONE
+        return ((end1EntityGUIDs == null) || (! end1EntityGUIDs.contains(relationship.getEntityOneProxy().getGUID())))
+                && ((end2EntityGUIDs == null) || (! end2EntityGUIDs.contains(relationship.getEntityTwoProxy().getGUID())));
+    }
+
+
+    /**
      * {@inheritDoc}
      */
     @Override

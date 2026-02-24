@@ -22,7 +22,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class CompletionStatusRequestBody
+public class CompletionStatusRequestBody extends GAFAPIRequest
 {
     private CompletionStatus      status            = null;
     private Map<String, String>   requestParameters = null;
@@ -47,6 +47,8 @@ public class CompletionStatusRequestBody
      */
     public CompletionStatusRequestBody(CompletionStatusRequestBody template)
     {
+        super(template);
+
         if (template != null)
         {
             status = template.getStatus();
@@ -208,12 +210,12 @@ public class CompletionStatusRequestBody
     public String toString()
     {
         return "CompletionStatusRequestBody{" +
-                       "status=" + status +
-                       ", requestParameters=" + requestParameters +
-                       ", outputGuards=" + outputGuards +
-                       ", newActionTargets=" + newActionTargets +
-                       ", completionMessage=" + completionMessage +
-                       '}';
+                "status=" + status +
+                ", requestParameters=" + requestParameters +
+                ", outputGuards=" + outputGuards +
+                ", newActionTargets=" + newActionTargets +
+                ", completionMessage='" + completionMessage + '\'' +
+                "} " + super.toString();
     }
 
 
@@ -226,19 +228,10 @@ public class CompletionStatusRequestBody
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (objectToCompare == null || getClass() != objectToCompare.getClass())
-        {
-            return false;
-        }
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
         CompletionStatusRequestBody that = (CompletionStatusRequestBody) objectToCompare;
-        return status == that.status &&
-                       Objects.equals(outputGuards, that.outputGuards) &&
-                       Objects.equals(completionMessage, that.completionMessage) &&
-                       Objects.equals(newActionTargets, that.newActionTargets);
+        return status == that.status && Objects.equals(requestParameters, that.requestParameters) && Objects.equals(outputGuards, that.outputGuards) && Objects.equals(newActionTargets, that.newActionTargets) && Objects.equals(completionMessage, that.completionMessage);
     }
 
 
@@ -250,6 +243,6 @@ public class CompletionStatusRequestBody
     @Override
     public int hashCode()
     {
-        return Objects.hash(status, outputGuards, newActionTargets, completionMessage);
+        return Objects.hash(super.hashCode(), status, requestParameters, outputGuards, newActionTargets, completionMessage);
     }
 }

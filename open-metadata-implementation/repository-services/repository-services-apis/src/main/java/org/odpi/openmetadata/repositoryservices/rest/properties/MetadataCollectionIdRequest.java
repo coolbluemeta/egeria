@@ -21,8 +21,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class MetadataCollectionIdRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private String metadataCollectionId = null;
 
 
@@ -80,9 +78,9 @@ public class MetadataCollectionIdRequest extends OMRSAPIRequest
     @Override
     public String toString()
     {
-        return "BooleanResponse{" +
-                "metadataCollectionId=" + metadataCollectionId +
-                '}';
+        return "MetadataCollectionIdRequest{" +
+                "metadataCollectionId='" + metadataCollectionId + '\'' +
+                "} " + super.toString();
     }
 
 
@@ -99,7 +97,7 @@ public class MetadataCollectionIdRequest extends OMRSAPIRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof MetadataCollectionIdRequest))
+        if (!(objectToCompare instanceof MetadataCollectionIdRequest that))
         {
             return false;
         }
@@ -107,8 +105,6 @@ public class MetadataCollectionIdRequest extends OMRSAPIRequest
         {
             return false;
         }
-        MetadataCollectionIdRequest
-                that = (MetadataCollectionIdRequest) objectToCompare;
         return metadataCollectionId.equals(that.metadataCollectionId);
     }
 

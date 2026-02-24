@@ -49,7 +49,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      *
      * @return connector report or
      *  InvalidParameterException the connector provider class name is not a valid connector fo this service
-     *  UserNotAuthorizedException user not authorized to issue this request
+     *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException there was a problem detected by the integration service
      */
     public ConnectorReportResponse validateConnector(String serverName,
@@ -84,7 +84,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -137,7 +137,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -152,7 +152,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      *
      * @return properties map or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     public PropertiesResponse getConfigurationProperties(String serverName,
@@ -184,7 +184,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -199,7 +199,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     public  VoidResponse updateConfigurationProperties(String                               serverName,
@@ -240,7 +240,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -256,7 +256,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
 
@@ -298,7 +298,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -314,7 +314,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
 
@@ -356,7 +356,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -371,7 +371,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     public  VoidResponse refreshConnectors(String          serverName,
@@ -407,7 +407,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -422,7 +422,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     public  VoidResponse restartConnectors(String          serverName,
@@ -458,7 +458,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -471,7 +471,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      * @param delegatingUserId external userId making request
      * @return list of statuses - on for each assigned integration services or group
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration daemon.
      */
     public IntegrationDaemonStatusResponse getIntegrationDaemonStatus(String serverName,
@@ -505,7 +505,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -523,7 +523,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  IntegrationGroupException there was a problem detected by the integration group.
      */
     public  VoidResponse refreshIntegrationGroupConfig(String serverName,
@@ -552,7 +552,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -596,7 +596,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -609,7 +609,7 @@ public class IntegrationDaemonRESTServices extends TokenController
      * @param delegatingUserId external userId making request
      * @return list of statuses - on for each assigned integration groups or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      */
     public IntegrationGroupSummariesResponse getIntegrationGroupSummaries(String serverName,
                                                                           String delegatingUserId)
@@ -636,7 +636,7 @@ public class IntegrationDaemonRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

@@ -52,7 +52,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "createAnnotation";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -92,7 +92,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -114,7 +114,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "createAnnotationFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -148,7 +148,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -171,7 +171,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "updateAnnotation";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog     auditLog = null;
@@ -210,7 +210,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -236,7 +236,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "attachAnnotationToReport";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -287,7 +287,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -312,7 +312,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "detachAnnotationFromReport";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -334,7 +334,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -359,7 +359,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "linkAnnotationToDescribedElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -410,7 +410,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -435,7 +435,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "detachAnnotationFromDescribedElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -457,7 +457,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -482,7 +482,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "linkAnnotationToItsPredecessor";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -533,7 +533,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -558,7 +558,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "detachAnnotationFromItsPredecessor";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -580,133 +580,9 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
-
-
-    /**
-     * Attach a schema analysis annotation to a matching schema type.
-     *
-     * @param serverName         name of called server
-     * @param annotationGUID       unique identifier of the annotation
-     * @param schemaTypeGUID            unique identifier of the schema type
-     * @param requestBody  description of the relationship.
-     *
-     * @return void or
-     *  InvalidParameterException  one of the parameters is null or invalid.
-     *  PropertyServerException    a problem retrieving information from the property server(s).
-     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    public VoidResponse linkDiscoveredSchemaType(String                     serverName,
-                                                 String                     annotationGUID,
-                                                 String                     schemaTypeGUID,
-                                                 NewRelationshipRequestBody requestBody)
-    {
-        final String methodName = "linkDiscoveredSchemaType";
-
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
-
-        VoidResponse response = new VoidResponse();
-        AuditLog     auditLog = null;
-
-        try
-        {
-            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
-
-            restCallLogger.setUserId(token, userId);
-
-            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
-            AnnotationHandler handler = instanceHandler.getAnnotationHandler(userId, serverName, methodName);
-
-            if (requestBody != null)
-            {
-                if (requestBody.getProperties() instanceof DiscoveredSchemaTypeProperties discoveredSchemaTypeProperties)
-                {
-                    handler.linkDiscoveredSchemaType(userId,
-                                                     annotationGUID,
-                                                     schemaTypeGUID,
-                                                     requestBody,
-                                                     discoveredSchemaTypeProperties);
-                }
-                else if (requestBody.getProperties() == null)
-                {
-                    handler.linkDiscoveredSchemaType(userId,
-                                                     annotationGUID,
-                                                     schemaTypeGUID,
-                                                     requestBody,
-                                                     null);
-                }
-                else
-                {
-                    restExceptionHandler.handleInvalidPropertiesObject(DiscoveredSchemaTypeProperties.class.getName(), methodName);
-                }
-            }
-            else
-            {
-                handler.linkDiscoveredSchemaType(userId,
-                                                 annotationGUID,
-                                                 schemaTypeGUID,
-                                                 null,
-                                                 null);
-            }
-        }
-        catch (Throwable error)
-        {
-            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
-        }
-
-        restCallLogger.logRESTCallReturn(token, response.toString());
-        return response;
-    }
-
-
-    /**
-     * Detach a schema analysis annotation from a matching schema type.
-     *
-     * @param serverName         name of called server
-     * @param annotationGUID       unique identifier of the annotation
-     * @param schemaTypeGUID            unique identifier of the schema type
-     * @param requestBody  description of the relationship.
-     *
-     * @return void or
-     *  InvalidParameterException  one of the parameters is null or invalid.
-     *  PropertyServerException    a problem retrieving information from the property server(s).
-     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    public VoidResponse detachDiscoveredSchemaType(String                        serverName,
-                                                   String                        annotationGUID,
-                                                   String                        schemaTypeGUID,
-                                                   DeleteRelationshipRequestBody requestBody)
-    {
-        final String methodName = "detachDiscoveredSchemaType";
-
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
-
-        VoidResponse response = new VoidResponse();
-        AuditLog     auditLog = null;
-
-        try
-        {
-            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
-
-            restCallLogger.setUserId(token, userId);
-
-            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
-
-            AnnotationHandler handler = instanceHandler.getAnnotationHandler(userId, serverName, methodName);
-
-            handler.detachDiscoveredSchemaType(userId, annotationGUID, schemaTypeGUID, requestBody);
-        }
-        catch (Throwable error)
-        {
-            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
-        }
-
-        restCallLogger.logRESTCallReturn(token, response.toString());
-        return response;
-    }
-
 
 
     /**
@@ -724,12 +600,12 @@ public class DataDiscoveryRESTServices extends TokenController
      */
     public VoidResponse linkResourceProfileData(String                     serverName,
                                                 String                     annotationGUID,
-                                                String                      assetGUID,
+                                                String                     assetGUID,
                                                 NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkResourceProfileData";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -780,7 +656,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -805,7 +681,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "detachResourceProfileData";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -827,7 +703,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -853,7 +729,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "linkDataClassMatch";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -869,34 +745,34 @@ public class DataDiscoveryRESTServices extends TokenController
 
             if (requestBody != null)
             {
-                if (requestBody.getProperties() instanceof DataClassMatchProperties dataClassMatchProperties)
+                if (requestBody.getProperties() instanceof AnnotationMatchProperties annotationMatchProperties)
                 {
-                    handler.linkDataClassMatch(userId,
-                                               annotationGUID,
-                                               dataClassGUID,
-                                               requestBody,
-                                               dataClassMatchProperties);
+                    handler.linkAnnotationMatch(userId,
+                                                annotationGUID,
+                                                dataClassGUID,
+                                                requestBody,
+                                                annotationMatchProperties);
                 }
                 else if (requestBody.getProperties() == null)
                 {
-                    handler.linkDataClassMatch(userId,
-                                               annotationGUID,
-                                               dataClassGUID,
-                                               requestBody,
-                                               null);
+                    handler.linkAnnotationMatch(userId,
+                                                annotationGUID,
+                                                dataClassGUID,
+                                                requestBody,
+                                                null);
                 }
                 else
                 {
-                    restExceptionHandler.handleInvalidPropertiesObject(DataClassMatchProperties.class.getName(), methodName);
+                    restExceptionHandler.handleInvalidPropertiesObject(AnnotationMatchProperties.class.getName(), methodName);
                 }
             }
             else
             {
-                handler.linkDataClassMatch(userId,
-                                           annotationGUID,
-                                           dataClassGUID,
-                                           null,
-                                           null);
+                handler.linkAnnotationMatch(userId,
+                                            annotationGUID,
+                                            dataClassGUID,
+                                            null,
+                                            null);
             }
         }
         catch (Throwable error)
@@ -904,7 +780,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -929,7 +805,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "detachDataClassMatch";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -944,14 +820,14 @@ public class DataDiscoveryRESTServices extends TokenController
 
             AnnotationHandler handler = instanceHandler.getAnnotationHandler(userId, serverName, methodName);
 
-            handler.detachDataClassMatch(userId, annotationGUID, dataClassGUID, requestBody);
+            handler.detachAnnotationMatch(userId, annotationGUID, dataClassGUID, requestBody);
         }
         catch (Throwable error)
         {
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -977,7 +853,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "linkRequestForActionTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1028,7 +904,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1053,7 +929,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "detachRequestForActionTarget";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1075,7 +951,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1098,7 +974,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "deleteAnnotation";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1120,7 +996,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1141,7 +1017,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "getAnnotationsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1170,7 +1046,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1192,7 +1068,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "getAnnotationsByAnalysisStep";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1221,7 +1097,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1242,7 +1118,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "getAnnotationsByAnnotationType";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1271,7 +1147,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1294,7 +1170,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "getAnnotationsForElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1323,7 +1199,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1347,7 +1223,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "getNewAnnotations";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1376,7 +1252,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1399,7 +1275,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "getAnnotationExtensions";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1428,7 +1304,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1451,7 +1327,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "getPreviousAnnotations";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1480,7 +1356,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1497,13 +1373,13 @@ public class DataDiscoveryRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementResponse getAnnotationByGUID(String             serverName,
-                                                               String             annotationGUID,
+    public OpenMetadataRootElementResponse getAnnotationByGUID(String         serverName,
+                                                               String         annotationGUID,
                                                                GetRequestBody requestBody)
     {
         final String methodName = "getAnnotationByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                         auditLog = null;
@@ -1525,7 +1401,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1546,7 +1422,7 @@ public class DataDiscoveryRESTServices extends TokenController
     {
         final String methodName = "findAnnotations";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1575,7 +1451,7 @@ public class DataDiscoveryRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

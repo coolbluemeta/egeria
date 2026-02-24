@@ -22,8 +22,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class CohortMembershipListResponse extends OMRSAPIPagedResponse
 {
-    private static final long    serialVersionUID = 1L;
-
     private List<MemberRegistration> cohortMembers = null;
 
 
@@ -112,7 +110,7 @@ public class CohortMembershipListResponse extends OMRSAPIPagedResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof CohortMembershipListResponse))
+        if (!(objectToCompare instanceof CohortMembershipListResponse that))
         {
             return false;
         }
@@ -120,8 +118,6 @@ public class CohortMembershipListResponse extends OMRSAPIPagedResponse
         {
             return false;
         }
-        CohortMembershipListResponse
-                that = (CohortMembershipListResponse) objectToCompare;
         return Objects.equals(getCohortMembers(), that.getCohortMembers());
     }
 

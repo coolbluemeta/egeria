@@ -681,7 +681,7 @@ public class AssetMakerResource
      *
      * @return guid or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the catalog target definition.
      */
     @PostMapping(path = "/actions/{actionGUID}/action-targets/{metadataElementGUID}/attach")
@@ -742,7 +742,7 @@ public class AssetMakerResource
      *
      * @return details of the governance service and the asset types it is registered for or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     @PostMapping(path = "/actions/action-targets/{actionTargetGUID}/retrieve")
@@ -773,7 +773,7 @@ public class AssetMakerResource
      *
      * @return list of unique identifiers or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     @PostMapping(path = "/actions/{actionGUID}/action-targets")
@@ -1032,7 +1032,7 @@ public class AssetMakerResource
      *
      * @return guid or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the catalog target definition.
      */
     @PostMapping(path = "/integration-connectors/{integrationConnectorGUID}/catalog-targets/{metadataElementGUID}")
@@ -1063,7 +1063,7 @@ public class AssetMakerResource
      *
      * @return void or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the catalog target definition.
      */
     @PostMapping(path = "/catalog-targets/{relationshipGUID}/update")
@@ -1093,7 +1093,7 @@ public class AssetMakerResource
      *
      * @return details of the governance service and the asset types it is registered for or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     @PostMapping(path = "/catalog-targets/{relationshipGUID}")
@@ -1124,7 +1124,7 @@ public class AssetMakerResource
      *
      * @return list of unique identifiers or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     @PostMapping(path = "/integration-connectors/{integrationConnectorGUID}/catalog-targets")
@@ -1154,7 +1154,7 @@ public class AssetMakerResource
      *
      * @return void or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     @PostMapping(path = "/catalog-targets/{relationshipGUID}/remove")
@@ -1186,7 +1186,7 @@ public class AssetMakerResource
      *
      * @return void or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration connector definition.
      */
     @PostMapping(path = "/integration-connectors/{integrationConnectorGUID}/catalog-targets/{metadataElementGUID}/detach")

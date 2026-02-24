@@ -57,7 +57,7 @@ Content-Type: application/json
     "qualifiedName": "add unique name here",
     "displayName": "add short name here",
     "description": "add description here",
-    "namespace": "add namespace for this structure",
+    "namespacePath": "add namespace for this structure",
     "versionIdentifier": "add version for this structure",
     "additionalProperties": {
       "property1" : "propertyValue1",
@@ -136,7 +136,7 @@ Content-Type: application/json
     "qualifiedName": "add unique name here",
     "displayName": "add short name here",
     "description": "add description here",
-    "namespace": "add namespace for this structure",
+    "namespacePath": "add namespace for this structure",
     "versionIdentifier": "add version for this structure",
     "additionalProperties": {
       "property1" : "propertyValue1",
@@ -385,7 +385,7 @@ Content-Type: application/json
     "class" : "DataFieldProperties",
     "qualifiedName": "add unique name here",
     "displayName": "add short name here",
-    "namespace": "",
+    "namespacePath": "",
     "description": "add description here",
     "versionIdentifier": "add version",
     "aliases": ["alias1", "alias2"],
@@ -476,7 +476,7 @@ Content-Type: application/json
     "class" : "DataFieldProperties",
     "qualifiedName": "add unique name here",
     "displayName": "add short name here",
-    "namespace": "",
+    "namespacePath": "",
     "description": "add description here",
     "versionIdentifier": "add version",
     "aliases": ["alias1", "alias2"],
@@ -694,17 +694,75 @@ Content-Type: application/json
 
 ###
 # =====================================================================================================================
-# Work with Data Classes
-# https://egeria-project.org/concepts/data-class
+# Work with Data Value Specifications (Data Classes or Data Grains)
+# https://egeria-project.org/concepts/data-value-specification
 
-@dataClassGUID=add guid here
+@dataValueSpecificationGUID=add guid here
+@specializedDataValueSpecificationGUID=add guid here
+
+@elementGUID=add guid here
 @parentDataClassGUID=add guid here
 @childDataClassGUID=add guid here
 
+
+###
+# @name createDataValueSpecification
+# Create a data class or data grain.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewElementRequestBody",
+  "anchorGUID" : "add guid here",
+  "isOwnAnchor": false,
+  "parentGUID": "add guid here",
+  "parentRelationshipTypeName": "add type name here",
+  "parentRelationshipProperties": {
+    "class": "RelationshipElementProperties",
+    "propertyValueMap" : {
+      "description" : {
+        "class": "PrimitiveTypePropertyValue",
+        "typeName": "string",
+        "primitiveValue" : "New description"
+      }
+    }
+  },
+  "parentAtEnd1": false,
+  "properties": {
+    "class" : "DataValueSpecificationProperties",
+    "qualifiedName": "add unique name here",
+    "displayName": "add short name here",
+    "description": "add description here",
+    "namespacePath": "add scope of this data class's applicability.",
+    "matchPropertyNames": ["name1", "name2"],
+    "matchThreshold": 0,
+    "specification": "",
+    "specificationDetails": {
+      "property1" : "propertyValue1",
+      "property2" : "propertyValue2"
+    },
+    "dataType": "",
+    "units" : "",
+    "absoluteUncertainty" : 0,
+    "relativeUncertainty" : 0,
+    "additionalProperties": {
+      "property1" : "propertyValue1",
+      "property2" : "propertyValue2"
+    }
+  },
+  "externalSourceGUID": "add guid here",
+  "externalSourceName": "add qualified name here",
+  "effectiveTime" : "{{$isoTimestamp}}",
+  "forLineage" : false,
+  "forDuplicateProcessing" : false
+}
+
+
 ###
 # @name createDataClass
-# Create an data class.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes
+# Create a data class.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -730,7 +788,7 @@ Content-Type: application/json
     "qualifiedName": "add unique name here",
     "displayName": "add short name here",
     "description": "add description here",
-    "namespace": "add scope of this data class's applicability.",
+    "namespacePath": "add scope of this data class's applicability.",
     "matchPropertyNames": ["name1", "name2"],
     "matchThreshold": 0,
     "specification": "",
@@ -764,9 +822,63 @@ Content-Type: application/json
 
 
 ###
-# @name createDataClassFromTemplate
-# Create a new metadata element to represent an data class using an existing metadata element as a template.  The template defines additional classifications and relationships that should be added to the new element.",
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/from-template
+# @name createDataGrain
+# Create a data grain.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewElementRequestBody",
+  "anchorGUID" : "add guid here",
+  "isOwnAnchor": false,
+  "parentGUID": "add guid here",
+  "parentRelationshipTypeName": "add type name here",
+  "parentRelationshipProperties": {
+    "class": "RelationshipElementProperties",
+    "propertyValueMap" : {
+      "description" : {
+        "class": "PrimitiveTypePropertyValue",
+        "typeName": "string",
+        "primitiveValue" : "New description"
+      }
+    }
+  },
+  "parentAtEnd1": false,
+  "properties": {
+    "class" : "DataValueSpecificationProperties",
+    "qualifiedName": "add unique name here",
+    "displayName": "add short name here",
+    "description": "add description here",
+    "namespacePath": "add scope of this data class's applicability.",
+    "matchPropertyNames": ["name1", "name2"],
+    "matchThreshold": 0,
+    "specification": "",
+    "specificationDetails": {
+      "property1" : "propertyValue1",
+      "property2" : "propertyValue2"
+    },
+    "dataType": "",
+    "units" : "",
+    "absoluteUncertainty" : 0,
+    "relativeUncertainty" : 0,
+    "additionalProperties": {
+      "property1" : "propertyValue1",
+      "property2" : "propertyValue2"
+    }
+  },
+  "externalSourceGUID": "add guid here",
+  "externalSourceName": "add qualified name here",
+  "effectiveTime" : "{{$isoTimestamp}}",
+  "forLineage" : false,
+  "forDuplicateProcessing" : false
+}
+
+
+###
+# @name createDataValueSpecificationFromTemplate
+# Create a new metadata element to represent an data value specification using an existing metadata element as a template.  The template defines additional classifications and relationships that should be added to the new element.",
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/from-template
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -816,9 +928,9 @@ Content-Type: application/json
 
 
 ###
-# @name updateDataClass
-# Update the properties of an data class.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/{{dataClassGUID}}/update
+# @name updateDataValueSpecification
+# Update the properties of a data data value specification.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/{{dataValueSpecificationGUID}}/update
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -830,11 +942,11 @@ Content-Type: application/json
   "forLineage" : false,
   "forDuplicateProcessing" : false,
   "properties": {
-    "class" : "DataClassProperties",
+    "class" : "DataValueSpecificationProperties",
     "qualifiedName": "add unique name here",
     "displayName": "add short name here",
     "description": "add description here",
-    "namespace": "add scope of this data class's applicability.",
+    "namespacePath": "add scope of this data class's applicability.",
     "matchPropertyNames": ["name1", "name2"],
     "matchThreshold": 0,
     "specification": "",
@@ -843,15 +955,9 @@ Content-Type: application/json
       "property2" : "propertyValue2"
     },
     "dataType": "",
-    "allowsDuplicateValues": true,
-    "isNullable": false,
-    "defaultValue": "",
-    "averageValue": "",
-    "valueList": [],
-    "valueRangeFrom": "",
-    "valueRangeTo": "",
-    "sampleValues": [],
-    "dataPatterns" : [],
+    "units" : "",
+    "absoluteUncertainty" : 0,
+    "relativeUncertainty" : 0,
     "additionalProperties": {
       "property1" : "propertyValue1",
       "property2" : "propertyValue2"
@@ -869,6 +975,11 @@ Content-Type: application/json
 
 {
   "class" : "NewRelationshipRequestBody",
+  "properties": {
+      "class" : "DataClassCompositionProperties",
+      "label" : "",
+      "description" : ""
+  },
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
   "effectiveTime" : "{{$isoTimestamp}}",
@@ -896,14 +1007,19 @@ Content-Type: application/json
 
 
 ###
-# @name linkSpecializedDataClass
-#  Connect two data classes to show that one provides a more specialist evaluation. Request body is optional.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/{{parentDataClassGUID}}/specialized-data-classes/{{childDataClassGUID}}/attach
+# @name linkSpecializedDataValueSpecification
+#  Connect two data value specifications to show that one provides a more specialist evaluation. Request body is optional.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/{{dataValueSpecificationGUID}}/specialized-data-value-specifications/{{specializedDataValueSpecificationGUID}}/attach
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "class" : "NewRelationshipRequestBody",
+  "properties": {
+      "class" : "DataValueHierarchyProperties",
+      "label" : "",
+      "description" : ""
+  },
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
   "effectiveTime" : "{{$isoTimestamp}}",
@@ -913,14 +1029,42 @@ Content-Type: application/json
 
 ###
 
-# @name detachSpecializedDataClass
-# Detach two data classes from one another. Request body is optional.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/{{parentDataClassGUID}}/specialized-data-classes/{{childDataClassGUID}}/detach
+# @name detachSpecializedDataValueSpecification
+# Detach two data value specifications from one another. Request body is optional.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/{{dataValueSpecificationGUID}}/specialized-data-value-specifications/{{specializedDataValueSpecificationGUID}}/detach
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "class" : "DeleteRelaitonshipRequestBody",
+  "class" : "DeleteRelationshipRequestBody",
+  "externalSourceGUID": "add guid here",
+  "externalSourceName": "add qualified name here",
+  "effectiveTime" : "{{$isoTimestamp}}",
+  "forLineage" : false,
+  "forDuplicateProcessing" : false
+}
+
+
+###
+# @name assignDataValueSpecification
+# Connect an element to a data value specification that describes the data associated with this element. Request body is optional.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/elements/{{elementGUID}}/data-value-specifications/{{dataValueSpecificationGUID}}/attach
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewRelationshipRequestBody",
+  "properties": {
+      "class" : "DataValueAssignmentProperties",
+      "method" : "",
+      "assignmentStatus" : "DISCOVERED",
+      "confidence" : 100,
+      "threshold" : 0,
+      "steward" : "",
+      "stewardTypeName" : "",
+      "stewardPropertyName" : "",
+      "source" : ""
+  },
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
   "effectiveTime" : "{{$isoTimestamp}}",
@@ -929,9 +1073,26 @@ Content-Type: application/json
 }
 
 ###
-# @name deleteDataClass
+
+# @name detachDataValueSpecificationAssignment
+# Detach an element from one of its assigned data value specifications. Request body is optional.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/elements/{{elementGUID}}/data-value-specifications/{{dataValueSpecificationGUID}}/detach
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "DeleteRelationshipRequestBody",
+  "externalSourceGUID": "add guid here",
+  "externalSourceName": "add qualified name here",
+  "effectiveTime" : "{{$isoTimestamp}}",
+  "forLineage" : false,
+  "forDuplicateProcessing" : false
+}
+
+###
+# @name deleteDataValueSpecification
 # Delete an data class. Request body is optional.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/{{dataClassGUID}}/delete
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/{{dataValueSpecificationGUID}}/delete
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -948,12 +1109,13 @@ Content-Type: application/json
 ###
 # @name findAllDataClasses
 # Retrieve the list of data class metadata elements that contain the search string.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/by-search-string
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/by-search-string
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "DataClass",
   "startsWith" : false,
   "endsWith" : false,
   "ignoreCase" : true,
@@ -970,14 +1132,15 @@ Content-Type: application/json
 
 
 ###
-# @name findAllDataClasses - with full request body
-# Retrieve the list of data class metadata elements that contain the search string.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/by-search-string
+# @name findAllDataGrains
+# Retrieve the list of data grain metadata elements that contain the search string.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/by-search-string
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "class" : "SearchStringRequestBody",
+  "metadataElementTypeName": "DataGrain",
   "searchString" : "Add name here",
   "startsWith" : false,
   "endsWith" : false,
@@ -995,9 +1158,9 @@ Content-Type: application/json
 
 
 ###
-# @name findDataClasses
+# @name findDataValueSpecifications
 # Retrieve the list of data class metadata elements that contain the search string.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/by-search-string
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/by-search-string
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -1008,9 +1171,9 @@ Content-Type: application/json
 
 
 ###
-# @name findDataClasses - with full request body
+# @name findDataValueSpecifications - with full request body
 # Retrieve the list of data class metadata elements that contain the search string.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/by-search-string
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/by-search-string
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -1033,9 +1196,9 @@ Content-Type: application/json
 
 ###
 
-# @name getDataClassesByName
-# Returns the list of data classes with a particular name.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/by-name
+# @name getDataValueSpecificationsByName
+# Returns the list of data value specifications with a particular name.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/by-name
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -1055,9 +1218,9 @@ Content-Type: application/json
 
 
 ###
-# @name getDataClassByGUID
-# Return the properties of a specific data class.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-classes/{{dataClassGUID}}/retrieve
+# @name getDataValueSpecificationByGUID
+# Return the properties of a specific data value specification.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-value-specifications/{{dataValueSpecificationGUID}}/retrieve
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -1079,15 +1242,20 @@ Content-Type: application/json
 @certificationTypeGUID=add guid here
 
 ###
-# @name linkDataClassDefinition
+# @name linkDataValueSpecificationDefinition
 # Connect an element that is part of a data design to a data class to show that the data class should be used as the specification for the data values when interpreting the data definition.
 # Request body is optional.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-definitions/{{dataDefinitionGUID}}/data-class-definition/{{dataClassGUID}}/attach
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-definitions/{{dataDefinitionGUID}}/data-value-specification-definition/{{dataValueSpecificationGUID}}/attach
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "class" : "NewRelationshipRequestBody",
+  "properties": {
+      "class" : "DataValueDefinitionProperties",
+      "label" : "",
+      "description" : ""
+  },
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
   "effectiveTime" : "{{$isoTimestamp}}",
@@ -1098,10 +1266,10 @@ Content-Type: application/json
 
 ###
 
-# @name detachDataClassDefinition
+# @name detachDataValueSpecificationDefinition
 # Detach a data definition from a data class.
 # Request body is optional.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-definitions/{{dataDefinitionGUID}}/data-class-definition/{{dataClassGUID}}/detach
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/data-definitions/{{dataDefinitionGUID}}/data-value-specification-definition/{{dataValueSpecificationGUID}}/detach
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -1114,7 +1282,7 @@ Content-Type: application/json
   "forDuplicateProcessing" : false
 }
 
-###
+
 ###
 # @name linkSemanticDefinition
 # Connect an element that is part of a data design to a glossary term to show that the term should be used as the semantic definition for the data values when interpreting the data definition.
@@ -1154,7 +1322,7 @@ Content-Type: application/json
 ###
 ###
 # @name linkCertificationTypeToDataStructure
-# Connect a certification type to a data structure to guide the survey action service (that checks the data quality of a data resource as part of certifying it with the supplied certification type) to the definition of the data structure to use as a specification of how the data should be both structured and (if data classes are attached to the associated data fields using the DataClassDefinition relationship) contain the valid values.
+# Connect a certification type to a data structure to guide the survey action service (that checks the data quality of a data resource as part of certifying it with the supplied certification type) to the definition of the data structure to use as a specification of how the data should be both structured and (if data classes/data grains are attached to the associated data fields using the DataValueDefinition relationship) contain the valid values.
 # Request body is optional.
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/data-designer/certification-types/{{certificationTypeGUID}}/data-structure-definition/{{dataStructureGUID}}/attach
 Authorization: Bearer {{token}}

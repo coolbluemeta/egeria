@@ -121,11 +121,11 @@ public class DataDesignerResource
                     url="https://egeria-project.org/concepts/data-structure"))
 
     public BooleanResponse updateDataStructure(@PathVariable
-                                                   String                                  serverName,
+                                               String                                  serverName,
                                                @PathVariable
-                                                   String                                  dataStructureGUID,
+                                               String                                  dataStructureGUID,
                                                @RequestBody (required = false)
-                                                   UpdateElementRequestBody requestBody)
+                                               UpdateElementRequestBody requestBody)
     {
         return restAPI.updateDataStructure(serverName, dataStructureGUID, requestBody);
     }
@@ -159,7 +159,7 @@ public class DataDesignerResource
                                             @PathVariable
                                             String                  dataFieldGUID,
                                             @RequestBody (required = false)
-                                                NewRelationshipRequestBody requestBody)
+                                            NewRelationshipRequestBody requestBody)
     {
         return restAPI.linkMemberDataField(serverName, dataStructureGUID, dataFieldGUID, requestBody);
     }
@@ -193,7 +193,7 @@ public class DataDesignerResource
                                               @PathVariable
                                               String memberDataFieldGUID,
                                               @RequestBody (required = false)
-                                                  DeleteRelationshipRequestBody requestBody)
+                                              DeleteRelationshipRequestBody requestBody)
     {
         return restAPI.detachMemberDataField(serverName, parentDataStructureGUID, memberDataFieldGUID, requestBody);
     }
@@ -224,7 +224,7 @@ public class DataDesignerResource
                                             @PathVariable
                                             String                    dataStructureGUID,
                                             @RequestBody (required = false)
-                                                DeleteElementRequestBody requestBody)
+                                            DeleteElementRequestBody requestBody)
     {
         return restAPI.deleteDataStructure(serverName, dataStructureGUID, requestBody);
     }
@@ -250,9 +250,9 @@ public class DataDesignerResource
                     url="https://egeria-project.org/concepts/data-structure"))
 
     public OpenMetadataRootElementsResponse getDataStructuresByName(@PathVariable
-                                                          String            serverName,
-                                                          @RequestBody (required = false)
-                                                          FilterRequestBody requestBody)
+                                                                    String            serverName,
+                                                                    @RequestBody (required = false)
+                                                                    FilterRequestBody requestBody)
     {
         return restAPI.getDataStructuresByName(serverName, requestBody);
     }
@@ -278,9 +278,9 @@ public class DataDesignerResource
                     url="https://egeria-project.org/concepts/data-structure"))
 
     public OpenMetadataRootElementsResponse findDataStructures(@PathVariable
-                                                     String                  serverName,
-                                                     @RequestBody (required = false)
-                                                     SearchStringRequestBody requestBody)
+                                                               String                  serverName,
+                                                               @RequestBody (required = false)
+                                                               SearchStringRequestBody requestBody)
     {
         return restAPI.findDataStructures(serverName, requestBody);
     }
@@ -307,11 +307,11 @@ public class DataDesignerResource
                     url="https://egeria-project.org/concepts/data-structure"))
 
     public OpenMetadataRootElementResponse getDataStructureByGUID(@PathVariable
-                                                        String             serverName,
-                                                        @PathVariable
-                                                        String             dataStructureGUID,
-                                                        @RequestBody (required = false)
-                                                            GetRequestBody requestBody)
+                                                                  String             serverName,
+                                                                  @PathVariable
+                                                                  String             dataStructureGUID,
+                                                                  @RequestBody (required = false)
+                                                                  GetRequestBody requestBody)
     {
         return restAPI.getDataStructureByGUID(serverName, dataStructureGUID, requestBody);
     }
@@ -398,11 +398,11 @@ public class DataDesignerResource
                     url="https://egeria-project.org/concepts/data-field"))
 
     public BooleanResponse updateDataField(@PathVariable
-                                               String                                  serverName,
+                                           String                                  serverName,
                                            @PathVariable
-                                               String                                  dataFieldGUID,
+                                           String                                  dataFieldGUID,
                                            @RequestBody (required = false)
-                                               UpdateElementRequestBody requestBody)
+                                           UpdateElementRequestBody requestBody)
     {
         return restAPI.updateDataField(serverName, dataFieldGUID, requestBody);
     }
@@ -436,7 +436,7 @@ public class DataDesignerResource
                                              @PathVariable
                                              String nestedDataFieldGUID,
                                              @RequestBody (required = false)
-                                                 NewRelationshipRequestBody requestBody)
+                                             NewRelationshipRequestBody requestBody)
     {
         return restAPI.linkNestedDataFields(serverName, parentDataFieldGUID, nestedDataFieldGUID, requestBody);
     }
@@ -470,7 +470,7 @@ public class DataDesignerResource
                                                @PathVariable
                                                String nestedDataFieldGUID,
                                                @RequestBody (required = false)
-                                                   DeleteRelationshipRequestBody requestBody)
+                                               DeleteRelationshipRequestBody requestBody)
     {
         return restAPI.detachNestedDataFields(serverName, parentDataFieldGUID, nestedDataFieldGUID, requestBody);
     }
@@ -501,7 +501,7 @@ public class DataDesignerResource
                                         @PathVariable
                                         String                    dataFieldGUID,
                                         @RequestBody (required = false)
-                                            DeleteElementRequestBody requestBody)
+                                        DeleteElementRequestBody requestBody)
     {
         return restAPI.deleteDataField(serverName, dataFieldGUID, requestBody);
     }
@@ -527,9 +527,9 @@ public class DataDesignerResource
                     url="https://egeria-project.org/concepts/data-field"))
 
     public OpenMetadataRootElementsResponse getDataFieldsByName(@PathVariable
-                                                  String            serverName,
-                                                  @RequestBody (required = false)
-                                                  FilterRequestBody requestBody)
+                                                                String            serverName,
+                                                                @RequestBody (required = false)
+                                                                FilterRequestBody requestBody)
     {
         return restAPI.getDataFieldsByName(serverName, requestBody);
     }
@@ -555,7 +555,7 @@ public class DataDesignerResource
                     url="https://egeria-project.org/concepts/data-field"))
 
     public OpenMetadataRootElementsResponse findDataFields(@PathVariable
-                                                               String                  serverName,
+                                                           String                  serverName,
                                                            @RequestBody (required = false)
                                                            SearchStringRequestBody requestBody)
     {
@@ -584,50 +584,50 @@ public class DataDesignerResource
                     url="https://egeria-project.org/concepts/data-field"))
 
     public OpenMetadataRootElementResponse getDataFieldByGUID(@PathVariable
-                                                String             serverName,
-                                                @PathVariable
-                                                String             dataFieldGUID,
-                                                @RequestBody (required = false)
-                                                    GetRequestBody requestBody)
+                                                              String             serverName,
+                                                              @PathVariable
+                                                              String             dataFieldGUID,
+                                                              @RequestBody (required = false)
+                                                              GetRequestBody requestBody)
     {
         return restAPI.getDataFieldByGUID(serverName, dataFieldGUID, requestBody);
     }
 
 
     /*===============================================
-     * Data classes
+     * Data value specifications (data classes and data grains)
      */
 
     /**
-     * Create a data class.
+     * Create a data value specification.
      *
      * @param serverName                 name of called server.
-     * @param requestBody             properties for the data class.
+     * @param requestBody             properties for the data value specification.
      *
      * @return unique identifier of the newly created element
      *  InvalidParameterException  one of the parameters is invalid.
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @PostMapping(path = "/data-classes")
+    @PostMapping(path = "/data-value-specifications")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    @Operation(summary="createDataClass",
-            description="Create a data class.",
+    @Operation(summary="createDataValueSpecification",
+            description="Create a data value specification.",
             externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/data-class"))
+                    url="https://egeria-project.org/concepts/data-value-specification"))
 
-    public GUIDResponse createDataClass(@PathVariable
-                                        String                serverName,
-                                        @RequestBody (required = false)
-                                        NewElementRequestBody requestBody)
+    public GUIDResponse createDataValueSpecification(@PathVariable
+                                                     String                serverName,
+                                                     @RequestBody (required = false)
+                                                     NewElementRequestBody requestBody)
     {
-        return restAPI.createDataClass(serverName, requestBody);
+        return restAPI.createDataValueSpecification(serverName, requestBody);
     }
 
 
     /**
-     * Create a new metadata element to represent a data class using an existing metadata element as a template.
+     * Create a new metadata element to represent a data value specification using an existing metadata element as a template.
      * The template defines additional classifications and relationships that should be added to the new element.
      *
      * @param serverName             calling user
@@ -638,28 +638,28 @@ public class DataDesignerResource
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    @PostMapping(path = "/data-classes/from-template")
+    @PostMapping(path = "/data-value-specifications/from-template")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    @Operation(summary="createDataClassFromTemplate",
-            description="Create a new metadata element to represent a data class using an existing metadata element as a template.  The template defines additional classifications and relationships that should be added to the new element.",
+    @Operation(summary="createDataValueSpecificationFromTemplate",
+            description="Create a new metadata element to represent a data value specification using an existing metadata element as a template.  The template defines additional classifications and relationships that should be added to the new element.",
             externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/data-class"))
+                    url="https://egeria-project.org/concepts/data-value-specification"))
 
-    public GUIDResponse createDataClassFromTemplate(@PathVariable
-                                                    String              serverName,
-                                                    @RequestBody (required = false)
-                                                    TemplateRequestBody requestBody)
+    public GUIDResponse createDataValueSpecificationFromTemplate(@PathVariable
+                                                                 String              serverName,
+                                                                 @RequestBody (required = false)
+                                                                 TemplateRequestBody requestBody)
     {
-        return restAPI.createDataClassFromTemplate(serverName, requestBody);
+        return restAPI.createDataValueSpecificationFromTemplate(serverName, requestBody);
     }
 
 
     /**
-     * Update the properties of a data class.
+     * Update the properties of a data value specification.
      *
      * @param serverName         name of called server.
-     * @param dataClassGUID unique identifier of the data class (returned from create)
+     * @param dataValueSpecificationGUID unique identifier of the data value specification (returned from create)
      * @param requestBody     properties for the new element.
      *
      * @return boolean or
@@ -667,22 +667,22 @@ public class DataDesignerResource
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @PostMapping(path = "/data-classes/{dataClassGUID}/update")
+    @PostMapping(path = "/data-value-specifications/{dataValueSpecificationGUID}/update")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    @Operation(summary="updateDataClass",
-            description="Update the properties of a data class.",
+    @Operation(summary="updateDataValueSpecification",
+            description="Update the properties of a data value specification.",
             externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/data-class"))
+                    url="https://egeria-project.org/concepts/data-value-specification"))
 
-    public BooleanResponse updateDataClass(@PathVariable
-                                               String                                  serverName,
-                                           @PathVariable
-                                               String                                  dataClassGUID,
-                                           @RequestBody (required = false)
-                                               UpdateElementRequestBody requestBody)
+    public BooleanResponse updateDataValueSpecification(@PathVariable
+                                                        String                                  serverName,
+                                                        @PathVariable
+                                                        String                                  dataValueSpecificationGUID,
+                                                        @RequestBody (required = false)
+                                                        UpdateElementRequestBody requestBody)
     {
-        return restAPI.updateDataClass(serverName, dataClassGUID, requestBody);
+        return restAPI.updateDataValueSpecification(serverName, dataValueSpecificationGUID, requestBody);
     }
 
 
@@ -755,11 +755,11 @@ public class DataDesignerResource
 
 
     /**
-     * Connect two data classes to show that one provides a more specialist evaluation.
+     * Connect two data value specifications to show that one provides a more specialist evaluation.
      *
      * @param serverName         name of called server
-     * @param parentDataClassGUID  unique identifier of the first data class
-     * @param childDataClassGUID      unique identifier of the second data class
+     * @param dataValueSpecificationGUID  unique identifier of the first data value specification
+     * @param specializedDataValueSpecificationGUID      unique identifier of the second data value specification
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -767,176 +767,243 @@ public class DataDesignerResource
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @PostMapping(path = "/data-classes/{parentDataClassGUID}/specialized-data-classes/{childDataClassGUID}/attach")
+    @PostMapping(path = "/data-value-specifications/{dataValueSpecificationGUID}/specialized-data-value-specifications/{specializedDataValueSpecificationGUID}/attach")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    @Operation(summary="linkSpecializedDataClass",
-            description="Connect two data classes to show that one provides a more specialist evaluation.",
+    @Operation(summary="linkSpecializedDataValueSpecification",
+            description="Connect two data value specifications to show that one provides a more specialist evaluation.",
             externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/data-class"))
+                    url="https://egeria-project.org/concepts/data-value-specification"))
 
-    public VoidResponse linkSpecializedDataClass(@PathVariable
-                                                 String                  serverName,
-                                                 @PathVariable
-                                                 String                  parentDataClassGUID,
-                                                 @PathVariable
-                                                 String                  childDataClassGUID,
-                                                 @RequestBody (required = false)
-                                                     NewRelationshipRequestBody requestBody)
-    {
-        return restAPI.linkSpecializedDataClass(serverName, parentDataClassGUID, childDataClassGUID, requestBody);
-    }
-
-
-    /**
-     * Detach two data classes from one another.
-     *
-     * @param serverName         name of called server
-     * @param parentDataClassGUID  unique identifier of the first data class
-     * @param childDataClassGUID      unique identifier of the second data class
-     * @param requestBody  description of the relationship.
-     *
-     * @return void or
-     *  InvalidParameterException  one of the parameters is null or invalid.
-     *  PropertyServerException    a problem retrieving information from the property server(s).
-     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    @PostMapping(path = "/data-classes/{parentDataClassGUID}/specialized-data-classes/{childDataClassGUID}/detach")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="detachSpecializedDataClass",
-            description="Detach two data classes from one another.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/data-class"))
-
-    public VoidResponse detachSpecializedDataClass(@PathVariable
-                                                   String                    serverName,
-                                                   @PathVariable
-                                                   String                    parentDataClassGUID,
-                                                   @PathVariable
-                                                   String                    childDataClassGUID,
-                                                   @RequestBody (required = false)
-                                                       DeleteRelationshipRequestBody requestBody)
-    {
-        return restAPI.detachSpecializedDataClass(serverName, parentDataClassGUID, childDataClassGUID, requestBody);
-    }
-
-
-    /**
-     * Delete a data class.
-     *
-     * @param serverName         name of called server
-     * @param dataClassGUID  unique identifier of the element to delete
-     * @param requestBody  description of the relationship.
-     *
-     * @return void or
-     *  InvalidParameterException  one of the parameters is null or invalid.
-     *  PropertyServerException    a problem retrieving information from the property server(s).
-     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    @PostMapping(path = "/data-classes/{dataClassGUID}/delete")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="deleteDataClass",
-            description="Delete a data class.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/data-class"))
-
-    public VoidResponse deleteDataClass(@PathVariable
-                                        String                    serverName,
-                                        @PathVariable
-                                        String                    dataClassGUID,
-                                        @RequestBody (required = false)
-                                            DeleteElementRequestBody requestBody)
-    {
-        return restAPI.deleteDataClass(serverName, dataClassGUID, requestBody);
-    }
-
-
-    /**
-     * Returns the list of data classes with a particular name.
-     *
-     * @param serverName name of the service to route the request to
-     * @param requestBody string to find in the properties
-     *
-     * @return list of matching metadata elements or
-     *  InvalidParameterException  one of the parameters is invalid
-     *  UserNotAuthorizedException the user is not authorized to issue this request
-     *  PropertyServerException    a problem reported in the open metadata server(s)
-     */
-    @PostMapping(path = "/data-classes/by-name")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="getDataClassesByName",
-            description="Returns the list of data classes with a particular name.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/data-class"))
-
-    public OpenMetadataRootElementsResponse getDataClassesByName(@PathVariable
-                                                                 String            serverName,
-                                                                 @RequestBody (required = false)
-                                                                 FilterRequestBody requestBody)
-    {
-        return restAPI.getDataClassesByName(serverName, requestBody);
-    }
-
-
-    /**
-     * Retrieve the list of data class metadata elements that contain the search string.
-     *
-     * @param serverName name of the service to route the request to
-     * @param requestBody string to find in the properties
-     *
-     * @return list of matching metadata elements or
-     *  InvalidParameterException  one of the parameters is invalid
-     *  UserNotAuthorizedException the user is not authorized to issue this request
-     *  PropertyServerException    a problem reported in the open metadata server(s)
-     */
-    @PostMapping(path = "/data-classes/by-search-string")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="findDataClasses",
-            description="Retrieve the list of data class metadata elements that contain the search string.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/data-class"))
-
-    public OpenMetadataRootElementsResponse findDataClasses(@PathVariable
-                                                            String                  serverName,
-                                                            @RequestBody (required = false)
-                                                            SearchStringRequestBody requestBody)
-    {
-        return restAPI.findDataClasses(serverName, requestBody);
-    }
-
-
-    /**
-     * Return the properties of a specific data class.
-     *
-     * @param serverName name of the service to route the request to
-     * @param dataClassGUID    unique identifier of the required element
-     * @param requestBody string to find in the properties
-     *
-     * @return list of matching metadata elements or
-     *  InvalidParameterException  one of the parameters is invalid
-     *  UserNotAuthorizedException the user is not authorized to issue this request
-     *  PropertyServerException    a problem reported in the open metadata server(s)
-     */
-    @PostMapping(path = "/data-classes/{dataClassGUID}/retrieve")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="getDataClassByGUID",
-            description="Return the properties of a specific data class.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/data-class"))
-
-    public OpenMetadataRootElementResponse getDataClassByGUID(@PathVariable
-                                                              String             serverName,
+    public VoidResponse linkSpecializedDataValueSpecification(@PathVariable
+                                                              String                  serverName,
                                                               @PathVariable
-                                                              String             dataClassGUID,
+                                                              String dataValueSpecificationGUID,
+                                                              @PathVariable
+                                                              String specializedDataValueSpecificationGUID,
                                                               @RequestBody (required = false)
-                                                                  GetRequestBody requestBody)
+                                                              NewRelationshipRequestBody requestBody)
     {
-        return restAPI.getDataClassByGUID(serverName, dataClassGUID, requestBody);
+        return restAPI.linkSpecializedDataValueSpecification(serverName, dataValueSpecificationGUID, specializedDataValueSpecificationGUID, requestBody);
+    }
+
+
+    /**
+     * Detach two data value specifications from one another.
+     *
+     * @param serverName         name of called server
+     * @param dataValueSpecificationGUID  unique identifier of the first data value specification
+     * @param specializedDataValueSpecificationGUID      unique identifier of the second data value specification
+     * @param requestBody  description of the relationship.
+     *
+     * @return void or
+     *  InvalidParameterException  one of the parameters is null or invalid.
+     *  PropertyServerException    a problem retrieving information from the property server(s).
+     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    @PostMapping(path = "/data-value-specifications/{dataValueSpecificationGUID}/specialized-data-value-specifications/{specializedDataValueSpecificationGUID}/detach")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="detachSpecializedDataValueSpecification",
+            description="Detach two data value specifications from one another.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/data-value-specification"))
+
+    public VoidResponse detachSpecializedDataValueSpecification(@PathVariable
+                                                                String                    serverName,
+                                                                @PathVariable
+                                                                String dataValueSpecificationGUID,
+                                                                @PathVariable
+                                                                String specializedDataValueSpecificationGUID,
+                                                                @RequestBody (required = false)
+                                                                DeleteRelationshipRequestBody requestBody)
+    {
+        return restAPI.detachSpecializedDataValueSpecification(serverName, dataValueSpecificationGUID, specializedDataValueSpecificationGUID, requestBody);
+    }
+
+
+    /**
+     * Connect an element to a data value specification that describes the data associated with this element.
+     *
+     * @param serverName         name of called server
+     * @param elementGUID  unique identifier of the first data value specification
+     * @param dataValueSpecificationGUID      unique identifier of the second data value specification
+     * @param requestBody  description of the relationship.
+     *
+     * @return void or
+     *  InvalidParameterException  one of the parameters is null or invalid.
+     *  PropertyServerException    a problem retrieving information from the property server(s).
+     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    @PostMapping(path = "/elements/{elementGUID}/data-value-specifications/{dataValueSpecificationGUID}/attach")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="assignDataValueSpecification",
+            description="Connect an element to a data value specification that describes the data associated with this element.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/data-value-specification"))
+
+    public VoidResponse assignDataValueSpecification(@PathVariable
+                                                         String                  serverName,
+                                                     @PathVariable String elementGUID,
+                                                     @PathVariable
+                                                         String dataValueSpecificationGUID,
+                                                     @RequestBody (required = false)
+                                                         NewRelationshipRequestBody requestBody)
+    {
+        return restAPI.assignDataValueSpecification(serverName, elementGUID, dataValueSpecificationGUID, requestBody);
+    }
+
+
+    /**
+     * Detach an element from one of its assigned data value specifications.
+     *
+     * @param serverName         name of called server
+     * @param elementGUID  unique identifier of the first data value specification
+     * @param dataValueSpecificationGUID      unique identifier of the second data value specification
+     * @param requestBody  description of the relationship.
+     *
+     * @return void or
+     *  InvalidParameterException  one of the parameters is null or invalid.
+     *  PropertyServerException    a problem retrieving information from the property server(s).
+     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    @PostMapping(path = "/elements/{elementGUID}/data-value-specifications/{dataValueSpecificationGUID}/detach")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="detachDataValueSpecificationAssignment",
+            description="Detach an element from one of its assigned data value specifications.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/data-value-specification"))
+
+    public VoidResponse detachDataValueSpecificationAssignment(@PathVariable
+                                                                String                    serverName,
+                                                                @PathVariable
+                                                                String elementGUID,
+                                                                @PathVariable
+                                                                String dataValueSpecificationGUID,
+                                                                @RequestBody (required = false)
+                                                                DeleteRelationshipRequestBody requestBody)
+    {
+        return restAPI.detachDataValueSpecificationAssignment(serverName, elementGUID, dataValueSpecificationGUID, requestBody);
+    }
+
+
+    /**
+     * Delete a data value specification.
+     *
+     * @param serverName         name of called server
+     * @param dataValueSpecificationGUID  unique identifier of the element to delete
+     * @param requestBody  description of the relationship.
+     *
+     * @return void or
+     *  InvalidParameterException  one of the parameters is null or invalid.
+     *  PropertyServerException    a problem retrieving information from the property server(s).
+     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    @PostMapping(path = "/data-value-specifications/{dataValueSpecificationGUID}/delete")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="deleteDataValueSpecification",
+            description="Delete a data value specification.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/data-value-specification"))
+
+    public VoidResponse deleteDataValueSpecification(@PathVariable
+                                                     String                    serverName,
+                                                     @PathVariable
+                                                     String                    dataValueSpecificationGUID,
+                                                     @RequestBody (required = false)
+                                                     DeleteElementRequestBody requestBody)
+    {
+        return restAPI.deleteDataValueSpecification(serverName, dataValueSpecificationGUID, requestBody);
+    }
+
+
+    /**
+     * Returns the list of data value specifications with a particular name.
+     *
+     * @param serverName name of the service to route the request to
+     * @param requestBody string to find in the properties
+     *
+     * @return list of matching metadata elements or
+     *  InvalidParameterException  one of the parameters is invalid
+     *  UserNotAuthorizedException the user is not authorized to issue this request
+     *  PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    @PostMapping(path = "/data-value-specifications/by-name")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="getDataValueSpecificationsByName",
+            description="Returns the list of data value specifications with a particular name.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/data-value-specification"))
+
+    public OpenMetadataRootElementsResponse getDataValueSpecificationsByName(@PathVariable
+                                                                             String            serverName,
+                                                                             @RequestBody (required = false)
+                                                                             FilterRequestBody requestBody)
+    {
+        return restAPI.getDataValueSpecificationsByName(serverName, requestBody);
+    }
+
+
+    /**
+     * Retrieve the list of data value specification metadata elements that contain the search string.
+     *
+     * @param serverName name of the service to route the request to
+     * @param requestBody string to find in the properties
+     *
+     * @return list of matching metadata elements or
+     *  InvalidParameterException  one of the parameters is invalid
+     *  UserNotAuthorizedException the user is not authorized to issue this request
+     *  PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    @PostMapping(path = "/data-value-specifications/by-search-string")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="findDataValueSpecifications",
+            description="Retrieve the list of data value specification metadata elements that contain the search string.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/data-value-specification"))
+
+    public OpenMetadataRootElementsResponse findDataValueSpecifications(@PathVariable
+                                                                        String                  serverName,
+                                                                        @RequestBody (required = false)
+                                                                        SearchStringRequestBody requestBody)
+    {
+        return restAPI.findDataValueSpecifications(serverName, requestBody);
+    }
+
+
+    /**
+     * Return the properties of a specific data value specification.
+     *
+     * @param serverName name of the service to route the request to
+     * @param dataValueSpecificationGUID    unique identifier of the required element
+     * @param requestBody string to find in the properties
+     *
+     * @return list of matching metadata elements or
+     *  InvalidParameterException  one of the parameters is invalid
+     *  UserNotAuthorizedException the user is not authorized to issue this request
+     *  PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    @PostMapping(path = "/data-value-specifications/{dataValueSpecificationGUID}/retrieve")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="getDataValueSpecificationByGUID",
+            description="Return the properties of a specific data value specification.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/data-value-specification"))
+
+    public OpenMetadataRootElementResponse getDataValueSpecificationByGUID(@PathVariable
+                                                                           String             serverName,
+                                                                           @PathVariable
+                                                                           String             dataValueSpecificationGUID,
+                                                                           @RequestBody (required = false)
+                                                                           GetRequestBody requestBody)
+    {
+        return restAPI.getDataValueSpecificationByGUID(serverName, dataValueSpecificationGUID, requestBody);
     }
 
 
@@ -946,12 +1013,12 @@ public class DataDesignerResource
 
 
     /**
-     * Connect an element that is part of a data design to a data class to show that the data class should be used
+     * Connect an element that is part of a data design to a data value specification to show that the data value specification should be used
      * as the specification for the data values when interpreting the data definition.
      *
      * @param serverName         name of called server
-     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
-     * @param dataClassGUID          unique identifier of the data class
+     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data value specification
+     * @param dataValueSpecificationGUID          unique identifier of the data value specification
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -959,30 +1026,30 @@ public class DataDesignerResource
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @PostMapping(path = "/data-definitions/{dataDefinitionGUID}/data-class-definition/{dataClassGUID}/attach")
+    @PostMapping(path = "/data-definitions/{dataDefinitionGUID}/data-value-specification-definition/{dataValueSpecificationGUID}/attach")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    @Operation(summary="linkDataClassDefinition",
-            description="Connect an element that is part of a data design to a data class to show that the data class should be used as the specification for the data values when interpreting the data definition.",
+    @Operation(summary="linkDataValueSpecificationDefinition",
+            description="Connect an element that is part of a data design to a data value specification to show that the data value specification should be used as the specification for the data values when interpreting the data definition.",
             externalDocs=@ExternalDocumentation(description="Further Information",
                     url="https://egeria-project.org/concepts/data-specification"))
 
-    public VoidResponse linkDataClassDefinition(@PathVariable String                    serverName,
-                                                @PathVariable String                    dataDefinitionGUID,
-                                                @PathVariable String                    dataClassGUID,
-                                                @RequestBody (required = false)
-                                                    NewRelationshipRequestBody requestBody)
+    public VoidResponse linkDataValueSpecificationDefinition(@PathVariable String                    serverName,
+                                                             @PathVariable String                    dataDefinitionGUID,
+                                                             @PathVariable String dataValueSpecificationGUID,
+                                                             @RequestBody (required = false)
+                                                             NewRelationshipRequestBody requestBody)
     {
-        return restAPI.linkDataClassDefinition(serverName, dataDefinitionGUID, dataClassGUID, requestBody);
+        return restAPI.linkDataValueSpecificationDefinition(serverName, dataDefinitionGUID, dataValueSpecificationGUID, requestBody);
     }
 
 
     /**
-     * Detach a data definition from a data class.
+     * Detach a data definition from a data value specification.
      *
      * @param serverName         name of called server
-     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
-     * @param dataClassGUID          unique identifier of the data class
+     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data value specification
+     * @param dataValueSpecificationGUID          unique identifier of the data value specification
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -990,21 +1057,21 @@ public class DataDesignerResource
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @PostMapping(path = "/data-definitions/{dataDefinitionGUID}/data-class-definition/{dataClassGUID}/detach")
+    @PostMapping(path = "/data-definitions/{dataDefinitionGUID}/data-value-specification-definition/{dataValueSpecificationGUID}/detach")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    @Operation(summary="detachDataClassDefinition",
-            description="Detach a data definition from a data class.",
+    @Operation(summary="detachDataValueSpecificationDefinition",
+            description="Detach a data definition from a data value specification.",
             externalDocs=@ExternalDocumentation(description="Further Information",
                     url="https://egeria-project.org/concepts/data-specification"))
 
-    public VoidResponse detachDataClassDefinition(@PathVariable String                    serverName,
-                                                  @PathVariable String                    dataDefinitionGUID,
-                                                  @PathVariable String                    dataClassGUID,
-                                                  @RequestBody (required = false)
-                                                      DeleteRelationshipRequestBody requestBody)
+    public VoidResponse detachDataValueSpecificationDefinition(@PathVariable String                    serverName,
+                                                               @PathVariable String                    dataDefinitionGUID,
+                                                               @PathVariable String dataValueSpecificationGUID,
+                                                               @RequestBody (required = false)
+                                                               DeleteRelationshipRequestBody requestBody)
     {
-        return restAPI.detachDataClassDefinition(serverName, dataDefinitionGUID, dataClassGUID, requestBody);
+        return restAPI.detachDataValueSpecificationDefinition(serverName, dataDefinitionGUID, dataValueSpecificationGUID, requestBody);
     }
 
 
@@ -1013,7 +1080,7 @@ public class DataDesignerResource
      * as the semantic definition for the data values when interpreting the data definition.
      *
      * @param serverName         name of called server
-     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
+     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data value specification
      * @param glossaryTermGUID       unique identifier of the glossary term
      * @param requestBody  description of the relationship.
      *
@@ -1034,7 +1101,7 @@ public class DataDesignerResource
                                                @PathVariable String                    dataDefinitionGUID,
                                                @PathVariable String                    glossaryTermGUID,
                                                @RequestBody (required = false)
-                                                   NewRelationshipRequestBody requestBody)
+                                               NewRelationshipRequestBody requestBody)
     {
         return restAPI.linkSemanticDefinition(serverName, dataDefinitionGUID, glossaryTermGUID, requestBody);
     }
@@ -1044,7 +1111,7 @@ public class DataDesignerResource
      * Detach a data definition from a glossary term.
      *
      * @param serverName         name of called server
-     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data class
+     * @param dataDefinitionGUID     unique identifier of the data design element (eg data field) that uses the data value specification
      * @param glossaryTermGUID       unique identifier of the glossary term
      * @param requestBody  description of the relationship.
      *
@@ -1065,7 +1132,7 @@ public class DataDesignerResource
                                                  @PathVariable String                    dataDefinitionGUID,
                                                  @PathVariable String                    glossaryTermGUID,
                                                  @RequestBody (required = false)
-                                                     DeleteRelationshipRequestBody requestBody)
+                                                 DeleteRelationshipRequestBody requestBody)
     {
         return restAPI.detachSemanticDefinition(serverName, dataDefinitionGUID, glossaryTermGUID, requestBody);
     }
@@ -1074,7 +1141,7 @@ public class DataDesignerResource
      * Connect a certification type to a data structure to guide the survey action service (that checks the data
      * quality of a data resource as part of certifying it with the supplied certification type) to the definition
      * of the data structure to use as a specification of how the data should be both structured and (if
-     * data classes are attached to the associated data fields using the DataClassDefinition relationship)
+     * data value specifications are attached to the associated data fields using the DataValueSpecificationDefinition relationship)
      * contain the valid values.
      *
      * @param serverName         name of called server
@@ -1091,7 +1158,7 @@ public class DataDesignerResource
     @SecurityRequirement(name = "BearerAuthorization")
 
     @Operation(summary="linkCertificationTypeToDataStructure",
-            description="Connect a certification type to a data structure to guide the survey action service (that checks the data quality of a data resource as part of certifying it with the supplied certification type) to the definition of the data structure to use as a specification of how the data should be both structured and (if data classes are attached to the associated data fields using the DataClassDefinition relationship) contain the valid values.",
+            description="Connect a certification type to a data structure to guide the survey action service (that checks the data quality of a data resource as part of certifying it with the supplied certification type) to the definition of the data structure to use as a specification of how the data should be both structured and (if data value specifications are attached to the associated data fields using the DataValueSpecificationDefinition relationship) contain the valid values.",
             externalDocs=@ExternalDocumentation(description="Further Information",
                     url="https://egeria-project.org/concepts/data-specification"))
 
@@ -1099,7 +1166,7 @@ public class DataDesignerResource
                                                              @PathVariable String                    certificationTypeGUID,
                                                              @PathVariable String                    dataStructureGUID,
                                                              @RequestBody (required = false)
-                                                                 NewRelationshipRequestBody requestBody)
+                                                             NewRelationshipRequestBody requestBody)
     {
         return restAPI.linkCertificationTypeToDataStructure(serverName, certificationTypeGUID, dataStructureGUID, requestBody);
     }
@@ -1129,7 +1196,7 @@ public class DataDesignerResource
                                                                @PathVariable String                    certificationTypeGUID,
                                                                @PathVariable String                    dataStructureGUID,
                                                                @RequestBody (required = false)
-                                                                   DeleteRelationshipRequestBody requestBody)
+                                                               DeleteRelationshipRequestBody requestBody)
     {
         return restAPI.detachCertificationTypeToDataStructure(serverName, certificationTypeGUID, dataStructureGUID, requestBody);
     }

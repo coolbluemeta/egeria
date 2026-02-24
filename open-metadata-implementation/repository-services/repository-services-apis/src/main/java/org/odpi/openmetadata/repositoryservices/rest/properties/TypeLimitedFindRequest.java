@@ -28,8 +28,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class TypeLimitedFindRequest extends OMRSAPIPagedFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private String                     typeGUID = null;
 
 
@@ -90,12 +88,7 @@ public class TypeLimitedFindRequest extends OMRSAPIPagedFindRequest
     {
         return "TypeLimitedFindRequest{" +
                 "typeGUID='" + typeGUID + '\'' +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -112,7 +105,7 @@ public class TypeLimitedFindRequest extends OMRSAPIPagedFindRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof TypeLimitedFindRequest))
+        if (!(objectToCompare instanceof TypeLimitedFindRequest that))
         {
             return false;
         }
@@ -120,8 +113,6 @@ public class TypeLimitedFindRequest extends OMRSAPIPagedFindRequest
         {
             return false;
         }
-        TypeLimitedFindRequest
-                that = (TypeLimitedFindRequest) objectToCompare;
         return Objects.equals(getTypeGUID(), that.getTypeGUID());
     }
 

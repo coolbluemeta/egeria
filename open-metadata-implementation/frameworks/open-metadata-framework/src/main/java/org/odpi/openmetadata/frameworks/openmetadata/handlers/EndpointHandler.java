@@ -48,7 +48,7 @@ public class EndpointHandler extends OpenMetadataHandlerBase
     /**
      * Create a new endpoint.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -116,7 +116,7 @@ public class EndpointHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of an endpoint.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param endpointGUID      unique identifier of the endpoint (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -147,7 +147,7 @@ public class EndpointHandler extends OpenMetadataHandlerBase
     /**
      * Attach an endpoint to an infrastructure asset.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param endpointGUID            unique identifier of the endpoint
      * @param itAssetGUID             unique identifier of the infrastructure asset
      * @param makeAnchorOptions  options to control access to open metadata
@@ -184,7 +184,7 @@ public class EndpointHandler extends OpenMetadataHandlerBase
     /**
      * Detach an endpoint from an infrastructure asset.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param itAssetGUID            unique identifier of the infrastructure asset
      * @param endpointGUID       unique identifier of the endpoint
      * @param deleteOptions  options to control access to open metadata
@@ -219,7 +219,7 @@ public class EndpointHandler extends OpenMetadataHandlerBase
     /**
      * Delete an endpoint.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param endpointGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -245,7 +245,7 @@ public class EndpointHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of endpoints with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -274,7 +274,7 @@ public class EndpointHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific endpoint.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param endpointGUID      unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -298,7 +298,7 @@ public class EndpointHandler extends OpenMetadataHandlerBase
      * Retrieve the list of endpoint metadata elements with a matching networkAddress.
      * There are no wildcards supported on this request.
      *
-     * @param userId         userId of user making request
+     * @param userId         userId of the user making the request
      * @param networkAddress networkAddress to search for
      * @param queryOptions           multiple options to control the query
      *
@@ -329,7 +329,7 @@ public class EndpointHandler extends OpenMetadataHandlerBase
     /**
      * Retrieve the list of endpoint metadata elements that are attached to a specific infrastructure element.
      *
-     * @param userId         userId of user making request
+     * @param userId         userId of the user making the request
      * @param infrastructureGUID element to search for
      * @param queryOptions multiple options to control the query
      *

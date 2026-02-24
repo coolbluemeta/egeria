@@ -123,7 +123,7 @@ public class SchemaTypeHandler extends OpenMetadataHandlerBase
     /**
      * Create a new schema type.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -191,7 +191,7 @@ public class SchemaTypeHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a schema type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaTypeGUID       unique identifier of the schema type (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -222,7 +222,7 @@ public class SchemaTypeHandler extends OpenMetadataHandlerBase
     /**
      * Attach an element to a Schema Type that describes its structure.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID       unique identifier of the element (eg asset, port, ...)
      * @param schemaTypeGUID            unique identifier of the IT profile
      * @param makeAnchorOptions  options to control access to open metadata
@@ -259,7 +259,7 @@ public class SchemaTypeHandler extends OpenMetadataHandlerBase
     /**
      * Detach an element from the schema that describes its structure.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID       unique identifier of the element (eg asset, port, ...)
      * @param schemaTypeGUID          unique identifier of the IT profile
      * @param deleteOptions  options to control access to open metadata
@@ -293,7 +293,7 @@ public class SchemaTypeHandler extends OpenMetadataHandlerBase
     /**
      * Delete a schema type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param schemaTypeGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -319,7 +319,7 @@ public class SchemaTypeHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of schema types with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -346,7 +346,7 @@ public class SchemaTypeHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific schema type.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param schemaTypeGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -369,7 +369,7 @@ public class SchemaTypeHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific schema type retrieved using an associated userId.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param assetGUID         identifier of user
      * @param getOptions multiple options to control the query
      * @return retrieved properties

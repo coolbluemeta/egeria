@@ -368,6 +368,15 @@ public enum OMRSErrorCode implements ExceptionMessageSet
                                     "protocol levels are compatible. If nothing is obviously wrong with the set up, " +
                                     "raise a Github issue or ask for help on the dev mailing list."),
 
+
+    /**
+     * OMRS-REPOSITORY-400-042 - The endMatchCriteria {0} is specified on method {1} without any end guids
+     */
+    INVALID_FIND_RELATIONSHIP_END_CRITERIA(400, "OMRS-REPOSITORY-400-042",
+                                           "The endMatchCriteria {0} is specified on method {1} without any end guids",
+                                           "An exception is returned to the caller and no search request is initiated.",
+                                           "Either remove the endMatchCriteria or provide end guids."),
+
     /**
      * OMRS-REPOSITORY-400-043 - A null entity proxy has been passed to repository {0} as the {1} parameter of the {2} operation
      */

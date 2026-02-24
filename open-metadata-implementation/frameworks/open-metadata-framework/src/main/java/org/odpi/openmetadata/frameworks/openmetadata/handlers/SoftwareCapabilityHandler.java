@@ -88,7 +88,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Create a new softwareCapability.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -156,7 +156,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a software capability.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param softwareCapabilityGUID       unique identifier of the softwareCapability (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -188,7 +188,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
      * Create a relationship that represents the use of an asset (typically a data or process asset) by
      * a softwareCapability.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param softwareCapabilityGUID       unique identifier of the softwareCapability
      * @param assetGUID           unique identifier of the destination softwareCapability
      * @param makeAnchorOptions  options to control access to open metadata
@@ -225,7 +225,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Remove a CapabilityAssetUse relationship.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param softwareCapabilityGUID       unique identifier of the softwareCapability
      * @param assetGUID           unique identifier of the destination softwareCapability
      * @param deleteOptions  options to control access to open metadata
@@ -260,7 +260,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Delete a software capability.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param softwareCapabilityGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -286,7 +286,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of softwareCapabilities with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName, resourceName or displayName
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -318,7 +318,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of softwareCapabilities with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   deployedImplementationType name of the element to return - match is full text match
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -379,7 +379,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of softwareCapabilities that are using a particular asset.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param assetGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -410,7 +410,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of governance engines connected to a particular governance service.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param governanceServiceGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -441,7 +441,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of integration groups connected to a particular integration connector.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param integrationConnectorGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -472,7 +472,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific softwareCapability.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param softwareCapabilityGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -495,7 +495,7 @@ public class SoftwareCapabilityHandler extends OpenMetadataHandlerBase
     /**
      * Retrieve the list of software capability metadata elements that are attached to a specific infrastructure element.
      *
-     * @param userId         userId of user making request
+     * @param userId         userId of the user making the request
      * @param infrastructureGUID element to search for
      * @param queryOptions multiple options to control the query
      *

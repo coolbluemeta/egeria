@@ -7,6 +7,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedExcep
 import org.odpi.openmetadata.metadatasecurity.OpenMetadataRepositorySecurity;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.OMRSMetadataCollectionBase;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.HistorySequencingOrder;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.EndMatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchClassifications;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.SearchProperties;
 import org.odpi.openmetadata.repositoryservices.eventmanagement.OMRSRepositoryEventManager;
@@ -2546,6 +2547,9 @@ public class LocalOMRSMetadataCollection extends OMRSMetadataCollectionBase
      *                             (but may be slow so not recommended).
      * @param relationshipSubtypeGUIDs optional list of the unique identifiers (guids) for subtypes of the
      *                                 relationshipTypeGUID to include in the search results. Null means all subtypes.
+     * @param end1EntityGUIDs optional list of the unique identifiers (guids) for entities that must be at end 1 of the relationship.
+     * @param end2EntityGUIDs optional list of the unique identifiers (guids) for entities that must be at end 2 of the relationship.
+     * @param endMatchCriteria criteria for matching the ends of the relationship.
      * @param matchProperties Optional list of relationship property conditions to match.
      * @param fromRelationshipElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
@@ -2577,6 +2581,9 @@ public class LocalOMRSMetadataCollection extends OMRSMetadataCollectionBase
     public  List<Relationship> findRelationships(String                    userId,
                                                  String                    relationshipTypeGUID,
                                                  List<String>              relationshipSubtypeGUIDs,
+                                                 List<String>              end1EntityGUIDs,
+                                                 List<String>              end2EntityGUIDs,
+                                                 EndMatchCriteria          endMatchCriteria,
                                                  SearchProperties          matchProperties,
                                                  int                       fromRelationshipElement,
                                                  List<InstanceStatus>      limitResultsByStatus,
@@ -2597,6 +2604,9 @@ public class LocalOMRSMetadataCollection extends OMRSMetadataCollectionBase
         super.findRelationshipsParameterValidation(userId,
                                                    relationshipTypeGUID,
                                                    relationshipSubtypeGUIDs,
+                                                   end1EntityGUIDs,
+                                                   end2EntityGUIDs,
+                                                   endMatchCriteria,
                                                    matchProperties,
                                                    fromRelationshipElement,
                                                    limitResultsByStatus,
@@ -2614,6 +2624,9 @@ public class LocalOMRSMetadataCollection extends OMRSMetadataCollectionBase
         resultList = realMetadataCollection.findRelationships(userId,
                                                               relationshipTypeGUID,
                                                               relationshipSubtypeGUIDs,
+                                                              end1EntityGUIDs,
+                                                              end2EntityGUIDs,
+                                                              endMatchCriteria,
                                                               matchProperties,
                                                               fromRelationshipElement,
                                                               limitResultsByStatus,
@@ -2665,8 +2678,8 @@ public class LocalOMRSMetadataCollection extends OMRSMetadataCollectionBase
     @Override
     public  List<Relationship> findRelationshipsByProperty(String                    userId,
                                                            String                    relationshipTypeGUID,
-                                                           InstanceProperties matchProperties,
-                                                           MatchCriteria matchCriteria,
+                                                           InstanceProperties        matchProperties,
+                                                           MatchCriteria             matchCriteria,
                                                            int                       fromRelationshipElement,
                                                            List<InstanceStatus>      limitResultsByStatus,
                                                            Date                      asOfTime,

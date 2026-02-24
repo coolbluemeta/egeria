@@ -404,7 +404,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a context event.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contextEventGUID          unique identifier of the context event (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -435,7 +435,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Connect two context events to show that one is dependent on another.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param parentContextEventGUID    unique identifier of the parent context event
      * @param childContextEventGUID     unique identifier of the child context event
      * @param makeAnchorOptions  options to control access to open metadata
@@ -472,7 +472,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Detach two dependent context events from one another.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param parentContextEventGUID    unique identifier of the  parent context event.
      * @param childContextEventGUID     unique identifier of the child context event.
      * @param deleteOptions  options to control access to open metadata
@@ -507,7 +507,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Connect two context events to show that one is related to the other.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param contextEventOneGUID    unique identifier of the  context event at end 1
      * @param contextEventTwoGUID     unique identifier of the  context event at end 2
      * @param makeAnchorOptions  options to control access to open metadata
@@ -544,7 +544,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Detach two context events that are related to one another.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contextEventOneGUID    unique identifier of the  context event at end 1
      * @param contextEventTwoGUID     unique identifier of the  context event at end 2
      * @param deleteOptions  options to control access to open metadata
@@ -579,7 +579,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Connect a context event to an element that provides evidence that this context event is real.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param contextEventGUID    unique identifier of the context event
      * @param evidenceGUID     unique identifier of the element representing the evidence
      * @param makeAnchorOptions  options to control access to open metadata
@@ -616,7 +616,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Detach a context event from an element that provides evidence that this context event is real.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contextEventGUID    unique identifier of the context event
      * @param evidenceGUID     unique identifier of the element representing the evidence
      * @param deleteOptions  options to control access to open metadata
@@ -651,7 +651,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Connect a context event to an element that is impacted by this event.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param contextEventGUID    unique identifier of the context event
      * @param impactedElementGUID     unique identifier of the element that is impacted by the event
      * @param makeAnchorOptions  options to control access to open metadata
@@ -688,7 +688,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Detach a context event from an element that is impacted by the event.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contextEventGUID    unique identifier of the context event
      * @param impactedElementGUID     unique identifier of the element that is impacted by the event
      * @param deleteOptions  options to control access to open metadata
@@ -723,7 +723,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Connect a context event to an element whose data is impacted by this event.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param contextEventGUID    unique identifier of the context event
      * @param timelineAffectedElementGUID     unique identifier of the element whose data is impacted by the context event
      * @param makeAnchorOptions  options to control access to open metadata
@@ -760,7 +760,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Detach a context event from an element whose data is impacted by the event.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param timelineAffectedElementGUID     unique identifier of the element whose data is impacted by the context event
      * @param contextEventGUID    unique identifier of the context event
      * @param deleteOptions  options to control access to open metadata
@@ -795,7 +795,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Delete a context event.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param contextEventGUID          unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -821,7 +821,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of context events with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -848,7 +848,7 @@ public class ContextEventHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific context event.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param contextEventGUID          unique identifier of the required element
      * @return retrieved properties
      * @throws InvalidParameterException  one of the parameters is null or invalid.

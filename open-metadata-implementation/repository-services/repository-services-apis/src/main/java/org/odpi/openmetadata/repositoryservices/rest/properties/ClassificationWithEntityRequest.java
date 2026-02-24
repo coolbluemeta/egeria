@@ -23,8 +23,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ClassificationWithEntityRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private Classification classification = null;
     private EntityDetail   entity         = null;
     private EntityProxy    entityProxy   = null;

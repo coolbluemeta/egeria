@@ -5,6 +5,8 @@ package org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports;
 import com.fasterxml.jackson.annotation.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
+import java.util.Objects;
+
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
@@ -21,6 +23,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         {
                 @JsonSubTypes.Type(value = ClassificationAnnotationProperties.class, name = "ClassificationAnnotationProperties"),
                 @JsonSubTypes.Type(value = DataClassAnnotationProperties.class, name = "DataClassAnnotationProperties"),
+                @JsonSubTypes.Type(value = DataGrainAnnotationProperties.class, name = "DataGrainAnnotationProperties"),
                 @JsonSubTypes.Type(value = FingerprintAnnotationProperties.class, name = "FingerprintAnnotationProperties"),
                 @JsonSubTypes.Type(value = QualityAnnotationProperties.class, name = "QualityAnnotationProperties"),
                 @JsonSubTypes.Type(value = ResourceProfileAnnotationProperties.class, name = "DataProfileAnnotation"),
@@ -31,6 +34,10 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class DataFieldAnnotationProperties extends AnnotationProperties
 {
+    private String dataType          = null;
+    private long   matchingValues    = 0L;
+    private long   nonMatchingValues = 0L;
+
     /**
      * Default constructor
      */
@@ -49,6 +56,76 @@ public class DataFieldAnnotationProperties extends AnnotationProperties
     public DataFieldAnnotationProperties(DataFieldAnnotationProperties template)
     {
         super(template);
+
+        if (template != null)
+        {
+            dataType          = template.getDataType();
+            matchingValues    = template.getMatchingValues();
+            nonMatchingValues = template.getNonMatchingValues();
+        }
+    }
+
+
+    /**
+     * Return the data type for this element.  Null means an unknown data type.
+     *
+     * @return String data type name
+     */
+    public String getDataType() { return dataType; }
+
+
+    /**
+     * Set up the data type for this element.  Null means an unknown data type.
+     *
+     * @param dataType data type name
+     */
+    public void setDataType(String dataType)
+    {
+        this.dataType = dataType;
+    }
+
+
+    /**
+     * Return the count of matching values that match the specification of these data classes.
+     *
+     * @return long
+     */
+    public long getMatchingValues()
+    {
+        return matchingValues;
+    }
+
+
+    /**
+     * Set up the count of matching values that match the specification of these data classes.
+     *
+     * @param matchingValues long
+     */
+    public void setMatchingValues(long matchingValues)
+    {
+        this.matchingValues = matchingValues;
+    }
+
+
+    /**
+     * Return the count of values that do not match the specification of these data classes.
+     *
+     * @return long
+     */
+    public long getNonMatchingValues()
+    {
+        return nonMatchingValues;
+    }
+
+
+    /**
+     * Set up the count of values that do not match the specification of these data classes.
+     *
+     * @param nonMatchingValues long
+     */
+    public void setNonMatchingValues(long nonMatchingValues)
+    {
+        this.nonMatchingValues = nonMatchingValues;
     }
 
 
@@ -60,6 +137,50 @@ public class DataFieldAnnotationProperties extends AnnotationProperties
     @Override
     public String toString()
     {
-        return "DataFieldAnnotationProperties{} " + super.toString();
+        return "DataFieldAnnotationProperties{" +
+                "matchingValues=" + matchingValues +
+                ", nonMatchingValues=" + nonMatchingValues +
+                ", dataType='" + dataType + '\'' +
+                "} " + super.toString();
+    }
+
+
+    /**
+     * Compare the values of the supplied object with those stored in the current object.
+     *
+     * @param objectToCompare supplied object
+     * @return boolean result of comparison
+     */
+    @Override
+    public boolean equals(Object objectToCompare)
+    {
+        if (this == objectToCompare)
+        {
+            return true;
+        }
+        if (objectToCompare == null || getClass() != objectToCompare.getClass())
+        {
+            return false;
+        }
+        if (!super.equals(objectToCompare))
+        {
+            return false;
+        }
+        DataFieldAnnotationProperties that = (DataFieldAnnotationProperties) objectToCompare;
+        return matchingValues == that.matchingValues &&
+                nonMatchingValues == that.nonMatchingValues &&
+                Objects.equals(dataType, that.dataType);
+    }
+
+
+    /**
+     * Create a hash code for this element type.
+     *
+     * @return int hash code
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(super.hashCode(), dataType, matchingValues, nonMatchingValues);
     }
 }

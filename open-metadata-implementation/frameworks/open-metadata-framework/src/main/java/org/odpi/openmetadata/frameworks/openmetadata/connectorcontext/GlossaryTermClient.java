@@ -357,11 +357,11 @@ public class GlossaryTermClient extends ConnectorContextClientBase
      * @throws PropertyServerException    a problem retrieving information from the property server(s).
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public void setTermAsDataValue(String                glossaryTermGUID,
-                                   DataValueProperties   properties,
-                                   MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
-                                                                                       PropertyServerException,
-                                                                                       UserNotAuthorizedException
+    public void setTermAsDataValue(String                     glossaryTermGUID,
+                                   DataValueMeaningProperties properties,
+                                   MetadataSourceOptions      metadataSourceOptions) throws InvalidParameterException,
+                                                                                            PropertyServerException,
+                                                                                            UserNotAuthorizedException
     {
         glossaryTermHandler.setTermAsDataValue(connectorUserId, glossaryTermGUID, properties, metadataSourceOptions);
     }

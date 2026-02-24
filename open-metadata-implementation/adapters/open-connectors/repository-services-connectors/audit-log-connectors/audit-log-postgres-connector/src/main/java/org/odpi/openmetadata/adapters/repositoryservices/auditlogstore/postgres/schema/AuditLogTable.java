@@ -26,51 +26,59 @@ public enum AuditLogTable implements PostgreSQLTable
                        AuditLogColumn.USER_NAME,
                        AuditLogColumn.OPERATION_NAME,
                        AuditLogColumn.SERVICE_NAME,
-                       AuditLogColumn.CALL_TIME}),
+                       AuditLogColumn.CALL_TIME},
+              new AuditLogColumn[]{
+                      AuditLogColumn.LAST_REQUEST_ID}),
 
 
     /**
      * Details to the activity around assets.
      */
     ASSET_ACTIVITY("al_asset_activity",
-           "Details to the activity around assets.",
-           null,
-           new AuditLogColumn[]{
-                   AuditLogColumn.THREAD_ID,
-                   AuditLogColumn.SERVER_NAME,
-                   AuditLogColumn.CALL_TIME,
-                   AuditLogColumn.ASSET_OPERATION,
-                   AuditLogColumn.ASSET_GUID,
-                   AuditLogColumn.ASSET_TYPE,
-                   AuditLogColumn.OPERATION_NAME,
-                   AuditLogColumn.SERVICE_NAME,
-                   AuditLogColumn.USER_NAME}),
+                   "Details to the activity around assets.",
+                   null,
+                   new AuditLogColumn[]{
+                           AuditLogColumn.THREAD_ID,
+                           AuditLogColumn.SERVER_NAME,
+                           AuditLogColumn.CALL_TIME,
+                           AuditLogColumn.ASSET_OPERATION,
+                           AuditLogColumn.ASSET_GUID,
+                           AuditLogColumn.ASSET_TYPE,
+                           AuditLogColumn.OPERATION_NAME,
+                           AuditLogColumn.SERVICE_NAME,
+                           AuditLogColumn.USER_NAME},
+                   new AuditLogColumn[]{
+                           AuditLogColumn.LAST_REQUEST_ID}),
 
     /**
-     * All of the captured audit events.
+     * All the captured audit events.
      */
     AUDIT_EVENTS("al_audit_events",
-              "All of the captured audit events.",
+                 "All the captured audit events.",
                  new AuditLogColumn[]{
                          AuditLogColumn.LOG_RECORD_ID,
                          AuditLogColumn.MESSAGE_TIMESTAMP},
-              new AuditLogColumn[]{
-                      AuditLogColumn.SERVER_NAME,
-                      AuditLogColumn.ACTION_DESCRIPTION,
-                      AuditLogColumn.SEVERITY_CODE,
-                      AuditLogColumn.SEVERITY,
-                      AuditLogColumn.MESSAGE_ID,
-                      AuditLogColumn.MESSAGE_TEXT,
-                      AuditLogColumn.MESSAGE_PARAMETERS,
-                      AuditLogColumn.SYSTEM_ACTION,
-                      AuditLogColumn.USER_ACTION,
-                      AuditLogColumn.EXCEPTION_CLASS_NAME,
-                      AuditLogColumn.EXCEPTION_MESSAGE,
-                      AuditLogColumn.EXCEPTION_STACK_TRACE,
-                      AuditLogColumn.ORGANIZATION,
-                      AuditLogColumn.COMPONENT_NAME,
-                      AuditLogColumn.ADDITIONAL_INFO,
-                      AuditLogColumn.THREAD_ID}),
+                 new AuditLogColumn[]{
+                         AuditLogColumn.SERVER_NAME,
+                         AuditLogColumn.ACTION_DESCRIPTION,
+                         AuditLogColumn.SEVERITY_CODE,
+                         AuditLogColumn.SEVERITY,
+                         AuditLogColumn.MESSAGE_ID,
+                         AuditLogColumn.MESSAGE_TEXT,
+                         AuditLogColumn.MESSAGE_PARAMETERS,
+                         AuditLogColumn.SYSTEM_ACTION,
+                         AuditLogColumn.USER_ACTION,
+                         AuditLogColumn.EXCEPTION_CLASS_NAME,
+                         AuditLogColumn.EXCEPTION_MESSAGE,
+                         AuditLogColumn.EXCEPTION_STACK_TRACE,
+                         AuditLogColumn.ORGANIZATION,
+                         AuditLogColumn.COMPONENT_NAME,
+                         AuditLogColumn.ADDITIONAL_INFO,
+                         AuditLogColumn.THREAD_ID},
+                 new AuditLogColumn[]{
+                         AuditLogColumn.LAST_REQUEST_ID}
+    ),
+
 
     /**
      * The components producing audit log events.
@@ -83,7 +91,9 @@ public enum AuditLogTable implements PostgreSQLTable
                          AuditLogColumn.DEVELOPMENT_STATUS,
                          AuditLogColumn.COMPONENT_NAME,
                          AuditLogColumn.COMPONENT_DESCRIPTION,
-                         AuditLogColumn.COMPONENT_WIKI_URL}),
+                         AuditLogColumn.COMPONENT_WIKI_URL},
+                      null
+    ),
 
     /**
      * The exceptions caught in the audit log events.
@@ -98,7 +108,10 @@ public enum AuditLogTable implements PostgreSQLTable
                               AuditLogColumn.EXCEPTION_STACK_TRACE,
                               AuditLogColumn.SYSTEM_ACTION,
                               AuditLogColumn.USER_ACTION,
-                              AuditLogColumn.MESSAGE_TIMESTAMP}),
+                              AuditLogColumn.MESSAGE_TIMESTAMP},
+                      new AuditLogColumn[]{
+                              AuditLogColumn.THREAD_ID,
+                              AuditLogColumn.LAST_REQUEST_ID}),
 
     /**
      * The servers producing audit log records.
@@ -110,7 +123,8 @@ public enum AuditLogTable implements PostgreSQLTable
                       new AuditLogColumn[]{
                               AuditLogColumn.SERVER_TYPE,
                               AuditLogColumn.ORGANIZATION,
-                              AuditLogColumn.METADATA_COLLECTION_ID}),
+                              AuditLogColumn.METADATA_COLLECTION_ID},
+                 null),
 
     ;
 
@@ -118,6 +132,7 @@ public enum AuditLogTable implements PostgreSQLTable
     private final String           tableDescription;
     private final AuditLogColumn[] primaryKeys;
     private final AuditLogColumn[] dataColumns;
+    private final AuditLogColumn[] newColumns;
 
 
     /**
@@ -128,15 +143,17 @@ public enum AuditLogTable implements PostgreSQLTable
      * @param primaryKeys list of primary keys
      * @param dataColumns list of additional columns
      */
-    AuditLogTable(String                 tableName,
-                  String                 tableDescription,
-                  AuditLogColumn[]     primaryKeys,
-                  AuditLogColumn[]     dataColumns)
+    AuditLogTable(String           tableName,
+                  String           tableDescription,
+                  AuditLogColumn[] primaryKeys,
+                  AuditLogColumn[] dataColumns,
+                  AuditLogColumn[] newColumns)
     {
         this.tableName        = tableName;
         this.tableDescription = tableDescription;
         this.primaryKeys      = primaryKeys;
         this.dataColumns      = dataColumns;
+        this.newColumns       = newColumns;
     }
 
 
@@ -150,8 +167,6 @@ public enum AuditLogTable implements PostgreSQLTable
     {
         return tableName;
     }
-
-
 
 
     /**
@@ -215,6 +230,23 @@ public enum AuditLogTable implements PostgreSQLTable
 
 
     /**
+     * Return the columns that are added as an extension using ALTER TABLE.
+     *
+     * @return list of columns
+     */
+    @Override
+    public List<PostgreSQLColumn> getNewColumns()
+    {
+        if (newColumns != null)
+        {
+            return Arrays.asList(newColumns);
+        }
+
+        return null;
+    }
+
+
+    /**
      * Return the name to type map for the columns in this table.
      *
      * @return map
@@ -239,6 +271,13 @@ public enum AuditLogTable implements PostgreSQLTable
             }
         }
 
+        if (newColumns != null)
+        {
+            for (AuditLogColumn column: newColumns)
+            {
+                columnNameTypeMap.put(column.getColumnName(), column.getColumnType().getJdbcType());
+            }
+        }
 
         return columnNameTypeMap;
     }

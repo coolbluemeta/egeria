@@ -48,7 +48,7 @@ public class EngineHostServicesResource
      * @param governanceEngineName name of governance engine of interest
      * @return list of statuses - on for each assigned governance engines or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      */
     @GetMapping(path = "/governance-engines/{governanceEngineName}/summary")
     @SecurityRequirement(name = "BearerAuthorization")
@@ -73,7 +73,7 @@ public class EngineHostServicesResource
      * @param delegatingUserId external userId making request
      * @return list of statuses - on for each assigned governance engines or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      */
     @GetMapping(path = "/governance-engines/summary")
     @SecurityRequirement(name = "BearerAuthorization")
@@ -102,7 +102,7 @@ public class EngineHostServicesResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  GovernanceEngineException there was a problem detected by the governance engine.
      */
     @GetMapping(path = "/governance-engines/{governanceEngineName}/refresh-config")
@@ -135,7 +135,7 @@ public class EngineHostServicesResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  GovernanceEngineException there was a problem detected by the governance engine.
      */
     @GetMapping(path = "/governance-engines/refresh-config")

@@ -92,7 +92,7 @@ public class ReferenceDataSetProvider extends DynamicOpenMetadataDataSetProvider
                                                  ProductDataFieldDefinition.DISPLAY_NAME,
                                                  ProductDataFieldDefinition.DESCRIPTION,
                                                  ProductDataFieldDefinition.CATEGORY,
-                                                 ProductDataFieldDefinition.NAMESPACE,
+                                                 ProductDataFieldDefinition.NAMESPACE_PATH,
                                                  ProductDataFieldDefinition.PREFERRED_VALUE,
                                                  ProductDataFieldDefinition.IS_CASE_SENSITIVE,
                                                  ProductDataFieldDefinition.DATA_TYPE,

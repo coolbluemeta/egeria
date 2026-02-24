@@ -294,7 +294,7 @@ public abstract class OSSUnityCatalogInsideCatalogSyncBase
      * @param instanceSynchronizationDirection direction the metadata is flowing
      *
      * @throws InvalidParameterException  one of the parameters is invalid
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    problem accessing the property server
      */
     public void addExternalIdentifier(String                   openMetadataElementGUID,

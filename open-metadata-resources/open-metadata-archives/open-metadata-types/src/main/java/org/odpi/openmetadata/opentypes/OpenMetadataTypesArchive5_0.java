@@ -184,6 +184,7 @@ public class OpenMetadataTypesArchive5_0
     {
         this.archiveBuilder.addEntityDef(getRootCollectionEntity());
         this.archiveBuilder.addEntityDef(getCollectionFolderEntity());
+        this.archiveBuilder.addEntityDef(getFolioCollection());
         this.archiveBuilder.addEntityDef(getHomeCollection());
         this.archiveBuilder.addEntityDef(getRecentAccess());
         this.archiveBuilder.addEntityDef(getWorkItemList());
@@ -203,6 +204,11 @@ public class OpenMetadataTypesArchive5_0
                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.COLLECTION.typeName));
     }
 
+    private EntityDef getFolioCollection()
+    {
+        return archiveHelper.getDefaultEntityDef(OpenMetadataType.FOLIO_COLLECTION,
+                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.COLLECTION.typeName));
+    }
 
     private EntityDef getHomeCollection()
     {
@@ -343,7 +349,7 @@ public class OpenMetadataTypesArchive5_0
     private RelationshipDef addCatalogTemplateRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.CATALOG_TEMPLATE_RELATIONSHIP,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         RelationshipEndDef relationshipEndDef;
@@ -376,16 +382,6 @@ public class OpenMetadataTypesArchive5_0
                                                                  end2AttributeDescriptionGUID,
                                                                  RelationshipEndCardinality.ANY_NUMBER);
         relationshipDef.setEndDef2(relationshipEndDef);
-
-        /*
-         * Build the attributes
-         */
-        List<TypeDefAttribute> properties = new ArrayList<>();
-
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
-
-        relationshipDef.setPropertiesDefinition(properties);
 
         return relationshipDef;
 
@@ -784,7 +780,7 @@ public class OpenMetadataTypesArchive5_0
     private RelationshipDef addContextEventEvidenceRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.CONTEXT_EVENT_EVIDENCE_RELATIONSHIP,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         RelationshipEndDef relationshipEndDef;
@@ -818,23 +814,13 @@ public class OpenMetadataTypesArchive5_0
                                                                  RelationshipEndCardinality.ANY_NUMBER);
         relationshipDef.setEndDef2(relationshipEndDef);
 
-        /*
-         * Build the attributes
-         */
-        List<TypeDefAttribute> properties = new ArrayList<>();
-
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
-
-        relationshipDef.setPropertiesDefinition(properties);
-
         return relationshipDef;
     }
 
     private RelationshipDef addContextEventForTimelineEffectsRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.CONTEXT_EVENT_FOR_TIMELINE_EFFECTS_RELATIONSHIP,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         RelationshipEndDef relationshipEndDef;
@@ -868,23 +854,13 @@ public class OpenMetadataTypesArchive5_0
                                                                  RelationshipEndCardinality.ANY_NUMBER);
         relationshipDef.setEndDef2(relationshipEndDef);
 
-        /*
-         * Build the attributes
-         */
-        List<TypeDefAttribute> properties = new ArrayList<>();
-
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
-
-        relationshipDef.setPropertiesDefinition(properties);
-
         return relationshipDef;
     }
 
     private RelationshipDef addContextEventImpactRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.CONTEXT_EVENT_IMPACT_RELATIONSHIP,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         RelationshipEndDef relationshipEndDef;
@@ -924,8 +900,6 @@ public class OpenMetadataTypesArchive5_0
         List<TypeDefAttribute> properties = new ArrayList<>();
 
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SEVERITY_LEVEL_IDENTIFIER));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
 
         relationshipDef.setPropertiesDefinition(properties);
 
@@ -941,7 +915,7 @@ public class OpenMetadataTypesArchive5_0
     private RelationshipDef addDependentContextEventRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.DEPENDENT_CONTEXT_EVENT_RELATIONSHIP,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         RelationshipEndDef relationshipEndDef;
@@ -975,23 +949,13 @@ public class OpenMetadataTypesArchive5_0
                                                                  RelationshipEndCardinality.ANY_NUMBER);
         relationshipDef.setEndDef2(relationshipEndDef);
 
-        /*
-         * Build the attributes
-         */
-        List<TypeDefAttribute> properties = new ArrayList<>();
-
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
-
-        relationshipDef.setPropertiesDefinition(properties);
-
         return relationshipDef;
     }
 
     private RelationshipDef addRelatedContextEventRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.RELATED_CONTEXT_EVENT_RELATIONSHIP,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         RelationshipEndDef relationshipEndDef;
@@ -1030,9 +994,6 @@ public class OpenMetadataTypesArchive5_0
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STATUS_IDENTIFIER));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENCE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STEWARD));
@@ -1277,7 +1238,7 @@ public class OpenMetadataTypesArchive5_0
     private RelationshipDef getAssociatedAnnotationRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.ASSOCIATED_ANNOTATION_RELATIONSHIP,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         RelationshipEndDef relationshipEndDef;
@@ -1387,7 +1348,7 @@ public class OpenMetadataTypesArchive5_0
     private RelationshipDef getUltimateSourceRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.ULTIMATE_SOURCE,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LINEAGE_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         relationshipDef.setMultiLink(true);
@@ -1427,9 +1388,6 @@ public class OpenMetadataTypesArchive5_0
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ISC_QUALIFIED_NAME));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.HOPS));
 
         relationshipDef.setPropertiesDefinition(properties);
@@ -1441,7 +1399,7 @@ public class OpenMetadataTypesArchive5_0
     private RelationshipDef getUltimateDestinationRelationship()
     {
         RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.ULTIMATE_DESTINATION,
-                                                                                null,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LINEAGE_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
         relationshipDef.setMultiLink(true);
@@ -1481,9 +1439,6 @@ public class OpenMetadataTypesArchive5_0
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ISC_QUALIFIED_NAME));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LABEL));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DESCRIPTION));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.HOPS));
 
         relationshipDef.setPropertiesDefinition(properties);

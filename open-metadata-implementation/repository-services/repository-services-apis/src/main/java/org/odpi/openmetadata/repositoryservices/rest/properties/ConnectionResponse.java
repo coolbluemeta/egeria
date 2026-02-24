@@ -24,8 +24,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ConnectionResponse extends OMRSAPIResponse
 {
-    private static final long    serialVersionUID = 1L;
-
     private Connection connection = null;
 
     /**
@@ -85,17 +83,7 @@ public class ConnectionResponse extends OMRSAPIResponse
     {
         return "ConnectionResponse{" +
                 "connection=" + connection +
-                ", exceptionClassName='" + getExceptionClassName() + '\'' +
-                ", exceptionCausedBy='" + getExceptionCausedBy() + '\'' +
-                ", actionDescription='" + getActionDescription() + '\'' +
-                ", relatedHTTPCode=" + getRelatedHTTPCode() +
-                ", exceptionErrorMessage='" + getExceptionErrorMessage() + '\'' +
-                ", exceptionErrorMessageId='" + getExceptionErrorMessageId() + '\'' +
-                ", exceptionErrorMessageParameters=" + Arrays.toString(getExceptionErrorMessageParameters()) +
-                ", exceptionSystemAction='" + getExceptionSystemAction() + '\'' +
-                ", exceptionUserAction='" + getExceptionUserAction() + '\'' +
-                ", exceptionProperties=" + getExceptionProperties() +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -112,7 +100,7 @@ public class ConnectionResponse extends OMRSAPIResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof ConnectionResponse))
+        if (!(objectToCompare instanceof ConnectionResponse that))
         {
             return false;
         }
@@ -120,7 +108,7 @@ public class ConnectionResponse extends OMRSAPIResponse
         {
             return false;
         }
-        ConnectionResponse that = (ConnectionResponse) objectToCompare;
+
         return Objects.equals(getConnection(), that.getConnection());
     }
 
@@ -133,13 +121,6 @@ public class ConnectionResponse extends OMRSAPIResponse
     @Override
     public int hashCode()
     {
-        if (connection == null)
-        {
-            return super.hashCode();
-        }
-        else
-        {
-            return connection.hashCode();
-        }
+        return Objects.hash(super.hashCode(), connection);
     }
 }

@@ -94,7 +94,7 @@ public class NoteLogHandler extends OpenMetadataHandlerBase
     /**
      * Create a new freestanding note log.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.

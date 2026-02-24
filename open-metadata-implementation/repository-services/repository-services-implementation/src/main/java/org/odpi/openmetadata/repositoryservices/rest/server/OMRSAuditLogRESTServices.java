@@ -72,7 +72,7 @@ public class OMRSAuditLogRESTServices extends TokenController
             exceptionHandler.captureRuntimeExceptions(response, error, serverName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -122,7 +122,7 @@ public class OMRSAuditLogRESTServices extends TokenController
             exceptionHandler.captureRuntimeExceptions(response, error, serverName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

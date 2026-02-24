@@ -9,6 +9,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.ITProfile
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.PersonProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.TeamProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.digitalbusiness.DigitalProductDependencyProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.Objects;
 
@@ -45,6 +46,7 @@ public class LineageRelationshipProperties extends LabeledRelationshipProperties
     public LineageRelationshipProperties()
     {
         super();
+        super.typeName = OpenMetadataType.LINEAGE_RELATIONSHIP.typeName;
     }
 
 

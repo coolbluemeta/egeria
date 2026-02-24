@@ -46,7 +46,7 @@ public class GovernanceConfigurationResource
      *
      * @return properties from the governance engine definition or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the governance engine definition.
      */
     @PostMapping(path = "/governance-engines/by-name")
@@ -76,7 +76,7 @@ public class GovernanceConfigurationResource
      *
      * @return details of the governance service and the asset types it is registered for or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the governance engine definition.
      */
     @GetMapping(path = "/governance-engines/{governanceEngineGUID}/governance-services/{governanceServiceGUID}")
@@ -107,7 +107,7 @@ public class GovernanceConfigurationResource
      *
      * @return list of unique identifiers or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the governance engine definition.
      */
     @GetMapping(path = "/governance-engines/{governanceEngineGUID}/governance-services")
@@ -142,7 +142,7 @@ public class GovernanceConfigurationResource
      *
      * @return properties from the integration group definition or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration group definition.
      */
     @GetMapping(path = "/integration-groups/by-name/{name}")
@@ -170,7 +170,7 @@ public class GovernanceConfigurationResource
      *
      * @return list of integration group unique identifiers (guids) or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration group definition.
      */
     @GetMapping(path = "/integration-connectors/{guid}/registrations")
@@ -199,7 +199,7 @@ public class GovernanceConfigurationResource
      *
      * @return details of the integration connector and the asset types it is registered for or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration group definition.
      */
     @GetMapping(path = "/integration-groups/{integrationGroupGUID}/integration-connectors/{integrationConnectorGUID}")
@@ -230,7 +230,7 @@ public class GovernanceConfigurationResource
      *
      * @return list of unique identifiers or
      * InvalidParameterException one of the parameters is null or invalid or
-     * UserNotAuthorizedException user not authorized to issue this request or
+     * UserNotAuthorizedException the user is not authorized to issue this request or
      * PropertyServerException problem storing the integration group definition.
      */
     @GetMapping(path = "/integration-groups/{integrationGroupGUID}/integration-connectors")

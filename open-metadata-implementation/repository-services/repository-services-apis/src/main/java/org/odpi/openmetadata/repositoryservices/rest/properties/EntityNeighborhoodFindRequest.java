@@ -27,8 +27,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class EntityNeighborhoodFindRequest extends OMRSAPIFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private List<String>    entityTypeGUIDs = null;
     private List<String>    limitResultsByClassification = null;
     private List<String>    relationshipTypeGUIDs = null;
@@ -53,6 +51,8 @@ public class EntityNeighborhoodFindRequest extends OMRSAPIFindRequest
 
         if (template != null)
         {
+            this.entityTypeGUIDs = template.getEntityTypeGUIDs();
+            this.limitResultsByClassification = template.getLimitResultsByClassification();
             this.relationshipTypeGUIDs = template.getRelationshipTypeGUIDs();
         }
     }
@@ -169,8 +169,7 @@ public class EntityNeighborhoodFindRequest extends OMRSAPIFindRequest
                 "entityTypeGUIDs=" + entityTypeGUIDs +
                 ", limitResultsByClassification=" + limitResultsByClassification +
                 ", relationshipTypeGUIDs=" + relationshipTypeGUIDs +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
 
     /**
@@ -186,7 +185,7 @@ public class EntityNeighborhoodFindRequest extends OMRSAPIFindRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof EntityNeighborhoodFindRequest))
+        if (!(objectToCompare instanceof EntityNeighborhoodFindRequest that))
         {
             return false;
         }
@@ -194,8 +193,6 @@ public class EntityNeighborhoodFindRequest extends OMRSAPIFindRequest
         {
             return false;
         }
-        EntityNeighborhoodFindRequest
-                that = (EntityNeighborhoodFindRequest) objectToCompare;
         return Objects.equals(getEntityTypeGUIDs(), that.getEntityTypeGUIDs()) &&
                 Objects.equals(getLimitResultsByClassification(), that.getLimitResultsByClassification()) &&
                 Objects.equals(getRelationshipTypeGUIDs(), that.getRelationshipTypeGUIDs());
@@ -210,10 +207,6 @@ public class EntityNeighborhoodFindRequest extends OMRSAPIFindRequest
     @Override
     public int hashCode()
     {
-
-        return Objects.hash(super.hashCode(),
-                            getEntityTypeGUIDs(),
-                            getLimitResultsByClassification(),
-                            getRelationshipTypeGUIDs());
+        return Objects.hash(super.hashCode(), entityTypeGUIDs, limitResultsByClassification, relationshipTypeGUIDs);
     }
 }

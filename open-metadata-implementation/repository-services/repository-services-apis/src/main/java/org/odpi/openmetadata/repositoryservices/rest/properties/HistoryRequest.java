@@ -22,8 +22,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class HistoryRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private Date           asOfTime   = null;
 
 
@@ -97,19 +95,11 @@ public class HistoryRequest extends OMRSAPIRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (!(objectToCompare instanceof HistoryRequest))
-        {
-            return false;
-        }
-        HistoryRequest
-                that = (HistoryRequest) objectToCompare;
-        return Objects.equals(getAsOfTime(), that.getAsOfTime());
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        HistoryRequest that = (HistoryRequest) objectToCompare;
+        return Objects.equals(asOfTime, that.asOfTime);
     }
-
 
     /**
      * Create a hash code for this element type.
@@ -119,6 +109,6 @@ public class HistoryRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(getAsOfTime());
+        return Objects.hash(super.hashCode(), asOfTime);
     }
 }

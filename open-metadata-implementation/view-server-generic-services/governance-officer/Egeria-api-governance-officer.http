@@ -583,7 +583,7 @@ Content-Type: application/json
     "qualifiedName": "add unique name here",
     "displayName": "add short name here",
     "description": "add description here",
-    "namespace": "add namespace for this structure",
+    "namespacePath": "add namespace for this structure",
     "versionIdentifier": "add version for this structure",
     "additionalProperties": {
       "property1" : "propertyValue1",

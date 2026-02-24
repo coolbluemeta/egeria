@@ -57,11 +57,11 @@ public class ElementControlHeader
     {
         if (template != null)
         {
-            headerVersion    = template.getHeaderVersion();
-            status           = template.getStatus();
-            type             = template.getType();
-            origin           = template.getOrigin();
-            versions         = template.getVersions();
+            headerVersion = template.getHeaderVersion();
+            status        = template.getStatus();
+            type          = template.getType();
+            origin        = template.getOrigin();
+            versions      = template.getVersions();
         }
     }
 
@@ -192,12 +192,12 @@ public class ElementControlHeader
     public String toString()
     {
         return "ElementControlHeader{" +
-                       "status=" + status +
-                       ", type=" + type +
-                       ", origin=" + origin +
-                       ", versions=" + versions +
-                       ", headerVersion=" + getHeaderVersion() +
-                       '}';
+                "status=" + status +
+                ", type=" + type +
+                ", origin=" + origin +
+                ", versions=" + versions +
+                ", headerVersion=" + getHeaderVersion() +
+                '}';
     }
 
 
@@ -219,9 +219,10 @@ public class ElementControlHeader
             return false;
         }
         ElementControlHeader that = (ElementControlHeader) objectToCompare;
-        return status == that.status && Objects.equals(type, that.type)
-                       && Objects.equals(origin, that.origin) &&
-                       Objects.equals(versions, that.versions);
+        return status == that.status &&
+                Objects.equals(type, that.type) &&
+                Objects.equals(origin, that.origin) &&
+                Objects.equals(versions, that.versions);
     }
 
 

@@ -20,10 +20,10 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
  * GovernanceActionTypeRequestBody provides a structure for passing the properties for initiating a new instance
  * of an engine action from a governance action type.
  */
-@JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
+@JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class InitiateGovernanceActionTypeRequestBody
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class InitiateGovernanceActionTypeRequestBody extends GAFAPIRequest
 {
     private String                governanceActionTypeQualifiedName = null;
     private Map<String, String>   requestParameters                 = null;
@@ -51,6 +51,8 @@ public class InitiateGovernanceActionTypeRequestBody
      */
     public InitiateGovernanceActionTypeRequestBody(InitiateGovernanceActionTypeRequestBody template)
     {
+        super(template);
+
         if (template != null)
         {
             governanceActionTypeQualifiedName = template.getGovernanceActionTypeQualifiedName();
@@ -270,7 +272,7 @@ public class InitiateGovernanceActionTypeRequestBody
                 ", startDate=" + startDate +
                 ", originatorServiceName='" + originatorServiceName + '\'' +
                 ", originatorEngineName='" + originatorEngineName + '\'' +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -283,23 +285,17 @@ public class InitiateGovernanceActionTypeRequestBody
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (objectToCompare == null || getClass() != objectToCompare.getClass())
-        {
-            return false;
-        }
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
         InitiateGovernanceActionTypeRequestBody that = (InitiateGovernanceActionTypeRequestBody) objectToCompare;
         return Objects.equals(governanceActionTypeQualifiedName, that.governanceActionTypeQualifiedName) &&
+                Objects.equals(requestParameters, that.requestParameters) &&
                 Objects.equals(actionSourceGUIDs, that.actionSourceGUIDs) &&
                 Objects.equals(actionCauseGUIDs, that.actionCauseGUIDs) &&
-                Objects.equals(requestParameters, that.requestParameters) &&
                 Objects.equals(actionTargets, that.actionTargets) &&
+                Objects.equals(startDate, that.startDate) &&
                 Objects.equals(originatorServiceName, that.originatorServiceName) &&
-                Objects.equals(originatorEngineName, that.originatorEngineName) &&
-                Objects.equals(startDate, that.startDate);
+                Objects.equals(originatorEngineName, that.originatorEngineName);
     }
 
 
@@ -311,7 +307,7 @@ public class InitiateGovernanceActionTypeRequestBody
     @Override
     public int hashCode()
     {
-        return Objects.hash(governanceActionTypeQualifiedName, actionSourceGUIDs, actionCauseGUIDs, requestParameters, actionTargets, startDate,
-                            originatorServiceName, originatorEngineName);
+        return Objects.hash(super.hashCode(), governanceActionTypeQualifiedName, requestParameters, actionSourceGUIDs,
+                            actionCauseGUIDs, actionTargets, startDate, originatorServiceName, originatorEngineName);
     }
 }

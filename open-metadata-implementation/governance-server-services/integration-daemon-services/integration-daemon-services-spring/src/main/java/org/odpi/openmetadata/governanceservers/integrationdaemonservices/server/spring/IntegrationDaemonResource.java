@@ -52,7 +52,7 @@ public class IntegrationDaemonResource
      *
      * @return connector type or
      *  InvalidParameterException the connector provider class name is not a valid connector fo this service
-     *  UserNotAuthorizedException user not authorized to issue this request
+     *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException there was a problem detected by the integration service
      */
     @GetMapping(path = "/validate-connector/{connectorProviderClassName}")
@@ -105,7 +105,7 @@ public class IntegrationDaemonResource
      * @param delegatingUserId external userId making request
      * @return list of statuses - one for each assigned integration services or integration group
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration daemon.
      */
     @GetMapping(path = "/status")
@@ -132,7 +132,7 @@ public class IntegrationDaemonResource
      *
      * @return properties map or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     @GetMapping(path = "/integration-connectors/{connectorName}/configuration-properties")
@@ -161,7 +161,7 @@ public class IntegrationDaemonResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     @PostMapping(path = "/integration-connectors/configuration-properties")
@@ -191,7 +191,7 @@ public class IntegrationDaemonResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     @PostMapping(path = "/integration-connectors/{connectorName}/endpoint-network-address")
@@ -222,7 +222,7 @@ public class IntegrationDaemonResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration service.
      */
     @PostMapping(path = "/integration-connectors/{connectorName}/connection")
@@ -252,7 +252,7 @@ public class IntegrationDaemonResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration daemon.
      */
     @PostMapping(path = "/integration-connectors/refresh")
@@ -281,7 +281,7 @@ public class IntegrationDaemonResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  PropertyServerException there was a problem detected by the integration daemon.
      */
     @PostMapping(path = "/integration-connectors/restart")
@@ -308,7 +308,7 @@ public class IntegrationDaemonResource
      * @param integrationGroupName name of integration group of interest
      * @return list of statuses - on for each assigned integration groups or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      */
     @GetMapping(path = "/integration-groups/{integrationGroupName}/summary")
     @SecurityRequirement(name = "BearerAuthorization")
@@ -333,7 +333,7 @@ public class IntegrationDaemonResource
      * @param delegatingUserId external userId making request
      * @return list of statuses - one for each assigned integration groups
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      */
     @GetMapping(path = "/integration-groups/summary")
     @SecurityRequirement(name = "BearerAuthorization")
@@ -363,7 +363,7 @@ public class IntegrationDaemonResource
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  IntegrationGroupException there was a problem detected by the integration group.
      */
     @GetMapping(path = "/integration-groups/{integrationGroupName}/refresh-config")

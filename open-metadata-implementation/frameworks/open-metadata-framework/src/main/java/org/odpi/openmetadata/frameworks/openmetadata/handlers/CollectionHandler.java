@@ -90,7 +90,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of collections that are linked off of the supplied element.
      *
-     * @param userId       userId of user making request
+     * @param userId       userId of the user making the request
      * @param parentGUID   unique identifier of referenceable object (typically a personal profile, project or
      *                     community) that the collections hang off of
      * @param queryOptions multiple options to control the query
@@ -125,7 +125,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of collections matching the search string.
      *
-     * @param userId        userId of user making request
+     * @param userId        userId of the user making the request
      * @param searchString  string to search for
      * @param searchOptions multiple options to control the query
      * @return a list of collections
@@ -260,7 +260,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of collections with a particular name.
      *
-     * @param userId       userId of user making request
+     * @param userId       userId of the user making the request
      * @param name         name of the collections to return - match is full text match in qualifiedName or name
      * @param queryOptions multiple options to control the query
      * @return a list of collections
@@ -291,7 +291,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of collections with a particular category.  This is an optional text field in the collection element.
      *
-     * @param userId       userId of user making request
+     * @param userId       userId of the user making the request
      * @param category     the collection type value to match on.  If it is null, all collections with a null category are returned
      * @param queryOptions multiple options to control the query
      * @return a list of collections
@@ -324,7 +324,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific collection.
      *
-     * @param userId         userId of user making request
+     * @param userId         userId of the user making the request
      * @param collectionGUID unique identifier of the required collection
      * @param getOptions     multiple options to control the query
      * @return collection properties
@@ -347,7 +347,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Create a new generic collection.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions            details of the element to create
      * @param initialClassifications       map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the collection.
@@ -414,7 +414,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a collection.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param collectionGUID unique identifier of the collection (returned from create)
      * @param updateOptions  provides a structure for the additional options when updating an element.
      * @param properties     properties for the collection.
@@ -445,7 +445,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Connect an existing collection to an element using the ResourceList relationship (0019).
      *
-     * @param userId            userId of user making request
+     * @param userId            userId of the user making the request
      * @param collectionGUID    unique identifier of the collection
      * @param parentGUID        unique identifier of referenceable object that the collection should be attached to
      * @param makeAnchorOptions options to control access to open metadata
@@ -482,7 +482,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach an existing collection from an element.  If the collection is anchored to the element, it is deleted.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param collectionGUID unique identifier of the collection.
      * @param parentGUID     unique identifier of referenceable object that the collection should be attached to.
      * @param deleteOptions  options to control access to open metadata
@@ -518,7 +518,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Connect a data describing collection to an element using the DataDescription relationship (0580).
      *
-     * @param userId            userId of user making request
+     * @param userId            userId of the user making the request
      * @param dataDescriptionCollectionGUID    unique identifier of the collection
      * @param parentGUID        unique identifier of referenceable object that the collection should be attached to
      * @param makeAnchorOptions options to control access to open metadata
@@ -555,7 +555,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach an existing data describing collection from an element.  If the collection is anchored to the element, it is deleted.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param dataDescriptionCollectionGUID unique identifier of the collection.
      * @param parentGUID     unique identifier of referenceable object that the collection should be attached to.
      * @param deleteOptions  options to control access to open metadata
@@ -592,7 +592,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a solution blueprint to the element it describes.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param parentGUID  unique identifier of the element being described
      * @param solutionBlueprintGUID      unique identifier of the  solution blueprint
      * @param makeAnchorOptions  options to control access to open metadata
@@ -629,7 +629,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a solution blueprint from the element it describes.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param parentGUID  unique identifier of the element being described
      * @param solutionBlueprintGUID      unique identifier of the  solution blueprint
      * @param deleteOptions  options to control access to open metadata
@@ -664,7 +664,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Link two dependent products.
      *
-     * @param userId                     userId of user making request
+     * @param userId                     userId of the user making the request
      * @param consumerDigitalProductGUID unique identifier of the digital product that has the dependency.
      * @param consumedDigitalProductGUID unique identifier of the digital product that it is using.
      * @param makeAnchorOptions      options to control access to open metadata
@@ -701,7 +701,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Unlink dependent products.
      *
-     * @param userId                     userId of user making request.
+     * @param userId                     userId of the user making the request.
      * @param consumerDigitalProductGUID unique identifier of the digital product that has the dependency.
      * @param consumedDigitalProductGUID unique identifier of the digital product that it is using.
      * @param deleteOptions              options to control access to open metadata
@@ -736,7 +736,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a subscriber to a subscription.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param digitalSubscriberGUID   unique identifier of the subscriber (referenceable)
      * @param digitalSubscriptionGUID unique identifier of the  digital subscription agreement
      * @param makeAnchorOptions   options to control access to open metadata
@@ -773,7 +773,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a subscriber from a subscription.
      *
-     * @param userId                  userId of user making request.
+     * @param userId                  userId of the user making the request.
      * @param digitalSubscriberGUID   unique identifier of the subscriber (referenceable)
      * @param digitalSubscriptionGUID unique identifier of the  digital subscription agreement
      * @param deleteOptions           options to control access to open metadata
@@ -808,7 +808,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a product manager to a digital product.
      *
-     * @param userId                        userId of user making request
+     * @param userId                        userId of the user making the request
      * @param digitalProductGUID            unique identifier of the digital product
      * @param digitalProductManagerRoleGUID unique identifier of the product manager role
      * @param makeAnchorOptions         options to control access to open metadata
@@ -845,7 +845,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a product manager from a digital product.
      *
-     * @param userId                    userId of user making request.
+     * @param userId                    userId of the user making the request.
      * @param digitalProductGUID        unique identifier of the digital product
      * @param digitalProductManagerGUID unique identifier of the product manager role
      * @param deleteOptions             options to control access to open metadata
@@ -880,7 +880,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Attach an actor to an agreement.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param agreementGUID          unique identifier of the agreement
      * @param actorGUID              unique identifier of the actor
      * @param makeAnchorOptions  options to control access to open metadata
@@ -918,7 +918,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach an actor from an agreement.
      *
-     * @param userId                         userId of user making request.
+     * @param userId                         userId of the user making the request.
      * @param agreementActorRelationshipGUID unique identifier of the element being described
      * @param deleteOptions                  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -947,7 +947,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Attach an agreement to an element involved in its definition.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param agreementGUID          unique identifier of the agreement
      * @param agreementItemGUID      unique identifier of the agreement item
      * @param makeAnchorOptions  options to control access to open metadata
@@ -984,7 +984,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach an agreement from an element involved in its definition.
      *
-     * @param userId            userId of user making request.
+     * @param userId            userId of the user making the request.
      * @param agreementGUID     unique identifier of the agreement
      * @param agreementItemGUID unique identifier of the agreement item
      * @param deleteOptions     options to control access to open metadata
@@ -1019,7 +1019,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Attach an agreement to an external reference element that describes the location of the contract documents.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param agreementGUID          unique identifier of the agreement
      * @param externalReferenceGUID  unique identifier of the external reference describing the location of the contract
      * @param metadataSourceOptions  options to control access to open metadata
@@ -1056,7 +1056,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach an agreement from an external reference describing the location of the contract documents.
      *
-     * @param userId                userId of user making request.
+     * @param userId                userId of the user making the request.
      * @param agreementGUID         unique identifier of the agreement
      * @param externalReferenceGUID unique identifier of the external reference describing the location of the contract
      * @param deleteOptions         options to control access to open metadata
@@ -1091,7 +1091,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Link dependent business capabilities.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param businessCapabilityGUID          unique identifier of the business capability that is dependent on another
      * @param supportingBusinessCapabilityGUID  unique identifier of the business capability that is supporting
      * @param metadataSourceOptions  options to control access to open metadata
@@ -1128,7 +1128,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach dependent business capabilities.
      *
-     * @param userId                userId of user making request.
+     * @param userId                userId of the user making the request.
      * @param businessCapabilityGUID          unique identifier of the business capability that is dependent on another
      * @param supportingBusinessCapabilityGUID  unique identifier of the business capability that is supporting
      * @param deleteOptions         options to control access to open metadata
@@ -1163,7 +1163,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Attach a business capability to an element that provides digital support.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param businessCapabilityGUID          unique identifier of the business capability
      * @param elementGUID  unique identifier of the element
      * @param metadataSourceOptions  options to control access to open metadata
@@ -1200,7 +1200,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Detach a business capability from an element that provides digital support.
      *
-     * @param userId                userId of user making request.
+     * @param userId                userId of the user making the request.
      * @param businessCapabilityGUID          unique identifier of the business capability
      * @param elementGUID  unique identifier of the element
      * @param deleteOptions         options to control access to open metadata
@@ -1235,7 +1235,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Classify an element to indicate that it is significant to a particular business capability.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID    unique identifier of the element.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -1269,7 +1269,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove the business significant classification from the element.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param elementGUID    unique identifier of the element.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1299,7 +1299,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
      * Classify the collection to indicate that it is an editing collection - this means it is
      * a collection of element copies that will eventually be merged back into .
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param collectionGUID    unique identifier of the collection.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -1333,7 +1333,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove the editing collection classification from the collection.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param collectionGUID    unique identifier of the collection.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1362,7 +1362,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Classify the collection to indicate that it is a staging collection.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param collectionGUID    unique identifier of the collection.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -1396,7 +1396,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove the staging collection classification from the collection.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param collectionGUID    unique identifier of the collection.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1425,7 +1425,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Classify the collection to indicate that it is a scoping collection.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param collectionGUID    unique identifier of the collection.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -1459,7 +1459,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove the scoping collection classification from the collection.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param collectionGUID    unique identifier of the collection.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1492,7 +1492,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
      * Taxonomies are used as a way of organizing assets and other related metadata.  The terms in the taxonomy
      * are linked to the assets etc. and as such they are logically categorized by the linked category.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryGUID    unique identifier of the glossary.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -1526,7 +1526,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove the taxonomy glossary classification from the glossary.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryGUID    unique identifier of the glossary.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1559,7 +1559,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
      * level of granularity and are limited to a specific scope of use.
      * Canonical vocabularies are used to semantically classify assets in an unambiguous way.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryGUID    unique identifier of the glossary.
      * @param properties            properties for the classification
      * @param metadataSourceOptions  options to control access to open metadata
@@ -1593,7 +1593,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove the canonical designation from the glossary.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param glossaryGUID    unique identifier of the glossary.
      * @param metadataSourceOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1623,7 +1623,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
      * Delete a collection.  It is detached from all parent elements.  If members are anchored to the collection
      * then they are also deleted.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param collectionGUID unique identifier of the collection
      * @param deleteOptions  options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -1649,7 +1649,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Return a list of elements that are a member of a collection.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param collectionGUID unique identifier of the collection.
      * @param queryOptions   options for query
      * @return list of member details
@@ -1686,7 +1686,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
      * with elements immediately connected to the starting collection.  The result
      * includes a mermaid graph of the returned elements.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param collectionGUID unique identifier of the collection.
      * @param suppliedQueryOptions   multiple options to control the query
      * @return list of member details
@@ -1854,7 +1854,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Add an element to a collection.
      *
-     * @param userId                userId of user making request.
+     * @param userId                userId of the user making the request.
      * @param collectionGUID        unique identifier of the collection.
      * @param makeAnchorOptions options to control access to open metadata
      * @param membershipProperties  properties describing the membership characteristics.
@@ -1903,7 +1903,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Update an element's membership to a collection.
      *
-     * @param userId               userId of user making request.
+     * @param userId               userId of the user making the request.
      * @param collectionGUID       unique identifier of the collection.
      * @param elementGUID          unique identifier of the element.
      * @param updateOptions        provides a structure for the additional options when updating a relationship.
@@ -1967,7 +1967,7 @@ public class CollectionHandler extends OpenMetadataHandlerBase
     /**
      * Remove an element from a collection.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param collectionGUID unique identifier of the collection.
      * @param elementGUID    unique identifier of the element.
      * @param deleteOptions  options to control access to open metadata

@@ -21,10 +21,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class MetadataCollectionIdResponse extends OMRSAPIResponse
 {
-    private static final long    serialVersionUID = 1L;
-
     private String metadataCollectionId = null;
-
 
     /**
      * Default constructor
@@ -99,7 +96,7 @@ public class MetadataCollectionIdResponse extends OMRSAPIResponse
         {
             return true;
         }
-        if (!(objectToCompare instanceof MetadataCollectionIdResponse))
+        if (!(objectToCompare instanceof MetadataCollectionIdResponse that))
         {
             return false;
         }
@@ -107,8 +104,6 @@ public class MetadataCollectionIdResponse extends OMRSAPIResponse
         {
             return false;
         }
-        MetadataCollectionIdResponse
-                that = (MetadataCollectionIdResponse) objectToCompare;
         return metadataCollectionId.equals(that.metadataCollectionId);
     }
 

@@ -277,7 +277,7 @@ public interface OpenMetadataElementSecurity
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException user not authorized to issue this request
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
      */
     void validateUserForAnchorMemberRead(String               userId,
                                          EntityDetail         anchorEntity,
@@ -289,8 +289,8 @@ public interface OpenMetadataElementSecurity
 
     /**
      * Tests for whether a specific user should have the right to update elements attached directly
-     * to an anchor such as glossary terms and categories attached to an element.  These updates could be to their properties,
-     * classifications and relationships.
+     * to an anchor element, such as glossary terms and assets attached to an element.  These updates could be to their properties,
+     * classifications, and relationships.
      *
      * @param userId identifier of user
      * @param anchorEntity anchor details

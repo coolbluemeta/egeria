@@ -8,6 +8,8 @@ import org.odpi.openmetadata.adapters.connectors.restclients.ffdc.RESTClientConn
 import org.odpi.openmetadata.adapters.connectors.restclients.ffdc.exceptions.RESTServerException;
 import org.odpi.openmetadata.frameworks.auditlog.MessageFormatter;
 import org.odpi.openmetadata.frameworks.auditlog.messagesets.ExceptionMessageDefinition;
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestId;
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestIdService;
 import org.odpi.openmetadata.frameworks.connectors.SecretsStoreConnector;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStoreCollectionProperty;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStorePurpose;
@@ -55,6 +57,7 @@ public class SpringRESTClientConnector extends RESTClientConnector
 
     private static final Logger log = LoggerFactory.getLogger(SpringRESTClientConnector.class);
 
+    private static final RequestId requestId = new RequestId();
 
     /**
      * This constructor is work in progress as part of the upgrade of Egeria to use security.
@@ -461,6 +464,11 @@ public class SpringRESTClientConnector extends RESTClientConnector
         {
             log.debug("Calling {} with URL template {} and no parameters.",  methodName, urlTemplate);
 
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestIdService.getRequestId());
+            }
+
             T  responseObject;
 
             HttpHeaders headers = getHttpHeaders();
@@ -560,6 +568,12 @@ public class SpringRESTClientConnector extends RESTClientConnector
                           urlTemplate,
                           Arrays.toString(params));
             }
+
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestId.getRequestId());
+            }
+
             T  responseObject;
 
             HttpHeaders headers = getHttpHeaders();
@@ -656,6 +670,11 @@ public class SpringRESTClientConnector extends RESTClientConnector
                           Arrays.toString(params));
             }
 
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestId.getRequestId());
+            }
+
             HttpEntity<?> request;
             HttpHeaders httpHeaders = getHttpHeaders();
 
@@ -730,6 +749,11 @@ public class SpringRESTClientConnector extends RESTClientConnector
     {
         try
         {
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestId.getRequestId());
+            }
+
             HttpEntity<?> request;
             HttpHeaders httpHeaders = getHttpHeaders();
 
@@ -805,6 +829,11 @@ public class SpringRESTClientConnector extends RESTClientConnector
         try
         {
             log.debug("Calling {} with URL template {} and no parameters.",  methodName, urlTemplate);
+
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestId.getRequestId());
+            }
 
             T  responseObject = null;
 
@@ -904,6 +933,12 @@ public class SpringRESTClientConnector extends RESTClientConnector
                           Arrays.toString(params));
             }
 
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestId.getRequestId());
+            }
+
+
             HttpEntity<?> request;
             HttpHeaders httpHeaders = getHttpHeaders();
 
@@ -982,6 +1017,11 @@ public class SpringRESTClientConnector extends RESTClientConnector
                           methodName,
                           urlTemplate,
                           Arrays.toString(params));
+            }
+
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestId.getRequestId());
             }
 
             HttpEntity<?> request;
@@ -1064,6 +1104,11 @@ public class SpringRESTClientConnector extends RESTClientConnector
                           urlTemplate,
                           Arrays.toString(params)
                 );
+            }
+
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestId.getRequestId());
             }
 
             T responseObject;
@@ -1247,6 +1292,12 @@ public class SpringRESTClientConnector extends RESTClientConnector
                           Arrays.toString(params));
             }
 
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestId.getRequestId());
+            }
+
+
             HttpEntity<?> request;
             HttpHeaders httpHeaders = getHttpHeaders();
 
@@ -1327,6 +1378,12 @@ public class SpringRESTClientConnector extends RESTClientConnector
                           Arrays.toString(params)
                 );
             }
+
+            if (requestBody instanceof RequestIdService requestIdService)
+            {
+                requestIdService.setRequestId(requestId.getRequestId());
+            }
+
 
             HttpEntity<?> request;
             HttpHeaders httpHeaders = getHttpHeaders();

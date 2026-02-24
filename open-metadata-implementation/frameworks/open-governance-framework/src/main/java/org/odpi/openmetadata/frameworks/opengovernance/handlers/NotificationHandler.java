@@ -61,7 +61,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
     /**
      * Return the list of resources linked to the supplied notification type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param notificationTypeGUID unique identifier of the notification type
      * @param queryOptions options to control the query
      * @return list of resources to monitor
@@ -563,7 +563,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
     /**
      * Return the list of subscribers linked to the supplied notification type.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param notificationTypeGUID unique identifier of the notification type
      * @param queryOptions options to control the query
      * @return list of resources to monitor

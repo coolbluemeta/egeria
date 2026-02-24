@@ -324,68 +324,6 @@ public class DataDiscoveryResource
 
 
     /**
-     * Attach a schema analysis annotation to a matching schema type.
-     *
-     * @param serverName         name of called server
-     * @param annotationGUID       unique identifier of the annotation
-     * @param schemaTypeGUID            unique identifier of the schema type
-     * @param requestBody  description of the relationship.
-     *
-     * @return void or
-     *  InvalidParameterException  one of the parameters is null or invalid.
-     *  PropertyServerException    a problem retrieving information from the property server(s).
-     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    @PostMapping(path = "/annotations/{annotationGUID}/discovered-schema-type/{schemaTypeGUID}/attach")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="linkDiscoveredSchemaType",
-            description="Attach a schema analysis annotation to a matching schema type.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/annotation"))
-
-    public VoidResponse linkDiscoveredSchemaType(@PathVariable String                     serverName,
-                                                 @PathVariable String                     annotationGUID,
-                                                 @PathVariable String                     schemaTypeGUID,
-                                                 @RequestBody (required = false)
-                                                 NewRelationshipRequestBody requestBody)
-    {
-        return restAPI.linkDiscoveredSchemaType(serverName, annotationGUID, schemaTypeGUID, requestBody);
-    }
-
-
-    /**
-     * Detach a schema analysis annotation from a matching schema type.
-     *
-     * @param serverName         name of called server
-     * @param annotationGUID       unique identifier of the annotation
-     * @param schemaTypeGUID            unique identifier of the schema type
-     * @param requestBody  description of the relationship.
-     *
-     * @return void or
-     *  InvalidParameterException  one of the parameters is null or invalid.
-     *  PropertyServerException    a problem retrieving information from the property server(s).
-     *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    @PostMapping(path = "/annotations/{annotationGUID}/discovered-schema-type/{schemaTypeGUID}/detach")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="detachDiscoveredSchemaType",
-            description="Detach a schema analysis annotation from a matching schema type.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/annotation"))
-
-    public VoidResponse detachDiscoveredSchemaType(@PathVariable String                        serverName,
-                                                   @PathVariable String                        annotationGUID,
-                                                   @PathVariable String                        schemaTypeGUID,
-                                                   @RequestBody (required = false)
-                                                   DeleteRelationshipRequestBody requestBody)
-    {
-        return restAPI.detachDiscoveredSchemaType(serverName, annotationGUID, schemaTypeGUID, requestBody);
-    }
-
-
-    /**
      * Attach a resource profile log annotation to an asset where the profile data is stored.
      *
      * @param serverName         name of called server

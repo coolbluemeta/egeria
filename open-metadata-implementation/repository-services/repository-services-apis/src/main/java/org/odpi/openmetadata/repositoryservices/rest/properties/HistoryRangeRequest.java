@@ -22,8 +22,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class HistoryRangeRequest extends OMRSAPIRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private Date                   fromTime        = null;
     private Date                   toTime          = null;
     private int                    offset          = 0;
@@ -186,8 +184,9 @@ public class HistoryRangeRequest extends OMRSAPIRequest
                 ", offset=" + offset +
                 ", pageSize=" + pageSize +
                 ", sequencingOrder=" + sequencingOrder +
-                '}';
+                "} " + super.toString();
     }
+
 
     /**
      * Compare the values of the supplied object with those stored in the current object.
@@ -202,7 +201,7 @@ public class HistoryRangeRequest extends OMRSAPIRequest
         {
             return true;
         }
-        if (!(objectToCompare instanceof HistoryRangeRequest))
+        if (!(objectToCompare instanceof HistoryRangeRequest that))
         {
             return false;
         }
@@ -210,13 +209,13 @@ public class HistoryRangeRequest extends OMRSAPIRequest
         {
             return false;
         }
-        HistoryRangeRequest that = (HistoryRangeRequest) objectToCompare;
         return getOffset() == that.getOffset() &&
                 getPageSize() == that.getPageSize() &&
                 Objects.equals(getFromTime(), that.getFromTime()) &&
                 Objects.equals(getToTime(), that.getToTime()) &&
                 getSequencingOrder() == that.getSequencingOrder();
     }
+
 
     /**
      * Create a hash code for this element type.
@@ -226,11 +225,6 @@ public class HistoryRangeRequest extends OMRSAPIRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(),
-                            getFromTime(),
-                            getToTime(),
-                            getOffset(),
-                            getPageSize(),
-                            getSequencingOrder());
+        return Objects.hash(super.hashCode(), fromTime, toTime, offset, pageSize, sequencingOrder);
     }
 }

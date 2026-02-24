@@ -62,7 +62,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "createGovernanceDefinition";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -102,7 +102,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -126,7 +126,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "createGovernanceDefinitionFromTemplate";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -160,7 +160,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -185,7 +185,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "updateGovernanceDefinition";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse response = new BooleanResponse();
         AuditLog     auditLog = null;
@@ -224,7 +224,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -253,7 +253,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "linkPeerDefinitions";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -310,7 +310,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -339,7 +339,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "detachPeerDefinitions";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -365,7 +365,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -386,16 +386,16 @@ public class GovernanceOfficerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse attachSupportingDefinition(String                  serverName,
-                                                   String                  urlMarker,
-                                                   String                  governanceDefinitionOneGUID,
-                                                   String                  governanceDefinitionTwoGUID,
-                                                   String                  relationshipTypeName,
+    public VoidResponse attachSupportingDefinition(String                     serverName,
+                                                   String                     urlMarker,
+                                                   String                     governanceDefinitionOneGUID,
+                                                   String                     governanceDefinitionTwoGUID,
+                                                   String                     relationshipTypeName,
                                                    NewRelationshipRequestBody requestBody)
     {
         final String methodName = "attachSupportingDefinition";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -449,7 +449,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -469,16 +469,16 @@ public class GovernanceOfficerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachSupportingDefinition(String                   serverName,
-                                                   String                   urlMarker,
-                                                   String                   governanceDefinitionOneGUID,
-                                                   String                   governanceDefinitionTwoGUID,
-                                                   String                   relationshipTypeName,
+    public VoidResponse detachSupportingDefinition(String                        serverName,
+                                                   String                        urlMarker,
+                                                   String                        governanceDefinitionOneGUID,
+                                                   String                        governanceDefinitionTwoGUID,
+                                                   String                        relationshipTypeName,
                                                    DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachSupportingDefinition";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -504,7 +504,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -525,15 +525,15 @@ public class GovernanceOfficerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse addGovernanceDefinitionToElement(String                  serverName,
-                                                         String                   urlMarker,
-                                                         String                  elementGUID,
-                                                         String                  definitionGUID,
+    public VoidResponse addGovernanceDefinitionToElement(String                     serverName,
+                                                         String                     urlMarker,
+                                                         String                     elementGUID,
+                                                         String                     definitionGUID,
                                                          NewRelationshipRequestBody requestBody)
     {
         final String methodName = "addGovernanceDefinitionToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -580,7 +580,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -600,15 +600,15 @@ public class GovernanceOfficerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse removeGovernanceDefinitionFromElement(String            serverName,
-                                                              String            urlMarker,
-                                                              String            elementGUID,
-                                                              String            definitionGUID,
+    public VoidResponse removeGovernanceDefinitionFromElement(String                        serverName,
+                                                              String                        urlMarker,
+                                                              String                        elementGUID,
+                                                              String                        definitionGUID,
                                                               DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "removeGovernanceDefinitionFromElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -629,7 +629,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -657,7 +657,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "linkGovernanceResults";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -704,7 +704,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -724,15 +724,15 @@ public class GovernanceOfficerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse detachGovernanceResults(String            serverName,
-                                                String            urlMarker,
-                                                String            governanceMetricGUID,
-                                                String            dataSourceGUID,
+    public VoidResponse detachGovernanceResults(String                        serverName,
+                                                String                        urlMarker,
+                                                String                        governanceMetricGUID,
+                                                String                        dataSourceGUID,
                                                 DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachGovernanceResults";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -753,7 +753,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -784,7 +784,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "licenseElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -823,7 +823,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -849,7 +849,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "updateLicense";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -884,7 +884,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -902,14 +902,14 @@ public class GovernanceOfficerRESTServices extends TokenController
      *  PropertyServerException problem accessing property server
      *  UserNotAuthorizedException security access problem
      */
-    public VoidResponse unlicenseElement(String            serverName,
-                                         String            urlMarker,
-                                         String            licenseGUID,
+    public VoidResponse unlicenseElement(String                        serverName,
+                                         String                        urlMarker,
+                                         String                        licenseGUID,
                                          DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "unlicenseElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -930,7 +930,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -962,7 +962,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "certifyElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -1001,7 +1001,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1027,7 +1027,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "updateCertification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1065,7 +1065,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1083,14 +1083,14 @@ public class GovernanceOfficerRESTServices extends TokenController
      *  PropertyServerException problem accessing property server
      *  UserNotAuthorizedException security access problem
      */
-    public VoidResponse decertifyElement(String            serverName,
-                                         String            urlMarker,
-                                         String            certificationGUID,
+    public VoidResponse decertifyElement(String                        serverName,
+                                         String                        urlMarker,
+                                         String                        certificationGUID,
                                          DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "decertifyElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1111,7 +1111,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1135,7 +1135,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "deleteGovernanceDefinition";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1157,7 +1157,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1180,7 +1180,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "getGovernanceDefinitionsByName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                        auditLog = null;
@@ -1211,7 +1211,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1229,14 +1229,14 @@ public class GovernanceOfficerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementResponse getGovernanceDefinitionByGUID(String             serverName,
-                                                                         String             urlMarker,
-                                                                         String             governanceDefinitionGUID,
+    public OpenMetadataRootElementResponse getGovernanceDefinitionByGUID(String         serverName,
+                                                                         String         urlMarker,
+                                                                         String         governanceDefinitionGUID,
                                                                          GetRequestBody requestBody)
     {
         final String methodName = "getGovernanceDefinitionByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                      auditLog = null;
@@ -1258,7 +1258,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1292,7 +1292,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "getGovernanceActionProcessGraph";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GovernanceActionProcessGraphResponse response = new GovernanceActionProcessGraphResponse();
         AuditLog     auditLog = null;
@@ -1306,14 +1306,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
             OpenGovernanceClient handler = instanceHandler.getOpenGovernanceClient(userId, serverName, urlMarker, methodName);
 
-            if (requestBody != null)
-            {
-                response.setElement(handler.getGovernanceActionProcessGraph(userId, processGUID, requestBody.getEffectiveTime()));
-            }
-            else
-            {
-                response.setElement(handler.getGovernanceActionProcessGraph(userId, processGUID, new Date()));
-            }
+            response.setElement(handler.getGovernanceActionProcessGraph(userId, processGUID, requestBody));
 
             if (response.getElement() != null)
             {
@@ -1344,7 +1337,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1369,7 +1362,7 @@ public class GovernanceOfficerRESTServices extends TokenController
     {
         final String methodName = "findGovernanceDefinitions";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -1400,7 +1393,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1420,15 +1413,15 @@ public class GovernanceOfficerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkDesignToImplementation(String                  serverName,
-                                                   String                  urlMarker,
-                                                   String                  designGUID,
-                                                   String                  implementationGUID,
+    public VoidResponse linkDesignToImplementation(String                     serverName,
+                                                   String                     urlMarker,
+                                                   String                     designGUID,
+                                                   String                     implementationGUID,
                                                    NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkDesignToImplementation";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1479,7 +1472,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1498,15 +1491,15 @@ public class GovernanceOfficerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachDesignFromImplementation(String                   serverName,
-                                                       String                   urlMarker,
-                                                       String                   designGUID,
-                                                       String                   implementationGUID,
+    public VoidResponse detachDesignFromImplementation(String                        serverName,
+                                                       String                        urlMarker,
+                                                       String                        designGUID,
+                                                       String                        implementationGUID,
                                                        DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachDesignFromImplementation";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1528,7 +1521,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1548,15 +1541,15 @@ public class GovernanceOfficerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkImplementationResource(String                  serverName,
-                                                   String                  urlMarker,
-                                                   String                  designGUID,
-                                                   String                  implementationResourceGUID,
+    public VoidResponse linkImplementationResource(String                     serverName,
+                                                   String                     urlMarker,
+                                                   String                     designGUID,
+                                                   String                     implementationResourceGUID,
                                                    NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkImplementationResource";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1607,7 +1600,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1626,15 +1619,15 @@ public class GovernanceOfficerRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachImplementationResource(String                   serverName,
-                                                     String                   urlMarker,
-                                                     String                   designGUID,
-                                                     String                   implementationResourceGUID,
+    public VoidResponse detachImplementationResource(String                        serverName,
+                                                     String                        urlMarker,
+                                                     String                        designGUID,
+                                                     String                        implementationResourceGUID,
                                                      DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "detachImplementationResource";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1656,7 +1649,7 @@ public class GovernanceOfficerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

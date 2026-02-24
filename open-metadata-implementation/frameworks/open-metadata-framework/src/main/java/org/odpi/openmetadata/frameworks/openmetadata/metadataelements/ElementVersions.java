@@ -15,19 +15,20 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 /**
  * ElementVersions provides the version information for the element plus details of the creation time and last
- * update time.  Finally it lists all the users that have made changes to this element.
+ * update time.  Finally, it lists all the users that have made changes to this element.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ElementVersions
 {
-    private String       createdBy    = null;
-    private String       updatedBy    = null;
-    private List<String> maintainedBy = null;
-    private Date         createTime   = null;
-    private Date         updateTime   = null;
-    private long         version      = 0L;
+    private String       createdBy     = null;
+    private String       updatedBy     = null;
+    private List<String> maintainedBy  = null;
+    private Date         createTime    = null;
+    private Date         updateTime    = null;
+    private long         version       = 0L;
+    private String       lastRequestId = null;
 
 
     /**
@@ -53,6 +54,7 @@ public class ElementVersions
             this.createTime = template.getCreateTime();
             this.updateTime = template.getUpdateTime();
             this.version = template.getVersion();
+            this.lastRequestId = template.getLastRequestId();
         }
     }
 
@@ -180,6 +182,28 @@ public class ElementVersions
 
 
     /**
+     * Return the request id used on the last create/last update request.
+     *
+     * @return string GUID
+     */
+    public String getLastRequestId()
+    {
+        return lastRequestId;
+    }
+
+
+    /**
+     * Set up the request id used on the last create/last update request.
+     *
+     * @param lastRequestId string GUID
+     */
+    public void setLastRequestId(String lastRequestId)
+    {
+        this.lastRequestId = lastRequestId;
+    }
+
+
+    /**
      * Standard toString method.
      *
      * @return print out of variables in a JSON-style
@@ -188,15 +212,15 @@ public class ElementVersions
     public String toString()
     {
         return "ElementVersions{" +
-                       "createdBy='" + createdBy + '\'' +
-                       ", updatedBy='" + updatedBy + '\'' +
-                       ", maintainedBy=" + maintainedBy +
-                       ", createTime=" + createTime +
-                       ", updateTime=" + updateTime +
-                       ", version=" + version +
-                       '}';
+                "createdBy='" + createdBy + '\'' +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", maintainedBy=" + maintainedBy +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", version=" + version +
+                ", lastRequestId='" + lastRequestId + '\'' +
+                '}';
     }
-
 
     /**
      * Compare the values of the supplied object with those stored in the current object.
@@ -221,7 +245,8 @@ public class ElementVersions
                        Objects.equals(updatedBy, that.updatedBy) &&
                        Objects.equals(maintainedBy, that.maintainedBy) &&
                        Objects.equals(createTime, that.createTime) &&
-                       Objects.equals(updateTime, that.updateTime);
+                       Objects.equals(updateTime, that.updateTime) &&
+                       Objects.equals(lastRequestId, that.lastRequestId);
     }
 
 
@@ -233,6 +258,6 @@ public class ElementVersions
     @Override
     public int hashCode()
     {
-        return Objects.hash(createdBy, updatedBy, maintainedBy, createTime, updateTime, version);
+        return Objects.hash(createdBy, updatedBy, maintainedBy, createTime, updateTime, version, lastRequestId);
     }
 }

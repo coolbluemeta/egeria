@@ -75,7 +75,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "setImpactClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -111,7 +111,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -136,7 +136,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String   methodName = "clearImpactClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -157,7 +157,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -185,7 +185,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "setConfidenceClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -221,7 +221,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -247,7 +247,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String   methodName = "clearConfidenceClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -268,7 +268,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -294,7 +294,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "setCriticalityClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -330,7 +330,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -356,7 +356,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String   methodName = "clearCriticalityClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -385,7 +385,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -406,14 +406,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      *       PropertyServerException problem accessing property server or
      *       UserNotAuthorizedException security access problem
      */
-    public VoidResponse setConfidentialityClassification(String                    serverName,
-                                                         String                   urlMarker,
-                                                         String                    elementGUID,
+    public VoidResponse setConfidentialityClassification(String                       serverName,
+                                                         String                       urlMarker,
+                                                         String                       elementGUID,
                                                          NewClassificationRequestBody requestBody)
     {
         final String methodName = "setConfidentialityClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -449,7 +449,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -469,13 +469,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      *      UserNotAuthorizedException security access problem
      */
     public VoidResponse clearConfidentialityClassification(String                          serverName,
-                                                           String                   urlMarker,
+                                                           String                          urlMarker,
                                                            String                          elementGUID,
                                                            DeleteClassificationRequestBody requestBody)
     {
         final String   methodName = "clearConfidentialityClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -497,7 +497,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -518,14 +518,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      *       PropertyServerException problem accessing property server or
      *       UserNotAuthorizedException security access problem
      */
-    public VoidResponse setRetentionClassification(String                    serverName,
-                                                   String                   urlMarker,
-                                                   String                    elementGUID,
+    public VoidResponse setRetentionClassification(String                       serverName,
+                                                   String                       urlMarker,
+                                                   String                       elementGUID,
                                                    NewClassificationRequestBody requestBody)
     {
         final String methodName = "setRetentionClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -561,7 +561,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -587,7 +587,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String   methodName = "clearRetentionClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -609,7 +609,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -628,13 +628,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse addGovernanceExpectations(String                       serverName,
-                                                  String                   urlMarker,
+                                                  String                       urlMarker,
                                                   String                       elementGUID,
                                                   NewClassificationRequestBody requestBody)
     {
         final String methodName = "addGovernanceExpectations";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -670,7 +670,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -689,14 +689,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse updateGovernanceExpectations(String                    serverName,
-                                                     String                   urlMarker,
-                                                     String                    elementGUID,
+    public VoidResponse updateGovernanceExpectations(String                          serverName,
+                                                     String                          urlMarker,
+                                                     String                          elementGUID,
                                                      UpdateClassificationRequestBody requestBody)
     {
         final String methodName = "updateGovernanceExpectations";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -732,7 +732,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -751,13 +751,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse clearGovernanceExpectations(String                          serverName,
-                                                    String                   urlMarker,
+                                                    String                          urlMarker,
                                                     String                          elementGUID,
                                                     DeleteClassificationRequestBody requestBody)
     {
         final String methodName = "clearGovernanceExpectations";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -778,7 +778,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -803,7 +803,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "addGovernanceMeasurements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -839,7 +839,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -864,7 +864,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "updateGovernanceMeasurements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -900,7 +900,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -925,7 +925,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "clearGovernanceMeasurements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -946,7 +946,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -973,7 +973,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "addDataScope";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1009,7 +1009,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1034,7 +1034,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "updateDataScope";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1070,7 +1070,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1095,7 +1095,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "clearDataScope";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1116,7 +1116,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1135,13 +1135,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse addSecurityTags(String                       serverName,
-                                        String                   urlMarker,
+                                        String                       urlMarker,
                                         String                       elementGUID,
                                         NewClassificationRequestBody requestBody)
     {
         final String methodName = "addSecurityTags";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1177,7 +1177,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1196,13 +1196,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse clearSecurityTags(String                          serverName,
-                                          String                   urlMarker,
+                                          String                          urlMarker,
                                           String                          elementGUID,
                                           DeleteClassificationRequestBody requestBody)
     {
         final String methodName             = "clearSecurityTags";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1223,7 +1223,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1242,13 +1242,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse addOwnership(String                       serverName,
-                                     String                   urlMarker,
+                                     String                       urlMarker,
                                      String                       elementGUID,
                                      NewClassificationRequestBody requestBody)
     {
         final String   methodName = "addOwnership";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1284,7 +1284,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1303,13 +1303,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse clearOwnership(String                          serverName,
-                                       String                   urlMarker,
+                                       String                          urlMarker,
                                        String                          elementGUID,
                                        DeleteClassificationRequestBody requestBody)
     {
         final String   methodName = "clearOwnership";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1330,7 +1330,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1348,14 +1348,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse addOrigin(String                    serverName,
-                                  String                   urlMarker,
-                                  String                    elementGUID,
+    public VoidResponse addOrigin(String                       serverName,
+                                  String                       urlMarker,
+                                  String                       elementGUID,
                                   NewClassificationRequestBody requestBody)
     {
         final String   methodName = "addOrigin";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1391,7 +1391,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1410,13 +1410,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse clearOrigin(String                          serverName,
-                                    String                   urlMarker,
+                                    String                          urlMarker,
                                     String                          elementGUID,
                                     DeleteClassificationRequestBody requestBody)
     {
         final String   methodName = "clearOrigin";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1437,7 +1437,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1456,14 +1456,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse addZoneMembership(String                    serverName,
-                                          String                   urlMarker,
-                                          String                    elementGUID,
+    public VoidResponse addZoneMembership(String                       serverName,
+                                          String                       urlMarker,
+                                          String                       elementGUID,
                                           NewClassificationRequestBody requestBody)
     {
         final String   methodName = "addZoneMembership";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1499,7 +1499,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1518,13 +1518,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse clearZoneMembership(String                          serverName,
-                                            String                   urlMarker,
+                                            String                          urlMarker,
                                             String                          elementGUID,
                                             DeleteClassificationRequestBody requestBody)
     {
         final String   methodName = "clearZoneMembership";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1545,7 +1545,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1565,15 +1565,15 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse setupSemanticAssignment(String                  serverName,
-                                                String                   urlMarker,
-                                                String                  elementGUID,
-                                                String                  glossaryTermGUID,
+    public VoidResponse setupSemanticAssignment(String                     serverName,
+                                                String                     urlMarker,
+                                                String                     elementGUID,
+                                                String                     glossaryTermGUID,
                                                 NewRelationshipRequestBody requestBody)
     {
         final String methodName = "setupSemanticAssignment";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1624,7 +1624,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1645,14 +1645,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse clearSemanticAssignment(String                        serverName,
-                                                String                   urlMarker,
+                                                String                        urlMarker,
                                                 String                        elementGUID,
                                                 String                        glossaryTermGUID,
                                                 DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "clearSemanticAssignment";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1673,7 +1673,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1692,15 +1692,15 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse addScopeToElement(String                  serverName,
-                                          String                   urlMarker,
-                                          String                  elementGUID,
-                                          String                  scopeGUID,
+    public VoidResponse addScopeToElement(String                     serverName,
+                                          String                     urlMarker,
+                                          String                     elementGUID,
+                                          String                     scopeGUID,
                                           NewRelationshipRequestBody requestBody)
     {
         final String methodName = "addScopeToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1751,7 +1751,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1779,7 +1779,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "removeScopeFromElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1800,7 +1800,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1819,15 +1819,15 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse assignActorToElement(String                  serverName,
-                                             String                   urlMarker,
-                                             String                  elementGUID,
-                                             String                  actorGUID,
+    public VoidResponse assignActorToElement(String                     serverName,
+                                             String                     urlMarker,
+                                             String                     elementGUID,
+                                             String                     actorGUID,
                                              NewRelationshipRequestBody requestBody)
     {
         final String methodName = "assignActorToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1878,7 +1878,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -1897,15 +1897,15 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse unassignActorFromElement(String serverName,
-                                                 String urlMarker,
-                                                 String elementGUID,
-                                                 String actorGUID,
+    public VoidResponse unassignActorFromElement(String                        serverName,
+                                                 String                        urlMarker,
+                                                 String                        elementGUID,
+                                                 String                        actorGUID,
                                                  DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "unassignActorFromElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -1926,7 +1926,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -1945,15 +1945,15 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse addResourceListToElement(String                  serverName,
-                                                 String                   urlMarker,
-                                                 String                  elementGUID,
-                                                 String                  resourceGUID,
+    public VoidResponse addResourceListToElement(String                     serverName,
+                                                 String                     urlMarker,
+                                                 String                     elementGUID,
+                                                 String                     resourceGUID,
                                                  NewRelationshipRequestBody requestBody)
     {
         final String methodName = "addResourceListToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2004,7 +2004,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -2025,14 +2025,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse removeResourceListFromElement(String                        serverName,
-                                                      String                   urlMarker,
+                                                      String                        urlMarker,
                                                       String                        elementGUID,
                                                       String                        resourceGUID,
                                                       DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "removeResourceListFromElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2053,7 +2053,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2072,15 +2072,15 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse addMoreInformationToElement(String                  serverName,
-                                                    String                   urlMarker,
-                                                    String                  elementGUID,
-                                                    String                  resourceGUID,
+    public VoidResponse addMoreInformationToElement(String                     serverName,
+                                                    String                     urlMarker,
+                                                    String                     elementGUID,
+                                                    String                     resourceGUID,
                                                     NewRelationshipRequestBody requestBody)
     {
         final String methodName = "addMoreInformationToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2131,7 +2131,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -2152,14 +2152,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse removeMoreInformationFromElement(String                        serverName,
-                                                         String                   urlMarker,
+                                                         String                        urlMarker,
                                                          String                        elementGUID,
                                                          String                        resourceGUID,
                                                          DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "removeMoreInformationFromElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2180,7 +2180,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2200,14 +2200,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      *                                   the metadata repository or
      * UserNotAuthorizedException - the requesting user is not authorized to issue this request.
      */
-    public GUIDResponse addSearchKeywordToElement(String                 serverName,
-                                                  String                 urlMarker,
-                                                  String                 elementGUID,
+    public GUIDResponse addSearchKeywordToElement(String                   serverName,
+                                                  String                   urlMarker,
+                                                  String                   elementGUID,
                                                   NewAttachmentRequestBody requestBody)
     {
         final String methodName = "addSearchKeywordToElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse  response = new GUIDResponse();
         AuditLog      auditLog = null;
@@ -2244,7 +2244,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2269,7 +2269,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "updateSearchKeyword";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         BooleanResponse  response = new BooleanResponse();
         AuditLog         auditLog = null;
@@ -2305,7 +2305,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2324,14 +2324,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      *                                   the metadata repository or
      * UserNotAuthorizedException - the requesting user is not authorized to issue this request.
      */
-    public VoidResponse removeSearchKeywordFromElement(String            serverName,
-                                                       String            urlMarker,
-                                                       String            searchKeywordGUID,
+    public VoidResponse removeSearchKeywordFromElement(String                   serverName,
+                                                       String                   urlMarker,
+                                                       String                   searchKeywordGUID,
                                                        DeleteElementRequestBody requestBody)
     {
         final String methodName = "removeSearchKeywordFromElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse  response = new VoidResponse();
         AuditLog      auditLog = null;
@@ -2353,7 +2353,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2372,14 +2372,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      *      PropertyServerException problem accessing property server or
      *      UserNotAuthorizedException security access problem
      */
-    public VoidResponse setKnownDuplicateClassification(String                    serverName,
-                                                        String                   urlMarker,
-                                                        String                    elementGUID,
+    public VoidResponse setKnownDuplicateClassification(String                       serverName,
+                                                        String                       urlMarker,
+                                                        String                       elementGUID,
                                                         NewClassificationRequestBody requestBody)
     {
         final String methodName = "setKnownDuplicateClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2419,7 +2419,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2438,13 +2438,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      *       UserNotAuthorizedException security access problem
      */
     public VoidResponse clearKnownDuplicateClassification(String                          serverName,
-                                                          String                   urlMarker,
+                                                          String                          urlMarker,
                                                           String                          elementGUID,
                                                           DeleteClassificationRequestBody requestBody)
     {
         final String   methodName = "clearKnownDuplicateClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2465,7 +2465,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2495,7 +2495,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "linkElementsAsPeerDuplicates";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2546,7 +2546,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -2574,7 +2574,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "unlinkElementsAsPeerDuplicates";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2595,7 +2595,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2614,14 +2614,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      *      PropertyServerException problem accessing property server or
      *      UserNotAuthorizedException security access problem
      */
-    public VoidResponse setConsolidatedDuplicateClassification(String                    serverName,
-                                                               String                   urlMarker,
-                                                               String                    elementGUID,
+    public VoidResponse setConsolidatedDuplicateClassification(String                       serverName,
+                                                               String                       urlMarker,
+                                                               String                       elementGUID,
                                                                NewClassificationRequestBody requestBody)
     {
         final String methodName = "setConsolidatedDuplicateClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2661,7 +2661,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2680,13 +2680,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      *       UserNotAuthorizedException security access problem
      */
     public VoidResponse clearConsolidatedDuplicateClassification(String                          serverName,
-                                                                 String                   urlMarker,
+                                                                 String                          urlMarker,
                                                                  String                          elementGUID,
                                                                  DeleteClassificationRequestBody requestBody)
     {
         final String   methodName = "clearConsolidatedDuplicateClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2707,7 +2707,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2727,15 +2727,15 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public VoidResponse linkConsolidatedDuplicateToSourceElement(String                  serverName,
-                                                                 String                   urlMarker,
-                                                                 String                  elementGUID,
-                                                                 String                  sourceElementGUID,
+    public VoidResponse linkConsolidatedDuplicateToSourceElement(String                     serverName,
+                                                                 String                     urlMarker,
+                                                                 String                     elementGUID,
+                                                                 String                     sourceElementGUID,
                                                                  NewRelationshipRequestBody requestBody)
     {
         final String methodName = "linkConsolidatedDuplicateToSourceElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2786,7 +2786,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -2807,14 +2807,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public VoidResponse unlinkConsolidatedDuplicateFromSourceElement(String                        serverName,
-                                                                     String                   urlMarker,
+                                                                     String                        urlMarker,
                                                                      String                        elementGUID,
                                                                      String                        sourceElementGUID,
                                                                      DeleteRelationshipRequestBody requestBody)
     {
         final String methodName = "unlinkConsolidatedDuplicateFromSourceElement";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         VoidResponse response = new VoidResponse();
         AuditLog     auditLog = null;
@@ -2835,7 +2835,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2858,7 +2858,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getImpactClassifiedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -2892,7 +2892,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2915,7 +2915,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getConfidenceClassifiedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -2949,7 +2949,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -2972,7 +2972,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getCriticalityClassifiedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3006,7 +3006,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3029,7 +3029,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getConfidentialityClassifiedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3063,7 +3063,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3086,7 +3086,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getRetentionClassifiedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3120,7 +3120,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3143,7 +3143,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getSecurityTaggedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3179,7 +3179,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3202,7 +3202,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getOwnersElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3230,7 +3230,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3253,7 +3253,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getElementsByOrigin";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3283,7 +3283,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3308,7 +3308,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getMeanings";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                                auditLog = null;
@@ -3366,7 +3366,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3385,13 +3385,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public OpenMetadataRootElementsResponse getSemanticAssignees(String                            serverName,
-                                                                        String                            urlMarker,
-                                                                        String                            glossaryTermGUID,
-                                                                        SemanticAssignmentQueryProperties requestBody)
+                                                                 String                            urlMarker,
+                                                                 String                            glossaryTermGUID,
+                                                                 SemanticAssignmentQueryProperties requestBody)
     {
         final String methodName = "getSemanticAssignees";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3449,7 +3449,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3474,7 +3474,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getGovernedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3516,7 +3516,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3541,7 +3541,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getGovernedByDefinitions";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                                auditLog = null;
@@ -3583,7 +3583,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3603,13 +3603,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      * UserNotAuthorizedException security access problem
      */
     public OpenMetadataRootElementsResponse getSourceElements(String         serverName,
-                                                                     String         urlMarker,
-                                                                     String         elementGUID,
-                                                                     ResultsRequestBody requestBody)
+                                                              String         urlMarker,
+                                                              String         elementGUID,
+                                                              ResultsRequestBody requestBody)
     {
         final String methodName = "getSourceElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3647,7 +3647,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3673,7 +3673,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getElementsSourceFrom";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3711,7 +3711,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3730,14 +3730,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public OpenMetadataRootElementsResponse getScopes(String         serverName,
-                                                      String         urlMarker,
-                                                      String         elementGUID,
+    public OpenMetadataRootElementsResponse getScopes(String             serverName,
+                                                      String             urlMarker,
+                                                      String             elementGUID,
                                                       ResultsRequestBody requestBody)
     {
         final String methodName = "getScopes";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3775,7 +3775,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3793,14 +3793,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      * PropertyServerException problem accessing property server or
      * UserNotAuthorizedException security access problem
      */
-    public OpenMetadataRootElementsResponse getScopedElements(String         serverName,
-                                                              String         urlMarker,
-                                                              String         scopeGUID,
+    public OpenMetadataRootElementsResponse getScopedElements(String             serverName,
+                                                              String             urlMarker,
+                                                              String             scopeGUID,
                                                               ResultsRequestBody requestBody)
     {
         final String methodName = "getScopedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3838,7 +3838,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3866,7 +3866,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getResourceList";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3904,7 +3904,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3929,7 +3929,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getSupportedByResource";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -3967,7 +3967,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -3992,7 +3992,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getLicensedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -4026,7 +4026,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4051,7 +4051,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getLicenses";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -4085,7 +4085,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4110,7 +4110,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getCertifiedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog     auditLog = null;
@@ -4144,7 +4144,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4169,7 +4169,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getCertifications";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4203,7 +4203,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4228,7 +4228,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getMetadataElementByGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -4249,7 +4249,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4272,7 +4272,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getMetadataElementByUniqueName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog                        auditLog = null;
@@ -4310,7 +4310,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4333,7 +4333,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getMetadataElementGUIDByUniqueName";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         GUIDResponse response = new GUIDResponse();
         AuditLog     auditLog = null;
@@ -4371,7 +4371,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4395,7 +4395,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4423,7 +4423,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4446,7 +4446,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "findRootElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4474,7 +4474,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4498,7 +4498,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getElementsByPropertyValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4529,7 +4529,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4554,7 +4554,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "findElementsByPropertyValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4585,7 +4585,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4609,7 +4609,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "findAuthoredElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4638,7 +4638,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4661,7 +4661,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getAuthoredElementsByCategory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4690,7 +4690,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4717,7 +4717,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getElementsByClassification";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4738,7 +4738,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4765,7 +4765,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getElementsByClassificationWithPropertyValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4798,7 +4798,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4826,7 +4826,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "findElementsByClassificationWithPropertyValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -4858,7 +4858,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4878,16 +4878,16 @@ public class ClassificationExplorerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementsResponse getRelatedElements(String         serverName,
-                                                                      String         urlMarker,
-                                                                      String         elementGUID,
-                                                                      String         relationshipTypeName,
-                                                                      int            startingAtEnd,
-                                                                      ResultsRequestBody requestBody)
+    public OpenMetadataRootElementsResponse getRelatedElements(String             serverName,
+                                                               String             urlMarker,
+                                                               String             elementGUID,
+                                                               String             relationshipTypeName,
+                                                               int                startingAtEnd,
+                                                               ResultsRequestBody requestBody)
     {
         final String methodName = "getRelatedElements";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                                auditLog = null;
@@ -4939,7 +4939,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -4970,7 +4970,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getRelatedElementsWithPropertyValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -5010,7 +5010,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -5041,7 +5041,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "findRelatedElementsWithPropertyValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                         auditLog = null;
@@ -5080,7 +5080,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -5105,7 +5105,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getRelationships";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         MetadataRelationshipSummariesResponse response = new MetadataRelationshipSummariesResponse();
         AuditLog                              auditLog = null;
@@ -5136,7 +5136,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -5162,7 +5162,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getRelationshipsWithPropertyValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         MetadataRelationshipSummariesResponse response = new MetadataRelationshipSummariesResponse();
         AuditLog                              auditLog = null;
@@ -5201,7 +5201,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -5228,7 +5228,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "findRelationshipsWithPropertyValue";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         MetadataRelationshipSummariesResponse response = new MetadataRelationshipSummariesResponse();
         AuditLog                              auditLog = null;
@@ -5266,7 +5266,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -5286,14 +5286,14 @@ public class ClassificationExplorerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public ElementHeaderResponse retrieveInstanceForGUID(String             serverName,
-                                                         String             urlMarker,
-                                                         String             guid,
+    public ElementHeaderResponse retrieveInstanceForGUID(String         serverName,
+                                                         String         urlMarker,
+                                                         String         guid,
                                                          GetRequestBody requestBody)
     {
         final String methodName = "retrieveInstanceForGUID";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         ElementHeaderResponse response = new ElementHeaderResponse();
         AuditLog              auditLog = null;
@@ -5323,7 +5323,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -5347,7 +5347,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getElementsByCategory";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                auditLog = null;
@@ -5382,7 +5382,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -5407,7 +5407,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "getSearchKeyword";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementResponse response = new OpenMetadataRootElementResponse();
         AuditLog        auditLog = null;
@@ -5429,7 +5429,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -5446,13 +5446,13 @@ public class ClassificationExplorerRESTServices extends TokenController
      *  UserNotAuthorizedException the user is not authorized to issue this request
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public OpenMetadataRootElementsResponse getSearchKeywordsByKeyword(String                  serverName,
-                                                                       String                  urlMarker,
+    public OpenMetadataRootElementsResponse getSearchKeywordsByKeyword(String            serverName,
+                                                                       String            urlMarker,
                                                                        FilterRequestBody requestBody)
     {
         final String methodName = "getSearchKeywordsByKeyword";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                auditLog = null;
@@ -5483,7 +5483,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 
@@ -5506,7 +5506,7 @@ public class ClassificationExplorerRESTServices extends TokenController
     {
         final String methodName = "findSearchKeywords";
 
-        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
         OpenMetadataRootElementsResponse response = new OpenMetadataRootElementsResponse();
         AuditLog                auditLog = null;
@@ -5537,7 +5537,7 @@ public class ClassificationExplorerRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
 }

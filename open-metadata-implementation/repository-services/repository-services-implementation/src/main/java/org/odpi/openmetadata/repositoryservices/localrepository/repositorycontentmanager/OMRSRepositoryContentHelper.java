@@ -3,6 +3,7 @@
 package org.odpi.openmetadata.repositoryservices.localrepository.repositorycontentmanager;
 
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
+import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestId;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.MatchCriteria;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.SequencingOrder;
@@ -33,6 +34,8 @@ import java.util.regex.Pattern;
 public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtilities implements OMRSRepositoryHelper
 {
     private static final Logger log = LoggerFactory.getLogger(OMRSRepositoryContentHelper.class);
+
+    private static final RequestId requestId = new RequestId();
 
     private final OMRSRepositoryContentManager repositoryContentManager;
 
@@ -930,12 +933,13 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
         entity.setMetadataCollectionId(metadataCollectionId);
         entity.setMetadataCollectionName(metadataCollectionName);
         entity.setCreateTime(new Date());
+        entity.setCreatedBy(userName);
+        entity.setLastRequestId(requestId.getRequestId());
         entity.setGUID(guid);
         entity.setVersion(1L);
 
         entity.setType(repositoryContentManager.getInstanceType(sourceName, TypeDefCategory.ENTITY_DEF, typeName, methodName));
         entity.setStatus(repositoryContentManager.getInitialStatus(sourceName, typeName, methodName));
-        entity.setCreatedBy(userName);
     }
 
 
@@ -1043,6 +1047,7 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
                 classification.setName(classificationTypeName);
                 classification.setCreateTime(new Date());
                 classification.setCreatedBy(userName);
+                classification.setLastRequestId(requestId.getRequestId());
                 classification.setVersion(1L);
                 classification.setType(repositoryContentManager.getInstanceType(sourceName,
                                                                                 TypeDefCategory.CLASSIFICATION_DEF,
@@ -1128,6 +1133,8 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
         relationship.setMetadataCollectionId(metadataCollectionId);
         relationship.setMetadataCollectionName(metadataCollectionName);
         relationship.setCreateTime(new Date());
+        relationship.setCreatedBy(userName);
+        relationship.setLastRequestId(requestId.getRequestId());
         relationship.setGUID(guid);
         relationship.setVersion(1L);
 
@@ -1136,7 +1143,6 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
                                                                       typeName,
                                                                       methodName));
         relationship.setStatus(repositoryContentManager.getInitialStatus(sourceName, typeName, methodName));
-        relationship.setCreatedBy(userName);
 
         return relationship;
     }
@@ -2133,6 +2139,7 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
     {
         updatedInstance.setUpdatedBy(userId);
         updatedInstance.setUpdateTime(new Date());
+        updatedInstance.setLastRequestId(requestId.getRequestId());
 
         long currentVersion = originalInstance.getVersion();
         updatedInstance.setVersion(currentVersion+1);
@@ -2141,6 +2148,7 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
         if (maintainedBy == null)
         {
             maintainedBy = new ArrayList<>();
+            maintainedBy.add(updatedInstance.getCreatedBy());
         }
         if (!maintainedBy.contains(userId))
         {
@@ -2167,6 +2175,7 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
     {
         updatedInstance.setUpdatedBy(userId);
         updatedInstance.setUpdateTime(new Date());
+        updatedInstance.setLastRequestId(requestId.getRequestId());
 
         long currentVersion = originalInstance.getVersion();
         updatedInstance.setVersion(currentVersion+1);
@@ -2175,6 +2184,7 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
         if (maintainedBy == null)
         {
             maintainedBy = new ArrayList<>();
+            maintainedBy.add(updatedInstance.getCreatedBy());
         }
         if (!maintainedBy.contains(userId))
         {
@@ -2201,6 +2211,7 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
     {
         updatedInstance.setUpdatedBy(userId);
         updatedInstance.setUpdateTime(new Date());
+        updatedInstance.setLastRequestId(requestId.getRequestId());
 
         long currentVersion = originalInstance.getVersion();
         updatedInstance.setVersion(currentVersion+1);
@@ -2209,6 +2220,7 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
         if (maintainedBy == null)
         {
             maintainedBy = new ArrayList<>();
+            maintainedBy.add(updatedInstance.getCreatedBy());
         }
         if (! maintainedBy.contains(userId))
         {
@@ -2373,12 +2385,13 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
         entity.setInstanceProvenanceType(provenanceType);
         entity.setMetadataCollectionId(metadataCollectionId);
         entity.setCreateTime(new Date());
+        entity.setLastRequestId(requestId.getRequestId());
+        entity.setCreatedBy(userName);
         entity.setGUID(guid);
         entity.setVersion(1L);
 
         entity.setType(repositoryContentManager.getInstanceType(sourceName, TypeDefCategory.ENTITY_DEF, typeName, methodName));
         entity.setStatus(repositoryContentManager.getInitialStatus(sourceName, typeName, methodName));
-        entity.setCreatedBy(userName);
 
         return entity;
     }

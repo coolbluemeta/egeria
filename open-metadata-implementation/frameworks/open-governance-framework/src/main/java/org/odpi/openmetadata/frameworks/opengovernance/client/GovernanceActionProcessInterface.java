@@ -6,6 +6,7 @@ import org.odpi.openmetadata.frameworks.opengovernance.properties.*;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
+import org.odpi.openmetadata.frameworks.openmetadata.search.QueryOptions;
 
 import java.util.Date;
 
@@ -27,7 +28,7 @@ public interface GovernanceActionProcessInterface
      *
      * @param userId calling user
      * @param processGUID unique identifier of the requested metadata element
-     * @param effectiveTime effective date/time for query
+     * @param queryOptions effective date/time for query
      *
      * @return requested metadata element
      *
@@ -37,9 +38,9 @@ public interface GovernanceActionProcessInterface
      */
     GovernanceActionProcessGraph getGovernanceActionProcessGraph(String userId,
                                                                  String processGUID,
-                                                                 Date   effectiveTime) throws InvalidParameterException,
-                                                                                              UserNotAuthorizedException,
-                                                                                              PropertyServerException;
+                                                                 QueryOptions queryOptions) throws InvalidParameterException,
+                                                                                                    UserNotAuthorizedException,
+                                                                                                    PropertyServerException;
 
 
 }

@@ -28,8 +28,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class PropertyMatchFindRequest extends TypeLimitedFindRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private InstanceProperties matchProperties      = null;
     private MatchCriteria      matchCriteria        = null;
 
@@ -118,15 +116,8 @@ public class PropertyMatchFindRequest extends TypeLimitedFindRequest
         return "PropertyMatchFindRequest{" +
                 "matchProperties=" + matchProperties +
                 ", matchCriteria=" + matchCriteria +
-                ", typeGUID='" + getTypeGUID() + '\'' +
-                ", sequencingProperty='" + getSequencingProperty() + '\'' +
-                ", sequencingOrder=" + getSequencingOrder() +
-                ", offset=" + getOffset() +
-                ", pageSize=" + getPageSize() +
-                ", limitResultsByStatus=" + getLimitResultsByStatus() +
-                '}';
+                "} " + super.toString();
     }
-
 
     /**
      * Compare the values of the supplied object with those stored in the current object.
@@ -164,6 +155,6 @@ public class PropertyMatchFindRequest extends TypeLimitedFindRequest
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), getMatchProperties(), getMatchCriteria(), getMatchProperties(), getMatchCriteria());
+        return Objects.hash(super.hashCode(), matchProperties, matchCriteria);
     }
 }

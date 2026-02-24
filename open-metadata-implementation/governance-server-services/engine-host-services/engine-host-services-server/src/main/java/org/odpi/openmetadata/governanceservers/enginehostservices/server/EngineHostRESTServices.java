@@ -37,7 +37,7 @@ public class EngineHostRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  GovernanceEngineException there was a problem detected by the governance engine.
      */
     public  VoidResponse refreshConfig(String serverName,
@@ -66,7 +66,7 @@ public class EngineHostRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -83,7 +83,7 @@ public class EngineHostRESTServices extends TokenController
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      *  GovernanceEngineException there was a problem detected by the governance engine.
      */
     public  VoidResponse refreshConfig(String serverName,
@@ -111,7 +111,7 @@ public class EngineHostRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -156,7 +156,7 @@ public class EngineHostRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }
@@ -169,7 +169,7 @@ public class EngineHostRESTServices extends TokenController
      * @param delegatingUserId external userId making request
      * @return list of statuses - on for each assigned governance engines or
      *  InvalidParameterException one of the parameters is null or invalid or
-     *  UserNotAuthorizedException user not authorized to issue this request or
+     *  UserNotAuthorizedException the user is not authorized to issue this request or
      */
     public GovernanceEngineSummariesResponse getGovernanceEngineSummaries(String serverName,
                                                                           String delegatingUserId)
@@ -196,7 +196,7 @@ public class EngineHostRESTServices extends TokenController
             restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
         }
 
-        restCallLogger.logRESTCallReturn(token, response.toString());
+        restCallLogger.logRESTCallReturn(token, response);
 
         return response;
     }

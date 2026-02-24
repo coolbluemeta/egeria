@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.EntityProxy;
 
+import java.util.Objects;
+
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
@@ -19,8 +21,6 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ClassificationProxyRequest extends ClassificationRequest
 {
-    private static final long    serialVersionUID = 1L;
-
     private EntityProxy entityProxy = null;
 
 
@@ -80,13 +80,8 @@ public class ClassificationProxyRequest extends ClassificationRequest
     public String toString()
     {
         return "ClassificationProxyRequest{" +
-                       "entityProxy=" + entityProxy +
-                       ", classificationOrigin=" + getClassificationOrigin() +
-                       ", classificationOriginGUID='" + getClassificationOriginGUID() + '\'' +
-                       ", classificationProperties=" + getClassificationProperties() +
-                       ", metadataCollectionId='" + getMetadataCollectionId() + '\'' +
-                       ", metadataCollectionName='" + getMetadataCollectionName() + '\'' +
-                       '}';
+                "entityProxy=" + entityProxy +
+                "} " + super.toString();
     }
 
 
@@ -99,21 +94,9 @@ public class ClassificationProxyRequest extends ClassificationRequest
     @Override
     public boolean equals(Object objectToCompare)
     {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (! (objectToCompare instanceof ClassificationProxyRequest))
-        {
-            return false;
-        }
-        if (! super.equals(objectToCompare))
-        {
-            return false;
-        }
-
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
         ClassificationProxyRequest that = (ClassificationProxyRequest) objectToCompare;
-
         return entityProxy != null ? entityProxy.equals(that.entityProxy) : that.entityProxy == null;
     }
 
@@ -126,8 +109,6 @@ public class ClassificationProxyRequest extends ClassificationRequest
     @Override
     public int hashCode()
     {
-        int result = super.hashCode();
-        result = 31 * result + (entityProxy != null ? entityProxy.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), entityProxy);
     }
 }

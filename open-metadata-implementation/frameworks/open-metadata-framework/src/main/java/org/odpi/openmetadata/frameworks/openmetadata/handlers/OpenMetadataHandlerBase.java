@@ -227,7 +227,7 @@ public class OpenMetadataHandlerBase
     /**
      * Create a new element.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions            details of the element to create
      * @param initialClassifications       map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -323,7 +323,7 @@ public class OpenMetadataHandlerBase
     /**
      * Update the properties of an element.
      *
-     * @param userId            userId of user making request.
+     * @param userId            userId of the user making the request.
      * @param elementGUID       unique identifier of the element (returned from create)
      * @param guidParameterName name of unique identifier
      * @param updateOptions     provides a structure for the additional options when updating an element.
@@ -1062,12 +1062,12 @@ public class OpenMetadataHandlerBase
 
             addSpecification(rootElement);
 
-            rootElement.setSubDataClasses(this.getElementHierarchies(userId,
-                                                                      rootElement.getSubDataClasses(),
-                                                                      1,
-                                                                      OpenMetadataType.DATA_CLASS_HIERARCHY_RELATIONSHIP.typeName,
-                                                                      queryOptions,
-                                                                      1));
+            rootElement.setSubDataValueSpecifications(this.getElementHierarchies(userId,
+                                                                                 rootElement.getSubDataValueSpecifications(),
+                                                                                 1,
+                                                                                 OpenMetadataType.DATA_VALUE_HIERARCHY_RELATIONSHIP.typeName,
+                                                                                 queryOptions,
+                                                                                 1));
 
             rootElement.setPartOfDataClasses(this.getElementHierarchies(userId,
                                                                          rootElement.getPartOfDataClasses(),
@@ -1808,7 +1808,7 @@ public class OpenMetadataHandlerBase
      * Returns the list of elements of the appropriate type with a particular name.
      * Caller responsible for mermaid graph.
      *
-     * @param userId                   userId of user making request
+     * @param userId                   userId of the user making the request
      * @param elementGUID unique identifier for the starting metadata element
      * @param guidPropertyName name of unique identifier for the starting metadata element
      * @param startingAtEnd indicates which end to retrieve from (0 is "either end"; 1 is end1; 2 is end 2)
@@ -1858,7 +1858,7 @@ public class OpenMetadataHandlerBase
     /**
      * Retrieve the metadata element using its unique name (typically the qualified name).
      *
-     * @param userId                   userId of user making request
+     * @param userId                   userId of the user making the request
      * @param uniqueName unique name for the metadata element
      * @param uniquePropertyName name of property name to test in the open metadata element - if null "qualifiedName" is used
      * @param suppliedGetOptions multiple options to control the query
@@ -1896,7 +1896,7 @@ public class OpenMetadataHandlerBase
     /**
      * Retrieve the metadata element using its unique name (typically the qualified name).
      *
-     * @param userId                   userId of user making request
+     * @param userId                   userId of the user making the request
      * @param uniqueName unique name for the metadata element
      * @param uniquePropertyName name of property name to test in the open metadata element - if null "qualifiedName" is used
      * @param suppliedGetOptions options to control the retrieve
@@ -1931,7 +1931,7 @@ public class OpenMetadataHandlerBase
      * This method assumes all effective dates, and forLineage and forDuplicateProcessing are false,
      * to cast the widest net.
      *
-     * @param userId                   userId of user making request
+     * @param userId                   userId of the user making the request
      * @param uniqueName unique name for the metadata element
      * @param uniquePropertyName name of property name to test in the open metadata element - if null "qualifiedName" is used
      * @param suppliedGetOptions options to control the retrieve
@@ -1980,7 +1980,7 @@ public class OpenMetadataHandlerBase
     /**
      * Returns the list of elements of the appropriate type with a particular name.
      *
-     * @param userId                   userId of user making request
+     * @param userId                   userId of the user making the request
      * @param name                     name of the element to return - match is full text match in qualifiedName or name
      * @param propertyNames            list of property names to consider
      * @param suppliedQueryOptions             multiple options to control the query
@@ -2027,7 +2027,7 @@ public class OpenMetadataHandlerBase
     /**
      * Returns the named element.
      *
-     * @param userId                   userId of user making request
+     * @param userId                   userId of the user making the request
      * @param name                     name of the element to return - match is full text match in qualifiedName or name
      * @param propertyName            property name to consider
      * @param suppliedGetOptions            multiple options to control the query
@@ -2079,7 +2079,7 @@ public class OpenMetadataHandlerBase
     /**
      * Return the properties of a specific governance definition.
      *
-     * @param userId      userId of user making request
+     * @param userId      userId of the user making the request
      * @param elementGUID unique identifier of the required element
      * @param suppliedGetOptions  multiple options to control the query
      * @return retrieved properties
@@ -2134,7 +2134,7 @@ public class OpenMetadataHandlerBase
     /**
      * Return the properties of a specific governance definition.
      *
-     * @param userId      userId of user making request
+     * @param userId      userId of the user making the request
      * @param name unique name of the required element
      * @param propertyName name of the property to query (default is qualifiedName)
      * @param suppliedGetOptions  multiple options to control the query
@@ -2187,7 +2187,7 @@ public class OpenMetadataHandlerBase
     /**
      * Returns the list of elements of the right type, matching the search string.
      *
-     * @param userId       userId of user making request
+     * @param userId       userId of the user making the request
      * @param searchString string to search for
      * @param suppliedSearchOptions             multiple options to control the query
      * @param methodName   calling method

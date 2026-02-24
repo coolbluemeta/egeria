@@ -138,7 +138,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Create a new asset.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -1129,7 +1129,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Add an element to an action's workload.
      *
-     * @param userId                userId of user making request.
+     * @param userId                userId of the user making the request.
      * @param actionGUID        unique identifier of the integration connector.
      * @param makeAnchorOptions options to control access to open metadata
      * @param actionTargetProperties  properties describing the relationship characteristics.
@@ -1204,7 +1204,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
      *
      * @return details of the integration connector and the elements it is to catalog
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector definition.
      */
     public OpenMetadataRelationship getActionTarget(String     userId,
@@ -1226,7 +1226,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Return a list of elements that are target elements for an action.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param actionGUID unique identifier of the integration connector.
      * @param queryOptions   options for query
      * @return list of member details
@@ -1423,7 +1423,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of an asset.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param assetGUID       unique identifier of the asset (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -1454,7 +1454,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Create a relationship that represents the deployment of an IT infrastructure asset to a specific deployment destination (another asset).
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param assetGUID       unique identifier of the asset
      * @param destinationGUID           unique identifier of the destination asset
      * @param makeAnchorOptions  options to control access to open metadata
@@ -1491,7 +1491,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Remove a DeployedOn relationship.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param assetGUID       unique identifier of the asset
      * @param destinationGUID           unique identifier of the destination asset
      * @param deleteOptions  options to control access to open metadata
@@ -1527,7 +1527,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Create a relationship that links a software capability to an infrastructure asset like a software server.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param assetGUID       unique identifier of the asset
      * @param capabilityGUID           unique identifier of the destination asset
      * @param makeAnchorOptions  options to control access to open metadata
@@ -1564,7 +1564,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Remove a relationship that links a software capability to an infrastructure asset like a software server.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param assetGUID       unique identifier of the asset
      * @param capabilityGUID           unique identifier of the destination asset
      * @param deleteOptions  options to control access to open metadata
@@ -1599,7 +1599,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Attach a data set to another asset (typically a data store) that is supplying the data.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param dataSetGUID          unique identifier of the data set
      * @param dataContentAssetGUID          unique identifier of the data asset supplying the data
      * @param makeAnchorOptions  options to control access to open metadata
@@ -1636,7 +1636,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Detach a data set from another asset that was supplying the data and is no more.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param dataSetGUID          unique identifier of the data set
      * @param dataContentAssetGUID          unique identifier of the data asset supplying the data
      * @param deleteOptions  options to control access to open metadata
@@ -1670,7 +1670,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Add an element to an integration connector's workload.
      *
-     * @param userId                userId of user making request.
+     * @param userId                userId of the user making the request.
      * @param integrationConnectorGUID        unique identifier of the integration connector.
      * @param makeAnchorOptions options to control access to open metadata
      * @param catalogTargetProperties  properties describing the relationship characteristics.
@@ -1736,7 +1736,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
      *
      * @return details of the integration connector and the elements it is to catalog
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException problem retrieving the integration connector definition.
      */
     public OpenMetadataRelationship getCatalogTarget(String     userId,
@@ -1758,7 +1758,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Return a list of elements that are target elements for an integration connector.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param integrationConnectorGUID unique identifier of the integration connector.
      * @param queryOptions   options for query
      * @return list of member details
@@ -1794,7 +1794,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Remove an element from an integration connector's workload.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param integrationConnectorGUID unique identifier of the integration connector.
      * @param elementGUID    unique identifier of the element.
      * @param deleteOptions  options to control access to open metadata
@@ -1828,7 +1828,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Remove an element from an integration connector's workload.
      *
-     * @param userId         userId of user making request.
+     * @param userId         userId of the user making the request.
      * @param relationshipGUID unique identifier of the relationship.
      * @param deleteOptions  options to control access to open metadata
      * @throws InvalidParameterException  one of the parameters is invalid.
@@ -1854,7 +1854,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Attach an API to an endpoint
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param deployedAPIGUID          unique identifier of the super team
      * @param endpointGUID            unique identifier of the subteam
      * @param makeAnchorOptions  options to control access to open metadata
@@ -1891,7 +1891,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Detach an API from an endpoint
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param deployedAPIGUID          unique identifier of the API
      * @param endpointGUID            unique identifier of the endpoint
      * @param deleteOptions  options to control access to open metadata
@@ -1925,7 +1925,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Attach a child process to its parent.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param parentProcessGUID       unique identifier of the parent process
      * @param childProcessGUID            unique identifier of the child process
      * @param makeAnchorOptions  options to control access to open metadata
@@ -1962,7 +1962,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Detach a child process from its parent.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param parentProcessGUID              unique identifier of the parent process
      * @param childProcessGUID          unique identifier of the child process
      * @param deleteOptions  options to control access to open metadata
@@ -1996,7 +1996,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Attach a file to a folder.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param folderGUID               unique identifier of the folder
      * @param fileGUID         unique identifier of the associated file
      * @param makeAnchorOptions  options to control access to open metadata
@@ -2033,7 +2033,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Detach a file from its folder.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param folderGUID               unique identifier of the folder
      * @param fileGUID         unique identifier of the associated file
      * @param deleteOptions  options to control access to open metadata
@@ -2068,7 +2068,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Attach a file to a folder.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param folderGUID               unique identifier of the folder
      * @param fileGUID         unique identifier of the associated file
      * @param makeAnchorOptions  options to control access to open metadata
@@ -2105,7 +2105,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Detach a file from its folder.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param folderGUID               unique identifier of the folder
      * @param fileGUID         unique identifier of the associated file
      * @param deleteOptions  options to control access to open metadata
@@ -2139,7 +2139,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Attach folders in a hierarchy.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param parentFolderGUID               unique identifier of the parent folder
      * @param childFolderGUID         unique identifier of the associated child folder
      * @param makeAnchorOptions  options to control access to open metadata
@@ -2176,7 +2176,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Detach a child folder from its parent.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param parentFolderGUID               unique identifier of the parent folder
      * @param childFolderGUID         unique identifier of the associated child folder
      * @param deleteOptions  options to control access to open metadata
@@ -2210,7 +2210,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Delete a asset.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param assetGUID       unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -2236,7 +2236,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of assets with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName, resourceName or displayName
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -2268,7 +2268,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of assets with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   deployedImplementationType name of the element to return - match is full text match
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -2825,7 +2825,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of assets with a particular assetGUID.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param assetGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -2857,7 +2857,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of assets providing data to the data set.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param assetGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -2888,7 +2888,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of assets providing data to the data set.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param elementGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -2920,7 +2920,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of file assets catalogued under the folder asset.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param folderGUID              unique identifier of the starting element
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -2951,7 +2951,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific asset.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param assetGUID       unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties
@@ -2974,7 +2974,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific governance definition.
      *
-     * @param userId      userId of user making request
+     * @param userId      userId of the user making the request
      * @param name unique name of the required element
      * @param propertyName name of the property to query (default is qualifiedName)
      * @param getOptions  multiple options to control the query

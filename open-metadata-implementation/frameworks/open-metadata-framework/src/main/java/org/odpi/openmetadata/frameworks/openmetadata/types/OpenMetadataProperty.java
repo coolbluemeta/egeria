@@ -23,6 +23,11 @@ public enum OpenMetadataProperty
     GUID("guid", DataType.STRING, DataType.STRING.getName(), "Unique identifier of an open metadata entity or relationship.", "f1ad7bbe-1d9f-4149-b87c-205bbd174b55", "f1ad7bbe-1d9f-4149-b87c-205bbd174b55"),
 
     /**
+     * Unique identifier of the last requestId to update the element.
+     */
+    LAST_REQUEST_ID("lastRequestId", DataType.STRING, DataType.STRING.getName(), "Unique identifier of the last requestId to update the element.", "3ca9fa1f-7eaf-4a6d-a49d-ecb320296559", "c08bf63a-001a-4e03-b6cb-73b7dd11a9ba"),
+
+    /**
      * The unique identifier for the metadata collection that is the home for a metadata element.
      */
     METADATA_COLLECTION_ID("metadataCollectionId", DataType.STRING, DataType.STRING.getName(), "The unique identifier for the metadata collection that is the home for a metadata element.", "151b9d80-8417-41c4-8f04-3ab90a387196", "01d7e832-ef18-4451-8e4c-4ba972292a8e"),
@@ -282,7 +287,17 @@ public enum OpenMetadataProperty
      * The courtesy title for the person.
      */
     COURTESY_TITLE("courtesyTitle", DataType.STRING, DataType.STRING.getName(), "The honorific title for the person.", "Dr", "c669dc73-3ae3-4350-95b7-4508a85bfc94"),
-    
+
+    /**
+     * Count of elements in the sample.
+     */
+    SAMPLE_SIZE("sampleSize", DataType.LONG, DataType.LONG.getName(), "Count of elements in the sample.", null, "25f87465-5777-48b7-bd21-f94fe370af3d"),
+
+    /**
+     * Percentage of total elements in the sample.
+     */
+    SAMPLE_PERCENT("samplePercent", DataType.INT, DataType.INT.getName(), "Percentage of total elements in the sample.", "20", "386fe49e-5335-4b0f-bf40-e2883c83b708"),
+
     /**
      * Description of the technique used to create the sample.
      */
@@ -436,9 +451,34 @@ public enum OpenMetadataProperty
     DATA_TYPE("dataType", DataType.STRING, DataType.STRING.getName(), "The name of a primitive data type.", "string", "50e73f9f-10a0-4b41-9cb6-bf55630f3734"),
 
     /**
-     * The units of measure used in the data field.
+     * The units of measure used in the data value.
      */
-    UNITS("units", DataType.STRING, DataType.STRING.getName(), "The units of measure used in the data field.", "centimetres", "a62374e7-c4b9-4b5e-871d-d7bcf72faf4c"),
+    UNITS("units", DataType.STRING, DataType.STRING.getName(), "The units of measure used in the data value.", "centimetres", "a62374e7-c4b9-4b5e-871d-d7bcf72faf4c"),
+
+    /**
+     * The range of variation in the accuracy of the measurement expressed in the units of the measurement.
+     */
+    ABSOLUTE_UNCERTAINTY("absoluteUncertainty", DataType.LONG, DataType.LONG.getName(), "The range of variation in the accuracy of the measurement expressed in the units of the measurement.", "+/- 6", "f6ce9a33-5896-4604-ab38-3601d4b4da8e"),
+
+    /**
+     * The range of variation in the accuracy of the measurement expressed as a percentage.
+     */
+    RELATIVE_UNCERTAINTY("relativeUncertainty", DataType.LONG, DataType.LONG.getName(), "The range of variation in the accuracy of the measurement expressed as a percentage.", "5%", "5d17ef61-55e8-43e4-ae87-ba124a725839"),
+
+    /**
+     * The dimension or aspect of the data that controls its granularity.
+     */
+    GRANULARITY_BASIS("granularityBasis", DataType.STRING, DataType.STRING.getName(), "The dimension or aspect of the data that controls its granularity.", "Customer Order", "aea68acf-c892-4fd2-b423-4565eeb9689b"),
+
+    /**
+     * A statement describing the granularity of the data - typically expressed as the meaning of a row or object.
+     */
+    GRAIN_STATEMENT("grainStatement", DataType.STRING, DataType.STRING.getName(), "A statement describing the granularity of the data - typically expressed as the meaning of a row or object.", "One row per order per customer.", "48a4fb6d-adaf-45e6-b269-c4f388168438"),
+
+    /**
+     * The interval that described the granularity of the data.
+     */
+    INTERVAL("interval", DataType.LONG, DataType.LONG.getName(), "The interval that described the granularity of the data expressing in the units of the grain.", "60", "f075a12c-cb12-47a1-98ec-6f95ce65f47f"),
 
     /**
      * Value that is used when an instance of the data field is created.
@@ -873,14 +913,19 @@ public enum OpenMetadataProperty
     CANDIDATE_DATA_CLASS_GUIDS("candidateDataClassGUIDs", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getName(), "List of possible matching data classes.", null, "e6d6f746-50a4-4e1c-b998-06de82f0a839"),
 
     /**
-     * Number of values that match the data class specification.
+     * List of possible matching data grains.
      */
-    MATCHING_VALUES("matchingValues", DataType.LONG, DataType.LONG.getName(), "Number of values that match the data class specification.", null, "96c33d36-cff9-455e-944f-38224eb7448b"),
+    CANDIDATE_DATA_GRAIN_GUIDS("candidateDataGrainGUIDs", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getName(), "List of possible matching data grains.", null, "a4d605c2-0baa-4631-9567-c2290ca2306a"),
 
     /**
-     * Number of values that do not match the data class specification.
+     * Count of values that match the specification.
      */
-    NON_MATCHING_VALUES("nonMatchingValues", DataType.LONG, DataType.LONG.getName(), "Number of values that do not match the data class specification.", null, "7bb6364d-486f-4005-97c9-941c7b7154d5"),
+    MATCHING_VALUES("matchingValues", DataType.LONG, DataType.LONG.getName(), "Count of values that match the data class specification.", null, "96c33d36-cff9-455e-944f-38224eb7448b"),
+
+    /**
+     * Count of values that do not match the specification.
+     */
+    NON_MATCHING_VALUES("nonMatchingValues", DataType.LONG, DataType.LONG.getName(), "Count of values that do not match the data class specification.", null, "7bb6364d-486f-4005-97c9-941c7b7154d5"),
 
     /**
      * Suggested term based on the analysis.
@@ -893,14 +938,19 @@ public enum OpenMetadataProperty
     CANDIDATE_GLOSSARY_TERM_GUIDS("candidateGlossaryTermGUIDs", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getName(), "List of potentially matching glossary terms.", null, "8be05385-75fe-42e2-a87f-2adb47289395"),
 
     /**
-     * List of glossary folders that contain potentially matching glossary terms.
+     * List of subject areas that contain potentially matching glossary terms.
      */
-    CANDIDATE_GLOSSARY_FOLDER_GUIDS("candidateGlossaryFolderGUIDs", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getName(), "List of glossary folders that contain potentially matching glossary terms.", null, "5b865d63-65b8-4d29-b382-e0490de041c9"),
+    CANDIDATE_SUBJECT_AREA_GUIDS("candidateSubjectAreaGUIDs", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getName(), "List of subject areas that contain potentially matching glossary terms.", null, "5b865d63-65b8-4d29-b382-e0490de041c9"),
 
     /**
      * Type of quality calculation.
      */
     QUALITY_DIMENSION("qualityDimension", DataType.STRING, DataType.STRING.getName(), "Type of quality calculation.", null, "a865a7d9-b18c-4aae-853b-c429bd5f8c32"),
+
+    /**
+     * Descriptive quality assessment such as high, medium, or low.
+     */
+    QUALITY_DESCRIPTION("qualityDescription", DataType.STRING, DataType.STRING.getName(), "Descriptive quality assessment such as high, medium, or low.", null, "b1b9e2b1-d9ef-44ec-b59c-f929264c1a90"),
 
     /**
      * Calculated quality value.
@@ -1018,11 +1068,10 @@ public enum OpenMetadataProperty
      */
     DEPLOYER("deployer", DataType.STRING, DataType.STRING.getName(), "Person, organization or engine that deployed the IT Infrastructure.", null, "c579fd34-4144-4968-b0d9-fa17bd81ca9c"),
 
-    INSTALL_TIME("installTime",
-                 DataType.DATE, DataType.DATE.getName(),
-                 "Time that the software was installed on the IT Infrastructure.",
-                 null,
-                 "6cc366b8-b871-4b8f-a4dc-e41c06a025c8"),
+    /**
+     * "Time that the software was installed on the IT Infrastructure."
+     */
+    INSTALL_TIME("installTime", DataType.DATE, DataType.DATE.getName(), "Time that the software was installed on the IT Infrastructure.", null, "6cc366b8-b871-4b8f-a4dc-e41c06a025c8"),
 
     /**
      * Patch level of the software server capability.
@@ -1035,14 +1084,14 @@ public enum OpenMetadataProperty
     USE_TYPE("useType", DataType.STRING, CapabilityAssetUseType.getOpenTypeName(), "Describes how the software capability uses the asset.", "OWNS", "a8cfffa4-a761-4fe0-be8b-6be43ac55020"),
 
     /**
-     * Maximum number of running asset instances controlled by the software capability.
+     * Maximum running asset instances controlled by the software capability.
      */
-    MAXIMUM_INSTANCES("maximumInstances", DataType.INT, DataType.INT.getName(), "Maximum number of running asset instances controlled by the software capability.", "0", "76b06411-e3bf-4a39-9351-140e6ad0b82f"),
+    MAXIMUM_INSTANCES("maximumInstances", DataType.INT, DataType.INT.getName(), "Maximum running asset instances controlled by the software capability.", "0", "76b06411-e3bf-4a39-9351-140e6ad0b82f"),
 
     /**
-     * Minimum number of running asset instances controlled by the software capability.
+     * Minimum running asset instances controlled by the software capability.
      */
-    MINIMUM_INSTANCES("minimumInstances", DataType.INT, DataType.INT.getName(),"Minimum number of running asset instances controlled by the software capability.", "12", "d5033e20-3cd7-4c27-a07f-4a95feee10d8"),
+    MINIMUM_INSTANCES("minimumInstances", DataType.INT, DataType.INT.getName(),"Minimum running asset instances controlled by the software capability.", "12", "d5033e20-3cd7-4c27-a07f-4a95feee10d8"),
 
     /**
      * Identifier used in an external system.
@@ -1316,9 +1365,9 @@ public enum OpenMetadataProperty
     TERM_ASSIGNMENT_STATUS("termAssignmentStatus", DataType.STRING, TermAssignmentStatus.getOpenTypeName(), TermAssignmentStatus.getOpenTypeDescription(), TermAssignmentStatus.IMPORTED.getName(), "d842dfdd-f080-4539-9a3c-eacdf0a03d07"),
 
     /**
-     * Defines the provenance and confidence of a data class assignment.
+     * Defines the provenance and confidence of a data definition assignment.
      */
-    DATA_CLASS_ASSIGNMENT_STATUS("dataClassAssignmentStatus", DataType.STRING, DataClassAssignmentStatus.getOpenTypeName(), DataClassAssignmentStatus.getOpenTypeDescription(), DataClassAssignmentStatus.IMPORTED.getName(), "71e53cf4-7158-4054-b7f8-da643a34d2da"),
+    ASSIGNMENT_STATUS("assignmentStatus", DataType.STRING, DataValueAssignmentStatus.getOpenTypeName(), DataValueAssignmentStatus.getOpenTypeDescription(), DataValueAssignmentStatus.IMPORTED.getName(), "71e53cf4-7158-4054-b7f8-da643a34d2da"),
 
     /**
      * An indication of the relative position in which this work item should be tackled compared to others in the overall work list.
@@ -2587,7 +2636,7 @@ public enum OpenMetadataProperty
     /**
      * Prefix for element names to ensure uniqueness.
      */
-    NAMESPACE("namespace", DataType.STRING, DataType.STRING.getName(), "Prefix for element names to ensure uniqueness.", null, "00282ffd-950d-43d1-b9ee-d1b38c6ec49f"),
+    NAMESPACE_PATH("namespacePath", DataType.STRING, DataType.STRING.getName(), "Prefix for element names to ensure uniqueness.", null, "00282ffd-950d-43d1-b9ee-d1b38c6ec49f"),
 
     /**
      * Format of the schema.

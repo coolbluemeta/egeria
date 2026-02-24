@@ -47,7 +47,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Create a new solution component.
      *
-     * @param userId                       userId of user making request.
+     * @param userId                       userId of the user making the request.
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties                   properties for the new element.
@@ -115,7 +115,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Update the properties of a solution component.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param solutionComponentGUID      unique identifier of the solution component (returned from create)
      * @param updateOptions provides a structure for the additional options when updating an element.
      * @param properties             properties for the element.
@@ -146,7 +146,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Attach a solution component to a solution component.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param parentSolutionComponentGUID unique identifier of the parent solution component
      * @param childSolutionComponentGUID     unique identifier of the child solution component
      * @param relationshipProperties  description of the relationship.
@@ -183,7 +183,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Detach a solution component from a solution component.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param parentSolutionComponentGUID    unique identifier of the parent solution component.
      * @param subcomponentGUID    unique identifier of the nested solution component.
      * @param metadataSourceOptions  options to control access to open metadata
@@ -218,7 +218,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Attach an element communicating with a solution component.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param solutionComponentOneGUID unique identifier of the solution component at end 1
      * @param solutionComponentTwoGUID unique identifier of the solution component at end 2
      * @param makeAnchorOptions  options to control access to open metadata
@@ -255,7 +255,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Detach an element communicating with a solution component.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param solutionComponentOneGUID unique identifier of the solution component at end 1
      * @param solutionComponentTwoGUID unique identifier of the solution component at end 2
      * @param deleteOptions  options to control access to open metadata
@@ -291,7 +291,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Attach a solution component to an actor role.
      *
-     * @param userId                  userId of user making request
+     * @param userId                  userId of the user making the request
      * @param solutionRoleGUID unique identifier of the parent
      * @param solutionComponentGUID     unique identifier of the solution component
      * @param relationshipProperties  description of the relationship.
@@ -328,7 +328,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Detach a solution component from an actor role.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param solutionRoleGUID    unique identifier of the parent solution component.
      * @param solutionComponentGUID    unique identifier of the nested solution component.
      * @param deleteOptions  options to control access to open metadata
@@ -363,7 +363,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Delete a solution component.
      *
-     * @param userId                 userId of user making request.
+     * @param userId                 userId of the user making the request.
      * @param solutionComponentGUID      unique identifier of the element
      * @param deleteOptions options for a delete request
      * @throws InvalidParameterException  one of the parameters is null or invalid.
@@ -389,7 +389,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Returns the list of solution components with a particular name.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param name                   name of the element to return - match is full text match in qualifiedName or name
      * @param queryOptions           multiple options to control the query
      * @return a list of elements
@@ -416,7 +416,7 @@ public class SolutionComponentHandler extends OpenMetadataHandlerBase
     /**
      * Return the properties of a specific solution component.
      *
-     * @param userId                 userId of user making request
+     * @param userId                 userId of the user making the request
      * @param solutionComponentGUID      unique identifier of the required element
      * @param getOptions multiple options to control the query
      * @return retrieved properties

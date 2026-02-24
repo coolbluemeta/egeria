@@ -712,6 +712,20 @@ public enum HarvestOpenMetadataTable implements PostgreSQLTable
 
 
     /**
+     * Return the columns that are added as an extension using ALTER TABLE.
+     *
+     * @return list of columns
+     */
+    @Override
+    public List<PostgreSQLColumn> getNewColumns()
+    {
+        return null;
+    }
+
+
+
+
+    /**
      * Return the list of foreign keys for this table.
      *
      * @return list

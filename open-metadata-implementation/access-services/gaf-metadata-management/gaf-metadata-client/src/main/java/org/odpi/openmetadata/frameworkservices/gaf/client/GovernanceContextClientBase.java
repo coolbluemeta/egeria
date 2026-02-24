@@ -15,6 +15,7 @@ import org.odpi.openmetadata.frameworks.opengovernance.client.WatchdogEventInter
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.CompletionStatus;
 import org.odpi.openmetadata.frameworks.opengovernance.properties.EngineActionElement;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.NewActionTarget;
+import org.odpi.openmetadata.frameworkservices.gaf.rest.GAFAPIRequest;
 import org.odpi.openmetadata.frameworkservices.omf.rest.ActionTargetStatusRequestBody;
 import org.odpi.openmetadata.frameworkservices.gaf.rest.CompletionStatusRequestBody;
 import org.odpi.openmetadata.frameworkservices.gaf.rest.EngineActionElementsResponse;
@@ -128,7 +129,7 @@ public class GovernanceContextClientBase extends OpenGovernanceClientBase implem
      * @param activityStatus new status enum
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     @Override
@@ -167,7 +168,7 @@ public class GovernanceContextClientBase extends OpenGovernanceClientBase implem
      * @param engineActionGUID identifier of the governance action request.
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     @Override
@@ -185,7 +186,7 @@ public class GovernanceContextClientBase extends OpenGovernanceClientBase implem
 
         restClient.callVoidPostRESTCall(methodName,
                                         urlTemplate,
-                                        nullRequestBody,
+                                        new GAFAPIRequest(),
                                         serverName,
                                         userId,
                                         engineActionGUID);
@@ -198,12 +199,12 @@ public class GovernanceContextClientBase extends OpenGovernanceClientBase implem
      *
      * @param userId userId of caller
      * @param governanceEngineGUID unique identifier of governance engine
-     * @param startFrom starting from element
+     * @param startFrom starting from position
      * @param pageSize maximum elements to return
      * @return list of governance action elements
      *
      * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws UserNotAuthorizedException user not authorized to issue this request.
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request.
      * @throws PropertyServerException there was a problem detected by the metadata store.
      */
     @Override
