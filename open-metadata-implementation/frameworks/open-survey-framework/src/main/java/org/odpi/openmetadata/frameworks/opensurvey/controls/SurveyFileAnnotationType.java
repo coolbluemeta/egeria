@@ -77,9 +77,9 @@ public enum SurveyFileAnnotationType implements AnnotationType
     {
         List<AnnotationTypeType> annotationTypeTypes = new ArrayList<>();
 
-        for (SurveyFileAnnotationType atlasAnnotationType : SurveyFileAnnotationType.values())
+        for (SurveyFileAnnotationType annotationType : SurveyFileAnnotationType.values())
         {
-            annotationTypeTypes.add(atlasAnnotationType.getAnnotationTypeType());
+            annotationTypeTypes.add(annotationType.getAnnotationTypeType());
         }
 
         return annotationTypeTypes;
@@ -168,6 +168,28 @@ public enum SurveyFileAnnotationType implements AnnotationType
     @Override
     public String getExpression()
     {
+        return null;
+    }
+
+
+    /**
+     * Return the metrics created in the survey processing.
+     *
+     * @return metrics
+     */
+    @Override
+    public Map<String,String> getMetrics()
+    {
+        if (metrics != null)
+        {
+            Map<String, String> metricsMap = new HashMap<>();
+            for (SurveyMetric surveyMetric : metrics)
+            {
+                metricsMap.put(surveyMetric.getDisplayName(), surveyMetric.getDescription());
+            }
+            return metricsMap;
+        }
+
         return null;
     }
 

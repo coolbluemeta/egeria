@@ -10,6 +10,9 @@ import org.odpi.openmetadata.frameworks.openmetadata.enums.ContentStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.DeploymentStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.AssignmentScopeProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.ActionTargetProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportDependencyProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportOriginatorProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportSubjectProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementOriginCategory;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
@@ -236,6 +239,142 @@ public class AssetClient extends ConnectorContextClientBase
 
         return updateOccurred;
     }
+
+
+
+    /*
+     * Reports
+     */
+
+    /**
+     * Create a relationship that identifies the originator of a report.
+     *
+     * @param originatorGUID       unique identifier of the originator
+     * @param reportGUID           unique identifier of the report
+     * @param makeAnchorOptions  options to control access to open metadata
+     * @param relationshipProperties description of the relationship.
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void linkReportOriginator(String                     originatorGUID,
+                                     String                     reportGUID,
+                                     MakeAnchorOptions          makeAnchorOptions,
+                                     ReportOriginatorProperties relationshipProperties) throws InvalidParameterException,
+                                                                                               PropertyServerException,
+                                                                                               UserNotAuthorizedException
+    {
+        assetHandler.linkReportOriginator(connectorUserId, originatorGUID, reportGUID, makeAnchorOptions, relationshipProperties);
+    }
+
+
+    /**
+     * Remove a ReportOriginator relationship.
+     *
+     * @param originatorGUID       unique identifier of the originator
+     * @param reportGUID           unique identifier of the report
+     * @param deleteOptions  options to control access to open metadata
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void unlinkReportOriginator(String        originatorGUID,
+                                       String        reportGUID,
+                                       DeleteOptions deleteOptions) throws InvalidParameterException,
+                                                                           PropertyServerException,
+                                                                           UserNotAuthorizedException
+    {
+        assetHandler.unlinkReportOriginator(connectorUserId, originatorGUID, reportGUID, deleteOptions);
+    }
+
+
+    /**
+     * Create a relationship that identifies the prior publishing of a report.
+     *
+     * @param priorReportGUID       unique identifier of the earlier report
+     * @param reportGUID           unique identifier of the new report
+     * @param makeAnchorOptions  options to control access to open metadata
+     * @param relationshipProperties description of the relationship.
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void linkReportDependency(String                     priorReportGUID,
+                                     String                     reportGUID,
+                                     MakeAnchorOptions          makeAnchorOptions,
+                                     ReportDependencyProperties relationshipProperties) throws InvalidParameterException,
+                                                                                               PropertyServerException,
+                                                                                               UserNotAuthorizedException
+    {
+        assetHandler.linkReportDependency(connectorUserId, priorReportGUID, reportGUID, makeAnchorOptions, relationshipProperties);
+    }
+
+
+    /**
+     * Remove a ReportDependency relationship.
+     *
+     * @param priorReportGUID       unique identifier of the prior report
+     * @param reportGUID           unique identifier of the new report
+     * @param deleteOptions  options to control access to open metadata
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void unlinkReportDependency(String        priorReportGUID,
+                                       String        reportGUID,
+                                       DeleteOptions deleteOptions) throws InvalidParameterException,
+                                                                           PropertyServerException,
+                                                                           UserNotAuthorizedException
+    {
+        assetHandler.unlinkReportDependency(connectorUserId, priorReportGUID, reportGUID, deleteOptions);
+    }
+
+
+    /**
+     * Create a relationship that identifies the subject of a report.
+     *
+     * @param subjectGUID       unique identifier of the subject
+     * @param reportGUID           unique identifier of the report
+     * @param makeAnchorOptions  options to control access to open metadata
+     * @param relationshipProperties description of the relationship.
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void linkReportSubject(String                  subjectGUID,
+                                  String                  reportGUID,
+                                  MakeAnchorOptions       makeAnchorOptions,
+                                  ReportSubjectProperties relationshipProperties) throws InvalidParameterException,
+                                                                                         PropertyServerException,
+                                                                                         UserNotAuthorizedException
+    {
+        assetHandler.linkReportSubject(connectorUserId, subjectGUID, reportGUID, makeAnchorOptions, relationshipProperties);
+    }
+
+
+    /**
+     * Remove a ReportSubject relationship.
+     *
+     * @param subjectGUID       unique identifier of the subject
+     * @param reportGUID           unique identifier of the report
+     * @param deleteOptions  options to control access to open metadata
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void unlinkReportSubject(String        subjectGUID,
+                                    String        reportGUID,
+                                    DeleteOptions deleteOptions) throws InvalidParameterException,
+                                                                        PropertyServerException,
+                                                                        UserNotAuthorizedException
+    {
+        assetHandler.unlinkReportSubject(connectorUserId, subjectGUID, reportGUID, deleteOptions);
+    }
+
+
+    /*
+     * IT Assets and Software capabilities
+     */
 
 
     /**

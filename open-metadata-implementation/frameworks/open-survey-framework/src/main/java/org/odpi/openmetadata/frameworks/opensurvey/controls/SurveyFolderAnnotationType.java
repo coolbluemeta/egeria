@@ -6,6 +6,7 @@ package org.odpi.openmetadata.frameworks.opensurvey.controls;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.AnnotationTypeType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.frameworks.opensurvey.measurements.FileDirectoryMetric;
+import org.odpi.openmetadata.frameworks.opensurvey.measurements.SurveyMetric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -196,6 +197,28 @@ public enum SurveyFolderAnnotationType implements AnnotationType
     @Override
     public String getExpression()
     {
+        return null;
+    }
+
+
+    /**
+     * Return the metrics created in the survey processing.
+     *
+     * @return metrics
+     */
+    @Override
+    public Map<String,String> getMetrics()
+    {
+        if (metrics != null)
+        {
+            Map<String, String> metricsMap = new HashMap<>();
+            for (SurveyMetric surveyMetric : metrics)
+            {
+                metricsMap.put(surveyMetric.getDisplayName(), surveyMetric.getDescription());
+            }
+            return metricsMap;
+        }
+
         return null;
     }
 

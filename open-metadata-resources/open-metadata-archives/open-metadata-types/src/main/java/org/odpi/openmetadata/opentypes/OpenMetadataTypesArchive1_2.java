@@ -5288,7 +5288,7 @@ public class OpenMetadataTypesArchive1_2
         /*
          * Build the relationship
          */
-        RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.REPORT_ORIGINATOR,
+        RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP,
                                                                                 this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 
@@ -5332,7 +5332,7 @@ public class OpenMetadataTypesArchive1_2
         /*
          * Build the relationship
          */
-        RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.REPORT_SUBJECT,
+        RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP,
                                                                                 this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
                                                                                 ClassificationPropagationRule.NONE);
 

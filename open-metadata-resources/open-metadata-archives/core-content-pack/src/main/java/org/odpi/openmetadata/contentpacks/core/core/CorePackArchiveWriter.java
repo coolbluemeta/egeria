@@ -17,6 +17,9 @@ import org.odpi.openmetadata.frameworks.openmetadata.refdata.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.DataType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.AnalysisStep;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyDatabaseAnnotationType;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyResourceManagerAnnotationType;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Classification;
 
 import java.util.*;
@@ -52,6 +55,24 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
          * Add the root digital product catalog.
          */
         addDigitalProductCatalogDefinition(ContentPackDefinition.CORE_CONTENT_PACK);
+
+        /*
+         * Add valid metadata values for the Survey Action Framework standard controls.
+         */
+        for (AnalysisStep analysisStep : AnalysisStep.values())
+        {
+            this.addAnalysisStep(analysisStep.getName(), analysisStep.getDescription());
+        }
+
+        for (SurveyResourceManagerAnnotationType annotationType : SurveyResourceManagerAnnotationType.values())
+        {
+            this.addAnnotationType(annotationType);
+        }
+
+        for (SurveyDatabaseAnnotationType annotationType : SurveyDatabaseAnnotationType.values())
+        {
+            this.addAnnotationType(annotationType);
+        }
 
         /*
          * Add the valid metadata values used in the resourceUse property of the ResourceList relationship.

@@ -1225,6 +1225,40 @@ public class OpenMetadataHandlerBase
                                                                                queryOptions,
                                                                                1));
 
+            rootElement.setPeerGovernanceDefinitions(this.getElementHierarchies(userId,
+                                                                               rootElement.getPeerGovernanceDefinitions(),
+                                                                               0,
+                                                                               null,
+                                                                                List.of(OpenMetadataType.GOVERNANCE_DRIVER_LINK_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_POLICY_LINK_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_CONTROL_LINK_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_RESPONSE_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_MECHANISM_RELATIONSHIP.typeName),
+                                                                               queryOptions,
+                                                                               1));
+            rootElement.setSupportedGovernanceDefinitions(this.getElementHierarchies(userId,
+                                                                                rootElement.getSupportedGovernanceDefinitions(),
+                                                                                2,
+                                                                                null,
+                                                                                List.of(OpenMetadataType.GOVERNANCE_DRIVER_LINK_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_POLICY_LINK_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_CONTROL_LINK_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_RESPONSE_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_MECHANISM_RELATIONSHIP.typeName),
+                                                                                queryOptions,
+                                                                                1));
+            rootElement.setSupportingGovernanceDefinitions(this.getElementHierarchies(userId,
+                                                                                rootElement.getSupportingGovernanceDefinitions(),
+                                                                                1,
+                                                                                null,
+                                                                                List.of(OpenMetadataType.GOVERNANCE_DRIVER_LINK_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_POLICY_LINK_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_CONTROL_LINK_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_RESPONSE_RELATIONSHIP.typeName,
+                                                                                        OpenMetadataType.GOVERNANCE_MECHANISM_RELATIONSHIP.typeName),
+                                                                                queryOptions,
+                                                                                1));
+
             if (propertyHelper.isTypeOf(rootElement.getElementHeader(), OpenMetadataType.ASSET.typeName))
             {
                 rootElement.setConnections(this.getElementHierarchies(userId,
@@ -1641,29 +1675,110 @@ public class OpenMetadataHandlerBase
     {
         if (retrievedElements != null)
         {
-            List<RelatedMetadataElementSummary> results = new ArrayList<>();
-
-            for (RelatedMetadataElementSummary retrievedElement : retrievedElements)
+            if ((relationshipName == null) || (pruneRelationshipName(relationshipName, queryOptions) != null))
             {
-                if (retrievedElement != null)
-                {
-                    List<String> coveredRelationshipsGUIDs = new ArrayList<>();
+                /*
+                 * If all relationships
+                 */
+                List<RelatedMetadataElementSummary> results = new ArrayList<>();
 
-                    results.add(getElementHierarchy(userId,
-                                                    retrievedElement,
-                                                    parentEnd,
-                                                    relationshipName,
-                                                    sideRelationshipNames,
-                                                    queryOptions,
-                                                    currentDepth,
-                                                    coveredRelationshipsGUIDs));
+                List<String> prunedSideRelationshipNames = pruneRelationshipNames(sideRelationshipNames, queryOptions);
+
+                for (RelatedMetadataElementSummary retrievedElement : retrievedElements)
+                {
+                    if (retrievedElement != null)
+                    {
+                        List<String> coveredRelationshipsGUIDs = new ArrayList<>();
+
+                        results.add(getElementHierarchy(userId,
+                                                        retrievedElement,
+                                                        parentEnd,
+                                                        relationshipName,
+                                                        prunedSideRelationshipNames,
+                                                        queryOptions,
+                                                        currentDepth,
+                                                        coveredRelationshipsGUIDs));
+                    }
+                }
+
+                if (! results.isEmpty())
+                {
+                    return results;
                 }
             }
-
-            return results;
         }
 
         return null;
+    }
+
+
+    /**
+     * Remove any relationship names explicitly excluded from the query.
+     *
+     * @param relationshipNames list of relationship names
+     * @param queryOptions      options from the caller
+     * @return required list of relationship names
+     */
+    private List<String> pruneRelationshipNames(List<String> relationshipNames,
+                                                QueryOptions queryOptions)
+    {
+        if (relationshipNames != null)
+        {
+            List<String> results = new ArrayList<>();
+
+            for (String relationshipName : relationshipNames)
+            {
+                if (pruneRelationshipName(relationshipName, queryOptions) != null)
+                {
+                    results.add(relationshipName);
+                }
+            }
+
+            if (!results.isEmpty())
+            {
+                return results;
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Work out if this relationship is needed.
+     *
+     * @param relationshipName relationship type name
+     * @param queryOptions options from the caller
+     * @return null or the relationship to retrieve
+     */
+    private String pruneRelationshipName(String       relationshipName,
+                                         QueryOptions queryOptions)
+    {
+        if ((queryOptions != null) &&
+                ((queryOptions.getSkipRelationships() != null) ||
+                (queryOptions.getIncludeOnlyRelationships() != null)))
+        {
+            if (relationshipName != null)
+            {
+                /*
+                 * If the relationship is in the skip list, then return null.
+                 */
+                if ((queryOptions.getSkipRelationships() != null) && (queryOptions.getSkipRelationships().contains(relationshipName)))
+                {
+                    return null;
+                }
+
+                /*
+                 * If the relationship is not in the include list, then return null.
+                 */
+                if ((queryOptions.getIncludeOnlyRelationships() != null) && (!queryOptions.getIncludeOnlyRelationships().contains(relationshipName)))
+                {
+                    return null;
+                }
+            }
+        }
+
+        return relationshipName;
     }
 
 

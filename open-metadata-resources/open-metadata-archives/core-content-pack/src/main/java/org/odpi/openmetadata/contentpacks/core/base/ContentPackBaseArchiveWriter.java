@@ -9,6 +9,7 @@ import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.M
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStoreConfigurationProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.SolutionComponentDefinition;
+import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.AnnotationTypeType;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.RequestParameterType;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.NewActionTarget;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
@@ -20,6 +21,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.refdata.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.DataType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.AnnotationType;
 import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyActionGuard;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Classification;
@@ -27,6 +29,8 @@ import org.odpi.openmetadata.samples.archiveutilities.EgeriaBaseArchiveWriter;
 import org.odpi.openmetadata.samples.archiveutilities.GovernanceActionDescription;
 
 import java.util.*;
+
+import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues.constructValidValueQualifiedName;
 
 
 /**
@@ -71,6 +75,24 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
             deployedImplementationTypeQNAMEs.put(deployedImplementationType.getDeployedImplementationType(),
                                                  deployedImplementationType.getQualifiedName());
         }
+    }
+
+
+    /**
+     * Add an analysis step as a valid metadata value to the archive.
+     *
+     * @param name name to add
+     * @param description description to add
+     */
+    protected void addAnalysisStep(String name,
+                                   String description)
+    {
+        this.addValidMetadataValue(name,
+                                   description,
+                                   OpenMetadataProperty.ANALYSIS_STEP.name,
+                                   null,
+                                   null,
+                                   name);
     }
 
 
@@ -1899,6 +1921,53 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                      governanceActionTypeGUID,
                                      supportedElementQualifiedName);
 
+
+        /*
+         * Create a report type and link it to the governance action type.
+         */
+        String reportTypeGUID = null;
+        if (governanceActionDescription.supportedAnnotationTypes != null)
+        {
+            String qualifiedName = governanceEngineName + "::" + governanceRequestType;
+            String displayName = governanceRequestType + " (" + governanceEngineName + ")";
+
+            reportTypeGUID = archiveHelper.addCollection(OpenMetadataType.REPORT_TYPE.typeName,
+                                                         governanceActionTypeGUID,
+                                                         OpenMetadataType.GOVERNANCE_ACTION_TYPE.typeName,
+                                                         OpenMetadataType.AUTHORED_REFERENCEABLE.typeName,
+                                                         null,
+                                                         null,
+                                                         qualifiedName + "::" + OpenMetadataType.REPORT_TYPE.typeName,
+                                                         "Survey report produced by " + displayName,
+                                                         governanceActionDescription.governanceServiceDescription,
+                                                         null,
+                                                         null,
+                                                         null,
+                                                         null);
+
+            archiveHelper.addImplementedByRelationship(reportTypeGUID, governanceActionTypeGUID, null, null, null, null);
+
+            for (AnnotationTypeType annotationTypeType : governanceActionDescription.supportedAnnotationTypes)
+            {
+                if (annotationTypeType != null)
+                {
+                    String annotationTypeGUID = archiveHelper.getGUID(constructValidValueQualifiedName(null,
+                                                                                                       OpenMetadataProperty.ANNOTATION_TYPE.name,
+                                                                                                       null,
+                                                                                                       annotationTypeType.getName()));
+
+                    if (annotationTypeGUID != null)
+                    {
+                        archiveHelper.addMemberToCollection(reportTypeGUID, annotationTypeGUID, null);
+                    }
+                    else
+                    {
+                        System.out.println("WARNING: No annotation type GUID for " + annotationTypeType.getName());
+                    }
+                }
+            }
+        }
+
         if (solutionComponentGUID != null)
         {
             String qualifiedName = OpenMetadataType.SOLUTION_COMPONENT.typeName + "::" + OpenMetadataType.GOVERNANCE_ACTION_TYPE.typeName + "::" + governanceActionTypeGUID;
@@ -1957,6 +2026,15 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                        null,
                                                        null,
                                                        null);
+
+            if (reportTypeGUID != null)
+            {
+                archiveHelper.addSolutionLinkingWireRelationship(solutionComponentGUID,
+                                                                 reportTypeGUID,
+                                                                 "creates report",
+                                                                 "Reports are created that follow the specification laid out by the report type.",
+                                                                 null);
+            }
         }
     }
 
@@ -1988,13 +2066,16 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
 
         archiveHelper.setGUID(governanceActionTypeQualifiedName, governanceActionTypeGUID);
 
+        String qualifiedName = governanceEngineName + "::" + governanceRequestType;
+        String displayName = governanceRequestType + " (" + governanceEngineName + ")";
+
         String guid = archiveHelper.addGovernanceActionType(null,
                                                             governanceEngineGUID,
                                                             governanceEngineTypeName,
                                                             OpenMetadataType.SOFTWARE_CAPABILITY.typeName,
                                                             null,
-                                                            governanceEngineName + "::" + governanceRequestType,
-                                                            governanceRequestType + " (" + governanceEngineName + ")",
+                                                            qualifiedName,
+                                                            displayName,
                                                             governanceActionDescription.governanceServiceDescription,
                                                             0,
                                                             governanceActionDescription.supportedRequestParameters,

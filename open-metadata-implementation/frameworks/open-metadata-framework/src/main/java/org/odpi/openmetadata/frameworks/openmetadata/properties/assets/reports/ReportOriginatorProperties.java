@@ -26,7 +26,7 @@ public class ReportOriginatorProperties extends LabeledRelationshipProperties
     public ReportOriginatorProperties()
     {
         super();
-        super.typeName = OpenMetadataType.REPORT_ORIGINATOR.typeName;
+        super.typeName = OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP.typeName;
     }
 
 

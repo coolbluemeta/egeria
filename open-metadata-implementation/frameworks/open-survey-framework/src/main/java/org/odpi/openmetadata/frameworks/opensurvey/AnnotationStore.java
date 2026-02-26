@@ -128,7 +128,7 @@ public class AnnotationStore
 
         newElementOptions.setParentGUID(assetGUID);
         newElementOptions.setParentAtEnd1(true);
-        newElementOptions.setParentRelationshipTypeName(OpenMetadataType.REPORT_SUBJECT.typeName);
+        newElementOptions.setParentRelationshipTypeName(OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName);
 
 
         this.surveyReportGUID = openMetadataStore.createMetadataElementInStore(userId,
@@ -141,7 +141,7 @@ public class AnnotationStore
         if ((surveyReportGUID != null) && (engineActionGUID != null))
         {
             openMetadataStore.createRelatedElementsInStore(userId,
-                                                           OpenMetadataType.REPORT_ORIGINATOR.typeName,
+                                                           OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP.typeName,
                                                            engineActionGUID,
                                                            surveyReportGUID,
                                                            new MakeAnchorOptions(newElementOptions),

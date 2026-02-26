@@ -8,6 +8,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.refdata.Category;
 import org.odpi.openmetadata.frameworks.openmetadata.types.DataType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.AnnotationType;
 import org.odpi.openmetadata.opentypes.OpenMetadataTypesArchive;
 import org.odpi.openmetadata.repositoryservices.archiveutilities.OMRSArchiveBuilder;
 import org.odpi.openmetadata.repositoryservices.archiveutilities.OMRSArchiveWriter;
@@ -210,6 +211,57 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
             return parentSetGUID;
         }
     }
+
+
+
+
+    /**
+     * Add an annotation type as a valid metadata value to the archive.
+     *
+     * @param annotationType annotation type to add
+     */
+    protected void addAnnotationType(AnnotationType annotationType)
+    {
+        String qualifiedName = constructValidValueQualifiedName(null,
+                                                                OpenMetadataProperty.ANNOTATION_TYPE.name,
+                                                                null,
+                                                                annotationType.getName());
+
+        Map<String, String> additionalProperties = new HashMap<>();
+
+        additionalProperties.put(OpenMetadataProperty.EXPLANATION.name, annotationType.getExplanation());
+        additionalProperties.put(OpenMetadataProperty.EXPRESSION.name, annotationType.getExpression());
+
+        if (annotationType.getMetrics() != null)
+        {
+            for (String metricName : annotationType.getMetrics().keySet())
+            {
+                additionalProperties.put("metric." + metricName, annotationType.getMetrics().get(metricName));
+            }
+        }
+
+        this.addValidMetadataValue(archiveHelper.getGUID(qualifiedName),
+                                   annotationType.getName(),
+                                   annotationType.getSummary(),
+                                   OpenMetadataProperty.ANNOTATION_TYPE.name,
+                                   null,
+                                   annotationType.getOpenMetadataTypeName(),
+                                   null,
+                                   annotationType.getName(),
+                                   additionalProperties);
+
+
+        if (annotationType.getAnalysisStep() != null)
+        {
+            String analysisStepQName = constructValidValueQualifiedName(null,
+                                                                        OpenMetadataProperty.ANALYSIS_STEP.name,
+                                                                        null,
+                                                                        annotationType.getAnalysisStep());
+            this.archiveHelper.addConsistentValidValueRelationship(qualifiedName, analysisStepQName);
+        }
+    }
+
+
 
 
     /**

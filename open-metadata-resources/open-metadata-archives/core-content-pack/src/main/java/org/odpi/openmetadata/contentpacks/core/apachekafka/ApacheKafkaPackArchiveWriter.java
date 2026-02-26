@@ -2,6 +2,8 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.contentpacks.core.apachekafka;
 
+import org.odpi.openmetadata.adapters.connectors.apacheatlas.survey.controls.AtlasAnnotationType;
+import org.odpi.openmetadata.adapters.connectors.apachekafka.survey.controls.KafkaAnnotationType;
 import org.odpi.openmetadata.adapters.connectors.controls.KafkaDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.integration.KafkaTopicIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.apachekafka.resource.ApacheKafkaAdminProvider;
@@ -50,6 +52,15 @@ public class ApacheKafkaPackArchiveWriter extends ContentPackBaseArchiveWriter
         for (KafkaDeployedImplementationType deployedImplementationType : KafkaDeployedImplementationType.values())
         {
             this.addDeployedImplementationType(deployedImplementationType);
+        }
+
+
+        /*
+         * Add valid metadata values for the Survey Action Framework standard controls.
+         */
+        for (KafkaAnnotationType annotationType : KafkaAnnotationType.values())
+        {
+            this.addAnnotationType(annotationType);
         }
 
         /*

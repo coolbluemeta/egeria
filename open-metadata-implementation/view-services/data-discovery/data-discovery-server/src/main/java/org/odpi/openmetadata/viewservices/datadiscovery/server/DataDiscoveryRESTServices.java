@@ -710,11 +710,11 @@ public class DataDiscoveryRESTServices extends TokenController
 
 
     /**
-     * Attach a data class annotation to a data class.
+     * Attach an annotation to an element that has been matched with the subject of the survey.
      *
      * @param serverName         name of called server
      * @param annotationGUID               unique identifier of the annotation
-     * @param dataClassGUID         unique identifier of the associated data class
+     * @param elementGUID         unique identifier of the associated element
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -722,12 +722,12 @@ public class DataDiscoveryRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse linkDataClassMatch(String                     serverName,
-                                           String                     annotationGUID,
-                                           String                     dataClassGUID,
-                                           NewRelationshipRequestBody requestBody)
+    public VoidResponse linkAnnotationMatch(String                     serverName,
+                                            String                     annotationGUID,
+                                            String                     elementGUID,
+                                            NewRelationshipRequestBody requestBody)
     {
-        final String methodName = "linkDataClassMatch";
+        final String methodName = "linkAnnotationMatch";
 
         RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
@@ -749,7 +749,7 @@ public class DataDiscoveryRESTServices extends TokenController
                 {
                     handler.linkAnnotationMatch(userId,
                                                 annotationGUID,
-                                                dataClassGUID,
+                                                elementGUID,
                                                 requestBody,
                                                 annotationMatchProperties);
                 }
@@ -757,7 +757,7 @@ public class DataDiscoveryRESTServices extends TokenController
                 {
                     handler.linkAnnotationMatch(userId,
                                                 annotationGUID,
-                                                dataClassGUID,
+                                                elementGUID,
                                                 requestBody,
                                                 null);
                 }
@@ -770,7 +770,7 @@ public class DataDiscoveryRESTServices extends TokenController
             {
                 handler.linkAnnotationMatch(userId,
                                             annotationGUID,
-                                            dataClassGUID,
+                                            elementGUID,
                                             null,
                                             null);
             }
@@ -786,11 +786,11 @@ public class DataDiscoveryRESTServices extends TokenController
 
 
     /**
-     * Detach a data class annotation from a data class.
+     * Remove an AnnotationMatch relationship.
      *
      * @param serverName         name of called server
      * @param annotationGUID     unique identifier of the annotation
-     * @param dataClassGUID     unique identifier of the associated data class
+     * @param elementGUID     unique identifier of the associated element
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -798,12 +798,12 @@ public class DataDiscoveryRESTServices extends TokenController
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public VoidResponse detachDataClassMatch(String                        serverName,
-                                             String                        annotationGUID,
-                                             String                        dataClassGUID,
-                                             DeleteRelationshipRequestBody requestBody)
+    public VoidResponse detachAnnotationMatch(String                        serverName,
+                                              String                        annotationGUID,
+                                              String                        elementGUID,
+                                              DeleteRelationshipRequestBody requestBody)
     {
-        final String methodName = "detachDataClassMatch";
+        final String methodName = "detachAnnotationMatch";
 
         RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
 
@@ -820,7 +820,7 @@ public class DataDiscoveryRESTServices extends TokenController
 
             AnnotationHandler handler = instanceHandler.getAnnotationHandler(userId, serverName, methodName);
 
-            handler.detachAnnotationMatch(userId, annotationGUID, dataClassGUID, requestBody);
+            handler.detachAnnotationMatch(userId, annotationGUID, elementGUID, requestBody);
         }
         catch (Throwable error)
         {

@@ -3,6 +3,8 @@
 
 package org.odpi.openmetadata.frameworks.opensurvey.controls;
 
+import java.util.Map;
+
 /**
  * The AnnotationType interface is implemented by an enum that describes the annotation types produced
  * by a survey action service.  This interface is a template for survey writers to use to take advantage of
@@ -56,4 +58,15 @@ public interface AnnotationType
      * @return string
      */
      String getExpression();
+
+
+    /**
+     * Return the metrics created in the survey processing.
+     *
+     * @return metrics
+     */
+    default Map<String,String> getMetrics()
+    {
+        return null;
+    }
 }

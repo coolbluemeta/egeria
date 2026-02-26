@@ -12536,33 +12536,6 @@ public class OpenMetadataPropertyConverterBase
                 ((DataFlowProperties)relationshipBeanProperties).setFormula(this.removeFormula(elementProperties));
                 ((DataFlowProperties)relationshipBeanProperties).setFormulaType(this.removeFormulaType(elementProperties));
             }
-            else if (propertyHelper.isTypeOf(relationshipHeader, OpenMetadataType.DATA_GRAIN_ASSIGNMENT_RELATIONSHIP.typeName))
-            {
-                relationshipBeanProperties = new DataGrainAssignmentProperties();
-
-                ((DataGrainAssignmentProperties)relationshipBeanProperties).setMethod(this.removeMethod(elementProperties));
-                ((DataGrainAssignmentProperties)relationshipBeanProperties).setSource(this.removeSource(elementProperties));
-                ((DataGrainAssignmentProperties)relationshipBeanProperties).setThreshold(this.removeThreshold(elementProperties));
-                ((DataGrainAssignmentProperties)relationshipBeanProperties).setAssignmentStatus(this.removeDataValueAssignmentStatus(elementProperties));
-                ((DataGrainAssignmentProperties)relationshipBeanProperties).setConfidence(this.removeConfidence(elementProperties));
-                ((DataGrainAssignmentProperties)relationshipBeanProperties).setSteward(this.removeSteward(elementProperties));
-                ((DataGrainAssignmentProperties)relationshipBeanProperties).setStewardTypeName(this.removeStewardTypeName(elementProperties));
-                ((DataGrainAssignmentProperties)relationshipBeanProperties).setStewardPropertyName(this.removeStewardPropertyName(elementProperties));
-            }
-            else if (propertyHelper.isTypeOf(relationshipHeader, OpenMetadataType.DATA_GRAIN_DEFINITION_RELATIONSHIP.typeName))
-            {
-                relationshipBeanProperties = new DataGrainDefinitionProperties();
-
-                ((DataGrainDefinitionProperties)relationshipBeanProperties).setLabel(this.removeLabel(elementProperties));
-                ((DataGrainDefinitionProperties)relationshipBeanProperties).setDescription(this.removeDescription(elementProperties));
-            }
-            else if (propertyHelper.isTypeOf(relationshipHeader, OpenMetadataType.DATA_GRAIN_HIERARCHY_RELATIONSHIP.typeName))
-            {
-                relationshipBeanProperties = new DataGrainHierarchyProperties();
-
-                ((DataGrainHierarchyProperties)relationshipBeanProperties).setLabel(this.removeLabel(elementProperties));
-                ((DataGrainHierarchyProperties)relationshipBeanProperties).setDescription(this.removeDescription(elementProperties));
-            }
             else if (propertyHelper.isTypeOf(relationshipHeader, OpenMetadataType.DATA_MAPPING_RELATIONSHIP.typeName))
             {
                 relationshipBeanProperties = new DataMappingProperties();
@@ -13126,14 +13099,14 @@ public class OpenMetadataPropertyConverterBase
                 ((ReportDependencyProperties)relationshipBeanProperties).setLabel(this.removeLabel(elementProperties));
                 ((ReportDependencyProperties)relationshipBeanProperties).setDescription(this.removeDescription(elementProperties));
             }
-            else if (propertyHelper.isTypeOf(relationshipHeader, OpenMetadataType.REPORT_ORIGINATOR.typeName))
+            else if (propertyHelper.isTypeOf(relationshipHeader, OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP.typeName))
             {
                 relationshipBeanProperties = new ReportOriginatorProperties();
 
                 ((ReportOriginatorProperties)relationshipBeanProperties).setLabel(this.removeLabel(elementProperties));
                 ((ReportOriginatorProperties)relationshipBeanProperties).setDescription(this.removeDescription(elementProperties));
             }
-            else if (propertyHelper.isTypeOf(relationshipHeader, OpenMetadataType.REPORT_SUBJECT.typeName))
+            else if (propertyHelper.isTypeOf(relationshipHeader, OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName))
             {
                 relationshipBeanProperties = new ReportSubjectProperties();
 

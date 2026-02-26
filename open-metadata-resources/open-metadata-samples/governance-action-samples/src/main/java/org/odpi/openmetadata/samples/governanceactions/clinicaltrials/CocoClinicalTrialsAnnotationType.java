@@ -199,6 +199,27 @@ public enum CocoClinicalTrialsAnnotationType implements AnnotationType
 
 
     /**
+     * Return the metrics created in the survey processing.
+     *
+     * @return metrics
+     */
+    @Override
+    public Map<String,String> getMetrics()
+    {
+        if (metrics != null)
+        {
+            Map<String, String> metricsMap = new HashMap<>();
+            for (SurveyMetric surveyMetric : metrics)
+            {
+                metricsMap.put(surveyMetric.getDisplayName(), surveyMetric.getDescription());
+            }
+            return metricsMap;
+        }
+
+        return null;
+    }
+
+    /**
      * Return the description of this annotation type that can be used in a Connector Provider for a
      * Survey Action Service.
      *

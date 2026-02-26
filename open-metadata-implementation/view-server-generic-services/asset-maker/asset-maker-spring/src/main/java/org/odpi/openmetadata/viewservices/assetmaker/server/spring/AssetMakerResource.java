@@ -65,9 +65,9 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/asset"))
 
     public GUIDResponse createAsset(@PathVariable String                               serverName,
-                                         @PathVariable String             urlMarker,
-                                         @RequestBody (required = false)
-                                         NewElementRequestBody requestBody)
+                                    @PathVariable String             urlMarker,
+                                    @RequestBody (required = false)
+                                    NewElementRequestBody requestBody)
     {
         return restAPI.createAsset(serverName, urlMarker, requestBody);
     }
@@ -96,7 +96,7 @@ public class AssetMakerResource
     public GUIDResponse createAssetFromTemplate(@PathVariable String              serverName,
                                                 @PathVariable String             urlMarker,
                                                 @RequestBody (required = false)
-                                                    TemplateRequestBody requestBody)
+                                                TemplateRequestBody requestBody)
     {
         return restAPI.createAssetFromTemplate(serverName, urlMarker, requestBody);
     }
@@ -123,12 +123,12 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/asset"))
 
     public BooleanResponse updateAsset(@PathVariable
-                                         String                                  serverName,
-                                         @PathVariable String             urlMarker,
-                                         @PathVariable
-                                         String                                  assetGUID,
-                                         @RequestBody (required = false)
-                                         UpdateElementRequestBody requestBody)
+                                       String                                  serverName,
+                                       @PathVariable String             urlMarker,
+                                       @PathVariable
+                                       String                                  assetGUID,
+                                       @RequestBody (required = false)
+                                       UpdateElementRequestBody requestBody)
     {
         return restAPI.updateAsset(serverName, urlMarker, assetGUID, requestBody);
     }
@@ -155,12 +155,12 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/asset"))
 
     public VoidResponse deleteAsset(@PathVariable
-                                         String                    serverName,
-                                         @PathVariable String             urlMarker,
-                                         @PathVariable
-                                         String                    assetGUID,
-                                         @RequestBody (required = false)
-                                         DeleteElementRequestBody requestBody)
+                                    String                    serverName,
+                                    @PathVariable String             urlMarker,
+                                    @PathVariable
+                                    String                    assetGUID,
+                                    @RequestBody (required = false)
+                                    DeleteElementRequestBody requestBody)
     {
         return restAPI.deleteAsset(serverName, urlMarker, assetGUID, requestBody);
     }
@@ -186,10 +186,10 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/asset"))
 
     public OpenMetadataRootElementsResponse getAssetsByName(@PathVariable
-                                                                 String            serverName,
-                                                                 @PathVariable String             urlMarker,
-                                                                 @RequestBody (required = false)
-                                                                 FilterRequestBody requestBody)
+                                                            String            serverName,
+                                                            @PathVariable String             urlMarker,
+                                                            @RequestBody (required = false)
+                                                            FilterRequestBody requestBody)
     {
         return restAPI.getAssetsByName(serverName, urlMarker, requestBody);
     }
@@ -215,10 +215,10 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/asset"))
 
     public OpenMetadataRootElementsResponse findAssets(@PathVariable
-                                                           String                  serverName,
+                                                       String                  serverName,
                                                        @PathVariable String             urlMarker,
                                                        @RequestBody (required = false)
-                                                           SearchStringRequestBody requestBody)
+                                                       SearchStringRequestBody requestBody)
     {
         return restAPI.findAssets(serverName, urlMarker,  requestBody);
     }
@@ -245,12 +245,12 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/asset"))
 
     public OpenMetadataRootElementResponse getAssetByGUID(@PathVariable
-                                                               String             serverName,
-                                                               @PathVariable String             urlMarker,
-                                                               @PathVariable
-                                                               String             assetGUID,
-                                                               @RequestBody (required = false)
-                                                               GetRequestBody requestBody)
+                                                          String             serverName,
+                                                          @PathVariable String             urlMarker,
+                                                          @PathVariable
+                                                          String             assetGUID,
+                                                          @RequestBody (required = false)
+                                                          GetRequestBody requestBody)
     {
         return restAPI.getAssetByGUID(serverName, urlMarker, assetGUID, requestBody);
     }
@@ -344,7 +344,7 @@ public class AssetMakerResource
     public OpenMetadataRootElementsResponse findInfrastructure(@PathVariable String            serverName,
                                                                @PathVariable String             urlMarker,
                                                                @RequestBody  (required = false)
-                                                                   DeploymentStatusSearchString requestBody)
+                                                               DeploymentStatusSearchString requestBody)
     {
         return restAPI.findInfrastructure(serverName, urlMarker, requestBody);
     }
@@ -406,7 +406,7 @@ public class AssetMakerResource
                                       @PathVariable String assetGUID,
                                       @PathVariable String destinationGUID,
                                       @RequestBody (required = false)
-                                          NewRelationshipRequestBody requestBody)
+                                      NewRelationshipRequestBody requestBody)
     {
         return restAPI.deployITAsset(serverName, urlMarker, assetGUID, destinationGUID, requestBody);
     }
@@ -439,7 +439,7 @@ public class AssetMakerResource
                                         @PathVariable String assetGUID,
                                         @PathVariable String destinationGUID,
                                         @RequestBody  (required = false)
-                                            DeleteRelationshipRequestBody requestBody)
+                                        DeleteRelationshipRequestBody requestBody)
     {
         return restAPI.unDeployITAsset(serverName, urlMarker, assetGUID, destinationGUID, requestBody);
     }
@@ -501,11 +501,11 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/asset"))
 
     public VoidResponse detachSoftwareCapability(@PathVariable String                        serverName,
-                                             @PathVariable String                        urlMarker,
-                                             @PathVariable String assetGUID,
-                                             @PathVariable String capabilityGUID,
-                                             @RequestBody  (required = false)
-                                             DeleteRelationshipRequestBody requestBody)
+                                                 @PathVariable String                        urlMarker,
+                                                 @PathVariable String assetGUID,
+                                                 @PathVariable String capabilityGUID,
+                                                 @RequestBody  (required = false)
+                                                 DeleteRelationshipRequestBody requestBody)
     {
         return restAPI.detachSoftwareCapability(serverName, urlMarker, assetGUID, capabilityGUID, requestBody);
     }
@@ -538,7 +538,7 @@ public class AssetMakerResource
     public OpenMetadataRootElementsResponse findDataAssets(@PathVariable String            serverName,
                                                            @PathVariable String             urlMarker,
                                                            @RequestBody  (required = false)
-                                                               ContentStatusSearchString requestBody)
+                                                           ContentStatusSearchString requestBody)
     {
         return restAPI.findDataAssets(serverName, urlMarker, requestBody);
     }
@@ -567,7 +567,7 @@ public class AssetMakerResource
     public OpenMetadataRootElementsResponse getDataAssetsByCategory(@PathVariable String            serverName,
                                                                     @PathVariable String             urlMarker,
                                                                     @RequestBody  (required = false)
-                                                                        ContentStatusFilterRequestBody requestBody)
+                                                                    ContentStatusFilterRequestBody requestBody)
     {
         return restAPI.getDataAssetsByCategory(serverName, urlMarker, requestBody);
     }
@@ -596,11 +596,11 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/asset"))
 
     public VoidResponse linkDataSetContent(@PathVariable String                  serverName,
-                                            @PathVariable String                  urlMarker,
-                                            @PathVariable String dataSetGUID,
-                                            @PathVariable String dataContentAssetGUID,
-                                            @RequestBody (required = false)
-                                            NewRelationshipRequestBody requestBody)
+                                           @PathVariable String                  urlMarker,
+                                           @PathVariable String dataSetGUID,
+                                           @PathVariable String dataContentAssetGUID,
+                                           @RequestBody (required = false)
+                                           NewRelationshipRequestBody requestBody)
     {
         return restAPI.linkDataSetContent(serverName, urlMarker, dataSetGUID, dataContentAssetGUID, requestBody);
     }
@@ -629,14 +629,219 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/asset"))
 
     public VoidResponse detachDataSetContent(@PathVariable String                        serverName,
-                                            @PathVariable String                        urlMarker,
-                                            @PathVariable String dataSetGUID,
-                                            @PathVariable String dataContentAssetGUID,
-                                            @RequestBody  (required = false)
-                                            DeleteRelationshipRequestBody requestBody)
+                                             @PathVariable String                        urlMarker,
+                                             @PathVariable String dataSetGUID,
+                                             @PathVariable String dataContentAssetGUID,
+                                             @RequestBody  (required = false)
+                                             DeleteRelationshipRequestBody requestBody)
     {
         return restAPI.detachDataSetContent(serverName, urlMarker, dataSetGUID, dataContentAssetGUID, requestBody);
     }
+
+
+
+    /*
+     * Reports
+     */
+
+
+    /**
+     * Create a relationship that identifies the originator of a report.
+     *
+     * @param serverName name of the server to route the request to
+     * @param originatorGUID       unique identifier of the originator
+     * @param reportGUID           unique identifier of the report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return  void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    @PostMapping("/elements/{originatorGUID}/originated-reports/{reportGUID}/attach")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="linkReportOriginator",
+            description="Create a relationship that identifies the originator of a report.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/report"))
+
+    public VoidResponse linkReportOriginator(@PathVariable String                     serverName,
+                                             @PathVariable String                     urlMarker,
+                                             @PathVariable String                     originatorGUID,
+                                             @PathVariable String                     reportGUID,
+                                             @RequestBody  (required = false)
+                                             NewRelationshipRequestBody requestBody)
+    {
+        return restAPI.linkReportOriginator(serverName, urlMarker, originatorGUID, reportGUID, requestBody);
+    }
+
+
+    /**
+     * Remove a ReportOriginator relationship.
+     *
+     * @param serverName name of the server to route the request to
+     * @param originatorGUID       unique identifier of the originator
+     * @param reportGUID           unique identifier of the report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    @PostMapping("/elements/{originatorGUID}/originated-reports/{reportGUID}/detach")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="unlinkReportOriginator",
+            description="Remove a ReportOriginator relationship.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/report"))
+
+    public VoidResponse unlinkReportOriginator(@PathVariable String                        serverName,
+                                               @PathVariable String                        urlMarker,
+                                               @PathVariable String                        originatorGUID,
+                                               @PathVariable String                        reportGUID,
+                                               @RequestBody  (required = false)
+                                               DeleteRelationshipRequestBody requestBody)
+    {
+        return restAPI.unlinkReportOriginator(serverName, urlMarker, originatorGUID, reportGUID, requestBody);
+    }
+
+
+    /**
+     * Create a relationship that identifies the prior publishing of a report.
+     *
+     * @param serverName name of the server to route the request to
+     * @param priorReportGUID       unique identifier of the earlier report
+     * @param reportGUID           unique identifier of the new report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return  void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    @PostMapping("/reports/{priorReportGUID}/follow-on-reports/{reportGUID}/attach")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="linkReportDependency",
+            description="Create a relationship that identifies the prior publishing of a report.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/report"))
+
+    public VoidResponse linkReportDependency(@PathVariable String                     serverName,
+                                             @PathVariable String                     urlMarker,
+                                             @PathVariable String                     priorReportGUID,
+                                             @PathVariable String                     reportGUID,
+                                             @RequestBody  (required = false)
+                                             NewRelationshipRequestBody requestBody)
+    {
+        return restAPI.linkReportDependency(serverName, urlMarker, priorReportGUID, reportGUID, requestBody);
+    }
+
+
+    /**
+     * Remove a ReportDependency relationship.
+     *
+     * @param serverName name of the server to route the request to
+     * @param priorReportGUID       unique identifier of the prior report
+     * @param reportGUID           unique identifier of the new report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    @PostMapping("/reports/{priorReportGUID}/follow-on-reports/{reportGUID}/detach")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="unlinkReportDependency",
+            description="Remove a ReportDependency relationship.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/report"))
+    public VoidResponse unlinkReportDependency(@PathVariable String                        serverName,
+                                               @PathVariable String                        urlMarker,
+                                               @PathVariable String                        priorReportGUID,
+                                               @PathVariable String                        reportGUID,
+                                               @RequestBody  (required = false)
+                                               DeleteRelationshipRequestBody requestBody)
+    {
+        return restAPI.unlinkReportDependency(serverName, urlMarker, priorReportGUID, reportGUID, requestBody);
+    }
+
+
+
+    /**
+     * Create a relationship that identifies the subject of a report.
+     *
+     * @param serverName name of the server to route the request to
+     * @param subjectGUID       unique identifier of the subject
+     * @param reportGUID           unique identifier of the report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return  void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    @PostMapping("/elements/{subjectGUID}/reports/{reportGUID}/attach")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="linkReportSubject",
+            description="Create a relationship that identifies the subject of a report.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/report"))
+
+    public VoidResponse linkReportSubject(@PathVariable String                     serverName,
+                                          @PathVariable String                     urlMarker,
+                                          @PathVariable String                     subjectGUID,
+                                          @PathVariable String                     reportGUID,
+                                          @RequestBody  (required = false)
+                                          NewRelationshipRequestBody requestBody)
+    {
+        return restAPI.linkReportSubject(serverName, urlMarker, subjectGUID, reportGUID, requestBody);
+    }
+
+
+    /**
+     * Remove a ReportSubject relationship.
+     *
+     * @param serverName name of the server to route the request to
+     * @param subjectGUID       unique identifier of the subject
+     * @param reportGUID           unique identifier of the report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    @PostMapping("/elements/{subjectGUID}/reports/{reportGUID}/detach")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="unlinkReportSubject",
+            description="Remove a ReportSubject relationship.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/report"))
+
+    public VoidResponse unlinkReportSubject(@PathVariable String                        serverName,
+                                            @PathVariable String                        urlMarker,
+                                            @PathVariable String                        subjectGUID,
+                                            @PathVariable String                        reportGUID,
+                                            @RequestBody  (required = false)
+                                            DeleteRelationshipRequestBody requestBody)
+    {
+        return restAPI.unlinkReportSubject(serverName, urlMarker, subjectGUID, reportGUID, requestBody);
+    }
+
 
     /* =====================================================================================================================
      * Actions are special types of processes
@@ -693,10 +898,10 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/action/"))
 
     public GUIDResponse addActionTarget(@PathVariable String                  serverName,
-                                         @PathVariable String             urlMarker,
-                                         @PathVariable String           actionGUID,
-                                         @PathVariable String                  metadataElementGUID,
-                                         @RequestBody (required = false) NewRelationshipRequestBody requestBody)
+                                        @PathVariable String             urlMarker,
+                                        @PathVariable String           actionGUID,
+                                        @PathVariable String                  metadataElementGUID,
+                                        @RequestBody (required = false) NewRelationshipRequestBody requestBody)
     {
         return restAPI.addActionTarget(serverName, urlMarker, actionGUID, metadataElementGUID, requestBody);
     }
@@ -754,10 +959,10 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/action/"))
 
     public OpenMetadataRelationshipResponse getActionTarget(@PathVariable String serverName,
-                                                             @PathVariable String             urlMarker,
-                                                             @PathVariable String actionTargetGUID,
-                                                             @RequestBody (required = false)
-                                                             GetRequestBody requestBody)
+                                                            @PathVariable String             urlMarker,
+                                                            @PathVariable String actionTargetGUID,
+                                                            @RequestBody (required = false)
+                                                            GetRequestBody requestBody)
     {
         return restAPI.getActionTarget(serverName, urlMarker, actionTargetGUID, requestBody);
     }
@@ -785,9 +990,9 @@ public class AssetMakerResource
                     url="https://egeria-project.org/concepts/action/"))
 
     public OpenMetadataRootElementsResponse getActionTargets(@PathVariable String serverName,
-                                                              @PathVariable String             urlMarker,
-                                                              @PathVariable String actionGUID,
-                                                              @RequestBody (required = false) ActivityStatusRequestBody requestBody)
+                                                             @PathVariable String             urlMarker,
+                                                             @PathVariable String actionGUID,
+                                                             @RequestBody (required = false) ActivityStatusRequestBody requestBody)
     {
         return restAPI.getActionTargets(serverName, urlMarker, actionGUID, requestBody);
     }
@@ -818,7 +1023,7 @@ public class AssetMakerResource
                                                                       @PathVariable String             urlMarker,
                                                                       @PathVariable String                elementGUID,
                                                                       @RequestBody  (required = false)
-                                                                          ActivityStatusRequestBody requestBody)
+                                                                      ActivityStatusRequestBody requestBody)
     {
         return restAPI.getActionsForActionTarget(serverName, urlMarker, elementGUID, requestBody);
     }
@@ -980,7 +1185,7 @@ public class AssetMakerResource
                                                                     @PathVariable String             urlMarker,
                                                                     @PathVariable String                elementGUID,
                                                                     @RequestBody  (required = false)
-                                                                        ActivityStatusRequestBody requestBody)
+                                                                    ActivityStatusRequestBody requestBody)
     {
         return restAPI.getActionsFromRequester(serverName, urlMarker, elementGUID, requestBody);
     }

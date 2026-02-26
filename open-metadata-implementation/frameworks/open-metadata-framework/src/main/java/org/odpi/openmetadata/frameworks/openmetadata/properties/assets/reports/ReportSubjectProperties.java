@@ -26,7 +26,7 @@ public class ReportSubjectProperties extends LabeledRelationshipProperties
     public ReportSubjectProperties()
     {
         super();
-        super.typeName = OpenMetadataType.REPORT_SUBJECT.typeName;
+        super.typeName = OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName;
     }
 
 
