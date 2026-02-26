@@ -2,6 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.contentpacks.core.apacheatlas;
 
+import org.odpi.openmetadata.adapters.connectors.apacheatlas.survey.controls.AtlasAnnotationType;
 import org.odpi.openmetadata.adapters.connectors.controls.AtlasDeployedImplementationType;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ApacheAtlasIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.apacheatlas.resource.ApacheAtlasRESTProvider;
@@ -11,6 +12,9 @@ import org.odpi.openmetadata.contentpacks.core.RequestTypeDefinition;
 import org.odpi.openmetadata.contentpacks.core.SoftwareServerTemplateDefinition;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
 import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.AnalysisStep;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyDatabaseAnnotationType;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyResourceManagerAnnotationType;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 
 import java.util.ArrayList;
@@ -50,6 +54,15 @@ public class ApacheAtlasPackArchiveWriter extends ContentPackBaseArchiveWriter
         {
             this.addDeployedImplementationType(deployedImplementationType);
         }
+
+        /*
+         * Add valid metadata values for the Survey Action Framework standard controls.
+         */
+        for (AtlasAnnotationType annotationType : AtlasAnnotationType.values())
+        {
+            this.addAnnotationType(annotationType);
+        }
+
 
         /*
          * Integration Connector Types may need to link to other deployedImplementationType valid value elements.

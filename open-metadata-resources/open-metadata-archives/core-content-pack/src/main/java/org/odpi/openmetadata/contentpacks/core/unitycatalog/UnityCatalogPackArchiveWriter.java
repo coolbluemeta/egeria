@@ -5,6 +5,7 @@ package org.odpi.openmetadata.contentpacks.core.unitycatalog;
 import org.odpi.openmetadata.adapters.connectors.EgeriaRoleDefinition;
 import org.odpi.openmetadata.adapters.connectors.datastore.datafolder.DataFolderProvider;
 import org.odpi.openmetadata.adapters.connectors.controls.UnityCatalogDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.unitycatalog.controls.UnityCatalogAnnotationType;
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.controls.UnityCatalogPlaceholderProperty;
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.controls.UnityCatalogTemplateType;
 import org.odpi.openmetadata.adapters.connectors.unitycatalog.provision.ProvisionUnityCatalogRequestParameter;
@@ -17,6 +18,7 @@ import org.odpi.openmetadata.contentpacks.core.RequestTypeDefinition;
 import org.odpi.openmetadata.contentpacks.core.SoftwareServerTemplateDefinition;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
 import org.odpi.openmetadata.contentpacks.core.core.CorePackArchiveWriter;
+import org.odpi.openmetadata.contentpacks.core.files.FilesArchiveWriter;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.SolutionComponentType;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.RequestParameterType;
@@ -47,7 +49,8 @@ public class UnityCatalogPackArchiveWriter extends ContentPackBaseArchiveWriter
               ContentPackDefinition.UNITY_CATALOG_CONTENT_PACK.getArchiveName(),
               ContentPackDefinition.UNITY_CATALOG_CONTENT_PACK.getArchiveDescription(),
               ContentPackDefinition.UNITY_CATALOG_CONTENT_PACK.getArchiveFileName(),
-              new OpenMetadataArchive[]{new CorePackArchiveWriter().getOpenMetadataArchive()});
+              new OpenMetadataArchive[]{new CorePackArchiveWriter().getOpenMetadataArchive(),
+              new FilesArchiveWriter().getOpenMetadataArchive()});
     }
 
 
@@ -64,6 +67,14 @@ public class UnityCatalogPackArchiveWriter extends ContentPackBaseArchiveWriter
         for (UnityCatalogDeployedImplementationType deployedImplementationType : UnityCatalogDeployedImplementationType.values())
         {
             this.addDeployedImplementationType(deployedImplementationType);
+        }
+
+        /*
+         * Add valid metadata values for the Survey Action Framework standard controls.
+         */
+        for (UnityCatalogAnnotationType annotationType : UnityCatalogAnnotationType.values())
+        {
+            this.addAnnotationType(annotationType);
         }
 
         /*

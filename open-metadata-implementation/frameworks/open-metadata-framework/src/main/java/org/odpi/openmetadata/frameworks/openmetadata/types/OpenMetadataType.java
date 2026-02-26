@@ -2677,22 +2677,22 @@ public enum OpenMetadataType
     /**
      * Links a report to the element (typically a process) that created the report.
      */
-    REPORT_ORIGINATOR("6d38cf1f-44ba-44f7-8ec9-029535544d0b",
-                      "ReportOriginator",
-                      OpenMetadataWikiPages.MODEL_0239_REPORTS,
-                      "c5fcbd04-4ba4-4d5a-abda-7c1b680e2b32",
-                      "Links a report to the element (typically a process) that created the report.",
-                      ReportOriginatorProperties.class),
+    REPORT_ORIGINATOR_RELATIONSHIP("6d38cf1f-44ba-44f7-8ec9-029535544d0b",
+                                   "ReportOriginator",
+                                   OpenMetadataWikiPages.MODEL_0239_REPORTS,
+                                   "c5fcbd04-4ba4-4d5a-abda-7c1b680e2b32",
+                                   "Links a report to the element (typically a process) that created the report.",
+                                   ReportOriginatorProperties.class),
 
     /**
      * Links a report to the element that the report is about.
      */
-    REPORT_SUBJECT("559211a7-ddd2-4f31-9f2f-2bf3021124c8",
-                   "ReportSubject",
-                   OpenMetadataWikiPages.MODEL_0239_REPORTS,
-                   "cba2f1ce-d3fa-4619-8310-382d8161aa5a",
-                   "Links a report to the element that the report is about.",
-                   ReportSubjectProperties.class),
+    REPORT_SUBJECT_RELATIONSHIP("559211a7-ddd2-4f31-9f2f-2bf3021124c8",
+                                "ReportSubject",
+                                OpenMetadataWikiPages.MODEL_0239_REPORTS,
+                                "cba2f1ce-d3fa-4619-8310-382d8161aa5a",
+                                "Links a report to the element that the report is about.",
+                                ReportSubjectProperties.class),
 
     /**
      * Links a report to another related report.  There is a sense of time in this relationship.
@@ -4965,35 +4965,6 @@ public enum OpenMetadataType
                "A characterization of the granularity of data - usually expressed per row/object in a data source.",
                DataGrainProperties.class),
 
-    /**
-     * Links a data grain to an element to define the granularity of its data.
-     */
-    DATA_GRAIN_ASSIGNMENT_RELATIONSHIP("46ade3dd-50bf-4619-b056-ac40ed61a800",
-                                       "DataGrainAssignment",
-                                       OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
-                                       "f971a531-8066-4077-88f0-8d3f5c1c23be",
-                                       "Links a data grain to an element to define the granularity of its data.",
-                                       DataGrainAssignmentProperties.class),
-
-    /**
-     * Links an element with its granularity definition in the form of a data grain.
-     */
-    DATA_GRAIN_DEFINITION_RELATIONSHIP("a9d32b5d-f133-4fdc-8eb3-a8b0b51085ad",
-                                       "DataGrainDefinition",
-                                       OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
-                                       "37b3fa4b-8282-45d6-a0fe-9b5914485a49",
-                                       "Links an element with its granularity definition in the form of a data grain.",
-                                       DataGrainDefinitionProperties.class),
-
-    /**
-     * Links a data grain to another in a parent child hierarchy.
-     */
-    DATA_GRAIN_HIERARCHY_RELATIONSHIP("85f27314-90c2-4e8c-9de7-72f7b7b01b36",
-                                      "DataGrainHierarchy",
-                                      OpenMetadataWikiPages.MODEL_0540_DATA_VALUE_SSPECIFICATION,
-                                      "546aedf6-65b5-4293-b7e4-7722907692e8",
-                                      "Links a data grain to another in a parent child hierarchy.",
-                                      DataGrainHierarchyProperties.class),
     /**
      * A single valid value for a referenceable.
      */

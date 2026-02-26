@@ -445,7 +445,7 @@ public class SpringRESTClientConnector extends RESTClientConnector
      * Issue a POST REST call that returns a response object.  This is typically a create, update, or find with
      * complex parameters.
      *
-     * @param <T> type of the return object
+     * @param <T> class of the return object
      * @param methodName  name of the method being called.
      * @param returnClass class of the response object.
      * @param urlTemplate  template of the URL for the REST API call with place-holders for the parameters.

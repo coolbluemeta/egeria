@@ -386,11 +386,11 @@ public class DataDiscoveryResource
 
 
     /**
-     * Attach a data class annotation to a data class.
+     * Attach an annotation to an element that has been matched with the subject of the survey.
      *
      * @param serverName         name of called server
      * @param annotationGUID               unique identifier of the annotation
-     * @param dataClassGUID         unique identifier of the associated data class
+     * @param elementGUID         unique identifier of the associated data class
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -398,30 +398,30 @@ public class DataDiscoveryResource
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @PostMapping(path = "/annotations/{annotationGUID}/matched-data-classes/{dataClassGUID}/attach")
+    @PostMapping(path = "/annotations/{annotationGUID}/matched-elements/{elementGUID}/attach")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    @Operation(summary="linkDataClassMatch",
-            description="Attach a data class annotation to a data class.",
+    @Operation(summary="linkAnnotationMatch",
+            description="Attach an annotation to an element that has been matched with the subject of the survey.",
             externalDocs=@ExternalDocumentation(description="Further Information",
                     url="https://egeria-project.org/concepts/annotation"))
 
-    public VoidResponse linkDataClassMatch(@PathVariable String                     serverName,
+    public VoidResponse linkAnnotationMatch(@PathVariable String                     serverName,
                                            @PathVariable String                     annotationGUID,
-                                           @PathVariable String                     dataClassGUID,
+                                           @PathVariable String                     elementGUID,
                                            @RequestBody (required = false)
                                            NewRelationshipRequestBody requestBody)
     {
-        return restAPI.linkDataClassMatch(serverName, annotationGUID, dataClassGUID, requestBody);
+        return restAPI.linkAnnotationMatch(serverName, annotationGUID, elementGUID, requestBody);
     }
 
 
     /**
-     * Detach a data class annotation from a data class.
+     * Remove an AnnotationMatch relationship.
      *
      * @param serverName         name of called server
      * @param annotationGUID     unique identifier of the annotation
-     * @param dataClassGUID     unique identifier of the associated data class
+     * @param elementGUID     unique identifier of the associated data class
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -429,21 +429,21 @@ public class DataDiscoveryResource
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @PostMapping(path = "/annotations/{annotationGUID}/matched-data-classes/{dataClassGUID}/detach")
+    @PostMapping(path = "/annotations/{annotationGUID}/matched-elements/{elementGUID}/detach")
     @SecurityRequirement(name = "BearerAuthorization")
 
-    @Operation(summary="detachDataClassMatch",
-            description="Detach a data class annotation from a data class.",
+    @Operation(summary="detachAnnotationMatch",
+            description="Remove an AnnotationMatch relationship.",
             externalDocs=@ExternalDocumentation(description="Further Information",
                     url="https://egeria-project.org/concepts/annotation"))
 
-    public VoidResponse detachDataClassMatch(@PathVariable String                        serverName,
+    public VoidResponse detachAnnotationMatch(@PathVariable String                        serverName,
                                              @PathVariable String                        annotationGUID,
-                                             @PathVariable String                        dataClassGUID,
+                                             @PathVariable String                       elementGUID,
                                              @RequestBody (required = false)
                                              DeleteRelationshipRequestBody requestBody)
     {
-        return restAPI.detachDataClassMatch(serverName, annotationGUID, dataClassGUID, requestBody);
+        return restAPI.detachAnnotationMatch(serverName, annotationGUID, elementGUID, requestBody);
     }
 
 

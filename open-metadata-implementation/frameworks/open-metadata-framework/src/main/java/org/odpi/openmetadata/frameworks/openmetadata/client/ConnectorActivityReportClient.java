@@ -87,7 +87,7 @@ public class ConnectorActivityReportClient
         newElementOptions.setAnchorScopeGUID(null);
         newElementOptions.setParentGUID(elementGUID);
         newElementOptions.setParentAtEnd1(true);
-        newElementOptions.setParentRelationshipTypeName(OpenMetadataType.REPORT_SUBJECT.typeName);
+        newElementOptions.setParentRelationshipTypeName(OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName);
         newElementOptions.setForLineage(true);
         newElementOptions.setForDuplicateProcessing(false);
 
@@ -170,7 +170,7 @@ public class ConnectorActivityReportClient
         RelatedMetadataElementList relatedMetadataElementList = openMetadataClient.getRelatedMetadataElements(userId,
                                                                                                               elementGUID,
                                                                                                               1,
-                                                                                                              OpenMetadataType.REPORT_SUBJECT.typeName,
+                                                                                                              OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName,
                                                                                                               queryOptions);
 
         return convertConnectorActivityReports(relatedMetadataElementList, methodName);

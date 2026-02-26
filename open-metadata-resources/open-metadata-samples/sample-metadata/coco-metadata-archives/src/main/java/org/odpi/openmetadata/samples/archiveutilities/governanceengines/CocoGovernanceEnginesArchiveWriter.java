@@ -24,6 +24,7 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.p
 import org.odpi.openmetadata.samples.archiveutilities.EgeriaBaseArchiveWriter;
 import org.odpi.openmetadata.samples.archiveutilities.GovernanceActionDescription;
 import org.odpi.openmetadata.samples.archiveutilities.governanceprogram.*;
+import org.odpi.openmetadata.samples.governanceactions.clinicaltrials.CocoClinicalTrialsAnnotationType;
 
 import java.util.*;
 
@@ -492,6 +493,14 @@ public class CocoGovernanceEnginesArchiveWriter extends EgeriaBaseArchiveWriter
         for (CocoGovernanceServiceDefinition governanceServiceDefinition : CocoGovernanceServiceDefinition.values())
         {
             this.addGovernanceServiceDefinition(governanceServiceDefinition);
+        }
+
+        /*
+         * Make sure the annotation types are catalogued for the report type (generated through the request types).
+         */
+        for (CocoClinicalTrialsAnnotationType annotationType : CocoClinicalTrialsAnnotationType.values())
+        {
+            super.addAnnotationType(annotationType);
         }
 
         archiveHelper.addSolutionRoles(List.of(SolutionRoleDefinition.values()));

@@ -447,7 +447,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
 
 
     /**
-     * Attach a data class annotation to a data class.
+     * Attach an annotation to an element that has been matched with the subject of the survey.
      *
      * @param userId                 userId of the user making the request
      * @param annotationGUID               unique identifier of the annotation
@@ -484,7 +484,7 @@ public class AnnotationHandler extends OpenMetadataHandlerBase
 
 
     /**
-     * Detach a data class annotation from a data class.
+     * Remove an AnnotationMatch relationship.
      *
      * @param userId                 userId of the user making the request.
      * @param annotationGUID               unique identifier of the annotation

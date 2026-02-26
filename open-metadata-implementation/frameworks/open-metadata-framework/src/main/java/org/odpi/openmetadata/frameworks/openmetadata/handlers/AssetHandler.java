@@ -10,9 +10,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.enums.ActivityStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.ContentStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.DeploymentStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.ToDoProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ImpactedResourceProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.IncidentReportProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportDependencyProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.*;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementOriginCategory;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.*;
 import org.odpi.openmetadata.frameworks.openmetadata.mermaid.AssetGraphMermaidGraphBuilder;
@@ -499,7 +497,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
         newElementOptions.setIsOwnAnchor(true);
         newElementOptions.setParentAtEnd1(true);
         newElementOptions.setParentGUID(originatorGUID);
-        newElementOptions.setParentRelationshipTypeName(OpenMetadataType.REPORT_ORIGINATOR.typeName);
+        newElementOptions.setParentRelationshipTypeName(OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP.typeName);
 
         String incidentReportGUID = this.createAsset(userId,
                                                      newElementOptions,
@@ -1450,6 +1448,229 @@ public class AssetHandler extends OpenMetadataHandlerBase
                                    methodName);
     }
 
+
+    /*
+     * Reports
+     */
+
+    /**
+     * Create a relationship that identifies the originator of a report.
+     *
+     * @param userId                 userId of the user making the request
+     * @param originatorGUID       unique identifier of the originator
+     * @param reportGUID           unique identifier of the report
+     * @param makeAnchorOptions  options to control access to open metadata
+     * @param relationshipProperties description of the relationship.
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void linkReportOriginator(String                     userId,
+                                     String                     originatorGUID,
+                                     String                     reportGUID,
+                                     MakeAnchorOptions          makeAnchorOptions,
+                                     ReportOriginatorProperties relationshipProperties) throws InvalidParameterException,
+                                                                                               PropertyServerException,
+                                                                                               UserNotAuthorizedException
+    {
+        final String methodName            = "linkReportOriginator";
+        final String end1GUIDParameterName = "originatorGUID";
+        final String end2GUIDParameterName = "reportGUID";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateGUID(originatorGUID, end1GUIDParameterName, methodName);
+        propertyHelper.validateGUID(reportGUID, end2GUIDParameterName, methodName);
+
+        openMetadataClient.createRelatedElementsInStore(userId,
+                                                        OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP.typeName,
+                                                        originatorGUID,
+                                                        reportGUID,
+                                                        makeAnchorOptions,
+                                                        relationshipBuilder.getNewElementProperties(relationshipProperties));
+    }
+
+
+    /**
+     * Remove a ReportOriginator relationship.
+     *
+     * @param userId                 userId of the user making the request.
+     * @param originatorGUID       unique identifier of the originator
+     * @param reportGUID           unique identifier of the report
+     * @param deleteOptions  options to control access to open metadata
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void unlinkReportOriginator(String        userId,
+                                       String        originatorGUID,
+                                       String        reportGUID,
+                                       DeleteOptions deleteOptions) throws InvalidParameterException,
+                                                                           PropertyServerException,
+                                                                           UserNotAuthorizedException
+    {
+        final String methodName = "unlinkReportOriginator";
+
+        final String end1GUIDParameterName = "originatorGUID";
+        final String end2GUIDParameterName = "reportGUID";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateGUID(originatorGUID, end1GUIDParameterName, methodName);
+        propertyHelper.validateGUID(reportGUID, end2GUIDParameterName, methodName);
+
+        openMetadataClient.detachRelatedElementsInStore(userId,
+                                                        OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP.typeName,
+                                                        originatorGUID,
+                                                        reportGUID,
+                                                        deleteOptions);
+    }
+
+
+    /**
+     * Create a relationship that identifies the prior publishing of a report.
+     *
+     * @param userId                 userId of the user making the request
+     * @param priorReportGUID       unique identifier of the earlier report
+     * @param reportGUID           unique identifier of the new report
+     * @param makeAnchorOptions  options to control access to open metadata
+     * @param relationshipProperties description of the relationship.
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void linkReportDependency(String                     userId,
+                                     String                     priorReportGUID,
+                                     String                     reportGUID,
+                                     MakeAnchorOptions          makeAnchorOptions,
+                                     ReportDependencyProperties relationshipProperties) throws InvalidParameterException,
+                                                                                               PropertyServerException,
+                                                                                               UserNotAuthorizedException
+    {
+        final String methodName            = "linkReportDependency";
+        final String end1GUIDParameterName = "priorReportGUID";
+        final String end2GUIDParameterName = "reportGUID";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateGUID(priorReportGUID, end1GUIDParameterName, methodName);
+        propertyHelper.validateGUID(reportGUID, end2GUIDParameterName, methodName);
+
+        openMetadataClient.createRelatedElementsInStore(userId,
+                                                        OpenMetadataType.REPORT_DEPENDENCY_RELATIONSHIP.typeName,
+                                                        priorReportGUID,
+                                                        reportGUID,
+                                                        makeAnchorOptions,
+                                                        relationshipBuilder.getNewElementProperties(relationshipProperties));
+    }
+
+
+    /**
+     * Remove a ReportDependency relationship.
+     *
+     * @param userId                 userId of the user making the request.
+     * @param priorReportGUID       unique identifier of the prior report
+     * @param reportGUID           unique identifier of the new report
+     * @param deleteOptions  options to control access to open metadata
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void unlinkReportDependency(String        userId,
+                                       String        priorReportGUID,
+                                       String        reportGUID,
+                                       DeleteOptions deleteOptions) throws InvalidParameterException,
+                                                                           PropertyServerException,
+                                                                           UserNotAuthorizedException
+    {
+        final String methodName = "unlinkReportDependency";
+
+        final String end1GUIDParameterName = "priorReportGUID";
+        final String end2GUIDParameterName = "reportGUID";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateGUID(priorReportGUID, end1GUIDParameterName, methodName);
+        propertyHelper.validateGUID(reportGUID, end2GUIDParameterName, methodName);
+
+        openMetadataClient.detachRelatedElementsInStore(userId,
+                                                        OpenMetadataType.REPORT_DEPENDENCY_RELATIONSHIP.typeName,
+                                                        priorReportGUID,
+                                                        reportGUID,
+                                                        deleteOptions);
+    }
+
+
+    /**
+     * Create a relationship that identifies the subject of a report.
+     *
+     * @param userId                 userId of the user making the request
+     * @param subjectGUID       unique identifier of the subject
+     * @param reportGUID           unique identifier of the report
+     * @param makeAnchorOptions  options to control access to open metadata
+     * @param relationshipProperties description of the relationship.
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void linkReportSubject(String                  userId,
+                                  String                  subjectGUID,
+                                  String                  reportGUID,
+                                  MakeAnchorOptions       makeAnchorOptions,
+                                  ReportSubjectProperties relationshipProperties) throws InvalidParameterException,
+                                                                                         PropertyServerException,
+                                                                                         UserNotAuthorizedException
+    {
+        final String methodName            = "linkReportOriginator";
+        final String end1GUIDParameterName = "subjectGUID";
+        final String end2GUIDParameterName = "reportGUID";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateGUID(subjectGUID, end1GUIDParameterName, methodName);
+        propertyHelper.validateGUID(reportGUID, end2GUIDParameterName, methodName);
+
+        openMetadataClient.createRelatedElementsInStore(userId,
+                                                        OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName,
+                                                        subjectGUID,
+                                                        reportGUID,
+                                                        makeAnchorOptions,
+                                                        relationshipBuilder.getNewElementProperties(relationshipProperties));
+    }
+
+
+    /**
+     * Remove a ReportSubject relationship.
+     *
+     * @param userId                 userId of the user making the request.
+     * @param subjectGUID       unique identifier of the subject
+     * @param reportGUID           unique identifier of the report
+     * @param deleteOptions  options to control access to open metadata
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public void unlinkReportSubject(String        userId,
+                                    String        subjectGUID,
+                                    String        reportGUID,
+                                    DeleteOptions deleteOptions) throws InvalidParameterException,
+                                                                        PropertyServerException,
+                                                                        UserNotAuthorizedException
+    {
+        final String methodName = "unlinkReportSubject";
+
+        final String end1GUIDParameterName = "subjectGUID";
+        final String end2GUIDParameterName = "reportGUID";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateGUID(subjectGUID, end1GUIDParameterName, methodName);
+        propertyHelper.validateGUID(reportGUID, end2GUIDParameterName, methodName);
+
+        openMetadataClient.detachRelatedElementsInStore(userId,
+                                                        OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName,
+                                                        subjectGUID,
+                                                        reportGUID,
+                                                        deleteOptions);
+    }
+
+    /*
+     * IT Assets and Software capabilities
+     */
 
     /**
      * Create a relationship that represents the deployment of an IT infrastructure asset to a specific deployment destination (another asset).
@@ -3780,7 +4001,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
                          * Save the relationship if it is structural.  The relationships relating to ongoing dynamic activity are ignored.
                          */
                         if ((! propertyHelper.isTypeOf(relationship, OpenMetadataType.ACTION_TARGET_RELATIONSHIP.typeName)) &&
-                                (! propertyHelper.isTypeOf(relationship, OpenMetadataType.REPORT_SUBJECT.typeName)))
+                                (! propertyHelper.isTypeOf(relationship, OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName)))
                         {
                             receivedRelationships.put(relationship.getRelationshipGUID(), relationship);
                             receivedRelationshipStartingElementGUIDs.put(relationship.getRelationshipGUID(), assetGUID);

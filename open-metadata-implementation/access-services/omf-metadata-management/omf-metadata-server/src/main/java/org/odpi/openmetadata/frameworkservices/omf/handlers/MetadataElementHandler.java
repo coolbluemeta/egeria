@@ -41,7 +41,6 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
     private final OpenMetadataRelationshipConverter<OpenMetadataRelationship> openMetadataRelationshipsConverter;
     private final RelatedElementConverter<RelatedMetadataElement>             relatedElementConverter;
 
-    private final FilesAndFoldersHandler<Object, Object, Object>     filesAndFoldersHandler;
     private static final Logger log = LoggerFactory.getLogger(MetadataElementHandler.class);
 
     /**
@@ -82,21 +81,6 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
 
         openMetadataRelationshipsConverter = new OpenMetadataRelationshipConverter<>(repositoryHelper, serviceName, serverName);
         relatedElementConverter            = new RelatedElementConverter<>(repositoryHelper, serviceName, serverName);
-
-        filesAndFoldersHandler = new FilesAndFoldersHandler<>(null,
-                                                              Object.class,
-                                                              null,
-                                                              Object.class,
-                                                              null,
-                                                              Object.class,
-                                                              serviceName,
-                                                              serverName,
-                                                              invalidParameterHandler,
-                                                              repositoryHandler,
-                                                              repositoryHelper,
-                                                              localServerUserId,
-                                                              securityVerifier,
-                                                              auditLog);
     }
 
 
@@ -1844,8 +1828,8 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
      * @param effectiveTime the time that the retrieved elements must be effective for
      * @param methodName calling method
      *
-     * @throws InvalidParameterException the type name, status or one of the properties is invalid
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of element
+     * @throws InvalidParameterException the type name, status, or one of the properties is invalid
+     * @throws UserNotAuthorizedException the caller is not authorized to create this element
      * @throws PropertyServerException a problem with the metadata store
      */
     private void createParentRelationships(String               userId,
@@ -1908,26 +1892,6 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                                   parentRelationshipTypeGUID,
                                                   relationshipProperties,
                                                   methodName);
-                }
-            }
-
-            if ((repositoryHelper.isTypeOf(serviceName, metadataElementTypeName, OpenMetadataType.DATA_FILE.typeName)) ||
-                    (repositoryHelper.isTypeOf(serviceName, metadataElementTypeName, OpenMetadataType.FILE_FOLDER.typeName)))
-            {
-                if (pathName != null)
-                {
-                    filesAndFoldersHandler.addFileAssetPath(userId,
-                                                            externalSourceGUID,
-                                                            externalSourceName,
-                                                            metadataElementGUID,
-                                                            metadataElementGUIDParameterName,
-                                                            metadataElementTypeName,
-                                                            pathName,
-                                                            OpenMetadataProperty.PATH_NAME.name,
-                                                            forLineage,
-                                                            forDuplicateProcessing,
-                                                            effectiveTime,
-                                                            methodName);
                 }
             }
         }

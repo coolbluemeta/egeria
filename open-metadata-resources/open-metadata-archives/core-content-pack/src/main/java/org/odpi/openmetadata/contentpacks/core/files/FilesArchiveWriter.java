@@ -15,6 +15,8 @@ import org.odpi.openmetadata.frameworks.openmetadata.refdata.FileName;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.FileType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.DataType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyFileAnnotationType;
+import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyFolderAnnotationType;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 
 import java.util.ArrayList;
@@ -50,6 +52,17 @@ public class FilesArchiveWriter extends ContentPackBaseArchiveWriter
     @Override
     public void getArchiveContent()
     {
+        /*
+         * Add valid metadata values for the Survey Action Framework standard controls.
+         */
+        for (SurveyFileAnnotationType annotationType : SurveyFileAnnotationType.values())
+        {
+            this.addAnnotationType(annotationType);
+        }
+        for (SurveyFolderAnnotationType annotationType : SurveyFolderAnnotationType.values())
+        {
+            this.addAnnotationType(annotationType);
+        }
 
         /*
          * Add the valid values for the fileType property.
@@ -79,6 +92,15 @@ public class FilesArchiveWriter extends ContentPackBaseArchiveWriter
         for (FileExtension fileExtension : FileExtension.values())
         {
             this.addFileExtension(fileExtension.getFileExtension(), fileExtension.getFileTypes());
+        }
+
+
+        /*
+         * Add the annotation types
+         */
+        for (SurveyFileAnnotationType annotationType : SurveyFileAnnotationType.values())
+        {
+
         }
 
 

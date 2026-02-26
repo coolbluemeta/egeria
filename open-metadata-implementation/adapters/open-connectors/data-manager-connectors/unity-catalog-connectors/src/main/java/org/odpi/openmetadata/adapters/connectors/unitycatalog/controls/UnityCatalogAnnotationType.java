@@ -285,6 +285,28 @@ public enum UnityCatalogAnnotationType implements AnnotationType
 
 
     /**
+     * Return the metrics created in the survey processing.
+     *
+     * @return metrics
+     */
+    @Override
+    public Map<String,String> getMetrics()
+    {
+        if (metrics != null)
+        {
+            Map<String, String> metricsMap = new HashMap<>();
+            for (SurveyMetric surveyMetric : metrics)
+            {
+                metricsMap.put(surveyMetric.getDisplayName(), surveyMetric.getDescription());
+            }
+            return metricsMap;
+        }
+
+        return null;
+    }
+
+
+    /**
      * Return the list of property names that make up this profile entry
      *
      * @return list of property names

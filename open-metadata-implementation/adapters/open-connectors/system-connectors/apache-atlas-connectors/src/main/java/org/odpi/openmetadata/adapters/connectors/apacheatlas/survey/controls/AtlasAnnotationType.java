@@ -229,6 +229,27 @@ public enum AtlasAnnotationType implements AnnotationType
 
 
     /**
+     * Return the metrics created in the survey processing.
+     *
+     * @return metrics
+     */
+    @Override
+    public Map<String,String> getMetrics()
+    {
+        if (metrics != null)
+        {
+            Map<String, String> metricsMap = new HashMap<>();
+
+            for (AtlasMetric atlasMetric : metrics)
+            {
+                metricsMap.put(atlasMetric.getName(), atlasMetric.getDescription());
+            }
+            return metricsMap;
+        }
+        return null;
+    }
+
+    /**
      * Return the description of this annotation type that can be used in a Connector Provider for a
      * Survey Action Service.
      *

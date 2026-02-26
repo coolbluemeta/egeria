@@ -325,13 +325,13 @@ public class AttributedElementConverterBase<B> extends OpenMetadataConverterBase
             attributedMetadataElement.setPackagedInArchiveFiles(super.getRelatedElements(OpenMetadataType.ARCHIVE_CONTENTS_RELATIONSHIP.typeName, relatedMetadataElements, true));
             processedRelationshipTypes.add(OpenMetadataType.ARCHIVE_CONTENTS_RELATIONSHIP.typeName);
 
-            attributedMetadataElement.setGeneratedReports(super.getRelatedElements(OpenMetadataType.REPORT_ORIGINATOR.typeName, relatedMetadataElements, false));
-            attributedMetadataElement.setReportOriginator(super.getRelatedElement(OpenMetadataType.REPORT_ORIGINATOR.typeName, relatedMetadataElements, true));
-            processedRelationshipTypes.add(OpenMetadataType.REPORT_ORIGINATOR.typeName);
+            attributedMetadataElement.setGeneratedReports(super.getRelatedElements(OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP.typeName, relatedMetadataElements, false));
+            attributedMetadataElement.setReportOriginator(super.getRelatedElement(OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP.typeName, relatedMetadataElements, true));
+            processedRelationshipTypes.add(OpenMetadataType.REPORT_ORIGINATOR_RELATIONSHIP.typeName);
 
-            attributedMetadataElement.setReports(super.getRelatedElements(OpenMetadataType.REPORT_SUBJECT.typeName, relatedMetadataElements, false));
-            attributedMetadataElement.setReportSubjects(super.getRelatedElements(OpenMetadataType.REPORT_SUBJECT.typeName, relatedMetadataElements, true));
-            processedRelationshipTypes.add(OpenMetadataType.REPORT_SUBJECT.typeName);
+            attributedMetadataElement.setReports(super.getRelatedElements(OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName, relatedMetadataElements, false));
+            attributedMetadataElement.setReportSubjects(super.getRelatedElements(OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName, relatedMetadataElements, true));
+            processedRelationshipTypes.add(OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName);
 
             attributedMetadataElement.setFollowOnReports(super.getRelatedElements(OpenMetadataType.REPORT_DEPENDENCY_RELATIONSHIP.typeName, relatedMetadataElements, false));
             attributedMetadataElement.setPriorReports(super.getRelatedElements(OpenMetadataType.REPORT_DEPENDENCY_RELATIONSHIP.typeName, relatedMetadataElements, true));

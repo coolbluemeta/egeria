@@ -15,6 +15,9 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataSetCo
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.infrastructure.DeployedOnProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.actions.ActionTargetProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.processes.connectors.CatalogTargetProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportDependencyProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportOriginatorProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.reports.ReportSubjectProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.softwarecapabilities.SupportedSoftwareCapabilityProperties;
 import org.odpi.openmetadata.frameworkservices.omf.rest.OpenMetadataRelationshipResponse;
 import org.odpi.openmetadata.tokencontroller.TokenController;
@@ -650,6 +653,362 @@ public class AssetMakerRESTServices extends TokenController
     }
 
 
+
+    /*
+     * Reports
+     */
+
+
+    /**
+     * Create a relationship that identifies the originator of a report.
+     *
+     * @param serverName name of the server to route the request to
+     * @param originatorGUID       unique identifier of the originator
+     * @param reportGUID           unique identifier of the report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return  void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    public VoidResponse linkReportOriginator(String                     serverName,
+                                             String                     urlMarker,
+                                             String                     originatorGUID,
+                                             String                     reportGUID,
+                                             NewRelationshipRequestBody requestBody)
+    {
+        final String methodName = "linkReportOriginator";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            AssetHandler handler = instanceHandler.getAssetHandler(userId, serverName, urlMarker, methodName);
+
+            if (requestBody == null)
+            {
+                handler.linkReportOriginator(userId, originatorGUID, reportGUID, null, null);
+            }
+            else if (requestBody.getProperties() instanceof ReportOriginatorProperties properties)
+            {
+                handler.linkReportOriginator(userId, originatorGUID, reportGUID, requestBody, properties);
+            }
+            else if (requestBody.getProperties() == null)
+            {
+                handler.linkReportOriginator(userId, originatorGUID, reportGUID, requestBody, null);
+            }
+            else
+            {
+                restExceptionHandler.handleInvalidPropertiesObject(ReportOriginatorProperties.class.getName(), methodName);
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+    /**
+     * Remove a ReportOriginator relationship.
+     *
+     * @param serverName name of the server to route the request to
+     * @param originatorGUID       unique identifier of the originator
+     * @param reportGUID           unique identifier of the report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    public VoidResponse unlinkReportOriginator(String                        serverName,
+                                               String                        urlMarker,
+                                               String                        originatorGUID,
+                                               String                        reportGUID,
+                                               DeleteRelationshipRequestBody requestBody)
+    {
+        final String methodName = "unlinkReportOriginator";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            AssetHandler handler = instanceHandler.getAssetHandler(userId, serverName, urlMarker, methodName);
+
+            handler.unlinkReportOriginator(userId, originatorGUID, reportGUID, requestBody);
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+    /**
+     * Create a relationship that identifies the prior publishing of a report.
+     *
+     * @param serverName name of the server to route the request to
+     * @param priorReportGUID       unique identifier of the earlier report
+     * @param reportGUID           unique identifier of the new report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return  void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    public VoidResponse linkReportDependency(String                     serverName,
+                                             String                     urlMarker,
+                                             String                     priorReportGUID,
+                                             String                     reportGUID,
+                                             NewRelationshipRequestBody requestBody)
+    {
+        final String methodName = "linkReportDependency";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            AssetHandler handler = instanceHandler.getAssetHandler(userId, serverName, urlMarker, methodName);
+
+            if (requestBody == null)
+            {
+                handler.linkReportDependency(userId, priorReportGUID, reportGUID, null, null);
+            }
+            else if (requestBody.getProperties() instanceof ReportDependencyProperties properties)
+            {
+                handler.linkReportDependency(userId, priorReportGUID, reportGUID, requestBody, properties);
+            }
+            else if (requestBody.getProperties() == null)
+            {
+                handler.linkReportDependency(userId, priorReportGUID, reportGUID, requestBody, null);
+            }
+            else
+            {
+                restExceptionHandler.handleInvalidPropertiesObject(ReportDependencyProperties.class.getName(), methodName);
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+    /**
+     * Remove a ReportDependency relationship.
+     *
+     * @param serverName name of the server to route the request to
+     * @param priorReportGUID       unique identifier of the prior report
+     * @param reportGUID           unique identifier of the new report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    public VoidResponse unlinkReportDependency(String                        serverName,
+                                               String                        urlMarker,
+                                               String                        priorReportGUID,
+                                               String                        reportGUID,
+                                               DeleteRelationshipRequestBody requestBody)
+    {
+        final String methodName = "unlinkReportDependency";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            AssetHandler handler = instanceHandler.getAssetHandler(userId, serverName, urlMarker, methodName);
+
+            handler.unlinkReportDependency(userId, priorReportGUID, reportGUID, requestBody);
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+
+    /**
+     * Create a relationship that identifies the subject of a report.
+     *
+     * @param serverName name of the server to route the request to
+     * @param subjectGUID       unique identifier of the subject
+     * @param reportGUID           unique identifier of the report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return  void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    public VoidResponse linkReportSubject(String                     serverName,
+                                          String                     urlMarker,
+                                          String                     subjectGUID,
+                                          String                     reportGUID,
+                                          NewRelationshipRequestBody requestBody)
+    {
+        final String methodName = "linkReportSubject";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            AssetHandler handler = instanceHandler.getAssetHandler(userId, serverName, urlMarker, methodName);
+
+            if (requestBody == null)
+            {
+                handler.linkReportSubject(userId, subjectGUID, reportGUID, null, null);
+            }
+            else if (requestBody.getProperties() instanceof ReportSubjectProperties properties)
+            {
+                handler.linkReportSubject(userId, subjectGUID, reportGUID, requestBody, properties);
+            }
+            else if (requestBody.getProperties() == null)
+            {
+                handler.linkReportSubject(userId, subjectGUID, reportGUID, requestBody, null);
+            }
+            else
+            {
+                restExceptionHandler.handleInvalidPropertiesObject(ReportSubjectProperties.class.getName(), methodName);
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+    /**
+     * Remove a ReportSubject relationship.
+     *
+     * @param serverName name of the server to route the request to
+     * @param subjectGUID       unique identifier of the subject
+     * @param reportGUID           unique identifier of the report
+     * @param urlMarker  view service URL marker
+     * @param requestBody optional effective time
+     *
+     * @return void or
+     * InvalidParameterException  one of the parameters is invalid
+     * UserNotAuthorizedException the user is not authorized to issue this request
+     * PropertyServerException    a problem reported in the open metadata server(s)
+     */
+    public VoidResponse unlinkReportSubject(String                        serverName,
+                                            String                        urlMarker,
+                                            String                        subjectGUID,
+                                            String                        reportGUID,
+                                            DeleteRelationshipRequestBody requestBody)
+    {
+        final String methodName = "unlinkReportSubject";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName, requestBody);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            AssetHandler handler = instanceHandler.getAssetHandler(userId, serverName, urlMarker, methodName);
+
+            handler.unlinkReportSubject(userId, subjectGUID, reportGUID, requestBody);
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+    /*
+     * IT Assets and Software capabilities
+     */
+
     /**
      * Create a relationship that represents the deployment of an IT infrastructure asset to a specific deployment destination (another asset).
      *
@@ -763,7 +1122,6 @@ public class AssetMakerRESTServices extends TokenController
 
         return response;
     }
-
 
 
     /**
