@@ -5,6 +5,7 @@ package org.odpi.openmetadata.frameworks.openmetadata.handlers;
 
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.openmetadata.client.OpenMetadataClient;
+import org.odpi.openmetadata.frameworks.openmetadata.enums.ActivityStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
@@ -36,9 +37,10 @@ import java.util.Map;
  */
 public class ActorProfileHandler extends OpenMetadataHandlerBase
 {
-    private final UserIdentityHandler userIdentityHandler;
-    private final ActorRoleHandler    actorRoleHandler;
+    private final UserIdentityHandler          userIdentityHandler;
+    private final ActorRoleHandler             actorRoleHandler;
     private final StewardshipManagementHandler stewardshipManagementHandler;
+    private final AssetHandler                 assetHandler;
 
 
     /**
@@ -63,6 +65,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
         userIdentityHandler = new UserIdentityHandler(localServerName, auditLog, localServiceName, openMetadataClient);
         actorRoleHandler = new ActorRoleHandler(localServerName, auditLog, localServiceName, openMetadataClient);
         stewardshipManagementHandler = new StewardshipManagementHandler(localServerName, auditLog, localServiceName, openMetadataClient);
+        assetHandler = new AssetHandler(localServerName, auditLog, localServiceName, openMetadataClient, OpenMetadataType.ACTION.typeName);
     }
 
 
@@ -80,6 +83,8 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
         userIdentityHandler = new UserIdentityHandler(localServerName, auditLog, localServiceName, openMetadataClient);
         actorRoleHandler = new ActorRoleHandler(localServerName, auditLog, localServiceName, openMetadataClient);
         stewardshipManagementHandler = new StewardshipManagementHandler(localServerName, auditLog, localServiceName, openMetadataClient);
+        assetHandler = new AssetHandler(localServerName, auditLog, localServiceName, openMetadataClient, OpenMetadataType.ACTION.typeName);
+
     }
 
 
@@ -532,6 +537,8 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
     }
 
 
+
+
     /**
      * Return the actor roles of a specific actor profile retrieved using an associated userId.
      *
@@ -539,19 +546,19 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
      * @param requiredUserId         identifier of user
      * @param includeRoles         include the assigned actor roles
      * @param includeUserIdentities include the associated user identities
-     * @param getOptions multiple options to control the query
+     * @param queryOptions multiple options to control the query
      * @return retrieved properties
      * @throws InvalidParameterException  one of the parameters is null or invalid.
      * @throws PropertyServerException    a problem retrieving information from the property server(s).
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public List<OpenMetadataRootElement> getActorsByUserId(String     userId,
-                                                           String     requiredUserId,
-                                                           boolean    includeUserIdentities,
-                                                           boolean    includeRoles,
-                                                           GetOptions getOptions) throws InvalidParameterException,
-                                                                                         PropertyServerException,
-                                                                                         UserNotAuthorizedException
+    public List<OpenMetadataRootElement> getActorsByUserId(String       userId,
+                                                           String       requiredUserId,
+                                                           boolean      includeUserIdentities,
+                                                           boolean      includeRoles,
+                                                           QueryOptions queryOptions) throws InvalidParameterException,
+                                                                                             PropertyServerException,
+                                                                                             UserNotAuthorizedException
     {
         final String methodName        = "getActorsByUserId";
         final String nameParameterName = "requiredUserId";
@@ -559,7 +566,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
         propertyHelper.validateUserId(userId, methodName);
         propertyHelper.validateMandatoryName(requiredUserId, nameParameterName, methodName);
 
-        OpenMetadataRootElement userProfile = this.getActorProfileByUserId(userId, requiredUserId, getOptions);
+        OpenMetadataRootElement userProfile = this.getActorProfileByUserId(userId, requiredUserId, queryOptions);
 
         if (userProfile != null)
         {
@@ -573,7 +580,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
                     {
                         actors.add(userIdentityHandler.getUserIdentityByGUID(userId,
                                                                              userIdentity.getRelatedElement().getElementHeader().getGUID(),
-                                                                             getOptions));
+                                                                             queryOptions));
                     }
                 }
             }
@@ -586,7 +593,7 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
                     {
                         actors.add(actorRoleHandler.getActorRoleByGUID(userId,
                                                                        actorRole.getRelatedElement().getElementHeader().getGUID(),
-                                                                       getOptions));
+                                                                       queryOptions));
                     }
                 }
             }
@@ -599,21 +606,224 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
 
 
     /**
-     * Return the resources of a specific actor profile retrieved using an associated userId.
+     * Return the list of actions that have been assigned to the user's profile, roles, or user identity.
      *
      * @param userId                 userId of the user making the request
      * @param requiredUserId         identifier of user
-     * @param getOptions multiple options to control the query
+     * @param includeRoles         include the assigned actor roles
+     * @param includeUserIdentities include the associated user identities
+     * @param queryOptions multiple options to control the query
      * @return retrieved properties
      * @throws InvalidParameterException  one of the parameters is null or invalid.
      * @throws PropertyServerException    a problem retrieving information from the property server(s).
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    public List<OpenMetadataRootElement> getResourcesByUserId(String     userId,
-                                                              String     requiredUserId,
-                                                              GetOptions getOptions) throws InvalidParameterException,
-                                                                                            PropertyServerException,
-                                                                                            UserNotAuthorizedException
+    public List<OpenMetadataRootElement> getAssignedActionsByUserId(String               userId,
+                                                                    String               requiredUserId,
+                                                                    boolean              includeUserIdentities,
+                                                                    boolean              includeRoles,
+                                                                    List<ActivityStatus> activityStatuses,
+                                                                    QueryOptions         queryOptions) throws InvalidParameterException,
+                                                                                                              PropertyServerException,
+                                                                                                              UserNotAuthorizedException
+    {
+        final String methodName        = "getAssignedActionsByUserId";
+        final String nameParameterName = "requiredUserId";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateMandatoryName(requiredUserId, nameParameterName, methodName);
+
+        OpenMetadataRootElement userProfile = this.getActorProfileByUserId(userId, requiredUserId, queryOptions);
+
+        if (userProfile != null)
+        {
+            List<String>                  actorGUIDs = getActorsFromProfile(userProfile, includeUserIdentities, includeRoles);
+            List<OpenMetadataRootElement> actions = new ArrayList<>();
+
+
+            for (String actorGUID : actorGUIDs)
+            {
+                List<OpenMetadataRootElement> actorActions = assetHandler.getAssignedActions(userId, actorGUID, activityStatuses, queryOptions);
+
+                if (actorActions != null)
+                {
+                    actions.addAll(actorActions);
+                }
+            }
+
+            return actions;
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Return the list of actions linked to the user's profile, roles, or user identity that this user has sponsored.
+     *
+     * @param userId                 userId of the user making the request
+     * @param requiredUserId         identifier of user
+     * @param includeRoles         include the assigned actor roles
+     * @param includeUserIdentities include the associated user identities
+     * @param queryOptions multiple options to control the query
+     * @return retrieved properties
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public List<OpenMetadataRootElement> getSponsoredActionsByUserId(String               userId,
+                                                                     String               requiredUserId,
+                                                                     boolean              includeUserIdentities,
+                                                                     boolean              includeRoles,
+                                                                     List<ActivityStatus> activityStatuses,
+                                                                     QueryOptions         queryOptions) throws InvalidParameterException,
+                                                                                                               PropertyServerException,
+                                                                                                               UserNotAuthorizedException
+    {
+        final String methodName        = "getSponsoredActionsByUserId";
+        final String nameParameterName = "requiredUserId";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateMandatoryName(requiredUserId, nameParameterName, methodName);
+
+        OpenMetadataRootElement userProfile = this.getActorProfileByUserId(userId, requiredUserId, queryOptions);
+
+        if (userProfile != null)
+        {
+            List<String>                  actorGUIDs = getActorsFromProfile(userProfile, includeUserIdentities, includeRoles);
+            List<OpenMetadataRootElement> actions = new ArrayList<>();
+
+            for (String actorGUID : actorGUIDs)
+            {
+                List<OpenMetadataRootElement> actorActions = assetHandler.getActionsForSponsor(userId, actorGUID, activityStatuses, queryOptions);
+
+                if (actorActions != null)
+                {
+                    actions.addAll(actorActions);
+                }
+            }
+
+            return actions;
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Return the list of actions linked to the user's profile, roles, or user identity that this user has requested.
+     *
+     * @param userId                 userId of the user making the request
+     * @param requiredUserId         identifier of user
+     * @param includeRoles         include the assigned actor roles
+     * @param includeUserIdentities include the associated user identities
+     * @param queryOptions multiple options to control the query
+     * @return retrieved properties
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public List<OpenMetadataRootElement> getRequestedActionsByUserId(String               userId,
+                                                                     String               requiredUserId,
+                                                                     boolean              includeUserIdentities,
+                                                                     boolean              includeRoles,
+                                                                     List<ActivityStatus> activityStatuses,
+                                                                     QueryOptions         queryOptions) throws InvalidParameterException,
+                                                                                                               PropertyServerException,
+                                                                                                               UserNotAuthorizedException
+    {
+        final String methodName        = "getRequestedActionsByUserId";
+        final String nameParameterName = "requiredUserId";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateMandatoryName(requiredUserId, nameParameterName, methodName);
+
+        OpenMetadataRootElement userProfile = this.getActorProfileByUserId(userId, requiredUserId, queryOptions);
+
+        if (userProfile != null)
+        {
+            List<String>                  actorGUIDs = getActorsFromProfile(userProfile, includeUserIdentities, includeRoles);
+            List<OpenMetadataRootElement> actions = new ArrayList<>();
+
+            for (String actorGUID : actorGUIDs)
+            {
+                List<OpenMetadataRootElement> actorActions = assetHandler.getActionsFromRequester(userId, actorGUID, activityStatuses, queryOptions);
+
+                if (actorActions != null)
+                {
+                    actions.addAll(actorActions);
+                }
+            }
+
+            return actions;
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Extract the list of guids for this user's actors.
+     *
+     * @param userProfile           full profile of the user
+     * @param includeRoles         include the assigned actor roles
+     * @param includeUserIdentities include the associated user identities
+     * @return list of guids
+     */
+    private List<String> getActorsFromProfile(OpenMetadataRootElement userProfile,
+                                              boolean                 includeUserIdentities,
+                                              boolean                 includeRoles)
+    {
+        List<String> actorGUIDs = new ArrayList<>();
+
+        actorGUIDs.add(userProfile.getElementHeader().getGUID());
+
+        if ((includeUserIdentities) && (userProfile.getUserIdentities() != null))
+        {
+            for (RelatedMetadataElementSummary userIdentity : userProfile.getUserIdentities())
+            {
+                if (userIdentity != null)
+                {
+                    actorGUIDs.add(userIdentity.getRelatedElement().getElementHeader().getGUID());
+                }
+            }
+        }
+
+        if ((includeRoles) && (userProfile.getPerformsRoles() != null))
+        {
+            for (RelatedMetadataElementSummary actorRole : userProfile.getPerformsRoles())
+            {
+                if (actorRole != null)
+                {
+                    actorGUIDs.add(actorRole.getRelatedElement().getElementHeader().getGUID());
+                }
+            }
+        }
+
+        return actorGUIDs;
+    }
+
+
+    /**
+     * Return the resources of a specific actor profile retrieved using an associated userId.
+     *
+     * @param userId                 userId of the user making the request
+     * @param requiredUserId         identifier of user
+     * @param includeRoles         include the assigned actor roles
+     * @param includeUserIdentities include the associated user identities
+     * @param queryOptions multiple options to control the query
+     * @return retrieved properties
+     * @throws InvalidParameterException  one of the parameters is null or invalid.
+     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public List<OpenMetadataRootElement> getResourcesByUserId(String       userId,
+                                                              String       requiredUserId,
+                                                              boolean      includeUserIdentities,
+                                                              boolean      includeRoles,
+                                                              QueryOptions queryOptions) throws InvalidParameterException,
+                                                                                                PropertyServerException,
+                                                                                                UserNotAuthorizedException
     {
         final String methodName        = "getResourcesByUserId";
         final String nameParameterName = "requiredUserId";
@@ -621,22 +831,20 @@ public class ActorProfileHandler extends OpenMetadataHandlerBase
         propertyHelper.validateUserId(userId, methodName);
         propertyHelper.validateMandatoryName(requiredUserId, nameParameterName, methodName);
 
-        OpenMetadataRootElement userProfile = this.getActorProfileByUserId(userId, requiredUserId, getOptions);
+        OpenMetadataRootElement userProfile = this.getActorProfileByUserId(userId, requiredUserId, queryOptions);
 
         if (userProfile != null)
         {
+            List<String>                  actorGUIDs = getActorsFromProfile(userProfile, includeUserIdentities, includeRoles);
             List<OpenMetadataRootElement> resources = new ArrayList<>();
 
-            if (userProfile.getResourceList() != null)
+            for (String actorGUID : actorGUIDs)
             {
-                for (RelatedMetadataElementSummary resource : userProfile.getResourceList())
+                List<OpenMetadataRootElement> actorResources = stewardshipManagementHandler.getResourceList(userId, actorGUID, queryOptions);
+
+                if (actorResources != null)
                 {
-                    if (resource != null)
-                    {
-                        resources.add(stewardshipManagementHandler.getMetadataElementByGUID(userId,
-                                                                                            resource.getRelatedElement().getElementHeader().getGUID(),
-                                                                                            getOptions));
-                    }
+                    resources.addAll(actorResources);
                 }
             }
 

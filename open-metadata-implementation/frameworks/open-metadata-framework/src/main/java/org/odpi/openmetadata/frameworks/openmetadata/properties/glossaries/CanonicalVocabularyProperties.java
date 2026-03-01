@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.ClassificationBeanProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.collections.CollectionKindProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.Objects;
@@ -16,15 +17,15 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 
 /**
  * CanonicalVocabularyProperties is used to classify a glossary that has no term definitions with
- * the same name.  This means there is only one definition for each term.  Typically, the terms are also of a similar
+ * the same name.  This means only one definition for each term.  Typically, the terms are also of a similar
  * level of granularity and are limited to a specific scope of use.
  * <br><br>
- * Canonical vocabularies are typically used to semantically classify assets in an unambiguous way.
+ * Canonical vocabularies are typically used to semantically classify assets unambiguously.
  */
 @JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CanonicalVocabularyProperties extends ClassificationBeanProperties
+public class CanonicalVocabularyProperties extends CollectionKindProperties
 {
     private String scope = null;
 

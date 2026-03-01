@@ -743,23 +743,15 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
                                                                    serviceName,
                                                                    serverName);
 
-                processBuilder.setAnchors(userId,
-                                          governanceActionProcessEntity.getGUID(),
-                                          OpenMetadataType.GOVERNANCE_ACTION_PROCESS.typeName,
-                                          OpenMetadataType.ASSET.typeName,
-                                          null,
-                                          null,
-                                          methodName);
-
                 String processInstanceGUID = this.createBeanInRepository(userId,
                                                                          null,
                                                                          null,
                                                                          OpenMetadataType.GOVERNANCE_ACTION_PROCESS_INSTANCE.typeGUID,
                                                                          OpenMetadataType.GOVERNANCE_ACTION_PROCESS_INSTANCE.typeName,
-                                                                         OpenMetadataType.ASSET.typeName,
-                                                                         null,
                                                                          processBuilder,
                                                                          false,
+                                                                         governanceActionProcessEntity.getGUID(),
+                                                                         null,
                                                                          new Date(),
                                                                          methodName);
 
@@ -1496,33 +1488,15 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
                                                               serviceName,
                                                               serverName);
 
-        if (anchorGUID != null)
-        {
-            this.addAnchorGUIDToBuilder(userId,
-                                        anchorGUID,
-                                        anchorGUIDParameterName,
-                                        false,
-                                        false,
-                                        null,
-                                        builder,
-                                        methodName);
-        }
-        else
-        {
-            builder.setAnchors(userId, null,
-                               OpenMetadataType.ENGINE_ACTION.typeName,
-                               OpenMetadataType.ASSET.typeName,
-                               null,
-                               builder.getInitialGovernanceZones(),
-                               methodName);
-        }
-
         String engineActionGUID = this.createBeanInRepository(userId,
                                                               null,
                                                               null,
                                                               OpenMetadataType.ENGINE_ACTION.typeGUID,
                                                               OpenMetadataType.ENGINE_ACTION.typeName,
                                                               builder,
+                                                              (anchorGUID==null),
+                                                              anchorGUID,
+                                                              null,
                                                               null,
                                                               methodName);
 

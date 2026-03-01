@@ -214,7 +214,7 @@ public class OpenMetadataRootMermaidGraphBuilder extends MermaidGraphBuilderBase
             super.addRelatedElementSummaries(openMetadataRootElement.getHostedITAssets(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
 
             super.addRelatedElementSummaries(openMetadataRootElement.getStorageVolumes(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
-            super.addRelatedElementSummaries(openMetadataRootElement.getHostsUsingStorageVolume(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
+            super.addRelatedElementSummaries(openMetadataRootElement.getProvidesStorageFor(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
 
             super.addRelatedElementSummaries(openMetadataRootElement.getCapabilityConsumedAssets(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());
             super.addRelatedElementSummaries(openMetadataRootElement.getConsumedByCapabilities(), VisualStyle.LINKED_ELEMENT, openMetadataRootElement.getElementHeader().getGUID());

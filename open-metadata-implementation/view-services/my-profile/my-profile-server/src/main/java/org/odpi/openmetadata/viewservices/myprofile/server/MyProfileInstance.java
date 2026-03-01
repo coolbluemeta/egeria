@@ -8,6 +8,8 @@ import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.openmetadata.client.OpenMetadataClient;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.ActorProfileHandler;
+import org.odpi.openmetadata.frameworks.openmetadata.handlers.AssetHandler;
+import org.odpi.openmetadata.frameworks.openmetadata.handlers.NoteLogHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.UserIdentityHandler;
 import org.odpi.openmetadata.frameworkservices.omf.client.EgeriaOpenMetadataStoreClient;
 
@@ -20,6 +22,8 @@ public class MyProfileInstance extends OMVSServiceInstance
 {
     private static final ViewServiceDescription myDescription = ViewServiceDescription.MY_PROFILE;
 
+    private final NoteLogHandler      noteLogHandler;
+    private final AssetHandler        assetHandler;
     private final ActorProfileHandler actorProfileHandler;
     private final UserIdentityHandler userIdentityHandler;
 
@@ -64,6 +68,16 @@ public class MyProfileInstance extends OMVSServiceInstance
                                                                                   maxPageSize,
                                                                                   auditLog);
 
+        noteLogHandler = new NoteLogHandler(serverName,
+                                            auditLog,
+                                            myDescription.getViewServiceFullName(),
+                                            openMetadataClient);
+
+        assetHandler = new AssetHandler(serverName,
+                                        auditLog,
+                                        myDescription.getViewServiceFullName(),
+                                        openMetadataClient);
+
         actorProfileHandler = new ActorProfileHandler(serverName,
                                                       auditLog,
                                                       myDescription.getViewServiceFullName(),
@@ -73,6 +87,28 @@ public class MyProfileInstance extends OMVSServiceInstance
                                                       auditLog,
                                                       myDescription.getViewServiceFullName(),
                                                       openMetadataClient);
+    }
+
+
+    /**
+     * Return the asset handler.
+     *
+     * @return client
+     */
+    public NoteLogHandler getNoteLogHandler()
+    {
+        return noteLogHandler;
+    }
+
+
+    /**
+     * Return the note log handler.
+     *
+     * @return client
+     */
+    public AssetHandler getAssetHandler()
+    {
+        return assetHandler;
     }
 
 

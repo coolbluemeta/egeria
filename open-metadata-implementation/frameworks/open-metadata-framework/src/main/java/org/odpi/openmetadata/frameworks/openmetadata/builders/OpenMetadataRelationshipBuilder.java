@@ -20,6 +20,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.connections.Embe
 import org.odpi.openmetadata.frameworks.openmetadata.properties.contextevents.ContextEventImpactProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.contextevents.RelatedContextEventProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.DataValueAssignmentProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.LinkedDataFieldProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.designmodels.ConceptBeadAttributeLinkProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.designmodels.ConceptBeadRelationshipEndProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.digitalbusiness.AgreementActorProperties;
@@ -269,6 +270,12 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                          OpenMetadataProperty.SOURCE.name,
                                                                          referenceableFacetProperties.getSource());
+                    elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                         OpenMetadataProperty.LABEL.name,
+                                                                         referenceableFacetProperties.getLabel());
+                    elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                         OpenMetadataProperty.DESCRIPTION.name,
+                                                                         referenceableFacetProperties.getDescription());
                 }
                 else if (properties instanceof RelatedContextEventProperties relatedContextEventProperties)
                 {
@@ -682,6 +689,9 @@ public class OpenMetadataRelationshipBuilder
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.QUERY_TYPE.name,
                                                                      derivedSchemaTypeQueryTargetProperties.getQueryType());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.ISC_QUALIFIED_NAME.name,
+                                                                     derivedSchemaTypeQueryTargetProperties.getISCQualifiedName());
             }
             else if (properties instanceof DigitalSubscriberProperties digitalSubscriberProperties)
             {
@@ -915,6 +925,30 @@ public class OpenMetadataRelationshipBuilder
                                                         OpenMetadataProperty.NOTES.name,
                                                         licenseProperties.getNotes());
             }
+            else if (properties instanceof LinkedDataFieldProperties linkedDataFieldProperties)
+            {
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.RELATIONSHIP_TYPE_NAME.name,
+                                                                     linkedDataFieldProperties.getRelationshipTypeName());
+                elementProperties = propertyHelper.addIntProperty(elementProperties,
+                                                                  OpenMetadataProperty.RELATIONSHIP_END.name,
+                                                                  linkedDataFieldProperties.getRelationshipEnd());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.DISPLAY_NAME.name,
+                                                                     linkedDataFieldProperties.getDisplayName());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.DESCRIPTION.name,
+                                                                     linkedDataFieldProperties.getDescription());
+                elementProperties = propertyHelper.addIntProperty(elementProperties,
+                                                                  OpenMetadataProperty.MIN_CARDINALITY.name,
+                                                                  linkedDataFieldProperties.getMinCardinality());
+                elementProperties = propertyHelper.addIntProperty(elementProperties,
+                                                                  OpenMetadataProperty.MAX_CARDINALITY.name,
+                                                                  linkedDataFieldProperties.getMaxCardinality());
+                elementProperties = propertyHelper.addStringMapProperty(elementProperties,
+                                                                        OpenMetadataProperty.ADDITIONAL_PROPERTIES.name,
+                                                                        linkedDataFieldProperties.getAdditionalProperties());
+            }
             else if (properties instanceof MediaReferenceProperties mediaReferenceProperties)
             {
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -1063,6 +1097,9 @@ public class OpenMetadataRelationshipBuilder
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.RESOURCE_USE.name,
                                                                      resourceListProperties.getResourceUse());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.DISPLAY_NAME.name,
+                                                                     resourceListProperties.getDisplayName());
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.DESCRIPTION.name,
                                                                      resourceListProperties.getDescription());

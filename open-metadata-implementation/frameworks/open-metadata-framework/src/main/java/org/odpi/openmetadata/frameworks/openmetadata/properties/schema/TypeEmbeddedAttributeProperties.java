@@ -30,9 +30,9 @@ public class TypeEmbeddedAttributeProperties extends ClassificationBeanPropertie
     private String              category             = null;
     private Map<String, String> additionalProperties = null;
     private String              usage                = null;
-    private String encodingStandard = null;
-    private String namespacePath    = null;
-    private String dataType         = null;
+    private String              encodingStandard     = null;
+    private String              namespacePath        = null;
+    private String              dataType             = null;
     private String              defaultValue         = null;
     private String              fixedValue           = null;
 
@@ -67,9 +67,9 @@ public class TypeEmbeddedAttributeProperties extends ClassificationBeanPropertie
             category             = template.getCategory();
             additionalProperties = template.getAdditionalProperties();
             usage                = template.getUsage();
-            encodingStandard = template.getEncodingStandard();
-            namespacePath    = template.getNamespacePath();
-            dataType         = template.getDataType();
+            encodingStandard     = template.getEncodingStandard();
+            namespacePath        = template.getNamespacePath();
+            dataType             = template.getDataType();
             defaultValue         = template.getDefaultValue();
             fixedValue           = template.getFixedValue();
         }

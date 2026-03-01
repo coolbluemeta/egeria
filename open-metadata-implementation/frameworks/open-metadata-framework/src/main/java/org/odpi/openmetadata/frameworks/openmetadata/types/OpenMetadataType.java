@@ -58,10 +58,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.propertyfacets.R
 import org.odpi.openmetadata.frameworks.openmetadata.properties.resources.MoreInformationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.resources.ResourceListProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.*;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.apis.APIOperationProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.apis.APIParameterListProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.apis.APIParameterProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.apis.APISchemaTypeProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.apis.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.databases.RelationalColumnProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.databases.RelationalDBSchemaTypeProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.databases.RelationalTableProperties;
@@ -444,17 +441,6 @@ public enum OpenMetadataType
                                   ExternalIdLinkProperties.class),
 
     /**
-     * Places where an external identifier is recognized.
-     */
-    EXTERNAL_ID_SCOPE_RELATIONSHIP("8c5b1415-2d1f-4190-ba6c-1fdd47f03269",
-                                   "ExternalIdScope",
-                                   OpenMetadataWikiPages.MODEL_0017_EXTERNAL_IDENTIFIERS,
-                                   "e1e481ce-0536-4637-8658-5224353c7d69",
-                                   "Places where an external identifier is recognized.",
-                                   null),
-
-
-    /**
      * Link to indicate that a referenceable provides additional information about another referenceable.
      */
     MORE_INFORMATION_RELATIONSHIP("1cbf059e-2c11-4e0c-8aae-1da42c1ee73f",
@@ -540,11 +526,11 @@ public enum OpenMetadataType
      * This collection identifies a set of elements that are part of a folio of work or responsibility.
      */
     FOLIO_COLLECTION("69edc84c-e3d2-4f13-b746-bf6eaffd26bb",
-                    "Folio",
-                    OpenMetadataWikiPages.MODEL_0021_COLLECTIONS,
-                    "0b904bcf-796f-40e1-b562-87bdbcff11e6",
-                    "This collection identifies a set of elements that are part of a folio of work or responsibility.",
-                    FolioProperties.class),
+                     "Folio",
+                     OpenMetadataWikiPages.MODEL_0021_COLLECTIONS,
+                     "0b904bcf-796f-40e1-b562-87bdbcff11e6",
+                     "This collection identifies a set of elements that are part of a folio of work or responsibility.",
+                     FolioProperties.class),
 
     /**
      * This collection is the home collection for a referenceable.
@@ -593,7 +579,8 @@ public enum OpenMetadataType
                                    "CollectionKind",
                                    OpenMetadataWikiPages.MODEL_0021_COLLECTIONS,
                                    "db68722e-39a3-49b3-ba6f-ad00a880c91c",
-                                   "Defines how the collection is being used."),
+                                   "Defines how the collection is being used.",
+                                   CollectionKindProperties.class),
 
 
     /**
@@ -884,13 +871,13 @@ public enum OpenMetadataType
                    "A persistent storage volume."),
 
     /**
-     * Links a host to a persistent storage volume.
+     * Links infrastructure to a persistent storage volume.
      */
     ATTACHED_STORAGE_RELATIONSHIP("2cf1e949-7189-4bf2-8ee4-e1318e59abd7",
                                   "AttachedStorage",
                                   OpenMetadataWikiPages.MODEL_0036_STORAGE,
                                   "380e749e-a406-4359-89b4-e6a96646819c",
-                                  "Links a host to a persistent storage volume."),
+                                  "Links infrastructure to a persistent storage volume."),
 
     /**
      * Software services packaged as an operating system process to support a runtime environment for a virtual software server.
@@ -1091,7 +1078,8 @@ public enum OpenMetadataType
                      "AnalyticsEngine",
                      OpenMetadataWikiPages.MODEL_0055_DATA_PROCESSING_ENGINES,
                      "a1db5c5b-c7c9-41b1-9b37-7f1f3eb40dea",
-                     "An engine capable of running analytics models using data from one or more data sets."),
+                     "An engine capable of running analytics models using data from one or more data sets.",
+                     AnalyticsEngineProperties.class),
 
     /**
      * An engine capable of copying data from one data store to another.
@@ -1100,7 +1088,8 @@ public enum OpenMetadataType
                          "DataMovementEngine",
                          OpenMetadataWikiPages.MODEL_0055_DATA_PROCESSING_ENGINES,
                          "b4df7850-45a5-4ba0-8216-3828480dc2c1",
-                         "An engine capable of copying data from one data store to another."),
+                         "An engine capable of copying data from one data store to another.",
+                         DataMovementEngineProperties.class),
 
     /**
      * An engine capable of creating new data sets by dynamically combining data from one or more data stores or data sets.
@@ -1109,7 +1098,8 @@ public enum OpenMetadataType
                                "DataVirtualizationEngine",
                                OpenMetadataWikiPages.MODEL_0055_DATA_PROCESSING_ENGINES,
                                "faa47e2b-4987-4ad8-bc39-5a4f91f9658c",
-                               "An engine capable of creating new data sets by dynamically combining data from one or more data stores or data sets."),
+                               "An engine capable of creating new data sets by dynamically combining data from one or more data stores or data sets.",
+                               DataVirtualizationEngineProperties.class),
 
 
     /**
@@ -2021,6 +2011,16 @@ public enum OpenMetadataType
                "A physical store of data.",
                DataStoreProperties.class),
 
+
+    /**
+     * Links a data store to a persistent storage volume.
+     */
+    STORED_ON_RELATIONSHIP("d0abacc0-98dd-4706-83c7-6ba9aad5d9df",
+                           "StoredOn",
+                           OpenMetadataWikiPages.MODEL_0210_DATA_STORES,
+                           "78f5613c-0a98-440c-a589-d4550e7fe72e",
+                           "Links a data store to a persistent storage volume."),
+
     /**
      * Identifies the scope of the data stored in the digital resource(s).
      */
@@ -2811,13 +2811,13 @@ public enum OpenMetadataType
 
 
     /**
-     * Identifies a glossary that is organized as a taxonomy.
+     * Identifies a glossary organized as a taxonomy.
      */
     TAXONOMY_CLASSIFICATION("37116c51-e6c9-4c37-942e-35d48c8c69a0",
                             "Taxonomy",
                             OpenMetadataWikiPages.MODEL_0310_GLOSSARY,
                             "9a0562c5-7654-46c7-a216-0c85e7027562",
-                            "Identifies a glossary that is organized as a taxonomy.",
+                            "Identifies a glossary organized as a taxonomy.",
                             TaxonomyProperties.class),
 
     /**
@@ -4812,7 +4812,8 @@ public enum OpenMetadataType
                                 "APIOperations",
                                 OpenMetadataWikiPages.MODEL_0536_API_SCHEMAS,
                                 "93668e51-5e0f-4222-ae3b-bc374e1a4830",
-                                "Link between an API and its operations."),
+                                "Link between an API and its operations.",
+                                APIOperationsProperties.class),
 
     /**
      * Link between an API operation and its header.
@@ -4821,7 +4822,8 @@ public enum OpenMetadataType
                             "APIHeader",
                             OpenMetadataWikiPages.MODEL_0536_API_SCHEMAS,
                             "2cef3335-92c8-44f4-b7fa-9917c63e4e7a",
-                            "Link between an API operation and its header."),
+                            "Link between an API operation and its header.",
+                            APIHeaderProperties.class),
 
     /**
      * Link between an API operation and its request structure.
@@ -4830,7 +4832,8 @@ public enum OpenMetadataType
                              "APIRequest",
                              OpenMetadataWikiPages.MODEL_0536_API_SCHEMAS,
                              "4bba3fce-7e9b-4832-82d2-5e25b012742c",
-                             "Link between an API operation and its request structure."),
+                             "Link between an API operation and its request structure.",
+                             APIRequestProperties.class),
 
     /**
      * Link between an API operation and its response structure.
@@ -4839,7 +4842,8 @@ public enum OpenMetadataType
                               "APIResponse",
                               OpenMetadataWikiPages.MODEL_0536_API_SCHEMAS,
                               "fce4bae7-4676-475e-988e-c376ace05068",
-                              "Link between an API operation and its response structure."),
+                              "Link between an API operation and its response structure.",
+                              APIResponseProperties.class),
 
     /**
      * A structure describing data that is to be displayed.
@@ -5326,7 +5330,8 @@ public enum OpenMetadataType
                                      "ObjectIdentifier",
                                      OpenMetadataWikiPages.MODEL_0580_DATA_DICTIONARIES,
                                      "b5de9a9d-f4d9-4248-ba2f-24bcb817a6d2",
-                                     "Identifies a data item that describes an attribute that can be used to identify an instance."),
+                                     "Identifies a data item that describes an attribute that can be used to identify an instance.",
+                                     ObjectIdentifierProperties.class),
 
 
     /**
@@ -5356,7 +5361,8 @@ public enum OpenMetadataType
                                    "LinkedDataField",
                                    OpenMetadataWikiPages.MODEL_0581_DATA_FIELD_IMPLEMENTATION,
                                    "ade3a815-ab55-472e-b7e3-dbe1d68f29d3",
-                                   "Represents an association between two data fields in a schema.  This may describe a full relationship in the schema (for example, in a relational schema) or a relationship end (for example, in a graph schema)."),
+                                   "Represents an association between two data fields in a schema.  This may describe a full relationship in the schema (for example, in a relational schema) or a relationship end (for example, in a graph schema).",
+                                   LinkedDataFieldProperties.class),
 
     /**
      * Data field nested under a single parent data field.
@@ -5721,7 +5727,8 @@ public enum OpenMetadataType
                                           "DataSharingAgreement",
                                           OpenMetadataWikiPages.MODEL_0711_AGREEMENTS,
                                           "a2b65ea2-6dde-4271-84b9-e1094d2c5adc",
-                                          "Defines an agreement concerned with the sharing of data between parties."),
+                                          "Defines an agreement concerned with the sharing of data between parties.",
+                                          DataSharingAgreementProperties.class),
 
     /**
      * An actor identified in an agreement.
@@ -6051,7 +6058,8 @@ public enum OpenMetadataType
                               "Incomplete",
                               OpenMetadataWikiPages.MODEL_0790_INCOMPLETE,
                               "2c65c624-0e27-4e9d-a27d-3c342e44928a",
-                              "Accompanies a partial, incomplete Referenceable."),
+                              "Accompanies a partial, incomplete Referenceable.",
+                              IncompleteProperties.class),
 
     ;
 

@@ -38,9 +38,9 @@ public enum OpenMetadataProperty
     METADATA_COLLECTION_NAME("metadataCollectionName", DataType.STRING, DataType.STRING.getName(), "The unique name for the metadata collection that is the home for a metadata element.", "MyDataManagerForDatabase1", "25b43665-87e9-4637-9e6d-d0658ba26261"),
 
     /**
-     * Category of metadata collection.
+     * Category of the home metadata collection.
      */
-    INSTANCE_PROVENANCE_TYPE("instanceProvenanceType", DataType.STRING, DataType.STRING.getName(), "Category of metadata collection.", "Local Cohort", "f12562a3-52b2-42d2-9126-011207d4af55"),
+    INSTANCE_PROVENANCE_TYPE("instanceProvenanceType", DataType.STRING, DataType.STRING.getName(), "Category of the home metadata collection.", "Local Cohort", "f12562a3-52b2-42d2-9126-011207d4af55"),
 
     /**
      * UserId that created this instance.
@@ -449,6 +449,11 @@ public enum OpenMetadataProperty
      * The name of a primitive data type.
      */
     DATA_TYPE("dataType", DataType.STRING, DataType.STRING.getName(), "The name of a primitive data type.", "string", "50e73f9f-10a0-4b41-9cb6-bf55630f3734"),
+
+    /**
+     * The amount of data the volume can store.
+     */
+    STORAGE_CAPACITY("storageCapacity", DataType.LONG, DataType.LONG.getName(), "The amount of data the volume can store.", "1", "0c84982d-684e-4181-af4b-ee0b0f9197ee"),
 
     /**
      * The units of measure used in the data value.
@@ -1443,7 +1448,7 @@ public enum OpenMetadataProperty
     /**
      * Date when this version/edition of this external source was published.
      */
-    PUBLICATION_DATE("publicationDate", DataType.INT, DataType.INT.getName(), "Date when this version/edition of this external source was published.", null, "1b6d0398-31f3-4f8e-9998-3b975323423d"),
+    PUBLICATION_DATE("publicationDate", DataType.DATE, DataType.DATE.getName(), "Date when this version/edition of this external source was published.", null, "1b6d0398-31f3-4f8e-9998-3b975323423d"),
 
     /**
      * City where the publishers are based.
@@ -1578,7 +1583,7 @@ public enum OpenMetadataProperty
     /**
      * Instance of the database.
      */
-    INSTANCE ("databaseInstance", DataType.STRING, DataType.STRING.getName(), "Instance of the database.", null, "ecd5593a-647f-4767-b465-279e4bd35efc"),
+    DATABASE_INSTANCE("databaseInstance", DataType.STRING, DataType.STRING.getName(), "Instance of the database.", null, "ecd5593a-647f-4767-b465-279e4bd35efc"),
 
     /**
      * importedFrom
@@ -2629,9 +2634,9 @@ public enum OpenMetadataProperty
     RESTRICTIONS("restrictions", DataType.MAP_STRING_STRING, DataType.MAP_STRING_STRING.getName(), "The list of limiting conditions or measures imposed.", null, "2119de4f-22ba-4979-b7ab-e926386b96da"),
 
     /**
-     * The list of actions, duties or commitments required.
+     * The list of actions, duties, or commitments required.
      */
-    OBLIGATIONS("obligations", DataType.MAP_STRING_STRING, DataType.MAP_STRING_STRING.getName(), "The list of actions, duties or commitments required.", null, "d5aa9324-70f9-40c1-9f3c-da28c8f7e6bf"),
+    OBLIGATIONS("obligations", DataType.MAP_STRING_STRING, DataType.MAP_STRING_STRING.getName(), "The list of actions, duties, or commitments required.", null, "d5aa9324-70f9-40c1-9f3c-da28c8f7e6bf"),
 
     /**
      * Prefix for element names to ensure uniqueness.

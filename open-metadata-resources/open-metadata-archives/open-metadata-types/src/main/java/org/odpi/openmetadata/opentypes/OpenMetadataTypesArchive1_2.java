@@ -5034,7 +5034,7 @@ public class OpenMetadataTypesArchive1_2
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.INSTANCE));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DATABASE_INSTANCE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.IMPORTED_FROM));
 
         entityDef.setPropertiesDefinition(properties);

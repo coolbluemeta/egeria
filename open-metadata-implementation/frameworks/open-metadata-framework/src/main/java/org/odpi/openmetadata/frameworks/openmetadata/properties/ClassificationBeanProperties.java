@@ -10,7 +10,9 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.apis.Publ
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.apis.RequestResponseInterfaceProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.referencedata.ReferenceDataProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.collections.*;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.ObjectIdentifierProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.digitalbusiness.BusinessSignificantProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.digitalbusiness.DataSharingAgreementProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.glossaries.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.locations.CyberLocationProperties;
@@ -55,11 +57,11 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = BusinessSignificantProperties.class, name = "BusinessSignificantProperties"),
                 @JsonSubTypes.Type(value = CalculatedValueProperties.class, name = "CalculatedValueProperties"),
                 @JsonSubTypes.Type(value = CampaignProperties.class, name = "CampaignProperties"),
-                @JsonSubTypes.Type(value = CanonicalVocabularyProperties.class, name = "CanonicalVocabularyProperties"),
                 @JsonSubTypes.Type(value = CloudPlatformProperties.class, name = "CloudPlatformProperties"),
                 @JsonSubTypes.Type(value = CloudProviderProperties.class, name = "CloudProviderProperties"),
                 @JsonSubTypes.Type(value = CloudServiceProperties.class, name = "CloudServiceProperties"),
                 @JsonSubTypes.Type(value = CloudTenantProperties.class, name = "CloudTenantProperties"),
+                @JsonSubTypes.Type(value = CollectionKindProperties.class, name = "CollectionKindProperties"),
                 @JsonSubTypes.Type(value = ConsolidatedDuplicateProperties.class, name = "ConsolidatedDuplicateProperties"),
                 @JsonSubTypes.Type(value = ContextDefinitionProperties.class, name = "ContextDefinitionProperties"),
                 @JsonSubTypes.Type(value = CyberLocationProperties.class, name = "CyberLocationProperties"),
@@ -67,17 +69,18 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = DataScopeProperties.class, name = "DataScopeProperties"),
                 @JsonSubTypes.Type(value = DataValueMeaningProperties.class, name = "DataValueMeaningProperties"),
                 @JsonSubTypes.Type(value = DigitalResourceOriginProperties.class, name = "DigitalResourceOriginProperties"),
-                @JsonSubTypes.Type(value = EditingCollectionProperties.class, name = "EditingCollectionProperties"),
                 @JsonSubTypes.Type(value = ElementSupplementProperties.class, name = "ElementSupplementProperties"),
                 @JsonSubTypes.Type(value = FixedLocationProperties.class, name = "FixedLocationProperties"),
                 @JsonSubTypes.Type(value = GlossaryProjectProperties.class, name = "GlossaryProjectProperties"),
                 @JsonSubTypes.Type(value = GovernanceClassificationBase.class, name = "GovernanceClassificationBase"),
                 @JsonSubTypes.Type(value = GovernanceExpectationsProperties.class, name = "GovernanceExpectationsProperties"),
                 @JsonSubTypes.Type(value = GovernanceMeasurementsProperties.class, name = "GovernanceMeasurementsProperties"),
+                @JsonSubTypes.Type(value = IncompleteProperties.class, name = "IncompleteProperties"),
                 @JsonSubTypes.Type(value = KnownDuplicateProperties.class, name = "KnownDuplicateProperties"),
                 @JsonSubTypes.Type(value = ListenerInterfaceProperties.class, name = "ListenerInterfaceProperties"),
                 @JsonSubTypes.Type(value = MementoProperties.class, name = "MementoProperties"),
                 @JsonSubTypes.Type(value = MobileResourceProperties.class, name = "MobileResourceProperties"),
+                @JsonSubTypes.Type(value = ObjectIdentifierProperties.class, name = "ObjectIdentifierProperties"),
                 @JsonSubTypes.Type(value = OwnershipProperties.class, name = "OwnershipProperties"),
                 @JsonSubTypes.Type(value = PersonalProjectProperties.class, name = "PersonalProjectProperties"),
                 @JsonSubTypes.Type(value = PrimaryKeyProperties.class, name = "PrimaryKeyProperties"),
@@ -86,14 +89,11 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = ReferenceDataProperties.class, name = "ReferenceDataProperties"),
                 @JsonSubTypes.Type(value = ReferenceListProperties.class, name = "ReferenceListProperties"),
                 @JsonSubTypes.Type(value = RequestResponseInterfaceProperties.class, name = "RequestResponseInterfaceProperties"),
-                @JsonSubTypes.Type(value = ScopingCollectionProperties.class, name = "ScopingCollectionProperties"),
                 @JsonSubTypes.Type(value = SecureLocationProperties.class, name = "SecureLocationProperties"),
                 @JsonSubTypes.Type(value = SecurityGroupMembershipProperties.class, name = "SecurityGroupMembershipProperties"),
                 @JsonSubTypes.Type(value = SecurityTagsProperties.class, name = "SecurityTagsProperties"),
-                @JsonSubTypes.Type(value = StagingCollectionProperties.class, name = "StagingCollectionProperties"),
                 @JsonSubTypes.Type(value = StudyProjectProperties.class, name = "StudyProjectProperties"),
                 @JsonSubTypes.Type(value = TaskProperties.class, name = "TaskProperties"),
-                @JsonSubTypes.Type(value = TaxonomyProperties.class, name = "TaxonomyProperties"),
                 @JsonSubTypes.Type(value = TemplateProperties.class, name = "TemplateProperties"),
                 @JsonSubTypes.Type(value = TemplateSubstituteProperties.class, name = "TemplateSubstituteProperties"),
                 @JsonSubTypes.Type(value = TypeEmbeddedAttributeProperties.class, name = "TypeEmbeddedAttributeProperties"),

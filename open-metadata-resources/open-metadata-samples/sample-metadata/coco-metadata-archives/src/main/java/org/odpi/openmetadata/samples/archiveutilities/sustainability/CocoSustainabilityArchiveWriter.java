@@ -30,7 +30,9 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
 {
     private static final String archiveFileName = "CocoSustainabilityArchive.omarchive";
 
-    private static final String sustainabilitySubjectArea = "SubjectArea:Sustainability";
+    private static final String sustainabilityFolioGUID = "1b6a5706-9619-4432-b10f-743d89675679";
+    private static final String sustainabilityFolioQName = "Folio::Sustainability";
+    private static final String sustainabilityFolioDisplayName = "Sustainability Folio";
     /*
      * This is the header information for the archive.
      */
@@ -62,6 +64,7 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
     @Override
     public void getArchiveContent()
     {
+        writeFolio();
         writeDomains();
         writeSubjectAreaDefinitions();
         writeFacilityTypeValidValueSet();
@@ -72,6 +75,25 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
         writeProjects();
     }
 
+
+    private void writeFolio()
+    {
+        archiveHelper.setGUID(sustainabilityFolioQName, sustainabilityFolioGUID);
+
+        archiveHelper.addCollection(OpenMetadataType.FOLIO_COLLECTION.typeName,
+                                    null,
+                                    OpenMetadataType.FOLIO_COLLECTION.typeName,
+                                    OpenMetadataType.AUTHORED_REFERENCEABLE.typeName,
+                                    null,
+                                    null,
+                                    sustainabilityFolioQName,
+                                    sustainabilityFolioDisplayName,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null);
+    }
 
     /**
      * Creates the FacilityType valid value set for tagging physical locations.
@@ -179,7 +201,10 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
                                                                                     null);
 
             assert governanceDefinition.getGUID().equals(governanceDefinitionGUID);
+
+            archiveHelper.addMemberToCollection(sustainabilityFolioGUID,governanceDefinitionGUID, "Sustainability governance definition");
         }
+
 
         for (GovernanceDefinitionLink link : GovernanceDefinitionLink.values())
         {

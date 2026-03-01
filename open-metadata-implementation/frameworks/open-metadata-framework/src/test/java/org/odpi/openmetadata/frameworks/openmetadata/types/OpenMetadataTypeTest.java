@@ -15,13 +15,10 @@ import org.odpi.openmetadata.frameworks.openmetadata.search.PropertyHelper;
 import org.odpi.openmetadata.opentypes.OpenMetadataTypesArchive;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchiveTypeStore;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.TypeDef;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.*;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.testng.Assert.*;
 
@@ -36,8 +33,10 @@ public class OpenMetadataTypeTest
     OpenMetadataPropertyConverterBase propertyConverter = new OpenMetadataPropertyConverterBase(new PropertyHelper(),
                                                                                                 this.getClass().getName());
 
-    private final Map<String, TypeDef> typeMap          = new HashMap<>();
-    private final Map<String, String>  typeSuperTypeMap = new HashMap<>();
+    private final PropertyHelper propertyHelper = new PropertyHelper();
+    private final Map<String, TypeDef>                 typeMap          = new HashMap<>();
+    private final Map<String, String>                 typeSuperTypeMap = new HashMap<>();
+    private final Map<String, List<TypeDefAttribute>> typePropertyMap  = new HashMap<>();
 
     private void setUpTypeMaps()
     {
@@ -57,9 +56,44 @@ public class OpenMetadataTypeTest
             {
                 typeSuperTypeMap.put(newTypeDef.getName(), newTypeDef.getSuperType().getName());
             }
+
+            List<TypeDefAttribute> typeDefAttributes = getSuperTypeProperties(newTypeDef.getName());
+
+            if (typeDefAttributes != null)
+            {
+                typePropertyMap.put(newTypeDef.getName(), typeDefAttributes);
+            }
         }
     }
 
+
+    private List<TypeDefAttribute> getSuperTypeProperties(String typeName)
+    {
+        String superTypeName = typeSuperTypeMap.get(typeName);
+
+        List<TypeDefAttribute> typeDefAttributes = null;
+
+        if (superTypeName != null)
+        {
+            typeDefAttributes = getSuperTypeProperties(superTypeName);
+        }
+
+        TypeDef typeDef = typeMap.get(typeName);
+
+        if (typeDef.getPropertiesDefinition() != null)
+        {
+            if (typeDefAttributes == null)
+            {
+                typeDefAttributes = new ArrayList<>(typeDef.getPropertiesDefinition());
+            }
+            else
+            {
+                typeDefAttributes.addAll(typeDef.getPropertiesDefinition());
+            }
+        }
+
+        return typeDefAttributes;
+    }
 
     /**
      * Set up the type - including super types.
@@ -77,7 +111,8 @@ public class OpenMetadataTypeTest
 
        List<String> superTypes = new ArrayList<>();
 
-       String       superType  = typeSuperTypeMap.get(openMetadataType.typeName);
+       String superType = typeSuperTypeMap.get(openMetadataType.typeName);
+
        while (superType != null)
        {
            superTypes.add(superType);
@@ -138,16 +173,31 @@ public class OpenMetadataTypeTest
 
                         if (currentTypeDef != null)
                         {
-                            ElementProperties elementProperties = elementBuilder.getElementProperties(openMetadataRootProperties);
+                            System.out.println("Checking properties for " + openMetadataType.typeName);
+
+                            ElementProperties elementProperties = this.getElementPropertiesForType(openMetadataType);
 
                             OpenMetadataElement openMetadataElement = new OpenMetadataElement();
 
                             openMetadataElement.setElementProperties(elementProperties);
                             openMetadataElement.setType(getElementType(openMetadataType));
 
-                            OpenMetadataRootProperties returnedProperties = propertyConverter.getBeanProperties(openMetadataElement);
+                            OpenMetadataRootProperties newBeanProperties = propertyConverter.getBeanProperties(openMetadataElement);
 
-                            assertEquals(returnedProperties.getClass().getName(), beanInstance.getClass().getName(), "Bad entity bean class name returned: " + returnedProperties.getClass().getName() + " expected: "  + beanInstance.getClass().getName());
+                            assertEquals(newBeanProperties.getClass().getName(), beanInstance.getClass().getName(), "Bad entity bean class name returned: " + newBeanProperties.getClass().getName() + " expected: "  + beanInstance.getClass().getName());
+
+                            ElementProperties returnedElementProperties = elementBuilder.getElementProperties(newBeanProperties);
+
+                            if (returnedElementProperties == null)
+                            {
+                                System.out.println("Null returned element properties for " + openMetadataType.typeName);
+                                assertNull(elementProperties, "Null returned element properties for " + openMetadataType.typeName);
+                            }
+                            else if (elementProperties != null)
+                            {
+                                openMetadataElement.setElementProperties(returnedElementProperties);
+                                assertEquals(newBeanProperties, propertyConverter.getBeanProperties(openMetadataElement));
+                            }
                         }
                     }
                     else if (beanInstance instanceof RelationshipBeanProperties relationshipBeanProperties)
@@ -156,16 +206,28 @@ public class OpenMetadataTypeTest
 
                         if (currentTypeDef != null)
                         {
-                            ElementProperties relationshipProperties = relationshipBuilder.getElementProperties(relationshipBeanProperties);
+                            System.out.println("Checking properties for " + openMetadataType.typeName);
+
+                            ElementProperties elementProperties = this.getElementPropertiesForType(openMetadataType);
 
                             ElementControlHeader relationshipHeader = new ElementControlHeader();
-
                             relationshipHeader.setType(getElementType(openMetadataType));
 
-                            RelationshipBeanProperties returnedProperties = propertyConverter.getRelationshipProperties(relationshipHeader,
-                                                                                                                        relationshipProperties);
+                            RelationshipBeanProperties newBeanProperties = propertyConverter.getRelationshipProperties(relationshipHeader, elementProperties);
 
-                            assertEquals(returnedProperties.getClass().getName(), beanInstance.getClass().getName(), "Bad relationship bean class name returned: " + returnedProperties.getClass().getName() + " expected: "  + beanInstance.getClass().getName());
+                            assertEquals(newBeanProperties.getClass().getName(), beanInstance.getClass().getName(), "Bad relationship bean class name returned: " + newBeanProperties.getClass().getName() + " expected: "  + beanInstance.getClass().getName());
+
+                            ElementProperties returnedElementProperties = relationshipBuilder.getElementProperties(newBeanProperties);
+
+                            if (returnedElementProperties == null)
+                            {
+                                System.out.println("Null returned element properties for " + openMetadataType.typeName);
+                                assertNull(returnedElementProperties, "Null returned element properties for " + openMetadataType.typeName);
+                            }
+                            else if (elementProperties != null)
+                            {
+                                assertEquals(newBeanProperties, propertyConverter.getRelationshipProperties(relationshipHeader, returnedElementProperties));
+                            }
                         }
                     }
                     else if (beanInstance instanceof ClassificationBeanProperties classificationBeanProperties)
@@ -174,16 +236,31 @@ public class OpenMetadataTypeTest
 
                         if (currentTypeDef != null)
                         {
-                            ElementProperties classificationProperties = classificationBuilder.getElementProperties(classificationBeanProperties);
+                            System.out.println("Checking properties for " + openMetadataType.typeName);
+
+                            ElementProperties elementProperties = this.getElementPropertiesForType(openMetadataType);
 
                             AttachedClassification attachedClassification = new AttachedClassification();
 
                             attachedClassification.setType(getElementType(openMetadataType));
-                            attachedClassification.setClassificationProperties(classificationProperties);
+                            attachedClassification.setClassificationProperties(elementProperties);
 
-                            ClassificationBeanProperties returnedProperties = propertyConverter.getClassificationProperties(attachedClassification);
+                            ClassificationBeanProperties newBeanProperties = propertyConverter.getClassificationProperties(attachedClassification);
 
-                            assertEquals(returnedProperties.getClass().getName(), beanInstance.getClass().getName());
+                            assertEquals(newBeanProperties.getClass().getName(), beanInstance.getClass().getName());
+
+                            ElementProperties returnedElementProperties = classificationBuilder.getElementProperties(newBeanProperties);
+
+                            if (returnedElementProperties == null)
+                            {
+                                System.out.println("Null returned element properties for " + openMetadataType.typeName);
+                                assertNull(elementProperties, "Null returned element properties for " + openMetadataType.typeName);
+                            }
+                            else if (elementProperties != null)
+                            {
+                                attachedClassification.setClassificationProperties(returnedElementProperties);
+                                assertEquals(newBeanProperties, propertyConverter.getClassificationProperties(attachedClassification));
+                            }
                         }
                     }
 
@@ -197,9 +274,102 @@ public class OpenMetadataTypeTest
                     fail("Unable to create instance", error);
                 }
             }
+            else
+            {
+                System.out.println("No bean for " + openMetadataType.typeName);
+            }
         }
+
+
 
         System.out.println("Open Metadata Type Count: " + typeCount);
         System.out.println("Open Metadata Bean Count: " + beanCount);
+    }
+
+
+    private ElementProperties getElementPropertiesForType(OpenMetadataType openMetadataType)
+    {
+        if (openMetadataType.beanClass != null)
+        {
+            TypeDef currentTypeDef = typeMap.get(openMetadataType.typeName);
+
+            if (currentTypeDef != null)
+            {
+
+                List<TypeDefAttribute> typeDefAttributes = typePropertyMap.get(openMetadataType.typeName);
+
+                if (typeDefAttributes != null)
+                {
+                    ElementProperties elementProperties = new ElementProperties();
+
+                    for (TypeDefAttribute typeDefAttribute : typeDefAttributes)
+                    {
+                        addProperty(elementProperties,
+                                    typeDefAttribute.getAttributeName(),
+                                    typeDefAttribute.getAttributeType());
+                    }
+
+                    if (elementProperties.getPropertyCount() > 0)
+                    {
+                        return elementProperties;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Add property to the element properties based on the attribute type definition.
+     *
+     * @param elementProperties destination
+     * @param propertyName name of property
+     * @param attributeTypeDef type of property
+     */
+    private void addProperty(ElementProperties elementProperties,
+                             String            propertyName,
+                             AttributeTypeDef  attributeTypeDef)
+    {
+        if (attributeTypeDef instanceof PrimitiveDef primitiveDef)
+        {
+            if (primitiveDef.getPrimitiveDefCategory() == PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING)
+            {
+                propertyHelper.addStringProperty(elementProperties,
+                                                 propertyName,
+                                                 propertyName + " value");
+            }
+            else if (primitiveDef.getPrimitiveDefCategory() == PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BOOLEAN)
+            {
+                propertyHelper.addBooleanProperty(elementProperties,
+                                                  propertyName,
+                                                  true);
+            }
+            else if (primitiveDef.getPrimitiveDefCategory() == PrimitiveDefCategory.OM_PRIMITIVE_TYPE_INT)
+            {
+                propertyHelper.addIntProperty(elementProperties,
+                                                  propertyName,
+                                                  propertyName.length());
+            }
+            else if (primitiveDef.getPrimitiveDefCategory() == PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG)
+            {
+                propertyHelper.addLongProperty(elementProperties,
+                                               propertyName,
+                                               (propertyName.length() * 2L));
+            }
+            else if (primitiveDef.getPrimitiveDefCategory() == PrimitiveDefCategory.OM_PRIMITIVE_TYPE_FLOAT)
+            {
+                propertyHelper.addFloatProperty(elementProperties,
+                                               propertyName,
+                                               (propertyName.length() * 3));
+            }
+            else if (primitiveDef.getPrimitiveDefCategory() == PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE)
+            {
+                propertyHelper.addDateProperty(elementProperties,
+                                               propertyName,
+                                               new Date());
+            }
+        }
     }
 }

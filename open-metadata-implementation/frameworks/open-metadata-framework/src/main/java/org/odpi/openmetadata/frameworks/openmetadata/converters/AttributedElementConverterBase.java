@@ -160,7 +160,7 @@ public class AttributedElementConverterBase<B> extends OpenMetadataConverterBase
             processedRelationshipTypes.add(OpenMetadataType.DEPLOYED_ON_RELATIONSHIP.typeName);
 
             attributedMetadataElement.setStorageVolumes(super.getRelatedElements(OpenMetadataType.ATTACHED_STORAGE_RELATIONSHIP.typeName, relatedMetadataElements, false));
-            attributedMetadataElement.setHostsUsingStorageVolume(super.getRelatedElements(OpenMetadataType.ATTACHED_STORAGE_RELATIONSHIP.typeName, relatedMetadataElements, true));
+            attributedMetadataElement.setProvidesStorageFor(super.getRelatedElements(OpenMetadataType.ATTACHED_STORAGE_RELATIONSHIP.typeName, relatedMetadataElements, true));
             processedRelationshipTypes.add(OpenMetadataType.ATTACHED_STORAGE_RELATIONSHIP.typeName);
 
             attributedMetadataElement.setCapabilityConsumedAssets(super.getRelatedElements(OpenMetadataType.CAPABILITY_ASSET_USE_RELATIONSHIP.typeName, relatedMetadataElements, false));

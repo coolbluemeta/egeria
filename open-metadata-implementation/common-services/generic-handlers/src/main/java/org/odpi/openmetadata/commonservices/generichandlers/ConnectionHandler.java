@@ -647,10 +647,10 @@ public class ConnectionHandler<B> extends ReferenceableHandler<B>
                                                             externalSourceName,
                                                             connectionTypeGUID,
                                                             connectionTypeName,
-                                                            this.getDomainName(connectionTypeName),
-                                                            null,
                                                             connectionBuilder,
                                                             (anchorGUID == null),
+                                                            anchorGUID,
+                                                            null,
                                                             effectiveTime,
                                                             methodName);
 
@@ -1089,10 +1089,10 @@ public class ConnectionHandler<B> extends ReferenceableHandler<B>
                                                             externalSourceName,
                                                             connectionTypeId,
                                                             connectionTypeName,
-                                                            this.getDomainName(connectionTypeName),
-                                                            null,
                                                             builder,
                                                             (assetGUID == null),
+                                                            assetGUID,
+                                                            null,
                                                             effectiveTime,
                                                             methodName);
 
