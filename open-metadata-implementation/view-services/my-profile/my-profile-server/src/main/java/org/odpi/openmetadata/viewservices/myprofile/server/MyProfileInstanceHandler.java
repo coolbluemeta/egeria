@@ -9,6 +9,8 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterExcept
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.ActorProfileHandler;
+import org.odpi.openmetadata.frameworks.openmetadata.handlers.AssetHandler;
+import org.odpi.openmetadata.frameworks.openmetadata.handlers.NoteLogHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.UserIdentityHandler;
 
 
@@ -28,6 +30,63 @@ public class MyProfileInstanceHandler extends OMVSServiceInstanceHandler
 
         MyProfileRegistration.registerViewService();
     }
+
+
+    /**
+     * This method returns an open metadata handler.
+     *
+     * @param serverName           name of the server that the request is for
+     * @param userId               local server userid
+     * @param serviceOperationName service operation - usually the top level rest call
+     * @return  client
+     * @throws InvalidParameterException unknown server/service
+     * @throws UserNotAuthorizedException User not authorized to call this service
+     * @throws PropertyServerException internal error
+     */
+    public NoteLogHandler getNoteLogHandler(String userId,
+                                            String serverName,
+                                            String serviceOperationName) throws InvalidParameterException,
+                                                                                          PropertyServerException,
+                                                                                          UserNotAuthorizedException
+    {
+        MyProfileInstance instance = (MyProfileInstance) getServerServiceInstance(userId, serverName, serviceOperationName);
+
+        if (instance != null)
+        {
+            return instance.getNoteLogHandler();
+        }
+
+        return null;
+    }
+
+
+    /**
+     * This method returns an open metadata handler.
+     *
+     * @param serverName           name of the server that the request is for
+     * @param userId               local server userid
+     * @param serviceOperationName service operation - usually the top level rest call
+     * @return  client
+     * @throws InvalidParameterException unknown server/service
+     * @throws UserNotAuthorizedException User not authorized to call this service
+     * @throws PropertyServerException internal error
+     */
+    public AssetHandler getAssetHandler(String userId,
+                                        String serverName,
+                                        String serviceOperationName) throws InvalidParameterException,
+                                                                            PropertyServerException,
+                                                                            UserNotAuthorizedException
+    {
+        MyProfileInstance instance = (MyProfileInstance) getServerServiceInstance(userId, serverName, serviceOperationName);
+
+        if (instance != null)
+        {
+            return instance.getAssetHandler();
+        }
+
+        return null;
+    }
+
 
 
     /**

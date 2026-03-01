@@ -14,6 +14,9 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.collections.Stag
 import org.odpi.openmetadata.frameworks.openmetadata.properties.digitalbusiness.BusinessSignificantProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.glossaries.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.*;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.locations.CyberLocationProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.locations.FixedLocationProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.locations.SecureLocationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatforms.CloudPlatformProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatforms.CloudProviderProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatforms.CloudServiceProperties;
@@ -198,7 +201,7 @@ public class OpenMetadataClassificationBuilder
                                                                      cloudServiceProperties.getOfferingName());
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.SERVICE_TYPE.name,
-                                                                     cloudServiceProperties.getOfferingName());
+                                                                     cloudServiceProperties.getServiceType());
             }
             else if (properties instanceof CloudTenantProperties cloudTenantProperties)
             {
@@ -231,6 +234,21 @@ public class OpenMetadataClassificationBuilder
                                                                      consolidatedDuplicateProperties.getNotes());
 
 
+            }
+            else if (properties instanceof ContextDefinitionProperties contextDefinitionProperties)
+            {
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.DESCRIPTION.name,
+                                                                     contextDefinitionProperties.getDescription());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.SCOPE.name,
+                                                                     contextDefinitionProperties.getScope());
+            }
+            else if (properties instanceof CyberLocationProperties cyberLocationProperties)
+            {
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.NETWORK_ADDRESS.name,
+                                                                     cyberLocationProperties.getNetworkAddress());
             }
             else if (properties instanceof DigitalResourceOriginProperties digitalResourceOriginProperties)
             {
@@ -279,7 +297,7 @@ public class OpenMetadataClassificationBuilder
                                                                     dataScopeProperties.getMinLongitude());
                 elementProperties = propertyHelper.addFloatProperty(elementProperties,
                                                                     OpenMetadataProperty.MAX_LATITUDE.name,
-                                                                    dataScopeProperties.getMaxLongitude());
+                                                                    dataScopeProperties.getMaxLatitude());
                 elementProperties = propertyHelper.addFloatProperty(elementProperties,
                                                                     OpenMetadataProperty.MIN_LATITUDE.name,
                                                                     dataScopeProperties.getMinLatitude());
@@ -308,6 +326,21 @@ public class OpenMetadataClassificationBuilder
                                                                      OpenMetadataProperty.DESCRIPTION.name,
                                                                      editingCollectionProperties.getDescription());
             }
+            else if (properties instanceof FixedLocationProperties fixedLocationProperties)
+            {
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.COORDINATES.name,
+                                                                     fixedLocationProperties.getCoordinates());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.MAP_PROJECTION.name,
+                                                                     fixedLocationProperties.getMapProjection());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.TIME_ZONE.name,
+                                                                     fixedLocationProperties.getTimeZone());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.POSTAL_ADDRESS.name,
+                                                                     fixedLocationProperties.getPostalAddress());
+            }
             else if (properties instanceof GovernanceClassificationProperties governanceClassificationProperties)
             {
                 elementProperties = propertyHelper.addIntProperty(elementProperties,
@@ -316,7 +349,7 @@ public class OpenMetadataClassificationBuilder
 
                 elementProperties = propertyHelper.addIntProperty(elementProperties,
                                                                   OpenMetadataProperty.CONFIDENCE.name,
-                                                                  governanceClassificationProperties.getStatusIdentifier());
+                                                                  governanceClassificationProperties.getConfidence());
 
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.STEWARD.name,
@@ -386,6 +419,27 @@ public class OpenMetadataClassificationBuilder
                                                                       OpenMetadataProperty.DATES.name,
                                                                       governanceMeasurementsProperties.getDates());
             }
+            else if (properties instanceof MementoProperties mementoProperties)
+            {
+                elementProperties = propertyHelper.addDateProperty(elementProperties,
+                                                                   OpenMetadataProperty.ARCHIVE_DATE.name,
+                                                                     mementoProperties.getArchiveDate());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.ARCHIVE_USER.name,
+                                                                     mementoProperties.getArchiveUser());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.ARCHIVE_PROCESS.name,
+                                                                     mementoProperties.getArchiveProcess());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.ARCHIVE_SERVICE.name,
+                                                                     mementoProperties.getArchiveService());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.ARCHIVE_METHOD.name,
+                                                                     mementoProperties.getArchiveMethod());
+                elementProperties = propertyHelper.addStringMapProperty(elementProperties,
+                                                                        OpenMetadataProperty.ARCHIVE_PROPERTIES.name,
+                                                                        mementoProperties.getArchiveProperties());
+            }
             else if (properties instanceof OwnershipProperties ownershipProperties)
             {
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -435,7 +489,7 @@ public class OpenMetadataClassificationBuilder
 
                 elementProperties = propertyHelper.addIntProperty(elementProperties,
                                                                   OpenMetadataProperty.CONFIDENCE.name,
-                                                                  retentionProperties.getStatusIdentifier());
+                                                                  retentionProperties.getConfidence());
 
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.STEWARD.name,
@@ -478,6 +532,15 @@ public class OpenMetadataClassificationBuilder
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.DESCRIPTION.name,
                                                                      scopingCollectionProperties.getDescription());
+            }
+            else if (properties instanceof SecureLocationProperties secureLocationProperties)
+            {
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.DESCRIPTION.name,
+                                                                     secureLocationProperties.getDescription());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.LEVEL.name,
+                                                                     secureLocationProperties.getLevel());
             }
             else if (properties instanceof SecurityGroupMembershipProperties securityGroupMembershipProperties)
             {
@@ -528,7 +591,6 @@ public class OpenMetadataClassificationBuilder
             }
             else if (properties instanceof TypeEmbeddedAttributeProperties typeEmbeddedAttributeProperties)
             {
-
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.SCHEMA_TYPE_NAME.name,
                                                                      typeEmbeddedAttributeProperties.getSchemaTypeName());
@@ -556,6 +618,9 @@ public class OpenMetadataClassificationBuilder
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.NAMESPACE_PATH.name,
                                                                      typeEmbeddedAttributeProperties.getNamespacePath());
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.DATA_TYPE.name,
+                                                                     typeEmbeddedAttributeProperties.getDataType());
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.DEFAULT_VALUE.name,
                                                                      typeEmbeddedAttributeProperties.getDefaultValue());

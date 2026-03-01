@@ -220,21 +220,15 @@ public class ReferenceableHandler<B> extends OpenMetadataAPITemplateHandler<B>
             }
             else
             {
-                this.addAnchorGUIDToBuilder(userId,
-                                            referenceableGUID,
-                                            referenceableGUIDParameter,
-                                            forLineage,
-                                            forDuplicateProcessing,
-                                            effectiveTime,
-                                            builder,
-                                            methodName);
-
                 String propertyFacetGUID = createBeanInRepository(userId,
                                                                   null,
                                                                   null,
                                                                   OpenMetadataType.PROPERTY_FACET.typeGUID,
                                                                   OpenMetadataType.PROPERTY_FACET.typeName,
                                                                   builder,
+                                                                  false,
+                                                                  referenceableGUID,
+                                                                  null,
                                                                   effectiveTime,
                                                                   methodName);
 

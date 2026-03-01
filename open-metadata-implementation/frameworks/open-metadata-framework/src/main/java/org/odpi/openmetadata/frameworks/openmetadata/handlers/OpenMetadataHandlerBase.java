@@ -1238,7 +1238,7 @@ public class OpenMetadataHandlerBase
                                                                                1));
             rootElement.setSupportedGovernanceDefinitions(this.getElementHierarchies(userId,
                                                                                 rootElement.getSupportedGovernanceDefinitions(),
-                                                                                2,
+                                                                                0,
                                                                                 null,
                                                                                 List.of(OpenMetadataType.GOVERNANCE_DRIVER_LINK_RELATIONSHIP.typeName,
                                                                                         OpenMetadataType.GOVERNANCE_POLICY_LINK_RELATIONSHIP.typeName,
@@ -1249,7 +1249,7 @@ public class OpenMetadataHandlerBase
                                                                                 1));
             rootElement.setSupportingGovernanceDefinitions(this.getElementHierarchies(userId,
                                                                                 rootElement.getSupportingGovernanceDefinitions(),
-                                                                                1,
+                                                                                0,
                                                                                 null,
                                                                                 List.of(OpenMetadataType.GOVERNANCE_DRIVER_LINK_RELATIONSHIP.typeName,
                                                                                         OpenMetadataType.GOVERNANCE_POLICY_LINK_RELATIONSHIP.typeName,
@@ -1258,6 +1258,16 @@ public class OpenMetadataHandlerBase
                                                                                         OpenMetadataType.GOVERNANCE_MECHANISM_RELATIONSHIP.typeName),
                                                                                 queryOptions,
                                                                                 1));
+
+            rootElement.setAssignedActors(this.getElementHierarchies(userId,
+                                                                      rootElement.getAssignedActors(),
+                                                                      1,
+                                                                      null,
+                                                                      List.of(OpenMetadataType.PERSON_ROLE_APPOINTMENT_RELATIONSHIP.typeName,
+                                                                              OpenMetadataType.TEAM_ROLE_APPOINTMENT_RELATIONSHIP.typeName,
+                                                                              OpenMetadataType.IT_PROFILE_ROLE_APPOINTMENT_RELATIONSHIP.typeName),
+                                                                     queryOptions,
+                                                                     1));
 
             if (propertyHelper.isTypeOf(rootElement.getElementHeader(), OpenMetadataType.ASSET.typeName))
             {
@@ -1302,6 +1312,23 @@ public class OpenMetadataHandlerBase
                                                                                     OpenMetadataType.IMPLEMENTED_BY_RELATIONSHIP.typeName,
                                                                                     OpenMetadataType.SOLUTION_COMPONENT_PORT_RELATIONSHIP.typeName,
                                                                                     OpenMetadataType.SOLUTION_PORT_DELEGATION_RELATIONSHIP.typeName),
+                                                                            queryOptions,
+                                                                            1));
+            }
+            else if (propertyHelper.isTypeOf(rootElement.getElementHeader(), OpenMetadataType.FOLIO_COLLECTION.typeName))
+            {
+                rootElement.setCollectionMembers(this.getElementHierarchies(userId,
+                                                                            rootElement.getCollectionMembers(),
+                                                                            0,
+                                                                            OpenMetadataType.COLLECTION_MEMBERSHIP_RELATIONSHIP.typeName,
+                                                                            List.of(OpenMetadataType.GOVERNANCE_DRIVER_LINK_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.GOVERNANCE_POLICY_LINK_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.GOVERNANCE_CONTROL_LINK_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.GOVERNANCE_RESPONSE_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.GOVERNANCE_MECHANISM_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.RESOURCE_LIST_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.NESTED_DATA_FIELD_RELATIONSHIP.typeName,
+                                                                                    OpenMetadataType.MEMBER_DATA_FIELD_RELATIONSHIP.typeName),
                                                                             queryOptions,
                                                                             1));
             }

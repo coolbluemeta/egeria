@@ -11,6 +11,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterExcept
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.AttachedClassification;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.ZoneMembershipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.metadataobservability.ffdc.OpenMetadataObservabilityAuditCode;
@@ -1712,50 +1713,9 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @param entityTypeGUID unique identifier of the type of entity to create
      * @param entityTypeName unique name of the type of entity to create
      * @param propertyBuilder builder pre-populated with the properties and classifications of the new entity
-     * @param effectiveTime the time that the retrieved elements must be effective for
-     * @param methodName calling method
-     * @return unique identifier of new entity
-     * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws PropertyServerException a problem adding the properties to the repositories.
-     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    public String createBeanInRepository(String                        userId,
-                                         String                        externalSourceGUID,
-                                         String                        externalSourceName,
-                                         String                        entityTypeGUID,
-                                         String                        entityTypeName,
-                                         OpenMetadataAPIGenericBuilder propertyBuilder,
-                                         Date                          effectiveTime,
-                                         String                        methodName) throws InvalidParameterException,
-                                                                                          PropertyServerException,
-                                                                                          UserNotAuthorizedException
-    {
-        return this.createBeanInRepository(userId,
-                                           externalSourceGUID,
-                                           externalSourceName,
-                                           entityTypeGUID,
-                                           entityTypeName,
-                                           null,
-                                           null,
-                                           propertyBuilder,
-                                           false,
-                                           effectiveTime,
-                                           methodName);
-    }
-
-
-    /**
-     * Create a new entity in the repository assuming all parameters are ok.
-     *
-     * @param userId           userId of the user making the request.
-     * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
-     * @param externalSourceName name of the software capability entity that represented the external source
-     * @param entityTypeGUID unique identifier of the type of entity to create
-     * @param entityTypeName unique name of the type of entity to create
-     * @param entityDomainName unique name of the type of entity's domain
-     * @param entityScopeGUID unique identifier of the scope of this element
-     * @param propertyBuilder builder pre-populated with the properties and classifications of the new entity
      * @param isOwnAnchor flag to indicate if the new entity should be anchored to itself
+     * @param anchorGUID optional anchor guid
+     * @param anchorScopeGUID unique identifier of the scope of this element
      * @param effectiveTime the time that the retrieved elements must be effective for
      * @param methodName calling method
      * @return unique identifier of new entity
@@ -1768,10 +1728,10 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
                                          String                        externalSourceName,
                                          String                        entityTypeGUID,
                                          String                        entityTypeName,
-                                         String                        entityDomainName,
-                                         String                        entityScopeGUID,
                                          OpenMetadataAPIGenericBuilder propertyBuilder,
                                          boolean                       isOwnAnchor,
+                                         String                        anchorGUID,
+                                         String                        anchorScopeGUID,
                                          Date                          effectiveTime,
                                          String                        methodName) throws InvalidParameterException,
                                                                                           PropertyServerException,
@@ -1779,47 +1739,131 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
     {
         invalidParameterHandler.validateUserId(userId, methodName);
 
+        /*
+         * The governance zones are moderated by the security verifier.
+         */
+        List<String> governanceZones = securityVerifier.getDefaultZones(propertyBuilder.getInitialGovernanceZones(), userId, entityTypeName, methodName);
+
         if (isOwnAnchor)
         {
             /*
-             * A null anchorGUID meant that the element is its own Anchor.
+             * A null anchorGUID meant that the element is its own Anchor.  The default governance zones are set up in
+             * both the Anchors classification and the ZoneMembership classification.
              */
-            List<String> governanceZones = securityVerifier.getDefaultZones(propertyBuilder.getInitialGovernanceZones(), userId, entityTypeName, methodName);
-
+            propertyBuilder.setAnchors(userId, null, entityTypeName, this.getDomainName(entityTypeName), anchorScopeGUID, governanceZones, methodName);
             propertyBuilder.setGovernanceZones(userId, governanceZones, methodName);
-            propertyBuilder.setAnchors(userId, null, entityTypeName, entityDomainName, entityScopeGUID, governanceZones, methodName);
         }
-        else if (propertyBuilder.isClassificationSet(OpenMetadataType.ANCHORS_CLASSIFICATION.typeName))
+        else if ((anchorGUID != null) || (propertyBuilder.isClassificationSet(OpenMetadataType.ANCHORS_CLASSIFICATION.typeName)))
         {
             /*
-             * The new entity is going to be anchored to another element.  First, check that the caller has not requested
-             * governance zones since they can only be attached to an anchor.
+             * The caller has requested that an anchor classification be applied.
              */
-            List<String> proposedZones = propertyBuilder.getInitialGovernanceZones();
-
-            if (proposedZones != null)
+            if (anchorGUID == null)
             {
                 Classification anchorClassification = propertyBuilder.getClassification(OpenMetadataType.ANCHORS_CLASSIFICATION.typeName);
 
-                String anchorDomainName = repositoryHelper.getStringProperty(serviceName,
-                                                                             OpenMetadataProperty.ANCHOR_DOMAIN_NAME.name,
-                                                                             anchorClassification.getProperties(),
-                                                                             methodName);
-
-                String anchorGUID = repositoryHelper.getStringProperty(serviceName,
-                                                                       OpenMetadataProperty.ANCHOR_GUID.name,
-                                                                       anchorClassification.getProperties(),
-                                                                       methodName);
-
-                throw new InvalidParameterException(GenericHandlersErrorCode.ZONES_ONLY_ON_ANCHOR.getMessageDefinition(methodName,
-                                                                                                                       entityTypeName,
-                                                                                                                       "<new>",
-                                                                                                                       anchorDomainName,
-                                                                                                                       anchorGUID),
-                                                    this.getClass().getName(),
-                                                    methodName,
-                                                    OpenMetadataProperty.ZONE_MEMBERSHIP.name);
+                anchorGUID = repositoryHelper.getStringProperty(serviceName,
+                                                                OpenMetadataProperty.ANCHOR_GUID.name,
+                                                                anchorClassification.getProperties(),
+                                                                methodName);
             }
+
+            /*
+             * The new entity is going to be its own anchor.  Make sure it is set up correctly.
+             */
+            if (anchorGUID == null)
+            {
+                propertyBuilder.setAnchors(userId,
+                                           null,
+                                           entityTypeName,
+                                           this.getDomainName(entityTypeName),
+                                           anchorScopeGUID,
+                                           governanceZones,
+                                           methodName);
+            }
+            else
+            {
+                /*
+                 * The new entity is going to be anchored to another element.  The caller must have permission
+                 * to access the anchor entity to add an anchored element to it.
+                 */
+                final String anchorGUIDParameterName = "anchorGUID";
+                EntityDetail anchorEntity = this.getEntityFromRepository(userId,
+                                                                         anchorGUID,
+                                                                         anchorGUIDParameterName,
+                                                                         OpenMetadataType.OPEN_METADATA_ROOT.typeName,
+                                                                         null,
+                                                                         null,
+                                                                         false,
+                                                                         false,
+                                                                         effectiveTime,
+                                                                         methodName);
+
+                if (anchorEntity != null)
+                {
+                    /*
+                     * Make sure the anchors classification includes the zome membership for the anchor.
+                     */
+                    Classification zoneMembership = null;
+
+                    if (anchorEntity.getClassifications() != null)
+                    {
+                        for (Classification classification : anchorEntity.getClassifications())
+                        {
+                            if (classification.getType().getTypeDefName().equals(OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName))
+                            {
+                                zoneMembership = classification;
+                                break;
+                            }
+                        }
+                    }
+
+                    List<String> anchorZones = null;
+                    if ((zoneMembership != null) && (zoneMembership.getProperties() != null))
+                    {
+                        anchorZones = repositoryHelper.getStringArrayProperty(serviceName,
+                                                                              OpenMetadataProperty.ZONE_MEMBERSHIP.name,
+                                                                              zoneMembership.getProperties(),
+                                                                              methodName);
+
+                    }
+
+                    propertyBuilder.setAnchors(userId, anchorEntity.getGUID(),
+                                               anchorEntity.getType().getTypeDefName(),
+                                               this.getDomainName(anchorEntity.getType().getTypeDefName()),
+                                               anchorScopeGUID,
+                                               anchorZones,
+                                               methodName);
+
+                    /*
+                     * If the caller has added overriding zones, then ensure they are also included.
+                     */
+                    if (propertyBuilder.getInitialGovernanceZones() != null)
+                    {
+                        propertyBuilder.setGovernanceZones(userId, governanceZones, methodName);
+                    }
+                }
+                else
+                {
+                    /*
+                     * The anchor entity is not available.  This should not happen as an exception is thrown
+                     * if the guid is invalid or the caller does not have access.  This exception is to make sure
+                     * the creation does not happen.
+                     */
+                    invalidParameterHandler.throwUnknownElement(userId,
+                                                                anchorGUID,
+                                                                OpenMetadataType.OPEN_METADATA_ROOT.typeName,
+                                                                serviceName,
+                                                                serverName,
+                                                                methodName);                }
+            }
+        }
+        else
+        {
+            /*
+             * No anchor is requested; just set up governance zones
+             */
+            propertyBuilder.setGovernanceZones(userId, governanceZones, methodName);
         }
 
         validateNewEntityRequest(userId,
@@ -2224,60 +2268,42 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
 
         if ((originalEntity != null) && (originalEntity.getType() != null))
         {
-            AnchorIdentifiers anchorIdentifiers = this.getAnchorsFromAnchorsClassification(originalEntity, methodName);
+            OpenMetadataAPIGenericBuilder builder = new OpenMetadataAPIGenericBuilder(originalEntity.getType().getTypeDefGUID(),
+                                                                                      originalEntity.getType().getTypeDefName(),
+                                                                                      repositoryHelper,
+                                                                                      serviceName,
+                                                                                      serverName);
 
-            if ((anchorIdentifiers == null) || (anchorIdentifiers.anchorGUID == null) || (anchorIdentifiers.anchorGUID.equals(originalEntity.getGUID())))
-            {
-                /*
-                 * The entity is either its own anchor or is unanchored.  This means it is ok to set the zone membership.
-                 */
-                OpenMetadataAPIGenericBuilder builder = new OpenMetadataAPIGenericBuilder(originalEntity.getType().getTypeDefGUID(),
-                                                                                          originalEntity.getType().getTypeDefName(),
-                                                                                          repositoryHelper,
-                                                                                          serviceName,
-                                                                                          serverName);
+            List<String> elementZones = securityVerifier.getPublishZones(this.getEntityZones(originalEntity),
+                                                                         userId,
+                                                                         originalEntity.getType().getTypeDefName(),
+                                                                         methodName);
+            this.setClassificationInRepository(userId,
+                                               externalSourceGUID,
+                                               externalSourceName,
+                                               originalEntity.getGUID(),
+                                               entityGUIDParameterName,
+                                               originalEntity.getType().getTypeDefName(),
+                                               OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeGUID,
+                                               OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName,
+                                               builder.getZoneMembershipProperties(elementZones, methodName),
+                                               true,
+                                               forLineage,
+                                               forDuplicateProcessing,
+                                               effectiveTime,
+                                               methodName);
 
-                List<String> elementZones = securityVerifier.getPublishZones(this.getEntityZones(originalEntity),
-                                                                             userId,
-                                                                             originalEntity.getType().getTypeDefName(),
-                                                                             methodName);
-                this.setClassificationInRepository(userId,
-                                                   externalSourceGUID,
-                                                   externalSourceName,
-                                                   originalEntity.getGUID(),
-                                                   entityGUIDParameterName,
-                                                   originalEntity.getType().getTypeDefName(),
-                                                   OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeGUID,
-                                                   OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName,
-                                                   builder.getZoneMembershipProperties(elementZones, methodName),
-                                                   true,
-                                                   forLineage,
-                                                   forDuplicateProcessing,
-                                                   effectiveTime,
-                                                   methodName);
+            super.refreshAnchorsClassification(userId,
+                                               externalSourceGUID,
+                                               externalSourceName,
+                                               originalEntity.getGUID(),
+                                               entityGUIDParameterName,
+                                               originalEntity.getType().getTypeDefName(),
+                                               forLineage,
+                                               forDuplicateProcessing,
+                                               effectiveTime,
+                                               methodName);
 
-                super.refreshAnchorsClassification(userId,
-                                                   externalSourceGUID,
-                                                   externalSourceName,
-                                                   originalEntity.getGUID(),
-                                                   entityGUIDParameterName,
-                                                   originalEntity.getType().getTypeDefName(),
-                                                   forLineage,
-                                                   forDuplicateProcessing,
-                                                   effectiveTime,
-                                                   methodName);
-            }
-            else
-            {
-                throw new InvalidParameterException(GenericHandlersErrorCode.ZONES_ONLY_ON_ANCHOR.getMessageDefinition(methodName,
-                                                                                                                       originalEntity.getType().getTypeDefName(),
-                                                                                                                       originalEntity.getGUID(),
-                                                                                                                       anchorIdentifiers.anchorDomainName,
-                                                                                                                       anchorIdentifiers.anchorGUID),
-                                                    this.getClass().getName(),
-                                                    methodName,
-                                                    OpenMetadataProperty.ZONE_MEMBERSHIP.name);
-            }
         }
     }
 
@@ -2330,60 +2356,41 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
 
         if ((originalEntity != null) && (originalEntity.getType() != null))
         {
-            AnchorIdentifiers anchorIdentifiers = this.getAnchorsFromAnchorsClassification(originalEntity, methodName);
+            OpenMetadataAPIGenericBuilder builder = new OpenMetadataAPIGenericBuilder(originalEntity.getType().getTypeDefGUID(),
+                                                                                      originalEntity.getType().getTypeDefName(),
+                                                                                      repositoryHelper,
+                                                                                      serviceName,
+                                                                                      serverName);
 
-            if ((anchorIdentifiers == null) || (anchorIdentifiers.anchorGUID == null) || (anchorIdentifiers.anchorGUID.equals(originalEntity.getGUID())))
-            {
-                /*
-                 * The entity is either its own anchor or is unanchored.  This means it is ok to set the zone membership.
-                 */
-                OpenMetadataAPIGenericBuilder builder = new OpenMetadataAPIGenericBuilder(originalEntity.getType().getTypeDefGUID(),
-                                                                                          originalEntity.getType().getTypeDefName(),
-                                                                                          repositoryHelper,
-                                                                                          serviceName,
-                                                                                          serverName);
+            List<String> elementZones = securityVerifier.getDefaultZones(this.getEntityZones(originalEntity),
+                                                                         userId,
+                                                                         originalEntity.getType().getTypeDefName(),
+                                                                         methodName);
+            this.setClassificationInRepository(userId,
+                                               externalSourceGUID,
+                                               externalSourceName,
+                                               originalEntity.getGUID(),
+                                               entityGUIDParameterName,
+                                               originalEntity.getType().getTypeDefName(),
+                                               OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeGUID,
+                                               OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName,
+                                               builder.getZoneMembershipProperties(elementZones, methodName),
+                                               true,
+                                               forLineage,
+                                               forDuplicateProcessing,
+                                               effectiveTime,
+                                               methodName);
 
-                List<String> elementZones = securityVerifier.getDefaultZones(this.getEntityZones(originalEntity),
-                                                                             userId,
-                                                                             originalEntity.getType().getTypeDefName(),
-                                                                             methodName);
-                this.setClassificationInRepository(userId,
-                                                   externalSourceGUID,
-                                                   externalSourceName,
-                                                   originalEntity.getGUID(),
-                                                   entityGUIDParameterName,
-                                                   originalEntity.getType().getTypeDefName(),
-                                                   OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeGUID,
-                                                   OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName,
-                                                   builder.getZoneMembershipProperties(elementZones, methodName),
-                                                   true,
-                                                   forLineage,
-                                                   forDuplicateProcessing,
-                                                   effectiveTime,
-                                                   methodName);
-
-                super.refreshAnchorsClassification(userId,
-                                                   externalSourceGUID,
-                                                   externalSourceName,
-                                                   originalEntity.getGUID(),
-                                                   entityGUIDParameterName,
-                                                   originalEntity.getType().getTypeDefName(),
-                                                   forLineage,
-                                                   forDuplicateProcessing,
-                                                   effectiveTime,
-                                                   methodName);
-            }
-            else
-            {
-                throw new InvalidParameterException(GenericHandlersErrorCode.ZONES_ONLY_ON_ANCHOR.getMessageDefinition(methodName,
-                                                                                                                       originalEntity.getType().getTypeDefName(),
-                                                                                                                       originalEntity.getGUID(),
-                                                                                                                       anchorIdentifiers.anchorDomainName,
-                                                                                                                       anchorIdentifiers.anchorGUID),
-                                                    this.getClass().getName(),
-                                                    methodName,
-                                                    OpenMetadataProperty.ZONE_MEMBERSHIP.name);
-            }
+            super.refreshAnchorsClassification(userId,
+                                               externalSourceGUID,
+                                               externalSourceName,
+                                               originalEntity.getGUID(),
+                                               entityGUIDParameterName,
+                                               originalEntity.getType().getTypeDefName(),
+                                               forLineage,
+                                               forDuplicateProcessing,
+                                               effectiveTime,
+                                               methodName);
         }
     }
 

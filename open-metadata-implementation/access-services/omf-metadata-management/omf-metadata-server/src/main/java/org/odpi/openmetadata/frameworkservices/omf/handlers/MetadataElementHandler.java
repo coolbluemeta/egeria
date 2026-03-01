@@ -20,9 +20,7 @@ import org.odpi.openmetadata.frameworkservices.omf.converters.RelatedElementConv
 import org.odpi.openmetadata.frameworkservices.omf.converters.OpenMetadataRelationshipConverter;
 import org.odpi.openmetadata.metadatasecurity.server.OpenMetadataServerSecurityVerifier;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.*;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.AttributeTypeDef;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.EnumDef;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.EnumElementDef;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.*;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.repositoryconnector.OMRSRepositoryHelper;
 import org.odpi.openmetadata.repositoryservices.ffdc.exception.TypeErrorException;
 import org.slf4j.Logger;
@@ -1676,6 +1674,7 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
         if (parentGUID != null)
         {
             final String parentRelationshipTypeNameParameterName = "parentRelationshipTypeName";
+            final String parentGUIDParameterName = "parentGUID";
 
             invalidParameterHandler.validateName(parentRelationshipTypeName, parentRelationshipTypeNameParameterName, methodName);
 
@@ -1684,6 +1683,60 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                                                                   serviceName,
                                                                                   methodName,
                                                                                   repositoryHelper);
+
+
+            EntityDetail parentEntity = this.getEntityFromRepository(userId,
+                                                                     parentGUID,
+                                                                     parentGUIDParameterName,
+                                                                     OpenMetadataType.OPEN_METADATA_ROOT.typeName,
+                                                                     null,
+                                                                     null,
+                                                                     forLineage,
+                                                                     forDuplicateProcessing,
+                                                                     effectiveTime,
+                                                                     methodName);
+
+            if (parentEntity == null)
+            {
+                /*
+                 * The parent entity is not available.  This should not happen as an exception is thrown
+                 * if the guid is invalid or the caller does not have access.  This exception is to make sure
+                 * the creation request does not happen.
+                 */
+                invalidParameterHandler.throwUnknownElement(userId,
+                                                            parentGUID,
+                                                            OpenMetadataType.OPEN_METADATA_ROOT.typeName,
+                                                            serviceName,
+                                                            serverName,
+                                                            methodName);
+            }
+            else
+            {
+                /*
+                 * Check that the parent is of the correct type.
+                 */
+                TypeDef relationshipTypeDef = repositoryHelper.getTypeDefByName(serviceName, parentRelationshipTypeName);
+
+                if (relationshipTypeDef instanceof RelationshipDef relationshipDef)
+                {
+                    if (parentAtEnd1)
+                    {
+                        invalidParameterHandler.validateTypeName(parentEntity.getType().getTypeDefName(),
+                                                                 relationshipDef.getEndDef1().getEntityType().getName(),
+                                                                 serviceName,
+                                                                 methodName,
+                                                                 repositoryHelper);
+                    }
+                    else
+                    {
+                        invalidParameterHandler.validateTypeName(parentEntity.getType().getTypeDefName(),
+                                                                 relationshipDef.getEndDef2().getEntityType().getName(),
+                                                                 serviceName,
+                                                                 methodName,
+                                                                 repositoryHelper);
+                    }
+                }
+            }
         }
 
         MetadataElementBuilder builder;
@@ -1744,66 +1797,26 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
             }
         }
 
-        /*
-         * If an anchor entity is supplied, make sure it is saved in the builder
-         */
-        EntityDetail anchorEntity = null;
-        if (anchorGUID != null)
-        {
-             anchorEntity = setUpAnchorsClassificationFromAnchor(userId,
-                                                                 anchorGUID,
-                                                                 anchorGUIDParameterName,
-                                                                 anchorScopeGUID,
-                                                                 builder,
-                                                                 forLineage,
-                                                                 forDuplicateProcessing,
-                                                                 effectiveTime,
-                                                                 methodName);
-            if (anchorEntity != null)
-            {
-                /*
-                 * This method will throw an exception if the asset is not in the supported zones - it will look like
-                 * the element is not known.
-                 */
-                invalidParameterHandler.validateElementInSupportedZone(anchorEntity.getGUID(),
-                                                                       anchorGUIDParameterName,
-                                                                       this.getEntityZones(anchorEntity),
-                                                                       securityVerifier.getSupportedZones(userId, anchorEntity.getType().getTypeDefName(), methodName),
-                                                                       serviceName,
-                                                                       methodName);
-            }
-        }
-
-
         String metadataElementGUID = this.createBeanInRepository(userId,
                                                                  externalSourceGUID,
                                                                  externalSourceName,
                                                                  metadataElementTypeGUID,
                                                                  metadataElementTypeName,
-                                                                 this.getDomainName(metadataElementTypeName),
-                                                                 anchorScopeGUID,
                                                                  builder,
                                                                  isOwnAnchor,
+                                                                 anchorGUID,
+                                                                 anchorScopeGUID,
                                                                  effectiveTime,
                                                                  methodName);
 
-        String pathName = propertyHelper.getStringProperty(serviceName,
-                                                           OpenMetadataProperty.PATH_NAME.name,
-                                                           properties,
-                                                           methodName);
         createParentRelationships(userId,
                                   externalSourceGUID,
                                   externalSourceName,
                                   metadataElementGUID,
-                                  metadataElementTypeName,
-                                  pathName,
                                   parentGUID,
                                   parentRelationshipTypeGUID,
                                   parentRelationshipProperties,
                                   parentAtEnd1,
-                                  forLineage,
-                                  forDuplicateProcessing,
-                                  effectiveTime,
                                   methodName);
 
         return metadataElementGUID;
@@ -1816,16 +1829,11 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
      * @param userId caller's userId
      * @param externalSourceGUID      unique identifier of the software capability that owns this element
      * @param externalSourceName      unique name of the software capability that owns this element
-     * @param metadataElementTypeName type name of the new metadata element
      * @param metadataElementGUID     newly created element
-     * @param pathName                path name property of element (if available)
      * @param parentGUID              requested parent
      * @param parentRelationshipTypeGUID requested parent relationship type GUID
      * @param parentRelationshipProperties  requested parent relationship properties
      * @param parentAtEnd1            which end to attach the parent
-     * @param forLineage             the retrieved elements are for lineage processing so include archived elements
-     * @param forDuplicateProcessing the retrieved element is for duplicate processing so do not combine results from known duplicates.
-     * @param effectiveTime the time that the retrieved elements must be effective for
      * @param methodName calling method
      *
      * @throws InvalidParameterException the type name, status, or one of the properties is invalid
@@ -1836,15 +1844,10 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                            String               externalSourceGUID,
                                            String               externalSourceName,
                                            String               metadataElementGUID,
-                                           String               metadataElementTypeName,
-                                           String               pathName,
                                            String               parentGUID,
                                            String               parentRelationshipTypeGUID,
                                            NewElementProperties parentRelationshipProperties,
                                            boolean              parentAtEnd1,
-                                           boolean              forLineage,
-                                           boolean              forDuplicateProcessing,
-                                           Date                 effectiveTime,
                                            String               methodName) throws InvalidParameterException,
                                                                                    PropertyServerException,
                                                                                    UserNotAuthorizedException
@@ -2084,10 +2087,6 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                                                      effectiveTime,
                                                                      methodName);
 
-            String pathName = repositoryHelper.getStringProperty(serviceName,
-                                                                 OpenMetadataProperty.PATH_NAME.name,
-                                                                 entityDetail.getProperties(),
-                                                                 methodName);
             List<Relationship> existingRelationships = null;
 
             if (parentGUID != null)
@@ -2129,35 +2128,10 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                           externalSourceGUID,
                                           externalSourceName,
                                           metadataElementGUID,
-                                          metadataElementTypeName,
-                                          pathName,
                                           parentGUID,
                                           parentRelationshipTypeGUID,
                                           parentRelationshipProperties,
                                           parentAtEnd1,
-                                          forLineage,
-                                          forDuplicateProcessing,
-                                          effectiveTime,
-                                          methodName);
-            }
-            else
-            {
-                /*
-                 * Ignore the creation of the parent.
-                 */
-                createParentRelationships(userId,
-                                          externalSourceGUID,
-                                          externalSourceName,
-                                          metadataElementGUID,
-                                          metadataElementTypeName,
-                                          pathName,
-                                          null,
-                                          null,
-                                          null,
-                                          true,
-                                          forLineage,
-                                          forDuplicateProcessing,
-                                          effectiveTime,
                                           methodName);
             }
         }

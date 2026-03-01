@@ -26,26 +26,26 @@ import org.odpi.openmetadata.frameworks.auditlog.messagesets.ExceptionMessageSet
 public enum OGFErrorCode implements ExceptionMessageSet
 {
     /**
-     * OPEN-GOVERNANCE-400-001 - No governance context supplied to the governance action service {0}
+     * OPEN-WATCHDOG-400-001 - No governance context supplied to the governance action service {0}
      */
-    NULL_GOVERNANCE_CONTEXT(400, "OPEN-GOVERNANCE-400-001",
+    NULL_GOVERNANCE_CONTEXT(400, "OPEN-WATCHDOG-400-001",
                            "No governance context supplied to the governance action service {0}",
                            "The governance action service has no access to open metadata, the request type and request parameters.",
                            "This may be a configuration or, more likely a code error in the governance engine.  Look for other error messages and review the code of the governance action service.  Once the cause is resolved, retry the governance request."),
 
     /**
-     * OPEN-GOVERNANCE-400-002 - The governance engine {0} is not able to create the governance action service for request type {1}
+     * OPEN-WATCHDOG-400-002 - The governance engine {0} is not able to create the governance action service for request type {1}
      * and request parameters {2}.  Error message was {3}.  The connection was {4}
      */
-    INVALID_GOVERNANCE_SERVICE_CONNECTION(400, "OPEN-GOVERNANCE-400-002",
+    INVALID_GOVERNANCE_SERVICE_CONNECTION(400, "OPEN-WATCHDOG-400-002",
                                          "The governance engine {0} is not able to create the governance action service for request type {1} and request parameters {2}.  Error message was {3}.  The connection was {4}",
                                          "The governance engine is not able to create a governance action service because the connection information associated with the governance action service is not valid.",
                                          "The connection is stored with the governance action service definition in the open metadata repository used by the governance engine.  Use the error message to correct the connection properties.  Once the connection is corrected is resolved, retry the governance request."),
 
     /**
-     * OPEN-GOVERNANCE-400-003 - Invalid governance action service for request type {0}.  Governance engine {1} is not able to execute the request
+     * OPEN-WATCHDOG-400-003 - Invalid governance action service for request type {0}.  Governance engine {1} is not able to execute the request
      */
-    INVALID_GOVERNANCE_SERVICE_CONNECTOR(400, "OPEN-GOVERNANCE-400-003",
+    INVALID_GOVERNANCE_SERVICE_CONNECTOR(400, "OPEN-WATCHDOG-400-003",
                                         "Invalid governance action service for request type {0}.  Governance engine {1} is not able to execute the request",
                                         "The governance action service is not functioning correctly.",
                                         "This may be a configuration or a code error in the connector.  Look for other error messages and review the code of the governance action service.  Once the cause is resolved, retry the governance request."),
@@ -110,9 +110,9 @@ public enum OGFErrorCode implements ExceptionMessageSet
                                 "relationship.  Correct the information passed to the governance service and rerun the request"),
 
     /**
-     * OPEN-GOVERNANCE-500-001 - Unexpected {0} exception in governance action service {1} of type {2} detected by method {3}.  The error message was {4}
+     * OPEN-WATCHDOG-500-001 - Unexpected {0} exception in governance action service {1} of type {2} detected by method {3}.  The error message was {4}
      */
-    UNEXPECTED_EXCEPTION(500, "OPEN-GOVERNANCE-500-001",
+    UNEXPECTED_EXCEPTION(500, "OPEN-WATCHDOG-500-001",
                          "Unexpected {0} exception in governance action service {1} of type {2} detected by method {3}.  The error message was {4}",
                          "The governance action service failed during its operation.",
                          "This may be a configuration or a code error.  Look for other error messages and review the code of the governance action service. " +

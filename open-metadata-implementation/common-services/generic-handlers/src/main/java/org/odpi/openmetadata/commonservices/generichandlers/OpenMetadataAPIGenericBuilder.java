@@ -204,23 +204,30 @@ public class OpenMetadataAPIGenericBuilder
                                       List<String> zoneMembership,
                                       String       methodName) throws InvalidParameterException
     {
-        try
+        if (zoneMembership != null)
         {
-            Classification classification = repositoryHelper.getNewClassification(serviceName,
-                                                                                  null,
-                                                                                  null,
-                                                                                  InstanceProvenanceType.LOCAL_COHORT,
-                                                                                  userId,
-                                                                                  OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName,
-                                                                                  typeName,
-                                                                                  ClassificationOrigin.ASSIGNED,
-                                                                                  null,
-                                                                                  getZoneMembershipProperties(zoneMembership, methodName));
-            newClassifications.put(classification.getName(), classification);
+            try
+            {
+                Classification classification = repositoryHelper.getNewClassification(serviceName,
+                                                                                      null,
+                                                                                      null,
+                                                                                      InstanceProvenanceType.LOCAL_COHORT,
+                                                                                      userId,
+                                                                                      OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName,
+                                                                                      typeName,
+                                                                                      ClassificationOrigin.ASSIGNED,
+                                                                                      null,
+                                                                                      getZoneMembershipProperties(zoneMembership, methodName));
+                newClassifications.put(classification.getName(), classification);
+            }
+            catch (TypeErrorException error)
+            {
+                errorHandler.handleUnsupportedType(error, methodName, OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName);
+            }
         }
-        catch (TypeErrorException error)
+        else
         {
-            errorHandler.handleUnsupportedType(error, methodName, OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName);
+            newClassifications.remove(OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName);
         }
     }
 

@@ -39,6 +39,15 @@ public enum MyProfileErrorCode implements ExceptionMessageSet
             "Retrieve the personal profile for this user with the 'getMyProfile' operation."),
 
 
+    /**
+     * OMVS-MY-PROFILE-400-002 - The personal profile for user {0} does not exists
+     */
+    PROFILE_DOESNT_EXISTS(400, "OMVS-MY-PROFILE-400-002",
+                           "The personal profile for user {0} does not exists",
+                           "No action is taken except this exception is thrown.",
+                           "Create a new profile for this user with the 'addMyProfile' operation."),
+
+
 
     ;
 

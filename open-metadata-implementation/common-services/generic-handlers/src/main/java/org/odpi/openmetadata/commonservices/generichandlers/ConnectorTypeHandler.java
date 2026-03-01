@@ -409,6 +409,9 @@ public class ConnectorTypeHandler<B> extends ReferenceableHandler<B>
                                            typeGUID,
                                            typeName,
                                            builder,
+                                           (anchorGUID == null),
+                                           anchorGUID,
+                                           null,
                                            effectiveTime,
                                            methodName);
     }

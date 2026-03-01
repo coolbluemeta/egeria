@@ -3,6 +3,7 @@
 package org.odpi.openmetadata.opentypes;
 
 
+import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.repositoryservices.archiveutilities.OMRSArchiveBuilder;
 import org.odpi.openmetadata.repositoryservices.archiveutilities.OMRSArchiveHelper;
@@ -12,7 +13,9 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.ffdc.OMRSErrorCode;
 import org.odpi.openmetadata.repositoryservices.ffdc.exception.OMRSLogicErrorException;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * OpenMetadataTypesArchive builds an open metadata archive containing all of the standard open metadata types.
@@ -271,13 +274,28 @@ public class OpenMetadataTypesArchive3_1
         this.archiveBuilder.addEntityDef(addStorageVolumeEntity());
 
         this.archiveBuilder.addRelationshipDef(addAttachedStorageRelationship());
+        this.archiveBuilder.addRelationshipDef(addStoredOnRelationship());
     }
 
 
     private EntityDef addStorageVolumeEntity()
     {
-        return archiveHelper.getDefaultEntityDef(OpenMetadataType.STORAGE_VOLUME,
-                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.REFERENCEABLE.typeName));
+        EntityDef entityDef =  archiveHelper.getDefaultEntityDef(OpenMetadataType.STORAGE_VOLUME,
+                                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.REFERENCEABLE.typeName));
+
+        /*
+         * Build the attributes
+         */
+        List<TypeDefAttribute> properties = new ArrayList<>();
+
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STORAGE_CAPACITY));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.UNITS));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.RELATIVE_UNCERTAINTY));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ABSOLUTE_UNCERTAINTY));
+
+        entityDef.setPropertiesDefinition(properties);
+
+        return entityDef;
     }
 
 
@@ -292,11 +310,11 @@ public class OpenMetadataTypesArchive3_1
         /*
          * Set up end 1.
          */
-        final String                     end1AttributeName            = "hosts";
-        final String                     end1AttributeDescription     = "The hosts that are accessing the storage.";
+        final String                     end1AttributeName            = "providesStorageFor";
+        final String                     end1AttributeDescription     = "The infrastructure accessing the storage.";
         final String                     end1AttributeDescriptionGUID = null;
 
-        relationshipEndDef = archiveHelper.getRelationshipEndDef(this.archiveBuilder.getEntityDef(OpenMetadataType.HOST.typeName),
+        relationshipEndDef = archiveHelper.getRelationshipEndDef(this.archiveBuilder.getEntityDef(OpenMetadataType.REFERENCEABLE.typeName),
                                                                  end1AttributeName,
                                                                  end1AttributeDescription,
                                                                  end1AttributeDescriptionGUID,
@@ -309,6 +327,47 @@ public class OpenMetadataTypesArchive3_1
          */
         final String                     end2AttributeName            = "storageVolumes";
         final String                     end2AttributeDescription     = "The storage available to a host.";
+        final String                     end2AttributeDescriptionGUID = null;
+
+        relationshipEndDef = archiveHelper.getRelationshipEndDef(this.archiveBuilder.getEntityDef(OpenMetadataType.STORAGE_VOLUME.typeName),
+                                                                 end2AttributeName,
+                                                                 end2AttributeDescription,
+                                                                 end2AttributeDescriptionGUID,
+                                                                 RelationshipEndCardinality.ANY_NUMBER);
+        relationshipDef.setEndDef2(relationshipEndDef);
+
+        return relationshipDef;
+    }
+
+
+    private RelationshipDef addStoredOnRelationship()
+    {
+        RelationshipDef relationshipDef = archiveHelper.getBasicRelationshipDef(OpenMetadataType.STORED_ON_RELATIONSHIP,
+                                                                                this.archiveBuilder.getRelationshipDef(OpenMetadataType.LABELED_RELATIONSHIP.typeName),
+                                                                                ClassificationPropagationRule.NONE);
+
+        RelationshipEndDef relationshipEndDef;
+
+        /*
+         * Set up end 1.
+         */
+        final String                     end1AttributeName            = "managesStorageFor";
+        final String                     end1AttributeDescription     = "The data store using the storage.";
+        final String                     end1AttributeDescriptionGUID = null;
+
+        relationshipEndDef = archiveHelper.getRelationshipEndDef(this.archiveBuilder.getEntityDef(OpenMetadataType.DATA_STORE.typeName),
+                                                                 end1AttributeName,
+                                                                 end1AttributeDescription,
+                                                                 end1AttributeDescriptionGUID,
+                                                                 RelationshipEndCardinality.ANY_NUMBER);
+        relationshipDef.setEndDef1(relationshipEndDef);
+
+
+        /*
+         * Set up end 2.
+         */
+        final String                     end2AttributeName            = "storedOn";
+        final String                     end2AttributeDescription     = "The storage location of the data store.";
         final String                     end2AttributeDescriptionGUID = null;
 
         relationshipEndDef = archiveHelper.getRelationshipEndDef(this.archiveBuilder.getEntityDef(OpenMetadataType.STORAGE_VOLUME.typeName),
