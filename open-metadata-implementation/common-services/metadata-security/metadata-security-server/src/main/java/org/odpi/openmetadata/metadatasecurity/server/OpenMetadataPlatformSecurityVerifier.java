@@ -254,18 +254,7 @@ public class OpenMetadataPlatformSecurityVerifier
             /*
              * Validate that someone has authority to update the user's account details.
              */
-            if (delegatingUserId.equals(userAccount.getUserId()))
-            {
-                /*
-                 * The caller is updating their own account.
-                 */
-                validatePlatformOperator(userId, null);
-            }
-            else
-            {
-                validatePlatformOperator(userId, delegatingUserId);
-            }
-
+            validatePlatformOperator(userId, delegatingUserId);
             userSecurityConnector.setUserAccount(userAccount);
         }
     }
@@ -284,7 +273,7 @@ public class OpenMetadataPlatformSecurityVerifier
                                                       String accountUserId) throws UserNotAuthorizedException
     {
         /*
-         * Validate that someone has authority to update the user's account details.
+         * Validate that someone has authority to delete the user's account details.
          */
         validatePlatformOperator(userId, delegatingUserId);
 
