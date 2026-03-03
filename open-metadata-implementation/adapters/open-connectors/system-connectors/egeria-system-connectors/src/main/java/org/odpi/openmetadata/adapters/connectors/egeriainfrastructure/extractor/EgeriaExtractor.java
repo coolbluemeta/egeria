@@ -26,6 +26,7 @@ import org.odpi.openmetadata.governanceservers.enginehostservices.client.EngineH
 import org.odpi.openmetadata.governanceservers.integrationdaemonservices.client.IntegrationDaemon;
 import org.odpi.openmetadata.governanceservers.integrationdaemonservices.properties.IntegrationDaemonStatus;
 import org.odpi.openmetadata.governanceservers.integrationdaemonservices.properties.IntegrationGroupSummary;
+import org.odpi.openmetadata.metadatasecurity.properties.OpenMetadataUserAccount;
 import org.odpi.openmetadata.platformservices.client.PlatformServicesClient;
 import org.odpi.openmetadata.repositoryservices.clients.AuditLogServicesClient;
 import org.odpi.openmetadata.repositoryservices.clients.LocalRepositoryServicesClient;
@@ -186,6 +187,57 @@ public class EgeriaExtractor
                                                                                     PropertyServerException
     {
         return platformServicesClient.getConnectorType(connectorProviderClassName);
+    }
+
+
+    /**
+     * Set up a new user account or update an existing one.
+     * This is account is registered with the platform security connector.  The user
+     * requires operator permission for the platform unless it is their own user account they are updating.
+     *
+     * @param userAccount details about the user to update
+     * @throws InvalidParameterException  one of the parameters is invalid
+     * @throws UserNotAuthorizedException the user is not authorized to issue this request
+     * @throws PropertyServerException    a problem reported in the open metadata server(s)
+     */
+
+    public void setUserAccount(OpenMetadataUserAccount userAccount) throws InvalidParameterException,
+                                                                           UserNotAuthorizedException,
+                                                                           PropertyServerException
+    {
+        platformServicesClient.setUserAccount(userAccount);
+    }
+
+
+    /**
+     * Return details of a user account registered with the platform security connector.
+     *
+     * @param accountUserId identifier for the user to update
+     * @throws UserNotAuthorizedException the supplied user id (from bearer token) is not authorized to issue this command.
+     * @throws InvalidParameterException  invalid parameter.
+     * @throws PropertyServerException    unusual state in the platform.
+     */
+    public OpenMetadataUserAccount getUserAccount(String accountUserId) throws UserNotAuthorizedException,
+                                                                               InvalidParameterException,
+                                                                               PropertyServerException
+    {
+        return platformServicesClient.getUserAccount(accountUserId);
+    }
+
+
+    /**
+     * Clear the account for a user with the platform security connector.
+     *
+     * @param accountUserId identifier for the user to update
+     * @throws UserNotAuthorizedException the supplied user is not authorized to issue this command.
+     * @throws InvalidParameterException invalid parameter.
+     * @throws PropertyServerException unusual state in the platform.
+     */
+    public void deleteUserAccount(String accountUserId) throws UserNotAuthorizedException,
+                                                               InvalidParameterException,
+                                                               PropertyServerException
+    {
+        platformServicesClient.deleteUserAccount(accountUserId);
     }
 
 

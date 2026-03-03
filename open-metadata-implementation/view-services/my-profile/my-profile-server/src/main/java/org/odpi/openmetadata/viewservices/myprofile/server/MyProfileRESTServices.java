@@ -786,6 +786,7 @@ public class MyProfileRESTServices extends TokenController
                         NewElementOptions newElementOptions = new NewElementOptions(requestBody);
 
                         newElementOptions.setAnchorGUID(profileGUID);
+                        newElementOptions.setParentGUID(profileGUID);
                         newElementOptions.setParentAtEnd1(true);
                         newElementOptions.setParentRelationshipTypeName(OpenMetadataType.PROFILE_IDENTITY_RELATIONSHIP.typeName);
 

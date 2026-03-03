@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * PlatformUserDetails details service for the platform user repository.  This is called during the logon process.
- * It is responsible for retrieving details of the user's account from the user directory.
+ * It retrieves details of the user's account from the user directory.
  */
 @Service("userService")
 @ConditionalOnProperty(value = "authentication.source", havingValue = "platform")
@@ -33,7 +33,7 @@ public class PlatformUserDetailsService implements UserDetailsService
     @Override
     public final PlatformUserDetails loadUserByUsername(String userId) throws UsernameNotFoundException
     {
-        OpenMetadataUserAccount userAccount = OpenMetadataPlatformSecurityVerifier.getUser(userId);
+        OpenMetadataUserAccount userAccount = OpenMetadataPlatformSecurityVerifier.getLogonUser(userId);
 
         if (userAccount != null)
         {

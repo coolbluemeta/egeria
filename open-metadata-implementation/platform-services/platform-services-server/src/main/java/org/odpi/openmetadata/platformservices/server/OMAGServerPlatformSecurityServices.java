@@ -5,13 +5,13 @@ package org.odpi.openmetadata.platformservices.server;
 import org.odpi.openmetadata.adminservices.configuration.registration.CommonServicesDescription;
 import org.odpi.openmetadata.adminservices.rest.ConnectionResponse;
 import org.odpi.openmetadata.adminservices.rest.PlatformSecurityRequestBody;
+import org.odpi.openmetadata.commonservices.ffdc.rest.UserAccountRequestBody;
+import org.odpi.openmetadata.commonservices.ffdc.rest.UserAccountResponse;
 import org.odpi.openmetadata.adminservices.server.OMAGServerErrorHandler;
 import org.odpi.openmetadata.commonservices.ffdc.RESTCallLogger;
 import org.odpi.openmetadata.commonservices.ffdc.RESTCallToken;
 import org.odpi.openmetadata.commonservices.ffdc.RESTExceptionHandler;
 import org.odpi.openmetadata.commonservices.ffdc.rest.VoidResponse;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.metadatasecurity.server.OpenMetadataPlatformSecurityVerifier;
 import org.odpi.openmetadata.tokencontroller.TokenController;
 import org.slf4j.LoggerFactory;
@@ -100,7 +100,7 @@ public class OMAGServerPlatformSecurityServices extends TokenController
 
         try
         {
-            String userId = super.getUser(CommonServicesDescription.SERVER_OPERATIONS.getServiceName(), methodName);
+            String userId = super.getUser(CommonServicesDescription.PLATFORM_SERVICES.getServiceName(), methodName);
 
             restCallLogger.setUserId(token, userId);
 
@@ -134,11 +134,128 @@ public class OMAGServerPlatformSecurityServices extends TokenController
 
         try
         {
-            String userId = super.getUser(CommonServicesDescription.SERVER_OPERATIONS.getServiceName(), methodName);
+            String userId = super.getUser(CommonServicesDescription.PLATFORM_SERVICES.getServiceName(), methodName);
 
             restCallLogger.setUserId(token, userId);
 
             OpenMetadataPlatformSecurityVerifier.clearPlatformSecurityConnection(userId, delegatingUserId);
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+    /**
+     * Set up details of a user account with the platform security connector.
+     *
+     * @param delegatingUserId external userId making request
+     * @param requestBody containing the user account properties.
+     * @return void response
+     */
+    public synchronized VoidResponse setUserAccount(String                 delegatingUserId,
+                                                    UserAccountRequestBody requestBody)
+    {
+        final String methodName    = "setUserAccount";
+        final String parameterName = "userAccount";
+        final String userIdName    = "userAccount.userId";
+
+        RESTCallToken token = restCallLogger.logRESTCall(null, methodName);
+
+        VoidResponse response = new VoidResponse();
+
+        try
+        {
+            String userId = super.getUser(CommonServicesDescription.PLATFORM_SERVICES.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            if (requestBody == null)
+            {
+                restExceptionHandler.handleNoRequestBody(userId, methodName, "<null>");
+            }
+            else
+            {
+                errorHandler.validatePropertyNotNull(requestBody.getUserAccount(), parameterName, "<null>", methodName);
+                errorHandler.validatePropertyNotNull(requestBody.getUserAccount().getUserId(), userIdName, "<null>", methodName);
+
+                OpenMetadataPlatformSecurityVerifier.updateUserAccount(userId, delegatingUserId, requestBody.getUserAccount());
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+    /**
+     * Return the user account from the platform security connector.
+     *
+     * @param delegatingUserId external userId making request
+     * @param accountUserId    user id of the account
+     * @return connection response
+     */
+    public synchronized UserAccountResponse getUserAccount(String delegatingUserId,
+                                                           String accountUserId)
+    {
+        final String methodName = "getUserAccount";
+
+        RESTCallToken token = restCallLogger.logRESTCall(null, methodName);
+
+        UserAccountResponse response = new UserAccountResponse();
+
+        try
+        {
+            String userId = super.getUser(CommonServicesDescription.PLATFORM_SERVICES.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            response.setUserAccount(OpenMetadataPlatformSecurityVerifier.getUser(userId, delegatingUserId, accountUserId));
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, null);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+    /**
+     * Clear a user's account from the platform security connector.
+     *
+     * @param delegatingUserId external userId making request
+     * @param accountUserId    user id of the account
+     * @return void response
+     */
+    public synchronized VoidResponse deleteUserAccount(String delegatingUserId,
+                                                       String accountUserId)
+    {
+        final String methodName = "deleteUserAccount";
+
+        RESTCallToken token = restCallLogger.logRESTCall(null, methodName);
+
+        VoidResponse  response = new VoidResponse();
+
+        try
+        {
+            String userId = super.getUser(CommonServicesDescription.SERVER_OPERATIONS.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            OpenMetadataPlatformSecurityVerifier.deleteUserAccount(userId, delegatingUserId, accountUserId);
         }
         catch (Throwable error)
         {

@@ -7,7 +7,8 @@ package org.odpi.openmetadata.userauthn.auth;
  *
  * @param userId calling user's id
  * @param password calling user's password
+ * @param newPassword optional new password
  */
-public record LoginRequest(String userId, String password)
+public record LoginRequest(String userId, String password, String newPassword)
 {
 }

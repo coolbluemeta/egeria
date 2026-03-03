@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.odpi.openmetadata.commonservices.ffdc.rest.DeleteRelationshipRequestBody;
 import org.odpi.openmetadata.commonservices.ffdc.rest.NewRelationshipRequestBody;
+import org.odpi.openmetadata.commonservices.ffdc.rest.UserAccountRequestBody;
+import org.odpi.openmetadata.commonservices.ffdc.rest.UserAccountResponse;
 import org.odpi.openmetadata.commonservices.ffdc.rest.VoidResponse;
 import org.odpi.openmetadata.viewservices.securityofficer.server.SecurityOfficerRESTServices;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +45,80 @@ public class SecurityOfficerResource
     {
     }
 
+
+    /**
+     * Set up or update a user account in the platform metadata security connector
+     * The user requires operator permission for the platform unless it is their own user account they are retrieving.
+     *
+     * @param serverName  name of called server
+     * @param platformGUID unique identifier of the platform
+     * @param requestBody requestBody used to create and configure the connector that performs platform security
+     * @return void response
+     */
+    @PostMapping(path = "/platforms/{platformGUID}/user-accounts")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="setUserAccount",
+            description="Set up a user in the platform metadata security connector to control access to open metadata.  This overrides the ",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/services/platform-services/overview"))
+
+    public VoidResponse setUserAccount(@PathVariable String serverName,
+                                       @PathVariable String platformGUID,
+                                       @RequestBody(required = false) UserAccountRequestBody requestBody)
+    {
+        return restAPI.setUserAccount(serverName, platformGUID, requestBody);
+    }
+
+
+    /**
+     * Return the user account object for the requested user from the platform metadata security connector.  Null is returned if no platform security or user account has been set up.
+     * The user requires operator permission for the platform unless it is their own user account they are retrieving.
+     *
+     * @param serverName  name of called server
+     * @param platformGUID unique identifier of the platform
+     * @param accountUserId    user id of the account
+     * @return user account response
+     */
+    @GetMapping(path = "/platforms/{platformGUID}/user-accounts/{accountUserId}")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="getUserAccount",
+            description="Return the user account object for the requested user from the platform metadata security connector.  Null is returned if no platform security or user account has been set up.",
+            externalDocs=@ExternalDocumentation(description="Metadata Security",
+                    url="https://egeria-project.org/features/metadata-security/overview/"))
+
+
+    public UserAccountResponse getUserAccount(@PathVariable String serverName,
+                                              @PathVariable String platformGUID,
+                                              @PathVariable String accountUserId)
+    {
+        return restAPI.getUserAccount(serverName, platformGUID, accountUserId);
+    }
+
+
+    /**
+     * Clear the account for a user with the platform security connector.
+     *
+     * @param serverName  name of called server
+     * @param platformGUID unique identifier of the platform
+     * @param accountUserId    user id of the account
+     * @return void response
+     */
+    @DeleteMapping(path = "/platforms/{platformGUID}/user-accounts/{accountUserId}")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="deleteUserAccount",
+            description="Clear the account for a user with the platform security connector.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/services/platform-services/overview/"))
+
+    public  VoidResponse deleteUserAccount(@PathVariable String serverName,
+                                           @PathVariable String platformGUID,
+                                           @PathVariable String accountUserId)
+    {
+        return restAPI.deleteUserAccount(serverName, platformGUID, accountUserId);
+    }
 
 
     /**
@@ -83,8 +159,8 @@ public class SecurityOfficerResource
      * Detach a governance zone definition from a hierarchical relationship.
      *
      * @param serverName         name of called server
-     * @param parentGovernanceZoneGUID  unique identifier of the first governance zone definition
-     * @param memberDataFieldGUID      unique identifier of the second governance zone definition
+     * @param governanceZoneGUID  unique identifier of the first governance zone definition
+     * @param nestedGovernanceZoneGUID      unique identifier of the second governance zone definition
      * @param requestBody  description of the relationship.
      *
      * @return void or
@@ -92,7 +168,7 @@ public class SecurityOfficerResource
      *  PropertyServerException    a problem retrieving information from the property server(s).
      *  UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
-    @PostMapping(path = "/governance-zones/{parentGovernanceZoneGUID}/governance-zone-hierarchies/{memberDataFieldGUID}/detach")
+    @PostMapping(path = "/governance-zones/{governanceZoneGUID}/governance-zone-hierarchies/{nestedGovernanceZoneGUID}/detach")
     @SecurityRequirement(name = "BearerAuthorization")
 
     @Operation(summary="detachGovernanceZones",
@@ -103,13 +179,13 @@ public class SecurityOfficerResource
     public VoidResponse detachGovernanceZones(@PathVariable
                                            String                    serverName,
                                            @PathVariable
-                                           String parentGovernanceZoneGUID,
+                                           String governanceZoneGUID,
                                            @PathVariable
-                                           String memberDataFieldGUID,
+                                           String nestedGovernanceZoneGUID,
                                            @RequestBody (required = false)
                                                   DeleteRelationshipRequestBody requestBody)
     {
-        return restAPI.detachGovernanceZones(serverName, parentGovernanceZoneGUID, memberDataFieldGUID, requestBody);
+        return restAPI.detachGovernanceZones(serverName, governanceZoneGUID, nestedGovernanceZoneGUID, requestBody);
     }
 
 

@@ -5,16 +5,25 @@ package org.odpi.openmetadata.userauthn;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStoreCollectionProperty;
+import org.odpi.openmetadata.frameworks.connectors.properties.users.UserAccountStatus;
+import org.odpi.openmetadata.metadatasecurity.properties.OpenMetadataUserAccount;
+import org.odpi.openmetadata.metadatasecurity.server.OpenMetadataPlatformSecurityVerifier;
 import org.odpi.openmetadata.userauthn.auth.LoginRequest;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
- * AuthController provides the simple token service that can be used to log a user into open metadata.
+ * AuthController provides a simple token service that can be used to log a user into open metadata.
  * It uses the Spring framework to provide the authentication token.  The user
  */
 @RestController
@@ -51,15 +60,67 @@ public class LoginController
      */
     @PostMapping("/api/token")
 
-    @Operation(summary="generateUserToken",
-               description="Validate the user's password and return a bearer token for the user.  This is passed on subsequent API requests.",
-               externalDocs=@ExternalDocumentation(description="Further Information",
-                                                   url="https://egeria-project.org/features/metadata-security/overview"))
+    @Operation(summary = "generateUserToken",
+            description = "Validate the user's password and return a bearer token for the user.  This is passed on subsequent API requests.",
+            externalDocs = @ExternalDocumentation(description = "Further Information",
+                    url = "https://egeria-project.org/features/metadata-security/overview"))
 
     public String platformToken(@RequestBody LoginRequest userLogin) throws AuthenticationException
     {
+        /*
+         * This will throw an exception if the user account is not valid or the password is not correct.
+         */
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.userId(), userLogin.password()));
 
+        /*
+         * If the user has requested a new password, update their account and then create a new token with the new password.
+         */
+        OpenMetadataUserAccount userAccount = OpenMetadataPlatformSecurityVerifier.getLogonUser(userLogin.userId());
+        if (userAccount != null)
+        {
+            if (userLogin.newPassword() != null)
+            {
+                Map<String, String> secrets = userAccount.getSecrets();
+
+                if (secrets == null)
+                {
+                    secrets = new HashMap<>();
+                }
+
+                secrets.put(SecretsStoreCollectionProperty.ENCRYPTED_PASSWORD.getName(), new BCryptPasswordEncoder().encode(userLogin.newPassword()));
+                secrets.remove(SecretsStoreCollectionProperty.CLEAR_PASSWORD.getName());
+
+                userAccount.setSecrets(secrets);
+
+                if (userAccount.getUserAccountStatus() == UserAccountStatus.CREDENTIALS_EXPIRED)
+                {
+                    userAccount.setUserAccountStatus(UserAccountStatus.AVAILABLE);
+                }
+
+                try
+                {
+                    OpenMetadataPlatformSecurityVerifier.updateLoginUserAccount(userAccount);
+                }
+                catch (Exception error)
+                {
+                    throw new AuthenticationServiceException("Failed to update user account: " + error.getMessage());
+                }
+
+                authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.userId(), userLogin.newPassword()));
+            }
+            else if (userAccount.getUserAccountStatus() == UserAccountStatus.CREDENTIALS_EXPIRED)
+            {
+                throw new AuthenticationServiceException("Credentials expired for user: " + userLogin.userId() + ".");
+            }
+        }
+        else
+        {
+            throw new AuthenticationServiceException("User account not found for user: " + userLogin.userId() + ".");
+        }
+
+        /*
+         * If the authentication is successful, generate a token for the user.
+         */
         return tokenService.generateToken(authentication);
     }
 
@@ -83,7 +144,7 @@ public class LoginController
                               @RequestBody  LoginRequest userLogin) throws AuthenticationException
     {
         /*
-         * Currently the platform security connector is used to provide tokens for specific servers
+         * Currently, the platform security connector is used to provide tokens for specific servers
          */
         return this.platformToken(userLogin);
     }

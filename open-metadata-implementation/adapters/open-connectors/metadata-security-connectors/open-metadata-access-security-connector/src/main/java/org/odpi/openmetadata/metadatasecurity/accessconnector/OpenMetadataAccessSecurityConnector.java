@@ -5,8 +5,6 @@ package org.odpi.openmetadata.metadatasecurity.accessconnector;
 
 import org.odpi.openmetadata.frameworks.connectors.SecretsStoreConnector;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedException;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.connectors.properties.users.AccessOperation;
 import org.odpi.openmetadata.frameworks.connectors.properties.users.NamedList;
@@ -203,6 +201,85 @@ public class OpenMetadataAccessSecurityConnector extends OpenMetadataSecurityCon
 
         throwUnknownUser(userId, null, methodName);
         return null; // not reached
+    }
+
+
+    /**
+     * Update/create information about a specific user.  This is used to update user details nd reset the password.
+     *
+     * @param userAccount security properties about the user
+     * @throws UserNotAuthorizedException user not recognized
+     */
+    public void setUserAccount(OpenMetadataUserAccount userAccount) throws UserNotAuthorizedException
+    {
+        final String methodName = "updateUserAccount";
+
+        boolean accountSaved = false;
+
+        if (secretsStoreConnectorMap != null)
+        {
+            for (SecretsStoreConnector secretsStoreConnector : secretsStoreConnectorMap.values())
+            {
+                if (secretsStoreConnector != null)
+                {
+                    try
+                    {
+                        secretsStoreConnector.saveUser(userAccount.getUserId(), userAccount);
+                        accountSaved = true;
+                    }
+                    catch (ConnectorCheckedException error)
+                    {
+                        throwUnknownUser(userAccount.getUserId(), error, methodName);
+                    }
+                }
+            }
+        }
+
+        if (! accountSaved)
+        {
+            throwUnknownUser(userAccount.getUserId(), null, methodName);
+        }
+    }
+
+
+    /**
+     * Delete information about a specific user.
+     *
+     * @param userId      calling user
+     * @throws UserNotAuthorizedException user not recognized
+     */
+    public void deleteUserAccount(String userId) throws UserNotAuthorizedException
+    {
+        final String methodName = "deleteUserAccount";
+
+        boolean accountDeleted = false;
+
+        if (secretsStoreConnectorMap != null)
+        {
+            for (SecretsStoreConnector secretsStoreConnector : secretsStoreConnectorMap.values())
+            {
+                if (secretsStoreConnector != null)
+                {
+                    try
+                    {
+                        if (secretsStoreConnector.getUser(userId) != null)
+                        {
+                            secretsStoreConnector.deleteUser(userId);
+                            accountDeleted = true;
+                        }
+                    }
+                    catch (ConnectorCheckedException error)
+                    {
+                        throwUnknownUser(userId, error, methodName);
+                    }
+                }
+            }
+        }
+
+        if (! accountDeleted)
+        {
+            throwUnknownUser(userId, null, methodName);
+        }
     }
 
 

@@ -26,6 +26,22 @@ public interface OpenMetadataUserSecurity
    OpenMetadataUserAccount getUserAccount(String userId) throws UserNotAuthorizedException;
 
 
+    /**
+     * Create/update information about a specific user.  This is used to update user details nd reset the password.
+     *
+     * @param userAccount security properties about the user
+     * @throws UserNotAuthorizedException user not recognized
+     */
+    void setUserAccount(OpenMetadataUserAccount userAccount) throws UserNotAuthorizedException;
+
+
+    /**
+     * Delete information about a specific user.
+     *
+     * @param userId      calling user
+     * @throws UserNotAuthorizedException user not recognized
+     */
+    void deleteUserAccount(String userId) throws UserNotAuthorizedException;
 
 
     /**

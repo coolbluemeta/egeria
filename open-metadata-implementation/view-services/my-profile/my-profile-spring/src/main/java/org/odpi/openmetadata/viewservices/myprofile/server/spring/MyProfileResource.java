@@ -93,7 +93,7 @@ public class MyProfileResource
 
 
     /**
-     * Return the list of actions that have been assigned to the user's profile, roles or, user identity
+     * Return the list of actions that have been assigned to the user's profile, roles, or user identity
      *
      * @param serverName     name of the server instances for this request
      * @param includeUserIds get actions for linked userIds
@@ -108,13 +108,13 @@ public class MyProfileResource
     @SecurityRequirement(name = "BearerAuthorization")
 
     @Operation(summary = "getMyAssignedActions",
-            description = "Return the list of actions that have been assigned to the user's profile, roles or, user identity.",
+            description = "Return the list of actions that have been assigned to the user's profile, roles, or user identity.",
             externalDocs = @ExternalDocumentation(description = "Actions",
                     url = "https://egeria-project.org/concepts/action"))
 
     public OpenMetadataRootElementsResponse getMyAssignedActions(@PathVariable String serverName,
-                                                                 @RequestParam(value = "includeUserIds", required = false) boolean includeUserIds,
-                                                                 @RequestParam(value = "includeRoles", required = false) boolean includeRoles,
+                                                                 @RequestParam(value = "includeUserIds", required = false, defaultValue = "true") boolean includeUserIds,
+                                                                 @RequestParam(value = "includeRoles", required = false, defaultValue = "true") boolean includeRoles,
                                                                  @RequestBody(required = false) ActivityStatusRequestBody requestBody)
     {
         return restAPI.getMyAssignedActions(serverName, includeUserIds, includeRoles, requestBody);
@@ -142,8 +142,8 @@ public class MyProfileResource
                     url = "https://egeria-project.org/concepts/action"))
 
     public OpenMetadataRootElementsResponse getMySponsoredActions(@PathVariable String serverName,
-                                                                 @RequestParam(value = "includeUserIds", required = false) boolean includeUserIds,
-                                                                 @RequestParam(value = "includeRoles", required = false) boolean includeRoles,
+                                                                 @RequestParam(value = "includeUserIds", required = false, defaultValue = "true") boolean includeUserIds,
+                                                                 @RequestParam(value = "includeRoles", required = false, defaultValue = "true") boolean includeRoles,
                                                                  @RequestBody(required = false) ActivityStatusRequestBody requestBody)
     {
         return restAPI.getMySponsoredActions(serverName, includeUserIds, includeRoles, requestBody);
@@ -170,8 +170,8 @@ public class MyProfileResource
             externalDocs = @ExternalDocumentation(description = "Actions",
                     url = "https://egeria-project.org/concepts/action"))
     public OpenMetadataRootElementsResponse getMyRequestedActions(@PathVariable String serverName,
-                                                                  @RequestParam(value = "includeUserIds", required = false) boolean includeUserIds,
-                                                                  @RequestParam(value = "includeRoles", required = false) boolean includeRoles,
+                                                                  @RequestParam(value = "includeUserIds", required = false, defaultValue = "true") boolean includeUserIds,
+                                                                  @RequestParam(value = "includeRoles", required = false, defaultValue = "true") boolean includeRoles,
                                                                   @RequestBody(required = false) ActivityStatusRequestBody requestBody)
     {
         return restAPI.getMyRequestedActions(serverName, includeUserIds, includeRoles, requestBody);
@@ -277,8 +277,8 @@ public class MyProfileResource
                     url="https://egeria-project.org/concepts/personal-profile"))
 
     public OpenMetadataRootElementsResponse getMyResources(@PathVariable String serverName,
-                                                           @RequestParam(value = "includeUserIds", required = false) boolean includeUserIds,
-                                                           @RequestParam(value = "includeRoles", required = false) boolean includeRoles,
+                                                           @RequestParam(value = "includeUserIds", required = false, defaultValue = "true") boolean includeUserIds,
+                                                           @RequestParam(value = "includeRoles", required = false, defaultValue = "true") boolean includeRoles,
                                                            @RequestBody (required = false) ResultsRequestBody requestBody)
     {
         return restAPI.getMyResources(serverName, includeUserIds, includeRoles, requestBody);

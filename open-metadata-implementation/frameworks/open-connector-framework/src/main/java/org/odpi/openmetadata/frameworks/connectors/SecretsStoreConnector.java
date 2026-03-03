@@ -149,6 +149,12 @@ public abstract class SecretsStoreConnector extends ConnectorBase implements Aud
 
 
     /**
+     * Request that the subclass saves its secrets.
+     */
+    protected abstract void saveSecrets() throws ConnectorCheckedException;
+
+
+    /**
      * Reset the next refresh time
      *
      * @throws ConnectorCheckedException problem with the store
@@ -194,6 +200,30 @@ public abstract class SecretsStoreConnector extends ConnectorBase implements Aud
     public UserAccount getUser(String userId) throws ConnectorCheckedException
     {
         return null;
+    }
+
+
+    /**
+     * Save the requested user definitions in the secrets collection.
+     *
+     * @param userId      userId for the lookup
+     * @param userAccount associated user details
+     * @throws ConnectorCheckedException a problem with the connector
+     */
+    public void saveUser(String      userId,
+                         UserAccount userAccount) throws ConnectorCheckedException
+    {
+    }
+
+
+    /**
+     * Delete the requested user definitions stored in the secrets collection.
+     *
+     * @param userId userId for the lookup
+     * @throws ConnectorCheckedException a problem with the connector
+     */
+    public void deleteUser(String userId) throws ConnectorCheckedException
+    {
     }
 
 
