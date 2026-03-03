@@ -5,8 +5,7 @@ package org.odpi.openmetadata.platformservices.client;
 
 
 import org.odpi.openmetadata.adminservices.configuration.properties.OMAGServerConfig;
-import org.odpi.openmetadata.adminservices.rest.OMAGServerConfigResponse;
-import org.odpi.openmetadata.adminservices.rest.PlatformSecurityRequestBody;
+import org.odpi.openmetadata.adminservices.rest.*;
 import org.odpi.openmetadata.commonservices.ffdc.InvalidParameterHandler;
 import org.odpi.openmetadata.commonservices.ffdc.rest.*;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
@@ -16,6 +15,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerExceptio
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
+import org.odpi.openmetadata.metadatasecurity.properties.OpenMetadataUserAccount;
 import org.odpi.openmetadata.platformservices.properties.PublicProperties;
 import org.odpi.openmetadata.platformservices.properties.BuildProperties;
 import org.odpi.openmetadata.serveroperations.properties.ServerServicesStatus;
@@ -183,8 +183,8 @@ public class PlatformServicesClient
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
     public String getPlatformOrganizationName() throws InvalidParameterException,
-                                                               UserNotAuthorizedException,
-                                                               PropertyServerException
+                                                       UserNotAuthorizedException,
+                                                       PropertyServerException
     {
         final String methodName = "getPlatformOrganizationName";
         
@@ -224,6 +224,28 @@ public class PlatformServicesClient
 
 
     /**
+     * Return the connection object for platform security connector.  Null is returned if no platform security
+     * has been set up.
+     *
+     * @return Platform security connection
+     * @throws UserNotAuthorizedException the supplied user id (from bearer token) is not authorized to issue this command.
+     * @throws InvalidParameterException invalid parameter.
+     * @throws PropertyServerException unusual state in the platform.
+     */
+    public Connection getPlatformSecurityConnection() throws UserNotAuthorizedException,
+                                                             InvalidParameterException,
+                                                             PropertyServerException
+    {
+        final String methodName  = "getPlatformSecurityConnection";
+        final String urlTemplate = platformRootURL + retrieveURLTemplatePrefix + "/security/connection?delegatingUserId={0}";
+
+        OCFConnectionResponse restResult = restClient.callOCFConnectionGetRESTCall(methodName, urlTemplate, delegatingUserId);
+
+        return restResult.getConnection();
+    }
+
+
+    /**
      * Clear the connection object for platform security.  This means there is no platform security set up
      * and there will be no authorization checks within the platform.  All security will have to
      * come from the surrounding deployment environment.
@@ -245,24 +267,72 @@ public class PlatformServicesClient
 
 
     /**
-     * Return the connection object for platform security connector.  Null is returned if no platform security
-     * has been set up.
+     * Set up details of a user account with the platform security connector.
      *
-     * @return Platform security connection
+     * @param userAccount details about the user to update
      * @throws UserNotAuthorizedException the supplied user id (from bearer token) is not authorized to issue this command.
+     * @throws InvalidParameterException  invalid parameter.
+     * @throws PropertyServerException    unusual state in the platform.
+     */
+    public void setUserAccount(OpenMetadataUserAccount userAccount) throws UserNotAuthorizedException,
+                                                                           InvalidParameterException,
+                                                                           PropertyServerException
+    {
+        final String methodName    = "setUserAccount";
+        final String parameterName = "userAccount";
+        final String urlTemplate   = platformRootURL + retrieveURLTemplatePrefix + "/security/user-accounts?delegatingUserId={1}";
+
+        invalidParameterHandler.validateObject(userAccount, parameterName, methodName);
+
+        UserAccountRequestBody requestBody = new UserAccountRequestBody();
+
+        requestBody.setUserAccount(userAccount);
+
+        restClient.callVoidPostRESTCall(methodName, urlTemplate, requestBody, delegatingUserId);
+    }
+
+
+    /**
+     * Return details of a user account registered with the platform security connector.
+     *
+     * @param accountUserId identifier for the user to update
+     * @throws UserNotAuthorizedException the supplied user id (from bearer token) is not authorized to issue this command.
+     * @throws InvalidParameterException  invalid parameter.
+     * @throws PropertyServerException    unusual state in the platform.
+     */
+    public OpenMetadataUserAccount getUserAccount(String accountUserId) throws UserNotAuthorizedException,
+                                                                        InvalidParameterException,
+                                                                        PropertyServerException
+    {
+        final String methodName    = "getUserAccount";
+        final String urlTemplate   = platformRootURL + retrieveURLTemplatePrefix + "/security/user-accounts/{0}?delegatingUserId={1}";
+
+        invalidParameterHandler.validateUserId(accountUserId, methodName);
+
+        UserAccountResponse response = restClient.callUserAccountResponseGetRESTCall(methodName, urlTemplate, accountUserId, delegatingUserId);
+
+        return response.getUserAccount();
+    }
+
+
+    /**
+     * Clear the account for a user with the platform security connector.
+     *
+     * @param accountUserId identifier for the user to update
+     * @throws UserNotAuthorizedException the supplied user is not authorized to issue this command.
      * @throws InvalidParameterException invalid parameter.
      * @throws PropertyServerException unusual state in the platform.
      */
-    public Connection getPlatformSecurityConnection() throws UserNotAuthorizedException,
-                                                             InvalidParameterException,
-                                                             PropertyServerException
+    public void deleteUserAccount(String accountUserId) throws UserNotAuthorizedException,
+                                                               InvalidParameterException,
+                                                               PropertyServerException
     {
-        final String methodName  = "getPlatformSecurityConnection";
-        final String urlTemplate = platformRootURL + retrieveURLTemplatePrefix + "/security/connection?delegatingUserId={0}";
+        final String methodName  = "deleteUserAccount";
+        final String urlTemplate = platformRootURL + retrieveURLTemplatePrefix + "/security/user-accounts/{0}?delegatingUserId={1}";
 
-        OCFConnectionResponse restResult = restClient.callOCFConnectionGetRESTCall(methodName, urlTemplate, delegatingUserId);
+        invalidParameterHandler.validateUserId(accountUserId, methodName);
 
-        return restResult.getConnection();
+        restClient.callVoidDeleteRESTCall(methodName, urlTemplate, accountUserId, delegatingUserId);
     }
     
 

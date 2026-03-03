@@ -39,7 +39,7 @@ public class PlatformUserDetails implements UserDetails
 
 
     /**
-     * Return if the account is not disabled.
+     * Always return true
      *
      * @return boolean
      */
@@ -75,9 +75,10 @@ public class PlatformUserDetails implements UserDetails
     @Override
     public boolean isCredentialsNonExpired()
     {
-        return (openMetadataUserAccount != null) &&
-                (openMetadataUserAccount.getUserAccountStatus() != null) &&
-                (openMetadataUserAccount.getUserAccountStatus() == UserAccountStatus.AVAILABLE);
+        /*
+         The management of expired credentials is not implemented here - look in LoginController
+         */
+        return isAccountNonLocked();
     }
 
 

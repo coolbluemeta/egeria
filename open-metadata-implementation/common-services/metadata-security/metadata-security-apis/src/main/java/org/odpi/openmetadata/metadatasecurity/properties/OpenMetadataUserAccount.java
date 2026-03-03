@@ -22,7 +22,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class OpenMetadataUserAccount extends UserAccount
 {
-    private String              userId            = null;
+    private String userId = null;
 
     /**
      * Default constructor

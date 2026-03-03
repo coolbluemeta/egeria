@@ -27,11 +27,17 @@ public class TokenService
             this.encoder = encoder;
     }
 
+    /**
+     * Generate token
+     *
+     * @param authentication information from the request
+     * @return bearer token as a string
+     */
     public String generateToken(Authentication authentication)
     {
         if (authentication.getPrincipal() instanceof PlatformUserDetails platformUserDetails)
         {
-            Instant now = Instant.now();
+            Instant      now = Instant.now();
             JwtClaimsSet claims;
 
             if (platformUserDetails.getDistinguishedName() == null)

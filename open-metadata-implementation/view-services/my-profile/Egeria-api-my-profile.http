@@ -230,6 +230,7 @@ Content-Type: application/json
 
 
 ###
+# @name logMyActivity
 # Add the supplied notification to the user's activity log.
 #
 # @param serverName name of the server instances for this request
@@ -258,6 +259,7 @@ Content-Type: application/json
 
 
 ###
+# @name journalMyActivity
 # Add the supplied notification to the user's journal.
 #
 # @param serverName name of the server instances for this request
@@ -286,6 +288,7 @@ Content-Type: application/json
 
 
 ###
+# @name blogMyActivity
 # Add the supplied notification to the user's blog.
 #
 # @param serverName name of the server instances for this request

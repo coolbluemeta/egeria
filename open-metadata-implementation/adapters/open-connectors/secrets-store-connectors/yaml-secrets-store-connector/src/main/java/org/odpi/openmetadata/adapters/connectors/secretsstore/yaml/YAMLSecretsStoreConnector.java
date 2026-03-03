@@ -160,8 +160,6 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
     }
 
 
-
-
     /**
      * Look up a particular named list in the collection.
      *
@@ -188,9 +186,8 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
     }
 
 
-
     /**
-     * Return all of the known named lists in this collection
+     * Return all the known named lists in this collection
      *
      * @return map of named lists in this collection
      * @throws ConnectorCheckedException a problem with the connector
@@ -238,6 +235,52 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
         }
 
         return null;
+    }
+
+
+    /**
+     * Save the requested user definitions in the secrets collection.
+     *
+     * @param userId      userId for the lookup
+     * @param userAccount associated user details
+     * @throws ConnectorCheckedException a problem with the connector
+     */
+    @Override
+    public void saveUser(String      userId,
+                         UserAccount userAccount) throws ConnectorCheckedException
+    {
+        if (secretsStore != null)
+        {
+            SecretsCollection secretsCollection = secretsStore.getSecretsCollections().get(secretsCollectionName);
+
+            if (secretsCollection != null)
+            {
+                secretsCollection.getUsers().put(userId, userAccount);
+                saveSecrets();
+            }
+        }
+    }
+
+
+    /**
+     * Delete the requested user definitions stored in the secrets collection.
+     *
+     * @param userId userId for the lookup
+     * @throws ConnectorCheckedException a problem with the connector
+     */
+    @Override
+    public void deleteUser(String userId) throws ConnectorCheckedException
+    {
+        if (secretsStore != null)
+        {
+            SecretsCollection secretsCollection = secretsStore.getSecretsCollections().get(secretsCollectionName);
+
+            if (secretsCollection != null)
+            {
+                secretsCollection.getUsers().remove(userId);
+                saveSecrets();
+            }
+        }
     }
 
 
@@ -506,6 +549,42 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
         try
         {
             secretsStore = yamlObjectMapper.readValue(secretsStoreFile, SecretsStore.class);
+        }
+        catch (Exception error)
+        {
+            super.logRecord(methodName,
+                            YAMLAuditCode.UNEXPECTED_EXCEPTION.getMessageDefinition(error.getClass().getName(),
+                                                                                    methodName,
+                                                                                    error.getMessage()));
+        }
+    }
+
+
+    /**
+     * Request that the subclass save its secrets.
+     *
+     * @throws ConnectorCheckedException problem with secrets file
+     */
+    @Override
+    protected void saveSecrets() throws ConnectorCheckedException
+    {
+        final String methodName = "saveSecrets";
+
+        if (secretsStoreFile == null)
+        {
+            if (connectionBean.getEndpoint().getNetworkAddress() != null)
+            {
+                secretsStoreFile = new File(connectionBean.getEndpoint().getNetworkAddress());
+            }
+            else
+            {
+                throwMissingEndpointAddress(connectionBean.getDisplayName(), methodName);
+            }
+        }
+
+        try
+        {
+            yamlObjectMapper.writeValue(secretsStoreFile, secretsStore);
         }
         catch (Exception error)
         {

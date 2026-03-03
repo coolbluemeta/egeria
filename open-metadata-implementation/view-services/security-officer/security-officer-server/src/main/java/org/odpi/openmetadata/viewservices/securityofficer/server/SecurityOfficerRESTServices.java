@@ -3,6 +3,9 @@
 package org.odpi.openmetadata.viewservices.securityofficer.server;
 
 
+import org.odpi.openmetadata.adapters.connectors.egeriainfrastructure.platform.OMAGServerPlatformConnector;
+import org.odpi.openmetadata.commonservices.ffdc.rest.UserAccountRequestBody;
+import org.odpi.openmetadata.commonservices.ffdc.rest.UserAccountResponse;
 import org.odpi.openmetadata.commonservices.ffdc.RESTCallLogger;
 import org.odpi.openmetadata.commonservices.ffdc.RESTCallToken;
 import org.odpi.openmetadata.commonservices.ffdc.RESTExceptionHandler;
@@ -10,7 +13,12 @@ import org.odpi.openmetadata.commonservices.ffdc.rest.DeleteRelationshipRequestB
 import org.odpi.openmetadata.commonservices.ffdc.rest.NewRelationshipRequestBody;
 import org.odpi.openmetadata.commonservices.ffdc.rest.VoidResponse;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
+import org.odpi.openmetadata.frameworks.connectors.Connector;
+import org.odpi.openmetadata.frameworks.connectors.client.ConnectedAssetClient;
+import org.odpi.openmetadata.frameworks.openmetadata.handlers.AssetHandler;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.GovernanceDefinitionHandler;
+import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.OpenMetadataRootElement;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.AssetProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.security.ZoneHierarchyProperties;
 import org.odpi.openmetadata.tokencontroller.TokenController;
 import org.slf4j.LoggerFactory;
@@ -37,6 +45,194 @@ public class SecurityOfficerRESTServices extends TokenController
     {
     }
 
+
+    /**
+     * Set up a new user account or update an existing one.
+     * This is account is registered with the platform security connector.  The user
+     * requires operator permission for the platform unless it is their own user account they are updating.
+     *
+     * @param serverName  name of called server
+     * @param platformGUID unique identifier of the platform
+     * @param requestBody containing the user account properties.
+     * @return void or exceptions that occur when trying to create the connector:
+     * InvalidParameterException  one of the parameters is null or invalid.
+     * PropertyServerException    a problem retrieving information from the property server(s).
+     * UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public VoidResponse setUserAccount(String                 serverName,
+                                       String                 platformGUID,
+                                       UserAccountRequestBody requestBody)
+    {
+        final String methodName = "setUserAccount";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            if (requestBody != null)
+            {
+                ConnectedAssetClient connectedAssetClient = instanceHandler.getConnectedAssetClient(userId, serverName, methodName);
+                AssetHandler         platformHandler      = instanceHandler.getSoftwarePlatformHandler(userId, serverName, methodName);
+
+                OpenMetadataRootElement asset = platformHandler.getAssetByGUID(userId, platformGUID, null);
+
+                Connector connector = connectedAssetClient.getConnectorForAsset(userId, platformGUID, auditLog);
+
+                if (connector instanceof OMAGServerPlatformConnector omagServerPlatformConnector)
+                {
+                    if ((asset != null) && (asset.getProperties() instanceof AssetProperties assetProperties))
+                    {
+                        omagServerPlatformConnector.setPlatformName(assetProperties.getResourceName());
+                    }
+
+                    omagServerPlatformConnector.setDelegatingUserId(userId);
+                    omagServerPlatformConnector.start();
+                    omagServerPlatformConnector.setUserAccount(requestBody.getUserAccount());
+                    omagServerPlatformConnector.disconnect();
+                }
+            }
+            else
+            {
+                restExceptionHandler.handleNoRequestBody(userId, methodName, "<null>");
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+        return response;
+    }
+
+
+    /**
+     * Return details of a user account registered with the platform security connector.
+     *
+     * @param serverName  name of called server
+     * @param platformGUID unique identifier of the platform
+     * @param accountUserId name of the connector provider class
+     * @return user account bean or exceptions that occur when trying to create the connector:
+     * InvalidParameterException  one of the parameters is null or invalid.
+     * PropertyServerException    a problem retrieving information from the property server(s).
+     * UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public UserAccountResponse getUserAccount(String serverName,
+                                              String platformGUID,
+                                              String accountUserId)
+    {
+        final String methodName = "getUserAccount";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        UserAccountResponse response = new UserAccountResponse();
+        AuditLog            auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            ConnectedAssetClient connectedAssetClient = instanceHandler.getConnectedAssetClient(userId, serverName, methodName);
+            AssetHandler         platformHandler      = instanceHandler.getSoftwarePlatformHandler(userId, serverName, methodName);
+
+            OpenMetadataRootElement asset = platformHandler.getAssetByGUID(userId, platformGUID, null);
+
+            Connector     connector = connectedAssetClient.getConnectorForAsset(userId, platformGUID, auditLog);
+
+            if (connector instanceof OMAGServerPlatformConnector omagServerPlatformConnector)
+            {
+                if ((asset != null) && (asset.getProperties() instanceof AssetProperties assetProperties))
+                {
+                    omagServerPlatformConnector.setPlatformName(assetProperties.getResourceName());
+                }
+
+                omagServerPlatformConnector.setDelegatingUserId(userId);
+                omagServerPlatformConnector.start();
+                response.setUserAccount(omagServerPlatformConnector.getUserAccount(accountUserId));
+                omagServerPlatformConnector.disconnect();
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+        return response;
+    }
+
+
+    /**
+     * Clear the account for a user with the platform security connector.
+     *
+     * @param serverName  name of called server
+     * @param platformGUID unique identifier of the platform
+     * @param accountUserId name of the connector provider class
+     * @return void or exceptions that occur when trying to create the connector:
+     * InvalidParameterException  one of the parameters is null or invalid.
+     * PropertyServerException    a problem retrieving information from the property server(s).
+     * UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     */
+    public VoidResponse deleteUserAccount(String serverName,
+                                          String platformGUID,
+                                          String accountUserId)
+    {
+        final String methodName = "deleteUserAccount";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        VoidResponse response = new VoidResponse();
+        AuditLog     auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            ConnectedAssetClient connectedAssetClient = instanceHandler.getConnectedAssetClient(userId, serverName, methodName);
+            AssetHandler         platformHandler      = instanceHandler.getSoftwarePlatformHandler(userId, serverName, methodName);
+
+            OpenMetadataRootElement asset = platformHandler.getAssetByGUID(userId, platformGUID, null);
+
+            Connector     connector = connectedAssetClient.getConnectorForAsset(userId, platformGUID, auditLog);
+
+            if (connector instanceof OMAGServerPlatformConnector omagServerPlatformConnector)
+            {
+                if ((asset != null) && (asset.getProperties() instanceof AssetProperties assetProperties))
+                {
+                    omagServerPlatformConnector.setPlatformName(assetProperties.getResourceName());
+                }
+
+                omagServerPlatformConnector.setDelegatingUserId(userId);
+                omagServerPlatformConnector.start();
+                omagServerPlatformConnector.deleteUserAccount(accountUserId);
+                omagServerPlatformConnector.disconnect();
+            }
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+        return response;
+    }
 
 
     /**

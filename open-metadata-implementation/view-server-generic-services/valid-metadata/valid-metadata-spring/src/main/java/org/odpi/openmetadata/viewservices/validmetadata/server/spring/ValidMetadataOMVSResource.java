@@ -512,8 +512,8 @@ public class ValidMetadataOMVSResource
                                                                  @RequestParam(required = false)
                                                                  String typeName,
                                                                  @PathVariable String propertyName,
-                                                                 @RequestParam int    startFrom,
-                                                                 @RequestParam int    pageSize)
+                                                                 @RequestParam(required = false) int    startFrom,
+                                                                 @RequestParam(required = false) int    pageSize)
     {
         return restAPI.getValidMetadataValues(serverName, urlMarker, typeName, propertyName, startFrom, pageSize);
     }

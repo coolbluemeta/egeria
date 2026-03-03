@@ -42,6 +42,9 @@ public class SecurityConfig
     @Value("${cors.allowed-origins}")
     List<String> allowedOrigins;
 
+    @Value("${rsa.key-id:}") // Default value is zero length string
+    String rsaKeyId;
+
 
     /**
      * Return the authentication manager.
@@ -55,7 +58,7 @@ public class SecurityConfig
         return new ProviderManager(authProvider);
     }
 
-    private RSAKey rsaKey = RSAGenerator.generateRSAKeyPair();
+    private RSAKey rsaKey = RSAGenerator.generateRSAKeyPair(rsaKeyId);
 
     /**
      * Get the jwk source.
@@ -65,7 +68,7 @@ public class SecurityConfig
     @Bean
     public JWKSource<SecurityContext> jwkSource()
     {
-        rsaKey = RSAGenerator.generateRSAKeyPair();
+        rsaKey = RSAGenerator.generateRSAKeyPair(rsaKeyId);
         JWKSet jwkSet = new JWKSet(rsaKey);
         return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
     }

@@ -20,17 +20,28 @@ final class RSAGenerator
     /**
      * Generate an RSA key pair to use in token authentication.
      *
+     * @param keyId value from application properties
      * @return RSA key pair
      */
-    public static RSAKey generateRSAKeyPair()
+    public static RSAKey generateRSAKeyPair(String keyId)
     {
         KeyPair keyPair = KeyPairGeneratorUtils.generateRsaKey();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
 
-        return new RSAKey.Builder(publicKey)
-                .privateKey(privateKey)
-                .keyID(UUID.randomUUID().toString())
-                .build();
+        if ((keyId != null) && (! keyId.isEmpty()))
+        {
+            return new RSAKey.Builder(publicKey)
+                    .privateKey(privateKey)
+                    .keyID(keyId)
+                    .build();
+        }
+        else
+        {
+            return new RSAKey.Builder(publicKey)
+                    .privateKey(privateKey)
+                    .keyID(UUID.randomUUID().toString())
+                    .build();
+        }
     }
 }
