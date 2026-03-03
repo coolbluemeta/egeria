@@ -29,13 +29,13 @@ Content-Type: application/json
 ###
 # @name: setUserAccount
 # Set up or update a user account in the platform metadata security connector
-# The user requires operator permission for the platform unless it is their own user account they are retrieving.
+# The user requires operator permission for the platform.
 #
 # @param serverName  name of called server
 # @param platformGUID unique identifier of the platform
 # @param requestBody requestBody used to create and configure the connector that performs platform security
 # @return void response
-#/
+#
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/security-officer/platforms/{{platformGUID}}/user-accounts
 Authorization: Bearer {{token}}
 Content-Type: application/json
@@ -80,13 +80,13 @@ Content-Type: application/json
       "clearPassword" : "newSecret1"
     }
   }
-
 }
 
 
 ###
 # @name: getUserAccount
-# Return the user account object for the requested user from the platform metadata security connector.  Null is returned if no platform security or user account has been set up.
+# Return the user account object for the requested user from the platform metadata security connector.
+# Null is returned if no platform security or user account has been set up.
 # The user requires operator permission for the platform unless it is their own user account they are retrieving.
 #
 # @param serverName  name of called server

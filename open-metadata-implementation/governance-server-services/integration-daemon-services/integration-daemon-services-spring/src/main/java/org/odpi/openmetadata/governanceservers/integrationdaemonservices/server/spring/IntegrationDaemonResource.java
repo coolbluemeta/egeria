@@ -243,12 +243,12 @@ public class IntegrationDaemonResource
 
 
     /**
-     * Issue a refresh() request on all connectors running in the integration daemon, or a specific connector if the connector name is specified.
+     * Issue a refresh() request on all connectors running in the integration daemon or a specific connector if the connector name is specified.
      *
      * @param serverName integration daemon server name
      * @param delegatingUserId external userId making request
      * @param requestBody optional name of the connector to target - if no connector name is specified, all
-     *                      connectors managed by this integration service are refreshed.
+     *                      connectors managed by this integration daemon are refreshed.
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
@@ -272,12 +272,12 @@ public class IntegrationDaemonResource
 
 
     /**
-     * Restart all connectors running in the integration daemon, or restart a specific connector if the connector name is specified.
+     * Restart all connectors running in the integration daemon or restart a specific connector if the connector name is specified.
      *
      * @param serverName integration daemon server name
      * @param delegatingUserId external userId making request
      * @param requestBody optional name of the connector to target - if no connector name is specified, all
-     *                      connectors managed by this integration service are refreshed.
+     *                      connectors managed by this integration daemon are refreshed.
      *
      * @return void or
      *  InvalidParameterException one of the parameters is null or invalid or
@@ -305,8 +305,8 @@ public class IntegrationDaemonResource
      *
      * @param serverName integration daemon server name
      * @param delegatingUserId external userId making request
-     * @param integrationGroupName name of integration group of interest
-     * @return list of statuses - on for each assigned integration groups or
+     * @param integrationGroupName name of the integration group of interest
+     * @return integration group status, or
      *  InvalidParameterException one of the parameters is null or invalid or
      *  UserNotAuthorizedException the user is not authorized to issue this request or
      */
@@ -327,11 +327,11 @@ public class IntegrationDaemonResource
 
 
     /**
-     * Return a summary of each of the integration groups running in the integration daemon.
+     * Return a summary of the integration groups running in the integration daemon.
      *
      * @param serverName integration daemon server name
      * @param delegatingUserId external userId making request
-     * @return list of statuses - one for each assigned integration groups
+     * @return list of statuses - one for each integration group, or
      *  InvalidParameterException one of the parameters is null or invalid or
      *  UserNotAuthorizedException the user is not authorized to issue this request or
      */

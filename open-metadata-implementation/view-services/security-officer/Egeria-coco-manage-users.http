@@ -36,7 +36,7 @@ Content-Type: application/json
 
 ###
 # =====================================================================================================================
-# Get access the the platform
+# Retrieve the platform GUID
 # https://egeria-project.org/types/0037-Software-Server-Platforms/
 
 ###
@@ -92,8 +92,13 @@ GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/security-officer/platfo
 Authorization: Bearer {{callieToken}}
 
 ###
+## Gary can see his account
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/security-officer/platforms/{{omagServerPlatformGUID}}/user-accounts/garygeeke
+Authorization: Bearer {{garyToken}}
+
+###
 # ========================================================================================
-# Setting up new user account got Freddie Mercury
+# Setting up new user account for Freddie Mercury
 #
 ###
 
@@ -108,7 +113,7 @@ Authorization: Bearer {{garyToken}}
 
 # @name: setUserAccount
 # Set up or update a user account in the platform metadata security connector
-# The user requires operator permission for the platform unless it is their own user account they are retrieving.
+# The user requires operator permission for the platform.
 #
 # @param serverName  name of called server
 # @param platformGUID unique identifier of the platform
@@ -245,5 +250,34 @@ POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/my-profile
 Authorization: Bearer {{freddieToken}}
 Content-Type: application/json
 
+
+###
+# ========================================================================================
+# Can Callie update her own User Account?   She attempts to give herself admin privileges
+#
+###
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/security-officer/platforms/{{omagServerPlatformGUID}}/user-accounts
+Authorization: Bearer {{callieToken}}
+Content-Type: application/json
+
+{
+  "class": "UserAccountResponse",
+  "requestId": "a30a2090-cf6f-4d9a-8b5c-633f88707763",
+  "relatedHTTPCode": 200,
+  "userAccount": {
+    "userName": "Callie Quartile",
+    "securityRoles": [
+      "serverAdministrator",
+      "dataScientist",
+      "clinicalTrials",
+      "openMetadataMember"
+    ],
+    "userAccountStatus": "AVAILABLE",
+    "secrets": {
+      "clearPassword": "secret"
+    },
+    "userId": "calliequartile"
+  }
+}
 
 
