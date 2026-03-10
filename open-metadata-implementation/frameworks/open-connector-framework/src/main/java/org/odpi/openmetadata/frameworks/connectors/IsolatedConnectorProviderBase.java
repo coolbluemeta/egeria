@@ -20,7 +20,7 @@ import java.nio.file.Paths;
  * implementation - ie private static final String connectorClassName should be set to a literal string.
  *
  */
-public class IsolatedConnectorProviderBase extends ConnectorProviderBase
+public class IsolatedConnectorProviderBase extends OpenConnectorProviderBase
 {
 
     /**

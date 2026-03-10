@@ -18,7 +18,6 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.translations.TranslationDetailProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.SpecificationProperty;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.frameworkservices.omf.client.rest.OMFRESTClient;
 import org.odpi.openmetadata.frameworkservices.omf.ffdc.OMFServicesErrorCode;
@@ -527,112 +526,6 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
                                                                                                elementGUID);
 
         return restResult.getElement();
-    }
-
-
-    /**
-     * Retrieve the metadata element using its unique name (typically the qualified name).
-     *
-     * @param userId caller's userId
-     * @param uniqueName unique name for the metadata element
-     * @param uniquePropertyName name of property name to test in the open metadata element - if null "qualifiedName" is used
-     * @param getOptions multiple options to control the query
-     *
-     * @return metadata element properties or null if not found
-     *
-     * @throws InvalidParameterException the unique identifier is null.
-     * @throws UserNotAuthorizedException the userId is not permitted to perform this operation
-     * @throws PropertyServerException    a problem accessing the metadata store
-     */
-    @Override
-    public OpenMetadataElement getMetadataElementByUniqueName(String     userId,
-                                                              String     uniqueName,
-                                                              String     uniquePropertyName,
-                                                              GetOptions getOptions) throws InvalidParameterException,
-                                                                                            UserNotAuthorizedException,
-                                                                                            PropertyServerException
-    {
-        final String methodName          = "getMetadataElementByUniqueName";
-        final String defaultPropertyName = OpenMetadataProperty.QUALIFIED_NAME.name;
-        final String nameParameterName   = "uniqueName";
-        final String urlTemplate = serverPlatformURLRoot + "/servers/{0}/open-metadata/access-services/open-metadata-store/users/{1}/metadata-elements/by-unique-name";
-
-        invalidParameterHandler.validateUserId(userId, methodName);
-        invalidParameterHandler.validateName(uniqueName, nameParameterName, methodName);
-
-        UniqueNameRequestBody requestBody = new UniqueNameRequestBody(getOptions);
-        requestBody.setName(uniqueName);
-        requestBody.setNameParameterName(nameParameterName);
-
-        if (uniquePropertyName != null)
-        {
-            requestBody.setNamePropertyName(uniquePropertyName);
-        }
-        else
-        {
-            requestBody.setNamePropertyName(defaultPropertyName);
-        }
-
-        OpenMetadataElementResponse restResult = restClient.callOpenMetadataElementPostRESTCall(methodName,
-                                                                                                urlTemplate,
-                                                                                                requestBody,
-                                                                                                serverName,
-                                                                                                userId);
-
-        return restResult.getElement();
-    }
-
-
-    /**
-     * Retrieve the unique identifier of a metadata element using its unique name (typically the qualified name).
-     *
-     * @param userId                 caller's userId
-     * @param uniqueName             unique name for the metadata element
-     * @param uniquePropertyName     name of property name to test in the open metadata element - if null "qualifiedName" is used
-     * @param getOptions multiple options to control the query
-     *
-     * @return metadata element unique identifier (guid)
-     *
-     * @throws InvalidParameterException  the unique name is null or not known.
-     * @throws UserNotAuthorizedException the caller's userId is not able to access the element
-     * @throws PropertyServerException    a problem accessing the metadata store
-     */
-    @Override
-    public String getMetadataElementGUIDByUniqueName(String     userId,
-                                                     String     uniqueName,
-                                                     String     uniquePropertyName,
-                                                     GetOptions getOptions) throws InvalidParameterException,
-                                                                                   UserNotAuthorizedException,
-                                                                                   PropertyServerException
-    {
-        final String methodName          = "getMetadataElementGUIDByUniqueName";
-        final String defaultPropertyName = "qualifiedName";
-        final String nameParameterName   = "uniqueName";
-        final String urlTemplate = serverPlatformURLRoot + "/servers/{0}/open-metadata/access-services/open-metadata-store/users/{1}/metadata-elements/guid-by-unique-name";
-
-        invalidParameterHandler.validateUserId(userId, methodName);
-        invalidParameterHandler.validateName(uniqueName, nameParameterName, methodName);
-
-        UniqueNameRequestBody requestBody = new UniqueNameRequestBody(getOptions);
-        requestBody.setName(uniqueName);
-        requestBody.setNameParameterName(nameParameterName);
-
-        if (uniquePropertyName != null)
-        {
-            requestBody.setNamePropertyName(uniquePropertyName);
-        }
-        else
-        {
-            requestBody.setNamePropertyName(defaultPropertyName);
-        }
-
-        GUIDResponse restResult = restClient.callGUIDPostRESTCall(methodName,
-                                                                  urlTemplate,
-                                                                  requestBody,
-                                                                  serverName,
-                                                                  userId);
-
-        return restResult.getGUID();
     }
 
 

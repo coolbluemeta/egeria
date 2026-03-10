@@ -5,13 +5,64 @@
   
 # Kafka Open Metadata Topic Connector
 
+[Apache Kafka](https://kafka.apache.org/) provides a publish-subscribe service that allows a producer to publish events to subscribed consumers.  Events are organized into topics.  A producer publishes an event to a topic and the consumers register a listener to receive all events from a topic.
+
+The Kafka Open Metadata Topic Connector implements an [Open Metadata Topic Connector](https://egeria-project.org/concepts/open-metadata-topic-connector) for a `PLAINTEXT` Apache Kafka topic.  It supports both the event producer and event consumer interfaces.
+
+![Kafka Open Metadata Topic Connector](docs/kafka-open-metadata-topic-connector.png)
+
+Egeria uses this connector as its default event notification technology (known as the [Event Bus](https://egeria-project.org/concepts/event-bus)).  You may also use it in your [integration connectors](https://egeria-project.org/concepts/integration-connector) is they need to send or receive events from a third party technology.
+
+## Configuration
+
+The connection example shows how to configure the connection for this connector.  It is passing properties for both the producer and consumer.
+
+```json linenums="1" hl_lines="11"
+{
+    "connection" :
+    {
+        "class": "Connection",
+        "qualifiedName": "Kafka Open Metadata Topic Connector",
+        "connectorType":
+        {
+            "class": "ConnectorType",
+            "connectorProviderClassName": "org.odpi.openmetadata.adapters.eventbus.topic.kafka.KafkaOpenMetadataTopicProvider"      
+        },
+        "endpoint":
+        {
+            "class": "Endpoint",
+            "address": {{KafkaTopicName}}
+        },
+        "configurationProperties": 
+        {
+            "producer": 
+            {
+                "bootstrap.servers": {{kafkaEndpoint}}
+            },
+            "local.server.id": "{{consumerId}}",
+            "consumer":
+            {
+                "bootstrap.servers": {{kafkaEndpoint}}
+            }
+        }
+    }
+}
+```
+Add the name of the topic in {{topicName}}; a unique consumer identifier in {{consumerId}} and the endpoint for Apache Kafka (for example localhost:9092) in {{kafkaEndpoint}}.
+
+### Configuring Egeria"
+
+Egeria makes extensive use of events, and this connector is its default connector for sending and receiving events.  In order to simplify the configuration of Egeria's [OMAG Servers](https://egeria-project.org/concepts/omag-server), it is possible to set up the default configuration properties for this connector in the [Event Bus Configuration](https://egeria-project.org/guides/admin/servers/by-section/event-bus-config-section). This configuration is used when configuring the topics for the server's [cohorts](https://egeria-project.org/concepts/cohoer-member) and [Open Metadata Access Services (OMAS)](https://egeria-project.org/services/omas)
+
+
+## Implementation Notes
+
 The Kafka Open Metadata Topic Connector implements 
 an [Apache Kafka](https://kafka.apache.org/) open metadata topic connector for a topic that exchanges
 Java Objects as JSON payloads.
 
 [Link to usage instructions](https://egeria-project.org/connectors/resource/kafka-open-metadata-topic-connector/) in the connector catalog.
 
-## Implementation Notes
 ### Default Configuration
 These are default property settings passed to Apache Kafka for the producer and consumer.
 
@@ -48,6 +99,37 @@ These are default property settings passed to Apache Kafka for the producer and 
 | value.deserializer| org.apache.kafka.common.serialization.StringDeserializer |
 | bring.up.retries | 10 |
 | bring.up.minSleepTime | 5000 |
+
+### Controlling the direction of events
+
+By default, this connector supports both the receiving and sending of events on a particular topic.  It is possible to turn off, either the ability to listen for events through the consumer, or send events through the producer.  This is achieved by setting the `eventDirection` configuration property.
+
+The name of this property is defined in the [OpenMetadataTopicProvider](https://github.com/odpi/egeria/blob/main/open-metadata-implementation/repository-services/repository-services-apis/src/main/java/org/odpi/openmetadata/repositoryservices/connectors/openmetadatatopic/OpenMetadataTopicProvider.java) class.
+```text
+    public static final String EVENT_DIRECTION_PROPERTY_NAME = "eventDirection"; // property name
+    public static final String EVENT_DIRECTION_INOUT         = "inOut";          // default value
+    public static final String EVENT_DIRECTION_OUT_ONLY      = "outOnly";        // do not start the consumer
+    public static final String EVENT_DIRECTION_IN_ONLY       = "inOnly";         // do not start the producer
+```
+Below is a code fragment that uses these values:
+```text
+        Map<String, Object>    configurationProperties = new HashMap<>();
+
+        configurationProperties.put(OpenMetadataTopicProvider.EVENT_DIRECTION_PROPERTY_NAME, OpenMetadataTopicProvider.EVENT_DIRECTION_OUT_ONLY);
+        topicConnection.setConfigurationProperties(configurationProperties);
+```
+Using JSON, the property would be set as follows:
+```json
+
+  "configurationProperties":
+  {
+      "eventDirection" : "outOnly"
+  }
+```
+
+**Note:** Do not use eventDirection for Egeria OMAG Server configuration.
+If you are configuring the [event bus configuration](https://egeria-project.org/guides/admin/servers/by-section/event-bus-config-section/) in a configuration document using the REST API, do not set the `eventDirection` property because the configuration helper functions use the event bus configuration to set up all types of topics and will assign the appropriate values for `eventDirection`.
+
 
 ###  Security
 

@@ -5,8 +5,7 @@
 
 An integration connector is a pluggable component that
 manages the metadata exchange to a third party technology.
-It is hosted in an [integration service](../../../integration-services)
-which is, in turn, running in an [Integration Daemon](https://egeria-project.org/concepts/integration-daemon).
+It is hosted in an [Integration Daemon](https://egeria-project.org/concepts/integration-daemon).
  
 The integration connectors can:
  * Listen on a blocking call for the third party technology to send a notification.
@@ -75,7 +74,6 @@ integration service configuration
 
 ----
 * Link to the [Integration Daemon](.https://egeria-project.org/concepts/integration-daemon).
-* Link to the [Integration Services](../../../integration-services).
 
 ----
 License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),

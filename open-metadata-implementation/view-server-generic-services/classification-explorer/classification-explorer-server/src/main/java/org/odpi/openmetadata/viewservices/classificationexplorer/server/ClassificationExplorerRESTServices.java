@@ -5033,11 +5033,11 @@ public class ClassificationExplorerRESTServices extends TokenController
      *  PropertyServerException    a problem reported in the open metadata server(s)
      */
     public OpenMetadataRootElementsResponse findRelatedElementsWithPropertyValue(String                      serverName,
-                                                                                        String                      urlMarker,
-                                                                                        String                      elementGUID,
-                                                                                        String                      relationshipTypeName,
-                                                                                        int                         startingAtEnd,
-                                                                                        FindPropertyNamesProperties requestBody)
+                                                                                 String                      urlMarker,
+                                                                                 String                      elementGUID,
+                                                                                 String                      relationshipTypeName,
+                                                                                 int                         startingAtEnd,
+                                                                                 FindPropertyNamesProperties requestBody)
     {
         final String methodName = "findRelatedElementsWithPropertyValue";
 
@@ -5062,12 +5062,12 @@ public class ClassificationExplorerRESTServices extends TokenController
             else
             {
                 List<OpenMetadataRootElement> summaryList = handler.findRelatedElementsWithPropertyValue(userId,
-                                                                                                             elementGUID,
-                                                                                                             relationshipTypeName,
-                                                                                                             startingAtEnd,
-                                                                                                             requestBody.getPropertyValue(),
-                                                                                                             requestBody.getPropertyNames(),
-                                                                                                             requestBody);
+                                                                                                         elementGUID,
+                                                                                                         relationshipTypeName,
+                                                                                                         startingAtEnd,
+                                                                                                         requestBody.getPropertyValue(),
+                                                                                                         requestBody.getPropertyNames(),
+                                                                                                         requestBody);
                 if (summaryList != null)
                 {
                     response.setElements(summaryList);

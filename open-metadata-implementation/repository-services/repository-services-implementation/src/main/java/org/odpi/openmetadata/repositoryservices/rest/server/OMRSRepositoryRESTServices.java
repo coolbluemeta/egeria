@@ -2419,7 +2419,10 @@ public class OMRSRepositoryRESTServices
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
-     * @param searchCriteria String expression of the characteristics of the required relationships.
+     * @param searchString String expression of the characteristics of the required relationships.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param requestBody find parameters used to limit the returned results.
      * @return EntityListResponse:
      * a list of entities matching the supplied criteria where null means no matching entities in the metadata
@@ -2436,7 +2439,10 @@ public class OMRSRepositoryRESTServices
      */
     public  EntityListResponse findEntitiesByPropertyValue(String                    serverName,
                                                            String                    userId,
-                                                           String                    searchCriteria,
+                                                           String                    searchString,
+                                                           boolean                   startsWith,
+                                                           boolean                   endsWith,
+                                                           boolean                   ignoreCase,
                                                            EntityPropertyFindRequest requestBody)
     {
         final  String   methodName = "findEntitiesByPropertyValue";
@@ -2474,7 +2480,10 @@ public class OMRSRepositoryRESTServices
 
             List<EntityDetail>  entities = metadataCollection.findEntitiesByPropertyValue(userId,
                                                                                           entityTypeGUID,
-                                                                                          searchCriteria,
+                                                                                          searchString,
+                                                                                          startsWith,
+                                                                                          endsWith,
+                                                                                          ignoreCase,
                                                                                           fromEntityElement,
                                                                                           limitResultsByStatus,
                                                                                           limitResultsByClassification,
@@ -2507,7 +2516,10 @@ public class OMRSRepositoryRESTServices
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
-     * @param searchCriteria String expression of the characteristics of the required relationships.
+     * @param searchString String expression of the characteristics of the required relationships.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param requestBody find parameters used to limit the returned results.
      * @return EntityListResponse:
      * a list of entities matching the supplied criteria where null means no matching entities in the metadata
@@ -2524,7 +2536,10 @@ public class OMRSRepositoryRESTServices
      */
     public  EntityListResponse findEntitiesByPropertyValueHistory(String                              serverName,
                                                                   String                              userId,
-                                                                  String                              searchCriteria,
+                                                                  String                              searchString,
+                                                                  boolean                             startsWith,
+                                                                  boolean                             endsWith,
+                                                                  boolean                             ignoreCase,
                                                                   EntityPropertyHistoricalFindRequest requestBody)
     {
         final  String   methodName = "findEntitiesByPropertyValueHistory";
@@ -2564,7 +2579,10 @@ public class OMRSRepositoryRESTServices
 
             List<EntityDetail>  entities = metadataCollection.findEntitiesByPropertyValue(userId,
                                                                                           entityTypeGUID,
-                                                                                          searchCriteria,
+                                                                                          searchString,
+                                                                                          startsWith,
+                                                                                          endsWith,
+                                                                                          ignoreCase,
                                                                                           fromEntityElement,
                                                                                           limitResultsByStatus,
                                                                                           limitResultsByClassification,
@@ -3177,7 +3195,10 @@ public class OMRSRepositoryRESTServices
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
-     * @param searchCriteria String expression of the characteristics of the required relationships.
+     * @param searchString String expression of the characteristics of the required relationships.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param requestBody find parameters used to limit the returned results.
      * @return RelationshipListResponse:
      * a list of relationships.  Null means no matching relationships or
@@ -3192,7 +3213,10 @@ public class OMRSRepositoryRESTServices
      */
     public  RelationshipListResponse findRelationshipsByPropertyValue(String                    serverName,
                                                                       String                    userId,
-                                                                      String                    searchCriteria,
+                                                                      String                    searchString,
+                                                                      boolean                   startsWith,
+                                                                      boolean                   endsWith,
+                                                                      boolean                   ignoreCase,
                                                                       TypeLimitedFindRequest    requestBody)
     {
         final  String   methodName = "findRelationshipsByPropertyValue";
@@ -3228,7 +3252,10 @@ public class OMRSRepositoryRESTServices
 
             List<Relationship>  relationships = metadataCollection.findRelationshipsByPropertyValue(userId,
                                                                                                     relationshipTypeGUID,
-                                                                                                    searchCriteria,
+                                                                                                    searchString,
+                                                                                                    startsWith,
+                                                                                                    endsWith,
+                                                                                                    ignoreCase,
                                                                                                     fromRelationshipElement,
                                                                                                     limitResultsByStatus,
                                                                                                     null,
@@ -3259,7 +3286,10 @@ public class OMRSRepositoryRESTServices
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
-     * @param searchCriteria String expression of the characteristics of the required relationships.
+     * @param searchString String expression of the characteristics of the required relationships.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param requestBody find parameters used to limit the returned results.
      * @return RelationshipListResponse:
      * a list of relationships.  Null means no matching relationships or
@@ -3274,7 +3304,10 @@ public class OMRSRepositoryRESTServices
      */
     public  RelationshipListResponse findRelationshipsByPropertyValueHistory(String                              serverName,
                                                                              String                              userId,
-                                                                             String                              searchCriteria,
+                                                                             String                              searchString,
+                                                                             boolean                             startsWith,
+                                                                             boolean                             endsWith,
+                                                                             boolean                             ignoreCase,
                                                                              TypeLimitedHistoricalFindRequest    requestBody)
     {
         final  String   methodName = "findRelationshipsByPropertyValueHistory";
@@ -3312,7 +3345,10 @@ public class OMRSRepositoryRESTServices
 
             List<Relationship>  relationships = metadataCollection.findRelationshipsByPropertyValue(userId,
                                                                                                     relationshipTypeGUID,
-                                                                                                    searchCriteria,
+                                                                                                    searchString,
+                                                                                                    startsWith,
+                                                                                                    endsWith,
+                                                                                                    ignoreCase,
                                                                                                     fromRelationshipElement,
                                                                                                     limitResultsByStatus,
                                                                                                     asOfTime,

@@ -239,14 +239,14 @@ public class TestRelationshipHistorySearch extends OpenMetadataPerformanceTestCa
             try {
                 long start = System.nanoTime();
                 List<Relationship> results = metadataCollection.findRelationshipsByPropertyValue(workPad.getLocalServerUserId(),
-                        relationshipDef.getGUID(),
-                        repositoryHelper.getExactMatchRegex(exact),
-                        0,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.CREATION_DATE_OLDEST,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                                 relationshipDef.getGUID(),
+                                                                                                 repositoryHelper.getExactMatchRegex(exact),
+                                                                                                 false, false, true, 0,
+                                                                                                 null,
+                                                                                                 asOfTime,
+                                                                                                 null,
+                                                                                                 SequencingOrder.CREATION_DATE_OLDEST,
+                                                                                                 performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,
@@ -276,14 +276,14 @@ public class TestRelationshipHistorySearch extends OpenMetadataPerformanceTestCa
             try {
                 long start = System.nanoTime();
                 List<Relationship> results = metadataCollection.findRelationshipsByPropertyValue(workPad.getLocalServerUserId(),
-                        relationshipDef.getGUID(),
-                        repositoryHelper.getStartsWithRegex(startsWith),
-                        0,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.CREATION_DATE_RECENT,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                                 relationshipDef.getGUID(),
+                                                                                                 repositoryHelper.getStartsWithRegex(startsWith),
+                                                                                                 false, false, true, 0,
+                                                                                                 null,
+                                                                                                 asOfTime,
+                                                                                                 null,
+                                                                                                 SequencingOrder.CREATION_DATE_RECENT,
+                                                                                                 performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,
@@ -313,14 +313,14 @@ public class TestRelationshipHistorySearch extends OpenMetadataPerformanceTestCa
             try {
                 long start = System.nanoTime();
                 List<Relationship> results = metadataCollection.findRelationshipsByPropertyValue(workPad.getLocalServerUserId(),
-                        relationshipDef.getGUID(),
-                        repositoryHelper.getContainsRegex(contains),
-                        0,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.LAST_UPDATE_OLDEST,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                                 relationshipDef.getGUID(),
+                                                                                                 repositoryHelper.getContainsRegex(contains),
+                                                                                                 false, false, true, 0,
+                                                                                                 null,
+                                                                                                 asOfTime,
+                                                                                                 null,
+                                                                                                 SequencingOrder.LAST_UPDATE_OLDEST,
+                                                                                                 performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,
@@ -350,14 +350,14 @@ public class TestRelationshipHistorySearch extends OpenMetadataPerformanceTestCa
             try {
                 long start = System.nanoTime();
                 List<Relationship> results = metadataCollection.findRelationshipsByPropertyValue(workPad.getLocalServerUserId(),
-                        relationshipDef.getGUID(),
-                        repositoryHelper.getEndsWithRegex(endsWith),
-                        0,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.LAST_UPDATE_RECENT,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                                 relationshipDef.getGUID(),
+                                                                                                 repositoryHelper.getEndsWithRegex(endsWith),
+                                                                                                 false, false, true, 0,
+                                                                                                 null,
+                                                                                                 asOfTime,
+                                                                                                 null,
+                                                                                                 SequencingOrder.LAST_UPDATE_RECENT,
+                                                                                                 performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,
@@ -387,14 +387,14 @@ public class TestRelationshipHistorySearch extends OpenMetadataPerformanceTestCa
             try {
                 long start = System.nanoTime();
                 List<Relationship> results = metadataCollection.findRelationshipsByPropertyValue(workPad.getLocalServerUserId(),
-                        relationshipDef.getGUID(),
-                        regex,
-                        0,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.GUID,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                                 relationshipDef.getGUID(),
+                                                                                                 regex,
+                                                                                                 false, false, true, 0,
+                                                                                                 null,
+                                                                                                 asOfTime,
+                                                                                                 null,
+                                                                                                 SequencingOrder.GUID,
+                                                                                                 performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,

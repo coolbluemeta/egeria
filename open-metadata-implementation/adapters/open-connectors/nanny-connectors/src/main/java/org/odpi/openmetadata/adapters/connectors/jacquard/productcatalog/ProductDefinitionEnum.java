@@ -181,7 +181,7 @@ public enum ProductDefinitionEnum implements ProductDefinition
     DATA_TYPES_LIST(OpenMetadataType.DIGITAL_PRODUCT.typeName,
                     new ProductDefinition[]{ProductDefinitionEnum.OPEN_METADATA_TYPES},
                     "Open Metadata Data Types List",
-                    "OPEN_METADATA-DATA-TYPES",
+                    "OPEN-METADATA-DATA-TYPES",
                     null,
                     "Open Metadata Data Types List",
                     "A tabular data set where each record describes a type of property defined in the open metadata types.  These types map easily to standard programming languages and are also useful when cataloguing various technologies.",
@@ -440,7 +440,7 @@ public enum ProductDefinitionEnum implements ProductDefinition
                      OpenMetadataType.REFERENCE_CODE_TABLE.typeName,
                      "Data set",
                      null,
-                     "DigitalProductList"),
+                     "Digital Product List"),
 
     /*
      * =============================================================================================

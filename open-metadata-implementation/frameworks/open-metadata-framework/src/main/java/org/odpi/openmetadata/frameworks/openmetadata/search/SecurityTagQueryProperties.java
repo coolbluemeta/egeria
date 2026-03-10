@@ -21,7 +21,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class SecurityTagQueryProperties extends FindProperties
+public class SecurityTagQueryProperties extends QueryOptions
 {
     private List<String>              securityLabels     = null;
     private Map<String, Object>       securityProperties = null;

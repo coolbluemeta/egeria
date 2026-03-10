@@ -2,12 +2,10 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.adapters.connectors.surveyaction.surveyfolder;
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.adapters.connectors.surveyaction.controls.FolderRequestParameter;
 import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyFolderAnnotationType;
-import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
-import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ActionTargetType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
@@ -22,20 +20,6 @@ import java.util.ArrayList;
 public class FolderSurveyServiceProvider extends SurveyActionServiceProvider
 {
     /*
-     * Unique identifier of the connector for the audit log.
-     */
-    private static final int    connectorComponentId   = 670;
-
-    /*
-     * Descriptive information about the connector for the connector type and audit log.
-     */
-    private static final String  connectorTypeGUID = "297ede10-a004-4aa6-9af3-55e400551531";
-    private static final String  connectorTypeQualifiedName = "Egeria:SurveyActionService:FolderSurveyService";
-    private static final String  connectorTypeName = "Folder Survey Action Service Connector";
-    private static final String  connectorTypeDescription = "Connector supports the surveying of files in a directory (folder) and the directories beneath it.";
-    private static final String  connectorWikiPage  = "https://egeria-project.org/connectors/survey-action/folder-survey-action-service/";
-
-    /*
      * Class of the connector.
      */
     private static final String connectorClass = "org.odpi.openmetadata.adapters.connectors.surveyaction.surveyfolder.FolderSurveyService";
@@ -49,20 +33,9 @@ public class FolderSurveyServiceProvider extends SurveyActionServiceProvider
      */
     public FolderSurveyServiceProvider()
     {
-        super();
-
-        super.setConnectorClassName(connectorClass);
-
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorTypeQualifiedName);
-        connectorType.setDisplayName(connectorTypeName);
-        connectorType.setDescription(connectorTypeDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
-        connectorType.setSupportedAssetTypeName(SurveyActionServiceProvider.supportedAssetTypeName);
-        connectorType.setSupportedDeployedImplementationType(supportedDeployedImplementationType);
-
-        super.connectorTypeBean = connectorType;
+        super(EgeriaOpenConnectorDefinition.FOLDER_SURVEY_SERVICE,
+              connectorClass,
+              null);
 
         supportedActionTargetTypes = new ArrayList<>();
         ActionTargetType actionTargetType = new ActionTargetType();
@@ -82,17 +55,5 @@ public class FolderSurveyServiceProvider extends SurveyActionServiceProvider
 
         super.supportedAnalysisSteps = AnalysisStep.getAnalysisStepTypes(new AnalysisStep[] {
                 AnalysisStep.CHECK_ASSET, AnalysisStep.MEASURE_RESOURCE, AnalysisStep.PRODUCE_ACTIONS, AnalysisStep.PRODUCE_INVENTORY});
-        /*
-         * Set up the component description used in the connector's audit log messages.
-         */
-        AuditLogReportingComponent componentDescription = new AuditLogReportingComponent();
-
-        componentDescription.setComponentId(connectorComponentId);
-        componentDescription.setComponentDevelopmentStatus(ComponentDevelopmentStatus.STABLE);
-        componentDescription.setComponentName(connectorTypeName);
-        componentDescription.setComponentDescription(connectorTypeDescription);
-        componentDescription.setComponentWikiURL(connectorWikiPage);
-
-        super.setConnectorComponentDescription(componentDescription);
     }
 }

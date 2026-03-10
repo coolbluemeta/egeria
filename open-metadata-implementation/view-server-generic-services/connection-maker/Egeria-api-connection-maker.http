@@ -372,7 +372,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "class" : "DeleteRelaitonshipRequestBody",
+  "class" : "DeleteRelationshipRequestBody",
   "cascadedDelete" : false,
   "deleteMethod" : "LOOK_FOR_LINEAGE",
   "externalSourceGUID": "add guid here",

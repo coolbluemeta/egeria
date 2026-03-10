@@ -404,8 +404,8 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @throws UserNotAuthorizedException security access problem
      */
     public List<OpenMetadataRootElement> getElementsByOrigin(String                          userId,
-                                                            DigitalResourceOriginProperties properties,
-                                                            QueryOptions                    queryOptions) throws InvalidParameterException,
+                                                             DigitalResourceOriginProperties properties,
+                                                             QueryOptions                    queryOptions) throws InvalidParameterException,
                                                                                                                  UserNotAuthorizedException,
                                                                                                                  PropertyServerException
 
@@ -2312,7 +2312,7 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @param userId calling user
      * @param propertyValue value to search for
      * @param propertyNames which properties to look in
-     * @param queryOptions multiple options to control the query
+     * @param searchOptions multiple options to control the query
      *
      * @return list of related elements
      * @throws InvalidParameterException  one of the parameters is invalid
@@ -2322,9 +2322,9 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
     public List<OpenMetadataRootElement> findElementsByPropertyValue(String              userId,
                                                                      String              propertyValue,
                                                                      List<String>        propertyNames,
-                                                                     QueryOptions        queryOptions) throws InvalidParameterException,
-                                                                                                             UserNotAuthorizedException,
-                                                                                                             PropertyServerException
+                                                                     SearchOptions       searchOptions) throws InvalidParameterException,
+                                                                                                               UserNotAuthorizedException,
+                                                                                                               PropertyServerException
     {
         final String methodName = "findElementsByPropertyValue";
         final String propertyValueProperty = "propertyValue";
@@ -2336,9 +2336,9 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
         List<OpenMetadataElement> openMetadataElements = openMetadataClient.findMetadataElementsByPropertyValue(userId,
                                                                                                                 propertyNames,
                                                                                                                 propertyValue,
-                                                                                                                queryOptions);
+                                                                                                                searchOptions);
 
-        return super.convertRootElements(userId, openMetadataElements, queryOptions, methodName);
+        return super.convertRootElements(userId, openMetadataElements, searchOptions, methodName);
     }
 
 
@@ -2508,20 +2508,20 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @param classificationName name of classification
      * @param propertyValue value to search for
      * @param propertyNames which properties to look in
-     * @param queryOptions multiple options to control the query
+     * @param searchOptions multiple options to control the query
      *
      * @return list of related elements
      * @throws InvalidParameterException  one of the parameters is invalid
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public List<OpenMetadataRootElement> findElementsByClassificationWithPropertyValue(String              userId,
-                                                                                       String              classificationName,
-                                                                                       String              propertyValue,
-                                                                                       List<String>        propertyNames,
-                                                                                       QueryOptions        queryOptions) throws InvalidParameterException,
-                                                                                                                                UserNotAuthorizedException,
-                                                                                                                                PropertyServerException
+    public List<OpenMetadataRootElement> findElementsByClassificationWithPropertyValue(String        userId,
+                                                                                       String        classificationName,
+                                                                                       String        propertyValue,
+                                                                                       List<String>  propertyNames,
+                                                                                       SearchOptions searchOptions) throws InvalidParameterException,
+                                                                                                                           UserNotAuthorizedException,
+                                                                                                                           PropertyServerException
     {
         final String methodName = "findElementsByClassificationWithPropertyValue";
 
@@ -2535,9 +2535,9 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
                                                                                                                               classificationName,
                                                                                                                               propertyNames,
                                                                                                                               propertyValue,
-                                                                                                                              queryOptions);
+                                                                                                                              searchOptions);
 
-        return super.convertRootElements(userId, openMetadataElements, queryOptions, methodName);
+        return super.convertRootElements(userId, openMetadataElements, searchOptions, methodName);
     }
 
 
@@ -2653,7 +2653,7 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @param startingAtEnd indicates which end to retrieve from (0 is "either end"; 1 is end1; 2 is end 2)
      * @param propertyValue value to search for
      * @param propertyNames which properties to look in
-     * @param queryOptions multiple options to control the query
+     * @param searchOptions multiple options to control the query
      *
      * @return list of related elements
      * @throws InvalidParameterException  one of the parameters is invalid
@@ -2661,14 +2661,14 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
     public List<OpenMetadataRootElement> findRelatedElementsWithPropertyValue(String              userId,
-                                                                                  String              elementGUID,
-                                                                                  String              relationshipTypeName,
-                                                                                  int                 startingAtEnd,
-                                                                                  String              propertyValue,
-                                                                                  List<String>        propertyNames,
-                                                                                  QueryOptions        queryOptions) throws InvalidParameterException,
-                                                                                                                           UserNotAuthorizedException,
-                                                                                                                           PropertyServerException
+                                                                              String              elementGUID,
+                                                                              String              relationshipTypeName,
+                                                                              int                 startingAtEnd,
+                                                                              String              propertyValue,
+                                                                              List<String>        propertyNames,
+                                                                              SearchOptions       searchOptions) throws InvalidParameterException,
+                                                                                                                        UserNotAuthorizedException,
+                                                                                                                        PropertyServerException
     {
         final String methodName = "findRelatedElementsWithPropertyValue";
         final String propertyValueProperty = "propertyValue";
@@ -2679,7 +2679,7 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
                                                                                                            elementGUID,
                                                                                                            startingAtEnd,
                                                                                                            relationshipTypeName,
-                                                                                                           queryOptions);
+                                                                                                           searchOptions);
 
         if ((relatedMetadataElements != null) && (relatedMetadataElements.getElementList() != null))
         {
@@ -2689,7 +2689,7 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
             {
                 if (relatedMetadataElement != null)
                 {
-                    if ((queryOptions == null) || (queryOptions.getMetadataElementTypeName() == null) || (propertyHelper.isTypeOf(relatedMetadataElement.getElement(), queryOptions.getMetadataElementTypeName())))
+                    if ((searchOptions == null) || (searchOptions.getMetadataElementTypeName() == null) || (propertyHelper.isTypeOf(relatedMetadataElement.getElement(), searchOptions.getMetadataElementTypeName())))
                     {
                         ElementProperties relationshipProperties = relatedMetadataElement.getRelationshipProperties();
 
@@ -2733,7 +2733,7 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
                 }
             }
 
-            return super.convertRelatedRootElements(userId, matchedElements, queryOptions, methodName);
+            return super.convertRelatedRootElements(userId, matchedElements, searchOptions, methodName);
         }
 
         return null;
@@ -2765,13 +2765,19 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
                                                                                                      UserNotAuthorizedException,
                                                                                                      PropertyServerException
     {
+        SearchOptions searchOptions = new SearchOptions(queryOptions);
+
+        searchOptions.setStartsWith(true);
+        searchOptions.setEndsWith(true);
+        searchOptions.setIgnoreCase(false);
+
         OpenMetadataRelationshipList relationshipList = openMetadataClient.findRelationshipsBetweenMetadataElements(userId,
                                                                                                                     relationshipTypeName,
                                                                                                                     null,
                                                                                                                     null,
                                                                                                                     null,
                                                                                                                     null,
-                                                                                                                    propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, PropertyComparisonOperator.EQ),
+                                                                                                                    propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, searchOptions),
                                                                                                                     queryOptions);
 
         if (relationshipList != null)
@@ -2800,7 +2806,7 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @param relationshipTypeName name of relationship
      * @param propertyValue value to search for
      * @param propertyNames which properties to look in
-     * @param queryOptions multiple options to control the query
+     * @param searchOptions multiple options to control the query
      *
      * @return list of related elements
      * @throws InvalidParameterException  one of the parameters is invalid
@@ -2811,9 +2817,9 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
                                                                               String              relationshipTypeName,
                                                                               String              propertyValue,
                                                                               List<String>        propertyNames,
-                                                                              QueryOptions        queryOptions) throws InvalidParameterException,
-                                                                                                                       UserNotAuthorizedException,
-                                                                                                                       PropertyServerException
+                                                                              SearchOptions       searchOptions) throws InvalidParameterException,
+                                                                                                                        UserNotAuthorizedException,
+                                                                                                                        PropertyServerException
     {
         final String methodName = "findRelationshipsWithPropertyValue";
 
@@ -2823,8 +2829,8 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
                                                                                                                     null,
                                                                                                                     null,
                                                                                                                     null,
-                                                                                                                    propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, PropertyComparisonOperator.LIKE),
-                                                                                                                    queryOptions);
+                                                                                                                    propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, searchOptions),
+                                                                                                                    searchOptions);
 
         if (relationshipList != null)
         {

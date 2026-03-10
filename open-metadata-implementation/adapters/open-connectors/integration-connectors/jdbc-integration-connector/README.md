@@ -7,82 +7,81 @@ Catalogs a database via JDBC, extracting catalogs, schemas and the following tab
 It will mark the primary key columns and extract the foreign key relationships.
 
 
-### Configuration
+The JDBC integration connector connects to a relational database and extracts its database schema information and catalogs it as open metadata.
 
-For more details regarding bellow request, visit [Egeria documentation site](https://egeria-project.org/guides/admin/servers/configuring-an-integration-daemon/#configure-the-integration-services)
+![Figure 1](docs/jdbc-integration-connector.png)
+> **Figure 1:** JDBC integration connector accessing a database and cataloguing its schemas in a metadata access server
 
-In addition, the integration connector uses an EmbeddedConnection in order to make use of the [JDBC resource connector](https://egeria-project.org/connectors/#databases), which keeps the connection details to target database 
-```
-POST {{baseURL}}/open-metadata/admin-services/users/{{user}}/servers/{{server}}/integration-services/{{integrationServiceURLMarker}}
-```
-Body
-```
+It uses an embedded [JDBC Digital Resource Connector](../../data-store-connectors/jdbc-resource-connector) to access the database.
+
+## Catalogued elements
+
+The JDBC integration connector catalogs a database asset, database schema assets, tables, views, columns, primary and foreign keys.
+(See [Open metadata types used to catalog a database](https://egeria-project.org/types/5/database) for more information)
+
+If the endpoint information is available, it will also attach the connection information to access the database through the [JDBC Digital Resource Connector](https://egeria-project.org/connectors/resource/jdbc-resource-connector).
+
+![Figure 2](docs/jdbc-integration-connector-connection-structure.png)
+> **Figure 2:** Connection information attached to catalogued database enables consumers of the database to get access to the database contents
+
+## Configuration
+
+This connector runs in the [Integration Daemon](https://egeria-project.org/concepts/integration-daemon).
+
+This is its connection definition to use on the [administration commands that configure the integration daemon](https://egeria-project.org/guides/admin/servers/by-server-type/configuring-an-integration-daemon).
+
+```json linenums="1" hl_lines="14"
 {
-    "class": "IntegrationServiceRequestBody",
-    "omagserverPlatformRootURL": "<access-service-omag-url>",
-    "omagserverName": "<omas-server-name>",
-    "integrationConnectorConfigs":[ 
+    "connection" : 
+    {
+        "class": "VirtualConnection",
+        "connectorType" : 
         {
-            "class": "IntegrationConnectorConfig",
-            "connectorName": "<connector-name>",
-            "connection":{
-                "class": "VirtualConnection",
-                "connectorType" : {
-                    "class": "ConnectorType",
-                    "connectorProviderClassName": "org.odpi.openmetadata.adapters.connectors.integration.jdbc.JDBCIntegrationConnectorProvider"
-                },
-                "embeddedConnections":[
+            "class": "ConnectorType",
+            "connectorProviderClassName": "org.odpi.openmetadata.adapters.connectors.integration.jdbc.JdbcIntegrationConnectorProvider"
+        },
+        "embeddedConnections":
+        [
+            {
+                "class" : "EmbeddedConnection",
+                "embeddedConnection" :
+                {
+                    "class" : "Connection",
+                    "userId" : " ... ",
+                    "clearPassword" : " ... ",
+                    "connectorType" : 
                     {
-                        "class" : "EmbeddedConnection",
-                        "embeddedConnection" : {
-                            "class" : "Connection",
-                            "userId" : "<user>",
-                            "clearPassword" : "<password>",
-                            "connectorType" : {
-                                "class": "ConnectorType",
-                                "connectorProviderClassName": "org.odpi.openmetadata.adapters.connectors.resource.jdbc.JDBCResourceConnectorProvider"
-                            },
-                            "endpoint":{
-                                "class": "Endpoint",
-                                "address" : "<jdbc-format-database-address>"
-                            }
-                        }
+                        "class": "ConnectorType",
+                        "connectorProviderClassName": "org.odpi.openmetadata.adapters.connectors.resource.jdbc.JdbcConnectorProvider"
+                    },
+                    "endpoint":
+                    {
+                        "class": "Endpoint",
+                        "address" : " ... "
                     }
-                ],
-                "configurationProperties": {
-                    "includeSchemaNames": [],
-                    "excludeSchemaNames": [],
-                    "includeTableNames": [],
-                    "excludeTableNames": [],
-                    "includeViewNames": [],
-                    "excludeViewNames": [],
-                    "includeColumnNames": [],
-                    "excludeColumnNames": []
                 }
-            },  
-            "metadataSourceQualifiedName": "Source",
-            "refreshTimeInterval": "60", 
-            "usesBlockingCalls": "false",
-            "permittedSynchronization": "FROM_THIRD_PARTY"
+            }
+        ],
+        "configurationProperties": 
+        {
+            "catalog" : " ... ",
+            "includeSchemaNames": [],
+            "excludeSchemaNames": [],
+            "includeTableNames": [],
+            "excludeTableNames": [],
+            "includeViewNames": [],
+            "excludeViewNames": [],
+            "includeColumnNames": [],
+            "excludeColumnNames": []
         }
-    ]
+    }
 }
 ```
 
-**access-service-omag-url** - url of omag server that hosts the paired access service
+- `userId`: user
+- `clearPassword`: password
+- `address`: jdbc format address
+- `catalog` (optional): null or missing means catalog will not be used during querying, empty string means objects that belong to no catalog will be queried, actual value means objects belonging to specified catalog will be queried
+- `include/exclude` (optional): lists with database object names to filter out the import, no wildcards supported
 
-**omas-server-name** - name of paired access server
-
-**connector-name** - this connectors name
-
-**user** - database user
-
-**password** - database password
-
-**jdbc-format-database-address** - database address
-
-**include/exclude** properties - control which schemas, tables, views and columns, respectively, are imported
-if include is set, then the import is restricted to specified entities; 
-if exclude is set, the import will ignore specified entities; 
-if both are set, the import will take into account only the property include;
 

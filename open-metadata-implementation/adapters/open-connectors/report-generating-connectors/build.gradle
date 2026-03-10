@@ -11,6 +11,7 @@ dependencies {
     compileOnly project(':open-metadata-implementation:frameworks:open-governance-framework')
     compileOnly project(':open-metadata-implementation:frameworks:open-survey-framework')
     compileOnly project(':open-metadata-implementation:repository-services:repository-services-apis')
+    compileOnly project(':open-metadata-implementation:adapters:open-connectors')
     implementation project(':open-metadata-resources:open-metadata-reports:report-utilities')
     implementation 'commons-io:commons-io'
     compileOnly 'org.slf4j:slf4j-api'

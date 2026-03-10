@@ -984,6 +984,18 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
 
 
     /**
+     * A remotely callable interface based on the REST protocol.
+     */
+    REST_API("3907b978-dd4b-4a66-a839-1a6415721673",
+                "REST API",
+                DeployedImplementationType.DATA_ASSET,
+                OpenMetadataType.DEPLOYED_API.typeName,
+                null,
+                "A remotely callable interface based on the REST protocol.",
+                OpenMetadataWikiPages.MODEL_0212_DEPLOYED_APIS),
+
+
+    /**
      * A callable network address supporting the JDBC protocol.
      */
     JDBC_ENDPOINT("f23c929f-c69a-445e-a0a5-6ae20206e52d",
@@ -1089,12 +1101,131 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
     REPOSITORY_CONNECTOR("a6e46bec-a80a-417e-931f-f6d044ff0f33",
                          "OMRS Repository Connector",
                          DeployedImplementationType.OCF_CONNECTOR,
-                         OpenMetadataType.DEPLOYED_SOFTWARE_COMPONENT.typeName,
+                         OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
                          null,
                          "Maps open metadata repository calls defined by the Open Metadata Repository Services (OMRS) to a metadata repository API and event notifications.",
                          "https://egeria-project.org/concepts/repository-connector/"),
 
+    /**
+     * OMRS Event Mapper Repository Connector - Maps events from a metadata repository to open metadata events defined by the Open Metadata Repository Services (OMRS)..
+     */
+    EVENT_MAPPER_REPOSITORY_CONNECTOR("7b80ffc7-0bc9-4430-8f0d-a1a334c37789",
+                         "OMRS Event Mapper Repository Connector",
+                         DeployedImplementationType.OCF_CONNECTOR,
+                         OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
+                         null,
+                         "Maps events from a metadata repository to open metadata events defined by the Open Metadata Repository Services (OMRS).",
+                         "https://egeria-project.org/concepts/event-mapper-connector/"),
 
+    /**
+     * Open Metadata Archive Store Connector - Reads and writes open metadata types and instances to an open metadata archive.
+     */
+    OPEN_METADATA_ARCHIVE_CONNECTOR("b0dcf516-4440-4cd3-980b-7cc5eccb9d43",
+                                    "Open Metadata Archive Store Connector",
+                                    DeployedImplementationType.OCF_CONNECTOR,
+                                    OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
+                                    null,
+                                    "Reads and writes open metadata types and instances to an open metadata archive.",
+                                    "https://egeria-project.org/concepts/open-metadata-archive-store-connector/"),
+
+    /**
+     * Open Metadata Topic Connector - Reads and writes open metadata events to a topic.
+     */
+    OPEN_METADATA_TOPIC_CONNECTOR("82fb8f61-bfc1-442e-8f88-863f09b205c3",
+                                    "Open Metadata Topic Connector",
+                                    DeployedImplementationType.OCF_CONNECTOR,
+                                    OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
+                                    null,
+                                    "Reads and writes open metadata events to a topic.",
+                                    "https://egeria-project.org/concepts/open-metadata-topic-connector/"),
+
+
+    /**
+     * Writes audit log records to a destination.
+     */
+    CONFIG_DOCUMENT_STORE_CONNECTOR("c38551d1-e81c-4420-b7db-cfe4401e2289",
+                                    "Configuration Document Store Connector",
+                                    DeployedImplementationType.OCF_CONNECTOR,
+                                    OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
+                                    null,
+                                    "Reads and writes OMAG Server Configuration Documents to a store.",
+                                    "https://egeria-project.org/concepts/configuration-document-store-connector/"),
+
+    /**
+     * Platform Metadata Security Connector - A connector that manages authorization requests to the OMAG Server Platform.
+     */
+    PLATFORM_SECURITY_CONNECTOR("3e0bced9-b539-4b90-a7d7-2d2034e92af1",
+                                "Platform Metadata Security Connector",
+                                DeployedImplementationType.OCF_CONNECTOR,
+                                OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
+                                null,
+                                "A connector that manages authorization requests to the OMAG Server Platform.",
+                                "https://egeria-project.org/concepts/platform-metadata-security-connector/"),
+
+    /**
+     * Server Metadata Security Connector - A connector that manages authorization requests to the OMAG Server.
+     */
+    SERVER_SECURITY_CONNECTOR("5aa6a746-9dd4-4cbb-b1aa-e05707a156ce",
+                              "Server Metadata Security Connector",
+                              DeployedImplementationType.OCF_CONNECTOR,
+                              OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
+                              null,
+                              "A connector that manages authorization requests to the OMAG Server.",
+                              "https://egeria-project.org/concepts/server-metadata-security-connector/"),
+
+
+    /**
+     * Secrets Store Connector - A connector that manages collections of secrets.
+     */
+    SECRETS_STORE_CONNECTOR("aaa7a6ca-bfbd-4d3d-86a2-e5436c675b14",
+                              "Secrets Store Connector",
+                              DeployedImplementationType.OCF_CONNECTOR,
+                              OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
+                              null,
+                              "A connector that manages collections of secrets.",
+                              "https://egeria-project.org/concepts/secrets-store-connector/"),
+
+
+    /**
+     * Cohort Registry Store - Stores information about the repositories registered in the open metadata repository cohort.
+     */
+    COHORT_REGISTRY_STORE_CONNECTOR("4fd08eac-b864-4baa-a518-b31eb6d6ca4a",
+                                    "Cohort Registry Store",
+                                    DeployedImplementationType.OCF_CONNECTOR,
+                                    OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
+                                    null,
+                                    "Stores information about the repositories registered in the open metadata repository cohort.",
+                                    "https://egeria-project.org/concepts/cohort-registry-store-connector/"),
+
+    /**
+     * Audit Log Destination - Reads and writes records to the Open Metadata Repository Services (OMRS) audit log.
+     */
+    AUDIT_LOG_DESTINATION_CONNECTOR("8a1ab260-6acd-4549-b8c3-57243eba9f8e",
+                                    "Audit Log Destination",
+                                    DeployedImplementationType.OCF_CONNECTOR,
+                                    OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
+                                    null,
+                                    "Reads and writes records to the Open Metadata Repository Services (OMRS) audit log.",
+                                    "https://egeria-project.org/concepts/audit-log-destination-connector/",
+                                    "c11370f9-5f84-408a-911a-b2e13696b1b1",
+                                    SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
+                                    "AUDIT_LOG_DESTINATION",
+                                    null),
+
+    /**
+     * Connector that manages metadata exchange with a third party technology.
+     */
+    INTEGRATION_CONNECTOR("3870ee0a-d4a3-419f-a6d0-1440c60e5c00",
+                          "Integration Connector",
+                          DeployedImplementationType.OCF_CONNECTOR,
+                          OpenMetadataType.INTEGRATION_CONNECTOR.typeName,
+                          null,
+                          "Connector that manages metadata exchange with a third party technology.",
+                          "https://egeria-project.org/concepts/integration-connector",
+                          "9728be11-43e8-43a8-958f-e67a0d1f2f40",
+                          SolutionComponentType.LONG_RUNNING_DAEMON.getSolutionComponentType(),
+                          "INTEGRATION-CONNECTOR",
+                          null),
 
     /**
      * Provides the description of a component that implements an automated governance activity.
@@ -1279,80 +1410,6 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
                            null,
                            "A modelled governance action with a single step.",
                            "https://egeria-project.org/concepts/governance-action-type/"),
-
-    /**
-     * Connector that manages metadata exchange with a third party technology.
-     */
-    INTEGRATION_CONNECTOR("3870ee0a-d4a3-419f-a6d0-1440c60e5c00",
-                          "Integration Connector",
-                          DeployedImplementationType.OCF_CONNECTOR,
-                          OpenMetadataType.INTEGRATION_CONNECTOR.typeName,
-                          null,
-                          "Connector that manages metadata exchange with a third party technology.",
-                          "https://egeria-project.org/services/omvs/analytics-integrator/overview",
-                          "9728be11-43e8-43a8-958f-e67a0d1f2f40",
-                          SolutionComponentType.LONG_RUNNING_DAEMON.getSolutionComponentType(),
-                          "INTEGRATION-CONNECTOR",
-                          null),
-
-    /**
-     * Platform Metadata Security Connector - A connector that manages authorization requests to the OMAG Server Platform.
-     */
-    PLATFORM_SECURITY_CONNECTOR("3e0bced9-b539-4b90-a7d7-2d2034e92af1",
-                                "Platform Metadata Security Connector",
-                                DeployedImplementationType.OCF_CONNECTOR,
-                                OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
-                                null,
-                                "A connector that manages authorization requests to the OMAG Server Platform.",
-                                "https://egeria-project.org/concepts/platform-metadata-security-connector/"),
-
-    /**
-     * Server Metadata Security Connector - A connector that manages authorization requests to the OMAG Server.
-     */
-    SERVER_SECURITY_CONNECTOR("5aa6a746-9dd4-4cbb-b1aa-e05707a156ce",
-                              "Server Metadata Security Connector",
-                              DeployedImplementationType.OCF_CONNECTOR,
-                              OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
-                              null,
-                              "A connector that manages authorization requests to the OMAG Server.",
-                              "https://egeria-project.org/concepts/server-metadata-security-connector/"),
-
-    /**
-     * Open Metadata Archive Store Connector - Reads and writes open metadata types and instances to an open metadata archive.
-     */
-    ARCHIVE_STORE_CONNECTOR("b0dcf516-4440-4cd3-980b-7cc5eccb9d43",
-                            "Open Metadata Archive Store Connector",
-                            DeployedImplementationType.OCF_CONNECTOR,
-                            OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
-                            null,
-                            "Reads and writes open metadata types and instances to an open metadata archive.",
-                            "https://egeria-project.org/concepts/open-metadata-archive-store-connector/"),
-
-    /**
-     * Cohort Registry Store - Stores information about the repositories registered in the open metadata repository cohort.
-     */
-    COHORT_REGISTRY_STORE_CONNECTOR("4fd08eac-b864-4baa-a518-b31eb6d6ca4a",
-                                    "Cohort Registry Store",
-                                    DeployedImplementationType.OCF_CONNECTOR,
-                                    OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
-                                    null,
-                                    "Stores information about the repositories registered in the open metadata repository cohort.",
-                                    "https://egeria-project.org/concepts/cohort-registry-store-connector/"),
-
-    /**
-     * Audit Log Destination - Reads and writes records to the Open Metadata Repository Services (OMRS) audit log.
-     */
-    AUDIT_LOG_DESTINATION_CONNECTOR("8a1ab260-6acd-4549-b8c3-57243eba9f8e",
-                                    "Audit Log Destination",
-                                    DeployedImplementationType.OCF_CONNECTOR,
-                                    OpenMetadataType.DEPLOYED_CONNECTOR.typeName,
-                                    null,
-                                    "Reads and writes records to the Open Metadata Repository Services (OMRS) audit log.",
-                                    "https://egeria-project.org/concepts/audit-log/",
-                                    "c11370f9-5f84-408a-911a-b2e13696b1b1",
-                                    SolutionComponentType.DATA_STORAGE.getSolutionComponentType(),
-                                    "AUDIT_LOG_DESTINATION",
-                                    null),
 
     /**
      * Provides the list of integration connectors that should run in an Integration Daemon.  The Integration Daemon is configured with the qualified names of the integration group(s) that provide its connector list.

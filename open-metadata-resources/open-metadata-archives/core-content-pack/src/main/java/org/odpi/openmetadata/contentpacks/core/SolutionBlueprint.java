@@ -153,21 +153,6 @@ public enum SolutionBlueprint
                               ContentPackDefinition.APACHE_KAFKA_CONTENT_PACK),
 
     /**
-     * Connectors and governance services used to enable observability functions on Egeria's infrastructure.
-     */
-    OBSERVABILITY_CONTENT_PACK("8d79d108-4045-45e2-bdc0-ec34ed4aadf2",
-                               "Egeria::SolutionBlueprint::EgeriaObservabilityContentPack",
-                               "Egeria Observability Content Pack",
-                               "EGERIA-OBSERVABILITY-CONTENT-PACK",
-                               "Solution blueprint showing the analytical components that add observability statistics to the open metadata ecosystem.",
-                               new String[]{
-                                       IntegrationConnectorDefinition.BABBAGE_ANALYTICAL_ENGINE.getSolutionComponentGUID(),
-                                       EgeriaDeployedImplementationType.METADATA_ACCESS_STORE.getSolutionComponentGUID()
-                               },
-                               null,
-                               ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
-
-    /**
      * Reference data, templates, connectors, and governance services for working with REST APIs via the swagger interface.
      */
     APIS_CONTENT_PACK("3a07c1f8-c810-4d53-9d28-4bbca1a6ea97",

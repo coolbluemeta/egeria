@@ -462,62 +462,6 @@ public class OpenMetadataStoreResource
 
 
     /**
-     * Retrieve the metadata element using its unique name (typically the qualified name).
-     *
-     * @param serverName     name of server instance to route request to
-     * @param userId caller's userId
-     * @param requestBody unique name for the metadata element
-     *
-     * @return metadata element properties or
-     *  InvalidParameterException the unique identifier is null or not known.
-     *  UserNotAuthorizedException the governance action service is not able to access the element
-     *  PropertyServerException a problem accessing the metadata store
-     */
-    @PostMapping(path = "/metadata-elements/by-unique-name")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="getMetadataElementByUniqueName",
-            description="Retrieve the metadata element using its unique name (typically the qualified name, but it is possible to specify a different property name in the request body as long as it is unique).  If multiple matching instances are found, and exception is thrown.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/services/omf-metadata-management/"))
-
-    public OpenMetadataElementResponse getMetadataElementByUniqueName(@PathVariable String          serverName,
-                                                                      @PathVariable String          userId,
-                                                                      @RequestBody  UniqueNameRequestBody requestBody)
-    {
-        return restAPI.getMetadataElementByUniqueName(serverName, userId, requestBody);
-    }
-
-
-    /**
-     * Retrieve the unique identifier of a metadata element using its unique name (typically the qualified name).
-     *
-     * @param serverName     name of server instance to route request to
-     * @param userId caller's userId
-     * @param requestBody unique name for the metadata element
-     *
-     * @return metadata element unique identifier (guid) or
-     *  InvalidParameterException the unique identifier is null or not known or
-     *  UserNotAuthorizedException the governance action service is not able to access the element or
-     *  PropertyServerException a problem accessing the metadata store
-     */
-    @PostMapping(path = "/metadata-elements/guid-by-unique-name")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="getMetadataElementGUIDByUniqueName",
-            description="Retrieve the metadata element GUID using its unique name (typically the qualified name, but it is possible to specify a different property name in the request body as long as it is unique).  If multiple matching instances are found, and exception is thrown.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/services/omf-metadata-management/"))
-
-    public GUIDResponse getMetadataElementGUIDByUniqueName(@PathVariable String                serverName,
-                                                           @PathVariable String                userId,
-                                                           @RequestBody  UniqueNameRequestBody requestBody)
-    {
-        return restAPI.getMetadataElementGUIDByUniqueName(serverName, userId, requestBody);
-    }
-
-
-    /**
      * Retrieve all the versions of an element.
      *
      * @param serverName name of the server to route the request to
@@ -569,11 +513,11 @@ public class OpenMetadataStoreResource
                     url="https://egeria-project.org/services/omf-metadata-management/"))
 
     public AttachedClassificationsResponse getClassificationHistory(@PathVariable String                 serverName,
-                                                                  @PathVariable String                 userId,
-                                                                 @PathVariable String                 elementGUID,
-                                                                 @PathVariable String                 classificationName,
-                                                                  @RequestBody(required = false)
-                                                                  HistoryRequestBody     requestBody)
+                                                                    @PathVariable String                 userId,
+                                                                    @PathVariable String                 elementGUID,
+                                                                    @PathVariable String                 classificationName,
+                                                                    @RequestBody(required = false)
+                                                                        HistoryRequestBody     requestBody)
     {
         return restAPI.getClassificationHistory(serverName, userId, elementGUID, classificationName, requestBody);
     }
@@ -609,7 +553,7 @@ public class OpenMetadataStoreResource
 
     /**
      * Return a list of elements with the requested search string in their (display, resource)name, qualified name,
-     * title, text, summary, identifier or description.  The search string is interpreted as a regular expression (RegEx).
+     * title, text, summary, identifier, or description.  The search string is interpreted as a regular expression (RegEx).
      * The breadth of the search is determined by the supplied anchorGUID.
      *
      * @param serverName name of the server instances for this request

@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.io.Serializable;
-
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
@@ -17,99 +15,158 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
  * The property comparison operator values are:
  * <ul>
  *     <li>
- *         EQUAL: when the property has a value that precisely equals the provided value. This is the default.
+ *         EQ: when the property has a value that precisely equals the provided value. This is the default.
  *     </li>
  *     <li>
- *         NOT_EQUAL: when the property has a value that is not equal to the provided value.
+ *         NEQ: when the property has a value that is not equal to the provided value.
  *     </li>
  *     <li>
- *         LESS_THAN: when the property has a value that is strictly less than the provided value.
+ *         LT: when the property has a value that is strictly less than the provided value.
  *     </li>
  *     <li>
- *         LESS_THAN_OR_EQUAL: when the property has a value that is less than, or equal to, the provided value.
+ *         LTE: when the property has a value that is less than, or equal to, the provided value.
  *     </li>
  *     <li>
- *         GREATER_THAN: when the property has a value that is strictly greater than the provided value.
+ *         GT: when the property has a value that is strictly greater than the provided value.
  *     </li>
  *     <li>
- *         GREATER_THAN_OR_EQUAL: when the property has a value that is greater than, or equal to, the provided value.
+ *         GTE: when the property has a value that is greater than, or equal to, the provided value.
  *     </li>
  *     <li>
- *         IN_LIST: when the property has a value that matches at least one element of the provided list of values.
+ *         IN: when the property has a value that matches at least one element of the provided list of values.
  *     </li>
  *     <li>
  *         IS_NULL: when the property has no value.
  *     </li>
  *     <li>
- *         IS_NOT_NULL: when the property has any non-null value.
+ *         NOT_NULL: when the property has any non-null value.
  *     </li>
  *     <li>
- *         LIKE: when the property has a value that matches the provided regular expression. This should only be applied
- *         to String properties, and should still be used even for exact matches for String properties.
+ *         LIKE: when the property has a value that matches the provided value.
  *     </li>
+ *     <LI>
+ *         NOT_LIKE: when the property has a value that does not match the provided value.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_LIKE: when the property has a value that matches the provided value if the case is ignored.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_NOT_LIKE: when the property has a value that does not match the provided value even if the case is ignored.
+ *     </LI>
+ *     <LI>
+ *         STARTS_WITH: when the property has a value that starts with the provided value.
+ *     </LI>
+ *     <LI>
+ *         ENDS_WITH: when the property has a value that ends with the provided value.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_STARTS_WITH: when the property has a value that starts with the provided value if the case is ignored.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_ENDS_WITH: when the property has a value that ends with the provided value if the case is ignored.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_EQ: when the property has a value that matches the provided value if the case is ignored.
+ *     </LI>
  * </ul>
  */
-@JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
+@JsonAutoDetect(getterVisibility = PUBLIC_ONLY, setterVisibility = PUBLIC_ONLY, fieldVisibility = NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
-public enum PropertyComparisonOperator implements Serializable
+@JsonIgnoreProperties(ignoreUnknown = true)
+public enum PropertyComparisonOperator
 {
     /**
      * Equal to
      */
-    EQ        (0, "Equal to",              "Equal to."),
+    EQ(0, "Equal to", "Equal to."),
 
     /**
      * Not equal to
      */
-    NEQ       (1, "Not equal to",          "Not equal to."),
+    NEQ(1, "Not equal to", "Not equal to."),
 
     /**
      * Less than
      */
-    LT        (2, "Less than",             "Less than."),
+    LT(2, "Less than", "Less than."),
 
     /**
      * Less than or equal
      */
-    LTE       (3, "Less than or equal",    "Less than or equal to."),
+    LTE(3, "Less than or equal", "Less than or equal to."),
 
     /**
      * Greater than
      */
-    GT        (4, "Greater than",          "Greater than."),
+    GT(4, "Greater than", "Greater than."),
 
     /**
      * Greater than or equal
      */
-    GTE       (5, "Greater than or equal", "Greater than or equal to."),
+    GTE(5, "Greater than or equal", "Greater than or equal to."),
 
     /**
      * In list
      */
-    IN        (6, "In list",               "Has a value of at least one in the provided list of values."),
+    IN(6, "In list", "Has a value of at least one in the provided list of values."),
 
     /**
      * Is null
      */
-    IS_NULL   (7, "Is null",               "Has no value."),
+    IS_NULL(7, "Is null", "Has no value."),
 
     /**
-     * Is not null - ie has any non-null value
+     * Is not null - Has any non-null value.
      */
-    NOT_NULL  (8, "Is not null",           "Has any non-null value."),
+    NOT_NULL(8, "Is not null", "Has any non-null value."),
 
     /**
-     * Has a value that matches the provided regular expression (strings only).
+     * Has a value that includes the provided string.
      */
-    LIKE      (9, "Like",                  "Has a value that matches the provided regular expression (strings only)."),
+    LIKE(9, "Like", "Has a value that includes the provided string.."),
 
     /**
-     * Has a value that matches the provided regular expression (strings only).
+     * Has a value that does not include the provided string.
      */
-    NOT_LIKE  (10, "Not Like",             "Has a value that does not match the provided regular expression (strings only).");
+    NOT_LIKE(10, "Not Like", "Has a value that does not include the provided string."),
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * Has a value that includes the provided string if the case is ignored.
+     */
+    CASE_INSENSITIVE_LIKE(11, "Case Insensitive Like", "Has a value that includes the provided string if the case is ignored."),
+
+    /**
+     * Has a value that does not include the provided string even if the case is ignored.
+     */
+    CASE_INSENSITIVE_NOT_LIKE(12, "Case Insensitive Not Like", "Has a value that does not include the provided string even if the case is ignored."),
+
+    /**
+     * Has a value that begins with the provided string.
+     */
+    STARTS_WITH(13, "Starts With", "Has a value that begins with the provided string.."),
+
+    /**
+     * Has a value that ends with the provided string.
+     */
+    ENDS_WITH(14, "Ends With", "Has a value that ends with the provided string."),
+
+    /**
+     * Has a value that starts with the provided string if the case is ignored.
+     */
+    CASE_INSENSITIVE_STARTS_WITH(15, "Case Insensitive Ends With", "Has a value that starts with the provided string if the case is ignored."),
+
+    /**
+     * Has a value that ends with the provided string if the case is ignored.
+     */
+    CASE_INSENSITIVE_ENDS_WITH(16, "Case Insensitive Ends With", "Has a value that ends with the provided string if the case is ignored."),
+
+    /**
+     * Has a value that equals the provided string if the case is ignored.
+     */
+    CASE_INSENSITIVE_EQ(17, "Case Insensitive Equals", "Has a value that equals the provided string if the case is ignored."),
+
+    ;
+
 
     private final int    ordinal;
     private final String name;
@@ -118,14 +175,14 @@ public enum PropertyComparisonOperator implements Serializable
     /**
      * Constructor to set up a single instances of the enum.
      *
-     * @param ordinal numerical representation of the search operator
-     * @param name default string name of the search operator
+     * @param ordinal     numerical representation of the search operator
+     * @param name        default string name of the search operator
      * @param description default string description of the search operator
      */
-    PropertyComparisonOperator(int  ordinal, String name, String description)
+    PropertyComparisonOperator(int ordinal, String name, String description)
     {
-        this.ordinal = ordinal;
-        this.name = name;
+        this.ordinal     = ordinal;
+        this.name        = name;
         this.description = description;
     }
 
@@ -134,7 +191,10 @@ public enum PropertyComparisonOperator implements Serializable
      *
      * @return int ordinal
      */
-    public int getOrdinal() { return ordinal; }
+    public int getOrdinal()
+    {
+        return ordinal;
+    }
 
 
     /**
@@ -142,7 +202,10 @@ public enum PropertyComparisonOperator implements Serializable
      *
      * @return String name
      */
-    public String getName() { return name; }
+    public String getName()
+    {
+        return name;
+    }
 
 
     /**
@@ -150,7 +213,10 @@ public enum PropertyComparisonOperator implements Serializable
      *
      * @return String description
      */
-    public String getDescription() { return description; }
+    public String getDescription()
+    {
+        return description;
+    }
 
 
     /**

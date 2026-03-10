@@ -2,9 +2,8 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.adapters.connectors.restclients.spring;
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.adapters.connectors.restclients.RESTClientConnectorProvider;
-import org.odpi.openmetadata.frameworks.connectors.ConnectorProviderBase;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
 
 
 /**
@@ -12,9 +11,7 @@ import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorTyp
  */
 public class SpringRESTClientConnectorProvider extends RESTClientConnectorProvider
 {
-    static final String  connectorTypeGUID = "434cd526-ecea-4e14-b8f5-97c2c1d44fa";
-    static final String  connectorTypeName = "Spring REST Client Connector";
-    static final String  connectorTypeDescription = "Connector that calls the REST API of a remote server using Spring.";
+    static final String  connectorClass = SpringRESTClientConnector.class.getName();
 
     /**
      * Constructor used to initialize the ConnectorProviderBase with the Java class name of the specific
@@ -22,17 +19,8 @@ public class SpringRESTClientConnectorProvider extends RESTClientConnectorProvid
      */
     public SpringRESTClientConnectorProvider()
     {
-        Class<?>    connectorClass = SpringRESTClientConnector.class;
-
-        super.setConnectorClassName(connectorClass.getName());
-
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorTypeName);
-        connectorType.setDisplayName(connectorTypeName);
-        connectorType.setDescription(connectorTypeDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
-
-        super.connectorTypeBean = connectorType;
+        super(EgeriaOpenConnectorDefinition.SPRING_REST_API_CONNECTOR,
+              connectorClass,
+              null);
     }
 }

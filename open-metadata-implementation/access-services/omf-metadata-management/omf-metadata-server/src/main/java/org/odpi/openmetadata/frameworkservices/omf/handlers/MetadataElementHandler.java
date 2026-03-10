@@ -390,15 +390,6 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
 
         invalidParameterHandler.validateUserId(userId, methodName);
 
-        if (requestedTypeName == null)
-        {
-            invalidParameterHandler.validateSearchString(searchString, searchStringParameterName, methodName);
-        }
-        else if ((searchString == null) || (searchString.isBlank()) || ("*".equals(searchString)))
-        {
-            searchString = ".*";
-        }
-
         return this.findBeans(userId,
                               searchString,
                               searchStringParameterName,
@@ -1108,7 +1099,7 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
      * @param omfPrimitiveTypeCategory omf version
      * @return OMRS version
      */
-    private org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory
+    private PrimitiveDefCategory
             getPrimitiveDefCategory(PrimitiveTypeCategory omfPrimitiveTypeCategory)
     {
         if (omfPrimitiveTypeCategory != null)
@@ -1116,31 +1107,31 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
             return switch (omfPrimitiveTypeCategory)
                            {
                                case OM_PRIMITIVE_TYPE_UNKNOWN ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_UNKNOWN;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_UNKNOWN;
                                case OM_PRIMITIVE_TYPE_BOOLEAN ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BOOLEAN;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BOOLEAN;
                                case OM_PRIMITIVE_TYPE_BYTE ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BYTE;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BYTE;
                                case OM_PRIMITIVE_TYPE_CHAR ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_CHAR;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_CHAR;
                                case OM_PRIMITIVE_TYPE_SHORT ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_SHORT;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_SHORT;
                                case OM_PRIMITIVE_TYPE_INT ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_INT;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_INT;
                                case OM_PRIMITIVE_TYPE_LONG ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG;
                                case OM_PRIMITIVE_TYPE_FLOAT ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_FLOAT;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_FLOAT;
                                case OM_PRIMITIVE_TYPE_DOUBLE ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DOUBLE;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DOUBLE;
                                case OM_PRIMITIVE_TYPE_BIGINTEGER ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BIGINTEGER;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BIGINTEGER;
                                case OM_PRIMITIVE_TYPE_BIGDECIMAL ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BIGDECIMAL;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BIGDECIMAL;
                                case OM_PRIMITIVE_TYPE_STRING ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING;
                                case OM_PRIMITIVE_TYPE_DATE ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE;
+                                       PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE;
                            };
         }
 
@@ -1269,6 +1260,22 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                        org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.NOT_NULL;
                                case LIKE ->
                                        org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.LIKE;
+                               case NOT_LIKE ->
+                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.NOT_LIKE;
+                               case CASE_INSENSITIVE_LIKE ->
+                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.CASE_INSENSITIVE_LIKE;
+                               case CASE_INSENSITIVE_NOT_LIKE ->
+                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.CASE_INSENSITIVE_NOT_LIKE;
+                               case STARTS_WITH ->
+                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.STARTS_WITH;
+                               case ENDS_WITH ->
+                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.ENDS_WITH;
+                               case CASE_INSENSITIVE_STARTS_WITH ->
+                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.CASE_INSENSITIVE_STARTS_WITH;
+                               case CASE_INSENSITIVE_ENDS_WITH ->
+                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.CASE_INSENSITIVE_ENDS_WITH;
+                               case CASE_INSENSITIVE_EQ ->
+                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.CASE_INSENSITIVE_EQ;
                            };
         }
 

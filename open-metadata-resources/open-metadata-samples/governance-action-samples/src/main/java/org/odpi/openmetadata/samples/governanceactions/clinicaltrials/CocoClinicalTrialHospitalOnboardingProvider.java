@@ -3,18 +3,12 @@
 
 package org.odpi.openmetadata.samples.governanceactions.clinicaltrials;
 
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
 import org.odpi.openmetadata.frameworks.opengovernance.GovernanceActionServiceProviderBase;
+import org.odpi.openmetadata.samples.governanceactions.clinicaltrials.metadata.CocoOpenConnectorDefinition;
 
 public class CocoClinicalTrialHospitalOnboardingProvider extends GovernanceActionServiceProviderBase
 {
-    private static final String  connectorTypeGUID = "a2963773-e3e3-4d46-92c9-cb836f71a751";
-    private static final String  connectorTypeQualifiedName = "CocoPharmaceuticals:GovernanceActionService:ClinicalTrial:OnboardHospital";
-    private static final String  connectorTypeDisplayName = "Clinical Trial Hospital Onboarding Governance Action Service";
-    private static final String  connectorTypeDescription = "Sets up the landing area for data from a hospital as part of a clinical trial, along with the pipeline that catalogued the data and moved it into the data lake.  The aim is that the data is moved from the landing area as soon as possible.";
-
     private static final String connectorClassName = CocoClinicalTrialHospitalOnboardingService.class.getName();
-
 
     /**
      * Constructor used to initialize the ConnectorProviderBase with the Java class name of the specific
@@ -22,25 +16,11 @@ public class CocoClinicalTrialHospitalOnboardingProvider extends GovernanceActio
      */
     public CocoClinicalTrialHospitalOnboardingProvider()
     {
-        super();
-        super.setConnectorClassName(connectorClassName);
+        super(CocoOpenConnectorDefinition.ONBOARD_HOSPITAL, connectorClassName, null);
 
         supportedActionTargetTypes = CocoClinicalTrialActionTarget.getHospitalOnboardingActionTargetTypes();
         supportedRequestParameters = CocoClinicalTrialRequestParameter.getHospitalOnboardingRequestParameterTypes();
 
         producedGuards = CocoClinicalTrialGuard.getGuardTypes();
-
-        super.setConnectorClassName(connectorClassName);
-
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorTypeQualifiedName);
-        connectorType.setDisplayName(connectorTypeDisplayName);
-        connectorType.setDescription(connectorTypeDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
-        connectorType.setSupportedAssetTypeName(supportedAssetTypeName);
-        connectorType.setSupportedDeployedImplementationType(supportedDeployedImplementationType);
-
-        super.connectorTypeBean = connectorType;
     }
 }

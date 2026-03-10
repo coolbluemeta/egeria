@@ -13,6 +13,7 @@ dependencies {
     implementation project(':open-metadata-implementation:repository-services:repository-services-archive-utilities')
     implementation project(':open-metadata-resources:open-metadata-archives:open-metadata-types')
     implementation project(':open-metadata-resources:open-metadata-archives:content-pack-helpers')
+    runtimeOnly project(':open-metadata-implementation:adapters:open-connectors')
     compileOnly project(':open-metadata-implementation:frameworks:audit-log-framework')
     compileOnly project(':open-metadata-implementation:frameworks:open-metadata-framework')
     compileOnly 'com.fasterxml.jackson.core:jackson-annotations'

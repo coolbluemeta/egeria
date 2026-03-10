@@ -2154,7 +2154,9 @@ public class OpenMetadataHandlerBase
         }
 
         List<OpenMetadataElement> openMetadataElements = openMetadataClient.findMetadataElements(userId,
-                                                                                                 propertyHelper.getSearchPropertiesByName(propertyNames, name, PropertyComparisonOperator.EQ),
+                                                                                                 propertyHelper.getSearchPropertiesByName(propertyNames,
+                                                                                                                                          name,
+                                                                                                                                          propertyHelper.getExactMatchSearchOptions(queryOptions)),
                                                                                                  null,
                                                                                                  queryOptions);
 

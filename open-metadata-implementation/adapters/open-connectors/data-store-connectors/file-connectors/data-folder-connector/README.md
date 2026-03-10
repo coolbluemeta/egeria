@@ -5,11 +5,10 @@
 
 # Data Folder connector
 
-The data folder connector is for accessing data that is
-stored as a number of files within a folder (directory).
 
+The Data Folder resource connector provides support to read and write the files in a folder (directory) using the Java File object.  The files are assumed to holder the records of a single data source represented by the folder.
 
-
+![DataFolderConnector](docs/data-folder-resource-connector.png)
 
 ----
 Return to the [file-connectors](..) module.

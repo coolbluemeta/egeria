@@ -1,0 +1,33 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram id="HP3IRVDPZLWodUwvnaF0" name="kafka-audit-integration-connectors">
+    <mxGraphModel dx="1234" dy="817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-0" />
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-1" parent="kSrSoJcPGroMlaoBxXoM-0" />
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-8" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Integration Daemon" vertex="1">
+          <mxGeometry height="410" width="250" x="400" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-9" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="Integration Group" vertex="1">
+          <mxGeometry height="220" width="206" x="424" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-10" edge="1" parent="kSrSoJcPGroMlaoBxXoM-1" source="WpLZwR04Vvz_KPWc1W3V-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RWzDdNc8vSwKCJ9Letpx-1" edge="1" parent="kSrSoJcPGroMlaoBxXoM-1" source="WpLZwR04Vvz_KPWc1W3V-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="RWzDdNc8vSwKCJ9Letpx-0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-11" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Kafka Topics Audit&lt;br&gt;Integration Connector" vertex="1">
+          <mxGeometry height="60" width="150" x="450" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-15" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;" value="Apache Kafka Server" vertex="1">
+          <mxGeometry height="160" width="250" x="90" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="RWzDdNc8vSwKCJ9Letpx-0" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Audit Log Destination&lt;div&gt;Connector&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="450" y="300" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

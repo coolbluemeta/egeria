@@ -12,40 +12,62 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 /**
  * PropertyComparisonOperator is used for search requests against a metadata store.  It defines how the properties
  * should be compared to find a matching result.
- *
  * The property comparison operator values are:
  * <ul>
  *     <li>
- *         EQUAL: when the property has a value that precisely equals the provided value. This is the default.
+ *         EQ: when the property has a value that precisely equals the provided value. This is the default.
  *     </li>
  *     <li>
- *         NOT_EQUAL: when the property has a value that is not equal to the provided value.
+ *         NEQ: when the property has a value that is not equal to the provided value.
  *     </li>
  *     <li>
- *         LESS_THAN: when the property has a value that is strictly less than the provided value.
+ *         LT: when the property has a value that is strictly less than the provided value.
  *     </li>
  *     <li>
- *         LESS_THAN_OR_EQUAL: when the property has a value that is less than, or equal to, the provided value.
+ *         LTE: when the property has a value that is less than, or equal to, the provided value.
  *     </li>
  *     <li>
- *         GREATER_THAN: when the property has a value that is strictly greater than the provided value.
+ *         GT: when the property has a value that is strictly greater than the provided value.
  *     </li>
  *     <li>
- *         GREATER_THAN_OR_EQUAL: when the property has a value that is greater than, or equal to, the provided value.
+ *         GTE: when the property has a value that is greater than, or equal to, the provided value.
  *     </li>
  *     <li>
- *         IN_LIST: when the property has a value that matches at least one element of the provided list of values.
+ *         IN: when the property has a value that matches at least one element of the provided list of values.
  *     </li>
  *     <li>
  *         IS_NULL: when the property has no value.
  *     </li>
  *     <li>
- *         IS_NOT_NULL: when the property has any non-null value.
+ *         NOT_NULL: when the property has any non-null value.
  *     </li>
  *     <li>
- *         LIKE: when the property has a value that matches the provided regular expression. This should only be applied
- *         to String properties, and should still be used even for exact matches for String properties.
+ *         LIKE: when the property has a value that matches the provided value.
  *     </li>
+ *     <LI>
+ *         NOT_LIKE: when the property has a value that does not match the provided value.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_LIKE: when the property has a value that matches the provided value if the case is ignored.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_NOT_LIKE: when the property has a value that does not match the provided value even if the case is ignored.
+ *     </LI>
+ *     <LI>
+ *         STARTS_WITH: when the property has a value that starts with the provided value.
+ *     </LI>
+ *     <LI>
+ *         ENDS_WITH: when the property has a value that ends with the provided value.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_STARTS_WITH: when the property has a value that starts with the provided value if the case is ignored.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_ENDS_WITH: when the property has a value that ends with the provided value if the case is ignored.
+ *     </LI>
+ *     <LI>
+ *         CASE_INSENSITIVE_EQ: when the property has a value that matches the provided value if the case is ignored.
+ *     </LI>
  * </ul>
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
@@ -99,9 +121,51 @@ public enum PropertyComparisonOperator
     NOT_NULL  (8, "Is not null",           "Has any non-null value."),
 
     /**
-     * Has a value that matches the provided regular expression (strings only).
+     * Has a value that includes the provided string.
      */
-    LIKE      (9, "Like",                  "Has a value that matches the provided regular expression (strings only).");
+    LIKE(9, "Like", "Has a value that includes the provided string.."),
+
+    /**
+     * Has a value that does not include the provided string.
+     */
+    NOT_LIKE(10, "Not Like", "Has a value that does not include the provided string."),
+
+    /**
+     * Has a value that includes the provided string if the case is ignored.
+     */
+    CASE_INSENSITIVE_LIKE(11, "Case Insensitive Like", "Has a value that includes the provided string if the case is ignored."),
+
+    /**
+     * Has a value that does not include the provided string even if the case is ignored.
+     */
+    CASE_INSENSITIVE_NOT_LIKE(12, "Case Insensitive Not Like", "Has a value that does not include the provided string even if the case is ignored."),
+
+    /**
+     * Has a value that begins with the provided string.
+     */
+    STARTS_WITH(13, "Starts With", "Has a value that begins with the provided string.."),
+
+    /**
+     * Has a value that ends with the provided string.
+     */
+    ENDS_WITH(14, "Ends With", "Has a value that ends with the provided string."),
+
+    /**
+     * Has a value that starts with the provided string if the case is ignored.
+     */
+    CASE_INSENSITIVE_STARTS_WITH(15, "Case Insensitive Ends With", "Has a value that starts with the provided string if the case is ignored."),
+
+    /**
+     * Has a value that ends with the provided string if the case is ignored.
+     */
+    CASE_INSENSITIVE_ENDS_WITH(16, "Case Insensitive Ends With", "Has a value that ends with the provided string if the case is ignored."),
+
+    /**
+     * Has a value that equals the provided string if the case is ignored.
+     */
+    CASE_INSENSITIVE_EQ(17, "Case Insensitive Equals", "Has a value that equals the provided string if the case is ignored."),
+
+    ;
 
     private final int     ordinal;
     private final String  name;

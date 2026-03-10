@@ -81,7 +81,7 @@ public class PrimitivePropertyValue extends InstancePropertyValue
     @Override
     public  String valueAsString()
     {
-        return primitiveValue == null ? "<null>" : primitiveValue.toString();
+        return primitiveValue == null ? null : primitiveValue.toString();
     }
 
 

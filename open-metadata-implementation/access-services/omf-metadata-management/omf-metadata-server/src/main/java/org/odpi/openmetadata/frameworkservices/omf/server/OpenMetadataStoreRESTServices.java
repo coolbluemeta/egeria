@@ -1070,19 +1070,10 @@ public class OpenMetadataStoreRESTServices
                 }
                 else
                 {
-                    response.setElements(handler.findMetadataElementsWithString(userId,
-                                                                                propertyHelper.getSearchString(requestBody.getSearchString(), requestBody.getStartsWith(), requestBody.getEndsWith(), requestBody.getIgnoreCase()),
-                                                                                requestBody.getMetadataElementTypeName(),
-                                                                                requestBody.getLimitResultsByStatus(),
-                                                                                requestBody.getAsOfTime(),
-                                                                                requestBody.getSequencingProperty(),
-                                                                                requestBody.getSequencingOrder(),
-                                                                                requestBody.getForLineage(),
-                                                                                requestBody.getForDuplicateProcessing(),
-                                                                                requestBody.getEffectiveTime(),
-                                                                                requestBody.getStartFrom(),
-                                                                                requestBody.getPageSize(),
-                                                                                methodName));
+                    response.setElements(this.findElements(userId,
+                                                           requestBody.getSearchString(),
+                                                           requestBody,
+                                                           handler));
                 }
             }
             else
@@ -1127,11 +1118,7 @@ public class OpenMetadataStoreRESTServices
 
         OpenMetadataAPIGenericConverter<OpenMetadataElement> converter = handler.getConverter();
 
-        SearchProperties searchProperties = new SearchProperties();
-
-        searchProperties.setMatchCriteria(MatchCriteria.ANY);
-        searchProperties.setConditions(getPropertyConditions(propertyHelper.getSearchString(searchString, searchOptions.getStartsWith(), searchOptions.getEndsWith(), searchOptions.getIgnoreCase()),
-                                                             getAnchorSearchesPropertyList()));
+        SearchProperties searchProperties = getOMRSSearchPropertiesByName(null, searchString, searchOptions);
 
         SearchClassifications searchClassifications = getAnchorSearchClassifications(anchorPropertyValue,
                                                                                      anchorPropertyName);
@@ -1172,6 +1159,181 @@ public class OpenMetadataStoreRESTServices
 
 
     /**
+     * Performs a search of elements, typically of a single type, that share one of the anchoring properties.
+     *
+     * @param userId calling user
+     * @param searchString requested search string
+     * @param searchOptions search options
+
+     * @param handler open metadata handler
+     * @return list of matching elements
+     * @throws InvalidParameterException the qualified name is null
+     * @throws UserNotAuthorizedException the governance action service is not able to access the element
+     * @throws PropertyServerException a problem accessing the metadata store
+     */
+    private List<OpenMetadataElement> findElements(String                                      userId,
+                                                   String                                      searchString,
+                                                   SearchOptions                               searchOptions,
+                                                   MetadataElementHandler<OpenMetadataElement> handler) throws InvalidParameterException,
+                                                                                                               PropertyServerException,
+                                                                                                               UserNotAuthorizedException
+    {
+        final String methodName = "findElements";
+
+        OpenMetadataAPIGenericConverter<OpenMetadataElement> converter = handler.getConverter();
+
+        SearchProperties searchProperties = getOMRSSearchPropertiesByName(null, searchString, searchOptions);
+
+        List<EntityDetail> anchoredEntities = handler.findEntities(userId,
+                                                                   searchOptions.getMetadataElementTypeName(),
+                                                                   searchOptions.getMetadataElementSubtypeNames(),
+                                                                   searchProperties,
+                                                                   handler.getInstanceStatuses(searchOptions.getLimitResultsByStatus()),
+                                                                   null,
+                                                                   searchOptions.getAsOfTime(),
+                                                                   searchOptions.getSequencingProperty(),
+                                                                   handler.getSequencingOrder(searchOptions.getSequencingOrder()),
+                                                                   searchOptions.getForLineage(),
+                                                                   searchOptions.getForDuplicateProcessing(),
+                                                                   searchOptions.getStartFrom(),
+                                                                   searchOptions.getPageSize(),
+                                                                   searchOptions.getEffectiveTime(),
+                                                                   methodName);
+        if (anchoredEntities != null)
+        {
+            List<OpenMetadataElement> results = new ArrayList<>();
+
+            for (EntityDetail anchoredEntity : anchoredEntities)
+            {
+                OpenMetadataElement matchedElementElement = converter.getNewBean(OpenMetadataElement.class,
+                                                                                 anchoredEntity,
+                                                                                 methodName);
+
+                results.add(matchedElementElement);
+            }
+
+            return results;
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Return the search properties object that requests elements with an exactly matching name in any of the listed property names.
+     *
+     * @param propertyNames list of property names
+     * @param value name to match on
+     * @param suppliedSearchOptions contains the flags to control an exact match or fuzzy match
+     * @return search properties
+     */
+    public SearchProperties getOMRSSearchPropertiesByName(List<String>  propertyNames,
+                                                          String        value,
+                                                          SearchOptions suppliedSearchOptions)
+    {
+        if ((propertyNames != null) || (value != null))
+        {
+            SearchProperties searchProperties = new SearchProperties();
+
+            PrimitivePropertyValue propertyValue = new PrimitivePropertyValue();
+            propertyValue.setTypeName("string");
+            propertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
+            propertyValue.setPrimitiveValue(value);
+
+            /*
+             * The property comparison operator is determined based on the search options.
+             */
+            PropertyComparisonOperator propertyComparisonOperator;
+            SearchOptions              searchOptions = new SearchOptions(suppliedSearchOptions);
+
+            if (searchOptions.getStartsWith())
+            {
+                if (searchOptions.getEndsWith())
+                {
+                    if (searchOptions.getIgnoreCase())
+                    {
+                        propertyComparisonOperator = PropertyComparisonOperator.CASE_INSENSITIVE_EQ;
+                    }
+                    else // case matters
+                    {
+                        propertyComparisonOperator = PropertyComparisonOperator.EQ;
+                    }
+                }
+                else // starts with but not ends with
+                {
+                    if (searchOptions.getIgnoreCase())
+                    {
+                        propertyComparisonOperator = PropertyComparisonOperator.CASE_INSENSITIVE_STARTS_WITH;
+                    }
+                    else  // case matters
+                    {
+                        propertyComparisonOperator = PropertyComparisonOperator.STARTS_WITH;
+                    }
+                }
+            }
+            else // not starts with
+            {
+                if (searchOptions.getEndsWith())
+                {
+                    if (searchOptions.getIgnoreCase())
+                    {
+                        propertyComparisonOperator = PropertyComparisonOperator.CASE_INSENSITIVE_ENDS_WITH;
+                    }
+                    else  // case matters
+                    {
+                        propertyComparisonOperator = PropertyComparisonOperator.ENDS_WITH;
+                    }
+                }
+                else // not starts with or ends with
+                {
+                    if (searchOptions.getIgnoreCase())
+                    {
+                        propertyComparisonOperator = PropertyComparisonOperator.CASE_INSENSITIVE_LIKE;
+                    }
+                    else // case matters
+                    {
+                        propertyComparisonOperator = PropertyComparisonOperator.LIKE;
+                    }
+                }
+            }
+
+            /*
+             * Add a condition for each property name.
+             */
+            List<PropertyCondition> propertyConditions = new ArrayList<>();
+
+            if (propertyNames != null)
+            {
+                for (String propertyName : propertyNames)
+                {
+                    PropertyCondition propertyCondition = new PropertyCondition();
+
+                    propertyCondition.setValue(propertyValue);
+                    propertyCondition.setProperty(propertyName);
+                    propertyCondition.setOperator(propertyComparisonOperator);
+                    propertyConditions.add(propertyCondition);
+                }
+            }
+            else
+            {
+                PropertyCondition propertyCondition = new PropertyCondition();
+
+                propertyCondition.setValue(propertyValue);
+                propertyCondition.setProperty(null);
+                propertyCondition.setOperator(propertyComparisonOperator);
+                propertyConditions.add(propertyCondition);
+            }
+
+            searchProperties.setConditions(propertyConditions);
+            searchProperties.setMatchCriteria(MatchCriteria.ANY);
+
+            return searchProperties;
+        }
+
+        return null;
+    }
+
+    /**
      * Return a list of elements with the requested search string in their (display, resource)name, qualified name,
      * title, text, summary, identifier or description.  The search string is interpreted as a regular expression (RegEx).
      * The breadth of the search is determined by the supplied anchorGUID.
@@ -1207,12 +1369,7 @@ public class OpenMetadataStoreRESTServices
 
             if (requestBody != null)
             {
-                SearchProperties searchProperties = new SearchProperties();
-
-                searchProperties.setMatchCriteria(MatchCriteria.ANY);
-                searchProperties.setConditions(getPropertyConditions(requestBody.getSearchString(),
-                                                                     getAnchorSearchesPropertyList()));
-
+                SearchProperties      searchProperties = getOMRSSearchPropertiesByName(null, requestBody.getSearchString(), requestBody);
                 SearchClassifications searchClassifications = getAnchorSearchClassifications(anchorGUID,
                                                                                              OpenMetadataProperty.ANCHOR_GUID.name);
 
@@ -1284,12 +1441,7 @@ public class OpenMetadataStoreRESTServices
 
             if (requestBody != null)
             {
-                SearchProperties searchProperties = new SearchProperties();
-
-                searchProperties.setMatchCriteria(MatchCriteria.ANY);
-                searchProperties.setConditions(getPropertyConditions(requestBody.getSearchString(),
-                                                                     getAnchorSearchesPropertyList()));
-
+                SearchProperties      searchProperties = getOMRSSearchPropertiesByName(null, requestBody.getSearchString(), requestBody);
                 SearchClassifications searchClassifications = getAnchorSearchClassifications(anchorDomainName,
                                                                                              OpenMetadataProperty.ANCHOR_DOMAIN_NAME.name);
 
@@ -1361,12 +1513,7 @@ public class OpenMetadataStoreRESTServices
 
             if (requestBody != null)
             {
-                SearchProperties searchProperties = new SearchProperties();
-
-                searchProperties.setMatchCriteria(MatchCriteria.ANY);
-                searchProperties.setConditions(getPropertyConditions(requestBody.getSearchString(),
-                                                                     getAnchorSearchesPropertyList()));
-
+                SearchProperties      searchProperties = getOMRSSearchPropertiesByName(null, requestBody.getSearchString(), requestBody);
                 SearchClassifications searchClassifications = getAnchorSearchClassifications(anchorScopeGUID,
                                                                                              OpenMetadataProperty.ANCHOR_SCOPE_GUID.name);
 
@@ -1569,100 +1716,6 @@ public class OpenMetadataStoreRESTServices
         searchClassifications.setConditions(classificationConditions);
 
         return searchClassifications;
-    }
-
-
-    /**
-     * Set up the search string in a property value structure.
-     *
-     * @param searchString requested search string
-     * @return instance property value
-     */
-    private InstancePropertyValue getSearchPropertyValue(String searchString)
-    {
-        PrimitivePropertyValue  primitivePropertyValue        = new PrimitivePropertyValue();
-
-        primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
-        primitivePropertyValue.setPrimitiveValue(searchString);
-        primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
-        primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
-
-        return primitivePropertyValue;
-    }
-
-
-    /**
-     * Return a property condition used to control the search.
-     *
-     * @param searchString value to search for
-     * @param propertyName property to look in
-     * @return property condition
-     */
-    private PropertyCondition getSearchPropertyCondition(String searchString,
-                                                         String propertyName)
-    {
-        PropertyCondition propertyCondition = new PropertyCondition();
-
-        propertyCondition.setProperty(propertyName);
-        propertyCondition.setOperator(PropertyComparisonOperator.LIKE);
-        propertyCondition.setValue(getSearchPropertyValue(searchString));
-
-        return propertyCondition;
-    }
-
-
-    /**
-     * Build a set of property conditions for a search on a list of properties.
-     *
-     * @param searchString value to search for
-     * @param propertyNames places to look
-     * @return list of property conditions
-     */
-    private List<PropertyCondition> getPropertyConditions(String       searchString,
-                                                          List<String> propertyNames)
-    {
-        List<PropertyCondition> propertyConditions = null;
-
-        if (propertyNames != null)
-        {
-            propertyConditions = new ArrayList<>();
-
-            for (String propertyName : propertyNames)
-            {
-                if (propertyName != null)
-                {
-                    propertyConditions.add(getSearchPropertyCondition(searchString, propertyName));
-                }
-            }
-        }
-
-        return propertyConditions;
-    }
-
-
-    /**
-     * Defines the list of properties that an anchor search uses.
-     *
-     * @return list of property names
-     */
-    private List<String> getAnchorSearchesPropertyList()
-    {
-        List<String> propertyList = new ArrayList<>();
-
-        propertyList.add(OpenMetadataProperty.QUALIFIED_NAME.name);
-        propertyList.add(OpenMetadataProperty.DISPLAY_NAME.name);
-        propertyList.add(OpenMetadataProperty.DEPLOYED_IMPLEMENTATION_TYPE.name);
-        propertyList.add(OpenMetadataProperty.RESOURCE_NAME.name);
-        propertyList.add(OpenMetadataProperty.PATH_NAME.name);
-        propertyList.add(OpenMetadataProperty.IDENTIFIER.name);
-        propertyList.add(OpenMetadataProperty.CATEGORY.name);
-        propertyList.add(OpenMetadataProperty.SUMMARY.name);
-        propertyList.add(OpenMetadataProperty.REVIEW.name);
-        propertyList.add(OpenMetadataProperty.KEY.name);
-        propertyList.add(OpenMetadataProperty.DESCRIPTION.name);
-        propertyList.add(OpenMetadataProperty.NAMESPACE_PATH.name);
-
-        return propertyList;
     }
 
 

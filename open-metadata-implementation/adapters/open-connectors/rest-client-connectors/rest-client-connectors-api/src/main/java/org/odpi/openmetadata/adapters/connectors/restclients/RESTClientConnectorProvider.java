@@ -2,18 +2,17 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.adapters.connectors.restclients;
 
-import org.odpi.openmetadata.frameworks.connectors.ConnectorProviderBase;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
+import org.odpi.openmetadata.frameworks.connectors.OpenConnectorDefinition;
+import org.odpi.openmetadata.frameworks.connectors.OpenConnectorProviderBase;
+
+import java.util.List;
 
 
 /**
  * RESTClientConnectorProvider provides base class of the connector provider for the RESTClientConnector.
  */
-public class RESTClientConnectorProvider extends ConnectorProviderBase
+public class RESTClientConnectorProvider extends OpenConnectorProviderBase
 {
-    static final String  connectorTypeGUID = "6d432118-633e-4428-921c-271299cc6571";
-    static final String  connectorTypeName = "REST Client Connector";
-    static final String  connectorTypeDescription = "Connector that calls the REST API of a remote server.";
 
     /**
      * Constructor used to initialize the ConnectorProviderBase with the Java class name of the specific
@@ -22,17 +21,42 @@ public class RESTClientConnectorProvider extends ConnectorProviderBase
      */
     public RESTClientConnectorProvider()
     {
-        Class<?>    connectorClass = RESTClientConnector.class;
+       super();
+    }
 
-        super.setConnectorClassName(connectorClass.getName());
 
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorTypeName);
-        connectorType.setDisplayName(connectorTypeName);
-        connectorType.setDescription(connectorTypeDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
+    /**
+     * Constructor for an open connector provider.
+     *
+     * @param openConnectorDescription             connector definition
+     * @param connectorClassName                   connector class name
+     * @param recognizedConfigurationPropertyNames list of property names that the connector supports
+     *                                             in the configuration properties.
+     */
+    public RESTClientConnectorProvider(OpenConnectorDefinition openConnectorDescription,
+                                       String                  connectorClassName,
+                                       List<String> recognizedConfigurationPropertyNames)
+    {
+        this(openConnectorDescription, connectorClassName, recognizedConfigurationPropertyNames, null, null);
+    }
 
-        super.connectorTypeBean = connectorType;
+
+    /**
+     * Constructor for an open connector provider.
+     *
+     * @param openConnectorDescription             connector definition
+     * @param connectorClassName                   connector class name
+     * @param recognizedConfigurationPropertyNames list of property names that the connector supports
+     *                                             in the configuration properties.
+     * @param connectorInterfaces                  list of interfaces that the connector supports.
+     * @param expectedDataFormat                   description of the data format that the connector expects.
+     */
+    public RESTClientConnectorProvider(OpenConnectorDefinition openConnectorDescription,
+                                       String                  connectorClassName,
+                                       List<String>            recognizedConfigurationPropertyNames,
+                                       List<String>            connectorInterfaces,
+                                       String                  expectedDataFormat)
+    {
+        super(openConnectorDescription, connectorClassName, recognizedConfigurationPropertyNames, connectorInterfaces, expectedDataFormat);
     }
 }

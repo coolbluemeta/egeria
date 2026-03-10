@@ -159,7 +159,9 @@ public class InformationSupplyChainHandler extends CollectionHandler
                                                    OpenMetadataProperty.DISPLAY_NAME.name);
 
         List<OpenMetadataElement> openMetadataElements = openMetadataClient.findMetadataElements(userId,
-                                                                                                 propertyHelper.getSearchPropertiesByName(propertyNames, name, PropertyComparisonOperator.EQ),
+                                                                                                 propertyHelper.getSearchPropertiesByName(propertyNames,
+                                                                                                                                          name,
+                                                                                                                                          propertyHelper.getExactMatchSearchOptions(queryOptions)),
                                                                                                  null,
                                                                                                  super.addDefaultType(queryOptions));
 

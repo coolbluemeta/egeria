@@ -427,6 +427,20 @@ public abstract class BasicFilesMonitorIntegrationConnectorBase extends Integrat
 
         if (dataFolderFile.exists())
         {
+            /*
+             * If the folder is the top-level monitoring folder, it may not follow the template's naming conventions.
+             * Use the catalog target element.
+             */
+            for (DirectoryToMonitor directoryToMonitor : directoriesToMonitor)
+            {
+                if ((directoryToMonitor.directoryFile != null) &&
+                        (directoryToMonitor.dataFolderElement != null) &&
+                        (directoryToMonitor.directoryFile.getAbsolutePath().equals(dataFolderFile.getAbsolutePath())))
+                {
+                    return directoryToMonitor.dataFolderElement;
+                }
+            }
+
             try
             {
                 String      pathName         = dataFolderFile.getCanonicalPath();

@@ -3,14 +3,14 @@
 package org.odpi.openmetadata.frameworks.openmetadata.client;
 
 import org.odpi.openmetadata.frameworks.openmetadata.api.*;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.*;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.*;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.SequencingOrder;
 import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.SpecificationProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
+import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -289,12 +289,88 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
      * @throws PropertyServerException a problem accessing the metadata store
      */
     @Override
-    public abstract OpenMetadataElement getMetadataElementByUniqueName(String     userId,
-                                                                       String     uniqueName,
-                                                                       String     uniquePropertyName,
-                                                                       GetOptions getOptions) throws InvalidParameterException,
-                                                                                                     UserNotAuthorizedException,
-                                                                                                     PropertyServerException;
+    public OpenMetadataElement getMetadataElementByUniqueName(String     userId,
+                                                              String     uniqueName,
+                                                              String     uniquePropertyName,
+                                                              GetOptions getOptions) throws InvalidParameterException,
+                                                                                            UserNotAuthorizedException,
+                                                                                            PropertyServerException
+    {
+        final String methodName          = "getMetadataElementByUniqueName";
+        final String defaultPropertyName = OpenMetadataProperty.QUALIFIED_NAME.name;
+        final String nameParameterName   = "uniqueName";
+
+        propertyHelper.validateUserId(userId, methodName);
+        propertyHelper.validateMandatoryName(uniqueName, nameParameterName, methodName);
+
+        List<String> propertyNames = new ArrayList<>();
+
+        if (uniquePropertyName != null)
+        {
+            propertyNames.add(uniquePropertyName);
+        }
+        else
+        {
+            propertyNames.add(defaultPropertyName);
+        }
+
+        SearchOptions searchOptions = propertyHelper.getExactMatchSearchOptions(new QueryOptions(getOptions));
+
+        searchOptions.setLimitResultsByStatus(Collections.singletonList(ElementStatus.ACTIVE));
+
+        List<OpenMetadataElement> receivedElements = this.findMetadataElements(userId,
+                                                                               propertyHelper.getSearchPropertiesByName(propertyNames,
+                                                                                                                        uniqueName,
+                                                                                                                       searchOptions),
+                                                                               null,
+                                                                               searchOptions);
+
+        if (receivedElements != null)
+        {
+            String resultTypeName = OpenMetadataType.OPEN_METADATA_ROOT.typeName;
+
+            if ((getOptions != null) && (getOptions.getMetadataElementTypeName() != null))
+            {
+                resultTypeName = getOptions.getMetadataElementTypeName();
+            }
+
+            List<String> duplicateEntities = new ArrayList<>();
+            OpenMetadataElement matchingElement = null;
+
+            for (OpenMetadataElement receivedElement : receivedElements)
+            {
+                if (receivedElement != null)
+                {
+                    if (matchingElement == null)
+                    {
+                        matchingElement = receivedElement;
+                    }
+                    else
+                    {
+                        duplicateEntities.add(receivedElement.getElementGUID());
+                    }
+                }
+            }
+
+            if (! duplicateEntities.isEmpty())
+            {
+                duplicateEntities.add(matchingElement.getElementGUID());
+
+                throw new PropertyServerException(OMFErrorCode.MULTIPLE_ENTITIES_FOUND.getMessageDefinition(resultTypeName,
+                                                                                                            uniqueName,
+                                                                                                            duplicateEntities.toString(),
+                                                                                                            methodName,
+                                                                                                            uniquePropertyName,
+                                                                                                            serverName),
+                                                  this.getClass().getName(),
+                                                  methodName);
+            }
+
+            return matchingElement;
+        }
+
+        return null;
+    }
 
 
     /**
@@ -335,15 +411,18 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
             propertyNames.add(defaultPropertyName);
         }
 
-        QueryOptions queryOptions = new QueryOptions();
-
-        queryOptions.setLimitResultsByStatus(Collections.singletonList(ElementStatus.DELETED));
+        SearchOptions searchOptions = propertyHelper.getExactMatchSearchOptions(new QueryOptions());
+        searchOptions.setLimitResultsByStatus(Collections.singletonList(ElementStatus.DELETED));
+        searchOptions.setSequencingOrder(SequencingOrder.LAST_UPDATE_RECENT);
 
         List<OpenMetadataElement> matchingElements = this.findMetadataElements(userId,
-                                                                               propertyHelper.getSearchPropertiesByName(propertyNames, uniqueName, PropertyComparisonOperator.EQ),
+                                                                               propertyHelper.getSearchPropertiesByName(propertyNames, uniqueName, searchOptions),
                                                                                null,
-                                                                               queryOptions);
+                                                                               searchOptions);
 
+        /*
+         * Notice that duplicate elements are handled in case the element has been deleted multiple times.
+         */
         if (matchingElements != null)
         {
             for (OpenMetadataElement matchingElement : matchingElements)
@@ -357,6 +436,7 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
 
         return null;
     }
+
 
     /**
      * Retrieve the unique identifier of a metadata element using its unique name (typically the qualified name).
@@ -372,12 +452,22 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
      * @throws PropertyServerException a problem accessing the metadata store
      */
     @Override
-    public abstract String getMetadataElementGUIDByUniqueName(String     userId,
-                                                              String     uniqueName,
-                                                              String     uniquePropertyName,
-                                                              GetOptions getOptions) throws InvalidParameterException,
-                                                                                            UserNotAuthorizedException,
-                                                                                            PropertyServerException;
+    public String getMetadataElementGUIDByUniqueName(String     userId,
+                                                     String     uniqueName,
+                                                     String     uniquePropertyName,
+                                                     GetOptions getOptions) throws InvalidParameterException,
+                                                                                   UserNotAuthorizedException,
+                                                                                   PropertyServerException
+    {
+        OpenMetadataElement matchingElement = this.getMetadataElementByUniqueName(userId, uniqueName, uniquePropertyName, getOptions);
+
+        if (matchingElement != null)
+        {
+            return matchingElement.getElementGUID();
+        }
+
+        return null;
+    }
 
 
     /**
@@ -404,7 +494,9 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
         List<String> propertyNames = List.of(propertyName);
 
         return this.findMetadataElements(userId,
-                                         propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, PropertyComparisonOperator.EQ),
+                                         propertyHelper.getSearchPropertiesByName(propertyNames,
+                                                                                  propertyValue,
+                                                                                  propertyHelper.getExactMatchSearchOptions(queryOptions)),
                                          null,
                                          queryOptions);
     }
@@ -416,7 +508,7 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
      * @param userId                     caller's userId
      * @param propertyName               property name to match against
      * @param propertyValue              value to match against
-     * @param queryOptions               multiple options to control the query
+     * @param searchOptions               multiple options to control the query
      *
      * @return a list of elements matching the supplied criteria; null means no matching elements in the metadata store.
      *
@@ -424,19 +516,19 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
      * @throws UserNotAuthorizedException the userId is not permitted to perform this operation
      * @throws PropertyServerException    a problem accessing the metadata store
      */
-    public List<OpenMetadataElement> findMetadataElementsByPropertyValue(String                userId,
-                                                                         String                propertyName,
-                                                                         String                propertyValue,
-                                                                         QueryOptions          queryOptions) throws InvalidParameterException,
-                                                                                                                    UserNotAuthorizedException,
-                                                                                                                    PropertyServerException
+    public List<OpenMetadataElement> findMetadataElementsByPropertyValue(String        userId,
+                                                                         String        propertyName,
+                                                                         String        propertyValue,
+                                                                         SearchOptions searchOptions) throws InvalidParameterException,
+                                                                                                            UserNotAuthorizedException,
+                                                                                                            PropertyServerException
     {
         List<String> propertyNames = List.of(propertyName);
 
         return this.findMetadataElements(userId,
-                                         propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, PropertyComparisonOperator.LIKE),
+                                         propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, searchOptions),
                                          null,
-                                         queryOptions);
+                                         searchOptions);
     }
 
 
@@ -463,7 +555,9 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
                                                                                                                    PropertyServerException
     {
         return this.findMetadataElements(userId,
-                                         propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, PropertyComparisonOperator.EQ),
+                                         propertyHelper.getSearchPropertiesByName(propertyNames,
+                                                                                  propertyValue,
+                                                                                  propertyHelper.getExactMatchSearchOptions(queryOptions)),
                                          null,
                                          queryOptions);
     }
@@ -475,7 +569,7 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
      * @param userId                     caller's userId
      * @param propertyNames              list of property names to match against
      * @param propertyValue              value to match against
-     * @param queryOptions multiple options to control the query
+     * @param searchOptions multiple options to control the query
 
      *
      * @return a list of elements matching the supplied criteria; null means no matching elements in the metadata store.
@@ -484,17 +578,19 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
      * @throws UserNotAuthorizedException the userId is not permitted to perform this operation
      * @throws PropertyServerException    a problem accessing the metadata store
      */
-    public List<OpenMetadataElement> findMetadataElementsByPropertyValue(String       userId,
-                                                                         List<String> propertyNames,
-                                                                         String       propertyValue,
-                                                                         QueryOptions queryOptions) throws InvalidParameterException,
-                                                                                                           UserNotAuthorizedException,
-                                                                                                           PropertyServerException
+    public List<OpenMetadataElement> findMetadataElementsByPropertyValue(String        userId,
+                                                                         List<String>  propertyNames,
+                                                                         String        propertyValue,
+                                                                         SearchOptions searchOptions) throws InvalidParameterException,
+                                                                                                             UserNotAuthorizedException,
+                                                                                                             PropertyServerException
     {
         return this.findMetadataElements(userId,
-                                         propertyHelper.getSearchPropertiesByName(propertyNames, propertyValue, PropertyComparisonOperator.LIKE),
+                                         propertyHelper.getSearchPropertiesByName(propertyNames,
+                                                                                  propertyValue,
+                                                                                  searchOptions),
                                          null,
-                                         queryOptions);
+                                         searchOptions);
     }
 
 
@@ -775,7 +871,9 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
             }
         }
 
-        SearchProperties searchClassificationProperties = new SearchProperties();
+        SearchProperties searchClassificationProperties = propertyHelper.getSearchPropertiesByName(classificationPropertyNames,
+                                                                                                   classificationPropertyValue,
+                                                                                                   propertyHelper.getExactMatchSearchOptions(queryOptions));
 
         searchClassificationProperties.setConditions(conditions);
         searchClassificationProperties.setMatchCriteria(MatchCriteria.ANY);
@@ -808,7 +906,7 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
      * @param classificationName         name of the classification
      * @param classificationPropertyNames property name to match against
      * @param classificationPropertyValue value to match against
-     * @param queryOptions multiple options to control the query
+     * @param searchOptions multiple options to control the query
      *
      * @return a list of elements matching the supplied criteria; null means no matching elements in the metadata store.
      *
@@ -820,36 +918,11 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
                                                                                        String                classificationName,
                                                                                        List<String>          classificationPropertyNames,
                                                                                        String                classificationPropertyValue,
-                                                                                       QueryOptions          queryOptions) throws InvalidParameterException,
+                                                                                       SearchOptions         searchOptions) throws InvalidParameterException,
                                                                                                                                   UserNotAuthorizedException,
                                                                                                                                   PropertyServerException
     {
-        PrimitiveTypePropertyValue requestedPropertyValue = new PrimitiveTypePropertyValue();
-
-        requestedPropertyValue.setPrimitiveTypeCategory(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING);
-        requestedPropertyValue.setPrimitiveValue(".*" + Pattern.quote(classificationPropertyValue) + ".*");
-        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getName());
-
-        List<PropertyCondition> conditions = new ArrayList<>();
-
-        if (classificationPropertyNames != null)
-        {
-            for (String propertyName : classificationPropertyNames)
-            {
-                PropertyCondition nameCondition = new PropertyCondition();
-
-                nameCondition.setProperty(propertyName);
-                nameCondition.setOperator(PropertyComparisonOperator.LIKE);
-                nameCondition.setValue(requestedPropertyValue);
-
-                conditions.add(nameCondition);
-            }
-        }
-
-        SearchProperties searchClassificationProperties = new SearchProperties();
-
-        searchClassificationProperties.setConditions(conditions);
-        searchClassificationProperties.setMatchCriteria(MatchCriteria.ANY);
+        SearchProperties searchClassificationProperties = propertyHelper.getSearchPropertiesByName(classificationPropertyNames, classificationPropertyValue, searchOptions);
 
         SearchClassifications searchClassifications = new SearchClassifications();
 
@@ -867,7 +940,7 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
         return this.findMetadataElements(userId,
                                          null,
                                          searchClassifications,
-                                         queryOptions);
+                                         searchOptions);
     }
 
 

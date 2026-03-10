@@ -344,7 +344,7 @@ Content-Type: application/json
 {
   "class" : "SearchStringRequestBody",
   "searchString" : "SALES-TERRITORIES-2026",
-  "metadataElementTypeName" : "ReferenceDataValueProperties",
+  "metadataElementTypeName" : "ReferenceDataValue",
   "startsWith" : false,
   "endsWith" : false,
   "ignoreCase" : true,

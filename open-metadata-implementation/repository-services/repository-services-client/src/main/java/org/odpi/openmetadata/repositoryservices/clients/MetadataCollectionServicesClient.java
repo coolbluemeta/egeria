@@ -1830,9 +1830,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
      * @param userId unique identifier for requesting user.
      * @param entityTypeGUID GUID of the type of entity to search for. Null means all types will
      *                       be searched (could be slow so not recommended).
-     * @param searchCriteria String Java regular expression used to match against any of the String property values
-     *                       within the entities of the supplied type, even if it should be an exact match.
-     *                       (Retrieve all entities of the supplied type if this is either null or an empty string.)
+     * @param searchString String used to match against any of the String property values
+     *                       within the entity instances of the specified type(s).
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param fromEntityElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
      *                                beyond the first page of results. Zero means start from the first element.
@@ -1860,8 +1862,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
      */
     public  List<EntityDetail> findEntitiesByPropertyValue(String                userId,
                                                            String                entityTypeGUID,
-                                                           String                searchCriteria,
-                                                           int                   fromEntityElement,
+                                                           String                searchString,
+                                                           boolean               startsWith,
+                                                           boolean               endsWith,
+                                                           boolean               ignoreCase,                                                           int                   fromEntityElement,
                                                            List<InstanceStatus>  limitResultsByStatus,
                                                            List<String>          limitResultsByClassification,
                                                            Date                  asOfTime,
@@ -1880,7 +1884,7 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
 
         if (asOfTime == null)
         {
-            final String              operationSpecificURL  = "instances/entities/by-property-value?searchCriteria={1}";
+            final String              operationSpecificURL  = "instances/entities/by-property-value?searchString={1}&startsWith={2}&endsWith={3}&ignoreCase={4}";
             EntityPropertyFindRequest findRequestParameters = new EntityPropertyFindRequest();
 
             findRequestParameters.setTypeGUID(entityTypeGUID);
@@ -1895,11 +1899,14 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
                                                          restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
                                                          findRequestParameters,
                                                          userId,
-                                                         searchCriteria);
+                                                         searchString,
+                                                         startsWith,
+                                                         endsWith,
+                                                         ignoreCase);
         }
         else
         {
-            final String                        operationSpecificURL  = "instances/entities/by-property-value/history?searchCriteria={1}";
+            final String                        operationSpecificURL  = "instances/entities/by-property-value/history?searchString={1}&startsWith={2}&endsWith={3}&ignoreCase={4}";
             EntityPropertyHistoricalFindRequest findRequestParameters = new EntityPropertyHistoricalFindRequest();
 
             findRequestParameters.setTypeGUID(entityTypeGUID);
@@ -1915,7 +1922,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
                                                          restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
                                                          findRequestParameters,
                                                          userId,
-                                                         searchCriteria);
+                                                         searchString,
+                                                         startsWith,
+                                                         endsWith,
+                                                         ignoreCase);
         }
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);
@@ -2341,8 +2351,11 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
      * @param userId unique identifier for requesting user.
      * @param relationshipTypeGUID GUID of the type of entity to search for. Null means all types will
      *                       be searched (could be slow so not recommended).
-     * @param searchCriteria String Java regular expression used to match against any of the String property values
-     *                       within the relationships of the supplied type, even if it should be an exact match.
+     * @param searchString String used to match against any of the String property values
+     *                       within the relationship instances of the specified type(s).
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param fromRelationshipElement Element number of the results to skip to when building the results list
      *                                to return.  Zero means begin at the start of the results.  This is used
      *                                to retrieve the results over a number of pages.
@@ -2368,8 +2381,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
      */
     public  List<Relationship> findRelationshipsByPropertyValue(String                    userId,
                                                                 String                    relationshipTypeGUID,
-                                                                String                    searchCriteria,
-                                                                int                       fromRelationshipElement,
+                                                                String                    searchString,
+                                                                boolean                   startsWith,
+                                                                boolean                   endsWith,
+                                                                boolean                   ignoreCase,                                                                int                       fromRelationshipElement,
                                                                 List<InstanceStatus>      limitResultsByStatus,
                                                                 Date                      asOfTime,
                                                                 String                    sequencingProperty,
@@ -2387,7 +2402,7 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
 
         if (asOfTime == null)
         {
-            final String           operationSpecificURL  = "instances/relationships/by-property-value?searchCriteria={1}";
+            final String           operationSpecificURL  = "instances/relationships/by-property-value?searchString={1}&startsWith={2}&endsWith={3}&ignoreCase={4}";
             TypeLimitedFindRequest findRequestParameters = new TypeLimitedFindRequest();
 
             findRequestParameters.setTypeGUID(relationshipTypeGUID);
@@ -2401,11 +2416,14 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
                                                                restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
                                                                findRequestParameters,
                                                                userId,
-                                                               searchCriteria);
+                                                               searchString,
+                                                               startsWith,
+                                                               endsWith,
+                                                               ignoreCase);
         }
         else
         {
-            final String                     operationSpecificURL  = "instances/relationships/by-property-value/history?searchCriteria={1}";
+            final String                     operationSpecificURL  = "instances/relationships/by-property-value/history?searchString={1}&startsWith={2}&endsWith={3}&ignoreCase={4}";
             TypeLimitedHistoricalFindRequest findRequestParameters = new TypeLimitedHistoricalFindRequest();
 
             findRequestParameters.setTypeGUID(relationshipTypeGUID);
@@ -2420,7 +2438,10 @@ public abstract class MetadataCollectionServicesClient implements AuditLoggingCo
                                                                restURLRoot + rootServiceNameInURL + userIdInURL + serviceURLMarker + operationSpecificURL,
                                                                findRequestParameters,
                                                                userId,
-                                                               searchCriteria);
+                                                               searchString,
+                                                               startsWith,
+                                                               endsWith,
+                                                               ignoreCase);
         }
 
         this.detectAndThrowFunctionNotSupportedException(methodName, restResult);

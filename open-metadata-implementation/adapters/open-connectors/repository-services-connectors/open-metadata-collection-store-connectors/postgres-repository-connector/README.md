@@ -9,6 +9,11 @@
 The PostgreSQL OMRS Repository Connector provides a high-speed bi-temporal repository
 implementation that stores the open metadata in a PostgreSQL Database Schema.  
 
+Each Open Metadata Repository uses the same table structure within its own Database Schema.  This database schema is managed by a single instance of the PostgreSQL Repository Connector.
+
+Access to the PostgreSQL Database Schema is provided by the [JDBC Resource Connector](../../../data-store-connectors/jdbc-resource-connector).  This connector manages the SQL Queries, connection management and use of the secrets store for security connections.
+
+The diagram below shows the tables used in the PostgreSQL Database Schema.
 
 
 ```mermaid
@@ -46,7 +51,6 @@ logging.level.org.odpi.openmetadata.adapters.repositoryservices.postgres.reposit
 ```
 
 
-Detailed documentation is available on the [Egeria website](https://egeria-project.org/connectors/repository/postgres/overview/).
 
 
 
