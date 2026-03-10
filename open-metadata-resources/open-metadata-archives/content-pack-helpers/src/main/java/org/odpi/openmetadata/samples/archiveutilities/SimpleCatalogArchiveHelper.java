@@ -5176,6 +5176,7 @@ public class SimpleCatalogArchiveHelper
                                          connectorType.getQualifiedName(),
                                          connectorType.getDisplayName(),
                                          connectorType.getDescription(),
+                                         connectorType.getURL(),
                                          connectorType.getSupportedDeployedImplementationType(),
                                          connectorType.getSupportedAssetTypeName(),
                                          connectorType.getExpectedDataFormat(),
@@ -5206,6 +5207,7 @@ public class SimpleCatalogArchiveHelper
      * @param qualifiedName unique name for the connector type
      * @param displayName display name for the connector type
      * @param description description about the connector type
+     * @param url URL for the connector type
      * @param supportedAssetTypeName type of asset supported by this connector
      * @param deployedImplementationType specific deployed implementation type for assets supported by this connector
      * @param expectedDataFormat format of the data stored in the resource
@@ -5228,6 +5230,7 @@ public class SimpleCatalogArchiveHelper
                                    String              qualifiedName,
                                    String              displayName,
                                    String              description,
+                                   String              url,
                                    String              deployedImplementationType,
                                    String              supportedAssetTypeName,
                                    String              expectedDataFormat,
@@ -5251,6 +5254,7 @@ public class SimpleCatalogArchiveHelper
             return this.addConnectorType(qualifiedName,
                                          displayName,
                                          description,
+                                         url,
                                          deployedImplementationType,
                                          supportedAssetTypeName,
                                          expectedDataFormat,
@@ -5280,6 +5284,7 @@ public class SimpleCatalogArchiveHelper
      * @param qualifiedName unique name for the connector type
      * @param displayName display name for the connector type
      * @param description description about the connector type
+     * @param url URL for the connector type
      * @param deployedImplementationType specific deployed implementation type for assets supported by this connector
      * @param supportedAssetTypeName type of asset supported by this connector
      * @param expectedDataFormat format of the data stored in the resource
@@ -5298,24 +5303,25 @@ public class SimpleCatalogArchiveHelper
      *
      * @return id for the connector type
      */
-    protected String addConnectorType(String                          qualifiedName,
-                                      String                          displayName,
-                                      String                          description,
-                                      String                          deployedImplementationType,
-                                      String                          supportedAssetTypeName,
-                                      String                          expectedDataFormat,
-                                      String                          connectorProviderClassName,
-                                      String                          connectorFrameworkName,
-                                      String                          connectorInterfaceLanguage,
-                                      List<String>                    connectorInterfaces,
-                                      String                          targetTechnologySource,
-                                      String                          targetTechnologyName,
-                                      List<String>                    targetTechnologyInterfaces,
-                                      List<String>                    targetTechnologyVersions,
-                                      List<String>                    recognizedSecuredProperties,
-                                      List<String>                    recognizedConfigurationProperties,
-                                      List<String>                    recognizedAdditionalProperties,
-                                      Map<String, String>             additionalProperties)
+    protected String addConnectorType(String              qualifiedName,
+                                      String              displayName,
+                                      String              description,
+                                      String              url,
+                                      String              deployedImplementationType,
+                                      String              supportedAssetTypeName,
+                                      String              expectedDataFormat,
+                                      String              connectorProviderClassName,
+                                      String              connectorFrameworkName,
+                                      String              connectorInterfaceLanguage,
+                                      List<String>        connectorInterfaces,
+                                      String              targetTechnologySource,
+                                      String              targetTechnologyName,
+                                      List<String>        targetTechnologyInterfaces,
+                                      List<String>        targetTechnologyVersions,
+                                      List<String>        recognizedSecuredProperties,
+                                      List<String>        recognizedConfigurationProperties,
+                                      List<String>        recognizedAdditionalProperties,
+                                      Map<String, String> additionalProperties)
     {
         final String methodName = "addConnectorType";
 
@@ -5326,6 +5332,7 @@ public class SimpleCatalogArchiveHelper
             InstanceProperties properties = archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.QUALIFIED_NAME.name, qualifiedName, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, displayName, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.VERSION_IDENTIFIER.name, versionName, methodName);
+            properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.URL.name, url, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.SUPPORTED_DEPLOYED_IMPLEMENTATION_TYPE.name, deployedImplementationType, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.SUPPORTED_ASSET_TYPE_NAME.name, supportedAssetTypeName, methodName);

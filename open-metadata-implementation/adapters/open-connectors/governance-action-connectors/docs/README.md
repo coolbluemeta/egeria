@@ -7,10 +7,6 @@ These are the [Connector Catalog](https://egeria-project.org/connectors/#governa
 Egeria's supplied governance action service implementations.
 They can be used in an Egeria deployment, or as a template for your own implementations.
 
-* Move/Copy File Provisioning Governance Action Service
-* Generic Element Watchdog Governance Action Service
-* Generic Folder Watchdog Governance Action Service
-* Origin Seeker Remediation Governance Action Service
 
 
 ----

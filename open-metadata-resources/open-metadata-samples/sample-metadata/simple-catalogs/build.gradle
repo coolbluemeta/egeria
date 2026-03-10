@@ -15,6 +15,8 @@ dependencies {
     implementation project(':open-metadata-resources:open-metadata-archives:content-pack-helpers')
     implementation project(':open-metadata-resources:open-metadata-archives:open-metadata-types')
     implementation project(':open-metadata-implementation:frameworks:open-metadata-framework')
+    runtimeOnly project(':open-metadata-implementation:adapters:open-connectors')
+    runtimeOnly project(':open-metadata-implementation:adapters:open-connectors:repository-services-connectors:open-metadata-archive-connectors:open-metadata-archive-file-connector')
     compileOnly 'com.fasterxml.jackson.core:jackson-annotations'
     runtimeOnly 'ch.qos.logback:logback-classic'
 

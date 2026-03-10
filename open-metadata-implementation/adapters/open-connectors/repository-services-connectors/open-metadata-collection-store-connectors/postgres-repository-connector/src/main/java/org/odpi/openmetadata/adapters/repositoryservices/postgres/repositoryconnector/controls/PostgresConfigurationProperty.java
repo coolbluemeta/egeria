@@ -113,6 +113,24 @@ public enum PostgresConfigurationProperty
     }
 
 
+    /**
+     * Retrieve all the names of the defined configuration properties
+     *
+     * @return list
+     */
+    public static List<String> getRecognizedConfigurationProperties()
+    {
+        List<String> configurationPropertyTypes = new ArrayList<>();
+
+        for (PostgresConfigurationProperty configurationProperty : PostgresConfigurationProperty.values())
+        {
+            configurationPropertyTypes.add(configurationProperty.getName());
+        }
+
+        return configurationPropertyTypes;
+    }
+
+
 
     /**
      * Return a summary of this enum to use in a service provider.

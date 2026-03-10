@@ -22,7 +22,10 @@ import java.util.List;
  */
 public class FindEntitiesByPropertyValueExecutor extends PageableEntityRepositoryExecutorBase
 {
-    private final String       searchCriteria;
+    private final String       searchString;
+    private final boolean      startsWith;
+    private final boolean      endsWith;
+    private final boolean      ignoreCase;
     private final List<String> limitResultsByClassification;
 
 
@@ -30,32 +33,38 @@ public class FindEntitiesByPropertyValueExecutor extends PageableEntityRepositor
      * Create the executor.  The parameters provide the parameters for issuing the requests and
      * combining the results.
      *
-     * @param userId unique identifier for requesting user.
-     * @param entityTypeGUID GUID of the type of entity to search for. Null means all types will
-     *                       be searched (could be slow so not recommended).
-     * @param searchCriteria String expression contained in any of the property values within the entities
-     *                       of the supplied type.
-     * @param fromEntityElement the starting element number of the entities to return.
-     *                                This is used when retrieving elements
-     *                                beyond the first page of results. Zero means start from the first element.
-     * @param limitResultsByStatus By default, entities in all statuses are returned.  However, it is possible
-     *                             to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
-     *                             status values.
+     * @param userId                       unique identifier for requesting user.
+     * @param entityTypeGUID               GUID of the type of entity to search for. Null means all types will
+     *                                     be searched (could be slow so not recommended).
+     * @param searchString                 String expression contained in any of the property values within the entities
+     *                                     of the supplied type.
+     * @param startsWith                   true if the search should be for strings that start with the search string
+     * @param endsWith                     true if the search should be for strings that end with the search string
+     * @param ignoreCase                   true if the search should be case-insensitive
+     * @param fromEntityElement            the starting element number of the entities to return.
+     *                                     This is used when retrieving elements
+     *                                     beyond the first page of results. Zero means start from the first element.
+     * @param limitResultsByStatus         By default, entities in all statuses are returned.  However, it is possible
+     *                                     to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
+     *                                     status values.
      * @param limitResultsByClassification List of classifications that must be present on all returned entities.
-     * @param asOfTime Requests a historical query of the entity.  Null means return the present values.
-     * @param sequencingProperty String name of the property that is to be used to sequence the results.
-     *                           Null means do not sequence on a property name (see SequencingOrder).
-     * @param sequencingOrder Enum defining how the results should be ordered.
-     * @param pageSize the maximum number of result entities that can be returned on this request.  Zero means
-     *                 unrestricted return results size.
-     * @param localMetadataCollectionId unique identifier for the local repository - may be null if no local repository
-     * @param auditLog logging destination
-     * @param repositoryValidator validator for resulting relationships
-     * @param methodName calling method
+     * @param asOfTime                     Requests a historical query of the entity.  Null means return the present values.
+     * @param sequencingProperty           String name of the property that is to be used to sequence the results.
+     *                                     Null means do not sequence on a property name (see SequencingOrder).
+     * @param sequencingOrder              Enum defining how the results should be ordered.
+     * @param pageSize                     the maximum number of result entities that can be returned on this request.  Zero means
+     *                                     unrestricted return results size.
+     * @param localMetadataCollectionId    unique identifier for the local repository - may be null if no local repository
+     * @param auditLog                     logging destination
+     * @param repositoryValidator          validator for resulting relationships
+     * @param methodName                   calling method
      */
     public FindEntitiesByPropertyValueExecutor(String                  userId,
                                                String                  entityTypeGUID,
-                                               String                  searchCriteria,
+                                               String                  searchString,
+                                               boolean                 startsWith,
+                                               boolean                 endsWith,
+                                               boolean                 ignoreCase,
                                                int                     fromEntityElement,
                                                List<InstanceStatus>    limitResultsByStatus,
                                                List<String>            limitResultsByClassification,
@@ -66,11 +75,14 @@ public class FindEntitiesByPropertyValueExecutor extends PageableEntityRepositor
                                                String                  localMetadataCollectionId,
                                                AuditLog                auditLog,
                                                OMRSRepositoryValidator repositoryValidator,
-                                               String                  methodName)
+                                               String methodName)
     {
         this(userId,
              entityTypeGUID,
-             searchCriteria,
+             searchString,
+             startsWith,
+             endsWith,
+             ignoreCase,
              fromEntityElement,
              limitResultsByStatus,
              limitResultsByClassification,
@@ -87,30 +99,36 @@ public class FindEntitiesByPropertyValueExecutor extends PageableEntityRepositor
      * Create the executor.  The parameters provide the parameters for issuing the requests and
      * combining the results.
      *
-     * @param userId unique identifier for requesting user.
-     * @param entityTypeGUID GUID of the type of entity to search for. Null means all types will
-     *                       be searched (could be slow so not recommended).
-     * @param searchCriteria String expression contained in any of the property values within the entities
-     *                       of the supplied type.
-     * @param fromEntityElement the starting element number of the entities to return.
-     *                                This is used when retrieving elements
-     *                                beyond the first page of results. Zero means start from the first element.
-     * @param limitResultsByStatus By default, entities in all statuses are returned.  However, it is possible
-     *                             to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
-     *                             status values.
+     * @param userId                       unique identifier for requesting user.
+     * @param entityTypeGUID               GUID of the type of entity to search for. Null means all types will
+     *                                     be searched (could be slow so not recommended).
+     * @param searchString                 String expression contained in any of the property values within the entities
+     *                                     of the supplied type.
+     * @param startsWith                   true if the search should be for strings that start with the search string
+     * @param endsWith                     true if the search should be for strings that end with the search string
+     * @param ignoreCase                   true if the search should be case-insensitive
+     * @param fromEntityElement            the starting element number of the entities to return.
+     *                                     This is used when retrieving elements
+     *                                     beyond the first page of results. Zero means start from the first element.
+     * @param limitResultsByStatus         By default, entities in all statuses are returned.  However, it is possible
+     *                                     to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
+     *                                     status values.
      * @param limitResultsByClassification List of classifications that must be present on all returned entities.
-     * @param asOfTime Requests a historical query of the entity.  Null means return the present values.
-     * @param sequencingProperty String name of the property that is to be used to sequence the results.
-     *                           Null means do not sequence on a property name (see SequencingOrder).
-     * @param sequencingOrder Enum defining how the results should be ordered.
-     * @param pageSize the maximum number of result entities that can be returned on this request.  Zero means
-     *                 unrestricted return results size.
-     * @param accumulator location for results and returned exceptions
-     * @param methodName calling method
+     * @param asOfTime                     Requests a historical query of the entity.  Null means return the present values.
+     * @param sequencingProperty           String name of the property that is to be used to sequence the results.
+     *                                     Null means do not sequence on a property name (see SequencingOrder).
+     * @param sequencingOrder              Enum defining how the results should be ordered.
+     * @param pageSize                     the maximum number of result entities that can be returned on this request.  Zero means
+     *                                     unrestricted return results size.
+     * @param accumulator                  location for results and returned exceptions
+     * @param methodName                   calling method
      */
     private FindEntitiesByPropertyValueExecutor(String               userId,
                                                 String               entityTypeGUID,
-                                                String               searchCriteria,
+                                                String               searchString,
+                                                boolean              startsWith,
+                                                boolean              endsWith,
+                                                boolean              ignoreCase,
                                                 int                  fromEntityElement,
                                                 List<InstanceStatus> limitResultsByStatus,
                                                 List<String>         limitResultsByClassification,
@@ -119,7 +137,7 @@ public class FindEntitiesByPropertyValueExecutor extends PageableEntityRepositor
                                                 SequencingOrder      sequencingOrder,
                                                 int                  pageSize,
                                                 EntitiesAccumulator accumulator,
-                                                String               methodName)
+                                                String methodName)
     {
         super(userId,
               entityTypeGUID,
@@ -132,7 +150,10 @@ public class FindEntitiesByPropertyValueExecutor extends PageableEntityRepositor
               accumulator,
               methodName);
 
-        this.searchCriteria = searchCriteria;
+        this.searchString                 = searchString;
+        this.startsWith                   = startsWith;
+        this.endsWith                     = endsWith;
+        this.ignoreCase                   = ignoreCase;
         this.limitResultsByClassification = limitResultsByClassification;
     }
 
@@ -148,7 +169,10 @@ public class FindEntitiesByPropertyValueExecutor extends PageableEntityRepositor
     {
         return new FindEntitiesByPropertyValueExecutor(userId,
                                                        instanceTypeGUID,
-                                                       searchCriteria,
+                                                       searchString,
+                                                       startsWith,
+                                                       endsWith,
+                                                       ignoreCase,
                                                        startingElement,
                                                        limitResultsByStatus,
                                                        limitResultsByClassification,
@@ -165,10 +189,10 @@ public class FindEntitiesByPropertyValueExecutor extends PageableEntityRepositor
      * Perform the required action for the supplied repository.
      *
      * @param metadataCollectionId unique identifier for the metadata collection for the repository
-     * @param metadataCollection metadata collection object for the repository
+     * @param metadataCollection   metadata collection object for the repository
      * @return boolean true means that the required results have been achieved
      */
-    public boolean issueRequestToRepository(String                 metadataCollectionId,
+    public boolean issueRequestToRepository(String metadataCollectionId,
                                             OMRSMetadataCollection metadataCollection)
     {
         try
@@ -178,7 +202,10 @@ public class FindEntitiesByPropertyValueExecutor extends PageableEntityRepositor
              */
             List<EntityDetail> results = metadataCollection.findEntitiesByPropertyValue(userId,
                                                                                         instanceTypeGUID,
-                                                                                        searchCriteria,
+                                                                                        searchString,
+                                                                                        startsWith,
+                                                                                        endsWith,
+                                                                                        ignoreCase,
                                                                                         startingElement,
                                                                                         limitResultsByStatus,
                                                                                         limitResultsByClassification,

@@ -39,6 +39,10 @@ public class QueryBuilder
     private EndMatchCriteria      endMatchCriteria             = null;
 
     private String                searchString                 = null;
+    private boolean               startsWith                   = false;
+    private boolean               endsWith                     = false;
+    private boolean               ignoreCase                   = true;
+
     private SearchProperties      searchProperties             = null;
     private String                principleTableName           = null;
     private String                propertyTableName            = null;
@@ -112,10 +116,19 @@ public class QueryBuilder
      * within instances of the specified type(s).
      *
      * @param searchString regex
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      */
-    public void setSearchString(String searchString)
+    public void setSearchString(String  searchString,
+                                boolean startsWith,
+                                boolean endsWith,
+                                boolean ignoreCase)
     {
         this.searchString = searchString;
+        this.startsWith   = startsWith;
+        this.endsWith     = endsWith;
+        this.ignoreCase   = ignoreCase;
     }
 
 
@@ -123,30 +136,36 @@ public class QueryBuilder
      * Return the SQL search string that needs to appear in the SQL query.
      *
      * @return fragment of SQL
-     * @throws RepositoryErrorException problem with the regEx
      */
-    private String getSearchStringClause() throws RepositoryErrorException
+    private String getSearchStringClause()
     {
         if (searchString != null)
         {
-            if (repositoryHelper.isCaseInsensitiveRegex(searchString))
+            String searchOperand = " like ";
+            if (ignoreCase)
             {
-                return " and " + getPropertySubSelect(null,
-                                                      null,
-                                                      " ~* ",
-                                                      this.getSafeRegex(searchString),
-                                                      principleTableName,
-                                                      propertyTableName);
+                searchOperand = " ilike ";
             }
-            else
+
+            StringBuilder searchStringBuilder = new StringBuilder();
+            if (! startsWith)
             {
-                return " and " + getPropertySubSelect(null,
-                                                      null,
-                                                      " ~ ",
-                                                      this.getSafeRegex(searchString),
-                                                      principleTableName,
-                                                      propertyTableName);
+                searchStringBuilder.append("%");
             }
+
+            searchStringBuilder.append(getSafePostgreSQLRegex(searchString));
+
+            if (! endsWith)
+            {
+                searchStringBuilder.append("%");
+            }
+
+            return " and " + getPropertySubSelect(null,
+                                                  null,
+                                                  searchOperand,
+                                                  searchStringBuilder.toString(),
+                                                  principleTableName,
+                                                  propertyTableName);
         }
 
         return " ";
@@ -214,49 +233,26 @@ public class QueryBuilder
 
 
     /**
-     * Check that a search string, which might contain a regEx expression, is safe to execute.
-     * Dangerous RegEx can be used in a denial of service attack.  This simple time test ensures that the regEx is safe.
+     * Escape unsupported characters in a string to avoid being interpreted as a regular expression.
      *
      * @param suppliedSearchString the string to escape to avoid being interpreted as a regular expression
      * @return string  that is a safe regular expression
-     * @throws RepositoryErrorException the RegEx takes to long to execute
      */
-    @SuppressWarnings(value="all")
-    private String getSafeRegex(Object suppliedSearchString) throws RepositoryErrorException
+    private String getSafePostgreSQLRegex(Object suppliedSearchString)
     {
-        final String methodName = "getSafeRegex";
-        final String tester     = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
         if (suppliedSearchString != null)
         {
-            String strippedSearchString = repositoryHelper.getUnqualifiedLiteralString(suppliedSearchString.toString());
-
-            /*
-             * Do not care about the result - just the time it takes
-             */
-            Date currentTime      = new Date();
-            Date maxExecutionTime = new Date(currentTime.getTime() + 500);
-            try
+            StringBuilder searchStringBuilder = new StringBuilder();
+            for (int i = 0; i < suppliedSearchString.toString().length(); i++)
             {
-                boolean matchString = tester.matches(strippedSearchString);
-            }
-            catch (Exception badRegex)
-            {
-                // This is not a problem as we are not necessarily expecting it to be a regex.
-                // If it is supposed to be a regex, and it is ill-formed, PostgreSQL will throw it out.
-                // This test is just to catch valid RegEx's that take a long time to execute.
+                if ((suppliedSearchString.toString().charAt(i) == '%') || (suppliedSearchString.toString().charAt(i) == '_'))
+                {
+                    searchStringBuilder.append('\\');
+                }
+                searchStringBuilder.append(suppliedSearchString.toString().charAt(i));
             }
 
-            Date completionTime = new Date();
-
-            if (completionTime.after(maxExecutionTime))
-            {
-                throw new RepositoryErrorException(PostgresErrorCode.BAD_REGEX.getMessageDefinition(suppliedSearchString.toString()),
-                                                    this.getClass().getName(),
-                                                    methodName);
-            }
-
-            return strippedSearchString;
+            return searchStringBuilder.toString();
         }
 
         return null;
@@ -520,22 +516,38 @@ public class QueryBuilder
             {
                 if (propertyTableName != null)
                 {
-                    return " not exists (" + rowMatchClause + " and " + propertyNameMatchClause + ") ";
+                    if (propertyNameMatchClause == null)
+                    {
+                        return " not exists (" + rowMatchClause + ") ";
+                    }
+                    else
+                    {
+                        return " not exists (" + rowMatchClause + " and " + propertyNameMatchClause + ") ";
+                    }
                 }
             }
             else
             {
-                String sqlClause = " exists (" + rowMatchClause + " and " + propertyNameMatchClause;
+                String sqlClause;
+
+                if (propertyNameMatchClause == null)
+                {
+                    sqlClause = "exists (" + rowMatchClause;
+                }
+                else
+                {
+                    sqlClause = " exists (" + rowMatchClause + " and " + propertyNameMatchClause;
+                }
 
                 switch (operator)
                 {
                     case EQ ->
                     {
-                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " = '" + this.getSafeRegex(propertyValue) + "') ";
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " = '" + propertyValue + "') ";
                     }
                     case NEQ ->
                     {
-                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " != '" + this.getSafeRegex(propertyValue) + "') ";
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " != '" + propertyValue + "') ";
                     }
                     case LT ->
                     {
@@ -555,29 +567,43 @@ public class QueryBuilder
                     }
                     case LIKE ->
                     {
-                        if (repositoryHelper.isCaseInsensitiveRegex(propertyValue.toString()))
-                        {
-                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ~* '" + this.getSafeRegex(propertyValue) + "') ";
-                        }
-                        else
-                        {
-                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ~ '" + this.getSafeRegex(propertyValue) + "') ";
-                        }
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " like '%" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
                     }
                     case NOT_LIKE ->
                     {
-                        if (repositoryHelper.isCaseInsensitiveRegex(propertyValue.toString()))
-                        {
-                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " !~* '" + this.getSafeRegex(propertyValue) + "') ";
-                        }
-                        else
-                        {
-                            return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " !~ '" + this.getSafeRegex(propertyValue) + "') ";
-                        }
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " not like '%" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                    }
+                    case CASE_INSENSITIVE_LIKE ->
+                    {
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ilike '%" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                    }
+                    case CASE_INSENSITIVE_NOT_LIKE ->
+                    {
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " not ilike '%" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                    }
+                    case STARTS_WITH ->
+                    {
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " like '" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                    }
+                    case ENDS_WITH ->
+                    {
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " like '%" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
+                    }
+                    case CASE_INSENSITIVE_STARTS_WITH ->
+                    {
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ilike '" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                    }
+                    case CASE_INSENSITIVE_ENDS_WITH ->
+                    {
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ilike '%" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
+                    }
+                    case CASE_INSENSITIVE_EQ ->
+                    {
+                        return sqlClause + " and " + RepositoryColumn.PROPERTY_VALUE.getColumnName() + " ilike '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
                     }
                     case NOT_NULL ->
                     {
-                        return sqlClause + ")))";
+                        return sqlClause + ") ";
                     }
                 }
             }
@@ -588,11 +614,11 @@ public class QueryBuilder
             {
                 case EQ ->
                 {
-                    return " (" + principleTableName + "." + propertyColumn + " = '" + this.getSafeRegex(propertyValue) + "') ";
+                    return " (" + principleTableName + "." + propertyColumn + " = '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
                 }
                 case NEQ ->
                 {
-                    return " (" + principleTableName + "." + propertyColumn + " != '" + this.getSafeRegex(propertyValue) + "') ";
+                    return " (" + principleTableName + "." + propertyColumn + " != '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
                 }
                 case LT ->
                 {
@@ -622,22 +648,22 @@ public class QueryBuilder
                 {
                     if (repositoryHelper.isCaseInsensitiveRegex(propertyValue.toString()))
                     {
-                        return " (" + principleTableName + "." + propertyColumn + " ~* '" + this.getSafeRegex(propertyValue) + "') ";
+                        return " (" + principleTableName + "." + propertyColumn + " ~* '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
                     }
                     else
                     {
-                        return " (" + principleTableName + "." + propertyColumn + " ~ '" + this.getSafeRegex(propertyValue) + "') ";
+                        return " (" + principleTableName + "." + propertyColumn + " ~ '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
                     }
                 }
                 case NOT_LIKE ->
                 {
                     if (repositoryHelper.isCaseInsensitiveRegex(propertyValue.toString()))
                     {
-                        return " (" + principleTableName + "." + propertyColumn + " !~* '" + this.getSafeRegex(propertyValue) + "') ";
+                        return " (" + principleTableName + "." + propertyColumn + " !~* '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
                     }
                     else
                     {
-                        return " (" + principleTableName + "." + propertyColumn + " !~ '" + this.getSafeRegex(propertyValue) + "') ";
+                        return " (" + principleTableName + "." + propertyColumn + " !~ '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
                     }
                 }
             }
@@ -666,7 +692,14 @@ public class QueryBuilder
     {
         if (topLevelPropertyName == null)
         {
-            return RepositoryColumn.ATTRIBUTE_NAME.getColumnName(propertyTableName) + " = '" + leafPropertyName + "'";
+            if (leafPropertyName == null)
+            {
+                return null;
+            }
+            else
+            {
+                return RepositoryColumn.ATTRIBUTE_NAME.getColumnName(propertyTableName) + " = '" + leafPropertyName + "'";
+            }
         }
         else
         {
@@ -812,10 +845,16 @@ public class QueryBuilder
     {
         if (searchProperties != null)
         {
-            return this.getPropertyComparisonFromPropertyConditions(searchProperties,
-                                                                    principleTableName,
-                                                                    propertyTableName,
-                                                                    null);
+            String searchPropertiesClause = this.getPropertyComparisonFromPropertyConditions(searchProperties,
+                                                                                             principleTableName,
+                                                                                             propertyTableName,
+                                                                                             null);
+
+            if (searchPropertiesClause.contains("("))
+            {
+                return " and " + searchPropertiesClause;
+            }
+
         }
 
         return " ";
@@ -854,7 +893,7 @@ public class QueryBuilder
                 {
                     if (firstProperty)
                     {
-                        stringBuilder.append(" and (");
+                        stringBuilder.append(" (");
                         firstProperty = false;
                     }
                     else
@@ -875,7 +914,7 @@ public class QueryBuilder
 
                     if (firstProperty)
                     {
-                        stringBuilder.append(" and (");
+                        stringBuilder.append(" (");
                         firstProperty = false;
                     }
                     else

@@ -2,8 +2,11 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.repositoryservices.connectors.stores.cohortregistrystore;
 
-import org.odpi.openmetadata.frameworks.connectors.ConnectorProviderBase;
+import org.odpi.openmetadata.frameworks.connectors.OpenConnectorDefinition;
+import org.odpi.openmetadata.frameworks.connectors.OpenConnectorProviderBase;
 import org.odpi.openmetadata.repositoryservices.auditlog.OMRSAuditingComponent;
+
+import java.util.List;
 
 /**
  * The OMRSCohortRegistryStoreProviderBase provides a base class for the connector provider supporting OMRS
@@ -12,7 +15,7 @@ import org.odpi.openmetadata.repositoryservices.auditlog.OMRSAuditingComponent;
  * name of the registry store connector implementation (by calling super.setConnectorClassName(className)).
  * Then the connector provider will work.
  */
-public abstract class OMRSCohortRegistryStoreProviderBase extends ConnectorProviderBase
+public abstract class OMRSCohortRegistryStoreProviderBase extends OpenConnectorProviderBase
 {
     /**
      * Default Constructor
@@ -20,6 +23,42 @@ public abstract class OMRSCohortRegistryStoreProviderBase extends ConnectorProvi
     public OMRSCohortRegistryStoreProviderBase()
     {
         super.setConnectorComponentDescription(OMRSAuditingComponent.REGISTRY_STORE);
+    }
+
+
+    /**
+     * Constructor for an open connector provider.
+     *
+     * @param openConnectorDescription             connector definition
+     * @param connectorClassName                   connector class name
+     * @param recognizedConfigurationPropertyNames list of property names that the connector supports
+     *                                             in the configuration properties.
+     */
+    public OMRSCohortRegistryStoreProviderBase(OpenConnectorDefinition openConnectorDescription,
+                                               String                  connectorClassName,
+                                               List<String> recognizedConfigurationPropertyNames)
+    {
+        super(openConnectorDescription, connectorClassName, recognizedConfigurationPropertyNames);
+    }
+
+
+    /**
+     * Constructor for an open connector provider.
+     *
+     * @param openConnectorDescription             connector definition
+     * @param connectorClassName                   connector class name
+     * @param recognizedConfigurationPropertyNames list of property names that the connector supports
+     *                                             in the configuration properties.
+     * @param connectorInterfaces                  list of interfaces that the connector supports.
+     * @param expectedDataFormat                   description of the data format that the connector expects.
+     */
+    public OMRSCohortRegistryStoreProviderBase(OpenConnectorDefinition openConnectorDescription,
+                                               String                  connectorClassName,
+                                               List<String>            recognizedConfigurationPropertyNames,
+                                               List<String>            connectorInterfaces,
+                                               String                  expectedDataFormat)
+    {
+        super(openConnectorDescription, connectorClassName, recognizedConfigurationPropertyNames, connectorInterfaces, expectedDataFormat);
     }
 }
 

@@ -76,6 +76,7 @@ public class OpenConnectorProviderBase extends ConnectorProviderBase
         connectorType.setGUID(openConnectorDescription.getConnectorTypeGUID());
         connectorType.setQualifiedName(openConnectorDescription.getConnectorQualifiedName());
         connectorType.setDisplayName(openConnectorDescription.getConnectorDisplayName());
+        connectorType.setURL(openConnectorDescription.getConnectorWikiPage());
         connectorType.setDescription(openConnectorDescription.getConnectorDescription());
         connectorType.setConnectorProviderClassName(this.getClass().getName());
         connectorType.setRecognizedConfigurationProperties(recognizedConfigurationPropertyNames);

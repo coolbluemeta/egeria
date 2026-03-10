@@ -5,8 +5,10 @@
 
 # Console audit log connector
 
-This connector outputs messages to `stdout`.
-These messages can then be captured in application log files.
+This [audit log destination connector](https://egeria-project.org/concepts/audit-log-destination-connector)  writes selected parts of an [audit log](https://egeria-project.org/concepts/audit-log) record to `stdout`.
+
+It is the default audit log destination for [OMAG Servers](https://egeria-project.org/concepts/omag-server) and is useful for testing and validating the behavior of the server.
+
 
 
 ----

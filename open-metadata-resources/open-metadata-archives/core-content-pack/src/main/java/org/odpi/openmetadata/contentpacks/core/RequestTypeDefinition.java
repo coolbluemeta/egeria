@@ -1246,43 +1246,7 @@ public enum RequestTypeDefinition
                             false,
                             ContentPackDefinition.POSTGRES_CONTENT_PACK),
 
-    /**
-     * harvest-surveys
-     */
-    HARVEST_SURVEYS("harvest-surveys",
-                    null,
-                    null,
-                    getCatalogTargetAssetActionTargets(IntegrationConnectorDefinition.HARVEST_SURVEYS.getGUID()),
-                    GovernanceEngineDefinition.NANNY_GOVERNANCE_ENGINE,
-                    GovernanceServiceDefinition.CATALOG_TARGET_ASSET,
-                    "e3ea80ac-728f-4b33-8557-f92d17a6ad49",
-                    null,
-                    "09393325-2c65-4278-8d1b-3e77cf4aa311",
-                    "Harvest Surveys",
-                    "Retrieve all of the information from the survey reports created by the open survey framework and summarize them in a set of database tables for further analysis.",
-                    PostgresDeployedImplementationType.POSTGRESQL_SERVER,
-                    null,
-                    true,
-                    ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
 
-    /**
-     * harvest-open-metadata
-     */
-    HARVEST_OPEN_METADATA("harvest-open-metadata",
-                          null,
-                          null,
-                          getCatalogTargetAssetActionTargets(IntegrationConnectorDefinition.HARVEST_OPEN_METADATA.getGUID()),
-                          GovernanceEngineDefinition.NANNY_GOVERNANCE_ENGINE,
-                          GovernanceServiceDefinition.CATALOG_TARGET_ASSET,
-                          "2f3b500f-b918-400d-bacb-dcff50772d9b",
-                          PostgresDeployedImplementationType.POSTGRESQL_DATABASE_SCHEMA.getQualifiedName(),
-                          "710c48ea-6bda-47dd-bb74-6d47a88d767b",
-                          "Harvest Open Metadata",
-                          "Create a collection of database tables full of insight gleaned from the open metadata ecosystem.  This information may be used to analyse the health of the open metadata ecosystem, or to distribute key information to other systems.",
-                          PostgresDeployedImplementationType.POSTGRESQL_SERVER,
-                          null,
-                          true,
-                          ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
     ;
 
     private final String                               governanceRequestType;

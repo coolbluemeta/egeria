@@ -8,10 +8,6 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.EntityDetail;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.EntityProxy;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Relationship;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.*;
 import org.odpi.openmetadata.repositoryservices.rest.properties.*;
 import org.odpi.openmetadata.repositoryservices.rest.server.OMRSRepositoryRESTServices;
 import org.springframework.web.bind.annotation.*;
@@ -1106,7 +1102,10 @@ public class LocalRepositoryServicesResource
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
-     * @param searchCriteria String expression of the characteristics of the required relationships.
+     * @param searchString String expression of the characteristics of the required relationships.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param findRequestParameters find parameters used to limit the returned results.
      * @return EntityListResponse:
      * a list of entities matching the supplied criteria, null means no matching entities in the metadata
@@ -1126,10 +1125,12 @@ public class LocalRepositoryServicesResource
 
     public  EntityListResponse findEntitiesByPropertyValue(@PathVariable String                    serverName,
                                                            @PathVariable String                    userId,
-                                                           @RequestParam String                    searchCriteria,
-                                                           @RequestBody  EntityPropertyFindRequest findRequestParameters)
+                                                           @RequestParam(required = false) String                    searchString,
+                                                           @RequestParam(required = false) boolean                   startsWith,
+                                                           @RequestParam(required = false) boolean                   endsWith,
+                                                           @RequestParam(required = false) boolean                   ignoreCase,                                                           @RequestBody  EntityPropertyFindRequest findRequestParameters)
     {
-        return restAPI.findEntitiesByPropertyValue(serverName, userId, searchCriteria, findRequestParameters);
+        return restAPI.findEntitiesByPropertyValue(serverName, userId, searchString, startsWith, endsWith, ignoreCase, findRequestParameters);
     }
 
 
@@ -1139,7 +1140,10 @@ public class LocalRepositoryServicesResource
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
-     * @param searchCriteria String expression of the characteristics of the required relationships.
+     * @param searchString String expression of the characteristics of the required relationships.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param findRequestParameters find parameters used to limit the returned results.
      * @return EntityListResponse:
      * a list of entities matching the supplied criteria, null means no matching entities in the metadata
@@ -1159,10 +1163,13 @@ public class LocalRepositoryServicesResource
 
     public  EntityListResponse findEntitiesByPropertyValueHistory(@PathVariable String                              serverName,
                                                                   @PathVariable String                              userId,
-                                                                  @RequestParam String                              searchCriteria,
+                                                                  @RequestParam(required = false) String                    searchString,
+                                                                  @RequestParam(required = false) boolean                   startsWith,
+                                                                  @RequestParam(required = false) boolean                   endsWith,
+                                                                  @RequestParam(required = false) boolean                   ignoreCase,
                                                                   @RequestBody  EntityPropertyHistoricalFindRequest findRequestParameters)
     {
-        return restAPI.findEntitiesByPropertyValueHistory(serverName, userId, searchCriteria, findRequestParameters);
+        return restAPI.findEntitiesByPropertyValueHistory(serverName, userId, searchString, startsWith, endsWith, ignoreCase, findRequestParameters);
     }
 
 
@@ -1402,7 +1409,10 @@ public class LocalRepositoryServicesResource
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
-     * @param searchCriteria String expression of the characteristics of the required relationships.
+     * @param searchString String expression of the characteristics of the required relationships.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param findRequestParameters find parameters used to limit the returned results.
      * @return RelationshipListResponse:
      * a list of relationships.  Null means no matching relationships or
@@ -1420,10 +1430,13 @@ public class LocalRepositoryServicesResource
 
     public  RelationshipListResponse findRelationshipsByPropertyValue(@PathVariable String                    serverName,
                                                                       @PathVariable String                    userId,
-                                                                      @RequestParam String                    searchCriteria,
+                                                                      @RequestParam(required = false) String                    searchString,
+                                                                      @RequestParam(required = false) boolean                   startsWith,
+                                                                      @RequestParam(required = false) boolean                   endsWith,
+                                                                      @RequestParam(required = false) boolean                   ignoreCase,
                                                                       @RequestBody  TypeLimitedFindRequest    findRequestParameters)
     {
-        return restAPI.findRelationshipsByPropertyValue(serverName, userId, searchCriteria, findRequestParameters);
+        return restAPI.findRelationshipsByPropertyValue(serverName, userId, searchString, startsWith, endsWith, ignoreCase, findRequestParameters);
     }
 
 
@@ -1432,7 +1445,10 @@ public class LocalRepositoryServicesResource
      *
      * @param serverName unique identifier for requested server.
      * @param userId unique identifier for requesting user.
-     * @param searchCriteria String expression of the characteristics of the required relationships.
+     * @param searchString String expression of the characteristics of the required relationships.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param findRequestParameters find parameters used to limit the returned results.
      * @return RelationshipListResponse:
      * a list of relationships.  Null means no matching relationships or
@@ -1450,10 +1466,13 @@ public class LocalRepositoryServicesResource
 
     public  RelationshipListResponse findRelationshipsByPropertyValueHistory(@PathVariable String                              serverName,
                                                                              @PathVariable String                              userId,
-                                                                             @RequestParam String                              searchCriteria,
+                                                                             @RequestParam(required = false) String                    searchString,
+                                                                             @RequestParam(required = false) boolean                   startsWith,
+                                                                             @RequestParam(required = false) boolean                   endsWith,
+                                                                             @RequestParam(required = false) boolean                   ignoreCase,
                                                                              @RequestBody  TypeLimitedHistoricalFindRequest    findRequestParameters)
     {
-        return restAPI.findRelationshipsByPropertyValueHistory(serverName, userId, searchCriteria, findRequestParameters);
+        return restAPI.findRelationshipsByPropertyValueHistory(serverName, userId, searchString, startsWith, endsWith, ignoreCase, findRequestParameters);
     }
 
 

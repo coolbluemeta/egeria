@@ -238,15 +238,15 @@ public class TestEntityHistorySearch extends OpenMetadataPerformanceTestCase
             try {
                 long start = System.nanoTime();
                 List<EntityDetail> results = metadataCollection.findEntitiesByPropertyValue(workPad.getLocalServerUserId(),
-                        entityDef.getGUID(),
-                        repositoryHelper.getExactMatchRegex(exact),
-                        0,
-                        null,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.CREATION_DATE_OLDEST,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                            entityDef.getGUID(),
+                                                                                            repositoryHelper.getExactMatchRegex(exact),
+                                                                                            false, false, true, 0,
+                                                                                            null,
+                                                                                            null,
+                                                                                            asOfTime,
+                                                                                            null,
+                                                                                            SequencingOrder.CREATION_DATE_OLDEST,
+                                                                                            performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,
@@ -276,15 +276,15 @@ public class TestEntityHistorySearch extends OpenMetadataPerformanceTestCase
             try {
                 long start = System.nanoTime();
                 List<EntityDetail> results = metadataCollection.findEntitiesByPropertyValue(workPad.getLocalServerUserId(),
-                        entityDef.getGUID(),
-                        repositoryHelper.getStartsWithRegex(startsWith),
-                        0,
-                        null,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.CREATION_DATE_RECENT,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                            entityDef.getGUID(),
+                                                                                            repositoryHelper.getStartsWithRegex(startsWith),
+                                                                                            false, false, true, 0,
+                                                                                            null,
+                                                                                            null,
+                                                                                            asOfTime,
+                                                                                            null,
+                                                                                            SequencingOrder.CREATION_DATE_RECENT,
+                                                                                            performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,
@@ -314,15 +314,15 @@ public class TestEntityHistorySearch extends OpenMetadataPerformanceTestCase
             try {
                 long start = System.nanoTime();
                 List<EntityDetail> results = metadataCollection.findEntitiesByPropertyValue(workPad.getLocalServerUserId(),
-                        entityDef.getGUID(),
-                        repositoryHelper.getContainsRegex(contains),
-                        0,
-                        null,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.LAST_UPDATE_OLDEST,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                            entityDef.getGUID(),
+                                                                                            repositoryHelper.getContainsRegex(contains),
+                                                                                            false, false, true, 0,
+                                                                                            null,
+                                                                                            null,
+                                                                                            asOfTime,
+                                                                                            null,
+                                                                                            SequencingOrder.LAST_UPDATE_OLDEST,
+                                                                                            performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,
@@ -352,15 +352,15 @@ public class TestEntityHistorySearch extends OpenMetadataPerformanceTestCase
             try {
                 long start = System.nanoTime();
                 List<EntityDetail> results = metadataCollection.findEntitiesByPropertyValue(workPad.getLocalServerUserId(),
-                        entityDef.getGUID(),
-                        repositoryHelper.getEndsWithRegex(endsWith),
-                        0,
-                        null,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.LAST_UPDATE_RECENT,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                            entityDef.getGUID(),
+                                                                                            repositoryHelper.getEndsWithRegex(endsWith),
+                                                                                            false, false, true, 0,
+                                                                                            null,
+                                                                                            null,
+                                                                                            asOfTime,
+                                                                                            null,
+                                                                                            SequencingOrder.LAST_UPDATE_RECENT,
+                                                                                            performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,
@@ -390,15 +390,15 @@ public class TestEntityHistorySearch extends OpenMetadataPerformanceTestCase
             try {
                 long start = System.nanoTime();
                 List<EntityDetail> results = metadataCollection.findEntitiesByPropertyValue(workPad.getLocalServerUserId(),
-                        entityDef.getGUID(),
-                        regex,
-                        0,
-                        null,
-                        null,
-                        asOfTime,
-                        null,
-                        SequencingOrder.GUID,
-                        performanceWorkPad.getMaxSearchResults());
+                                                                                            entityDef.getGUID(),
+                                                                                            regex,
+                                                                                            false, false, true, 0,
+                                                                                            null,
+                                                                                            null,
+                                                                                            asOfTime,
+                                                                                            null,
+                                                                                            SequencingOrder.GUID,
+                                                                                            performanceWorkPad.getMaxSearchResults());
                 long elapsedTime = (System.nanoTime() - start) / 1000000;
                 if (results != null && !results.isEmpty()) {
                     assertCondition(true,

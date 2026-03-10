@@ -72,22 +72,13 @@ public enum IntegrationGroupDefinition
                  ContentPackDefinition.APIS_CONTENT_PACK),
 
     /**
-     * Dynamic integration group supporting integration connectors extracting interesting information needed to observe the activity in the Open Metadata Ecosystem.
-     */
-    NANNY("2d4e8f81-2b07-42da-902a-9f275e93ae79",
-         "Egeria:IntegrationGroup:OpenMetadataObservability",
-         "OpenMetadataObservabilityIntegrationGroup",
-         "Dynamic integration group supporting integration connectors extracting interesting information needed to observe the activity in the Open Metadata Ecosystem.",
-         ContentPackDefinition.OBSERVABILITY_CONTENT_PACK),
-
-    /**
      * Dynamic integration group supporting integration connectors extracting interesting information from the open metadata repositories that make useful digital products.
      */
     AUTO_PRODUCT_MANAGER("4a99a249-8ec4-43a5-9157-4bff67619962",
-          "Egeria:IntegrationGroup:Jacquard",
-          "JacquardIntegrationGroup",
-          "Dynamic integration group supporting integration connectors extracting interesting information from the open metadata repositories that make useful digital products.",
-          ContentPackDefinition.PRODUCTS_CONTENT_PACK),
+                         "Egeria:IntegrationGroup:Jacquard",
+                         "JacquardIntegrationGroup",
+                         "Dynamic integration group supporting integration connectors extracting interesting information from the open metadata repositories that make useful digital products.",
+                         ContentPackDefinition.PRODUCTS_CONTENT_PACK),
 
     /**
      * Dynamic integration group supporting integration connectors connecting to PostgreSQL Servers.

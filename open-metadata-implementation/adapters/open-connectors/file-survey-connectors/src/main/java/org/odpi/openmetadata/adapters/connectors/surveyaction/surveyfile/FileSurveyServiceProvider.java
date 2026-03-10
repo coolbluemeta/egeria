@@ -2,11 +2,9 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.adapters.connectors.surveyaction.surveyfile;
 
+import org.odpi.openmetadata.adapters.connectors.EgeriaOpenConnectorDefinition;
 import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyFileAnnotationType;
-import org.odpi.openmetadata.frameworks.auditlog.AuditLogReportingComponent;
-import org.odpi.openmetadata.frameworks.auditlog.ComponentDevelopmentStatus;
 import org.odpi.openmetadata.frameworks.connectors.controls.SupportedTechnologyType;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.ActionTargetType;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.DeployedImplementationType;
 import org.odpi.openmetadata.frameworks.openmetadata.definitions.DeployedImplementationTypeDefinition;
@@ -21,24 +19,9 @@ import java.util.ArrayList;
 public class FileSurveyServiceProvider extends SurveyActionServiceProvider
 {
     /*
-     * Unique identifier of the connector for the audit log.
-     */
-    private static final int    connectorComponentId   = 669;
-
-    /*
-     * Descriptive information about the connector for the connector type and audit log.
-     */
-    private static final String  connectorTypeGUID = "0c06ebb3-0a8f-476f-b8f8-602c01643523";
-    private static final String  connectorTypeQualifiedName = "Egeria:SurveyActionService:FileSurveyService";
-    private static final String  connectorTypeName = "File Survey Action Service Connector";
-    private static final String  connectorTypeDescription = "Connector supports the extractions of basic file properties.";
-    private static final String  connectorWikiPage  = "https://egeria-project.org/connectors/survey-action/file-survey-action-service/";
-
-    /*
      * Class of the connector.
      */
     private static final String   connectorClass = "org.odpi.openmetadata.adapters.connectors.surveyaction.surveyfile.FileSurveyService";
-
 
     static final String  FILE_TARGET_PROPERTY = "fileToSurvey";
     static final String  FILE_TARGET_PROPERTY_DESCRIPTION = "The DataFile asset that describes the physical file to survey.";
@@ -49,20 +32,9 @@ public class FileSurveyServiceProvider extends SurveyActionServiceProvider
      */
     public FileSurveyServiceProvider()
     {
-        super();
-
-        super.setConnectorClassName(connectorClass);
-
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorTypeQualifiedName);
-        connectorType.setDisplayName(connectorTypeName);
-        connectorType.setDescription(connectorTypeDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
-        connectorType.setSupportedAssetTypeName(supportedAssetTypeName);
-        connectorType.setSupportedDeployedImplementationType(supportedDeployedImplementationType);
-
-        super.connectorTypeBean = connectorType;
+        super(EgeriaOpenConnectorDefinition.FILE_SURVEY_SERVICE,
+              connectorClass,
+              null);
 
         supportedActionTargetTypes = new ArrayList<>();
         ActionTargetType actionTargetType = new ActionTargetType();
@@ -77,18 +49,5 @@ public class FileSurveyServiceProvider extends SurveyActionServiceProvider
                 AnalysisStep.CHECK_ASSET, AnalysisStep.MEASURE_RESOURCE});
         super.producedAnnotationTypes = SurveyFileAnnotationType.getFileSurveyAnnotationTypeTypes();
         super.supportedTechnologyTypes = SupportedTechnologyType.getSupportedTechnologyTypes(new DeployedImplementationTypeDefinition[]{DeployedImplementationType.DATA_FILE});
-
-        /*
-         * Set up the component description used in the connector's audit log messages.
-         */
-        AuditLogReportingComponent componentDescription = new AuditLogReportingComponent();
-
-        componentDescription.setComponentId(connectorComponentId);
-        componentDescription.setComponentDevelopmentStatus(ComponentDevelopmentStatus.STABLE);
-        componentDescription.setComponentName(connectorTypeName);
-        componentDescription.setComponentDescription(connectorTypeDescription);
-        componentDescription.setComponentWikiURL(connectorWikiPage);
-
-        super.setConnectorComponentDescription(componentDescription);
     }
 }

@@ -3298,7 +3298,10 @@ public class RepositoryHandler
      * caller is paging to ensure that all the results are returned.
      *
      * @param userId calling userId
-     * @param propertyValue string value to search on - may be a RegEx
+     * @param searchString string value to search on
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param entityTypeGUID unique identifier of the entity's type
      * @param limitResultsByStatus only return elements that have the requested status (null means all statuses
      * @param limitResultsByClassification only return elements that have the requested classification(s)
@@ -3319,7 +3322,10 @@ public class RepositoryHandler
      * @throws PropertyServerException problem retrieving the entity.
      */
     public List<EntityDetail>  getEntitiesByValue(String               userId,
-                                                  String               propertyValue,
+                                                  String               searchString,
+                                                  boolean              startsWith,
+                                                  boolean              endsWith,
+                                                  boolean              ignoreCase,
                                                   String               entityTypeGUID,
                                                   List<InstanceStatus> limitResultsByStatus,
                                                   List<String>         limitResultsByClassification,
@@ -3340,7 +3346,10 @@ public class RepositoryHandler
         {
             List<EntityDetail> retrievedEntities = metadataCollection.findEntitiesByPropertyValue(userId,
                                                                                                   entityTypeGUID,
-                                                                                                  propertyValue,
+                                                                                                  searchString,
+                                                                                                  startsWith,
+                                                                                                  endsWith,
+                                                                                                  ignoreCase,
                                                                                                   startingFrom,
                                                                                                   limitResultsByStatus,
                                                                                                   limitResultsByClassification,
@@ -3504,16 +3513,16 @@ public class RepositoryHandler
         try
         {
             List<EntityDetail> retrievedEntities = metadataCollection.findEntities(userId,
-                                                                          entityTypeGUID,
-                                                                          entitySubtypeGUIDs,
-                                                                          searchProperties,
-                                                                          startingFrom,
-                                                                          limitResultsByStatus,
-                                                                          searchClassifications,
-                                                                          asOfTime,
-                                                                          sequencingProperty,
-                                                                          sequencingOrder,
-                                                                          pageSize);
+                                                                                   entityTypeGUID,
+                                                                                   entitySubtypeGUIDs,
+                                                                                   searchProperties,
+                                                                                   startingFrom,
+                                                                                   limitResultsByStatus,
+                                                                                   searchClassifications,
+                                                                                   asOfTime,
+                                                                                   sequencingProperty,
+                                                                                   sequencingOrder,
+                                                                                   pageSize);
 
             return this.validateEntities(userId,
                                          retrievedEntities,

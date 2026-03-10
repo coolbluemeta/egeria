@@ -9,8 +9,7 @@ The CSV file connector is able to retrieve data from a
 Comma Separated Values (CSV) file where the contents are stored in logical columns
 with a special character delimiter between the columns.
 
-The name of the file is passed to the connector in the **address**
-property in the Endpoint object of the Connection object used to create the connector.
+![CSVFileConnector](docs/csv-file-resource-connector.png)
 
 If the first row of the file contains column names,
 this connector is able to return a schema structure for the file

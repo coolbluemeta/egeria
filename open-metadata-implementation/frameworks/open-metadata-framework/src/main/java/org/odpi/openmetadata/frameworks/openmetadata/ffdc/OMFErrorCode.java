@@ -211,7 +211,15 @@ public enum OMFErrorCode implements ExceptionMessageSet
                           "Correct the code in the caller to provide a valid regular expression search string."),
 
     /**
-     * OPEN-METADATA-0007 - The {0} connector can not retrieve the correlation information for {1} open metadata element {2} linked via metadata collection {3} to external element {4}
+     * OPEN-METADATA-404-002 - Multiple {0} elements where found with a name of {1}: the identifiers of the returned elements are {2}; the calling method is {3}, the name parameter is {4} and the server is {5}
+     */
+    MULTIPLE_ENTITIES_FOUND(404, "OPEN-METADATA-404-002",
+                            "Multiple {0} elements where found with the unique name of {1}: the identifiers of the returned elements are {2}; the calling method is {3}, the name parameter is {4} and the server is {5}",
+                            "The system cannot process a request because multiple elements have been discovered and it is unsure which one to use.",
+                            "Investigate why multiple elements exist.  Then retry the request once the issue is resolved."),
+
+    /**
+     * OPEN-METADATA-404-007 - The {0} connector can not retrieve the correlation information for {1} open metadata element {2} linked via metadata collection {3} to external element {4}
      */
     MISSING_CORRELATION(404, "OPEN-METADATA-404-007",
                         "The {0} connector can not retrieve the correlation information for {1} open metadata element {2} linked via metadata collection {3} to external element {4}",

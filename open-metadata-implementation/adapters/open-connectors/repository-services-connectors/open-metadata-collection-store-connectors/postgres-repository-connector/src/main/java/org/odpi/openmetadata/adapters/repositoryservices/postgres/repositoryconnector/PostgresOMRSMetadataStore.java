@@ -191,9 +191,11 @@ class PostgresOMRSMetadataStore
      *
      * @param entityTypeGUID  GUID of the type of entity to search for. Null means all types will
      *                       be searched (could be slow so not recommended).
-     * @param searchCriteria String Java regular expression used to match against any of the String property values
+     * @param searchString String used to match against any of the String property values
      *                       within entity instances of the specified type(s).
-     *                       This parameter must not be null.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param fromEntityElement  the starting element number of the entities to return.
      *                                This is used when retrieving elements
      *                                beyond the first page of results. Zero means start from the first element.
@@ -213,7 +215,10 @@ class PostgresOMRSMetadataStore
      *                                    the metadata collection is stored.
      */
     List<EntityDetail> findEntitiesByPropertyValue(String                entityTypeGUID,
-                                                   String                searchCriteria,
+                                                   String                searchString,
+                                                   boolean               startsWith,
+                                                   boolean               endsWith,
+                                                   boolean               ignoreCase,
                                                    int                   fromEntityElement,
                                                    List<InstanceStatus>  limitResultsByStatus,
                                                    List<String>          limitResultsByClassification,
@@ -230,7 +235,7 @@ class PostgresOMRSMetadataStore
                                                            repositoryName);
 
         entityQueryBuilder.setTypeGUID(entityTypeGUID, entityTypeGUIDParameterName);
-        entityQueryBuilder.setSearchString(searchCriteria);
+        entityQueryBuilder.setSearchString(searchString, startsWith, endsWith, ignoreCase);
         entityQueryBuilder.setLimitResultsByStatus(limitResultsByStatus);
         entityQueryBuilder.setAsOfTime(asOfTime);
         entityQueryBuilder.setSequencingOrder(sequencingOrder, sequencingProperty);
@@ -774,9 +779,11 @@ class PostgresOMRSMetadataStore
      *
      * @param relationshipTypeGUID GUID of the type of entity to search for. Null means all types will
      *                       be searched (could be slow so not recommended).
-     * @param searchCriteria String Java regular expression used to match against any of the String property values
+     * @param searchString String used to match against any of the String property values
      *                       within the relationship instances of the specified type(s).
-     *                       This parameter must not be null.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param fromRelationshipElement Element number of the results to skip to when building the results list
      *                                to return.  Zero means begin at the start of the results.  This is used
      *                                to retrieve the results over a number of pages.
@@ -795,7 +802,10 @@ class PostgresOMRSMetadataStore
      *                                  the metadata collection is stored.
      */
     List<Relationship> findRelationshipsByPropertyValue(String                    relationshipTypeGUID,
-                                                        String                    searchCriteria,
+                                                        String                    searchString,
+                                                        boolean                   startsWith,
+                                                        boolean                   endsWith,
+                                                        boolean                   ignoreCase,
                                                         int                       fromRelationshipElement,
                                                         List<InstanceStatus>      limitResultsByStatus,
                                                         Date                      asOfTime,
@@ -811,7 +821,7 @@ class PostgresOMRSMetadataStore
                                                      repositoryName);
 
         queryBuilder.setTypeGUID(relationshipTypeGUID, relationshipTypeGUIDParameterName);
-        queryBuilder.setSearchString(searchCriteria);
+        queryBuilder.setSearchString(searchString, startsWith, endsWith, ignoreCase);
         queryBuilder.setLimitResultsByStatus(limitResultsByStatus);
         queryBuilder.setAsOfTime(asOfTime);
         queryBuilder.setSequencingOrder(sequencingOrder, sequencingProperty);

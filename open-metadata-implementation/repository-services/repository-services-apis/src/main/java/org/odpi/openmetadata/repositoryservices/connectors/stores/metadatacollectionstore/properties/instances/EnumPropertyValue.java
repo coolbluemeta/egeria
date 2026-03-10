@@ -75,7 +75,7 @@ public class EnumPropertyValue extends InstancePropertyValue
     @Override
     public  String valueAsString()
     {
-        return symbolicName == null ? "<null>" : symbolicName;
+        return symbolicName;
     }
 
 

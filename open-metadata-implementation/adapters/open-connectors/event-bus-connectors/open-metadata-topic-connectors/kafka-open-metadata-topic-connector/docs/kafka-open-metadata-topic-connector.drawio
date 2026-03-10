@@ -1,0 +1,224 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2" pages="2">
+  <diagram name="kafka-open-metadata-topic-connectors" id="nzx9yOQGEh72X92OjJLz">
+    <mxGraphModel dx="2061" dy="817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-0" />
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-1" parent="QJYwyJXwQ9BcDQuD-wFR-0" />
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-10" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Integration Daemon" vertex="1">
+          <mxGeometry height="300" width="250" x="310" y="1160" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-11" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="Topic Integrator OMIS" vertex="1">
+          <mxGeometry height="150" width="206" x="334" y="1250" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-12" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="QJYwyJXwQ9BcDQuD-wFR-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="1330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-13" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Kafka Topics Audit&lt;br&gt;Integration Connector" vertex="1">
+          <mxGeometry height="60" width="150" x="360" y="1300" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-14" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Metadata Access Server" vertex="1">
+          <mxGeometry height="300" width="250" x="600" y="1160" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-15" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="Data Manager OMAS" vertex="1">
+          <mxGeometry height="90" width="206" x="622" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-16" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="QJYwyJXwQ9BcDQuD-wFR-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="QJYwyJXwQ9BcDQuD-wFR-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-17" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;" value="Apache Kafka Server" vertex="1">
+          <mxGeometry height="160" width="250" y="1250" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-18" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
+          <mxGeometry height="220" width="470" x="340" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-19" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="" vertex="1">
+          <mxGeometry height="132.5" width="430" x="360" y="97.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-20" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Open Metadata&lt;br&gt;Topic Connector" vertex="1">
+          <mxGeometry height="60" width="120" x="390" y="132.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-21" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="QJYwyJXwQ9BcDQuD-wFR-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" target="QJYwyJXwQ9BcDQuD-wFR-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-22" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="QJYwyJXwQ9BcDQuD-wFR-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" target="QJYwyJXwQ9BcDQuD-wFR-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-23" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;verticalAlign=middle;" value="Consumer of&lt;br&gt;topic events" vertex="1">
+          <mxGeometry height="60" width="120" x="650" y="132.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-24" connectable="0" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="group" value="" vertex="1">
+          <mxGeometry height="70" width="75" x="222.5" y="187.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-25" parent="QJYwyJXwQ9BcDQuD-wFR-24" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=12;fontColor=#333333;align=center;fillColor=#f5f5f5;strokeColor=#666666;" value="" vertex="1">
+          <mxGeometry height="70" width="75" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-26" parent="QJYwyJXwQ9BcDQuD-wFR-24" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=12;fontColor=#000000;align=center;" value="" vertex="1">
+          <mxGeometry height="56" width="50" x="12.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-27" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontSize=12;fontFamily=Helvetica;fontColor=#000000;" value="Event Bus Topic" vertex="1">
+          <mxGeometry height="30" width="110" x="205" y="257.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-28" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="QJYwyJXwQ9BcDQuD-wFR-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;shadow=0;startArrow=none;startFill=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" target="QJYwyJXwQ9BcDQuD-wFR-20">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="162.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-29" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="registerListener()" vertex="1">
+          <mxGeometry height="30" width="110" x="530" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-30" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="processEvent()" vertex="1">
+          <mxGeometry height="30" width="100" x="533" y="149.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-31" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
+          <mxGeometry height="220" width="470" x="-300" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-32" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="" vertex="1">
+          <mxGeometry height="132.5" width="430" x="-280" y="97.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-33" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="QJYwyJXwQ9BcDQuD-wFR-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="QJYwyJXwQ9BcDQuD-wFR-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-34" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Open Metadata&lt;br&gt;Topic Connector" vertex="1">
+          <mxGeometry height="60" width="120" y="132.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-35" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="QJYwyJXwQ9BcDQuD-wFR-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="QJYwyJXwQ9BcDQuD-wFR-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-36" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;verticalAlign=middle;" value="Producer of&lt;br&gt;topic events" vertex="1">
+          <mxGeometry height="60" width="120" x="-250" y="132.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QJYwyJXwQ9BcDQuD-wFR-37" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="sendEvent()" vertex="1">
+          <mxGeometry height="30" width="90" x="-110" y="132.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-0" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
+          <mxGeometry height="220" width="470" x="340" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-1" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="" vertex="1">
+          <mxGeometry height="132.5" width="430" x="360" y="367.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-2" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Kafka&lt;br&gt;Open Metadata&lt;br&gt;Topic Connector" vertex="1">
+          <mxGeometry height="60" width="120" x="390" y="402.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-3" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="u5wtyEiM356CSICypQDa-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" target="u5wtyEiM356CSICypQDa-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-4" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="u5wtyEiM356CSICypQDa-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" target="u5wtyEiM356CSICypQDa-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-5" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;verticalAlign=middle;" value="Consumer of&lt;br&gt;topic events" vertex="1">
+          <mxGeometry height="60" width="120" x="650" y="402.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-6" connectable="0" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="group" value="" vertex="1">
+          <mxGeometry height="70" width="75" x="222.5" y="457.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-7" parent="u5wtyEiM356CSICypQDa-6" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=12;fontColor=#333333;align=center;fillColor=#f5f5f5;strokeColor=#666666;" value="" vertex="1">
+          <mxGeometry height="70" width="75" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-8" parent="u5wtyEiM356CSICypQDa-6" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=12;fontColor=#000000;align=center;" value="" vertex="1">
+          <mxGeometry height="56" width="50" x="12.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-9" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fontSize=12;fontFamily=Helvetica;fontColor=#000000;" value="Apache Kafka Topic" vertex="1">
+          <mxGeometry height="30" width="130" x="195" y="527.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-10" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="u5wtyEiM356CSICypQDa-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;shadow=0;startArrow=none;startFill=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" target="u5wtyEiM356CSICypQDa-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="432.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-11" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="registerListener()" vertex="1">
+          <mxGeometry height="30" width="110" x="530" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-12" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="processEvent()" vertex="1">
+          <mxGeometry height="30" width="100" x="533" y="419.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-13" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
+          <mxGeometry height="220" width="470" x="-300" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-14" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="" vertex="1">
+          <mxGeometry height="132.5" width="430" x="-280" y="367.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-15" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="u5wtyEiM356CSICypQDa-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="u5wtyEiM356CSICypQDa-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-16" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Kafka&lt;br&gt;Open Metadata&lt;br&gt;Topic Connector" vertex="1">
+          <mxGeometry height="60" width="120" y="402.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-17" edge="1" parent="QJYwyJXwQ9BcDQuD-wFR-1" source="u5wtyEiM356CSICypQDa-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="u5wtyEiM356CSICypQDa-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-18" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;verticalAlign=middle;" value="Producer of&lt;br&gt;topic events" vertex="1">
+          <mxGeometry height="60" width="120" x="-250" y="402.5" as="geometry" />
+        </mxCell>
+        <mxCell id="u5wtyEiM356CSICypQDa-19" parent="QJYwyJXwQ9BcDQuD-wFR-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="sendEvent()" vertex="1">
+          <mxGeometry height="30" width="90" x="-110" y="402.5" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="HP3IRVDPZLWodUwvnaF0" name="kafka-integration-connectors">
+    <mxGraphModel dx="1234" dy="817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-0" />
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-1" parent="kSrSoJcPGroMlaoBxXoM-0" />
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-2" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Integration Daemon" vertex="1">
+          <mxGeometry height="300" width="250" x="390" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-3" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="Integration Group" vertex="1">
+          <mxGeometry height="150" width="206" x="414" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-4" edge="1" parent="kSrSoJcPGroMlaoBxXoM-1" source="kSrSoJcPGroMlaoBxXoM-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-5" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Kafka Monitor&lt;br&gt;Integration Connector" vertex="1">
+          <mxGeometry height="60" width="150" x="440" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-7" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Metadata Access Server" vertex="1">
+          <mxGeometry height="300" width="250" x="680" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-9" edge="1" parent="kSrSoJcPGroMlaoBxXoM-1" source="kSrSoJcPGroMlaoBxXoM-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="702" y="265" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kSrSoJcPGroMlaoBxXoM-10" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;" value="Apache Kafka Server" vertex="1">
+          <mxGeometry height="160" width="250" x="80" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-8" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Integration Daemon" vertex="1">
+          <mxGeometry height="300" width="250" x="390" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-9" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="Integration Group" vertex="1">
+          <mxGeometry height="150" width="206" x="414" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-10" edge="1" parent="kSrSoJcPGroMlaoBxXoM-1" source="WpLZwR04Vvz_KPWc1W3V-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-11" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Kafka Topics Audit&lt;br&gt;Integration Connector" vertex="1">
+          <mxGeometry height="60" width="150" x="440" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-12" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Metadata Access Server" vertex="1">
+          <mxGeometry height="300" width="250" x="680" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-14" edge="1" parent="kSrSoJcPGroMlaoBxXoM-1" source="WpLZwR04Vvz_KPWc1W3V-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="702" y="635" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WpLZwR04Vvz_KPWc1W3V-15" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;" value="Apache Kafka Server" vertex="1">
+          <mxGeometry height="160" width="250" x="80" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="iUru8W10ucha1uUWvLFD-0" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;" value="Open Metadata Framework&lt;div&gt;Service&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="206" x="702" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="iUru8W10ucha1uUWvLFD-1" parent="kSrSoJcPGroMlaoBxXoM-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;" value="Open Metadata Framework&lt;div&gt;Service&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="206" x="702" y="590" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

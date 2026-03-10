@@ -1216,7 +1216,7 @@ public class DatabaseStore
         {
             List<Map<String, JDBCDataValue>> matchingRows = jdbcResourceConnector.getMatchingRows(jdbcConnection,
                                                                                                 RepositoryTable.CLASSIFICATION.getTableName(),
-                                                                                                RepositoryColumn.INSTANCE_GUID.getColumnName() + " = '" + guid + "'" +
+                                                                                                RepositoryColumn.INSTANCE_GUID.getColumnName() + " = '" + guid + "' and " +
                                                                                                         RepositoryColumn.CLASSIFICATION_NAME.getColumnName() + " = '" + classificationName + "'" +
                                                                                                         getDateRangeClause(fromTime, toTime, oldestFirst),
                                                                                                 RepositoryTable.CLASSIFICATION.getColumnNameTypeMap());

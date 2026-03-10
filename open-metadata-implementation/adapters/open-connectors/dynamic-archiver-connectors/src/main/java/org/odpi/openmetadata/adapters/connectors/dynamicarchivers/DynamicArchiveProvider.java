@@ -33,8 +33,6 @@ public abstract class DynamicArchiveProvider extends RepositoryGovernanceProvide
 
         recognizedConfigurationProperties.add(DynamicArchiveRequestParameter.ARCHIVE_NAME.getName());
         recognizedConfigurationProperties.add(DynamicArchiveRequestParameter.ARCHIVE_GUID.getName());
-
-        super.connectorComponentDescription = OMRSAuditingComponent.REPOSITORY_GOVERNANCE_SERVICE_CONNECTOR;
     }
 
     /**

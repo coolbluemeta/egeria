@@ -20,6 +20,7 @@ import org.odpi.openmetadata.repositoryservices.ffdc.exception.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import static org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstancePropertyCategory.PRIMITIVE;
 import static org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.PrimitiveDefCategory.*;
@@ -2057,14 +2058,14 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
         }
         for (PropertyCondition condition : matchProperties.getConditions())
         {
-            SearchProperties nestedConditions = condition.getNestedConditions();
-            String propertyName = condition.getProperty();
-            PropertyComparisonOperator operator = condition.getOperator();
-            InstancePropertyValue value = condition.getValue();
+            SearchProperties           nestedConditions = condition.getNestedConditions();
+            String                     propertyName     = condition.getProperty();
+            PropertyComparisonOperator operator         = condition.getOperator();
+            InstancePropertyValue      value            = condition.getValue();
             if (nestedConditions == null)
             {
                 // If there are no nested conditions, there must be at least property and operator
-                if (propertyName == null || operator == null)
+                if (operator == null)
                 {
                     throw new InvalidParameterException(OMRSErrorCode.INVALID_PROPERTY_SEARCH.getMessageDefinition(),
                                                         this.getClass().getName(),
@@ -2098,18 +2099,15 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
                             }
                             break;
                         case LIKE:
-                            // For the LIKE operator, only a PrimitiveTypePropertyValue of type string is allowed
-                            if (value instanceof PrimitivePropertyValue ppv)
-                            {
-                                if (!ppv.getPrimitiveDefCategory().equals(OM_PRIMITIVE_TYPE_STRING))
-                                {
-                                    throw new InvalidParameterException(OMRSErrorCode.INVALID_LIKE_CONDITION.getMessageDefinition(),
-                                                                        this.getClass().getName(),
-                                                                        methodName,
-                                                                        parameterName);
-                                }
-                            }
-                            else
+                        case NOT_LIKE:
+                        case CASE_INSENSITIVE_LIKE:
+                        case STARTS_WITH:
+                        case CASE_INSENSITIVE_STARTS_WITH:
+                        case ENDS_WITH:
+                        case CASE_INSENSITIVE_ENDS_WITH:
+                        case CASE_INSENSITIVE_EQ:
+                            // For the LIKE operator, only a PrimitiveTypePropertyValue is allowed
+                            if (!(value instanceof PrimitivePropertyValue))
                             {
                                 throw new InvalidParameterException(OMRSErrorCode.INVALID_LIKE_CONDITION.getMessageDefinition(),
                                                                     this.getClass().getName(),
@@ -3539,7 +3537,7 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
      * classifications.
      *
      * @param sourceName source of the request (used for logging)
-     * @param requiredClassifications list of required classification null means that there are no specific
+     * @param requiredClassifications list of required classifications; null means no specific
      *                                classification requirements and so results in a true response.
      * @param entity entity to test.
      * @return boolean result
@@ -3580,9 +3578,9 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
     @Override
     public String getStringValuesFromInstancePropertiesAsArray(InstanceProperties   instanceProperties)
     {
-        final String  stringStart = "{ ";
+        final String  stringStart = "[ ";
         final String  stringDelimiter = ", ";
-        final String  stringEnd = " }";
+        final String  stringEnd = " ]";
 
         String        results = null;
 
@@ -4145,6 +4143,88 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
     }
 
 
+
+
+
+
+    /**
+     * Set the provided search string to be interpreted as either case-insensitive or case-sensitive.
+     *
+     * @param searchString the string to set as case-insensitive
+     * @param insensitive if true, set the string to be case-insensitive, otherwise leave as case-sensitive
+     * @return string ensuring the provided searchString is case-(in)sensitive
+     */
+    private String setInsensitive(String searchString, boolean insensitive)
+    {
+        return insensitive ? "(?i)" + searchString : searchString;
+    }
+
+
+    /**
+     * Retrieve an escaped version of the provided string that can be passed to methods that expect regular expressions,
+     * to search for the string with a "starts with" semantic. The passed string will NOT be treated as a regular expression;
+     * if you intend to use both a "starts with" semantic and a regular expression within the string, simply construct your
+     * own regular expression directly (not with this helper method).
+     *
+     * @param searchValue the property value to match
+     * @param insensitive set to true to have a case-insensitive "starts with" regular expression
+     * @return string that is interpreted literally, wrapped for a "starts with" semantic
+     */
+    private String getMiddleRegex(InstancePropertyValue searchValue, boolean insensitive)
+    {
+        return searchValue == null ? null : setInsensitive(".*" + getExactMatchRegex(searchValue, false) + ".*", insensitive);
+    }
+
+
+    /**
+     * Retrieve an escaped version of the provided string that can be passed to methods that expect regular expressions,
+     * to search for the string with a "starts with" semantic. The passed string will NOT be treated as a regular expression;
+     * if you intend to use both a "starts with" semantic and a regular expression within the string, simply construct your
+     * own regular expression directly (not with this helper method).
+     *
+     * @param searchValue the property value to match
+     * @param insensitive set to true to have a case-insensitive "starts with" regular expression
+     * @return string that is interpreted literally, wrapped for a "starts with" semantic
+     */
+    private String getStartsWithRegex(InstancePropertyValue searchValue, boolean insensitive)
+    {
+        return searchValue == null ? null : setInsensitive(getExactMatchRegex(searchValue, false) + ".*", insensitive);
+    }
+
+
+    /**
+     * Retrieve an escaped version of the provided string that can be passed to methods that expect regular expressions,
+     * to search for the string with an "ends with" semantic. The passed string will NOT be treated as a regular expression;
+     * if you intend to use both an "ends with" semantic and a regular expression within the string, simply construct your
+     * own regular expression directly (not with this helper method).
+     *
+     * @param searchValue the property value to match
+     * @param insensitive set to true to have a case-insensitive "ends with" regular expression
+     * @return string that is interpreted literally, wrapped for an "ends with" semantic
+     */
+    private String getEndsWithRegex(InstancePropertyValue searchValue, boolean insensitive)
+    {
+        return searchValue == null ? null : setInsensitive(".*" + getExactMatchRegex(searchValue, false), insensitive);
+    }
+
+
+    /**
+     * Retrieve an escaped version of the provided string that can be passed to methods that expect regular expressions,
+     * without being interpreted as a regular expression (i.e. the returned string will be interpreted as a literal --
+     * used to find an exact match of the string, irrespective of whether it contains characters that may have special
+     * meanings to regular expressions).
+     *
+     * @param searchValue the property value to match
+     * @param insensitive set to true to have a case-insensitive exact match regular expression
+     * @return string that is interpreted literally rather than as a regular expression
+     */
+    String getExactMatchRegex(InstancePropertyValue searchValue, boolean insensitive)
+    {
+        return searchValue == null ? null : setInsensitive(Pattern.quote(searchValue.valueAsString()), insensitive);
+    }
+
+
+
     /**
      * {@inheritDoc}
      */
@@ -4167,255 +4247,293 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
         {
             // Simplest way: this will also short-circuit to true immediately if nested conditions is null
             boolean matchesNested = verifyMatchingInstancePropertyValues(condition.getNestedConditions(), guid, instanceHeader, instanceProperties);
-            boolean                    matchesProperties = true;
+            boolean matchesProperties = true;
 
             String propertyName = condition.getProperty();
             InstancePropertyValue testValue   = condition.getValue();
             InstancePropertyValue actualValue = null;
             PropertyComparisonOperator operator = condition.getOperator();
 
-            if (OpenMetadataProperty.GUID.name.equals(propertyName))
+            if (propertyName == null)
             {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
-                primitivePropertyValue.setPrimitiveValue(guid);
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
+                /*
+                 * Build a condition that tests all properties
+                 */
+                if ((instanceProperties == null) || (instanceProperties.getPropertyCount() == 0))
+                {
+                    matchesProperties = false;
+                }
+                else
+                {
+                    SearchProperties checkAllProperties = new SearchProperties();
+                    List<PropertyCondition> checkConditions = new ArrayList<>();
+                    checkAllProperties.setMatchCriteria(MatchCriteria.ANY);
 
-                actualValue = primitivePropertyValue;
+                    Iterator<String> propertyNames = instanceProperties.getPropertyNames();
+
+                    while (propertyNames.hasNext())
+                    {
+                        String            elementPropertyName = propertyNames.next();
+                        PropertyCondition checkPropertyCondition = new PropertyCondition(condition);
+
+                        checkPropertyCondition.setProperty(elementPropertyName);
+
+                        checkConditions.add(checkPropertyCondition);
+                    }
+
+                    checkAllProperties.setConditions(checkConditions);
+
+                    matchesProperties = verifyMatchingInstancePropertyValues(checkAllProperties, guid, instanceHeader, instanceProperties);
+                }
             }
-            else if (OpenMetadataProperty.METADATA_COLLECTION_ID.name.equals(propertyName))
+            else
             {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+                if (OpenMetadataProperty.GUID.name.equals(propertyName))
+                {
+                    PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+                    primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
+                    primitivePropertyValue.setPrimitiveValue(guid);
+                    primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+                    primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
 
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
-                primitivePropertyValue.setPrimitiveValue(instanceHeader.getMetadataCollectionId());
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
+                    actualValue = primitivePropertyValue;
+                }
+                else if (OpenMetadataProperty.METADATA_COLLECTION_ID.name.equals(propertyName))
+                {
+                    PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
 
-                actualValue = primitivePropertyValue;
-            }
-            else if (OpenMetadataProperty.METADATA_COLLECTION_NAME.name.equals(propertyName))
-            {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+                    primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
+                    primitivePropertyValue.setPrimitiveValue(instanceHeader.getMetadataCollectionId());
+                    primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+                    primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
 
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
-                primitivePropertyValue.setPrimitiveValue(instanceHeader.getMetadataCollectionName());
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
+                    actualValue = primitivePropertyValue;
+                }
+                else if (OpenMetadataProperty.METADATA_COLLECTION_NAME.name.equals(propertyName))
+                {
+                    PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
 
-                actualValue = primitivePropertyValue;
-            }
-            else if (OpenMetadataProperty.LAST_REQUEST_ID.name.equals(propertyName))
-            {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+                    primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
+                    primitivePropertyValue.setPrimitiveValue(instanceHeader.getMetadataCollectionName());
+                    primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+                    primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
 
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
-                primitivePropertyValue.setPrimitiveValue(instanceHeader.getLastRequestId());
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
+                    actualValue = primitivePropertyValue;
+                }
+                else if (OpenMetadataProperty.LAST_REQUEST_ID.name.equals(propertyName))
+                {
+                    PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
 
-                actualValue = primitivePropertyValue;
-            }
-            else if (OpenMetadataProperty.INSTANCE_PROVENANCE_TYPE.name.equals(propertyName))
-            {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+                    primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
+                    primitivePropertyValue.setPrimitiveValue(instanceHeader.getLastRequestId());
+                    primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+                    primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
 
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
-                primitivePropertyValue.setPrimitiveValue(instanceHeader.getInstanceProvenanceType().getName());
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
+                    actualValue = primitivePropertyValue;
+                }
+                else if (OpenMetadataProperty.INSTANCE_PROVENANCE_TYPE.name.equals(propertyName))
+                {
+                    PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
 
-                actualValue = primitivePropertyValue;
-            }
-            else if (OpenMetadataProperty.CREATED_BY.name.equals(propertyName))
-            {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+                    primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
+                    primitivePropertyValue.setPrimitiveValue(instanceHeader.getInstanceProvenanceType().getName());
+                    primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+                    primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
 
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
-                primitivePropertyValue.setPrimitiveValue(instanceHeader.getCreatedBy());
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
+                    actualValue = primitivePropertyValue;
+                }
+                else if (OpenMetadataProperty.CREATED_BY.name.equals(propertyName))
+                {
+                    PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
 
-                actualValue = primitivePropertyValue;
-            }
-            else if (OpenMetadataProperty.CREATE_TIME.name.equals(propertyName))
-            {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE);
-                primitivePropertyValue.setPrimitiveValue(instanceHeader.getCreateTime());
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getGUID());
+                    primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
+                    primitivePropertyValue.setPrimitiveValue(instanceHeader.getCreatedBy());
+                    primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+                    primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
 
-                actualValue = primitivePropertyValue;
-            }
-            else if (OpenMetadataProperty.UPDATED_BY.name.equals(propertyName))
-            {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
-
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
-                primitivePropertyValue.setPrimitiveValue(instanceHeader.getUpdatedBy());
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
-
-                actualValue = primitivePropertyValue;
-            }
-            else if (OpenMetadataProperty.UPDATE_TIME.name.equals(propertyName))
-            {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE);
-                primitivePropertyValue.setPrimitiveValue(instanceHeader.getUpdateTime());
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getGUID());
-
-                actualValue = primitivePropertyValue;
-            }
-            else if (OpenMetadataProperty.EFFECTIVE_FROM_TIME.name.equals(propertyName))
-            {
-                if (instanceProperties != null)
+                    actualValue = primitivePropertyValue;
+                }
+                else if (OpenMetadataProperty.CREATE_TIME.name.equals(propertyName))
                 {
                     PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
                     primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE);
-                    primitivePropertyValue.setPrimitiveValue(instanceProperties.getEffectiveFromTime());
+                    primitivePropertyValue.setPrimitiveValue(instanceHeader.getCreateTime());
                     primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getName());
                     primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getGUID());
 
                     actualValue = primitivePropertyValue;
                 }
-            }
-            else if (OpenMetadataProperty.EFFECTIVE_TO_TIME.name.equals(propertyName))
-            {
-                if (instanceProperties != null)
+                else if (OpenMetadataProperty.UPDATED_BY.name.equals(propertyName))
+                {
+                    PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+
+                    primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
+                    primitivePropertyValue.setPrimitiveValue(instanceHeader.getUpdatedBy());
+                    primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+                    primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING.getGUID());
+
+                    actualValue = primitivePropertyValue;
+                }
+                else if (OpenMetadataProperty.UPDATE_TIME.name.equals(propertyName))
                 {
                     PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
                     primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE);
-                    primitivePropertyValue.setPrimitiveValue(instanceProperties.getEffectiveToTime());
+                    primitivePropertyValue.setPrimitiveValue(instanceHeader.getUpdateTime());
                     primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getName());
                     primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getGUID());
 
                     actualValue = primitivePropertyValue;
                 }
-            }
-            else if (OpenMetadataProperty.VERSION.name.equals(propertyName))
-            {
-                PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
-                primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG);
-                primitivePropertyValue.setPrimitiveValue(instanceHeader.getUpdateTime());
-                primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG.getName());
-                primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG.getGUID());
-
-                actualValue = primitivePropertyValue;
-            }
-            else if (instanceProperties != null)
-            {
-                actualValue = instanceProperties.getPropertyValue(propertyName);
-            }
-
-            BigDecimal testBD   = getNumericRepresentation(testValue);
-            BigDecimal actualBD = getNumericRepresentation(actualValue);
-
-            /*
-             * When the nested branch is complete, operator will be null (along
-             * with propertyName, testValue, etc). All that remains for this
-             * (nested) property condition is to contribute its result
-             * (matchesNested && matchesProperties) into the current level of
-             * property condition combination.
-             *
-             * Do not attempt to use null operator in switch statement, it will NPE
-             */
-
-            if (operator != null)
-            {
-                switch (condition.getOperator())
+                else if (OpenMetadataProperty.EFFECTIVE_FROM_TIME.name.equals(propertyName))
                 {
-                    case EQ:
-                        matchesProperties = Objects.equals(actualValue, testValue);
-                        break;
-                    case NEQ:
-                        matchesProperties = !Objects.equals(actualValue, testValue);
-                        break;
-                    case LT:
-                        // Should only apply to number values and dates
-                        matchesProperties = (actualBD != null && testBD != null && actualBD.compareTo(testBD) < 0);
-                        break;
-                    case LTE:
-                        // Should only apply to number values and dates
-                        matchesProperties = (actualBD != null && testBD != null && actualBD.compareTo(testBD) <= 0);
-                        break;
-                    case GT:
-                        // Should only apply to number values and dates
-                        matchesProperties = (actualBD != null && testBD != null && actualBD.compareTo(testBD) > 0);
-                        break;
-                    case GTE:
-                        // Should only apply to number values and dates
-                        matchesProperties = (actualBD != null && testBD != null && actualBD.compareTo(testBD) >= 0);
-                        break;
-                    case IN:
-                        // The value to test against must be a list (ArrayTypePropertyValue)
-                        if (testValue instanceof ArrayPropertyValue)
-                        {
-                            ArrayPropertyValue apv    = (ArrayPropertyValue) testValue;
-                            InstanceProperties values = apv.getArrayValues();
-                            if (values == null)
+                    if (instanceProperties != null)
+                    {
+                        PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+                        primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE);
+                        primitivePropertyValue.setPrimitiveValue(instanceProperties.getEffectiveFromTime());
+                        primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getName());
+                        primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getGUID());
+
+                        actualValue = primitivePropertyValue;
+                    }
+                }
+                else if (OpenMetadataProperty.EFFECTIVE_TO_TIME.name.equals(propertyName))
+                {
+                    if (instanceProperties != null)
+                    {
+                        PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+                        primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE);
+                        primitivePropertyValue.setPrimitiveValue(instanceProperties.getEffectiveToTime());
+                        primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getName());
+                        primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE.getGUID());
+
+                        actualValue = primitivePropertyValue;
+                    }
+                }
+                else if (OpenMetadataProperty.VERSION.name.equals(propertyName))
+                {
+                    PrimitivePropertyValue primitivePropertyValue = new PrimitivePropertyValue();
+                    primitivePropertyValue.setPrimitiveDefCategory(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG);
+                    primitivePropertyValue.setPrimitiveValue(instanceHeader.getUpdateTime());
+                    primitivePropertyValue.setTypeName(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG.getName());
+                    primitivePropertyValue.setTypeGUID(PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG.getGUID());
+
+                    actualValue = primitivePropertyValue;
+                }
+                else if (instanceProperties != null)
+                {
+                    actualValue = instanceProperties.getPropertyValue(propertyName);
+                }
+
+                BigDecimal testBD   = getNumericRepresentation(testValue);
+                BigDecimal actualBD = getNumericRepresentation(actualValue);
+
+                /*
+                 * When the nested branch is complete, operator will be null (along
+                 * with propertyName, testValue, etc). All that remains for this
+                 * (nested) property condition is to contribute its result
+                 * (matchesNested && matchesProperties) into the current level of
+                 * property condition combination.
+                 *
+                 * Do not attempt to use null operator in switch statement, it will NPE
+                 */
+
+                if (operator != null)
+                {
+                    switch (condition.getOperator())
+                    {
+                        case EQ:
+                            matchesProperties = Objects.equals(actualValue, testValue);
+                            break;
+                        case NEQ:
+                            matchesProperties = !Objects.equals(actualValue, testValue);
+                            break;
+                        case LT:
+                            // Should only apply to number values and dates
+                            matchesProperties = (actualBD != null && testBD != null && actualBD.compareTo(testBD) < 0);
+                            break;
+                        case LTE:
+                            // Should only apply to number values and dates
+                            matchesProperties = (actualBD != null && testBD != null && actualBD.compareTo(testBD) <= 0);
+                            break;
+                        case GT:
+                            // Should only apply to number values and dates
+                            matchesProperties = (actualBD != null && testBD != null && actualBD.compareTo(testBD) > 0);
+                            break;
+                        case GTE:
+                            // Should only apply to number values and dates
+                            matchesProperties = (actualBD != null && testBD != null && actualBD.compareTo(testBD) >= 0);
+                            break;
+                        case IN:
+                            // The value to test against must be a list (ArrayTypePropertyValue)
+                            if (testValue instanceof ArrayPropertyValue)
                             {
-                                // Impossible to match against an empty list, so always return false
-                                matchesProperties = false;
-                            }
-                            else
-                            {
-                                Iterator<String> names = values.getPropertyNames();
-                                matchesProperties = false;
-                                while (names.hasNext() && !matchesProperties)
+                                ArrayPropertyValue apv    = (ArrayPropertyValue) testValue;
+                                InstanceProperties values = apv.getArrayValues();
+                                if (values == null)
                                 {
-                                    String                index        = names.next();
-                                    InstancePropertyValue oneTestValue = values.getPropertyValue(index);
-                                    if (oneTestValue != null)
+                                    // Impossible to match against an empty list, so always return false
+                                    matchesProperties = false;
+                                }
+                                else
+                                {
+                                    Iterator<String> names = values.getPropertyNames();
+                                    matchesProperties = false;
+                                    while (names.hasNext() && !matchesProperties)
                                     {
-                                        matchesProperties = oneTestValue.equals(actualValue);
+                                        String                index        = names.next();
+                                        InstancePropertyValue oneTestValue = values.getPropertyValue(index);
+                                        if (oneTestValue != null)
+                                        {
+                                            matchesProperties = oneTestValue.equals(actualValue);
+                                        }
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
-                            throw new InvalidParameterException(OMRSErrorCode.INVALID_LIST_CONDITION.getMessageDefinition(),
-                                                                this.getClass().getName(),
-                                                                methodName,
-                                                                "matchProperties");
-                        }
-                        break;
-                    case IS_NULL:
-                        matchesProperties = (actualValue == null);
-                        break;
-                    case NOT_NULL:
-                        matchesProperties = (actualValue != null);
-                        break;
-                    case LIKE:
-                        // Should only apply to strings
-                        if (testValue instanceof PrimitivePropertyValue && ((PrimitivePropertyValue) testValue).getPrimitiveDefCategory().equals(OM_PRIMITIVE_TYPE_STRING))
-                        {
-                            String test = testValue.valueAsString();
-                            if (actualValue == null)
-                            {
-                                matchesProperties = false;
-                            }
                             else
                             {
-                                String actual = actualValue.valueAsString();
-                                matchesProperties = actual.matches(test);
+                                throw new InvalidParameterException(OMRSErrorCode.INVALID_LIST_CONDITION.getMessageDefinition(),
+                                                                    this.getClass().getName(),
+                                                                    methodName,
+                                                                    "matchProperties");
                             }
-                        }
-                        else
-                        {
-                            throw new InvalidParameterException(OMRSErrorCode.INVALID_LIKE_CONDITION.getMessageDefinition(),
-                                                                this.getClass().getName(),
-                                                                methodName,
-                                                                "matchProperties");
-                        }
-                        break;
-                    default:
-                        matchesProperties = true;
-                        break;
+                            break;
+                        case IS_NULL:
+                            matchesProperties = (actualValue == null);
+                            break;
+                        case NOT_NULL:
+                            matchesProperties = (actualValue != null);
+                            break;
+                        case LIKE:
+                            matchesProperties = this.regExMatchProperty(this.getMiddleRegex(testValue, false), actualValue);
+                            break;
+                        case NOT_LIKE:
+                            matchesProperties = !this.regExMatchProperty(this.getMiddleRegex(testValue, false), actualValue);
+                            break;
+                        case CASE_INSENSITIVE_LIKE:
+                            matchesProperties = this.regExMatchProperty(this.getMiddleRegex(testValue, true), actualValue);
+                            break;
+                        case CASE_INSENSITIVE_NOT_LIKE:
+                            matchesProperties = !this.regExMatchProperty(this.getMiddleRegex(testValue, true), actualValue);
+                            break;
+                        case STARTS_WITH:
+                            matchesProperties = this.regExMatchProperty(this.getStartsWithRegex(testValue, false), actualValue);
+                            break;
+                        case ENDS_WITH:
+                            matchesProperties = this.regExMatchProperty(this.getEndsWithRegex(testValue, false), actualValue);
+                            break;
+                        case CASE_INSENSITIVE_STARTS_WITH:
+                            matchesProperties = this.regExMatchProperty(this.getStartsWithRegex(testValue, true), actualValue);
+                            break;
+                        case CASE_INSENSITIVE_ENDS_WITH:
+                            matchesProperties = this.regExMatchProperty(this.getEndsWithRegex(testValue, true), actualValue);
+                            break;
+                        case CASE_INSENSITIVE_EQ:
+                            matchesProperties = this.regExMatchProperty(this.getExactMatchRegex(testValue, true), actualValue);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
 
@@ -4444,6 +4562,36 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
                 break;
         }
         return false;
+    }
+
+
+    /**
+     * Test if the actual property value matches the regular expression.
+     *
+     * @param regExString regular expression to test
+     * @param actualValue property value to test
+     * @return boolean result of test
+     * @throws InvalidParameterException invalid regular expression
+     */
+    private boolean regExMatchProperty(String                regExString,
+                                       InstancePropertyValue actualValue) throws InvalidParameterException
+    {
+        if (regExString != null)
+        {
+            if (actualValue == null)
+            {
+               return false;
+            }
+            else
+            {
+                String actualString = actualValue.valueAsString();
+                return actualString.matches(regExString);
+            }
+        }
+        else
+        {
+            return (actualValue == null);
+        }
     }
 
 

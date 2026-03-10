@@ -3,18 +3,12 @@
 
 package org.odpi.openmetadata.samples.governanceactions.clinicaltrials;
 
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.ConnectorType;
 import org.odpi.openmetadata.frameworks.opengovernance.GovernanceActionServiceProviderBase;
+import org.odpi.openmetadata.samples.governanceactions.clinicaltrials.metadata.CocoOpenConnectorDefinition;
 
 public class CocoClinicalTrialNominateHospitalProvider extends GovernanceActionServiceProviderBase
 {
-    private static final String  connectorTypeGUID = "f89e7b05-d05b-449f-8c5c-d5dd7833acec";
-    private static final String  connectorTypeQualifiedName = "CocoPharmaceuticals:GovernanceActionService:ClinicalTrial:NominateHospital";
-    private static final String  connectorTypeDisplayName = "Clinical Trial Nominate Hospital Governance Action Service";
-    private static final String  connectorTypeDescription = "Adds an incomplete certification relationship the Hospital organization that identifies the hospital contacts that will complete the certification process.  Any previous certifications that the hospital has to this clinical trial are cancelled (ended).";
-
     private static final String connectorClassName = CocoClinicalTrialNominateHospitalService.class.getName();
-
 
     /**
      * Constructor used to initialize the ConnectorProviderBase with the Java class name of the specific
@@ -22,25 +16,11 @@ public class CocoClinicalTrialNominateHospitalProvider extends GovernanceActionS
      */
     public CocoClinicalTrialNominateHospitalProvider()
     {
-        super();
-        super.setConnectorClassName(connectorClassName);
+        super(CocoOpenConnectorDefinition.NOMINATE_HOSPITAL, connectorClassName, null);
 
         supportedRequestParameters = CocoClinicalTrialRequestParameter.getNominateHospitalRequestParameterTypes();
         supportedActionTargetTypes = CocoClinicalTrialActionTarget.getNominateHospitalActionTargetTypes();
 
         producedGuards = CocoClinicalTrialGuard.getGuardTypes();
-
-        super.setConnectorClassName(connectorClassName);
-
-        ConnectorType connectorType = new ConnectorType();
-        connectorType.setGUID(connectorTypeGUID);
-        connectorType.setQualifiedName(connectorTypeQualifiedName);
-        connectorType.setDisplayName(connectorTypeDisplayName);
-        connectorType.setDescription(connectorTypeDescription);
-        connectorType.setConnectorProviderClassName(this.getClass().getName());
-        connectorType.setSupportedAssetTypeName(supportedAssetTypeName);
-        connectorType.setSupportedDeployedImplementationType(supportedDeployedImplementationType);
-
-        super.connectorTypeBean = connectorType;
     }
 }

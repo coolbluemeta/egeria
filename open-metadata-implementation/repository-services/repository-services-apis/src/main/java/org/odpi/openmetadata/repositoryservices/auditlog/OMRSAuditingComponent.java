@@ -31,7 +31,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Operational Services - Supports the administration services for the Open Metadata Repository Services (OMRS).
      */
-    OPERATIONAL_SERVICES (3,
+    OPERATIONAL_SERVICES (2,
                           ComponentDevelopmentStatus.STABLE,
                           "Operational Services",
                           "Supports the platform services for the Open Metadata Repository Services (OMRS).",
@@ -40,7 +40,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Archive Manager - Supports the platform services for the Open Metadata Repository Services (OMRS).
      */
-    ARCHIVE_MANAGER (4,
+    ARCHIVE_MANAGER (3,
                      ComponentDevelopmentStatus.STABLE,
                      "Archive Manager",
                      "Manages the loading of Open Metadata Archives into an open metadata repository.",
@@ -50,7 +50,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
      * Enterprise Connector Manager - Manages the list of open metadata repositories that the Enterprise OMRS Repository Connector
      * should call to retrieve an enterprise view of the metadata collections supported by these repositories.
      */
-    ENTERPRISE_CONNECTOR_MANAGER (5,
+    ENTERPRISE_CONNECTOR_MANAGER (4,
                                   ComponentDevelopmentStatus.STABLE,
                                   "Enterprise Connector Manager",
                                   "Manages the list of open metadata repositories that the Enterprise OMRS Repository Connector " +
@@ -61,7 +61,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Enterprise Repository Connector - Supports enterprise access to the list of open metadata repositories registered with the OMRS Enterprise Connector Manager.
      */
-    ENTERPRISE_REPOSITORY_CONNECTOR (6,
+    ENTERPRISE_REPOSITORY_CONNECTOR (5,
                                      ComponentDevelopmentStatus.STABLE,
                                      "Enterprise Repository Connector",
                                      "Supports enterprise access to the list of open metadata repositories registered " +
@@ -71,7 +71,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Local Repository Connector - Supports access to metadata stored in the local server's repository and ensures repository events are generated when metadata changes in the local repository.
      */
-    LOCAL_REPOSITORY_CONNECTOR (7,
+    LOCAL_REPOSITORY_CONNECTOR (6,
                                 ComponentDevelopmentStatus.STABLE,
                                 "Local Repository Connector",
                                 "Supports access to metadata stored in the local server's repository and ensures " +
@@ -82,7 +82,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
      * Repository Content Manager - Supports an in-memory cache for open metadata type definitions (TypeDefs) used for verifying TypeDefs in use
      * in other open metadata repositories and for constructing new metadata instances.
      */
-    REPOSITORY_CONTENT_MANAGER(8,
+    REPOSITORY_CONTENT_MANAGER(7,
                                ComponentDevelopmentStatus.STABLE,
                                "Repository Content Manager",
                                "Supports an in-memory cache for open metadata type definitions (TypeDefs) used for " +
@@ -94,7 +94,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
      * Local Inbound Instance Event Processor - Supports the loading of reference metadata into the local repository that has come from other
      * members of the local server's cohorts and open metadata archives.
      */
-    INSTANCE_EVENT_PROCESSOR (9,
+    INSTANCE_EVENT_PROCESSOR (8,
                               ComponentDevelopmentStatus.STABLE,
                               "Local Inbound Instance Event Processor",
                               "Supports the loading of reference metadata into the local repository that has come from other members of the local server's cohorts and open metadata archives.",
@@ -103,7 +103,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Repository Event Manager - Distribute repository events (TypeDefs, Entity and Instance events) between internal OMRS components within a server.
      */
-    REPOSITORY_EVENT_MANAGER (10,
+    REPOSITORY_EVENT_MANAGER (9,
                               ComponentDevelopmentStatus.STABLE,
                               "Repository Event Manager",
                               "Distribute repository events (TypeDefs, Entity and Instance events) between internal OMRS components within a server.",
@@ -112,25 +112,16 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Repository REST Services - Provides the server-side support of the OMRS Repository Services REST API.
      */
-    REST_SERVICES (11,
+    REST_SERVICES (10,
                    ComponentDevelopmentStatus.STABLE,
                    "Repository REST Services",
                    "Provides the server-side support of the OMRS Repository Services REST API.",
                    "https://egeria-project.org/services/omrs/component-descriptions/omrs-rest-services/"),
 
     /**
-     * REST Repository Connector - Supports an OMRS Repository Connector for calling the OMRS Repository REST API in a remote open metadata repository.
-     */
-    REST_REPOSITORY_CONNECTOR (12,
-                               ComponentDevelopmentStatus.STABLE,
-                               "REST Repository Connector",
-                               "Supports an OMRS Repository Connector for calling the OMRS Repository REST API in a remote open metadata repository.",
-                               "https://egeria-project.org/concepts/repository-connector"),
-
-    /**
      * Metadata Highway Manager - Manages the initialization and shutdown of the components that connector to each of the cohorts that the local server is a member of.
      */
-    METADATA_HIGHWAY_MANAGER (13,
+    METADATA_HIGHWAY_MANAGER (11,
                               ComponentDevelopmentStatus.STABLE,
                               "Metadata Highway Manager",
                               "Manages the initialization and shutdown of the components that connector to each of the cohorts that the local server is a member of.",
@@ -139,7 +130,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Cohort Manager - Manages the initialization and shutdown of the server's connectivity to a cohort.
      */
-    COHORT_MANAGER  (14,
+    COHORT_MANAGER  (12,
                      ComponentDevelopmentStatus.STABLE,
                      "Cohort Manager",
                      "Manages the initialization and shutdown of the server's connectivity to a cohort.",
@@ -148,7 +139,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Cohort Registry - Manages the registration requests send and received from this local repository.
      */
-    COHORT_REGISTRY(15,
+    COHORT_REGISTRY(13,
                     ComponentDevelopmentStatus.STABLE,
                     "Cohort Registry",
                     "Manages the registration requests send and received from this local repository.",
@@ -157,7 +148,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Registry Store - Stores information about the repositories registered in the open metadata repository cohort.
      */
-    REGISTRY_STORE  (16,
+    REGISTRY_STORE  (14,
                      ComponentDevelopmentStatus.STABLE,
                      "Registry Store",
                      "Stores information about the repositories registered in the open metadata repository cohort.",
@@ -166,7 +157,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Event Publisher - Manages the publishing of events that this repository sends to the OMRS topic.
      */
-    EVENT_PUBLISHER (17,
+    EVENT_PUBLISHER (15,
                      ComponentDevelopmentStatus.STABLE,
                      "Event Publisher",
                      "Manages the publishing of events that this repository sends to the OMRS topic.",
@@ -175,7 +166,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Event Listener - Manages the receipt of incoming OMRS events.
      */
-    EVENT_LISTENER  (18,
+    EVENT_LISTENER  (16,
                      ComponentDevelopmentStatus.STABLE,
                      "Event Listener",
                      "Manages the receipt of incoming OMRS events.",
@@ -185,7 +176,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
      * OMRS Topic Connector - Provides access to the OMRS Topic that is used to exchange events between members of a cohort,
      * or to notify Open Metadata Access Services (OMASs) of changes to metadata in the enterprise.
      */
-    OMRS_TOPIC_CONNECTOR(19,
+    OMRS_TOPIC_CONNECTOR(17,
                          ComponentDevelopmentStatus.STABLE,
                          "OMRS Topic Connector",
                          "Provides access to the OMRS Topic that is used to exchange events between members of a cohort, " +
@@ -196,7 +187,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Open Metadata Topic Connector - Provides access to an event bus to exchange events with participants in the open metadata ecosystem.
      */
-    OPEN_METADATA_TOPIC_CONNECTOR(20,
+    OPEN_METADATA_TOPIC_CONNECTOR(18,
                                   ComponentDevelopmentStatus.STABLE,
                                   "Open Metadata Topic Connector",
                                   "Provides access to an event bus to exchange events with participants in the open metadata ecosystem.",
@@ -205,7 +196,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Local Repository Event Mapper Connector - Provides access to an event bus to process events from a specific local repository.
      */
-    LOCAL_REPOSITORY_EVENT_MAPPER(21,
+    LOCAL_REPOSITORY_EVENT_MAPPER(19,
                                   ComponentDevelopmentStatus.STABLE,
                                   "Local Repository Event Mapper Connector",
                                   "Provides access to an event bus to process events from a specific local repository.",
@@ -214,7 +205,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Open Metadata Archive Store Connector - Reads and writes open metadata types and instances to an open metadata archive.
      */
-    ARCHIVE_STORE_CONNECTOR(22,
+    ARCHIVE_STORE_CONNECTOR(20,
                             ComponentDevelopmentStatus.STABLE,
                             "Open Metadata Archive Store Connector",
                             "Reads and writes open metadata types and instances to an open metadata archive.",
@@ -223,7 +214,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * Cohort Member Client Open Metadata Repository Connector - Provides access to open metadata located in a remote repository for remote members of a cohort.
      */
-    REMOTE_REPOSITORY_CONNECTOR(23,
+    REMOTE_REPOSITORY_CONNECTOR(21,
                                 ComponentDevelopmentStatus.STABLE,
                                 "Cohort Member Client Open Metadata Repository Connector",
                                 "Provides access to open metadata located in a remote repository for remote members of a cohort.",
@@ -234,7 +225,7 @@ public enum OMRSAuditingComponent implements ComponentDescription
      * Enterprise Topic Listener - Receives events from the open metadata repository cohorts that this server is registered with and distributes
      * them to the Open Metadata Access Services (OMASs).
      */
-    ENTERPRISE_TOPIC_LISTENER(26,
+    ENTERPRISE_TOPIC_LISTENER(22,
                               ComponentDevelopmentStatus.STABLE,
                               "Enterprise Topic Listener",
                               "Receives events from the open metadata repository cohorts that this server is registered with and distributes " +
@@ -244,57 +235,11 @@ public enum OMRSAuditingComponent implements ComponentDescription
     /**
      * OMRS Repository Connector - Maps open metadata calls to a metadata repository.
      */
-    REPOSITORY_CONNECTOR(27,
+    REPOSITORY_CONNECTOR(23,
                          ComponentDevelopmentStatus.STABLE,
                          "OMRS Repository Connector",
                          "Maps open metadata calls to a metadata repository.",
                          "https://egeria-project.org/concepts/repository-connector/"),
-
-
-    /**
-     * Governance Action Service Connector - A connector that coordinates governance of digital resources and metadata.
-     */
-    GOVERNANCE_ACTION_SERVICE_CONNECTOR(29,
-                                        ComponentDevelopmentStatus.STABLE,
-                                        "Governance Action Service Connector",
-                                        "A connector that coordinates governance of digital resources and metadata.",
-                                        "https://egeria-project.org/guides/developer/governance-action-services/overview/"),
-
-    /**
-     * Repository Governance Service Connector - A connector that dynamically governs the activity of the open metadata repositories.
-     */
-    REPOSITORY_GOVERNANCE_SERVICE_CONNECTOR(30,
-                                            ComponentDevelopmentStatus.IN_DEVELOPMENT,
-                                            "Repository Governance Service Connector",
-                                            "A connector that dynamically governs the activity of the open metadata repositories.",
-                                            "https://egeria-project.org/guides/developer/repository-governance-services/overview/"),
-
-    /**
-     * Integration Connector - Connector that manages metadata exchange with a third-party technology.
-     */
-    INTEGRATION_CONNECTOR(31,
-                          ComponentDevelopmentStatus.STABLE,
-                          "Integration Connector",
-                          "Connector that manages metadata exchange with a third party technology.",
-                          "https://egeria-project.org/concepts/integration-connector/"),
-
-    /**
-     * Platform Metadata Security Connector - Connector that manages authorization requests to the OMAG Server Platform.
-     */
-    PLATFORM_SECURITY_CONNECTOR(32,
-                                ComponentDevelopmentStatus.STABLE,
-                                "Platform Metadata Security Connector",
-                                "Connector that manages authorization requests to the OMAG Server Platform.",
-                                "https://egeria-project.org/concepts/platform-metadata-security-connector/"),
-
-    /**
-     * Server Metadata Security Connector - Connector that manages authorization requests to the OMAG Server.
-     */
-    SERVER_SECURITY_CONNECTOR(33,
-                              ComponentDevelopmentStatus.STABLE,
-                              "Server Metadata Security Connector",
-                              "Connector that manages authorization requests to the OMAG Server.",
-                              "https://egeria-project.org/concepts/server-metadata-security-connector/"),
     ;
 
 

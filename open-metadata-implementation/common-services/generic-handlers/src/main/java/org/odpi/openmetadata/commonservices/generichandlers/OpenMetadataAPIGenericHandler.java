@@ -7984,6 +7984,9 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
         {
             retrievedEntities = repositoryHandler.getEntitiesByValue(userId,
                                                                      value,
+                                                                     exactValueMatch,
+                                                                     exactValueMatch,
+                                                                     caseInsensitive,
                                                                      resultTypeGUID,
                                                                      limitResultsByStatus,
                                                                      limitResultsByClassifications,

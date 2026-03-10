@@ -32,6 +32,7 @@ public class Referenceable extends ElementBase
     private String              displayName          = null;
     private String              description          = null;
     private String              versionIdentifier    = null;
+    private String              url                  = null;
     private Map<String, String> additionalProperties = null;
 
     /**
@@ -58,6 +59,7 @@ public class Referenceable extends ElementBase
             displayName          = template.getDisplayName();
             description          = template.getDescription();
             versionIdentifier    = template.getVersionIdentifier();
+            url                  = template.getURL();
             additionalProperties = template.getAdditionalProperties();
         }
     }
@@ -151,6 +153,27 @@ public class Referenceable extends ElementBase
     }
 
 
+    /**
+     * Return the URL for the connector.
+     *
+     * @return string
+     */
+    public String getURL()
+    {
+        return url;
+    }
+
+
+    /**
+     * Set up the URL for the connector.
+     *
+     * @param url string
+     */
+    public void setURL(String url)
+    {
+        this.url = url;
+    }
+
 
     /**
      * Set up additional properties.
@@ -188,6 +211,7 @@ public class Referenceable extends ElementBase
                 ", displayName='" + displayName + '\'' +
                 ", description='" + description + '\'' +
                 ", versionIdentifier='" + versionIdentifier + '\'' +
+                ", url='" + url + '\'' +
                 ", additionalProperties=" + additionalProperties +
                 "} " + super.toString();
     }
@@ -216,9 +240,10 @@ public class Referenceable extends ElementBase
         }
         Referenceable that = (Referenceable) objectToCompare;
         return Objects.equals(qualifiedName, that.qualifiedName) &&
-                Objects.equals(versionIdentifier, that.versionIdentifier) &&
                 Objects.equals(displayName, that.displayName) &&
                 Objects.equals(description, that.description) &&
+                Objects.equals(versionIdentifier, that.versionIdentifier) &&
+                Objects.equals(url, that.url) &&
                 Objects.equals(additionalProperties, that.additionalProperties);
     }
 
@@ -231,6 +256,6 @@ public class Referenceable extends ElementBase
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), qualifiedName, versionIdentifier, displayName, description, additionalProperties);
+        return Objects.hash(super.hashCode(), qualifiedName, displayName, description, versionIdentifier, url, additionalProperties);
     }
 }

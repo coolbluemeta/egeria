@@ -1,0 +1,274 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2" pages="2">
+  <diagram name="jdbc-resource-connector" id="gecXOHoIWtEGJEuwE0Bp">
+    <mxGraphModel dx="1234" dy="817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="TRuaZ0YdvM-XNHsn53OC-0" />
+        <mxCell id="TRuaZ0YdvM-XNHsn53OC-1" parent="TRuaZ0YdvM-XNHsn53OC-0" />
+        <mxCell id="oJlDQzXVw8HOLyCL71YI-0" parent="TRuaZ0YdvM-XNHsn53OC-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
+          <mxGeometry height="210" width="250" x="90" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="oJlDQzXVw8HOLyCL71YI-1" parent="TRuaZ0YdvM-XNHsn53OC-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="" vertex="1">
+          <mxGeometry height="150" width="206" x="114" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="oJlDQzXVw8HOLyCL71YI-3" parent="TRuaZ0YdvM-XNHsn53OC-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="JDBC Resource&lt;br&gt;Connector" vertex="1">
+          <mxGeometry height="60" width="150" x="140" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="7Wi_EEpIxhZDPxJa6SJP-1" edge="1" parent="TRuaZ0YdvM-XNHsn53OC-1" source="7Wi_EEpIxhZDPxJa6SJP-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="7Wi_EEpIxhZDPxJa6SJP-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="203" y="288" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7Wi_EEpIxhZDPxJa6SJP-2" parent="TRuaZ0YdvM-XNHsn53OC-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" value="JDBC Driver" vertex="1">
+          <mxGeometry height="30" width="90" x="170" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="7Wi_EEpIxhZDPxJa6SJP-3" parent="TRuaZ0YdvM-XNHsn53OC-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=6.5;fillColor=#fff2cc;strokeColor=#d6b656;" value="Relational&lt;br&gt;Database" vertex="1">
+          <mxGeometry height="60" width="90" x="170" y="340" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="jdbc-connectors" id="HyNCicbQpqmRx3yPwaq7">
+    <mxGraphModel dx="1234" dy="817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="u-vyq24pps9pBkCnTgMv-0" />
+        <mxCell id="u-vyq24pps9pBkCnTgMv-1" parent="u-vyq24pps9pBkCnTgMv-0" />
+        <mxCell id="DcW0Zh13YLuw4jBB6OLX-0" parent="u-vyq24pps9pBkCnTgMv-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;verticalAlign=middle;" value="Database Driver JAR" vertex="1">
+          <mxGeometry height="80" width="200" x="662" y="1844" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-0" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.07;entryY=0.4;entryDx=0;entryDy=0;entryPerimeter=0;" target="5DFpyIyGxvb74kgAznw8-38">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="517" y="502" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-1" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;verticalAlign=top;" value="Integration Daemon" vertex="1">
+          <mxGeometry height="160" width="280" x="420" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-2" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#fad7ac;strokeColor=#b46504;" value="Integration Connector" vertex="1">
+          <mxGeometry height="110" width="230" x="445" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-3" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;verticalAlign=middle;" value="JDBC Digital Resource Connector" vertex="1">
+          <mxGeometry height="60" width="120" x="495" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-4" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1" value="Generic Database&lt;br&gt;&quot;integration&quot; connector" vertex="1">
+          <mxGeometry height="30" width="150" x="480" y="950" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-5" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="APIs" vertex="1">
+          <mxGeometry height="20" width="40" x="560" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-6" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="5DFpyIyGxvb74kgAznw8-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="543" y="838" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-7" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" value="JDBC Driver" vertex="1">
+          <mxGeometry height="30" width="90" x="510" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-8" parent="u-vyq24pps9pBkCnTgMv-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=6.5;fillColor=#d0cee2;strokeColor=#56517e;" value="Relational&lt;br&gt;Database" vertex="1">
+          <mxGeometry height="60" width="90" x="510" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-9" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" target="5DFpyIyGxvb74kgAznw8-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="785" y="688" />
+              <mxPoint x="713" y="688" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-10" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" value="" vertex="1">
+          <mxGeometry height="60" width="70" x="750" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-11" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="760" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-12" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="Monitors for Database Asset entities&lt;br&gt;and uses the JDBC digital resource connector&lt;br&gt;to extract schema information." vertex="1">
+          <mxGeometry height="50" width="260" x="425" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-13" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="Open metadata" vertex="1">
+          <mxGeometry height="20" width="100" x="700" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-14" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.55;entryY=0.95;entryDx=0;entryDy=0;entryPerimeter=0;" target="5DFpyIyGxvb74kgAznw8-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-15" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;verticalAlign=top;" value="Engine Host" vertex="1">
+          <mxGeometry height="160" width="280" x="870" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-16" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#fad7ac;strokeColor=#b46504;" value="Survey Action Service" vertex="1">
+          <mxGeometry height="110" width="230" x="895" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-17" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;verticalAlign=middle;" value="JDBC Digital Resource Connector" vertex="1">
+          <mxGeometry height="60" width="120" x="945" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-18" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1" value="Database &quot;open survey&lt;br&gt;service&quot; connector" vertex="1">
+          <mxGeometry height="40" width="150" x="930" y="945" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-19" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="APIs" vertex="1">
+          <mxGeometry height="20" width="40" x="1010" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-20" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="5DFpyIyGxvb74kgAznw8-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="993" y="838" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-21" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" value="JDBC Driver" vertex="1">
+          <mxGeometry height="30" width="90" x="960" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-22" parent="u-vyq24pps9pBkCnTgMv-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=6.5;fillColor=#d0cee2;strokeColor=#56517e;" value="Relational&lt;br&gt;Database" vertex="1">
+          <mxGeometry height="60" width="90" x="960" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-23" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="Accesses relational data to&lt;br&gt;build profile of the data content.&lt;br&gt;Also access system tables." vertex="1">
+          <mxGeometry height="50" width="180" x="915" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-24" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;verticalAlign=top;" value="Engine Host" vertex="1">
+          <mxGeometry height="160" width="280" x="1229" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-25" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#fad7ac;strokeColor=#b46504;" value="Governance Action Service" vertex="1">
+          <mxGeometry height="110" width="230" x="1254" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-26" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;verticalAlign=middle;" value="JDBC Digital Resource Connector" vertex="1">
+          <mxGeometry height="60" width="120" x="1304" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-27" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1" value="Governance warehouse&lt;br&gt;maintenance" vertex="1">
+          <mxGeometry height="30" width="150" x="1289" y="950" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-28" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="APIs" vertex="1">
+          <mxGeometry height="20" width="40" x="1369" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-29" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="5DFpyIyGxvb74kgAznw8-31">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1352" y="838" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-30" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" value="JDBC Driver" vertex="1">
+          <mxGeometry height="30" width="90" x="1319" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-31" parent="u-vyq24pps9pBkCnTgMv-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=6.5;fillColor=#d0cee2;strokeColor=#56517e;" value="Metrics Mart" vertex="1">
+          <mxGeometry height="60" width="90" x="1319" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-32" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="Writes aggregate information&lt;br&gt;from open metadata to&lt;br&gt;relational database.&amp;nbsp;" vertex="1">
+          <mxGeometry height="50" width="170" x="1279" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-33" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1619" y="708" />
+              <mxPoint x="1547" y="708" />
+            </Array>
+            <mxPoint x="1509" y="707.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-34" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" value="" vertex="1">
+          <mxGeometry height="60" width="70" x="1584" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-35" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="1594" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-36" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="Open metadata" vertex="1">
+          <mxGeometry height="20" width="100" x="1534" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-37" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.875;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" target="5DFpyIyGxvb74kgAznw8-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-38" parent="u-vyq24pps9pBkCnTgMv-1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" value="Open&lt;br&gt;Metadata" vertex="1">
+          <mxGeometry height="80" width="120" x="944" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-39" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="Database Schemas/Tables/Columns" vertex="1">
+          <mxGeometry height="20" width="210" x="565" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-40" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="DataProfile" vertex="1">
+          <mxGeometry height="20" width="70" x="932" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-41" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="Reading/Listening to open metadata" vertex="1">
+          <mxGeometry height="20" width="210" x="1197" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-42" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#fad7ac;strokeColor=#b46504;" value="Consumer" vertex="1">
+          <mxGeometry height="110" width="230" x="60" y="657.5" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-43" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;verticalAlign=middle;" value="JDBC Digital Resource Connector" vertex="1">
+          <mxGeometry height="60" width="120" x="110" y="707.5" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-44" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1" value="JDBC&lt;br&gt;&quot;digital resource&quot; connector" vertex="1">
+          <mxGeometry height="30" width="180" x="73.5" y="947.5" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-45" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="APIs" vertex="1">
+          <mxGeometry height="20" width="40" x="175" y="807.5" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-46" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="5DFpyIyGxvb74kgAznw8-49">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="158" y="835.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-47" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" value="JDBC Driver" vertex="1">
+          <mxGeometry height="30" width="90" x="125" y="767.5" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-48" parent="u-vyq24pps9pBkCnTgMv-1" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;position2=0.17;size=60;position=0.33;fillColor=#ffff88;strokeColor=#36393d;" value="API matches the Java JDBC interface" vertex="1">
+          <mxGeometry height="110" width="120" x="205" y="597.5" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-49" parent="u-vyq24pps9pBkCnTgMv-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=6.5;fillColor=#d0cee2;strokeColor=#56517e;" value="Relational&lt;br&gt;Database" vertex="1">
+          <mxGeometry height="60" width="90" x="125" y="837.5" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-50" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="Provides the basic access to relational data.&lt;br&gt;(May support configuration to handle&lt;br&gt;specific database peculiarities)" vertex="1">
+          <mxGeometry height="60" width="260" x="40" y="982.5" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-51" parent="u-vyq24pps9pBkCnTgMv-1" style="text;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;quot;helvetica&amp;quot; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;The appropriate database driver needs to be on the class path.&amp;nbsp; It is dynamically loaded by JDBC based on the database connection URL defined in the Endpoint.&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="255" x="634.5" y="1944" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-53" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="5DFpyIyGxvb74kgAznw8-57" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-54" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Database" vertex="1">
+          <mxGeometry height="60" width="120" x="55" y="1714" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-55" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="5DFpyIyGxvb74kgAznw8-58" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-56" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="5DFpyIyGxvb74kgAznw8-59" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-57" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Connection" vertex="1">
+          <mxGeometry height="60" width="120" x="255" y="1714" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-58" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Connector Type" vertex="1">
+          <mxGeometry height="60" width="120" x="475" y="1714" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-59" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Endpoint" vertex="1">
+          <mxGeometry height="60" width="120" x="255" y="1854" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-60" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="The database is&lt;br&gt;catalogued as an asset." vertex="1">
+          <mxGeometry height="40" width="150" x="40" y="1659" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-61" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="Information about the JDBC&lt;br&gt;resource connector to use&lt;br&gt;to access the database&lt;br&gt;is described in a connection." vertex="1">
+          <mxGeometry height="70" width="170" x="232" y="1634" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-62" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="The connector type defines&lt;br&gt;the connector implementation." vertex="1">
+          <mxGeometry height="30" width="180" x="445" y="1784" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-63" parent="u-vyq24pps9pBkCnTgMv-1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" value="The endpoint defines the network&lt;br&gt;location of the database&lt;br&gt;&amp;nbsp;(database connection URL)." vertex="1">
+          <mxGeometry height="60" width="200" x="50" y="1854" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-64" parent="u-vyq24pps9pBkCnTgMv-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;verticalAlign=top;" value="JDBC Resource Connector&lt;br&gt;Implementation JAR" vertex="1">
+          <mxGeometry height="230" width="200" x="662" y="1629" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-65" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=1;whiteSpace=wrap;html=1;" value="Connector Provider" vertex="1">
+          <mxGeometry height="60" width="120" x="702" y="1714" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-66" parent="u-vyq24pps9pBkCnTgMv-1" style="rounded=1;whiteSpace=wrap;html=1;" value="Connector" vertex="1">
+          <mxGeometry height="60" width="120" x="702" y="1779" as="geometry" />
+        </mxCell>
+        <mxCell id="5DFpyIyGxvb74kgAznw8-67" edge="1" parent="u-vyq24pps9pBkCnTgMv-1" source="5DFpyIyGxvb74kgAznw8-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="5DFpyIyGxvb74kgAznw8-65">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="692" y="1744" />
+              <mxPoint x="692" y="1744" />
+            </Array>
+            <mxPoint x="642" y="1664" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DcW0Zh13YLuw4jBB6OLX-1" parent="u-vyq24pps9pBkCnTgMv-1" style="text;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;quot;helvetica&amp;quot; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;The JDBC resource connector&#39;s implementation JAR file needs to be on the class path of the process using the connector.&lt;br&gt;It is dynamically loaded by Egeria when the&lt;br&gt;connector is requested.&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="255" x="644.5" y="1534" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

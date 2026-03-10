@@ -452,14 +452,14 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
      * @param entityTypeGUID String unique identifier for the entity type of interest (null means any entity type).
      * @param entitySubtypeGUIDs optional list of the unique identifiers (guids) for subtypes of the entityTypeGUID to
      *                           include in the search results. Null means all subtypes.
-     * @param matchProperties Optional list of entity property conditions to match.
+     * @param searchProperties Optional list of entity property conditions to match.
      * @param fromEntityElement the starting element number of the entities to return.
      *                                This is used when retrieving elements
      *                                beyond the first page of results. Zero means start from the first element.
      * @param limitResultsByStatus By default, entities in all non-DELETED statuses are returned.  However, it is possible
      *                             to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
      *                             status values except DELETED.
-     * @param matchClassifications Optional list of entity classifications to match.
+     * @param searchClassifications Optional list of entity classifications to match.
      * @param asOfTime Requests a historical query of the entity.  Null means return the present values.
      * @param sequencingProperty String name of the entity property that is to be used to sequence the results.
      *                           Null means do not sequence on a property name (see SequencingOrder).
@@ -482,10 +482,10 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
     public List<EntityDetail> findEntities(String                    userId,
                                            String                    entityTypeGUID,
                                            List<String>              entitySubtypeGUIDs,
-                                           SearchProperties          matchProperties,
+                                           SearchProperties          searchProperties,
                                            int                       fromEntityElement,
                                            List<InstanceStatus>      limitResultsByStatus,
-                                           SearchClassifications     matchClassifications,
+                                           SearchClassifications     searchClassifications,
                                            Date                      asOfTime,
                                            String                    sequencingProperty,
                                            SequencingOrder           sequencingOrder,
@@ -502,10 +502,10 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
         super.findEntitiesParameterValidation(userId,
                                               entityTypeGUID,
                                               entitySubtypeGUIDs,
-                                              matchProperties,
+                                              searchProperties,
                                               fromEntityElement,
                                               limitResultsByStatus,
-                                              matchClassifications,
+                                              searchClassifications,
                                               asOfTime,
                                               sequencingProperty,
                                               sequencingOrder,
@@ -526,8 +526,8 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
             {
                 if ((repositoryValidator.verifyInstanceType(repositoryName, entityTypeGUID, entitySubtypeGUIDs, entity)) &&
                     (repositoryValidator.verifyInstanceHasRightStatus(limitResultsByStatus, entity)) &&
-                    (repositoryValidator.verifyMatchingClassifications(repositoryName, matchClassifications, entity)) &&
-                    (repositoryValidator.verifyMatchingInstancePropertyValues(matchProperties, entity.getGUID(), entity, entity.getProperties())))
+                    (repositoryValidator.verifyMatchingClassifications(repositoryName, searchClassifications, entity)) &&
+                    (repositoryValidator.verifyMatchingInstancePropertyValues(searchProperties, entity.getGUID(), entity, entity.getProperties())))
                 {
                     foundEntities.add(entity);
                 }
@@ -669,34 +669,37 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
      * Return a list of entities whose string based property values match the search criteria.  The
      * search criteria may include regex style wild cards.
      *
-     * @param userId  unique identifier for requesting user.
-     * @param entityTypeGUID  GUID of the type of entity to search for. Null means all types will
-     *                       be searched (could be slow so not recommended).
-     * @param searchCriteria String Java regular expression used to match against any of the String property values
-     *                       within entity instances of the specified type(s).
-     *                       This parameter must not be null.
-     * @param fromEntityElement  the starting element number of the entities to return.
-     *                                This is used when retrieving elements
-     *                                beyond the first page of results. Zero means start from the first element.
-     * @param limitResultsByStatus  By default, entities in all non-DELETED statuses are returned.  However, it is possible
-     *                             to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
-     *                             status values except DELETED.
-     * @param limitResultsByClassification  List of classifications that must be present on all returned entities.
-     * @param asOfTime  Requests a historical query of the entity.  Null means return the present values.
-     * @param sequencingProperty  String name of the property that is to be used to sequence the results.
-     *                           Null means do not sequence on a property name (see SequencingOrder).
-     * @param sequencingOrder  Enum defining how the results should be ordered.
-     * @param pageSize  the maximum number of result entities that can be returned on this request.  Zero means
-     *                 unrestricted return results size.
+     * @param userId                       unique identifier for requesting user.
+     * @param entityTypeGUID               GUID of the type of entity to search for. Null means all types will
+     *                                     be searched (could be slow so not recommended).
+     * @param searchString                 String Java regular expression used to match against any of the String property values
+     *                                     within entity instances of the specified type(s).
+     *                                     This parameter must not be null.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
+     * @param fromEntityElement            the starting element number of the entities to return.
+     *                                     This is used when retrieving elements
+     *                                     beyond the first page of results. Zero means start from the first element.
+     * @param limitResultsByStatus         By default, entities in all non-DELETED statuses are returned.  However, it is possible
+     *                                     to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
+     *                                     status values except DELETED.
+     * @param limitResultsByClassification List of classifications that must be present on all returned entities.
+     * @param asOfTime                     Requests a historical query of the entity.  Null means return the present values.
+     * @param sequencingProperty           String name of the property that is to be used to sequence the results.
+     *                                     Null means do not sequence on a property name (see SequencingOrder).
+     * @param sequencingOrder              Enum defining how the results should be ordered.
+     * @param pageSize                     the maximum number of result entities that can be returned on this request.  Zero means
+     *                                     unrestricted return results size.
      * @return a list of entities matching the supplied criteria - null means no matching entities in the metadata
      * collection.
-     * @throws InvalidParameterException a parameter is invalid or null.
-     * @throws TypeErrorException the type guid passed on the request is not known by the metadata collection.
-     * @throws RepositoryErrorException a problem communicating with the metadata repository where
+     * @throws InvalidParameterException  a parameter is invalid or null.
+     * @throws TypeErrorException         the type guid passed on the request is not known by the metadata collection.
+     * @throws RepositoryErrorException   a problem communicating with the metadata repository where
      *                                    the metadata collection is stored.
-     * @throws PropertyErrorException the sequencing property specified is not valid for any of the requested types of
-     *                                  entity.
-     * @throws PagingErrorException the paging/sequencing parameters are set up incorrectly.
+     * @throws PropertyErrorException     the sequencing property specified is not valid for any of the requested types of
+     *                                    entity.
+     * @throws PagingErrorException       the paging/sequencing parameters are set up incorrectly.
      * @throws UserNotAuthorizedException the userId is not permitted to perform this operation.
      * @see OMRSRepositoryHelper#getExactMatchRegex(String)
      * @see OMRSRepositoryHelper#getContainsRegex(String)
@@ -704,7 +707,10 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
     @Override
     public  List<EntityDetail> findEntitiesByPropertyValue(String                userId,
                                                            String                entityTypeGUID,
-                                                           String                searchCriteria,
+                                                           String                searchString,
+                                                           boolean               startsWith,
+                                                           boolean               endsWith,
+                                                           boolean               ignoreCase,
                                                            int                   fromEntityElement,
                                                            List<InstanceStatus>  limitResultsByStatus,
                                                            List<String>          limitResultsByClassification,
@@ -725,7 +731,7 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
          */
         super.findEntitiesByPropertyValueParameterValidation(userId,
                                                              entityTypeGUID,
-                                                             searchCriteria,
+                                                             searchString,
                                                              fromEntityElement,
                                                              limitResultsByStatus,
                                                              limitResultsByClassification,
@@ -751,7 +757,7 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
                     (repositoryValidator.verifyEntityIsClassified(repositoryName, limitResultsByClassification, entity)) &&
                     (repositoryValidator.verifyInstancePropertiesMatchSearchCriteria(repositoryName,
                                                                                      entity.getProperties(),
-                                                                                     searchCriteria,
+                                                                                     searchString,
                                                                                      methodName)))
                 {
                     foundEntities.add(entity);
@@ -1166,32 +1172,35 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
      * Return a list of relationships whose string based property values match the search criteria.  The
      * search criteria may include regex style wild cards.
      *
-     * @param userId unique identifier for requesting user.
-     * @param relationshipTypeGUID GUID of the type of entity to search for. Null means all types will
-     *                       be searched (could be slow so not recommended).
-     * @param searchCriteria String Java regular expression used to match against any of the String property values
-     *                       within the relationship instances of the specified type(s).
-     *                       This parameter must not be null.
+     * @param userId                  unique identifier for requesting user.
+     * @param relationshipTypeGUID    GUID of the type of entity to search for. Null means all types will
+     *                                be searched (could be slow so not recommended).
+     * @param searchString            String Java regular expression used to match against any of the String property values
+     *                                within the relationship instances of the specified type(s).
+     *                                This parameter must not be null.
+     * @param startsWith true if the search should be for strings that start with the search string
+     * @param endsWith true if the search should be for strings that end with the search string
+     * @param ignoreCase true if the search should be case-insensitive
      * @param fromRelationshipElement Element number of the results to skip to when building the results list
      *                                to return.  Zero means begin at the start of the results.  This is used
      *                                to retrieve the results over a number of pages.
-     * @param limitResultsByStatus By default, relationships in all non-DELETED statuses are returned.  However, it is possible
-     *                             to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
-     *                             status values except DELETED.
-     * @param asOfTime Requests a historical query of the relationships for the entity.  Null means return the
-     *                 present values.
-     * @param sequencingProperty String name of the property that is to be used to sequence the results.
-     *                           Null means do not sequence on a property name (see SequencingOrder).
-     * @param sequencingOrder Enum defining how the results should be ordered.
-     * @param pageSize the maximum number of result relationships that can be returned on this request.  Zero means
-     *                 unrestricted return results size.
+     * @param limitResultsByStatus    By default, relationships in all non-DELETED statuses are returned.  However, it is possible
+     *                                to specify a list of statuses (eg ACTIVE) to restrict the results to.  Null means all
+     *                                status values except DELETED.
+     * @param asOfTime                Requests a historical query of the relationships for the entity.  Null means return the
+     *                                present values.
+     * @param sequencingProperty      String name of the property that is to be used to sequence the results.
+     *                                Null means do not sequence on a property name (see SequencingOrder).
+     * @param sequencingOrder         Enum defining how the results should be ordered.
+     * @param pageSize                the maximum number of result relationships that can be returned on this request.  Zero means
+     *                                unrestricted return results size.
      * @return a list of relationships.  Null means no matching relationships.
-     * @throws InvalidParameterException one of the parameters is invalid or null.
-     * @throws TypeErrorException the type guid passed on the request is not known by the metadata collection.
-     * @throws RepositoryErrorException a problem communicating with the metadata repository where
-     *                                  the metadata collection is stored.
-     * @throws PropertyErrorException a problem with one of the other parameters.
-     * @throws PagingErrorException the paging/sequencing parameters are set up incorrectly.
+     * @throws InvalidParameterException  one of the parameters is invalid or null.
+     * @throws TypeErrorException         the type guid passed on the request is not known by the metadata collection.
+     * @throws RepositoryErrorException   a problem communicating with the metadata repository where
+     *                                    the metadata collection is stored.
+     * @throws PropertyErrorException     a problem with one of the other parameters.
+     * @throws PagingErrorException       the paging/sequencing parameters are set up incorrectly.
      * @throws UserNotAuthorizedException the userId is not permitted to perform this operation.
      * @see OMRSRepositoryHelper#getExactMatchRegex(String)
      * @see OMRSRepositoryHelper#getContainsRegex(String)
@@ -1199,7 +1208,10 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
     @Override
     public  List<Relationship> findRelationshipsByPropertyValue(String                    userId,
                                                                 String                    relationshipTypeGUID,
-                                                                String                    searchCriteria,
+                                                                String                    searchString,
+                                                                boolean                   startsWith,
+                                                                boolean                   endsWith,
+                                                                boolean                   ignoreCase,
                                                                 int                       fromRelationshipElement,
                                                                 List<InstanceStatus>      limitResultsByStatus,
                                                                 Date                      asOfTime,
@@ -1220,7 +1232,7 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
          */
         super.findRelationshipsByPropertyValueParameterValidation(userId,
                                                                   relationshipTypeGUID,
-                                                                  searchCriteria,
+                                                                  searchString,
                                                                   fromRelationshipElement,
                                                                   limitResultsByStatus,
                                                                   asOfTime,
@@ -1244,7 +1256,7 @@ public class InMemoryOMRSMetadataCollection extends OMRSDynamicTypeMetadataColle
                     (repositoryValidator.verifyInstanceHasRightStatus(limitResultsByStatus, relationship)) &&
                     (repositoryValidator.verifyInstancePropertiesMatchSearchCriteria(repositoryName,
                                                                                      relationship.getProperties(),
-                                                                                     searchCriteria,
+                                                                                     searchString,
                                                                                      methodName)))
                 {
                     foundRelationships.add(relationship);
