@@ -22,7 +22,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ValidValueMemberProperties extends RelationshipBeanProperties
 {
-    boolean isDefaultValue = false;
+    private boolean isDefaultValue = false;
+    private int     ordinal        = 0;
 
     /**
      * Default constructor
@@ -46,6 +47,7 @@ public class ValidValueMemberProperties extends RelationshipBeanProperties
         if (template != null)
         {
             this.isDefaultValue = template.getIsDefaultValue();
+            this.ordinal        = template.getOrdinal();
         }
     }
 
@@ -73,6 +75,28 @@ public class ValidValueMemberProperties extends RelationshipBeanProperties
 
 
     /**
+     * Return the ordinal for this valid value.
+     *
+     * @return int ordinal
+     */
+    public int getOrdinal()
+    {
+        return ordinal;
+    }
+
+
+    /**
+     * Set up the ordinal for this valid value.
+     *
+     * @param ordinal int
+     */
+    public void setOrdinal(int ordinal)
+    {
+        this.ordinal = ordinal;
+    }
+
+
+    /**
      * JSON-style toString
      *
      * @return return string containing the property names and values
@@ -82,6 +106,7 @@ public class ValidValueMemberProperties extends RelationshipBeanProperties
     {
         return "ValidValueMemberProperties{" +
                 "isDefaultValue=" + isDefaultValue +
+                ", ordinal=" + ordinal +
                 "} " + super.toString();
     }
 
@@ -108,7 +133,8 @@ public class ValidValueMemberProperties extends RelationshipBeanProperties
             return false;
         }
         ValidValueMemberProperties that = (ValidValueMemberProperties) objectToCompare;
-        return isDefaultValue == that.isDefaultValue;
+        return ordinal == that.ordinal &&
+                isDefaultValue == that.isDefaultValue;
     }
 
 
@@ -120,6 +146,6 @@ public class ValidValueMemberProperties extends RelationshipBeanProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), isDefaultValue);
+        return Objects.hash(super.hashCode(), isDefaultValue, ordinal);
     }
 }

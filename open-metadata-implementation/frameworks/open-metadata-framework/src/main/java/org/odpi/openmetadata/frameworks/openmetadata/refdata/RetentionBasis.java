@@ -1,11 +1,10 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
-package org.odpi.openmetadata.frameworks.openmetadata.enums;
+package org.odpi.openmetadata.frameworks.openmetadata.refdata;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataWikiPages;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
@@ -16,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public enum RetentionBasis implements OpenMetadataEnum
+public enum RetentionBasis implements OpenMetadataRefData
 {
     /**
      * There is no assessment of the retention requirements for this data.
@@ -66,12 +65,6 @@ public enum RetentionBasis implements OpenMetadataEnum
     OTHER             ("d32edb1e-8ee0-498a-859d-333e8c1f5de1", 99, "Other",
                                "Another basis for determining the retention requirement.", false);
 
-    private static final String ENUM_TYPE_GUID  = "de79bf78-ecb0-4fd0-978f-ecc2cb4ff6c7";
-    private static final String ENUM_TYPE_NAME  = "RetentionBasis";
-
-    private static final String ENUM_DESCRIPTION = "Defines the retention requirements associated with a data item.";
-    private static final String ENUM_DESCRIPTION_GUID = "f88ba42b-0422-4c6f-b25f-7cbc4e0cfc7f";
-    private static final String ENUM_DESCRIPTION_WIKI = OpenMetadataWikiPages.MODEL_0421_GOVERNANCE_CLASSIFICATION;
 
     private final String descriptionGUID;
 
@@ -120,7 +113,7 @@ public enum RetentionBasis implements OpenMetadataEnum
      * @return String name
      */
     @Override
-    public String getName() { return name; }
+    public String getDisplayName() { return name; }
 
 
     /**
@@ -153,54 +146,6 @@ public enum RetentionBasis implements OpenMetadataEnum
     public boolean isDefault()
     {
         return isDefault;
-    }
-
-    /**
-     * Return the unique identifier for the open metadata enum type that this enum class represents.
-     *
-     * @return string guid
-     */
-    public static String getOpenTypeGUID() { return ENUM_TYPE_GUID; }
-
-
-    /**
-     * Return the unique name for the open metadata enum type that this enum class represents.
-     *
-     * @return string name
-     */
-    public static String getOpenTypeName() { return ENUM_TYPE_NAME; }
-
-
-    /**
-     * Return the description for the open metadata enum type that this enum class represents.
-     *
-     * @return string description
-     */
-    public static String getOpenTypeDescription()
-    {
-        return ENUM_DESCRIPTION;
-    }
-
-
-    /**
-     * Return the unique identifier for the valid value element for the open metadata enum type that this enum class represents.
-     *
-     * @return string guid
-     */
-    public static String getOpenTypeDescriptionGUID()
-    {
-        return ENUM_DESCRIPTION_GUID;
-    }
-
-
-    /**
-     * Return the unique identifier for the valid value element for the open metadata enum type that this enum class represents.
-     *
-     * @return string guid
-     */
-    public static String getOpenTypeDescriptionWiki()
-    {
-        return ENUM_DESCRIPTION_WIKI;
     }
 
 

@@ -297,7 +297,7 @@ public class ProvisionUnityCatalogGovernanceActionConnector extends GeneralGover
                                                                                           new NewElementProperties(propertyHelper.addEnumProperty(null,
                                                                                                                                                   OpenMetadataProperty.USE_TYPE.name,
                                                                                                                                                   CapabilityAssetUseType.getOpenTypeName(),
-                                                                                                                                                  CapabilityAssetUseType.OWNS.getName())));
+                                                                                                                                                  CapabilityAssetUseType.OWNS.name())));
     }
 
 

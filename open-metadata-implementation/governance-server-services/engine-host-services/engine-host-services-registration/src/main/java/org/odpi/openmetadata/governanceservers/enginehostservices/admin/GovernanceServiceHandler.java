@@ -158,68 +158,6 @@ public abstract class GovernanceServiceHandler implements Runnable
 
 
     /**
-     * Update the status of a specific action target. By default, these values are derived from
-     * the values for the governance action service.  However, if the governance service has to process name
-     * target elements, then setting the status on each individual target will show the progress of the
-     * governance action service.
-     *
-     * @param actionTargetGUID unique identifier of the action target relationship.
-     * @param status status enum to show its progress
-     * @param startDate date/time that the governance action service started processing the target
-     * @param completionDate date/time that the governance process completed processing this target.
-     * @param completionMessage message to describe completion results or reasons for failure
-     *
-     * @throws InvalidParameterException the action target GUID is not recognized
-     * @throws UserNotAuthorizedException the governance action service is not authorized to update the action target properties
-     * @throws PropertyServerException a problem connecting to the metadata store
-     */
-    public void updateActionTargetStatus(String             actionTargetGUID,
-                                         ActivityStatus status,
-                                         Date               startDate,
-                                         Date               completionDate,
-                                         String             completionMessage) throws InvalidParameterException,
-                                                                                      UserNotAuthorizedException,
-                                                                                      PropertyServerException
-    {
-        final String methodName = "updateActionTargetStatus";
-
-        if (auditLog != null)
-        {
-            String statusString   = "<null>";
-            String startTime      = "<null>";
-            String completionTime = "<null>";
-
-            if (status != null)
-            {
-                statusString = status.getName();
-            }
-
-            if (startDate != null)
-            {
-                startTime = startDate.toString();
-            }
-
-            if (completionDate != null)
-            {
-                completionTime = completionDate.toString();
-            }
-
-            auditLog.logMessage(methodName, EngineHostServicesAuditCode.ENGINE_ACTION_TARGET_COMPLETION.getMessageDefinition(engineActionGUID,
-                                                                                                                             governanceServiceName,
-                                                                                                                             getGovernanceEngineName(),
-                                                                                                                             serviceRequestType,
-                                                                                                                             actionTargetGUID,
-                                                                                                                             statusString,
-                                                                                                                             startTime,
-                                                                                                                             completionTime,
-                                                                                                                             completionMessage));
-        }
-
-        engineActionClient.updateActionTargetStatus(engineHostUserId, actionTargetGUID, status, startDate, completionDate, completionMessage);
-    }
-
-
-    /**
      * Declare that all the processing for the governance action service is finished and the status of the work.
      *
      * @param status completion status enum value

@@ -23,16 +23,12 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class PropertyCondition implements Serializable
+public class PropertyCondition
 {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    private String property;
+    private String                     property;
     private PropertyComparisonOperator operator;
-    private InstancePropertyValue value;
-    private SearchProperties nestedConditions;
+    private InstancePropertyValue      value;
+    private SearchProperties           nestedConditions;
 
     /**
      * Typical constructor
@@ -168,11 +164,10 @@ public class PropertyCondition implements Serializable
         {
             return true;
         }
-        if (!(objectToCompare instanceof PropertyCondition))
+        if (!(objectToCompare instanceof PropertyCondition that))
         {
             return false;
         }
-        PropertyCondition that = (PropertyCondition) objectToCompare;
         return getOperator() == that.getOperator() &&
                 Objects.equals(getProperty(), that.getProperty()) &&
                 Objects.equals(getValue(), that.getValue()) &&

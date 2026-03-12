@@ -9,10 +9,15 @@ import org.odpi.openmetadata.commonservices.ffdc.RESTExceptionHandler;
 import org.odpi.openmetadata.commonservices.ffdc.rest.*;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.openmetadata.client.OpenMetadataClient;
+import org.odpi.openmetadata.frameworks.openmetadata.search.MatchCriteria;
+import org.odpi.openmetadata.frameworks.openmetadata.search.PropertyComparisonOperator;
 import org.odpi.openmetadata.frameworkservices.omf.rest.*;
 import org.odpi.openmetadata.tokencontroller.TokenController;
+import org.odpi.openmetadata.viewservices.metadataexpert.rest.MatchCriteriaListResponse;
+import org.odpi.openmetadata.viewservices.metadataexpert.rest.PropertyComparisonOperatorListResponse;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 
 
 /**
@@ -1644,6 +1649,80 @@ public class MetadataExpertRESTServices extends TokenController
         restCallLogger.logRESTCallReturn(token, response);
         return response;
     }
+
+
+    /**
+     * Return the list of enum values.
+     *
+     * @param serverName name of the server to route the request to
+     * @return list of enum values
+     */
+    public PropertyComparisonOperatorListResponse getPropertyComparisonOperatorList(String serverName)
+    {
+        final String methodName = "getPropertyComparisonOperatorList";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        PropertyComparisonOperatorListResponse response = new PropertyComparisonOperatorListResponse();
+        AuditLog                       auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            response.setValues(List.of(PropertyComparisonOperator.values()));
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
+
+
+    /**
+     * Return the list of enum values.
+     *
+     * @param serverName name of the server to route the request to
+     * @return list of enum values
+     */
+    public MatchCriteriaListResponse getMatchCriteriaList(String serverName)
+    {
+        final String methodName = "getMatchCriteriaList";
+
+        RESTCallToken token = restCallLogger.logRESTCall(serverName, methodName);
+
+        MatchCriteriaListResponse response = new MatchCriteriaListResponse();
+        AuditLog                  auditLog = null;
+
+        try
+        {
+            String userId = super.getUser(instanceHandler.getServiceName(), methodName);
+
+            restCallLogger.setUserId(token, userId);
+
+            auditLog = instanceHandler.getAuditLog(userId, serverName, methodName);
+
+            response.setValues(List.of(MatchCriteria.values()));
+        }
+        catch (Throwable error)
+        {
+            restExceptionHandler.captureRuntimeExceptions(response, error, methodName, auditLog);
+        }
+
+        restCallLogger.logRESTCallReturn(token, response);
+
+        return response;
+    }
+
 
 
     /**

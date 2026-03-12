@@ -20,112 +20,112 @@ public enum UnityCatalogPlaceholderProperty
     /**
      * The unique name of a Unity Catalog (UC) server
      */
-    SERVER_QUALIFIED_NAME ("ucServerQualifiedName", "The unique name of a Unity Catalog (UC) server.", DataType.STRING.getName(), "Unity Catalog Server:Unity Catalog 1"),
+    SERVER_QUALIFIED_NAME ("ucServerQualifiedName", "The unique name of a Unity Catalog (UC) server.", DataType.STRING.getDisplayName(), "Unity Catalog Server:Unity Catalog 1"),
 
     /**
      * The name of the catalog being described.
      */
-    CATALOG_NAME ("ucCatalogName", "The name of a catalog within Unity Catalog (UC).", DataType.STRING.getName(), "my_catalog"),
+    CATALOG_NAME ("ucCatalogName", "The name of a catalog within Unity Catalog (UC).", DataType.STRING.getDisplayName(), "my_catalog"),
 
     /**
      * The name of a schema within a catalog in Unity Catalog (UC).
      */
-    SCHEMA_NAME ("ucSchemaName", "The name of a schema within a catalog in Unity Catalog (UC).  This value is combined with the name of the catalog to get the full name.", DataType.STRING.getName(), "my_schema"),
+    SCHEMA_NAME ("ucSchemaName", "The name of a schema within a catalog in Unity Catalog (UC).  This value is combined with the name of the catalog to get the full name.", DataType.STRING.getDisplayName(), "my_schema"),
 
     /**
      * The identifier of the owner of this element
      */
-    OWNER ("ucOwner", "The identifier of the owner of this element", DataType.STRING.getName(), null),
+    OWNER ("ucOwner", "The identifier of the owner of this element", DataType.STRING.getDisplayName(), null),
 
     /**
      * GUID for the associated Hive Metadata Store.
      */
-    METASTORE_ID("ucMetaStoreId", "GUID for the associated Hive Metadata Store.", DataType.STRING.getName(), null),
+    METASTORE_ID("ucMetaStoreId", "GUID for the associated Hive Metadata Store.", DataType.STRING.getDisplayName(), null),
 
     /**
      * Type of element to secure.
      */
-    SECURABLE_TYPE("ucSecurableType", "Type of element to secure.", DataType.STRING.getName(), null),
+    SECURABLE_TYPE("ucSecurableType", "Type of element to secure.", DataType.STRING.getDisplayName(), null),
 
     /**
      * Kind of security got this element.
      */
-    SECURABLE_KIND("ucSecurableKind", "Kind of security got this element.", DataType.STRING.getName(), null),
+    SECURABLE_KIND("ucSecurableKind", "Kind of security got this element.", DataType.STRING.getDisplayName(), null),
 
     /**
      * Can this be updated?
      */
-    BROWSE_ONLY("ucBrowseOnly", "Can this be updated?", DataType.BOOLEAN.getName(), null),
+    BROWSE_ONLY("ucBrowseOnly", "Can this be updated?", DataType.BOOLEAN.getDisplayName(), null),
 
     /**
      * Isolation mode, such as OPEN.
      */
-    ISOLATION_MODE("ucIsolationMode", "Isolation mode, such as OPEN.", DataType.STRING.getName(), null),
+    ISOLATION_MODE("ucIsolationMode", "Isolation mode, such as OPEN.", DataType.STRING.getDisplayName(), null),
 
     /**
      * Access mode.
      */
-    ACCESSIBLE_IN_CURRENT_WORKSPACE("ucAccessibleInCurrentWorkspace", "Access mode.", DataType.BOOLEAN.getName(), null),
+    ACCESSIBLE_IN_CURRENT_WORKSPACE("ucAccessibleInCurrentWorkspace", "Access mode.", DataType.BOOLEAN.getDisplayName(), null),
 
     /**
      * The location where the data associated with this element in Unity Catalog is stored.
      */
-    STORAGE_LOCATION ("ucStorageLocation", "The location where the data associated with this element in Unity Catalog is stored.", DataType.STRING.getName(), "a/b/c"),
+    STORAGE_LOCATION ("ucStorageLocation", "The location where the data associated with this element in Unity Catalog is stored.", DataType.STRING.getDisplayName(), "a/b/c"),
 
     /**
      * The name of a table within a schema and catalog in Unity Catalog (UC).
      */
-    TABLE_NAME ("ucTableName", "The name of a table within a schema and catalog in Unity Catalog (UC).  This value is combined with the name of the schema and catalog to get the full name.", DataType.STRING.getName(), "my_table"),
+    TABLE_NAME ("ucTableName", "The name of a table within a schema and catalog in Unity Catalog (UC).  This value is combined with the name of the schema and catalog to get the full name.", DataType.STRING.getDisplayName(), "my_table"),
 
     /**
      * The type a table: MANAGED or EXTERNAL.
      */
-    TABLE_TYPE ("ucTableType", "The type of a table: MANAGED or EXTERNAL.", DataType.STRING.getName(), "MANAGED"),
+    TABLE_TYPE ("ucTableType", "The type of a table: MANAGED or EXTERNAL.", DataType.STRING.getDisplayName(), "MANAGED"),
 
     /**
      * The format of the data source: DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT.
      */
-    DATA_SOURCE_FORMAT ("ucDataSourceFormat", "The format of the data source: DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT.", DataType.STRING.getName(), "CSV"),
+    DATA_SOURCE_FORMAT ("ucDataSourceFormat", "The format of the data source: DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT.", DataType.STRING.getDisplayName(), "CSV"),
 
     /**
      * The name of a volume within a schema and catalog in Unity Catalog (UC).
      */
-    VOLUME_NAME ("ucVolumeName", "The name of a volume within a schema and catalog in Unity Catalog (UC).  This value is combined with the name of the schema and catalog to get the full name.", DataType.STRING.getName(), "my_volume"),
+    VOLUME_NAME ("ucVolumeName", "The name of a volume within a schema and catalog in Unity Catalog (UC).  This value is combined with the name of the schema and catalog to get the full name.", DataType.STRING.getDisplayName(), "my_volume"),
 
     /**
      * The type of volume: MANAGED or EXTERNAL.
      */
-    VOLUME_TYPE ("ucVolumeType", "The type of a volume: MANAGED or EXTERNAL.", DataType.STRING.getName(), "MANAGED"),
+    VOLUME_TYPE ("ucVolumeType", "The type of a volume: MANAGED or EXTERNAL.", DataType.STRING.getDisplayName(), "MANAGED"),
 
     /**
      * The name of a function within a schema and catalog in Unity Catalog (UC).
      */
-    FUNCTION_NAME ("ucFunctionName", "The name of a function within a schema and catalog in Unity Catalog (UC).  This value is combined with the name of the schema and catalog to get the full name.", DataType.STRING.getName(), "my_function"),
+    FUNCTION_NAME ("ucFunctionName", "The name of a function within a schema and catalog in Unity Catalog (UC).  This value is combined with the name of the schema and catalog to get the full name.", DataType.STRING.getDisplayName(), "my_function"),
 
     /**
      * The name of a function within a schema and catalog in Unity Catalog (UC).
      */
-    MODEL_NAME ("ucModelName", "The name of a deployed model within a schema and catalog in Unity Catalog (UC).  This value is combined with the name of the schema and catalog to get the full name.", DataType.STRING.getName(), "my_model"),
+    MODEL_NAME ("ucModelName", "The name of a deployed model within a schema and catalog in Unity Catalog (UC).  This value is combined with the name of the schema and catalog to get the full name.", DataType.STRING.getDisplayName(), "my_model"),
 
     /**
      * The number of a version of a deployed model within a schema and catalog in Unity Catalog (UC).
      */
-    MODEL_VERSION ("ucModelVersion", "The number of a version of a deployed model within a schema and catalog in Unity Catalog (UC).", DataType.LONG.getName(), "1"),
+    MODEL_VERSION ("ucModelVersion", "The number of a version of a deployed model within a schema and catalog in Unity Catalog (UC).", DataType.LONG.getDisplayName(), "1"),
 
     /**
      * The status of a version of a deployed model within a schema and catalog in Unity Catalog (UC).
      */
-    MODEL_VERSION_STATUS ("ucModelVersionStatus", "The status of a version of a deployed model within a schema and catalog in Unity Catalog (UC).", DataType.STRING.getName(), "READY"),
+    MODEL_VERSION_STATUS ("ucModelVersionStatus", "The status of a version of a deployed model within a schema and catalog in Unity Catalog (UC).", DataType.STRING.getDisplayName(), "READY"),
 
     /**
      * The source of a version of a deployed model within a schema and catalog in Unity Catalog (UC).
      */
-    MODEL_VERSION_SOURCE ("ucModelVersionSource", "The source of a version of a deployed model within a schema and catalog in Unity Catalog (UC).", DataType.STRING.getName(), null),
+    MODEL_VERSION_SOURCE ("ucModelVersionSource", "The source of a version of a deployed model within a schema and catalog in Unity Catalog (UC).", DataType.STRING.getDisplayName(), null),
 
     /**
      * The run identifier associated with a version of a deployed model within a schema and catalog in Unity Catalog (UC).
      */
-    MODEL_VERSION_RUN_ID ("ucModelVersionRunId", "The run identifier associated with a version of a deployed model within a schema and catalog in Unity Catalog (UC).", DataType.STRING.getName(), null),
+    MODEL_VERSION_RUN_ID ("ucModelVersionRunId", "The run identifier associated with a version of a deployed model within a schema and catalog in Unity Catalog (UC).", DataType.STRING.getDisplayName(), null),
 
 
     ;

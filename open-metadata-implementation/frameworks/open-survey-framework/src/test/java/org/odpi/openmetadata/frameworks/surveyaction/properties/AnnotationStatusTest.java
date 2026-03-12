@@ -54,49 +54,49 @@ public class AnnotationStatusTest
         testValue = AnnotationStatus.NEW_ANNOTATION;
 
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = AnnotationStatus.REVIEWED_ANNOTATION;
 
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = AnnotationStatus.APPROVED_ANNOTATION;
 
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = AnnotationStatus.ACTIONED_ANNOTATION;
 
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = AnnotationStatus.INVALID_ANNOTATION;
 
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = AnnotationStatus.IGNORE_ANNOTATION;
 
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = AnnotationStatus.OTHER_STATUS;
 
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = AnnotationStatus.UNKNOWN_STATUS;
 
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
     }
 

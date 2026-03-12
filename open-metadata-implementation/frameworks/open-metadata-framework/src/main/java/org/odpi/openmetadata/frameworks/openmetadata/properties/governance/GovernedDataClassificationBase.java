@@ -22,10 +22,13 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
               property = "class")
 @JsonSubTypes(
         {
-                @JsonSubTypes.Type(value = GovernanceClassificationProperties.class, name = "GovernanceClassificationProperties"),
+                @JsonSubTypes.Type(value = CriticalityProperties.class, name = "CriticalityProperties"),
+                @JsonSubTypes.Type(value = ConfidentialityProperties.class, name = "ConfidentialityProperties"),
+                @JsonSubTypes.Type(value = ConfidenceProperties.class, name = "ConfidenceProperties"),
+                @JsonSubTypes.Type(value = ImpactProperties.class, name = "ImpactProperties"),
                 @JsonSubTypes.Type(value = RetentionProperties.class, name = "RetentionClassificationProperties"),
         })
-public class GovernanceClassificationBase extends ClassificationBeanProperties
+public class GovernedDataClassificationBase extends ClassificationBeanProperties
 {
     private int    statusIdentifier    = 0;
     private int    confidence          = 0;
@@ -39,7 +42,7 @@ public class GovernanceClassificationBase extends ClassificationBeanProperties
     /**
      * Default constructor
      */
-    public GovernanceClassificationBase()
+    public GovernedDataClassificationBase()
     {
         super();
     }
@@ -50,7 +53,7 @@ public class GovernanceClassificationBase extends ClassificationBeanProperties
      *
      * @param template element to copy
      */
-    public GovernanceClassificationBase(GovernanceClassificationBase template)
+    public GovernedDataClassificationBase(GovernedDataClassificationBase template)
     {
         super(template);
 
@@ -262,7 +265,7 @@ public class GovernanceClassificationBase extends ClassificationBeanProperties
         {
             return false;
         }
-        GovernanceClassificationBase that = (GovernanceClassificationBase) objectToCompare;
+        GovernedDataClassificationBase that = (GovernedDataClassificationBase) objectToCompare;
         return confidence == that.confidence &&
                        statusIdentifier == that.statusIdentifier &&
                        Objects.equals(steward, that.steward) &&

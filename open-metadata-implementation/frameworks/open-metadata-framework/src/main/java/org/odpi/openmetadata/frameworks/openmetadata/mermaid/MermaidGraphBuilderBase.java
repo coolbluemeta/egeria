@@ -1738,7 +1738,7 @@ public class MermaidGraphBuilderBase
         {
             if (ratingProperties.getStarRating() != null)
             {
-                nodeDisplayName = ratingProperties.getStarRating().getName();
+                nodeDisplayName = ratingProperties.getStarRating().getDisplayName();
             }
         }
 

@@ -2056,6 +2056,15 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
         {
             return;
         }
+
+        if (matchProperties.getConditions() == null)
+        {
+            throw new InvalidParameterException(OMRSErrorCode.INVALID_PROPERTY_SEARCH.getMessageDefinition(),
+                                                this.getClass().getName(),
+                                                methodName,
+                                                parameterName + ".matchProperties.getConditions()");
+        }
+
         for (PropertyCondition condition : matchProperties.getConditions())
         {
             SearchProperties           nestedConditions = condition.getNestedConditions();

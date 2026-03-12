@@ -124,7 +124,7 @@ public class EvaluateAnnotationsGovernanceActionConnector extends GeneralGoverna
                                 String toDoGUID = governanceContext.openToDo(governanceServiceName + "::" + connectorInstanceId,
                                                                              ActionType.REQUEST_FOR_ACTION.getDescription(),
                                                                              "Follow the link for the request for action to discover the issue and suggested remedy.",
-                                                                             ActionType.REQUEST_FOR_ACTION.getName(),
+                                                                             ActionType.REQUEST_FOR_ACTION.getDisplayName(),
                                                                              0,
                                                                              null,
                                                                              stewardGUID,
@@ -149,7 +149,7 @@ public class EvaluateAnnotationsGovernanceActionConnector extends GeneralGoverna
                                                                                                               null,
                                                                                                               new NewElementProperties(propertyHelper.addStringProperty(null,
                                                                                                                                                                         OpenMetadataProperty.ASSIGNMENT_TYPE.name,
-                                                                                                                                                                        AssignmentType.SPONSOR.getName())));
+                                                                                                                                                                        AssignmentType.SPONSOR.getDisplayName())));
                                     }
                                 }
                             }

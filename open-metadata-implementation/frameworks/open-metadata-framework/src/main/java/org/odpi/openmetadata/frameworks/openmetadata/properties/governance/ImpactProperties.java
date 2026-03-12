@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
+import java.util.Objects;
+
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
@@ -17,8 +19,11 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ImpactProperties extends GovernanceClassificationProperties
+public class ImpactProperties extends GovernedDataClassificationBase
 {
+    private int severityLevel = 0;
+
+
     /**
      * Default constructor
      */
@@ -37,8 +42,34 @@ public class ImpactProperties extends GovernanceClassificationProperties
     public ImpactProperties(ImpactProperties template)
     {
         super(template);
+
+        if (template != null)
+        {
+            severityLevel = template.getSeverityLevel();
+        }
     }
 
+
+    /**
+     * Return the level assigned to this element for this classification.
+     *
+     * @return int
+     */
+    public int getSeverityLevel()
+    {
+        return severityLevel;
+    }
+
+
+    /**
+     * Set up the level assigned to this element for this classification.
+     *
+     * @param severityLevel int
+     */
+    public void setSeverityLevel(int severityLevel)
+    {
+        this.severityLevel = severityLevel;
+    }
 
     /**
      * Standard toString method.
@@ -48,6 +79,46 @@ public class ImpactProperties extends GovernanceClassificationProperties
     @Override
     public String toString()
     {
-        return "ImpactProperties{} " + super.toString();
+        return "ImpactProperties{" +
+                "severityLevel=" + severityLevel +
+                "} " + super.toString();
+    }
+
+
+    /**
+     * Compare the values of the supplied object with those stored in the current object.
+     *
+     * @param objectToCompare supplied object
+     * @return boolean result of comparison
+     */
+    @Override
+    public boolean equals(Object objectToCompare)
+    {
+        if (this == objectToCompare)
+        {
+            return true;
+        }
+        if (objectToCompare == null || getClass() != objectToCompare.getClass())
+        {
+            return false;
+        }
+        if (!super.equals(objectToCompare))
+        {
+            return false;
+        }
+        ImpactProperties that = (ImpactProperties) objectToCompare;
+        return severityLevel == that.severityLevel;
+    }
+
+
+    /**
+     * Return code value representing the contents of this object.
+     *
+     * @return int
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(super.hashCode(), severityLevel);
     }
 }

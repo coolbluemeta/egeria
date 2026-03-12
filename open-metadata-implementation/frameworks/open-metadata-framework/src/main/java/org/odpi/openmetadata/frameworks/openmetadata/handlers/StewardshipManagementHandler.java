@@ -220,8 +220,8 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * Return information about the elements classified with the retention classification.
      *
      * @param userId calling user
-     * @param returnSpecificLevel should the results be filtered by levelIdentifier?
-     * @param levelIdentifier the identifier to filter by (if returnSpecificLevel=true)
+     * @param returnSpecificLevel should the results be filtered by retentionBasis?
+     * @param retentionBasis the identifier to filter by (if returnSpecificLevel=true)
      * @param queryOptions multiple options to control the query
      *
      * @return list of elements
@@ -231,19 +231,19 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @throws UserNotAuthorizedException security access problem
      */
     public List<OpenMetadataRootElement> getRetentionClassifiedElements(String              userId,
-                                                                       boolean             returnSpecificLevel,
-                                                                       int                 levelIdentifier,
-                                                                       QueryOptions        queryOptions) throws InvalidParameterException,
-                                                                                                                UserNotAuthorizedException,
-                                                                                                                PropertyServerException
+                                                                        boolean             returnSpecificLevel,
+                                                                        int                 retentionBasis,
+                                                                        QueryOptions        queryOptions) throws InvalidParameterException,
+                                                                                                                 UserNotAuthorizedException,
+                                                                                                                 PropertyServerException
     {
         final String methodName = "getRetentionClassifiedElements";
 
         return this.getGovernanceDataClassifiedElements(userId,
                                                         OpenMetadataType.RETENTION_CLASSIFICATION.typeName,
-                                                        OpenMetadataProperty.RETENTION_BASIS_IDENTIFIER.name,
+                                                        OpenMetadataProperty.RETENTION_BASIS.name,
                                                         returnSpecificLevel,
-                                                        levelIdentifier,
+                                                        retentionBasis,
                                                         queryOptions,
                                                         methodName);
     }
@@ -692,7 +692,7 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
 
                         if (relationshipPropertyValue instanceof EnumTypePropertyValue enumTypePropertyValue)
                         {
-                            if (enumTypePropertyValue.getSymbolicName().equals(status.getName()))
+                            if (enumTypePropertyValue.getSymbolicName().equals(status.name()))
                             {
                                 matchedElements.add(relatedMetadataElement);
                                 break;
@@ -1203,12 +1203,12 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public void setImpactClassification(String                             userId,
-                                        String                             elementGUID,
-                                        GovernanceClassificationProperties properties,
-                                        MetadataSourceOptions              metadataSourceOptions) throws InvalidParameterException,
-                                                                                                         UserNotAuthorizedException,
-                                                                                                         PropertyServerException
+    public void setImpactClassification(String                userId,
+                                        String                elementGUID,
+                                        ImpactProperties      properties,
+                                        MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
+                                                                                            UserNotAuthorizedException,
+                                                                                            PropertyServerException
     {
         openMetadataClient.classifyMetadataElementInStore(userId,
                                                           elementGUID,
@@ -1256,12 +1256,12 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public void setConfidenceClassification(String                             userId,
-                                            String                             elementGUID,
-                                            GovernanceClassificationProperties properties,
-                                            MetadataSourceOptions              metadataSourceOptions) throws InvalidParameterException,
-                                                                                                             UserNotAuthorizedException,
-                                                                                                             PropertyServerException
+    public void setConfidenceClassification(String                userId,
+                                            String                elementGUID,
+                                            ConfidenceProperties  properties,
+                                            MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
+                                                                                                UserNotAuthorizedException,
+                                                                                                PropertyServerException
     {
         openMetadataClient.classifyMetadataElementInStore(userId,
                                                           elementGUID,
@@ -1309,12 +1309,12 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public void setCriticalityClassification(String                             userId,
-                                             String                             elementGUID,
-                                             GovernanceClassificationProperties properties,
-                                             MetadataSourceOptions              metadataSourceOptions) throws InvalidParameterException,
-                                                                                                              UserNotAuthorizedException,
-                                                                                                              PropertyServerException
+    public void setCriticalityClassification(String                userId,
+                                             String                elementGUID,
+                                             CriticalityProperties properties,
+                                             MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
+                                                                                                 UserNotAuthorizedException,
+                                                                                                 PropertyServerException
     {
         openMetadataClient.classifyMetadataElementInStore(userId,
                                                           elementGUID,
@@ -1364,12 +1364,12 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public void setConfidentialityClassification(String                             userId,
-                                                 String                             elementGUID,
-                                                 GovernanceClassificationProperties properties,
-                                                 MetadataSourceOptions              metadataSourceOptions) throws InvalidParameterException,
-                                                                                                                  UserNotAuthorizedException,
-                                                                                                                  PropertyServerException
+    public void setConfidentialityClassification(String                    userId,
+                                                 String                    elementGUID,
+                                                 ConfidentialityProperties properties,
+                                                 MetadataSourceOptions     metadataSourceOptions) throws InvalidParameterException,
+                                                                                                         UserNotAuthorizedException,
+                                                                                                         PropertyServerException
     {
         openMetadataClient.classifyMetadataElementInStore(userId,
                                                           elementGUID,

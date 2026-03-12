@@ -17,72 +17,72 @@ public enum RelationalDatabaseMetric implements SurveyMetric
     /**
      * Name of the database
      */
-    DATABASE_NAME("databaseName", DataType.STRING.getName(), "Database Name", "Name of the database"),
+    DATABASE_NAME("databaseName", DataType.STRING.getDisplayName(), "Database Name", "Name of the database"),
 
     /**
      * Number of schemas found in the surveyed resource.
      */
-    SCHEMA_COUNT  ("schemaCount", DataType.LONG.getName(), "Number of schemas", "Number of schemas found in the database."),
+    SCHEMA_COUNT  ("schemaCount", DataType.LONG.getDisplayName(), "Number of schemas", "Number of schemas found in the database."),
 
     /**
      * Number of tables found in the database.
      */
-    TABLE_COUNT   ("tableCount", DataType.LONG.getName(), "Number of tables", "Number of tables found in the database."),
+    TABLE_COUNT   ("tableCount", DataType.LONG.getDisplayName(), "Number of tables", "Number of tables found in the database."),
 
     /**
      * Count of views in the database.
      */
-    VIEW_COUNT ("viewCount",DataType.LONG.getName(), "Number of views", "Count of views in the database."),
+    VIEW_COUNT ("viewCount", DataType.LONG.getDisplayName(), "Number of views", "Count of views in the database."),
 
     /**
      * Count of materialized views in the database.
      */
-    MAT_VIEW_COUNT ("materializedViewCount", DataType.LONG.getName(), "Number of materialized views", "Count of materialized views in the database."),
+    MAT_VIEW_COUNT ("materializedViewCount", DataType.LONG.getDisplayName(), "Number of materialized views", "Count of materialized views in the database."),
 
     /**
      * Count of all columns in the tables/views.
      */
-    COLUMN_COUNT  ("columnCount", DataType.LONG.getName(),"Number of columns", "Count of all columns in the tables/views."),
+    COLUMN_COUNT  ("columnCount", DataType.LONG.getDisplayName(), "Number of columns", "Count of all columns in the tables/views."),
 
     /**
      * Number of stored bytes of data in the surveyed resource.
      */
-    DATA_SIZE     ("dataSize", DataType.LONG.getName(), "Data size", "Number of stored bytes of data in the surveyed resource."),
+    DATA_SIZE     ("dataSize", DataType.LONG.getDisplayName(), "Data size", "Number of stored bytes of data in the surveyed resource."),
 
     /**
      * Number of rows retrieved from any table in the database.
      */
-    ROWS_FETCHED  ( "rowsFetched", DataType.LONG.getName(), "Rows Fetched", "Number of rows retrieved from any table in the database."),
+    ROWS_FETCHED  ("rowsFetched", DataType.LONG.getDisplayName(), "Rows Fetched", "Number of rows retrieved from any table in the database."),
 
     /**
      * Number of rows inserted from any table in the database.
      */
-    ROWS_INSERTED ( "rowsInserted", DataType.LONG.getName(), "Rows Inserted", "Number of rows inserted from any table in the database."),
+    ROWS_INSERTED ("rowsInserted", DataType.LONG.getDisplayName(), "Rows Inserted", "Number of rows inserted from any table in the database."),
 
     /**
      * Number of rows updated from any table in the database.
      */
-    ROWS_UPDATED  ( "rowsUpdated", DataType.LONG.getName(), "Rows Updated", "Number of rows updated from any table in the database."),
+    ROWS_UPDATED  ("rowsUpdated", DataType.LONG.getDisplayName(), "Rows Updated", "Number of rows updated from any table in the database."),
 
     /**
      * Number of rows deleted from any table in the database.
      */
-    ROWS_DELETED  ( "rowsDeleted", DataType.LONG.getName(), "Rows Deleted", "Number of rows deleted from any table in the database."),
+    ROWS_DELETED  ("rowsDeleted", DataType.LONG.getDisplayName(), "Rows Deleted", "Number of rows deleted from any table in the database."),
 
     /**
      * The length of time (milliseconds) that the database had at least one open session from an external client.
      */
-    SESSION_TIME  ( "totalSessionTime", DataType.DOUBLE.getName(), "Session Time", "The length of time (milliseconds) that the database had at least one open session from an external client."),
+    SESSION_TIME  ("totalSessionTime", DataType.DOUBLE.getDisplayName(), "Session Time", "The length of time (milliseconds) that the database had at least one open session from an external client."),
 
     /**
      * The length of time (milliseconds) that the database was being actively queried.
      */
-    ACTIVE_TIME   ( "totalActiveTime", DataType.DOUBLE.getName(), "Active Time", "The length of time (milliseconds) that the database was being actively queried."),
+    ACTIVE_TIME   ("totalActiveTime", DataType.DOUBLE.getDisplayName(), "Active Time", "The length of time (milliseconds) that the database was being actively queried."),
 
     /**
      * Last time that the statistics were reset in the database.
      */
-    LAST_STATISTICS_RESET ( "lastStatisticsReset", DataType.DATE.getName(), "Last statistics reset", "Last time that the statistics were reset in the database."),
+    LAST_STATISTICS_RESET ("lastStatisticsReset", DataType.DATE.getDisplayName(), "Last statistics reset", "Last time that the statistics were reset in the database."),
 
     ;
 

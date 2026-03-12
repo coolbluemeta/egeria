@@ -104,7 +104,7 @@ public enum
      * @return String name
      */
     @Override
-    public String getName()
+    public String getDisplayName()
     {
         return name;
     }

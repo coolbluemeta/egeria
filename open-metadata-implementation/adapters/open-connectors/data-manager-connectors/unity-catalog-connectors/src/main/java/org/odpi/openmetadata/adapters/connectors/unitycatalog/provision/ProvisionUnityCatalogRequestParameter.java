@@ -17,8 +17,8 @@ import java.util.List;
  */
 public enum ProvisionUnityCatalogRequestParameter
 {
-    TECHNOLOGY_TYPE ("ucTechnologyType", "The technology type name that indicates which type of unity catalog resource to create.", DataType.STRING.getName(), "Unity Catalog Volume"),
-    TEMPLATE_GUID ("templateGUID", "The unique identifier of the template to use to create the unity catalog resource.  This is only needed to override the default template for this type of resource.", DataType.STRING.getName(), "542134e6-b9ce-4dce-8aef-22e8daf34fdb"),
+    TECHNOLOGY_TYPE ("ucTechnologyType", "The technology type name that indicates which type of unity catalog resource to create.", DataType.STRING.getDisplayName(), "Unity Catalog Volume"),
+    TEMPLATE_GUID ("templateGUID", "The unique identifier of the template to use to create the unity catalog resource.  This is only needed to override the default template for this type of resource.", DataType.STRING.getDisplayName(), "542134e6-b9ce-4dce-8aef-22e8daf34fdb"),
 
     ;
 

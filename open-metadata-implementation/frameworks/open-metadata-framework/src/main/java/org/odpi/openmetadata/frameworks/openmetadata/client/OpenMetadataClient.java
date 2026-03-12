@@ -621,7 +621,7 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
 
         requestedPropertyValue.setPrimitiveTypeCategory(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING);
         requestedPropertyValue.setPrimitiveValue(classificationPropertyValue);
-        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getDisplayName());
 
         List<PropertyCondition> conditions = new ArrayList<>();
 
@@ -723,7 +723,7 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
 
         requestedPropertyValue.setPrimitiveTypeCategory(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_INT);
         requestedPropertyValue.setPrimitiveValue(classificationPropertyValue);
-        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_INT.getName());
+        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_INT.getDisplayName());
 
         List<PropertyCondition> conditions = new ArrayList<>();
 
@@ -788,7 +788,7 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
 
         requestedPropertyValue.setPrimitiveTypeCategory(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING);
         requestedPropertyValue.setPrimitiveValue(".*" + Pattern.quote(classificationPropertyValue) + ".*");
-        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getDisplayName());
 
         List<PropertyCondition> conditions = new ArrayList<>();
 
@@ -853,7 +853,7 @@ public abstract class OpenMetadataClient implements OpenMetadataTypesInterface,
 
         requestedPropertyValue.setPrimitiveTypeCategory(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING);
         requestedPropertyValue.setPrimitiveValue(classificationPropertyValue);
-        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getDisplayName());
 
         List<PropertyCondition> conditions = new ArrayList<>();
 

@@ -17,77 +17,77 @@ public enum RelationalTableMetric implements SurveyMetric
     /**
      * Number of stored bytes in the table.
      */
-    TABLE_SIZE ("tableSize", DataType.LONG.getName(), "Table Size", "Number of stored bytes in the table."),
+    TABLE_SIZE ("tableSize", DataType.LONG.getDisplayName(), "Table Size", "Number of stored bytes in the table."),
 
     /**
      * Name of table.
      */
-    TABLE_NAME ("tableName", DataType.STRING.getName(),"Table Name", "Name of table."),
+    TABLE_NAME ("tableName", DataType.STRING.getDisplayName(), "Table Name", "Name of table."),
 
     /**
      * Qualified name of table showing the database name and schema name.
      */
-    TABLE_QNAME ("tableQualifiedName", DataType.STRING.getName(),"Table Qualified Name", "Qualified name of table showing the database name and schema name."),
+    TABLE_QNAME ("tableQualifiedName", DataType.STRING.getDisplayName(), "Table Qualified Name", "Qualified name of table showing the database name and schema name."),
 
     /**
      * Is this a standard table, view or materialized view?
      */
-    TABLE_TYPE ("tableType", DataType.STRING.getName(),"Table Type", "Is this a standard table, view or materialized view?"),
+    TABLE_TYPE ("tableType", DataType.STRING.getDisplayName(), "Table Type", "Is this a standard table, view or materialized view?"),
 
     /**
      * Who owns this resource?
      */
-    TABLE_OWNER("tableOwner", DataType.STRING.getName(),"Resource Owner", "Who owns this resource?"),
+    TABLE_OWNER("tableOwner", DataType.STRING.getDisplayName(), "Resource Owner", "Who owns this resource?"),
 
     /**
      * Count of columns in the table/view.
      */
-    COLUMN_COUNT ("columnCount", DataType.LONG.getName(),"Number of columns", "Count of columns in the table/view."),
+    COLUMN_COUNT ("columnCount", DataType.LONG.getDisplayName(), "Number of columns", "Count of columns in the table/view."),
 
     /**
      * Count of the number of rows inserted into this table since the last statistics reset.
      */
-    NUMBER_OF_ROWS_INSERTED("numberOfRowsInserted", DataType.LONG.getName(), "Number Of Rows Inserted", "Count of the number of rows inserted into this table since the last statistics reset."),
+    NUMBER_OF_ROWS_INSERTED("numberOfRowsInserted", DataType.LONG.getDisplayName(), "Number Of Rows Inserted", "Count of the number of rows inserted into this table since the last statistics reset."),
 
     /**
      * Count of the number of rows updated in this table since the last statistics reset.
      */
-    NUMBER_OF_ROWS_UPDATED("numberOfRowsUpdated", DataType.LONG.getName(), "Number Of Rows Updated", "Count of the number of rows updated in this table since the last statistics reset."),
+    NUMBER_OF_ROWS_UPDATED("numberOfRowsUpdated", DataType.LONG.getDisplayName(), "Number Of Rows Updated", "Count of the number of rows updated in this table since the last statistics reset."),
 
     /**
      * Count of the number of rows deleted from this table since the last statistics reset.
      */
-    NUMBER_OF_ROWS_DELETED("numberOfRowsDeleted", DataType.LONG.getName(), "Number Of Rows Deleted", "Count of the number of rows deleted from this table since the last statistics reset."),
+    NUMBER_OF_ROWS_DELETED("numberOfRowsDeleted", DataType.LONG.getDisplayName(), "Number Of Rows Deleted", "Count of the number of rows deleted from this table since the last statistics reset."),
 
     /**
      * Is this table populated (typically true)?
      */
-    IS_POPULATED("isPopulated", DataType.BOOLEAN.getName(), "Is Populated", "Is this table populated (typically true)?"),
+    IS_POPULATED("isPopulated", DataType.BOOLEAN.getDisplayName(), "Is Populated", "Is this table populated (typically true)?"),
 
     /**
      * Is this table indexed?
      */
-    HAS_INDEXES("hasIndexes", DataType.BOOLEAN.getName(), "Has Indexes", "Is this table indexed?"),
+    HAS_INDEXES("hasIndexes", DataType.BOOLEAN.getDisplayName(), "Has Indexes", "Is this table indexed?"),
 
     /**
      * Does this table have rules attached?
      */
-    HAS_RULES("hasRules", DataType.BOOLEAN.getName(), "Has Rules", "Does this table have rules attached?"),
+    HAS_RULES("hasRules", DataType.BOOLEAN.getDisplayName(), "Has Rules", "Does this table have rules attached?"),
 
     /**
      * Does this table have triggers attached?
      */
-    HAS_TRIGGERS("hasTriggers", DataType.BOOLEAN.getName(), "Has Triggers", "Does this table have triggers attached?"),
+    HAS_TRIGGERS("hasTriggers", DataType.BOOLEAN.getDisplayName(), "Has Triggers", "Does this table have triggers attached?"),
 
     /**
      * Is this table configured for row-based security?
      */
-    HAS_ROW_SECURITY("hasRowSecurity", DataType.BOOLEAN.getName(), "Has Row Security", "Is this table configured for row-based security?"),
+    HAS_ROW_SECURITY("hasRowSecurity", DataType.BOOLEAN.getDisplayName(), "Has Row Security", "Is this table configured for row-based security?"),
 
     /**
      * Which query, if any, is used to create this view or materialized view?
      */
-    QUERY_DEFINITION("queryDefinition", DataType.STRING.getName(), "Query Definition", "Which query, if any, is used to create this view or materialized view?"),
+    QUERY_DEFINITION("queryDefinition", DataType.STRING.getDisplayName(), "Query Definition", "Which query, if any, is used to create this view or materialized view?"),
 
     ;
 

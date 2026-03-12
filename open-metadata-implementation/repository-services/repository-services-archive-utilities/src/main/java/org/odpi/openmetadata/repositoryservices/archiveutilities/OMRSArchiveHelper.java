@@ -387,152 +387,152 @@ public class OMRSArchiveHelper extends OMRSRepositoryPropertiesUtilities
     {
         final String methodName = "getTypeDefAttribute";
 
-        if (DataType.STRING.getName().equals(propertyDefinition.type))
+        if (DataType.STRING.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_STRING);
         }
-        else if (DataType.INT.getName().equals(propertyDefinition.type))
+        else if (DataType.INT.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_INT);
         }
-        else if (DataType.LONG.getName().equals(propertyDefinition.type))
+        else if (DataType.LONG.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_LONG);
         }
-        else if (DataType.SHORT.getName().equals(propertyDefinition.type))
+        else if (DataType.SHORT.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_SHORT);
         }
-        else if (DataType.DATE.getName().equals(propertyDefinition.type))
+        else if (DataType.DATE.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DATE);
         }
-        else if (DataType.BOOLEAN.getName().equals(propertyDefinition.type))
+        else if (DataType.BOOLEAN.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BOOLEAN);
         }
-        else if (DataType.CHAR.getName().equals(propertyDefinition.type))
+        else if (DataType.CHAR.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_CHAR);
         }
-        else if (DataType.BYTE.getName().equals(propertyDefinition.type))
+        else if (DataType.BYTE.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BYTE);
         }
-        else if (DataType.FLOAT.getName().equals(propertyDefinition.type))
+        else if (DataType.FLOAT.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_FLOAT);
         }
-        else if (DataType.DOUBLE.getName().equals(propertyDefinition.type))
+        else if (DataType.DOUBLE.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_DOUBLE);
         }
-        else if (DataType.BIGINTEGER.getName().equals(propertyDefinition.type))
+        else if (DataType.BIGINTEGER.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BIGINTEGER);
         }
-        else if (DataType.BIGDECIMAL.getName().equals(propertyDefinition.type))
+        else if (DataType.BIGDECIMAL.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_BIGDECIMAL);
         }
-        else if (DataType.OBJECT.getName().equals(propertyDefinition.type))
+        else if (DataType.OBJECT.getDisplayName().equals(propertyDefinition.type))
         {
             return getTypeDefAttribute(propertyDefinition.name,
                                        propertyDefinition.description,
                                        propertyDefinition.descriptionGUID,
                                        PrimitiveDefCategory.OM_PRIMITIVE_TYPE_UNKNOWN);
         }
-        else if (DataType.ARRAY_STRING.getName().equals(propertyDefinition.type))
+        else if (DataType.ARRAY_STRING.getDisplayName().equals(propertyDefinition.type))
         {
             return getArrayStringTypeDefAttribute(propertyDefinition.name,
                                                   propertyDefinition.description,
                                                   propertyDefinition.descriptionGUID);
         }
-        else if (DataType.ARRAY_INT.getName().equals(propertyDefinition.type))
+        else if (DataType.ARRAY_INT.getDisplayName().equals(propertyDefinition.type))
         {
             return getArrayIntTypeDefAttribute(propertyDefinition.name,
                                                propertyDefinition.description,
                                                propertyDefinition.descriptionGUID);
         }
-        else if (DataType.MAP_STRING_BOOLEAN.getName().equals(propertyDefinition.type))
+        else if (DataType.MAP_STRING_BOOLEAN.getDisplayName().equals(propertyDefinition.type))
         {
             return getMapStringBooleanTypeDefAttribute(propertyDefinition.name,
                                                        propertyDefinition.description,
                                                        propertyDefinition.descriptionGUID);
         }
-        else if (DataType.MAP_STRING_INT.getName().equals(propertyDefinition.type))
+        else if (DataType.MAP_STRING_INT.getDisplayName().equals(propertyDefinition.type))
         {
             return getMapStringIntTypeDefAttribute(propertyDefinition.name,
                                                    propertyDefinition.description,
                                                    propertyDefinition.descriptionGUID);
         }
-        else if (DataType.MAP_STRING_DOUBLE.getName().equals(propertyDefinition.type))
+        else if (DataType.MAP_STRING_DOUBLE.getDisplayName().equals(propertyDefinition.type))
         {
             return getMapStringDoubleTypeDefAttribute(propertyDefinition.name,
                                                       propertyDefinition.description,
                                                       propertyDefinition.descriptionGUID);
         }
-        else if (DataType.MAP_STRING_DATE.getName().equals(propertyDefinition.type))
+        else if (DataType.MAP_STRING_DATE.getDisplayName().equals(propertyDefinition.type))
         {
             return getMapStringDateTypeDefAttribute(propertyDefinition.name,
                                                     propertyDefinition.description,
                                                     propertyDefinition.descriptionGUID);
         }
-        else if (DataType.MAP_STRING_STRING.getName().equals(propertyDefinition.type))
+        else if (DataType.MAP_STRING_STRING.getDisplayName().equals(propertyDefinition.type))
         {
             return getMapStringStringTypeDefAttribute(propertyDefinition.name,
                                                       propertyDefinition.description,
                                                       propertyDefinition.descriptionGUID);
         }
-        else if (DataType.MAP_STRING_LONG.getName().equals(propertyDefinition.type))
+        else if (DataType.MAP_STRING_LONG.getDisplayName().equals(propertyDefinition.type))
         {
             return getMapStringLongTypeDefAttribute(propertyDefinition.name,
                                                     propertyDefinition.description,
                                                     propertyDefinition.descriptionGUID);
         }
-        else if (DataType.MAP_STRING_OBJECT.getName().equals(propertyDefinition.type))
+        else if (DataType.MAP_STRING_OBJECT.getDisplayName().equals(propertyDefinition.type))
         {
             return getMapStringObjectTypeDefAttribute(propertyDefinition.name,
                                                       propertyDefinition.description,
                                                       propertyDefinition.descriptionGUID);
         }
-        else if (DataType.MAP_STRING_ARRAY_STRING.getName().equals(propertyDefinition.type))
+        else if (DataType.MAP_STRING_ARRAY_STRING.getDisplayName().equals(propertyDefinition.type))
         {
             return getMapStringObjectTypeDefAttribute(propertyDefinition.name,
                                                       propertyDefinition.description,
@@ -1834,6 +1834,10 @@ public class OMRSArchiveHelper extends OMRSRepositoryPropertiesUtilities
         {
             instanceAuditHeader.setCreateTime(creationDate);
         }
+        instanceAuditHeader.setUpdatedBy(originatorName);
+        instanceAuditHeader.setUpdateTime(instanceAuditHeader.getCreateTime());
+        instanceAuditHeader.setMaintainedBy(Collections.singletonList(originatorName));
+        instanceAuditHeader.setVersion(versionNumber);
         instanceAuditHeader.setInstanceLicense(license);
         instanceAuditHeader.setInstanceProvenanceType(instanceProvenanceType);
         instanceAuditHeader.setMaintainedBy(null);
@@ -1843,17 +1847,6 @@ public class OMRSArchiveHelper extends OMRSRepositoryPropertiesUtilities
         instanceAuditHeader.setStatus(InstanceStatus.ACTIVE);
         instanceAuditHeader.setStatusOnDelete(null);
         instanceAuditHeader.setType(type);
-        instanceAuditHeader.setVersion(versionNumber);
-        if (versionNumber == 1L)
-        {
-            instanceAuditHeader.setUpdatedBy(null);
-            instanceAuditHeader.setUpdateTime(null);
-        }
-        else
-        {
-            instanceAuditHeader.setUpdatedBy(originatorName);
-            instanceAuditHeader.setUpdateTime(new Date());
-        }
 
         instanceAuditHeader.setStatus(status);
     }

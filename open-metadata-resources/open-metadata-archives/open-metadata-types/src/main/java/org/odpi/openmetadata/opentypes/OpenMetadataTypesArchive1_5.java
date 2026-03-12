@@ -186,7 +186,7 @@ public class OpenMetadataTypesArchive1_5
         for (ProcessContainmentType processContainmentType : ProcessContainmentType.values())
         {
             elementDef = archiveHelper.getEnumElementDef(processContainmentType.getOrdinal(),
-                                                         processContainmentType.getName(),
+                                                         processContainmentType.name(),
                                                          processContainmentType.getDescription(),
                                                          processContainmentType.getDescriptionGUID());
 

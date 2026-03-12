@@ -198,7 +198,7 @@ public class MemberElement
                                                                                                          element.getElementHeader().getOrigin().getHomeMetadataCollectionName(),
                                                                                                          element.getElementHeader().getOrigin().getHomeMetadataCollectionId(),
                                                                                                          catalogTargetName,
-                                                                                                         targetPermittedSynchronization.getName()));
+                                                                                                         targetPermittedSynchronization.name()));
 
                             return MemberAction.NO_ACTION;
                         }

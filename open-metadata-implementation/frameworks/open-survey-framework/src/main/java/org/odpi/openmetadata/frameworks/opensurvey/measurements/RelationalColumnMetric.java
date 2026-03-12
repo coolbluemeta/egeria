@@ -16,47 +16,47 @@ public enum RelationalColumnMetric implements SurveyMetric
     /**
      * Qualified name of the column showing the database name, schema name and table name.
      */
-    COLUMN_QNAME ("columnQualifiedName", DataType.STRING.getName(), "Column qualified name", "Qualified name of the column showing the database name, schema name and table name."),
+    COLUMN_QNAME ("columnQualifiedName", DataType.STRING.getDisplayName(), "Column qualified name", "Qualified name of the column showing the database name, schema name and table name."),
 
     /**
      * Name of the column within the table.
      */
-    COLUMN_NAME ("columnName", DataType.STRING.getName(), "Column name", "Name of the column within the table."),
+    COLUMN_NAME ("columnName", DataType.STRING.getDisplayName(), "Column name", "Name of the column within the table."),
 
     /**
      * Number of stored bytes in the column.
      */
-    COLUMN_SIZE ("columnSize", DataType.LONG.getName(), "Column size", "Number of stored bytes in the column."),
+    COLUMN_SIZE ("columnSize", DataType.LONG.getDisplayName(), "Column size", "Number of stored bytes in the column."),
 
     /**
      * Data type of column.
      */
-    COLUMN_TYPE ("columnDataType", DataType.STRING.getName(),"Column data type", "Data type of column."),
+    COLUMN_TYPE ("columnDataType", DataType.STRING.getDisplayName(), "Column data type", "Data type of column."),
 
     /**
      * Average width of the values in this column.
      */
-    AVERAGE_WIDTH("averageColumnWidth", DataType.INT.getName(), "Average Column Width", "Average width of the values in this column."),
+    AVERAGE_WIDTH("averageColumnWidth", DataType.INT.getDisplayName(), "Average Column Width", "Average width of the values in this column."),
 
     /**
      * Number of distinct values stored in this column.
      */
-    NUMBER_OF_DISTINCT_VALUES("numberOfDistinctValues", DataType.LONG.getName(), "Number Of Distinct Values", "Number of distinct values stored in this column."),
+    NUMBER_OF_DISTINCT_VALUES("numberOfDistinctValues", DataType.LONG.getDisplayName(), "Number Of Distinct Values", "Number of distinct values stored in this column."),
 
     /**
      * List of the most common values stored in this column.
      */
-    MOST_COMMON_VALUES("mostCommonValues", DataType.STRING.getName(), "Most Common Values", "List of the most common values stored in this column."),
+    MOST_COMMON_VALUES("mostCommonValues", DataType.STRING.getDisplayName(), "Most Common Values", "List of the most common values stored in this column."),
 
     /**
      * The frequency that each of the most common values occur.
      */
-    MOST_COMMON_VALUES_FREQUENCY("mostCommonValuesFrequency", DataType.STRING.getName(), "Most Common Values Frequency", "The frequency that each of the most common values occur."),
+    MOST_COMMON_VALUES_FREQUENCY("mostCommonValuesFrequency", DataType.STRING.getDisplayName(), "Most Common Values Frequency", "The frequency that each of the most common values occur."),
 
     /**
      * Is a null value prohibited in this column?
      */
-    COLUMN_NOT_NULL("columnNotNull", DataType.BOOLEAN.getName(), "Not Null", "Is a null value prohibited in this column?"),
+    COLUMN_NOT_NULL("columnNotNull", DataType.BOOLEAN.getDisplayName(), "Not Null", "Is a null value prohibited in this column?"),
     ;
 
     public final String propertyName;

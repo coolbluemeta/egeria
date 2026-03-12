@@ -28,12 +28,13 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         })
 public class ValidValueDefinitionProperties extends AuthoredReferenceableProperties
 {
-    private String namespacePath = null;
-    private String usage         = null;
-    private String  scope             = null;
-    private String  preferredValue    = null;
-    private String  dataType          = null;
-    private boolean isCaseSensitive   = false;
+    private String  namespacePath   = null;
+    private String  usage           = null;
+    private String  scope           = null;
+    private String  preferredValue  = null;
+    private String  dataType        = null;
+    private boolean isCaseSensitive = false;
+    private int     ordinal         = 0;
 
 
     /**
@@ -57,12 +58,13 @@ public class ValidValueDefinitionProperties extends AuthoredReferenceablePropert
 
         if (template != null)
         {
-            namespacePath = template.getNamespacePath();
-            usage         = template.getUsage();
-            scope             = template.getScope();
-            preferredValue    = template.getPreferredValue();
-            dataType          = template.getDataType();
-            isCaseSensitive   = template.getIsCaseSensitive();
+            namespacePath   = template.getNamespacePath();
+            usage           = template.getUsage();
+            scope           = template.getScope();
+            preferredValue  = template.getPreferredValue();
+            dataType        = template.getDataType();
+            isCaseSensitive = template.getIsCaseSensitive();
+            ordinal         = template.getOrdinal();
         }
     }
 
@@ -201,6 +203,28 @@ public class ValidValueDefinitionProperties extends AuthoredReferenceablePropert
 
 
     /**
+     * Return the ordinal for this valid value.
+     *
+     * @return int ordinal
+     */
+    public int getOrdinal()
+    {
+        return ordinal;
+    }
+
+
+    /**
+     * Set up the ordinal for this valid value.
+     *
+     * @param ordinal int
+     */
+    public void setOrdinal(int ordinal)
+    {
+        this.ordinal = ordinal;
+    }
+
+
+    /**
      * Generate a string containing the properties.
      *
      * @return string value
@@ -209,11 +233,13 @@ public class ValidValueDefinitionProperties extends AuthoredReferenceablePropert
     public String toString()
     {
         return "ValidValueDefinitionProperties{" +
-                "usage='" + usage + '\'' +
+                "namespacePath='" + namespacePath + '\'' +
+                ", usage='" + usage + '\'' +
                 ", scope='" + scope + '\'' +
                 ", preferredValue='" + preferredValue + '\'' +
                 ", dataType='" + dataType + '\'' +
                 ", isCaseSensitive=" + isCaseSensitive +
+                ", ordinal=" + ordinal +
                 "} " + super.toString();
     }
 
@@ -240,7 +266,8 @@ public class ValidValueDefinitionProperties extends AuthoredReferenceablePropert
             return false;
         }
         ValidValueDefinitionProperties that = (ValidValueDefinitionProperties) objectToCompare;
-        return Objects.equals(usage, that.usage) &&
+        return ordinal == that.ordinal &&
+                Objects.equals(usage, that.usage) &&
                 Objects.equals(scope, that.scope) &&
                 Objects.equals(isCaseSensitive, that.isCaseSensitive) &&
                 Objects.equals(preferredValue, that.preferredValue) &&
@@ -256,6 +283,6 @@ public class ValidValueDefinitionProperties extends AuthoredReferenceablePropert
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), usage, scope, preferredValue, dataType, isCaseSensitive);
+        return Objects.hash(super.hashCode(), usage, scope, preferredValue, dataType, isCaseSensitive, ordinal);
     }
 }

@@ -544,7 +544,7 @@ public class NotificationHandler extends GovernanceDefinitionHandler
                     elementProperties = propertyHelper.addEnumProperty(null,
                                                                        OpenMetadataProperty.ACTIVITY_STATUS.name,
                                                                        ActivityStatus.getOpenTypeName(),
-                                                                       newSubscriberStatus.getName());
+                                                                       newSubscriberStatus.name());
                 }
 
                 UpdateOptions updateOptions = new UpdateOptions();

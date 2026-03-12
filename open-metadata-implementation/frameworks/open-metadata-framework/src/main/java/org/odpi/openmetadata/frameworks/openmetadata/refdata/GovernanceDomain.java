@@ -1,17 +1,14 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
-package org.odpi.openmetadata.frameworks.openmetadata.enums;
+package org.odpi.openmetadata.frameworks.openmetadata.refdata;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataWikiPages;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
-import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues.constructValidValueQualifiedName;
 
 /**
  * GovernanceDomain defines the different governance domains that open metadata seeks to unite.
@@ -33,7 +30,7 @@ import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataV
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public enum GovernanceDomain implements OpenMetadataEnum
+public enum GovernanceDomain implements OpenMetadataRefData
 {
     /**
      * The governance domain is not specified.
@@ -80,18 +77,13 @@ public enum GovernanceDomain implements OpenMetadataEnum
      */
     OTHER                (99, "c34e17d6-b924-4a7d-a5fd-13425a1de422",   "Other",                "The governance domain is locally defined.", false);
 
-    private static final String ENUM_TYPE_GUID  = "baa31998-f3cb-47b0-9123-674a701e87bc";
-    private static final String ENUM_TYPE_NAME  = "GovernanceDomain";
 
-    private static final String ENUM_DESCRIPTION = "Defines the governance domains that open metadata seeks to unite.";
-    private static final String ENUM_DESCRIPTION_GUID = "e07492d8-b4d9-4a52-900c-2641ffa36d64";
-    private static final String ENUM_DESCRIPTION_WIKI = OpenMetadataWikiPages.MODEL_0401_GOVERNANCE_DEFINITIONS;
 
-    private final String         descriptionGUID;
-    private final int            ordinal;
-    private final String         name;
-    private final String         description;
-    private final boolean        isDefault;
+    private final String  descriptionGUID;
+    private final int     ordinal;
+    private final String  name;
+    private final String  description;
+    private final boolean isDefault;
 
 
     /**
@@ -109,13 +101,12 @@ public enum GovernanceDomain implements OpenMetadataEnum
                      String  description,
                      boolean isDefault)
     {
-        this.ordinal = ordinal;
+        this.ordinal         = ordinal;
         this.name            = name;
         this.descriptionGUID = descriptionGUID;
         this.description     = description;
-        this.isDefault = isDefault;
+        this.isDefault       = isDefault;
     }
-
 
 
     /**
@@ -133,7 +124,7 @@ public enum GovernanceDomain implements OpenMetadataEnum
      * @return String name
      */
     @Override
-    public String getName() { return name; }
+    public String getDisplayName() { return name; }
 
 
     /**
@@ -166,69 +157,6 @@ public enum GovernanceDomain implements OpenMetadataEnum
     public boolean isDefault()
     {
         return isDefault;
-    }
-
-
-    /**
-     * Return the unique identifier for the open metadata enum type that this enum class represents.
-     *
-     * @return string guid
-     */
-    public static String getOpenTypeGUID() { return ENUM_TYPE_GUID; }
-
-
-    /**
-     * Return the unique name for the open metadata enum type that this enum class represents.
-     *
-     * @return string name
-     */
-    public static String getOpenTypeName() { return ENUM_TYPE_NAME; }
-
-
-    /**
-     * Return the description for the open metadata enum type that this enum class represents.
-     *
-     * @return string description
-     */
-    public static String getOpenTypeDescription()
-    {
-        return ENUM_DESCRIPTION;
-    }
-
-
-    /**
-     * Return the unique identifier for the valid value element for the open metadata enum type that this enum class represents.
-     *
-     * @return string guid
-     */
-    public static String getOpenTypeDescriptionGUID()
-    {
-        return ENUM_DESCRIPTION_GUID;
-    }
-
-
-    /**
-     * Return the unique identifier for the valid value element for the open metadata enum type that this enum class represents.
-     *
-     * @return string guid
-     */
-    public static String getOpenTypeDescriptionWiki()
-    {
-        return ENUM_DESCRIPTION_WIKI;
-    }
-
-
-    /**
-     * Return the qualified name for this value.
-     *
-     * @return string
-     */
-    public String getQualifiedName()
-    {
-        return constructValidValueQualifiedName(ENUM_TYPE_NAME,
-                                                OpenMetadataProperty.SORT_ORDER.name,
-                                                null,
-                                                name);
     }
 
 

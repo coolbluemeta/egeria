@@ -869,7 +869,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
         ElementProperties relationshipProperties = propertyHelper.addEnumProperty(null,
                                                                                   OpenMetadataProperty.CONTAINMENT_TYPE.name,
                                                                                   ProcessContainmentType.getOpenTypeName(),
-                                                                                  ProcessContainmentType.OWNED.getName());
+                                                                                  ProcessContainmentType.OWNED.name());
 
         NewElementOptions newElementOptions = new NewElementOptions(openMetadataStore.getMetadataSourceOptions());
 
@@ -930,7 +930,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
         ElementProperties relationshipProperties = propertyHelper.addEnumProperty(null,
                                                                                   OpenMetadataProperty.CONTAINMENT_TYPE.name,
                                                                                   ProcessContainmentType.getOpenTypeName(),
-                                                                                  ProcessContainmentType.OWNED.getName());
+                                                                                  ProcessContainmentType.OWNED.name());
 
         NewElementOptions newElementOptions = new NewElementOptions(openMetadataStore.getMetadataSourceOptions());
 
@@ -984,7 +984,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
         properties = propertyHelper.addEnumProperty(properties,
                                                     OpenMetadataProperty.PORT_TYPE.name,
                                                     PortType.getOpenTypeName(),
-                                                    portType.getName());
+                                                    portType.name());
 
         NewElementOptions newElementOptions = new NewElementOptions(openMetadataStore.getMetadataSourceOptions());
 

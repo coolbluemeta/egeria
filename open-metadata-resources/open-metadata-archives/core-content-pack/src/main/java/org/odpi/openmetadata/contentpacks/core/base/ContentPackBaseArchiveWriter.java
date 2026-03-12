@@ -21,7 +21,6 @@ import org.odpi.openmetadata.frameworks.openmetadata.refdata.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.DataType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
-import org.odpi.openmetadata.frameworks.opensurvey.controls.AnnotationType;
 import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyActionGuard;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Classification;
@@ -1368,10 +1367,12 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                                  deployedImplementationType.getDescription(),
                                                                  null,
                                                                  null,
-                                                                 DataType.STRING.getName(),
+                                                                 DataType.STRING.getDisplayName(),
                                                                  OpenMetadataValidValues.OPEN_METADATA_ECOSYSTEM_SCOPE,
                                                                  deployedImplementationType.getDeployedImplementationType(),
                                                                  deployedImplementationType.getWikiLink(),
+                                                                 false,
+                                                                 0,
                                                                  false,
                                                                  additionalProperties);
 

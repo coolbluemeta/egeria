@@ -112,7 +112,7 @@ public enum PermittedSynchronization implements OpenMetadataEnum
      * @return String name
      */
     @Override
-    public String getName() { return name; }
+    public String getDisplayName() { return name; }
 
 
     /**

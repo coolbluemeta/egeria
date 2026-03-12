@@ -1124,7 +1124,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                 MetadataCollectionProperties metadataCollectionProperties = new MetadataCollectionProperties();
 
                 metadataCollectionProperties.setQualifiedName(OpenMetadataType.METADATA_COLLECTION.typeName + "::" + omagMetadataStoreProperties.getServerName() + " [" + omagMetadataStoreProperties.getServerId() + "]");
-                metadataCollectionProperties.setDeployedImplementationType(ElementOriginCategory.LOCAL_COHORT.getName());
+                metadataCollectionProperties.setDeployedImplementationType(ElementOriginCategory.LOCAL_COHORT.getDisplayName());
                 metadataCollectionProperties.setCategory(EGERIA_DEPLOYMENT_CATEGORY);
 
                 if (omagMetadataStoreProperties.getLocalMetadataCollectionName() != null)

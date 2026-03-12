@@ -136,7 +136,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (ActivityStatus status : ActivityStatus.values())
             {
-                if (status.getName().equals(retrievedProperty))
+                if (status.name().equals(retrievedProperty))
                 {
                     return status;
                 }
@@ -166,7 +166,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (ContentStatus status : ContentStatus.values())
             {
-                if (status.getName().equals(retrievedProperty))
+                if (status.name().equals(retrievedProperty))
                 {
                     return status;
                 }
@@ -196,7 +196,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (DeploymentStatus status : DeploymentStatus.values())
             {
-                if (status.getName().equals(retrievedProperty))
+                if (status.name().equals(retrievedProperty))
                 {
                     return status;
                 }
@@ -1222,6 +1222,27 @@ public class OpenMetadataPropertyConverterBase
      * @param elementProperties properties from element
      * @return string text or null
      */
+    protected String removeAssociatedGUID(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeAssociatedGUID";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeStringProperty(localServiceName,
+                                                       OpenMetadataProperty.ASSOCIATED_GUID.name,
+                                                       elementProperties,
+                                                       methodName);
+        }
+
+        return null;
+    }
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return string text or null
+     */
     protected String removeAssociationName(ElementProperties  elementProperties)
     {
         final String methodName = "removeAssociationName";
@@ -1373,7 +1394,51 @@ public class OpenMetadataPropertyConverterBase
 
 
     /**
-     * Extract and delete the externalInstanceCreationTime property from the supplied element properties.
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return string text or null
+     */
+    protected Date removeArchiveAfter(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeArchiveAfter";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeDateProperty(localServiceName,
+                                                     OpenMetadataProperty.ARCHIVE_AFTER.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return string text or null
+     */
+    protected Date removeDeleteAfter(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeDeleteAfter";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeDateProperty(localServiceName,
+                                                     OpenMetadataProperty.DELETE_AFTER.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
      *
      * @param elementProperties properties from element
      * @return string text or null
@@ -1395,7 +1460,7 @@ public class OpenMetadataPropertyConverterBase
 
 
     /**
-     * Extract and delete the externalInstanceLastUpdatedBy property from the supplied element properties.
+     * Extract and delete the property from the supplied element properties.
      *
      * @param elementProperties properties from element
      * @return string text or null
@@ -1417,7 +1482,7 @@ public class OpenMetadataPropertyConverterBase
 
 
     /**
-     * Extract and delete the externalInstanceLastUpdateTime property from the supplied element properties.
+     * Extract and delete the property from the supplied element properties.
      *
      * @param elementProperties properties from element
      * @return string text or null
@@ -1439,7 +1504,7 @@ public class OpenMetadataPropertyConverterBase
 
 
     /**
-     * Extract and delete the externalInstanceVersion property from the supplied element properties.
+     * Extract and delete the property from the supplied element properties.
      *
      * @param elementProperties properties from element
      * @return string text or null
@@ -6949,6 +7014,29 @@ public class OpenMetadataPropertyConverterBase
      * @param elementProperties properties from element
      * @return integer = default is 0 which is ALL
      */
+    protected int removeConfidentialityLevel(ElementProperties elementProperties)
+
+    {
+        final String methodName = "removeConfidentialityLevel";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeIntProperty(localServiceName,
+                                                    OpenMetadataProperty.CONFIDENTIALITY_LEVEL.name,
+                                                    elementProperties,
+                                                    methodName);
+        }
+
+        return 0;
+    }
+
+
+    /**
+     * Extract and delete the level identifier property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return integer = default is 0 which is ALL
+     */
     protected int removeLevelIdentifier(ElementProperties elementProperties)
 
     {
@@ -6970,9 +7058,9 @@ public class OpenMetadataPropertyConverterBase
      * Extract and delete the level identifier property from the supplied element properties.
      *
      * @param elementProperties properties from element
-     * @return integer = default is 0 which is ALL
+     * @return integer = default is 0
      */
-    protected int removeSeverityLevelIdentifier(ElementProperties elementProperties)
+    protected int removeSeverityLevel(ElementProperties elementProperties)
 
     {
         final String methodName = "removeSeverityLevelIdentifier";
@@ -6980,7 +7068,7 @@ public class OpenMetadataPropertyConverterBase
         if (elementProperties != null)
         {
             return propertyHelper.removeIntProperty(localServiceName,
-                                                    OpenMetadataProperty.SEVERITY_LEVEL_IDENTIFIER.name,
+                                                    OpenMetadataProperty.SEVERITY_LEVEL.name,
                                                     elementProperties,
                                                     methodName);
         }
@@ -8874,7 +8962,7 @@ public class OpenMetadataPropertyConverterBase
 
 
     /**
-     * Extract the confidence level property from the supplied element properties.
+     * Extract the property from the supplied element properties.
      *
      * @param elementProperties properties from annotation entities
      * @return integer or 0
@@ -8887,6 +8975,51 @@ public class OpenMetadataPropertyConverterBase
         {
             return propertyHelper.removeIntProperty(localServiceName,
                                                     OpenMetadataProperty.CONFIDENCE_LEVEL.name,
+                                                    elementProperties,
+                                                    methodName);
+        }
+
+        return 0;
+    }
+
+
+
+    /**
+     * Extract the property from the supplied element properties.
+     *
+     * @param elementProperties properties from annotation entities
+     * @return integer or 0
+     */
+    protected int removeCriticalityLevel(ElementProperties elementProperties)
+    {
+        final String methodName = "removeCriticalityLevel";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeIntProperty(localServiceName,
+                                                    OpenMetadataProperty.CRITICALITY_LEVEL.name,
+                                                    elementProperties,
+                                                    methodName);
+        }
+
+        return 0;
+    }
+
+
+    /**
+     * Extract the property from the supplied element properties.
+     *
+     * @param elementProperties properties from annotation entities
+     * @return integer or 0
+     */
+    protected int removeOrdinal(ElementProperties elementProperties)
+    {
+        final String methodName = "removeConfidenceLevel";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeIntProperty(localServiceName,
+                                                    OpenMetadataProperty.ORDINAL.name,
                                                     elementProperties,
                                                     methodName);
         }
@@ -8945,14 +9078,14 @@ public class OpenMetadataPropertyConverterBase
      * @param elementProperties properties from annotation entities
      * @return integer or 0
      */
-    protected int removeBasisIdentifier(ElementProperties elementProperties)
+    protected int removeRetentionBasis(ElementProperties elementProperties)
     {
-        final String methodName = "removeBasisIdentifier";
+        final String methodName = "removeRetentionBasis";
 
         if (elementProperties != null)
         {
             return propertyHelper.removeIntProperty(localServiceName,
-                                                    OpenMetadataProperty.RETENTION_BASIS_IDENTIFIER.name,
+                                                    OpenMetadataProperty.RETENTION_BASIS.name,
                                                     elementProperties,
                                                     methodName);
         }
@@ -10945,7 +11078,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (SolutionPortDirection portDirection : SolutionPortDirection.values())
             {
-                if (portDirection.getName().equals(enumValue))
+                if (portDirection.name().equals(enumValue))
                 {
                     return portDirection;
                 }
@@ -10978,7 +11111,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (BusinessCapabilityType businessCapabilityType : BusinessCapabilityType.values())
             {
-                if (businessCapabilityType.getName().equals(retrievedProperty))
+                if (businessCapabilityType.name().equals(retrievedProperty))
                 {
                     return businessCapabilityType;
                 }
@@ -11007,7 +11140,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (PortType portType : PortType.values())
             {
-                if (portType.getName().equals(retrievedProperty))
+                if (portType.name().equals(retrievedProperty))
                 {
                     return portType;
                 }
@@ -11037,7 +11170,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (DataItemSortOrder portDirection : DataItemSortOrder.values())
             {
-                if (portDirection.getName().equals(enumValue))
+                if (portDirection.name().equals(enumValue))
                 {
                     return portDirection;
                 }
@@ -11070,7 +11203,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (StarRating starRating : StarRating.values())
             {
-                if (starRating.getName().equals(retrievedProperty))
+                if (starRating.name().equals(retrievedProperty))
                 {
                     return starRating;
                 }
@@ -11100,7 +11233,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (CommentType commentType : CommentType.values())
             {
-                if (commentType.getName().equals(retrievedProperty))
+                if (commentType.name().equals(retrievedProperty))
                 {
                     return commentType;
                 }
@@ -11131,7 +11264,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (MediaType enumValue : MediaType.values())
             {
-                if (enumValue.getName().equals(retrievedProperty))
+                if (enumValue.name().equals(retrievedProperty))
                 {
                     return enumValue;
                 }
@@ -11162,7 +11295,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (MediaUsage enumValue : MediaUsage.values())
             {
-                if (enumValue.getName().equals(retrievedProperty))
+                if (enumValue.name().equals(retrievedProperty))
                 {
                     return enumValue;
                 }
@@ -11191,7 +11324,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (MediaUsage enumValue : MediaUsage.values())
             {
-                if (enumValue.getName().equals(retrievedProperty))
+                if (enumValue.name().equals(retrievedProperty))
                 {
                     return enumValue;
                 }
@@ -11221,7 +11354,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (ContactMethodType contactMethodType : ContactMethodType.values())
             {
-                if (contactMethodType.getName().equals(retrievedProperty))
+                if (contactMethodType.name().equals(retrievedProperty))
                 {
                     return contactMethodType;
                 }
@@ -11252,7 +11385,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (KeyPattern value : KeyPattern.values())
             {
-                if (value.getName().equals(retrievedProperty))
+                if (value.name().equals(retrievedProperty))
                 {
                     return value;
                 }
@@ -11282,7 +11415,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (IncidentReportStatus incidentReportStatus : IncidentReportStatus.values())
             {
-                if (incidentReportStatus.getName().equals(retrievedProperty))
+                if (incidentReportStatus.name().equals(retrievedProperty))
                 {
                     return incidentReportStatus;
                 }
@@ -11312,7 +11445,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (PermittedSynchronization permittedSynchronization : PermittedSynchronization.values())
             {
-                if (permittedSynchronization.getName().equals(retrievedProperty))
+                if (permittedSynchronization.name().equals(retrievedProperty))
                 {
                     return permittedSynchronization;
                 }
@@ -11342,7 +11475,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (DeleteMethod deleteMethod : DeleteMethod.values())
             {
-                if (deleteMethod.getName().equals(retrievedProperty))
+                if (deleteMethod.name().equals(retrievedProperty))
                 {
                     return deleteMethod;
                 }
@@ -11372,7 +11505,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (CollectionMemberStatus memberStatus : CollectionMemberStatus.values())
             {
-                if (memberStatus.getName().equals(retrievedProperty))
+                if (memberStatus.name().equals(retrievedProperty))
                 {
                     return memberStatus;
                 }
@@ -11402,7 +11535,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (CrowdSourcingRole roleType : CrowdSourcingRole.values())
             {
-                if (roleType.getName().equals(retrievedProperty))
+                if (roleType.name().equals(retrievedProperty))
                 {
                     return roleType;
                 }
@@ -11431,7 +11564,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (CoverageCategory coverageCategory : CoverageCategory.values())
             {
-                if (coverageCategory.getName().equals(retrievedProperty))
+                if (coverageCategory.name().equals(retrievedProperty))
                 {
                     return coverageCategory;
                 }
@@ -11461,7 +11594,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (RelationshipDecoration decoration : RelationshipDecoration.values())
             {
-                if (decoration.getName().equals(retrievedProperty))
+                if (decoration.name().equals(retrievedProperty))
                 {
                     return decoration;
                 }
@@ -11491,7 +11624,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (AnnotationStatus annotationStatus : AnnotationStatus.values())
             {
-                if (annotationStatus.getName().equals(retrievedProperty))
+                if (annotationStatus.name().equals(retrievedProperty))
                 {
                     return annotationStatus;
                 }
@@ -11521,7 +11654,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (CapabilityAssetUseType capabilityAssetUseType : CapabilityAssetUseType.values())
             {
-                if (capabilityAssetUseType.getName().equals(retrievedProperty))
+                if (capabilityAssetUseType.name().equals(retrievedProperty))
                 {
                     return capabilityAssetUseType;
                 }
@@ -11551,7 +11684,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (ProcessContainmentType processContainmentType : ProcessContainmentType.values())
             {
-                if (processContainmentType.getName().equals(retrievedProperty))
+                if (processContainmentType.name().equals(retrievedProperty))
                 {
                     return processContainmentType;
                 }
@@ -11582,7 +11715,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (DataValueAssignmentStatus dataClassAssignmentStatus : DataValueAssignmentStatus.values())
             {
-                if (dataClassAssignmentStatus.getName().equals(retrievedProperty))
+                if (dataClassAssignmentStatus.name().equals(retrievedProperty))
                 {
                     return dataClassAssignmentStatus;
                 }
@@ -11612,7 +11745,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (TermAssignmentStatus termAssignmentStatus : TermAssignmentStatus.values())
             {
-                if (termAssignmentStatus.getName().equals(retrievedProperty))
+                if (termAssignmentStatus.name().equals(retrievedProperty))
                 {
                     return termAssignmentStatus;
                 }
@@ -11642,7 +11775,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (ActivityType activityType : ActivityType.values())
             {
-                if (activityType.getName().equals(retrievedProperty))
+                if (activityType.name().equals(retrievedProperty))
                 {
                     return activityType;
                 }
@@ -11672,7 +11805,7 @@ public class OpenMetadataPropertyConverterBase
 
             for (TermRelationshipStatus status : TermRelationshipStatus.values())
             {
-                if (status.getName().equals(retrievedProperty))
+                if (status.name().equals(retrievedProperty))
                 {
                     return status;
                 }
@@ -11813,7 +11946,7 @@ public class OpenMetadataPropertyConverterBase
                 ((ConfidenceProperties)beanProperties).setStewardPropertyName(this.removeStewardPropertyName(elementProperties));
                 ((ConfidenceProperties)beanProperties).setSource(this.removeSource(elementProperties));
                 ((ConfidenceProperties)beanProperties).setNotes(this.removeNotes(elementProperties));
-                ((ConfidenceProperties)beanProperties).setLevelIdentifier(this.removeLevelIdentifier(elementProperties));
+                ((ConfidenceProperties)beanProperties).setConfidenceLevel(this.removeConfidenceLevel(elementProperties));
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.CONFIDENTIALITY_CLASSIFICATION.typeName))
             {
@@ -11826,7 +11959,7 @@ public class OpenMetadataPropertyConverterBase
                 ((ConfidentialityProperties)beanProperties).setStewardPropertyName(this.removeStewardPropertyName(elementProperties));
                 ((ConfidentialityProperties)beanProperties).setSource(this.removeSource(elementProperties));
                 ((ConfidentialityProperties)beanProperties).setNotes(this.removeNotes(elementProperties));
-                ((ConfidentialityProperties)beanProperties).setLevelIdentifier(this.removeLevelIdentifier(elementProperties));
+                ((ConfidentialityProperties)beanProperties).setConfidentialityLevel(this.removeConfidentialityLevel(elementProperties));
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.CONSOLIDATED_DUPLICATE_CLASSIFICATION.typeName))
             {
@@ -11857,7 +11990,7 @@ public class OpenMetadataPropertyConverterBase
                 ((CriticalityProperties)beanProperties).setStewardPropertyName(this.removeStewardPropertyName(elementProperties));
                 ((CriticalityProperties)beanProperties).setSource(this.removeSource(elementProperties));
                 ((CriticalityProperties)beanProperties).setNotes(this.removeNotes(elementProperties));
-                ((CriticalityProperties)beanProperties).setStatusIdentifier(this.removeStatusIdentifier(elementProperties));
+                ((CriticalityProperties)beanProperties).setCriticalityLevel(this.removeCriticalityLevel(elementProperties));
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.CYBER_LOCATION_CLASSIFICATION.typeName))
             {
@@ -11951,7 +12084,7 @@ public class OpenMetadataPropertyConverterBase
                 ((ImpactProperties)beanProperties).setStewardPropertyName(this.removeStewardPropertyName(elementProperties));
                 ((ImpactProperties)beanProperties).setSource(this.removeSource(elementProperties));
                 ((ImpactProperties)beanProperties).setNotes(this.removeNotes(elementProperties));
-                ((ImpactProperties)beanProperties).setLevelIdentifier(this.removeLevelIdentifier(elementProperties));
+                ((ImpactProperties)beanProperties).setSeverityLevel(this.removeSeverityLevel(elementProperties));
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.INCOMPLETE_CLASSIFICATION.typeName))
             {
@@ -12035,7 +12168,10 @@ public class OpenMetadataPropertyConverterBase
                 ((RetentionProperties)beanProperties).setStewardPropertyName(this.removeStewardPropertyName(elementProperties));
                 ((RetentionProperties)beanProperties).setSource(this.removeSource(elementProperties));
                 ((RetentionProperties)beanProperties).setNotes(this.removeNotes(elementProperties));
-                ((RetentionProperties)beanProperties).setBasisIdentifier(this.removeBasisIdentifier(elementProperties));
+                ((RetentionProperties)beanProperties).setRetentionBasis(this.removeRetentionBasis(elementProperties));
+                ((RetentionProperties)beanProperties).setAssociatedGUID(this.removeAssociatedGUID(elementProperties));
+                ((RetentionProperties)beanProperties).setArchiveAfter(this.removeArchiveAfter(elementProperties));
+                ((RetentionProperties)beanProperties).setDeleteAfter(this.removeDeleteAfter(elementProperties));
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.SECURE_LOCATION_CLASSIFICATION.typeName))
             {
@@ -12512,7 +12648,7 @@ public class OpenMetadataPropertyConverterBase
             {
                 relationshipBeanProperties = new ContextEventImpactProperties();
 
-                ((ContextEventImpactProperties)relationshipBeanProperties).setSeverityLevelIdentifier(this.removeSeverityLevelIdentifier(elementProperties));
+                ((ContextEventImpactProperties)relationshipBeanProperties).setSeverityLevel(this.removeSeverityLevel(elementProperties));
                 ((ContextEventImpactProperties)relationshipBeanProperties).setLabel(this.removeLabel(elementProperties));
                 ((ContextEventImpactProperties)relationshipBeanProperties).setDescription(this.removeDescription(elementProperties));
             }
@@ -12792,7 +12928,7 @@ public class OpenMetadataPropertyConverterBase
             {
                 relationshipBeanProperties = new ImpactedResourceProperties();
 
-                ((ImpactedResourceProperties)relationshipBeanProperties).setSeverityLevelIdentifier(this.removeSeverityLevelIdentifier(elementProperties));
+                ((ImpactedResourceProperties)relationshipBeanProperties).setSeverityLevel(this.removeSeverityLevel(elementProperties));
             }
             else if (propertyHelper.isTypeOf(relationshipHeader, OpenMetadataType.IMPLEMENTATION_RESOURCE_RELATIONSHIP.typeName))
             {
@@ -13704,7 +13840,7 @@ public class OpenMetadataPropertyConverterBase
                         ((AnnotationProperties)beanProperties).setSampleSize(this.removeSampleSize(elementProperties));
                         ((AnnotationProperties)beanProperties).setSamplePercent(this.removeSamplePercent(elementProperties));
                         ((AnnotationProperties)beanProperties).setSamplingMethod(this.removeSamplingMethod(elementProperties));
-                        ((AnnotationProperties)beanProperties).setConfidenceLevel(this.removeConfidenceLevel(elementProperties));
+                        ((AnnotationProperties)beanProperties).setConfidence(this.removeConfidence(elementProperties));
                         ((AnnotationProperties)beanProperties).setUnits(this.removeUnits(elementProperties));
                         ((AnnotationProperties)beanProperties).setAbsoluteUncertainty(this.removeAbsoluteUncertainty(elementProperties));
                         ((AnnotationProperties)beanProperties).setRelativeUncertainty(this.removeRelativeUncertainty(elementProperties));
@@ -14484,6 +14620,7 @@ public class OpenMetadataPropertyConverterBase
                         ((ValidValueDefinitionProperties)beanProperties).setPreferredValue(this.removePreferredValue(elementProperties));
                         ((ValidValueDefinitionProperties)beanProperties).setDataType(this.removeDataType(elementProperties));
                         ((ValidValueDefinitionProperties)beanProperties).setIsCaseSensitive(this.removeIsCaseSensitive(elementProperties));
+                        ((ValidValueDefinitionProperties)beanProperties).setOrdinal(this.removeOrdinal(elementProperties));
                     }
                     else
                     {

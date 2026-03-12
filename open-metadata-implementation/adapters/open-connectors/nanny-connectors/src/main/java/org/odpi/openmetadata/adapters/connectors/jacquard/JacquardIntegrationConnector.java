@@ -537,7 +537,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
 
         AssignmentScopeProperties assignmentScopeProperties = new AssignmentScopeProperties();
 
-        assignmentScopeProperties.setAssignmentType(AssignmentType.OWNER.getName());
+        assignmentScopeProperties.setAssignmentType(AssignmentType.OWNER.getDisplayName());
         assignmentScopeProperties.setDescription(AssignmentType.OWNER.getDescription());
 
         NewElementOptions roleOptions = new NewElementOptions(collectionClient.getMetadataSourceOptions());
@@ -557,7 +557,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
 
         if ((productManagerGUID != null) && (productDefinition.getCommunity() != null))
         {
-            assignmentScopeProperties.setAssignmentType(AssignmentType.DISCUSSION_LEADER.getName());
+            assignmentScopeProperties.setAssignmentType(AssignmentType.DISCUSSION_LEADER.getDisplayName());
             assignmentScopeProperties.setDescription(AssignmentType.DISCUSSION_LEADER.getDescription());
 
             classificationManagerClient.assignActorToElement(communities.get(productDefinition.getCommunity().getQualifiedName()),
@@ -1988,7 +1988,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         newElementOptions.setParentRelationshipTypeName(OpenMetadataType.ASSIGNMENT_SCOPE_RELATIONSHIP.typeName);
 
         AssignmentScopeProperties assignmentScopeProperties = new AssignmentScopeProperties();
-        assignmentScopeProperties.setAssignmentType(AssignmentType.DISCUSSION_LEADER.getName());
+        assignmentScopeProperties.setAssignmentType(AssignmentType.DISCUSSION_LEADER.getDisplayName());
         assignmentScopeProperties.setDescription(AssignmentType.DISCUSSION_LEADER.getDescription());
 
         String communityGUID = communityClient.createCommunity(newElementOptions,
@@ -2179,7 +2179,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         dataFieldProperties.setQualifiedName(dataFieldDefinition.getQualifiedName());
         dataFieldProperties.setDisplayName(dataFieldDefinition.getDisplayName());
         dataFieldProperties.setDescription(dataFieldDefinition.getDescription());
-        dataFieldProperties.setDataType(dataFieldDefinition.getDataType().getName());
+        dataFieldProperties.setDataType(dataFieldDefinition.getDataType().getDisplayName());
         dataFieldProperties.setDefaultValue(dataFieldDefinition.getDefaultValue());
         dataFieldProperties.setNamePatterns(List.of(dataFieldDefinition.getNamePattern()));
 

@@ -14,13 +14,13 @@ import java.util.List;
  */
 public enum RelationalSchemaMetric implements SurveyMetric
 {
-    QUALIFIED_SCHEMA_NAME("qualifiedSchemaName", DataType.STRING.getName(), "Qualified Schema Name", "Name of the schema qualified with its database name."),
-    SCHEMA_NAME("schemaName", DataType.STRING.getName(), "Schema Name", "Name of the schema."),
-    TOTAL_TABLE_SIZE ("totalTableSize", DataType.LONG.getName(), "Total size of tables", "Sum of the sizes (in bytes) of the tables in the schema."),
-    TABLE_COUNT ("tableCount", DataType.LONG.getName(), "Number of tables", "Count of tables in the schema."),
-    VIEW_COUNT ("viewCount",DataType.LONG.getName(), "Number of views", "Count of views in the schema."),
-    MAT_VIEW_COUNT ("materializedViewCount", DataType.LONG.getName(), "Number of materialized views", "Count of materialized views in the database/schema."),
-    COLUMN_COUNT ("columnCount", DataType.LONG.getName(),"Number of columns", "Count of all columns in the table/views."),
+    QUALIFIED_SCHEMA_NAME("qualifiedSchemaName", DataType.STRING.getDisplayName(), "Qualified Schema Name", "Name of the schema qualified with its database name."),
+    SCHEMA_NAME("schemaName", DataType.STRING.getDisplayName(), "Schema Name", "Name of the schema."),
+    TOTAL_TABLE_SIZE ("totalTableSize", DataType.LONG.getDisplayName(), "Total size of tables", "Sum of the sizes (in bytes) of the tables in the schema."),
+    TABLE_COUNT ("tableCount", DataType.LONG.getDisplayName(), "Number of tables", "Count of tables in the schema."),
+    VIEW_COUNT ("viewCount", DataType.LONG.getDisplayName(), "Number of views", "Count of views in the schema."),
+    MAT_VIEW_COUNT ("materializedViewCount", DataType.LONG.getDisplayName(), "Number of materialized views", "Count of materialized views in the database/schema."),
+    COLUMN_COUNT ("columnCount", DataType.LONG.getDisplayName(), "Number of columns", "Count of all columns in the table/views."),
     ;
 
     public final String propertyName;

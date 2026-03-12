@@ -200,6 +200,8 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                                          null,
                                                          null,
                                                          false,
+                                                         0,
+                                                         false,
                                                          null);
 
             parentValidValueQNameToGUIDMap.put(parentQualifiedName, parentSetGUID);
@@ -248,6 +250,8 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                    annotationType.getOpenMetadataTypeName(),
                                    null,
                                    annotationType.getName(),
+                                   0,
+                                   false,
                                    additionalProperties);
 
 
@@ -281,7 +285,32 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                          String mapName,
                                          String preferredValue)
     {
-        this.addValidMetadataValue(null, displayName, description, propertyName, DataType.STRING.getName(), typeName, mapName, preferredValue, null);
+        this.addValidMetadataValue(null, displayName, description, propertyName, DataType.STRING.getDisplayName(), typeName, mapName, preferredValue, 0, false, null);
+    }
+
+
+    /**
+     * Add a new valid value to an open metadata valid value set.
+     *
+     * @param displayName    human-readable name
+     * @param description    description of the value
+     * @param propertyName   name of property
+     * @param dataType       type of property
+     * @param typeName       type name - if values only apply to one type
+     * @param mapName        name of property if stored in a map
+     * @param preferredValue preferred value to use
+     * @param ordinal        ordinal value for the valid value
+     */
+    protected void addValidMetadataValue(String displayName,
+                                         String description,
+                                         String propertyName,
+                                         String dataType,
+                                         String typeName,
+                                         String mapName,
+                                         String preferredValue,
+                                         int    ordinal)
+    {
+        this.addValidMetadataValue(null, displayName, description, propertyName, dataType, typeName, mapName, preferredValue, ordinal, false, null);
     }
 
 
@@ -296,6 +325,8 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
      * @param typeName type name - if values only apply to one type
      * @param mapName name of property if stored in a map
      * @param preferredValue preferred value to use
+     * @param ordinal ordinal value for the valid value
+     * @param isDefaultValue is this the default value?
      * @param additionalProperties additional properties or null
      */
     protected void addValidMetadataValue(String             suppliedGUID,
@@ -306,6 +337,8 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                          String             typeName,
                                          String             mapName,
                                          String             preferredValue,
+                                         int                ordinal,
+                                         boolean            isDefaultValue,
                                          Map<String,String> additionalProperties)
     {
         String validValueSetGUID = this.getParentSet(propertyName);
@@ -336,6 +369,8 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                              preferredValue,
                                              null,
                                              false,
+                                             ordinal,
+                                             isDefaultValue,
                                              additionalProperties);
         }
     }

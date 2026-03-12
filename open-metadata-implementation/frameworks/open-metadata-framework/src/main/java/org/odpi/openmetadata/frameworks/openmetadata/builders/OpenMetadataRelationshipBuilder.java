@@ -198,8 +198,8 @@ public class OpenMetadataRelationshipBuilder
                 else if (properties instanceof ContextEventImpactProperties contextEventImpactProperties)
                 {
                     elementProperties = propertyHelper.addIntProperty(elementProperties,
-                                                                      OpenMetadataProperty.SEVERITY_LEVEL_IDENTIFIER.name,
-                                                                      contextEventImpactProperties.getSeverityLevelIdentifier());
+                                                                      OpenMetadataProperty.SEVERITY_LEVEL.name,
+                                                                      contextEventImpactProperties.getSeverityLevel());
                 }
                 else if (properties instanceof DataValueAssignmentProperties dataValueAssignmentProperties)
                 {
@@ -212,7 +212,7 @@ public class OpenMetadataRelationshipBuilder
                         elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                            OpenMetadataProperty.ASSIGNMENT_STATUS.name,
                                                                            DataValueAssignmentStatus.getOpenTypeName(),
-                                                                           dataValueAssignmentProperties.getAssignmentStatus().getName());
+                                                                           dataValueAssignmentProperties.getAssignmentStatus().name());
                     }
 
                     elementProperties = propertyHelper.addIntProperty(elementProperties,
@@ -254,7 +254,7 @@ public class OpenMetadataRelationshipBuilder
                         elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                            OpenMetadataProperty.ACTIVITY_STATUS.name,
                                                                            ActivityStatus.getOpenTypeName(),
-                                                                           notificationSubscriberProperties.getActivityStatus().getName());
+                                                                           notificationSubscriberProperties.getActivityStatus().name());
                     }
 
                     elementProperties = propertyHelper.addStringArrayProperty(elementProperties,
@@ -333,7 +333,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.COVERAGE_CATEGORY.name,
                                                                        CoverageCategory.getOpenTypeName(),
-                                                                       partOfRelationshipProperties.getCoverageCategory().getName());
+                                                                       partOfRelationshipProperties.getCoverageCategory().name());
                 }
 
                 if (properties instanceof ConceptBeadAttributeLinkProperties conceptBeadAttributeLinkProperties)
@@ -379,7 +379,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.ACTIVITY_STATUS.name,
                                                                        ActivityStatus.getOpenTypeName(),
-                                                                       actionTargetProperties.getActivityStatus().getName());
+                                                                       actionTargetProperties.getActivityStatus().name());
                 }
 
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -466,7 +466,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.PERMITTED_SYNCHRONIZATION.name,
                                                                        PermittedSynchronization.getOpenTypeName(),
-                                                                       catalogTargetProperties.getPermittedSynchronization().getName());
+                                                                       catalogTargetProperties.getPermittedSynchronization().name());
                 }
 
                 if (catalogTargetProperties.getDeleteMethod() != null)
@@ -474,7 +474,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.DELETE_METHOD.name,
                                                                        DeleteMethod.getOpenTypeName(),
-                                                                       catalogTargetProperties.getDeleteMethod().getName());
+                                                                       catalogTargetProperties.getDeleteMethod().name());
                 }
             }
             else if (properties instanceof CertificationProperties certificationProperties)
@@ -568,7 +568,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.MEMBERSHIP_STATUS.name,
                                                                        CollectionMemberStatus.getOpenTypeName(),
-                                                                       collectionMembershipProperties.getMembershipStatus().getName());
+                                                                       collectionMembershipProperties.getMembershipStatus().name());
                 }
 
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -610,7 +610,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.DECORATION.name,
                                                                        RelationshipDecoration.getOpenTypeName(),
-                                                                       conceptBeadRelationshipEndProperties.getDecoration().getName());
+                                                                       conceptBeadRelationshipEndProperties.getDecoration().name());
                 }
 
                 elementProperties = propertyHelper.addIntProperty(elementProperties,
@@ -660,7 +660,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.ROLE_TYPE.name,
                                                                        CrowdSourcingRole.getOpenTypeName(),
-                                                                       crowdSourcingContributionProperties.getRoleType().getName());
+                                                                       crowdSourcingContributionProperties.getRoleType().name());
                 }
             }
             else if (properties instanceof DataSetContentProperties dataSetContentProperties)
@@ -736,7 +736,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.PERMITTED_SYNCHRONIZATION.name,
                                                                        PermittedSynchronization.getOpenTypeName(),
-                                                                       externalIdLinkProperties.getPermittedSynchronization().getName());
+                                                                       externalIdLinkProperties.getPermittedSynchronization().name());
                 }
             }
             else if (properties instanceof ForeignKeyProperties foreignKeyProperties)
@@ -781,7 +781,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.TERM_RELATIONSHIP_STATUS.name,
                                                                        TermRelationshipStatus.getOpenTypeName(),
-                                                                       glossaryTermRelationshipProperties.getStatus().getName());
+                                                                       glossaryTermRelationshipProperties.getStatus().name());
                 }
 
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -864,8 +864,8 @@ public class OpenMetadataRelationshipBuilder
             else if (properties instanceof ImpactedResourceProperties impactedResourceProperties)
             {
                 elementProperties = propertyHelper.addIntProperty(elementProperties,
-                                                                  OpenMetadataProperty.SEVERITY_LEVEL_IDENTIFIER.name,
-                                                                  impactedResourceProperties.getSeverityLevelIdentifier());
+                                                                  OpenMetadataProperty.SEVERITY_LEVEL.name,
+                                                                  impactedResourceProperties.getSeverityLevel());
             }
             else if (properties instanceof LicenseProperties licenseProperties)
             {
@@ -964,7 +964,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.MEDIA_USAGE.name,
                                                                        MediaUsage.getOpenTypeName(),
-                                                                       mediaReferenceProperties.getMediaUsage().getName());
+                                                                       mediaReferenceProperties.getMediaUsage().name());
                 }
 
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -1080,7 +1080,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.PERMITTED_SYNCHRONIZATION.name,
                                                                        PermittedSynchronization.getOpenTypeName(),
-                                                                       registeredIntegrationConnectorProperties.getPermittedSynchronization().getName());
+                                                                       registeredIntegrationConnectorProperties.getPermittedSynchronization().name());
                 }
                 elementProperties = propertyHelper.addBooleanProperty(elementProperties,
                                                                      OpenMetadataProperty.GENERATE_CONNECTOR_ACTIVITY_REPORT.name,
@@ -1132,7 +1132,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.TERM_ASSIGNMENT_STATUS.name,
                                                                        TermAssignmentStatus.getOpenTypeName(),
-                                                                       semanticAssignmentProperties.getTermAssignmentStatus().getName());
+                                                                       semanticAssignmentProperties.getTermAssignmentStatus().name());
                 }
 
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -1193,7 +1193,7 @@ public class OpenMetadataRelationshipBuilder
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.DELETE_METHOD.name,
                                                                        DeleteMethod.getOpenTypeName(),
-                                                                       supportedGovernanceServiceProperties.getDeleteMethod().getName());
+                                                                       supportedGovernanceServiceProperties.getDeleteMethod().name());
                 }
             }
             else if (properties instanceof TargetForGovernanceActionProperties targetForGovernanceActionProperties)
@@ -1263,6 +1263,10 @@ public class OpenMetadataRelationshipBuilder
                 elementProperties = propertyHelper.addBooleanProperty(elementProperties,
                                                                       OpenMetadataProperty.IS_DEFAULT_VALUE.name,
                                                                       validValueMemberProperties.getIsDefaultValue());
+
+                elementProperties = propertyHelper.addIntProperty(elementProperties,
+                                                                  OpenMetadataProperty.ORDINAL.name,
+                                                                  validValueMemberProperties.getOrdinal());
             }
 
             elementProperties = propertyHelper.addPropertyMap(elementProperties,

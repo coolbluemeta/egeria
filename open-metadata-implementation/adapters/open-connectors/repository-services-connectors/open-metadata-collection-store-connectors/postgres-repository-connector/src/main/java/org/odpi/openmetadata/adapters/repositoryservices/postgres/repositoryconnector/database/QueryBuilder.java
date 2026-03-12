@@ -451,13 +451,26 @@ public class QueryBuilder
                 }
                 else if (instancePropertyValue instanceof ArrayPropertyValue arrayPropertyValue)
                 {
-                    stringBuilder.append(getPropertyComparisonFromInstanceProperties(arrayPropertyValue.getArrayValues(),
-                                                                                     leafPropertyName,
-                                                                                     stringPropertyOperator,
-                                                                                     numericPropertyOperator,
-                                                                                     matchOperand,
-                                                                                     principleTableName,
-                                                                                     propertyTableName));
+                    if (stringPropertyOperator == PropertyComparisonOperator.IN)
+                    {
+                        stringBuilder.append(getPropertyComparisonFromInstanceProperties(arrayPropertyValue.getArrayValues(),
+                                                                                         leafPropertyName,
+                                                                                         PropertyComparisonOperator.EQ,
+                                                                                         PropertyComparisonOperator.EQ,
+                                                                                         " or ",
+                                                                                         principleTableName,
+                                                                                         propertyTableName));
+                    }
+                    else
+                    {
+                        stringBuilder.append(getPropertyComparisonFromInstanceProperties(arrayPropertyValue.getArrayValues(),
+                                                                                         leafPropertyName,
+                                                                                         stringPropertyOperator,
+                                                                                         numericPropertyOperator,
+                                                                                         matchOperand,
+                                                                                         principleTableName,
+                                                                                         propertyTableName));
+                    }
                 }
                 else if (instancePropertyValue instanceof StructPropertyValue structPropertyValue)
                 {
@@ -608,17 +621,17 @@ public class QueryBuilder
                 }
             }
         }
-        else // property in dedicated column
+        else // property in a dedicated column
         {
             switch (operator)
             {
                 case EQ ->
                 {
-                    return " (" + principleTableName + "." + propertyColumn + " = '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
+                    return " (" + principleTableName + "." + propertyColumn + " = '" + propertyValue + "') ";
                 }
                 case NEQ ->
                 {
-                    return " (" + principleTableName + "." + propertyColumn + " != '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
+                    return " (" + principleTableName + "." + propertyColumn + " != '" + propertyValue + "') ";
                 }
                 case LT ->
                 {
@@ -646,25 +659,39 @@ public class QueryBuilder
                 }
                 case LIKE ->
                 {
-                    if (repositoryHelper.isCaseInsensitiveRegex(propertyValue.toString()))
-                    {
-                        return " (" + principleTableName + "." + propertyColumn + " ~* '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
-                    }
-                    else
-                    {
-                        return " (" + principleTableName + "." + propertyColumn + " ~ '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
-                    }
+                    return " (" + principleTableName + "." + propertyColumn + " like '%" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
                 }
                 case NOT_LIKE ->
                 {
-                    if (repositoryHelper.isCaseInsensitiveRegex(propertyValue.toString()))
-                    {
-                        return " (" + principleTableName + "." + propertyColumn + " !~* '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
-                    }
-                    else
-                    {
-                        return " (" + principleTableName + "." + propertyColumn + " !~ '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
-                    }
+                    return " (" + principleTableName + "." + propertyColumn + " not like '%" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                }
+                case CASE_INSENSITIVE_LIKE ->
+                {
+                    return " (" + principleTableName + "." + propertyColumn + " ilike '%" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                }
+                case CASE_INSENSITIVE_NOT_LIKE ->
+                {
+                    return " (" + principleTableName + "." + propertyColumn + " not ilike '%" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                }
+                case STARTS_WITH ->
+                {
+                    return " (" + principleTableName + "." + propertyColumn + " like '" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                }
+                case ENDS_WITH ->
+                {
+                    return " (" + principleTableName + "." + propertyColumn + " like '%" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
+                }
+                case CASE_INSENSITIVE_STARTS_WITH ->
+                {
+                    return " (" + principleTableName + "." + propertyColumn + " ilike '" + this.getSafePostgreSQLRegex(propertyValue) + "%') ";
+                }
+                case CASE_INSENSITIVE_ENDS_WITH ->
+                {
+                    return " (" + principleTableName + "." + propertyColumn + " ilike '%" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
+                }
+                case CASE_INSENSITIVE_EQ ->
+                {
+                    return " (" + principleTableName + "." + propertyColumn + " ilike '" + this.getSafePostgreSQLRegex(propertyValue) + "') ";
                 }
             }
         }

@@ -44,13 +44,19 @@ Content-Type: application/json
 # Impact
 #==================================================
 
-
+###
+# @name getValidMetadataValues - severityLevel values
+# Retrieve all the valid values for the severityLevel property.
+#
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/get-valid-metadata-values/severityLevel
+Authorization: Bearer {{token}}
+Content-Type: application/json
 
 ###
 # @name setImpactClassification
 # Classify the element (typically a context event, to do or incident report) to indicate the level of impact
 # that the event described will have on the organization
-# The level of impact is expressed by the levelIdentifier property.
+# The level of impact is expressed by the severityLevel property.
 #
 # Governance Action Classifications: https://egeria-project.org/types/4/0422-Governed-Data-Classifications/
 
@@ -62,7 +68,7 @@ Content-Type: application/json
    "class" : "NewClassificationRequestBody",
    "properties" : {
        "class" : "ImpactProperties",
-       "levelIdentifier" : 0,
+       "severityLevel" : 0,
        "status" : 0,
        "confidence" : 0,
        "steward" : "Add value here",
@@ -129,6 +135,14 @@ Content-Type: application/json
 
 
 ###
+# @name getValidMetadataValues - confidenceLevel values
+# Retrieve all the valid values for the confidenceLevel property.
+#
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/get-valid-metadata-values/confidenceLevel
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
 # @name setConfidenceClassification
 # Classify the element (typically an asset) to indicate the level of confidence that the organization
 # has that the data is complete, accurate and up-to-date.  The level of confidence is expressed by the
@@ -144,7 +158,7 @@ Content-Type: application/json
    "class" : "NewClassificationRequestBody",
    "properties" : {
        "class" : "ConfidenceProperties",
-       "levelIdentifier" : 0,
+       "confidenceLevel" : 0,
        "status" : 0,
        "confidence" : 0,
        "steward" : "Add value here",
@@ -184,6 +198,7 @@ Content-Type: application/json
 ###
 # @name getConfidenceClassifiedElements
 # Return information about the elements classified with the confidence classification.
+# Set returnSpecificLevel and the levelIdentifier to the confidenceLevel to select the level of confidence to query.
 #
 # https://egeria-project.org/types/4/0422-Governed-Data-Classifications/
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/classification-explorer/elements/by-confidence
@@ -211,6 +226,15 @@ Content-Type: application/json
 
 
 ###
+# @name getValidMetadataValues - criticalityLevel values
+# Retrieve all the valid values for the criticalityLevel property.
+#
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/get-valid-metadata-values/criticalityLevel
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+###
 # @name setCriticalityClassification
 # Classify the element (typically an asset) to indicate how critical the element (or associated resource)
 # is to the organization.  The level of criticality is expressed by the levelIdentifier property.
@@ -225,7 +249,7 @@ Content-Type: application/json
    "class" : "NewClassificationRequestBody",
    "properties" : {
        "class" : "CriticalityProperties",
-       "levelIdentifier" : 0,
+       "criticalityLevel" : 0,
        "status" : 0,
        "confidence" : 0,
        "steward" : "Add value here",
@@ -265,6 +289,7 @@ Content-Type: application/json
 ###
 # @name getCriticalityClassifiedElements
 # Return information about the elements classified with the criticality classification.
+# Set returnSpecificLevel and the levelIdentifier to the criticalityLevel to select the level of criticality to query.
 #
 # https://egeria-project.org/types/4/0422-Governed-Data-Classifications/
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/classification-explorer/elements/by-criticality
@@ -293,6 +318,15 @@ Content-Type: application/json
 
 
 ###
+# @name getValidMetadataValues - confidentialityLevel values
+# Retrieve all the valid values for the confidentialityLevel property.
+#
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/get-valid-metadata-values/confidentialityLevel
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+###
 # @name setConfidentialityClassification
 # Classify the element (typically a data field, schema attribute or glossary term) to indicate the level of confidentiality
 # that any data associated with the element should be given.  If the classification is attached to a glossary term, the level
@@ -309,7 +343,7 @@ Content-Type: application/json
    "class" : "NewClassificationRequestBody",
    "properties" : {
        "class" : "ConfidentialityProperties",
-       "levelIdentifier" : 0,
+       "confidentialityLevel" : 0,
        "status" : 0,
        "confidence" : 0,
        "steward" : "Add value here",
@@ -351,6 +385,7 @@ Content-Type: application/json
 ###
 # @name getConfidentialityClassifiedElements
 # Return information about the elements classified with the confidentiality classification.
+# Set returnSpecificLevel and the levelIdentifier to the confidentialityLevel to select the level of confidentiality to query.
 #
 # https://egeria-project.org/types/4/0422-Governed-Data-Classifications/
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/classification-explorer/elements/by-confidentiality
@@ -377,6 +412,14 @@ Content-Type: application/json
 #==================================================
 
 
+
+###
+# @name getValidMetadataValues - retentionBasis values
+# Retrieve all the valid values for the retentionBasis property.
+#
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/get-valid-metadata-values/retentionBasis
+Authorization: Bearer {{token}}
+Content-Type: application/json
 
 ###
 # @name setRetentionClassification
@@ -438,6 +481,7 @@ Content-Type: application/json
 ###
 # @name getRetentionClassifiedElements
 # Return information about the elements classified with the retention classification.
+# Set returnSpecificLevel and the retentionBasis to the confidentialityLevel to select the level of retention to query.
 #
 # https://egeria-project.org/types/4/0422-Governed-Data-Classifications/
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/classification-explorer/elements/by-retention

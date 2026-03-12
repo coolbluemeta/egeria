@@ -4,6 +4,7 @@ package org.odpi.openmetadata.opentypes;
 
 
 import org.odpi.openmetadata.frameworks.openmetadata.enums.*;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.repositoryservices.archiveutilities.OMRSArchiveBuilder;
@@ -394,7 +395,7 @@ public class OpenMetadataTypesArchive1_2
         for (ActivityStatus activityStatus : ActivityStatus.values())
         {
             elementDef = archiveHelper.getEnumElementDef(activityStatus.getOrdinal(),
-                                                         activityStatus.getName(),
+                                                         activityStatus.name(),
                                                          activityStatus.getDescription(),
                                                          activityStatus.getDescriptionGUID());
 
@@ -426,7 +427,7 @@ public class OpenMetadataTypesArchive1_2
         for (ContentStatus contentStatus : ContentStatus.values())
         {
             elementDef = archiveHelper.getEnumElementDef(contentStatus.getOrdinal(),
-                                                         contentStatus.getName(),
+                                                         contentStatus.name(),
                                                          contentStatus.getDescription(),
                                                          contentStatus.getDescriptionGUID());
 
@@ -458,7 +459,7 @@ public class OpenMetadataTypesArchive1_2
         for (DeploymentStatus deploymentStatus : DeploymentStatus.values())
         {
             elementDef = archiveHelper.getEnumElementDef(deploymentStatus.getOrdinal(),
-                                                         deploymentStatus.getName(),
+                                                         deploymentStatus.name(),
                                                          deploymentStatus.getDescription(),
                                                          deploymentStatus.getDescriptionGUID());
 
@@ -1061,7 +1062,7 @@ public class OpenMetadataTypesArchive1_2
         for (MediaType enumValue : MediaType.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -1093,7 +1094,7 @@ public class OpenMetadataTypesArchive1_2
         for (MediaUsage enumValue : MediaUsage.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -1286,7 +1287,7 @@ public class OpenMetadataTypesArchive1_2
         for (KeyPattern enumValue : KeyPattern.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -1319,7 +1320,7 @@ public class OpenMetadataTypesArchive1_2
         for (PermittedSynchronization enumValue : PermittedSynchronization.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -1813,7 +1814,7 @@ public class OpenMetadataTypesArchive1_2
         for (ByteOrdering byteOrdering : ByteOrdering.values())
         {
             elementDef = archiveHelper.getEnumElementDef(byteOrdering.getOrdinal(),
-                                                         byteOrdering.getName(),
+                                                         byteOrdering.name(),
                                                          byteOrdering.getDescription(),
                                                          byteOrdering.getDescriptionGUID());
 
@@ -2129,7 +2130,7 @@ public class OpenMetadataTypesArchive1_2
         for (CapabilityAssetUseType enumValue : CapabilityAssetUseType.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -2453,7 +2454,7 @@ public class OpenMetadataTypesArchive1_2
         for (ContactMethodType enumValues : ContactMethodType.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
+                                                         enumValues.name(),
                                                          enumValues.getDescription(),
                                                          enumValues.getDescriptionGUID());
 
@@ -3130,7 +3131,7 @@ public class OpenMetadataTypesArchive1_2
         for (CollectionMemberStatus collectionMemberStatus : CollectionMemberStatus.values())
         {
             elementDef = archiveHelper.getEnumElementDef(collectionMemberStatus.getOrdinal(),
-                                                         collectionMemberStatus.getName(),
+                                                         collectionMemberStatus.name(),
                                                          collectionMemberStatus.getDescription(),
                                                          collectionMemberStatus.getDescriptionGUID());
 
@@ -3629,7 +3630,7 @@ public class OpenMetadataTypesArchive1_2
         for (StarRating enumValue : StarRating.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -3661,7 +3662,7 @@ public class OpenMetadataTypesArchive1_2
         for (CommentType commentType : CommentType.values())
         {
             elementDef = archiveHelper.getEnumElementDef(commentType.getOrdinal(),
-                                                         commentType.getName(),
+                                                         commentType.name(),
                                                          commentType.getDescription(),
                                                          commentType.getDescriptionGUID());
 
@@ -3986,7 +3987,7 @@ public class OpenMetadataTypesArchive1_2
         for (KeyPattern enumValue : KeyPattern.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -5448,7 +5449,7 @@ public class OpenMetadataTypesArchive1_2
         for (PortType enumValue : PortType.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -5734,7 +5735,7 @@ public class OpenMetadataTypesArchive1_2
         for (TermRelationshipStatus enumValues : TermRelationshipStatus.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
+                                                         enumValues.name(),
                                                          enumValues.getDescription(),
                                                          enumValues.getDescriptionGUID());
 
@@ -5807,7 +5808,7 @@ public class OpenMetadataTypesArchive1_2
         for (ActivityType enumValues : ActivityType.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
+                                                         enumValues.name(),
                                                          enumValues.getDescription(),
                                                          enumValues.getDescriptionGUID());
 
@@ -6331,7 +6332,7 @@ public class OpenMetadataTypesArchive1_2
         for (TermAssignmentStatus enumValues : TermAssignmentStatus.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
+                                                         enumValues.name(),
                                                          enumValues.getDescription(),
                                                          enumValues.getDescriptionGUID());
 
@@ -6495,44 +6496,7 @@ public class OpenMetadataTypesArchive1_2
      */
     private void add0401GovernanceDefinitions()
     {
-        this.archiveBuilder.addEnumDef(getGovernanceDomainEnum());
-
         this.archiveBuilder.addEntityDef(getGovernanceDefinitionEntity());
-    }
-
-    /**
-     * This enum is used to illustrate types of governance domains.
-     *
-     * @return enum definition
-     */
-    private EnumDef getGovernanceDomainEnum()
-    {
-        EnumDef enumDef = archiveHelper.getEmptyEnumDef(GovernanceDomain.getOpenTypeGUID(),
-                                                        GovernanceDomain.getOpenTypeName(),
-                                                        GovernanceDomain.getOpenTypeDescription(),
-                                                        GovernanceDomain.getOpenTypeDescriptionGUID());
-
-        ArrayList<EnumElementDef> elementDefs = new ArrayList<>();
-        EnumElementDef            elementDef;
-
-        for (GovernanceDomain enumValue : GovernanceDomain.values())
-        {
-            elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
-                                                         enumValue.getDescription(),
-                                                         enumValue.getDescriptionGUID());
-
-            elementDefs.add(elementDef);
-
-            if (enumValue.isDefault())
-            {
-                enumDef.setDefaultValue(elementDef);
-            }
-        }
-
-        enumDef.setElementDefs(elementDefs);
-
-        return enumDef;
     }
 
 
@@ -6925,172 +6889,10 @@ public class OpenMetadataTypesArchive1_2
      */
     private void add0422GovernanceActionClassifications()
     {
-        this.archiveBuilder.addEnumDef(getGovernanceClassificationStatusEnum());
-        this.archiveBuilder.addEnumDef(getConfidentialityLevelEnum());
-        this.archiveBuilder.addEnumDef(getConfidenceLevelEnum());
-        this.archiveBuilder.addEnumDef(getRetentionBasisEnum());
-        this.archiveBuilder.addEnumDef(getCriticalityLevelEnum());
-
         this.archiveBuilder.addClassificationDef(getConfidentialityClassification());
         this.archiveBuilder.addClassificationDef(getConfidenceClassification());
         this.archiveBuilder.addClassificationDef(getRetentionClassification());
         this.archiveBuilder.addClassificationDef(getCriticalityClassification());
-    }
-
-
-    private EnumDef getGovernanceClassificationStatusEnum()
-    {
-        EnumDef enumDef = archiveHelper.getEmptyEnumDef(GovernanceClassificationStatus.getOpenTypeGUID(),
-                                                        GovernanceClassificationStatus.getOpenTypeName(),
-                                                        GovernanceClassificationStatus.getOpenTypeDescription(),
-                                                        GovernanceClassificationStatus.getOpenTypeDescriptionGUID(),
-                                                        GovernanceClassificationStatus.getOpenTypeDescriptionWiki());
-
-        ArrayList<EnumElementDef> elementDefs = new ArrayList<>();
-        EnumElementDef            elementDef;
-
-        for (CriticalityLevel enumValues : CriticalityLevel.values())
-        {
-            elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
-                                                         enumValues.getDescription(),
-                                                         enumValues.getDescriptionGUID());
-
-            elementDefs.add(elementDef);
-
-            if (enumValues.isDefault())
-            {
-                enumDef.setDefaultValue(elementDef);
-            }
-        }
-
-        enumDef.setElementDefs(elementDefs);
-
-        return enumDef;
-    }
-
-    private EnumDef getConfidentialityLevelEnum()
-    {
-        EnumDef enumDef = archiveHelper.getEmptyEnumDef(ConfidentialityLevel.getOpenTypeGUID(),
-                                                        ConfidentialityLevel.getOpenTypeName(),
-                                                        ConfidentialityLevel.getOpenTypeDescription(),
-                                                        ConfidentialityLevel.getOpenTypeDescriptionGUID(),
-                                                        ConfidentialityLevel.getOpenTypeDescriptionWiki());
-
-        ArrayList<EnumElementDef> elementDefs = new ArrayList<>();
-        EnumElementDef            elementDef;
-
-        for (ConfidentialityLevel enumValues : ConfidentialityLevel.values())
-        {
-            elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
-                                                         enumValues.getDescription(),
-                                                         enumValues.getDescriptionGUID());
-
-            elementDefs.add(elementDef);
-
-            if (enumValues.isDefault())
-            {
-                enumDef.setDefaultValue(elementDef);
-            }
-        }
-
-        enumDef.setElementDefs(elementDefs);
-
-        return enumDef;
-    }
-
-    private EnumDef getConfidenceLevelEnum()
-    {
-        EnumDef enumDef = archiveHelper.getEmptyEnumDef(ConfidenceLevel.getOpenTypeGUID(),
-                                                        ConfidenceLevel.getOpenTypeName(),
-                                                        ConfidenceLevel.getOpenTypeDescription(),
-                                                        ConfidenceLevel.getOpenTypeDescriptionGUID(),
-                                                        ConfidenceLevel.getOpenTypeDescriptionWiki());
-
-        ArrayList<EnumElementDef> elementDefs = new ArrayList<>();
-        EnumElementDef            elementDef;
-
-        for (ConfidenceLevel enumValues : ConfidenceLevel.values())
-        {
-            elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
-                                                         enumValues.getDescription(),
-                                                         enumValues.getDescriptionGUID());
-
-            elementDefs.add(elementDef);
-
-            if (enumValues.isDefault())
-            {
-                enumDef.setDefaultValue(elementDef);
-            }
-        }
-
-        enumDef.setElementDefs(elementDefs);
-
-        return enumDef;
-    }
-
-    private EnumDef getRetentionBasisEnum()
-    {
-        EnumDef enumDef = archiveHelper.getEmptyEnumDef(RetentionBasis.getOpenTypeGUID(),
-                                                        RetentionBasis.getOpenTypeName(),
-                                                        RetentionBasis.getOpenTypeDescription(),
-                                                        RetentionBasis.getOpenTypeDescriptionGUID(),
-                                                        RetentionBasis.getOpenTypeDescriptionWiki());
-
-        ArrayList<EnumElementDef> elementDefs = new ArrayList<>();
-        EnumElementDef            elementDef;
-
-        for (RetentionBasis enumValues : RetentionBasis.values())
-        {
-            elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
-                                                         enumValues.getDescription(),
-                                                         enumValues.getDescriptionGUID());
-
-            elementDefs.add(elementDef);
-
-            if (enumValues.isDefault())
-            {
-                enumDef.setDefaultValue(elementDef);
-            }
-        }
-
-        enumDef.setElementDefs(elementDefs);
-
-        return enumDef;
-    }
-
-    private EnumDef getCriticalityLevelEnum()
-    {
-        EnumDef enumDef = archiveHelper.getEmptyEnumDef(CriticalityLevel.getOpenTypeGUID(),
-                                                        CriticalityLevel.getOpenTypeName(),
-                                                        CriticalityLevel.getOpenTypeDescription(),
-                                                        CriticalityLevel.getOpenTypeDescriptionGUID(),
-                                                        CriticalityLevel.getOpenTypeDescriptionWiki());
-
-        ArrayList<EnumElementDef> elementDefs = new ArrayList<>();
-        EnumElementDef            elementDef;
-
-        for (CriticalityLevel enumValues : CriticalityLevel.values())
-        {
-            elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
-                                                         enumValues.getDescription(),
-                                                         enumValues.getDescriptionGUID());
-
-            elementDefs.add(elementDef);
-
-            if (enumValues.isDefault())
-            {
-                enumDef.setDefaultValue(elementDef);
-            }
-        }
-
-        enumDef.setElementDefs(elementDefs);
-
-        return enumDef;
     }
 
     private ClassificationDef getConfidentialityClassification()
@@ -7105,7 +6907,7 @@ public class OpenMetadataTypesArchive1_2
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENTIALITY_LEVEL_IDENTIFIER));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENTIALITY_LEVEL));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENCE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STEWARD));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STATUS_IDENTIFIER));
@@ -7131,7 +6933,7 @@ public class OpenMetadataTypesArchive1_2
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENCE_LEVEL_IDENTIFIER));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENCE_LEVEL));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENCE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STEWARD));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STATUS_IDENTIFIER));
@@ -7157,7 +6959,7 @@ public class OpenMetadataTypesArchive1_2
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.RETENTION_BASIS_IDENTIFIER));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.RETENTION_BASIS));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENCE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STEWARD));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SOURCE));
@@ -7186,7 +6988,7 @@ public class OpenMetadataTypesArchive1_2
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CRITICALITY_LEVEL_IDENTIFIER));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CRITICALITY_LEVEL));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENCE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STEWARD));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SOURCE));
@@ -8436,7 +8238,7 @@ public class OpenMetadataTypesArchive1_2
         for (CoverageCategory enumValue : CoverageCategory.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -8468,7 +8270,7 @@ public class OpenMetadataTypesArchive1_2
         for (DataItemSortOrder enumValues : DataItemSortOrder.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
+                                                         enumValues.name(),
                                                          enumValues.getDescription(),
                                                          enumValues.getDescriptionGUID());
 
@@ -9320,7 +9122,7 @@ public class OpenMetadataTypesArchive1_2
         for (CriticalityLevel enumValues : CriticalityLevel.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
+                                                         enumValues.name(),
                                                          enumValues.getDescription(),
                                                          enumValues.getDescriptionGUID());
 
@@ -9620,6 +9422,7 @@ public class OpenMetadataTypesArchive1_2
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.USAGE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SCOPE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.PREFERRED_VALUE));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ORDINAL));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.IS_CASE_SENSITIVE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DATA_TYPE));
         entityDef.setPropertiesDefinition(properties);
@@ -9719,6 +9522,7 @@ public class OpenMetadataTypesArchive1_2
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ORDINAL));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.IS_DEFAULT_VALUE));
 
         relationshipDef.setPropertiesDefinition(properties);
@@ -9884,7 +9688,7 @@ public class OpenMetadataTypesArchive1_2
         for (RelationshipDecoration enumValue : RelationshipDecoration.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -10509,7 +10313,7 @@ public class OpenMetadataTypesArchive1_2
         for (AnnotationStatus annotationStatus : AnnotationStatus.values())
         {
             elementDefs.add(archiveHelper.getEnumElementDef(annotationStatus.getOrdinal(),
-                                                            annotationStatus.getName(),
+                                                            annotationStatus.name(),
                                                             annotationStatus.getDescription(),
                                                             annotationStatus.getDescriptionGUID()));
         }

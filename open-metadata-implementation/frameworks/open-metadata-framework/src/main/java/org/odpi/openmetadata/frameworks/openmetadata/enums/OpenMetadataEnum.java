@@ -24,13 +24,20 @@ public interface OpenMetadataEnum
      */
     int getOrdinal();
 
-
     /**
      * Return the default name of the enumeration.
      *
      * @return String name
      */
-    String getName();
+    String name();
+
+
+    /**
+     * Return the display name of the enumeration.
+     *
+     * @return String name
+     */
+    String getDisplayName();
 
 
     /**

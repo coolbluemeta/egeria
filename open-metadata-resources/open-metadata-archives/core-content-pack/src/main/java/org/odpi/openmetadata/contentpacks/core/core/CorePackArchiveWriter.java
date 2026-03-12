@@ -33,7 +33,7 @@ import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataV
 public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
 {
     /**
-     * Default constructor initializes the archive.
+     * The default constructor initializes the archive.
      */
     public CorePackArchiveWriter()
     {
@@ -95,10 +95,12 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                        resourceUse.getResourceUse(),
                                        resourceUse.getDescription(),
                                        OpenMetadataProperty.RESOURCE_USE.name,
-                                       DataType.STRING.getName(),
+                                       DataType.STRING.getDisplayName(),
                                        null,
                                        null,
                                        resourceUse.getResourceUse(),
+                                       resourceUse.ordinal(),
+                                       false,
                                        additionalProperties);
         }
 
@@ -164,14 +166,97 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
          */
         for (ActionType actionType : ActionType.values())
         {
-            this.addValidMetadataValue(actionType.getName(),
+            this.addValidMetadataValue(actionType.getDisplayName(),
                                        actionType.getDescription(),
                                        OpenMetadataProperty.CATEGORY.name,
                                        OpenMetadataType.ACTION.typeName,
                                        null,
-                                       actionType.getName());
+                                       actionType.getDisplayName());
         }
 
+        for (ConfidenceLevel confidenceLevel : ConfidenceLevel.values())
+        {
+            this.addValidMetadataValue(confidenceLevel.getDisplayName(),
+                                       confidenceLevel.getDescription(),
+                                       OpenMetadataProperty.CONFIDENCE_LEVEL.name,
+                                       DataType.INT.getDisplayName(),
+                                       OpenMetadataType.CONFIDENCE_CLASSIFICATION.typeName,
+                                       null,
+                                       Integer.toString(confidenceLevel.getOrdinal()),
+                                       confidenceLevel.getOrdinal());
+        }
+
+        for (ConfidentialityLevel confidentialityLevel : ConfidentialityLevel.values())
+        {
+            this.addValidMetadataValue(confidentialityLevel.getDisplayName(),
+                                       confidentialityLevel.getDescription(),
+                                       OpenMetadataProperty.CONFIDENTIALITY_LEVEL.name,
+                                       DataType.INT.getDisplayName(),
+                                       OpenMetadataType.CONFIDENTIALITY_CLASSIFICATION.typeName,
+                                       null,
+                                       Integer.toString(confidentialityLevel.getOrdinal()),
+                                       confidentialityLevel.getOrdinal());
+        }
+
+        for (CriticalityLevel criticalityLevel : CriticalityLevel.values())
+        {
+            this.addValidMetadataValue(criticalityLevel.getDisplayName(),
+                                       criticalityLevel.getDescription(),
+                                       OpenMetadataProperty.CRITICALITY_LEVEL.name,
+                                       DataType.INT.getDisplayName(),
+                                       OpenMetadataType.CRITICALITY_CLASSIFICATION.typeName,
+                                       null,
+                                       Integer.toString(criticalityLevel.getOrdinal()),
+                                       criticalityLevel.getOrdinal());
+        }
+
+        for (GovernanceDomain governanceDomain : GovernanceDomain.values())
+        {
+            this.addValidMetadataValue(governanceDomain.getDisplayName(),
+                                       governanceDomain.getDescription(),
+                                       OpenMetadataProperty.DOMAIN_IDENTIFIER.name,
+                                       DataType.INT.getDisplayName(),
+                                       null,
+                                       null,
+                                       Integer.toString(governanceDomain.getOrdinal()),
+                                       governanceDomain.getOrdinal());
+        }
+
+        for (RetentionBasis retentionBasis : RetentionBasis.values())
+        {
+            this.addValidMetadataValue(retentionBasis.getDisplayName(),
+                                       retentionBasis.getDescription(),
+                                       OpenMetadataProperty.RETENTION_BASIS.name,
+                                       DataType.INT.getDisplayName(),
+                                       OpenMetadataType.RETENTION_CLASSIFICATION.typeName,
+                                       null,
+                                       Integer.toString(retentionBasis.getOrdinal()),
+                                       retentionBasis.getOrdinal());
+        }
+
+        for (StatusIdentifier statusIdentifier : StatusIdentifier.values())
+        {
+            this.addValidMetadataValue(statusIdentifier.getDisplayName(),
+                                       statusIdentifier.getDescription(),
+                                       OpenMetadataProperty.STATUS_IDENTIFIER.name,
+                                       DataType.INT.getDisplayName(),
+                                       null,
+                                       null,
+                                       Integer.toString(statusIdentifier.ordinal()),
+                                       statusIdentifier.ordinal());
+        }
+
+        for (SeverityLevel severityLevel : SeverityLevel.values())
+        {
+            this.addValidMetadataValue(severityLevel.getDisplayName(),
+                                       severityLevel.getDescription(),
+                                       OpenMetadataProperty.SEVERITY_LEVEL.name,
+                                       DataType.INT.getDisplayName(),
+                                       null,
+                                       null,
+                                       Integer.toString(severityLevel.ordinal()),
+                                       severityLevel.ordinal());
+        }
 
         /*
          * Add the valid metadata values used in the projectHealth property of the Project entity.
@@ -186,10 +271,12 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                        projectHealth.getName(),
                                        projectHealth.getDescription(),
                                        OpenMetadataProperty.PROJECT_HEALTH.name,
-                                       DataType.STRING.getName(),
+                                       DataType.STRING.getDisplayName(),
                                        null,
                                        null,
                                        projectHealth.getName(),
+                                       projectHealth.ordinal(),
+                                      false,
                                        additionalProperties);
         }
 
@@ -240,34 +327,6 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
         /*===========================================
          * Add the open metadata type enums
          */
-
-        addOpenMetadataEnumValidIdentifiers(OpenMetadataType.CONFIDENCE_CLASSIFICATION.typeName,
-                                            OpenMetadataProperty.CONFIDENCE_LEVEL_IDENTIFIER.name,
-                                            new ArrayList<>(Arrays.asList(ConfidenceLevel.values())));
-
-        addOpenMetadataEnumValidIdentifiers(OpenMetadataType.CONFIDENTIALITY_CLASSIFICATION.typeName,
-                                            OpenMetadataProperty.CONFIDENTIALITY_LEVEL_IDENTIFIER.name,
-                                            new ArrayList<>(Arrays.asList(ConfidentialityLevel.values())));
-
-        addOpenMetadataEnumValidIdentifiers(OpenMetadataType.CRITICALITY_CLASSIFICATION.typeName,
-                                            OpenMetadataProperty.CRITICALITY_LEVEL_IDENTIFIER.name,
-                                            new ArrayList<>(Arrays.asList(CriticalityLevel.values())));
-
-        addOpenMetadataEnumValidIdentifiers(null,
-                                            OpenMetadataProperty.DOMAIN_IDENTIFIER.name,
-                                            new ArrayList<>(Arrays.asList(GovernanceDomain.values())));
-
-        addOpenMetadataEnumValidIdentifiers(OpenMetadataType.RETENTION_CLASSIFICATION.typeName,
-                                            OpenMetadataProperty.RETENTION_BASIS_IDENTIFIER.name,
-                                            new ArrayList<>(Arrays.asList(RetentionBasis.values())));
-
-        addOpenMetadataEnumValidIdentifiers(null,
-                                            OpenMetadataProperty.STATUS_IDENTIFIER.name,
-                                            new ArrayList<>(Arrays.asList(GovernanceClassificationStatus.values())));
-
-        addOpenMetadataEnumValidIdentifiers(null,
-                                            OpenMetadataProperty.SEVERITY_IDENTIFIER.name,
-                                            new ArrayList<>(Arrays.asList(ImpactSeverity.values())));
 
         addOpenMetadataEnumValidNames(OpenMetadataProperty.ACTIVITY_STATUS.name,
                                       ActivityStatus.getOpenTypeName(),
@@ -401,7 +460,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
          */
         for (AssignmentType assignmentType : AssignmentType.values())
         {
-            this.addAssignmentType(assignmentType.getName(),
+            this.addAssignmentType(assignmentType.getDisplayName(),
                                    assignmentType.getDescription(),
                                    assignmentType.getDescriptionGUID());
         }
@@ -546,50 +605,22 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
     {
         for (OpenMetadataEnum enumValue : openMetadataEnums)
         {
-            String enumPreferredValue = enumValue.getName().toUpperCase();
-            enumPreferredValue = enumPreferredValue.replace(' ', '_');
-
             Map<String, String> additionalProperties = new HashMap<>();
 
-            additionalProperties.put("ordinal", Integer.toString(enumValue.getOrdinal()));
             additionalProperties.put(OpenMetadataProperty.IS_DEFAULT_VALUE.name, Boolean.toString(enumValue.isDefault()));
             additionalProperties.put(OpenMetadataProperty.OPEN_METADATA_TYPE_NAME.name, enumTypeName);
 
             super.addValidMetadataValue(enumValue.getDescriptionGUID(),
-                                        enumValue.getName(),
+                                        enumValue.getDisplayName(),
                                         enumValue.getDescription(),
                                         enumConsumingProperty,
                                         enumTypeName,
                                         null,
                                         null,
-                                        enumPreferredValue,
+                                        enumValue.name(),
+                                        enumValue.getOrdinal(),
+                                        enumValue.isDefault(),
                                         additionalProperties);
-        }
-    }
-
-
-    /**
-     * Set up a valid value list for an enum based on its ordinals.
-     *
-     * @param enumConsumingTypeName entity type name
-     * @param enumConsumingProperty attribute name
-     * @param openMetadataEnums     list of valid values
-     */
-    protected void addOpenMetadataEnumValidIdentifiers(String                 enumConsumingTypeName,
-                                                       String                 enumConsumingProperty,
-                                                       List<OpenMetadataEnum> openMetadataEnums)
-    {
-        for (OpenMetadataEnum enumValue : openMetadataEnums)
-        {
-            String enumPreferredValue = enumValue.getName().toUpperCase();
-            enumPreferredValue = enumPreferredValue.replace(' ', '_');
-
-            super.addValidMetadataValue(enumValue.getName(),
-                                        enumValue.getDescription(),
-                                        enumConsumingProperty,
-                                        enumConsumingTypeName,
-                                        null,
-                                        enumPreferredValue);
         }
     }
 
@@ -707,11 +738,13 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                                                  openMetadataType.description,
                                                                  null,
                                                                  null,
-                                                                 DataType.STRING.getName(),
+                                                                 DataType.STRING.getDisplayName(),
                                                                  OpenMetadataValidValues.OPEN_METADATA_ECOSYSTEM_SCOPE,
                                                                  openMetadataType.typeName,
                                                                  openMetadataType.wikiURL,
                                                                  true,
+                                                                 openMetadataType.ordinal(),
+                                                                 false,
                                                                  additionalProperties);
 
         assert(openMetadataType.descriptionGUID.equals(validValueGUID));
@@ -752,6 +785,8 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                                                  openMetadataProperty.name,
                                                                  null,
                                                                  true,
+                                                                 openMetadataProperty.ordinal(),
+                                                                 false,
                                                                  null);
 
         assert(openMetadataProperty.descriptionGUID.equals(validValueGUID));

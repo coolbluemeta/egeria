@@ -212,7 +212,7 @@ public class ApacheHiveIntegrationModule extends DatabaseIntegrationModuleBase
 
         if (dataTypeName == null)
         {
-            dataTypeName = DataType.STRING.getName();
+            dataTypeName = DataType.STRING.getDisplayName();
         }
 
         properties.setSchemaTypeName(egeriaSchemaTypeTypeName);

@@ -355,7 +355,7 @@ public class PostgresServerCatalogTargetProcessor extends CatalogTargetProcessor
         ElementProperties serverAssetUseProperties = propertyHelper.addEnumProperty(null,
                                                                                     OpenMetadataProperty.USE_TYPE.name,
                                                                                     CapabilityAssetUseType.getOpenTypeName(),
-                                                                                    CapabilityAssetUseType.OWNS.getName());
+                                                                                    CapabilityAssetUseType.OWNS.name());
 
         String databaseTemplateGUID = templates.get(PostgreSQLTemplateType.POSTGRES_DATABASE_TEMPLATE.getTemplateGUID());
 

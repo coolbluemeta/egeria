@@ -179,10 +179,8 @@ public class OMRSRepositoryPropertiesUtilities implements OMRSRepositoryProperti
     {
         InstancePropertyValue instancePropertyValue = properties.getPropertyValue(propertyName);
 
-        if (instancePropertyValue instanceof EnumPropertyValue)
+        if (instancePropertyValue instanceof EnumPropertyValue enumPropertyValue)
         {
-            EnumPropertyValue enumPropertyValue = (EnumPropertyValue) instancePropertyValue;
-
             return enumPropertyValue.getOrdinal();
         }
 

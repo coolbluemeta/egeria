@@ -22,7 +22,7 @@ public enum WedgwoodProvisionSubscriptionRequestParameter
     TOP_LEVEL_PROCESS_TEMPLATE_NAME("topLevelProcessTemplateQualifiedName", "Qualified name of the template to use for the top level process that represents this governance action service.  If it is not specified, no template is used.", "", ""),
     TOP_LEVEL_PROCESS_ONLY_LINEAGE("topLevelProcessLineageOnly", "If this property is set, lineage mappings are connected to the top level process representing this governance action service.", "", ""),
     IGNORE_COLUMN_LEVEL_LINEAGE("ignoreColumnLevelLineage", "If this property is set, the lineage relationships between schema elements are not created.", "", ""),
-    INFORMATION_SUPPLY_CHAIN_QUALIFIED_NAME("informationSupplyChain", "If this property is set, the value it is set to is the qualified name of the information supply chain that this provisioning process belongs to.  It is used to set the iscQualifiedName in the lineage relationships.", DataType.STRING.getName(), "InformationSupplyChain:Onboard My Data"),
+    INFORMATION_SUPPLY_CHAIN_QUALIFIED_NAME("informationSupplyChain", "If this property is set, the value it is set to is the qualified name of the information supply chain that this provisioning process belongs to.  It is used to set the iscQualifiedName in the lineage relationships.", DataType.STRING.getDisplayName(), "InformationSupplyChain:Onboard My Data"),
 
     ;
 

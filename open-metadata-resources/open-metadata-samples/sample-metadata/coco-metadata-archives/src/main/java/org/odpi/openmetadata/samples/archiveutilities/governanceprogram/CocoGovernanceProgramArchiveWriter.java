@@ -79,10 +79,12 @@ public class CocoGovernanceProgramArchiveWriter extends EgeriaBaseArchiveWriter
                                         domainDefinition.getDisplayName(),
                                         domainDefinition.getDescription(),
                                         OpenMetadataProperty.DOMAIN_IDENTIFIER.name,
-                                        DataType.INT.getName(),
+                                        DataType.INT.getDisplayName(),
                                         null,
                                         null,
                                         Integer.toString(domainDefinition.getDomainIdentifier()),
+                                        domainDefinition.getDomainIdentifier(),
+                                        (domainDefinition.getDomainIdentifier() == 0),
                                         null);
 
             String communityQName = "Community: " + domainDefinition.getQualifiedName();
@@ -300,7 +302,7 @@ public class CocoGovernanceProgramArchiveWriter extends EgeriaBaseArchiveWriter
                                            null,
                                            null);
 
-                archiveHelper.addCommunityMembershipRelationship(communityDefinition.getQualifiedName(), leaderRoleQName, AssignmentType.LEADER.getName());
+                archiveHelper.addCommunityMembershipRelationship(communityDefinition.getQualifiedName(), leaderRoleQName, AssignmentType.LEADER.getDisplayName());
 
                 for (PersonDefinition leader : communityDefinition.getLeaders())
                 {
@@ -323,7 +325,7 @@ public class CocoGovernanceProgramArchiveWriter extends EgeriaBaseArchiveWriter
                                            null,
                                            null);
 
-                archiveHelper.addCommunityMembershipRelationship(communityDefinition.getQualifiedName(), memberRoleQName, AssignmentType.CONTRIBUTOR.getName());
+                archiveHelper.addCommunityMembershipRelationship(communityDefinition.getQualifiedName(), memberRoleQName, AssignmentType.CONTRIBUTOR.getDisplayName());
 
                 for (PersonDefinition member : communityDefinition.getMembers())
                 {
@@ -438,7 +440,7 @@ public class CocoGovernanceProgramArchiveWriter extends EgeriaBaseArchiveWriter
                 {
                     archiveHelper.addProjectTeamRelationship(projectDefinition.getQualifiedName(),
                                                              member.getQualifiedName(),
-                                                             AssignmentType.CONTRIBUTOR.getName());
+                                                             AssignmentType.CONTRIBUTOR.getDisplayName());
                 }
 
             }

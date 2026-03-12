@@ -127,7 +127,7 @@ public class OpenMetadataElementBuilder
                         elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                            OpenMetadataProperty.STARS.name,
                                                                            StarRating.getOpenTypeName(),
-                                                                           ratingProperties.getStarRating().getName());
+                                                                           ratingProperties.getStarRating().name());
                     }
                 }
                 else if (properties instanceof SearchKeywordProperties searchKeywordProperties)
@@ -328,7 +328,7 @@ public class OpenMetadataElementBuilder
                                 elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                    OpenMetadataProperty.ACTIVITY_STATUS.name,
                                                                                    ActivityStatus.getOpenTypeName(),
-                                                                                   processProperties.getActivityStatus().getName());
+                                                                                   processProperties.getActivityStatus().name());
                             }
 
                             elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -433,7 +433,7 @@ public class OpenMetadataElementBuilder
                                             elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                                OpenMetadataProperty.ANNOTATION_STATUS.name,
                                                                                                AnnotationStatus.getOpenTypeName(),
-                                                                                               annotationReviewProperties.getAnnotationStatus().getName());
+                                                                                               annotationReviewProperties.getAnnotationStatus().name());
                                         }
                                     }
                                 }
@@ -446,7 +446,7 @@ public class OpenMetadataElementBuilder
                                 elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                    OpenMetadataProperty.CONTENT_STATUS.name,
                                                                                    ContentStatus.getOpenTypeName(),
-                                                                                   dataAssetProperties.getContentStatus().getName());
+                                                                                   dataAssetProperties.getContentStatus().name());
                             }
 
                             elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -561,7 +561,7 @@ public class OpenMetadataElementBuilder
                                             elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                                OpenMetadataProperty.INCIDENT_STATUS.name,
                                                                                                IncidentReportStatus.getOpenTypeName(),
-                                                                                               incidentReportProperties.getIncidentStatus().getName());
+                                                                                               incidentReportProperties.getIncidentStatus().name());
                                         }
 
                                         elementProperties = propertyHelper.addIntMapProperty(elementProperties,
@@ -645,7 +645,7 @@ public class OpenMetadataElementBuilder
                                 elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                    OpenMetadataProperty.DEPLOYMENT_STATUS.name,
                                                                                    DeploymentStatus.getOpenTypeName(),
-                                                                                   infrastructureProperties.getDeploymentStatus().getName());
+                                                                                   infrastructureProperties.getDeploymentStatus().name());
                             }
 
                             elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -660,7 +660,7 @@ public class OpenMetadataElementBuilder
                             elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                OpenMetadataProperty.CONTENT_STATUS.name,
                                                                                ContentStatus.getOpenTypeName(),
-                                                                               authoredReferenceableProperties.getContentStatus().getName());
+                                                                               authoredReferenceableProperties.getContentStatus().name());
                         }
 
                         elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -694,8 +694,8 @@ public class OpenMetadataElementBuilder
                                                                                  annotationProperties.getSamplingMethod());
 
                             elementProperties = propertyHelper.addIntProperty(elementProperties,
-                                                                              OpenMetadataProperty.CONFIDENCE_LEVEL.name,
-                                                                              annotationProperties.getConfidenceLevel());
+                                                                              OpenMetadataProperty.CONFIDENCE.name,
+                                                                              annotationProperties.getConfidence());
 
                             elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                                  OpenMetadataProperty.UNITS.name,
@@ -999,7 +999,7 @@ public class OpenMetadataElementBuilder
                                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                        OpenMetadataProperty.BUSINESS_CAPABILITY_TYPE.name,
                                                                                        BusinessCapabilityType.getOpenTypeName(),
-                                                                                       businessCapabilityProperties.getBusinessCapabilityType().getName());
+                                                                                       businessCapabilityProperties.getBusinessCapabilityType().name());
                                 }
 
                                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -1013,7 +1013,7 @@ public class OpenMetadataElementBuilder
                                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                        OpenMetadataProperty.DEPLOYMENT_STATUS.name,
                                                                                        DeploymentStatus.getOpenTypeName(),
-                                                                                       digitalProductProperties.getDeploymentStatus().getName());
+                                                                                       digitalProductProperties.getDeploymentStatus().name());
                                 }
 
                                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -1241,7 +1241,7 @@ public class OpenMetadataElementBuilder
                                 elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                    OpenMetadataProperty.SORT_ORDER.name,
                                                                                    DataItemSortOrder.getOpenTypeName(),
-                                                                                   dataFieldProperties.getSortOrder().getName());
+                                                                                   dataFieldProperties.getSortOrder().name());
                             }
                         }
                         else if (properties instanceof DataStructureProperties dataStructureProperties)
@@ -1280,7 +1280,7 @@ public class OpenMetadataElementBuilder
                                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                        OpenMetadataProperty.DIRECTION.name,
                                                                                        SolutionPortDirection.getOpenTypeName(),
-                                                                                       solutionPortProperties.getDirection().getName());
+                                                                                       solutionPortProperties.getDirection().name());
                                 }
                             }
                         }
@@ -1322,7 +1322,7 @@ public class OpenMetadataElementBuilder
                                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                        OpenMetadataProperty.MEDIA_TYPE.name,
                                                                                        MediaType.getOpenTypeName(),
-                                                                                       relatedMediaProperties.getMediaType().getName());
+                                                                                       relatedMediaProperties.getMediaType().name());
                                 }
 
                                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -1334,7 +1334,7 @@ public class OpenMetadataElementBuilder
                                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                        OpenMetadataProperty.DEFAULT_MEDIA_USAGE.name,
                                                                                        MediaUsage.getOpenTypeName(),
-                                                                                       relatedMediaProperties.getDefaultMediaUsage().getName());
+                                                                                       relatedMediaProperties.getDefaultMediaUsage().name());
                                 }
 
                                 elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -1711,7 +1711,7 @@ public class OpenMetadataElementBuilder
                                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                        OpenMetadataProperty.SORT_ORDER.name,
                                                                                        DataItemSortOrder.getOpenTypeName(),
-                                                                                       schemaAttributeProperties.getSortOrder().getName());
+                                                                                       schemaAttributeProperties.getSortOrder().name());
                                 }
 
                                 if (properties instanceof APIParameterProperties apiParameterProperties)
@@ -1742,7 +1742,9 @@ public class OpenMetadataElementBuilder
                             elementProperties = propertyHelper.addBooleanProperty(elementProperties,
                                                                                   OpenMetadataProperty.IS_CASE_SENSITIVE.name,
                                                                                   validValueDefinitionProperties.getIsCaseSensitive());
-
+                            elementProperties = propertyHelper.addIntProperty(elementProperties,
+                                                                              OpenMetadataProperty.ORDINAL.name,
+                                                                              validValueDefinitionProperties.getOrdinal());
                         }
                     }
                     else if (properties instanceof CommentProperties commentProperties)
@@ -1752,7 +1754,7 @@ public class OpenMetadataElementBuilder
                             elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                OpenMetadataProperty.COMMENT_TYPE.name,
                                                                                CommentType.getOpenTypeName(),
-                                                                               commentProperties.getCommentType().getName());
+                                                                               commentProperties.getCommentType().name());
                         }
                     }
                     else if (properties instanceof CommunityProperties communityProperties)
@@ -1860,7 +1862,7 @@ public class OpenMetadataElementBuilder
                             elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                OpenMetadataProperty.CONTACT_METHOD_TYPE.name,
                                                                                ContactMethodType.getOpenTypeName(),
-                                                                               contactDetailsProperties.getContactMethodType().getName());
+                                                                               contactDetailsProperties.getContactMethodType().name());
                         }
                     }
                     else if (properties instanceof ContextEventProperties contextEventProperties)
@@ -1939,7 +1941,7 @@ public class OpenMetadataElementBuilder
                             elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                OpenMetadataProperty.KEY_PATTERN.name,
                                                                                KeyPattern.getOpenTypeName(),
-                                                                               externalIdProperties.getKeyPattern().getName());
+                                                                               externalIdProperties.getKeyPattern().name());
                         }
 
                         elementProperties = propertyHelper.addStringProperty(elementProperties,
@@ -1979,7 +1981,7 @@ public class OpenMetadataElementBuilder
                             elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                OpenMetadataProperty.PORT_TYPE.name,
                                                                                PortType.getOpenTypeName(),
-                                                                               portProperties.getPortType().getName());
+                                                                               portProperties.getPortType().name());
                         }
 
                     }
@@ -1996,7 +1998,7 @@ public class OpenMetadataElementBuilder
                             elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                                OpenMetadataProperty.DEPLOYMENT_STATUS.name,
                                                                                DeploymentStatus.getOpenTypeName(),
-                                                                               softwareCapabilityProperties.getDeploymentStatus().getName());
+                                                                               softwareCapabilityProperties.getDeploymentStatus().name());
                         }
 
                         elementProperties = propertyHelper.addStringProperty(elementProperties,

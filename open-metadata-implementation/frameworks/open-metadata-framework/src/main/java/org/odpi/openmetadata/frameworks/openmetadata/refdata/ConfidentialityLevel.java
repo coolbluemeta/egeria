@@ -1,17 +1,14 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
 
-package org.odpi.openmetadata.frameworks.openmetadata.enums;
+package org.odpi.openmetadata.frameworks.openmetadata.refdata;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataWikiPages;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
-import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues.constructValidValueQualifiedName;
 
 /**
  * Defines how confidential a data item is.
@@ -20,7 +17,7 @@ import static org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataV
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public enum ConfidentialityLevel implements OpenMetadataEnum
+public enum ConfidentialityLevel implements OpenMetadataRefData
 {
     /**
       * The data is public information.
@@ -53,12 +50,6 @@ public enum ConfidentialityLevel implements OpenMetadataEnum
     OTHER("3f052d7e-de9d-4b94-a7d4-01ae0242fab6", 99, "Other", "Another confidentially level.", false),
 
 ;
-    private static final String ENUM_TYPE_GUID  = "0efe1125-a8c7-452a-a635-47c4466b0cc2";
-    private static final String ENUM_TYPE_NAME  = "ConfidentialityLevel";
-
-    private static final String ENUM_DESCRIPTION = "Defines how confidential the data associated with this element is.";
-    private static final String ENUM_DESCRIPTION_GUID = "98e92fcb-175c-485b-97f6-75dcd777078b";
-    private static final String ENUM_DESCRIPTION_WIKI = OpenMetadataWikiPages.MODEL_0421_GOVERNANCE_CLASSIFICATION;
 
     private final String descriptionGUID;
 
@@ -83,11 +74,11 @@ public enum ConfidentialityLevel implements OpenMetadataEnum
                          String  description,
                          boolean isDefault)
     {
-        this.ordinal = ordinal;
+        this.ordinal         = ordinal;
         this.name            = name;
         this.descriptionGUID = descriptionGUID;
         this.description     = description;
-        this.isDefault = isDefault;
+        this.isDefault       = isDefault;
     }
 
 
@@ -107,7 +98,7 @@ public enum ConfidentialityLevel implements OpenMetadataEnum
      * @return String name
      */
     @Override
-    public String getName() { return name; }
+    public String getDisplayName() { return name; }
 
 
     /**
@@ -140,68 +131,6 @@ public enum ConfidentialityLevel implements OpenMetadataEnum
     public boolean isDefault()
     {
         return isDefault;
-    }
-
-    /**
-     * Return the unique identifier for the open metadata enum type that this enum class represents.
-     *
-     * @return string guid
-     */
-    public static String getOpenTypeGUID() { return ENUM_TYPE_GUID; }
-
-
-    /**
-     * Return the unique name for the open metadata enum type that this enum class represents.
-     *
-     * @return string name
-     */
-    public static String getOpenTypeName() { return ENUM_TYPE_NAME; }
-
-
-    /**
-     * Return the description for the open metadata enum type that this enum class represents.
-     *
-     * @return string description
-     */
-    public static String getOpenTypeDescription()
-    {
-        return ENUM_DESCRIPTION;
-    }
-
-
-    /**
-     * Return the unique identifier for the valid value element for the open metadata enum type that this enum class represents.
-     *
-     * @return string guid
-     */
-    public static String getOpenTypeDescriptionGUID()
-    {
-        return ENUM_DESCRIPTION_GUID;
-    }
-
-
-    /**
-     * Return the unique identifier for the valid value element for the open metadata enum type that this enum class represents.
-     *
-     * @return string guid
-     */
-    public static String getOpenTypeDescriptionWiki()
-    {
-        return ENUM_DESCRIPTION_WIKI;
-    }
-
-
-    /**
-     * Return the qualified name for this value.
-     *
-     * @return string
-     */
-    public String getQualifiedName()
-    {
-        return constructValidValueQualifiedName(ENUM_TYPE_NAME,
-                                                OpenMetadataProperty.CONFIDENTIALITY_LEVEL_IDENTIFIER.name,
-                                                null,
-                                                name);
     }
 
 

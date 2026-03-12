@@ -50,6 +50,7 @@ public class PropertyCondition
             this.property = templateProperties.getProperty();
             this.operator = templateProperties.getOperator();
             this.value = templateProperties.getValue();
+            this.nestedConditions = templateProperties.getNestedConditions();
         }
     }
 
