@@ -512,8 +512,8 @@ public class ValidMetadataOMVSResource
                                                                  @RequestParam(required = false)
                                                                  String typeName,
                                                                  @PathVariable String propertyName,
-                                                                 @RequestParam(required = false) int    startFrom,
-                                                                 @RequestParam(required = false) int    pageSize)
+                                                                 @RequestParam(required = false, defaultValue = "0") int    startFrom,
+                                                                 @RequestParam(required = false, defaultValue = "0") int    pageSize)
     {
         return restAPI.getValidMetadataValues(serverName, urlMarker, typeName, propertyName, startFrom, pageSize);
     }
@@ -552,8 +552,8 @@ public class ValidMetadataOMVSResource
                                                                       @RequestParam(required = false)
                                                                       String mapName,
                                                                       @RequestParam String preferredValue,
-                                                                      @RequestParam int    startFrom,
-                                                                      @RequestParam int    pageSize)
+                                                                      @RequestParam(required = false, defaultValue = "0") int    startFrom,
+                                                                      @RequestParam(required = false, defaultValue = "0") int    pageSize)
     {
         return restAPI.getConsistentMetadataValues(serverName, urlMarker, typeName, propertyName, mapName, preferredValue, startFrom, pageSize);
     }

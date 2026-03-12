@@ -439,7 +439,7 @@ public abstract class OpenMetadataDataSetConnectorBase extends ConnectorBase imp
         }
         else if (ProductDataFieldDefinition.ELEMENT_STATUS.getDisplayName().equals(columnName))
         {
-            recordValues.add(elementHeader.getStatus().getName());
+            recordValues.add(elementHeader.getStatus().getDisplayName());
             return true;
         }
         else if (ProductDataFieldDefinition.CREATE_TIME.getDisplayName().equals(columnName))
@@ -532,7 +532,7 @@ public abstract class OpenMetadataDataSetConnectorBase extends ConnectorBase imp
                     }
                     else if (authoredReferenceableProperties.getContentStatus() != null)
                     {
-                        recordValues.add(authoredReferenceableProperties.getContentStatus().getName());
+                        recordValues.add(authoredReferenceableProperties.getContentStatus().name());
                     }
                     else
                     {
@@ -615,7 +615,7 @@ public abstract class OpenMetadataDataSetConnectorBase extends ConnectorBase imp
                         }
                         else if (dataAssetProperties.getContentStatus() != null)
                         {
-                            recordValues.add(dataAssetProperties.getContentStatus().getName());
+                            recordValues.add(dataAssetProperties.getContentStatus().name());
                         }
                         else
                         {

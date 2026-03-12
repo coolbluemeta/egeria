@@ -725,9 +725,9 @@ public class InvalidParameterHandler
 
 
     /**
-     * Report the fact that a unique name that was requested for a new entity is already in use or not a permitted value.
+     * Report that a unique name that was requested for a new entity is already in use or not a permitted value.
      *
-     * @param uniqueName value of unique parameter that is in error
+     * @param uniqueName value of the unique parameter that is in error
      * @param uniqueNameParameterName parameter that passed the qualified name
      * @param typeName requested type name
      * @param serviceName calling service

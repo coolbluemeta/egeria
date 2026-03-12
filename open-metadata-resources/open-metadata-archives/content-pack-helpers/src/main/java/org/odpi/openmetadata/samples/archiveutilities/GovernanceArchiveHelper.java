@@ -630,6 +630,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (replacementAttributeTypes != null)
         {
+            int ordinal = 0;
             for (ReplacementAttributeType replacementAttributeType : replacementAttributeTypes)
             {
                 Map<String, String> additionalProperties = replacementAttributeType.getOtherPropertyValues();
@@ -661,8 +662,11 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            replacementAttributeType.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -695,6 +699,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (placeholderPropertyTypes != null)
         {
+            int ordinal = 0;
             for (PlaceholderPropertyType placeholderPropertyType : placeholderPropertyTypes)
             {
                 Map<String, String> additionalProperties = placeholderPropertyType.getOtherPropertyValues();
@@ -726,8 +731,11 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            placeholderPropertyType.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -760,6 +768,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (templateTypes != null)
         {
+            int ordinal = 0;
             for (TemplateType templateType : templateTypes)
             {
                 Map<String, String> additionalProperties = templateType.getOtherPropertyValues();
@@ -790,8 +799,11 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            templateType.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -823,6 +835,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (configurationPropertyTypes != null)
         {
+            int ordinal = 0;
             for (ConfigurationPropertyType configurationPropertyType : configurationPropertyTypes)
             {
                 Map<String, String> additionalProperties = configurationPropertyType.getOtherPropertyValues();
@@ -854,8 +867,11 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            configurationPropertyType.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -888,6 +904,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (supportedRequestTypes != null)
         {
+            int ordinal = 0;
             for (RequestTypeType supportedRequestType : supportedRequestTypes)
             {
                 String validValueGUID = this.addValidValue(null,
@@ -909,8 +926,10 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            supportedRequestType.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            supportedRequestType.getOtherPropertyValues());
-
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -943,6 +962,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (supportedRequestParameters != null)
         {
+            int ordinal = 0;
             for (RequestParameterType supportedRequestParameter : supportedRequestParameters)
             {
                 Map<String, String> additionalProperties = supportedRequestParameter.getOtherPropertyValues();
@@ -974,8 +994,11 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            supportedRequestParameter.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -1008,6 +1031,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (actionTargetTypes != null)
         {
+            int ordinal = 0;
             for (ActionTargetType supportedActionTarget : actionTargetTypes)
             {
                 Map<String, String> additionalProperties = supportedActionTarget.getOtherPropertyValues();
@@ -1039,8 +1063,11 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            supportedActionTarget.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -1073,6 +1100,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (analysisStepTypes != null)
         {
+            int ordinal = 0;
             for (AnalysisStepType analysisStepType : analysisStepTypes)
             {
                 Map<String, String> additionalProperties = analysisStepType.getOtherPropertyValues();
@@ -1096,13 +1124,16 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            analysisStepType.getDescription(),
                                                            SpecificationPropertyType.SUPPORTED_ANALYSIS_STEP.getPropertyType(),
                                                            SpecificationPropertyType.SUPPORTED_ANALYSIS_STEP.getDescription(),
-                                                           DataType.STRING.getName(),
+                                                           DataType.STRING.getDisplayName(),
                                                            null,
                                                            analysisStepType.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -1135,6 +1166,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (annotationTypeTypes != null)
         {
+            int ordinal = 0;
             for (AnnotationTypeType annotationTypeType : annotationTypeTypes)
             {
                 Map<String, String> additionalProperties = annotationTypeType.getOtherPropertyValues();
@@ -1168,8 +1200,11 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            annotationTypeType.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -1202,6 +1237,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (producedRequestParameters != null)
         {
+            int ordinal = 0;
             for (RequestParameterType producedRequestParameter : producedRequestParameters)
             {
                 Map<String, String> additionalProperties = producedRequestParameter.getOtherPropertyValues();
@@ -1240,8 +1276,11 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            producedRequestParameter.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -1274,6 +1313,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (actionTargetTypes != null)
         {
+            int ordinal = 0;
             for (ActionTargetType actionTargetType : actionTargetTypes)
             {
                 Map<String, String> additionalProperties = actionTargetType.getOtherPropertyValues();
@@ -1312,8 +1352,11 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            actionTargetType.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -1346,6 +1389,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
     {
         if (guardTypes != null)
         {
+            int ordinal = 0;
             for (GuardType guardType : guardTypes)
             {
                 Map<String, String> additionalProperties = guardType.getOtherPropertyValues();
@@ -1372,13 +1416,16 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
                                                            guardType.getDescription(),
                                                            SpecificationPropertyType.PRODUCED_GUARD.getPropertyType(),
                                                            SpecificationPropertyType.PRODUCED_GUARD.getDescription(),
-                                                           DataType.STRING.getName(),
+                                                           DataType.STRING.getDisplayName(),
                                                            guardType.getCompletionStatus().getName(),
                                                            guardType.getName(),
                                                            null,
                                                            true,
+                                                           ordinal,
+                                                           false,
                                                            additionalProperties);
 
+                ordinal++;
                 if (validValueGUID != null)
                 {
                     addSpecificationPropertyAssignmentRelationship(parentGUID,
@@ -2051,7 +2098,7 @@ public class GovernanceArchiveHelper extends SimpleCatalogArchiveHelper
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.EXECUTOR_ENGINE_NAME.name, governanceEngineName, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.REQUESTER_USER_ID.name, requesterUserId, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.REQUEST_TYPE.name, requestType, methodName);
-        properties = archiveHelper.addEnumPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ACTIVITY_STATUS.name, ActivityStatus.getOpenTypeGUID(), ActivityStatus.getOpenTypeName(), activityStatus.getOrdinal(), activityStatus.getName(), activityStatus.getDescription(), methodName);
+        properties = archiveHelper.addEnumPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ACTIVITY_STATUS.name, ActivityStatus.getOpenTypeGUID(), ActivityStatus.getOpenTypeName(), activityStatus.getOrdinal(), activityStatus.name(), activityStatus.getDescription(), methodName);
         properties = archiveHelper.addStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.REQUEST_PARAMETERS.name, requestParameters, methodName);
 
         List<Classification> entityClassifications = new ArrayList<>();

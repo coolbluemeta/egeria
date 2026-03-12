@@ -22,88 +22,88 @@ public enum CocoClinicalTrialRequestParameter
 {
     CLINICAL_TRIAL_ID("clinicalTrialId",
                       "Identifier code for the clinical trial.",
-                      DataType.STRING.getName(),
+                      DataType.STRING.getDisplayName(),
                       "PROJ-CT-TBDF"),
 
     CLINICAL_TRIAL_NAME("clinicalTrialName",
                         "Display name for the clinical trial.",
-                        DataType.STRING.getName(),
+                        DataType.STRING.getDisplayName(),
                         "Teddy Bear Drop Foot Clinical Trial"),
 
     CLINICAL_TRIAL_DESCRIPTION("clinicalTrialDescription",
                                "Description of the clinical trial.",
-                               DataType.STRING.getName(),
+                               DataType.STRING.getDisplayName(),
                                "Clinical trial related to the new treatment for Teddy Bear Drop Foot."),
 
 
     DATA_LAKE_SCHEMA_TEMPLATE("dataLakeSchemaTemplateGUID",
                               "Unique identifier of the template to use when cataloguing the unity catalog schema where the clinical trial results are to be stored.  Also add the placeholders used by this template as request parameters.",
-                              DataType.STRING.getName(),
+                              DataType.STRING.getDisplayName(),
                               "5bf92b0f-3970-41ea-b0a3-aacfbf6fd92e"),
 
     DATA_LAKE_SCHEMA_NAME("dataLakeSchemaName",
                           "Name of the schema to use in the data lake for the clinical trial.",
-                          DataType.STRING.getName(),
+                          DataType.STRING.getDisplayName(),
                           "teddy_bear_drop_foot"),
 
     DATA_LAKE_SCHEMA_DESCRIPTION("dataLakeSchemaDescription",
                                  "Description of the schema to use in the data lake for the clinical trial.",
-                                 DataType.STRING.getName(),
+                                 DataType.STRING.getDisplayName(),
                                  "Example clinical trial used for education and testing of governance procedures."),
 
     DATA_LAKE_VOLUME_TEMPLATE("dataLakeVolumeTemplateGUID",
                               "Unique identifier of the template to use when cataloguing the directory where the weekly measurements results are to be stored.  Also add the placeholders used by this template as request parameters.",
-                              DataType.STRING.getName(),
+                              DataType.STRING.getDisplayName(),
                               "92d2d2dc-0798-41f0-9512-b10548d312b7"),
 
     DATA_LAKE_VOLUME_PATH_NAME("dataLakeVolumeDirectoryPathName",
                               "Path name to store the files for the volume.",
-                               DataType.STRING.getName(),
+                               DataType.STRING.getDisplayName(),
                                "/deployments/data/coco-data-lake/research/clinical-trials/drop-foot/weekly-measurements"),
 
     DATA_LAKE_VOLUME_NAME("dataLakeVolumeName",
                           "Name of the volume in Unity Catalog (UC).",
-                          DataType.STRING.getName(),
+                          DataType.STRING.getDisplayName(),
                           "weekly-measurements"),
 
     DATA_LAKE_VOLUME_DESCRIPTION("dataLakeVolumeDescription",
                                  "Short description of the volume in Unity Catalog (UC).",
-                                 DataType.STRING.getName(),
+                                 DataType.STRING.getDisplayName(),
                                  "Weekly measurements for Teddy Bear Drop Foot clinical trial"),
 
     VALIDATED_WEEKLY_MEASUREMENT_FILES_DATA_SET_NAME("validatedWeeklyFilesDataSetName",
                                                      "Name of the data set that will list the files that have been certified.",
-                                                     DataType.STRING.getName(),
+                                                     DataType.STRING.getDisplayName(),
                                                      "Validated Incoming Weekly Measurements For Teddy Bear Drop Foot Clinical Trial"),
 
     LANDING_AREA_DIRECTORY_PATH_NAME("landingAreaDirectoryPathName",
                                      "Path name of the hospital's landing area directory.",
-                                     DataType.STRING.getName(),
+                                     DataType.STRING.getDisplayName(),
                                      "landing-area/hospitals/oak-dene/clinical-trials/drop-foot"),
 
     LANDING_AREA_DIRECTORY_TEMPLATE("landingAreaDirectoryTemplateGUID",
                                     "Unique identifier of the template to use when creating the FileFolder for hospital's landing area files.",
-                                    DataType.STRING.getName(),
+                                    DataType.STRING.getDisplayName(),
                                     "fbdd8efd-1b69-474c-bb6d-0a304b394146"),
 
     LANDING_AREA_FILE_TEMPLATE("landingAreaFileTemplateGUID",
                                "Unique identifier of the template to use in the landing area when onboarding a file from a hospital.  A new, partially filled out template will be created for the hospital.  This template is of type CSVFile.",
-                               DataType.STRING.getName(),
+                               DataType.STRING.getDisplayName(),
                                "5e5ffc97-237d-46c6-95c3-49405035dedc"),
 
     DATA_LAKE_FILE_TEMPLATE("dataLakeFileTemplateGUID",
                             "Unique identifier of the template to use in the data lake when onboarding a file from a hospital.  A new, partially filled out template will be created for the hospital.  This template is of type CSVFile.",
-                            DataType.STRING.getName(),
+                            DataType.STRING.getDisplayName(),
                             "b2ec7c9d-3462-488a-897d-8e873658dded"),
 
     VALIDATED_DATA_FILES_COLLECTION_TEMPLATE("validatedWeeklyFilesTemplateGUID",
                                              "Unique identifier of the DataFileCollection template used to create the asset that holds the list of validated weekly measurement files.",
-                                             DataType.STRING.getName(),
+                                             DataType.STRING.getDisplayName(),
                                              "409f1f89-00c6-4297-8436-6a25f2b2e2f2"),
 
     AIRFLOW_DAG_NAME("airflowDAGName",
                      "Name of the Apache Airflow DAG that copies the data from validated data files into the treatment validation sandbox.",
-                     DataType.STRING.getName(),
+                     DataType.STRING.getDisplayName(),
                      "populateSandbox"),
 
     ;

@@ -20,12 +20,12 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class RetentionProperties extends GovernanceClassificationBase
+public class RetentionProperties extends GovernedDataClassificationBase
 {
-    private int    basisIdentifier = 0;
-    private String associatedGUID  = null;
-    private Date    archiveAfter   = null;
-    private Date    deleteAfter    = null;
+    private int    retentionBasis = 0;
+    private String associatedGUID = null;
+    private Date   archiveAfter   = null;
+    private Date   deleteAfter    = null;
 
 
     /**
@@ -49,8 +49,8 @@ public class RetentionProperties extends GovernanceClassificationBase
 
         if (template != null)
         {
-            basisIdentifier = template.getBasisIdentifier();
-            associatedGUID  = template.getAssociatedGUID();
+            retentionBasis = template.getRetentionBasis();
+            associatedGUID = template.getAssociatedGUID();
             archiveAfter   = template.getArchiveAfter();
             deleteAfter    = template.getDeleteAfter();
         }
@@ -62,20 +62,20 @@ public class RetentionProperties extends GovernanceClassificationBase
      *
      * @return int
      */
-    public int getBasisIdentifier()
+    public int getRetentionBasis()
     {
-        return basisIdentifier;
+        return retentionBasis;
     }
 
 
     /**
      * Set up a description of the factor used to set the archiveAfter and deleteAfter dates.
      *
-     * @param basisIdentifier int
+     * @param retentionBasis int
      */
-    public void setBasisIdentifier(int basisIdentifier)
+    public void setRetentionBasis(int retentionBasis)
     {
-        this.basisIdentifier = basisIdentifier;
+        this.retentionBasis = retentionBasis;
     }
 
 
@@ -157,17 +157,12 @@ public class RetentionProperties extends GovernanceClassificationBase
     @Override
     public String toString()
     {
-        return "RetentionClassificationProperties{" +
-                "retentionBasis=" + basisIdentifier +
+        return "RetentionProperties{" +
+                "retentionBasis=" + retentionBasis +
                 ", associatedGUID='" + associatedGUID + '\'' +
                 ", archiveAfter=" + archiveAfter +
                 ", deleteAfter=" + deleteAfter +
-                ", status=" + getStatusIdentifier() +
-                ", confidence=" + getConfidence() +
-                ", steward='" + getSteward() + '\'' +
-                ", source='" + getSource() + '\'' +
-                ", notes='" + getNotes() +
-                '}';
+                "} " + super.toString();
     }
 
 
@@ -193,7 +188,7 @@ public class RetentionProperties extends GovernanceClassificationBase
             return false;
         }
         RetentionProperties that = (RetentionProperties) objectToCompare;
-        return basisIdentifier == that.basisIdentifier &&
+        return retentionBasis == that.retentionBasis &&
                 Objects.equals(associatedGUID, that.associatedGUID) &&
                 Objects.equals(archiveAfter, that.archiveAfter) &&
                 Objects.equals(deleteAfter, that.deleteAfter);
@@ -208,6 +203,6 @@ public class RetentionProperties extends GovernanceClassificationBase
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), basisIdentifier, associatedGUID, archiveAfter, deleteAfter);
+        return Objects.hash(super.hashCode(), retentionBasis, associatedGUID, archiveAfter, deleteAfter);
     }
 }

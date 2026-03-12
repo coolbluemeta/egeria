@@ -244,10 +244,12 @@ public class FilesArchiveWriter extends ContentPackBaseArchiveWriter
                                     fileTypeName,
                                     description,
                                     OpenMetadataProperty.FILE_TYPE.name,
-                                    DataType.STRING.getName(),
+                                    DataType.STRING.getDisplayName(),
                                     null,
                                     null,
                                     fileTypeName,
+                                    0,
+                                    false,
                                     additionalProperties);
 
         if (deployedImplementationType != null)

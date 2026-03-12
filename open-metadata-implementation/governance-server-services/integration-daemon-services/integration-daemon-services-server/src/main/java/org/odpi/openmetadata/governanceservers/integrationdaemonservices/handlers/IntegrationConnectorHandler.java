@@ -369,7 +369,7 @@ public class IntegrationConnectorHandler
         auditLog.logMessage(actionDescription,
                             IntegrationDaemonServicesAuditCode.INTEGRATION_CONNECTOR_INITIALIZING.getMessageDefinition(integrationConnectorName,
                                                                                                                        integrationDaemonName,
-                                                                                                                       permittedSynchronization.getName()));
+                                                                                                                       permittedSynchronization.name()));
 
         genericConnector = null;
         integrationConnector = null;

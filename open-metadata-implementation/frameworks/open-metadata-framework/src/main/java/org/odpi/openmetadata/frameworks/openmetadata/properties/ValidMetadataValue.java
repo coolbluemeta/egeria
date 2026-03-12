@@ -24,12 +24,13 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ValidMetadataValue
 {
-    private String  category       = Category.VALID_METADATA_VALUES.getName();
-    private String  displayName    = null;
-    private String  description    = null;
-    private String  preferredValue = null;
-    private String  dataType       = DataType.STRING.getName();
+    private String  category        = Category.VALID_METADATA_VALUES.getName();
+    private String  displayName     = null;
+    private String  description     = null;
+    private String  preferredValue  = null;
+    private String  dataType        = DataType.STRING.getDisplayName();
     private boolean isCaseSensitive = false;
+    private int     ordinal         = 0;
 
     private Map<String, String> additionalProperties = null;
 
@@ -53,15 +54,16 @@ public class ValidMetadataValue
     {
         if (template != null)
         {
-            category = template.getCategory();
-            displayName = template.getDisplayName();
-            description = template.getDescription();
-            preferredValue = template.getPreferredValue();
-            dataType = template.getDataType();
-            isCaseSensitive = template.getIsCaseSensitive();
+            category             = template.getCategory();
+            displayName          = template.getDisplayName();
+            description          = template.getDescription();
+            preferredValue       = template.getPreferredValue();
+            dataType             = template.getDataType();
+            isCaseSensitive      = template.getIsCaseSensitive();
+            ordinal              = template.getOrdinal();
             additionalProperties = template.getAdditionalProperties();
-            effectiveFrom = template.getEffectiveFrom();
-            effectiveTo = template.getEffectiveTo();
+            effectiveFrom        = template.getEffectiveFrom();
+            effectiveTo          = template.getEffectiveTo();
         }
     }
 
@@ -201,6 +203,28 @@ public class ValidMetadataValue
 
 
     /**
+     * Return the ordinal for this valid value.
+     *
+     * @return int ordinal
+     */
+    public int getOrdinal()
+    {
+        return ordinal;
+    }
+
+
+    /**
+     * Set up the ordinal for this valid value.
+     *
+     * @param ordinal int
+     */
+    public void setOrdinal(int ordinal)
+    {
+        this.ordinal = ordinal;
+    }
+
+
+    /**
      * Set up additional properties.
      *
      * @param additionalProperties Additional properties object
@@ -275,16 +299,17 @@ public class ValidMetadataValue
     public String toString()
     {
         return "ValidMetadataValue{" +
-                       "category='" + category + '\'' +
-                       ", displayName='" + displayName + '\'' +
-                       ", description='" + description + '\'' +
-                       ", preferredValue='" + preferredValue + '\'' +
-                       ", dataType='" + dataType + '\'' +
-                       ", isCaseSensitive=" + isCaseSensitive +
-                       ", additionalProperties=" + additionalProperties +
-                       ", effectiveFrom=" + effectiveFrom +
-                       ", effectiveTo=" + effectiveTo +
-                       '}';
+                "category='" + category + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", description='" + description + '\'' +
+                ", preferredValue='" + preferredValue + '\'' +
+                ", dataType='" + dataType + '\'' +
+                ", isCaseSensitive=" + isCaseSensitive +
+                ", ordinal=" + ordinal +
+                ", additionalProperties=" + additionalProperties +
+                ", effectiveFrom=" + effectiveFrom +
+                ", effectiveTo=" + effectiveTo +
+                '}';
     }
 
 
@@ -305,7 +330,8 @@ public class ValidMetadataValue
         {
             return false;
         }
-        return isCaseSensitive == that.isCaseSensitive &&
+        return ordinal == that.ordinal &&
+                isCaseSensitive == that.isCaseSensitive &&
                        Objects.equals(category, that.category) &&
                        Objects.equals(displayName, that.displayName) &&
                        Objects.equals(description, that.description) &&
@@ -325,6 +351,6 @@ public class ValidMetadataValue
     @Override
     public int hashCode()
     {
-        return Objects.hash(category, displayName, description, preferredValue, dataType, isCaseSensitive, additionalProperties, effectiveFrom, effectiveTo);
+        return Objects.hash(category, displayName, description, preferredValue, dataType, isCaseSensitive, ordinal, additionalProperties, effectiveFrom, effectiveTo);
     }
 }

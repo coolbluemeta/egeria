@@ -105,7 +105,7 @@ public enum SolutionPortDirection implements OpenMetadataEnum
      * @return String name
      */
     @Override
-    public String getName()
+    public String getDisplayName()
     {
         return name;
     }

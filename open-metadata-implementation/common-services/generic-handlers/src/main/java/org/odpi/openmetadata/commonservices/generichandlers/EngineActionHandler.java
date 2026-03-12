@@ -2198,7 +2198,7 @@ public class EngineActionHandler<B> extends OpenMetadataAPIGenericHandler<B>
                     throw new PropertyServerException(GenericHandlersErrorCode.INVALID_ENGINE_ACTION_STATUS.getMessageDefinition(userId,
                                                                                                                                  engineActionGUID,
                                                                                                                                  processingEngineUserId,
-                                                                                                                                 status.getName()),
+                                                                                                                                 status.name()),
                                                       this.getClass().getName(),
                                                       methodName);
                 }

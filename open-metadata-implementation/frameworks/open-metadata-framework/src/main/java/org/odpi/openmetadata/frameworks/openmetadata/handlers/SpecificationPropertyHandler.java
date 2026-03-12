@@ -109,7 +109,7 @@ public class SpecificationPropertyHandler extends OpenMetadataHandlerBase
         }
         else if (specificationProperty instanceof GuardType guardType)
         {
-            specificationPropertyValueProperties.setDataType(DataType.STRING.getName());
+            specificationPropertyValueProperties.setDataType(DataType.STRING.getDisplayName());
 
             if (guardType.getCompletionStatus() != null)
             {

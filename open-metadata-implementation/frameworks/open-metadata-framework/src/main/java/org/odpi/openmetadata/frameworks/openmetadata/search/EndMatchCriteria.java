@@ -5,6 +5,7 @@ package org.odpi.openmetadata.frameworks.openmetadata.search;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.OpenMetadataRefData;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
@@ -20,27 +21,28 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public enum EndMatchCriteria
+public enum EndMatchCriteria implements OpenMetadataRefData
 {
     /**
      * Both - Both ends must match.
      */
-    BOTH  (0, "Both",  "Both ends must match."),
+    BOTH  (0, "Both",  "Both ends must match.", "4b86733e-cd9a-4e9b-8b1d-43adfd35f870"),
 
     /**
      * Any - A match on any of the end guids in the relationship is good enough.
      */
-    ANY  (1, "Any",  "A match on any of the end guids in the relationship is good enough."),
+    ANY  (1, "Any",  "A match on any of the end guids in the relationship is good enough.", "e2b5bea9-8563-4ae4-908a-7e3b9d75da91"),
 
     /**
      * None - Return relationships where the guids at either end of the relationship match.
      */
-    NONE (2, "None", "Return relationships where the guids at either end of the relationship match");
+    NONE (2, "None", "Return relationships where the guids at either end of the relationship match", "45438f73-9f7e-4476-83e1-dbf59d0f361c");
 
 
     private final int     ordinal;
     private final String  name;
     private final String  description;
+    private final String  descriptionGUID;
 
     /**
      * Constructor to set up a single instance of the enum.
@@ -49,11 +51,15 @@ public enum EndMatchCriteria
      * @param name default string name of the match criteria
      * @param description default string description of the match criteria
      */
-    EndMatchCriteria(int  ordinal, String name, String description)
+    EndMatchCriteria(int  ordinal,
+                     String name,
+                     String description,
+                     String descriptionGUID)
     {
         this.ordinal = ordinal;
         this.name = name;
         this.description = description;
+        this.descriptionGUID = descriptionGUID;
     }
 
 
@@ -62,6 +68,7 @@ public enum EndMatchCriteria
      *
      * @return int ordinal
      */
+    @Override
     public int getOrdinal() { return ordinal; }
 
 
@@ -70,7 +77,8 @@ public enum EndMatchCriteria
      *
      * @return String name
      */
-    public String getName() { return name; }
+    @Override
+    public String getDisplayName() { return name; }
 
 
     /**
@@ -78,7 +86,30 @@ public enum EndMatchCriteria
      *
      * @return String description
      */
+    @Override
     public String getDescription() { return description; }
+
+    /**
+     * Return the unique identifier for the valid value that represents the enum value.
+     *
+     * @return guid
+     */
+    @Override
+    public String getDescriptionGUID()
+    {
+        return "";
+    }
+
+    /**
+     * Return whether the enum is the default value or not.
+     *
+     * @return boolean
+     */
+    @Override
+    public boolean isDefault()
+    {
+        return false;
+    }
 
 
     /**
@@ -89,10 +120,11 @@ public enum EndMatchCriteria
     @Override
     public String toString()
     {
-        return "MatchCriteria{" +
+        return "EndMatchCriteria{" +
                 "ordinal=" + ordinal +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                '}';
+                ", descriptionGUID='" + descriptionGUID + '\'' +
+                "} " + super.toString();
     }
 }

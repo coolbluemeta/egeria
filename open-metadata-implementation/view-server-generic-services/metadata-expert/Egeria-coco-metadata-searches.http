@@ -60,7 +60,9 @@ Content-Type: application/json
 
 {
   "class" : "GetRequestBody",
-  "effectiveTime" : "{{$isoTimestamp}}"
+  "effectiveTime" : "{{$isoTimestamp}}",
+  "limitResultsByStatus" : ["ACTIVE", "DELETED"],
+  "forLineage" : true
 }
 
 
@@ -117,7 +119,7 @@ Content-Type: application/json
 
 
 ###
-# @name getMetadataElementGUIDByUniqueName (fails)
+# @name getMetadataElementGUIDByUniqueName (nothing returned)
 # Retrieve the metadata element using its unique name (typically the qualified name as shown).
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/guid-by-unique-name
 Authorization: Bearer {{token}}
@@ -227,6 +229,39 @@ Content-Type: application/json
   "endsWith" : false,
   "ignoreCase": true,
   "metadataElementTypeName" : "Location"
+}
+
+
+###
+# @name findMetadataElementsWithString
+# Retrieve the metadata elements that contain the requested string in any attribute.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "searchString" : "IN_PROGRESS",
+  "startsWith" : true,
+  "endsWith" : true,
+  "ignoreCase": false,
+  "metadataElementTypeName" : "Action"
+}
+
+###
+# @name findMetadataElementsWithString
+# Retrieve the metadata elements that contain the requested string in any attribute.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-string
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "SearchStringRequestBody",
+  "searchString" : "false",
+  "startsWith" : true,
+  "endsWith" : true,
+  "ignoreCase": false,
+  "metadataElementTypeName" : "ValidValueDefinition"
 }
 
 
@@ -377,10 +412,29 @@ Content-Type: application/json
 }
 
 
+
 ###
-# @name findMetadataElements (nested condition)
+# @name getMatchCriteriaList
+# Retrieve all the valid values for MatchCriteria
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-search/match-criteria-values
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+
+###
+# @name getPropertyComparisonOperatorList
+# Retrieve all the valid values for ProeprtyComparisonOperator
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-search/property-comparison-operator-values
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+
+###
+# @name find locations that are either in amsterdam or are an office with "Cancer" in their name
 # Return a list of metadata elements that match the supplied criteria.  The results can be returned over many pages.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions?startFrom=0&pageSize=100
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -467,7 +521,7 @@ Content-Type: application/json
 ###
 
 ###
-# @name find CO2 Glossary terms
+# @name find Glossary terms with an abbreviation that begins with "co" ignoring case
 # Returns the CO2 glossary term using a fuzzy search on the abbreviation property
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions?startFrom=0&pageSize=50
 Authorization: Bearer {{token}}
@@ -555,6 +609,189 @@ Content-Type: application/json
   }
 }
 
+
+###
+# @name find a process without an activity status
+# Return a list of metadata elements that match the supplied criteria.  The results can be returned over many pages.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindRequestBody",
+  "metadataElementTypeName": "Process",
+  "searchProperties": {
+    "class" : "SearchProperties",
+    "conditions": [ {
+      "property" : "activityStatus",
+      "operator": "IS_NULL"}],
+    "matchCriteria": "ANY"
+  }
+}
+
+
+###
+# @name find a valid value where isCaseSensitive = true
+# Return a list of metadata elements that match the supplied criteria.  The results can be returned over many pages.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindRequestBody",
+  "metadataElementTypeName": "ValidValueDefinition",
+  "searchProperties": {
+    "class" : "SearchProperties",
+    "conditions": [ {
+      "property" : "isCaseSensitive",
+      "operator": "EQ",
+      "value": {
+        "class" : "PrimitiveTypePropertyValue",
+        "typeName" : "boolean",
+        "primitiveValue" : true
+      }}],
+    "matchCriteria": "ANY"
+  },
+  "pageSize" : 2
+}
+
+
+###
+# @name getValidMetadataValues - activityStatus
+# Retrieve all the valid values for the activityStatus property.
+#
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/get-valid-metadata-values/activityStatus
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
+# @name find a valid value where activityStatus = IN_PROGRESS
+# Return a list of metadata elements that match the supplied criteria.  The results can be returned over many pages.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindRequestBody",
+  "metadataElementTypeName": "Action",
+  "searchProperties": {
+    "class" : "SearchProperties",
+    "conditions": [ {
+      "property" : "activityStatus",
+      "operator": "EQ",
+      "value": {
+        "class" : "EnumTypePropertyValue",
+        "typeName" : "ActivityStatus",
+        "symbolicName" : "IN_PROGRESS"
+      }}],
+    "matchCriteria": "ANY"
+  },
+  "pageSize" : 2
+}
+
+
+
+###
+# @name find a valid value where activityStatus = IN_PROGRESS or APPROVED
+# Use a list of conditions to describe each value; then ANY in the match criteria.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindRequestBody",
+  "metadataElementTypeName": "Location",
+  "searchProperties": {
+    "class" : "SearchProperties",
+    "conditions": [
+      {
+        "property" : "activityStatus",
+        "operator": "EQ",
+        "value": {
+          "class" : "EnumTypePropertyValue",
+          "typeName" : "ActivityStatus",
+          "symbolicName" : "IN_PROGRESS"
+        }
+      },
+      {
+        "property" : "activityStatus",
+        "operator": "EQ",
+        "value": {
+          "class" : "EnumTypePropertyValue",
+          "typeName" : "ActivityStatus",
+          "symbolicName" : "APPROVED"
+        }
+      }],
+    "matchCriteria": "ANY"
+  }
+}
+
+
+
+###
+# @name find an action where activityStatus = IN_PROGRESS - using a string
+# Return a list of metadata elements that match the supplied criteria.  The results can be returned over many pages.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/classification-explorer/elements/by-complex-query
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindRequestBody",
+  "metadataElementTypeName": "Action",
+  "searchProperties": {
+    "class" : "SearchProperties",
+    "conditions": [ {
+      "property" : "activityStatus",
+      "operator": "EQ",
+      "value": {
+        "class" : "PrimitiveTypePropertyValue",
+        "typeName" : "string",
+        "primitiveValue" : "IN_PROGRESS"
+      }}],
+    "matchCriteria": "ANY"
+  },
+  "pageSize" : 2
+}
+
+
+###
+# @name Work with arrays
+# Arrays are tricky because the "propertyName" is the index of the
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindRequestBody",
+  "metadataElementTypeName": "Action",
+  "searchProperties": {
+    "class" : "SearchProperties",
+    "conditions": [ {
+      "property" : "activityStatus",
+      "operator": "IN",
+      "value": {
+        "class" : "ArrayTypePropertyValue",
+        "typeName": "array<string>",
+        "arrayCount" : 2,
+        "arrayValues" : {
+          "propertyValueMap": {
+            "0" : {
+              "class" : "PrimitiveTypePropertyValue",
+              "typeName" : "string",
+              "primitiveValue" : "APPROVED"
+            },
+            "1" : {
+              "class" : "PrimitiveTypePropertyValue",
+              "typeName" : "string",
+              "primitiveValue": "IN_PROGRESS"
+            }
+          }
+        }
+      }}],
+    "matchCriteria": "ANY"
+  },
+  "pageSize" : 2
+}
 
 
 ###

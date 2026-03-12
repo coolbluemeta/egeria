@@ -15,8 +15,8 @@ import org.odpi.openmetadata.frameworks.openmetadata.refdata.CompletionStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.OpenMetadataElement;
 import org.odpi.openmetadata.frameworks.openmetadata.search.ElementProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.GovernanceClassificationStatus;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.RetentionBasis;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.StatusIdentifier;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.RetentionBasis;
 import org.odpi.openmetadata.frameworks.openmetadata.search.NewElementProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
@@ -35,7 +35,7 @@ public class RetentionClassifierGovernanceActionConnector extends GeneralGoverna
      */
     private final int confidence = 100;
 
-    private int statusIdentifier = GovernanceClassificationStatus.VALIDATED.getOrdinal();
+    private int statusIdentifier = StatusIdentifier.VALIDATED.getOrdinal();
     private int basisIdentifier  = RetentionBasis.REGULATED_LIFETIME.getOrdinal();
     private long timeToArchive   = 31556952000L * 5;
     private long timeToDelete    = 31556952000L * 15;
@@ -213,7 +213,7 @@ public class RetentionClassifierGovernanceActionConnector extends GeneralGoverna
                                                              OpenMetadataProperty.SOURCE.name,
                                                              governanceServiceName);
         elementProperties = propertyHelper.addIntProperty(elementProperties,
-                                                          OpenMetadataProperty.RETENTION_BASIS_IDENTIFIER.name,
+                                                          OpenMetadataProperty.RETENTION_BASIS.name,
                                                           basisIdentifier);
         elementProperties = propertyHelper.addDateProperty(elementProperties,
                                                            OpenMetadataProperty.ARCHIVE_AFTER.name,

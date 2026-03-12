@@ -20,7 +20,7 @@ public enum CSVFileConfigurationProperty
      */
     COLUMN_NAMES( "columnNames",
                   "The list of column names to use for the data stored in the file.  This is when the column names are not stored in the first line of the file.",
-                  DataType.ARRAY_STRING.getName(),
+                  DataType.ARRAY_STRING.getDisplayName(),
                   null,
                   false),
 
@@ -29,7 +29,7 @@ public enum CSVFileConfigurationProperty
      */
     DELIMITER_CHARACTER("delimiterCharacter",
                         "The character to use as the delimiter between data values in each column.",
-                        DataType.CHAR.getName(),
+                        DataType.CHAR.getDisplayName(),
                         ",",
                         false),
 
@@ -38,7 +38,7 @@ public enum CSVFileConfigurationProperty
      */
     QUOTE_CHARACTER("quoteCharacter",
                     "The character used to use as the quote character",
-                    DataType.CHAR.getName(),
+                    DataType.CHAR.getDisplayName(),
                     "\"",
                     false),
 

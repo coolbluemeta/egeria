@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.odpi.openmetadata.commonservices.ffdc.rest.*;
 import org.odpi.openmetadata.frameworkservices.omf.rest.*;
+import org.odpi.openmetadata.viewservices.metadataexpert.rest.MatchCriteriaListResponse;
+import org.odpi.openmetadata.viewservices.metadataexpert.rest.PropertyComparisonOperatorListResponse;
 import org.odpi.openmetadata.viewservices.metadataexpert.server.MetadataExpertRESTServices;
 import org.springframework.web.bind.annotation.*;
 
@@ -951,6 +953,51 @@ public class MetadataExpertResource
                                                        metadataElementAtEnd2GUID,
                                                        urlMarker,
                                                        requestBody);
+    }
+
+
+
+
+    /* ===============================================================================
+     * The find request uses a match criteria and a property comparison operator.
+     */
+
+    /**
+     * Return the list of enum values.
+     *
+     * @param serverName name of the server to route the request to
+     * @return list of enum values
+     */
+    @GetMapping(path = "/metadata-search/property-comparison-operator-values")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="getPropertyComparisonOperatorList",
+            description="Return the list of valid property comparison operator values",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/services/omvs/metadata-explorer/overview/"))
+
+    public PropertyComparisonOperatorListResponse getPropertyComparisonOperatorList(@PathVariable String serverName)
+    {
+        return restAPI.getPropertyComparisonOperatorList(serverName);
+    }
+
+    /**
+     * Return the list of enum values.
+     *
+     * @param serverName name of the server to route the request to
+     * @return list of enum values
+     */
+    @GetMapping(path = "/metadata-search/match-criteria-values")
+    @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="getMatchCriteriaList",
+            description="Return the list of valid match criteria values",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/services/omvs/metadata-explorer/overview/"))
+
+    public MatchCriteriaListResponse getMatchCriteriaList(@PathVariable String serverName)
+    {
+        return restAPI.getMatchCriteriaList(serverName);
     }
 
 

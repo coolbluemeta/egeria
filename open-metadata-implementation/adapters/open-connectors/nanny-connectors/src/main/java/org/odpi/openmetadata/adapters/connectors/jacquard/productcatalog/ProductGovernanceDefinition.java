@@ -2,7 +2,7 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.adapters.connectors.jacquard.productcatalog;
 
-import org.odpi.openmetadata.frameworks.openmetadata.enums.GovernanceDomain;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.GovernanceDomain;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.ScopeDefinition;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 

@@ -301,7 +301,7 @@ public class CocoOrganizationArchiveWriter extends EgeriaBaseArchiveWriter
                                        null,
                                        null);
 
-            archiveHelper.addTeamLeadershipRelationship(leadershipRoleQName, deptDefinition.getQualifiedName(), AssignmentType.LEADER.getName());
+            archiveHelper.addTeamLeadershipRelationship(leadershipRoleQName, deptDefinition.getQualifiedName(), AssignmentType.LEADER.getDisplayName());
 
             if (deptDefinition.getLeaders() != null)
             {
@@ -326,7 +326,7 @@ public class CocoOrganizationArchiveWriter extends EgeriaBaseArchiveWriter
                                        null,
                                        null);
 
-            archiveHelper.addTeamMembershipRelationship(membershipRoleQName, deptDefinition.getQualifiedName(), AssignmentType.CONTRIBUTOR.getName());
+            archiveHelper.addTeamMembershipRelationship(membershipRoleQName, deptDefinition.getQualifiedName(), AssignmentType.CONTRIBUTOR.getDisplayName());
 
             if (deptDefinition.getMembers() != null)
             {
@@ -351,7 +351,7 @@ public class CocoOrganizationArchiveWriter extends EgeriaBaseArchiveWriter
             {
                 archiveHelper.addBusinessCapabilityTeamRelationship(deptDefinition.getBusinessArea().getQualifiedName(),
                                                                     deptDefinition.getQualifiedName(),
-                                                                    AssignmentType.OWNER.getName(),
+                                                                    AssignmentType.OWNER.getDisplayName(),
                                                                     deptDefinition.getBusinessAreaScope().getPreferredValue());
             }
         }

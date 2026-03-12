@@ -19,7 +19,7 @@ public enum ApacheAtlasConfigurationProperty
      */
     ATLAS_SERVER_NAME("atlasServerName",
                       "The name of the Apache Atlas server to connect to.",
-                      DataType.STRING.getName(),
+                      DataType.STRING.getDisplayName(),
                       "atlasO1",
                       true),
 

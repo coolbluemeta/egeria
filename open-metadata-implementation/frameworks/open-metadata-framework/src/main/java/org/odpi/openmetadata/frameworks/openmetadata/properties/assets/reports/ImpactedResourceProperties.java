@@ -21,7 +21,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ImpactedResourceProperties extends RelationshipBeanProperties
 {
-    private int    severityLevelIdentifier = 0;
+    private int severityLevel = 0;
 
     /**
      * Typical Constructor
@@ -45,7 +45,7 @@ public class ImpactedResourceProperties extends RelationshipBeanProperties
 
         if (template != null)
         {
-            severityLevelIdentifier = template.getSeverityLevelIdentifier();
+            severityLevel = template.getSeverityLevel();
         }
     }
 
@@ -56,9 +56,9 @@ public class ImpactedResourceProperties extends RelationshipBeanProperties
      *
      * @return integer
      */
-    public int getSeverityLevelIdentifier()
+    public int getSeverityLevel()
     {
-        return severityLevelIdentifier;
+        return severityLevel;
     }
 
 
@@ -66,11 +66,11 @@ public class ImpactedResourceProperties extends RelationshipBeanProperties
      * Set up the severity of the impact - the definition of the severity level is set up as part of the
      * governance program.
      *
-     * @param severityLevelIdentifier integer
+     * @param severityLevel integer
      */
-    public void setSeverityLevelIdentifier(int severityLevelIdentifier)
+    public void setSeverityLevel(int severityLevel)
     {
-        this.severityLevelIdentifier = severityLevelIdentifier;
+        this.severityLevel = severityLevel;
     }
 
 
@@ -83,7 +83,7 @@ public class ImpactedResourceProperties extends RelationshipBeanProperties
     public String toString()
     {
         return "ImpactedResourceProperties{" +
-                "severityLevelIdentifier=" + severityLevelIdentifier +
+                "severityLevel=" + severityLevel +
                 "} " + super.toString();
     }
 
@@ -101,7 +101,7 @@ public class ImpactedResourceProperties extends RelationshipBeanProperties
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         if (!super.equals(objectToCompare)) return false;
         ImpactedResourceProperties that = (ImpactedResourceProperties) objectToCompare;
-        return severityLevelIdentifier == that.severityLevelIdentifier;
+        return severityLevel == that.severityLevel;
     }
 
 
@@ -113,6 +113,6 @@ public class ImpactedResourceProperties extends RelationshipBeanProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), severityLevelIdentifier);
+        return Objects.hash(super.hashCode(), severityLevel);
     }
 }

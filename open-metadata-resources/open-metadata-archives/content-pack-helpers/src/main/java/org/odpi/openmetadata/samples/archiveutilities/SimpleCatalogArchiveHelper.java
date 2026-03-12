@@ -2223,7 +2223,7 @@ public class SimpleCatalogArchiveHelper
 
         archiveBuilder.addRelationship(archiveHelper.getRelationship(OpenMetadataType.ASSIGNMENT_SCOPE_RELATIONSHIP.typeName,
                                                                      idToGUIDMap.getGUID(guid1 + "_to_" + guid2 + "_project_management_assignment_scope_relationship"),
-                                                                     archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.ASSIGNMENT_TYPE.name, AssignmentType.LEADER.getName(), methodName),
+                                                                     archiveHelper.addStringPropertyToInstance(archiveRootName, null, OpenMetadataProperty.ASSIGNMENT_TYPE.name, AssignmentType.LEADER.getDisplayName(), methodName),
                                                                      InstanceStatus.ACTIVE,
                                                                      end1,
                                                                      end2));
@@ -2698,7 +2698,7 @@ public class SimpleCatalogArchiveHelper
                                                                  CoverageCategory.getOpenTypeGUID(),
                                                                  CoverageCategory.getOpenTypeName(),
                                                                  coverageCategory.getOrdinal(),
-                                                                 coverageCategory.getName(),
+                                                                 coverageCategory.name(),
                                                                  coverageCategory.getDescription(),
                                                                  methodName);
         }
@@ -3201,7 +3201,7 @@ public class SimpleCatalogArchiveHelper
                                                                              methodName);
         classificationProperties = archiveHelper.addIntPropertyToInstance(archiveRootName,
                                                                           classificationProperties,
-                                                                          OpenMetadataProperty.CONFIDENTIALITY_LEVEL_IDENTIFIER.name,
+                                                                          OpenMetadataProperty.CONFIDENTIALITY_LEVEL.name,
                                                                           levelIdentifier,
                                                                           methodName);
 
@@ -3308,7 +3308,7 @@ public class SimpleCatalogArchiveHelper
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.IDENTIFIER.name, identifier, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DISPLAY_NAME.name, displayName, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
-        properties = archiveHelper.addEnumPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.BUSINESS_CAPABILITY_TYPE.name, BusinessCapabilityType.getOpenTypeGUID(), BusinessCapabilityType.getOpenTypeName(), BusinessCapabilityType.BUSINESS_AREA.getOrdinal(), BusinessCapabilityType.BUSINESS_AREA.getName(), BusinessCapabilityType.BUSINESS_AREA.getDescription(), methodName);
+        properties = archiveHelper.addEnumPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.BUSINESS_CAPABILITY_TYPE.name, BusinessCapabilityType.getOpenTypeGUID(), BusinessCapabilityType.getOpenTypeName(), BusinessCapabilityType.BUSINESS_AREA.getOrdinal(), BusinessCapabilityType.BUSINESS_AREA.name(), BusinessCapabilityType.BUSINESS_AREA.getDescription(), methodName);
         properties = archiveHelper.addStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ADDITIONAL_PROPERTIES.name, additionalProperties, methodName);
 
         List<Classification> classifications = new ArrayList<>();
@@ -5999,7 +5999,7 @@ public class SimpleCatalogArchiveHelper
                                                                                                   CollectionMemberStatus.getOpenTypeGUID(),
                                                                                                   CollectionMemberStatus.getOpenTypeName(),
                                                                                                   CollectionMemberStatus.VALIDATED.getOrdinal(),
-                                                                                                  CollectionMemberStatus.VALIDATED.getName(),
+                                                                                                  CollectionMemberStatus.VALIDATED.name(),
                                                                                                   CollectionMemberStatus.VALIDATED.getDescription(),
                                                                                                   methodName);
 
@@ -6597,6 +6597,8 @@ public class SimpleCatalogArchiveHelper
      * @param usage how is the valid value used
      * @param url link to more info
      * @param isCaseSensitive is value case sensitive
+     * @param ordinal ordinal value for the valid value
+     * @param isDefaultValue is this the default value?
      * @param additionalProperties any other properties.
      *
      * @return unique identifier of the valid value
@@ -6620,6 +6622,8 @@ public class SimpleCatalogArchiveHelper
                                 String              preferredValue,
                                 String              url,
                                 boolean             isCaseSensitive,
+                                int                 ordinal,
+                                boolean             isDefaultValue,
                                 Map<String, String> additionalProperties)
     {
         final String methodName = "addValidValue";
@@ -6648,6 +6652,7 @@ public class SimpleCatalogArchiveHelper
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DATA_TYPE.name, dataType, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.SCOPE.name, scope, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.PREFERRED_VALUE.name, preferredValue, methodName);
+            properties = archiveHelper.addIntPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ORDINAL.name, ordinal, methodName);
             properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.URL.name, url, methodName);
             properties = archiveHelper.addBooleanPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.IS_CASE_SENSITIVE.name, isCaseSensitive, methodName);
             properties = archiveHelper.addStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ADDITIONAL_PROPERTIES.name, additionalProperties, methodName);
@@ -6673,7 +6678,7 @@ public class SimpleCatalogArchiveHelper
 
             if (setGUID != null)
             {
-                this.addValidValueMembershipRelationshipByGUID(setGUID, validValueEntity.getGUID(), false);
+                this.addValidValueMembershipRelationshipByGUID(setGUID, validValueEntity.getGUID(), ordinal, isDefaultValue);
             }
 
             return validValueEntity.getGUID();
@@ -6728,41 +6733,25 @@ public class SimpleCatalogArchiveHelper
     /**
      * Link a valid value as a member of a valid value set.
      *
-     * @param setQName qualified name of the set to add to
-     * @param memberQName qualified name of the member to add
+     * @param setGUID unique identifier of the set to add to
+     * @param memberGUID unique identifier of the member to add
      * @param isDefaultValue is this the default value (only set to true for one member).
      */
-    public void addValidValueMembershipRelationship(String  setQName,
-                                                    String  memberQName,
-                                                    boolean isDefaultValue)
-    {
-        String setId = idToGUIDMap.getGUID(setQName);
-        String memberId = idToGUIDMap.getGUID(memberQName);
-
-        this.addValidValueMembershipRelationshipByGUID(setId, memberId, isDefaultValue);
-    }
-
-
-    /**
-     * Link a valid value as a member of a valid value set.
-     *
-     * @param setId unique identifier of the set to add to
-     * @param memberId unique identifier of the member to add
-     * @param isDefaultValue is this the default value (only set to true for one member).
-     */
-    public void addValidValueMembershipRelationshipByGUID(String  setId,
-                                                          String  memberId,
+    public void addValidValueMembershipRelationshipByGUID(String  setGUID,
+                                                          String  memberGUID,
+                                                          int     ordinal,
                                                           boolean isDefaultValue)
     {
         final String methodName = "addValidValuesAssignmentRelationship";
 
-        EntityProxy end1 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(setId));
-        EntityProxy end2 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(memberId));
+        EntityProxy end1 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(setGUID));
+        EntityProxy end2 = archiveHelper.getEntityProxy(archiveBuilder.getEntity(memberGUID));
 
         InstanceProperties properties = archiveHelper.addBooleanPropertyToInstance(archiveRootName, null, OpenMetadataProperty.IS_DEFAULT_VALUE.name, isDefaultValue, methodName);
+        properties = archiveHelper.addIntPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ORDINAL.name, ordinal, methodName);
 
         archiveBuilder.addRelationship(archiveHelper.getRelationship(OpenMetadataType.VALID_VALUE_MEMBER_RELATIONSHIP.typeName,
-                                                                     idToGUIDMap.getGUID(setId + "_to_" + memberId + "_valid_value_member_relationship"),
+                                                                     idToGUIDMap.getGUID(setGUID + "_to_" + memberGUID + "_valid_value_member_relationship"),
                                                                      properties,
                                                                      InstanceStatus.ACTIVE,
                                                                      end1,

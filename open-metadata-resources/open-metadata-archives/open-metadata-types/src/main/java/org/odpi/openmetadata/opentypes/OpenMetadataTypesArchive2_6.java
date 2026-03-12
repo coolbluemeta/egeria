@@ -3,9 +3,9 @@
 package org.odpi.openmetadata.opentypes;
 
 
-import org.odpi.openmetadata.frameworks.openmetadata.enums.CriticalityLevel;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.CriticalityLevel;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.DeleteMethod;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.ImpactSeverity;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.SeverityLevel;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.IncidentReportStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
@@ -255,39 +255,7 @@ public class OpenMetadataTypesArchive2_6
      */
     private void update0422GovernanceActionClassifications()
     {
-        this.archiveBuilder.addEnumDef(getImpactSeverityEnum());
         this.archiveBuilder.addClassificationDef(addImpactClassification());
-    }
-
-    private EnumDef getImpactSeverityEnum()
-    {
-        EnumDef enumDef = archiveHelper.getEmptyEnumDef(ImpactSeverity.getOpenTypeGUID(),
-                                                        ImpactSeverity.getOpenTypeName(),
-                                                        ImpactSeverity.getOpenTypeDescription(),
-                                                        ImpactSeverity.getOpenTypeDescriptionGUID(),
-                                                        ImpactSeverity.getOpenTypeDescriptionWiki());
-
-        ArrayList<EnumElementDef> elementDefs = new ArrayList<>();
-        EnumElementDef            elementDef;
-
-        for (ImpactSeverity enumValues : ImpactSeverity.values())
-        {
-            elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
-                                                         enumValues.getDescription(),
-                                                         enumValues.getDescriptionGUID());
-
-            elementDefs.add(elementDef);
-
-            if (enumValues.isDefault())
-            {
-                enumDef.setDefaultValue(elementDef);
-            }
-        }
-
-        enumDef.setElementDefs(elementDefs);
-
-        return enumDef;
     }
 
     private ClassificationDef addImpactClassification()
@@ -302,10 +270,10 @@ public class OpenMetadataTypesArchive2_6
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SEVERITY_LEVEL));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONFIDENCE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STEWARD));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STATUS_IDENTIFIER));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SEVERITY_IDENTIFIER));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STEWARD_TYPE_NAME));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.STEWARD_PROPERTY_NAME));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SOURCE));
@@ -352,7 +320,7 @@ public class OpenMetadataTypesArchive2_6
         for (DeleteMethod deleteMethod : DeleteMethod.values())
         {
             elementDef = archiveHelper.getEnumElementDef(deleteMethod.getOrdinal(),
-                                                         deleteMethod.getName(),
+                                                         deleteMethod.name(),
                                                          deleteMethod.getDescription(),
                                                          deleteMethod.getDescriptionGUID());
 
@@ -774,7 +742,7 @@ public class OpenMetadataTypesArchive2_6
         for (CriticalityLevel enumValues : CriticalityLevel.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValues.getOrdinal(),
-                                                         enumValues.getName(),
+                                                         enumValues.name(),
                                                          enumValues.getDescription(),
                                                          enumValues.getDescriptionGUID());
 
@@ -861,7 +829,7 @@ public class OpenMetadataTypesArchive2_6
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SEVERITY_LEVEL_IDENTIFIER));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SEVERITY_LEVEL));
 
         relationshipDef.setPropertiesDefinition(properties);
 

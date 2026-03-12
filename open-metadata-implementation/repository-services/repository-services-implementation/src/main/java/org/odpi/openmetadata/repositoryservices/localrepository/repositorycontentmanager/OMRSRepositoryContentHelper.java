@@ -771,30 +771,6 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
      * @throws TypeErrorException the type name is not recognized.
      */
     @Override
-    @Deprecated
-    public EntityDetail getSkeletonEntity(String                 sourceName,
-                                          String                 metadataCollectionId,
-                                          InstanceProvenanceType provenanceType,
-                                          String                 userName,
-                                          String                 typeName) throws TypeErrorException
-    {
-        return this.getSkeletonEntity(sourceName, metadataCollectionId, null, provenanceType, userName, typeName);
-    }
-
-
-    /**
-     * Return an entity with the header and type information filled out.  The caller only needs to add properties
-     * and classifications to complete the setup of the entity.
-     *
-     * @param sourceName           source of the request (used for logging)
-     * @param metadataCollectionId unique identifier for the home metadata collection
-     * @param provenanceType       origin of the entity
-     * @param userName             name of the creator
-     * @param typeName             name of the type
-     * @return partially filled out entity needs classifications and properties
-     * @throws TypeErrorException the type name is not recognized.
-     */
-    @Override
     public EntityDetail getSkeletonEntity(String                 sourceName,
                                           String                 metadataCollectionId,
                                           String                 metadataCollectionName,
@@ -821,86 +797,6 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
         return entity;
     }
 
-
-    /**
-     * Return an entity with the header and type information filled out.  The caller only needs to classifications
-     * to complete the setup of the entity.
-     *
-     * @param sourceName             source of the request (used for logging)
-     * @param metadataCollectionId   unique identifier for the home metadata collection
-     * @param provenanceType         origin of the entity
-     * @param userName               name of the creator
-     * @param typeName               name of the type
-     * @return partially filled out entity needs classifications
-     * @throws TypeErrorException  the type name is not recognized.
-     */
-    @Override
-    @Deprecated
-    public EntitySummary getSkeletonEntitySummary(String                 sourceName,
-                                                  String                 metadataCollectionId,
-                                                  InstanceProvenanceType provenanceType,
-                                                  String                 userName,
-                                                  String                 typeName) throws TypeErrorException
-    {
-        final String methodName = "getSkeletonEntitySummary";
-
-        validateRepositoryContentManager(methodName);
-
-        EntitySummary entity = new EntitySummary();
-
-        populateSkeletonEntity(entity,
-                               UUID.randomUUID().toString(),
-                               sourceName,
-                               metadataCollectionId,
-                               null,
-                               provenanceType,
-                               userName,
-                               typeName,
-                               methodName);
-
-        return entity;
-    }
-
-
-    /**
-     * Return an entity with the header and type information filled out.  The caller only needs to classifications
-     * to complete the setup of the entity.
-     *
-     * @param sourceName             source of the request (used for logging)
-     * @param metadataCollectionId   unique identifier for the home metadata collection
-     * @param metadataCollectionName unique name for the home metadata collection
-     * @param provenanceType         origin of the entity
-     * @param userName               name of the creator
-     * @param typeName               name of the type
-     * @return partially filled out entity needs classifications
-     * @throws TypeErrorException  the type name is not recognized.
-     */
-    @Override
-    public EntitySummary getSkeletonEntitySummary(String                 sourceName,
-                                                  String                 metadataCollectionId,
-                                                  String                 metadataCollectionName,
-                                                  InstanceProvenanceType provenanceType,
-                                                  String                 userName,
-                                                  String                 typeName) throws TypeErrorException
-    {
-        final String methodName = "getSkeletonEntitySummary";
-
-        validateRepositoryContentManager(methodName);
-
-        EntitySummary entity = new EntitySummary();
-
-        populateSkeletonEntity(entity,
-                               UUID.randomUUID().toString(),
-                               sourceName,
-                               metadataCollectionId,
-                               metadataCollectionName,
-                               provenanceType,
-                               userName,
-                               typeName,
-                               methodName);
-
-        return entity;
-    }
 
 
     /**
@@ -934,70 +830,15 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
         entity.setMetadataCollectionName(metadataCollectionName);
         entity.setCreateTime(new Date());
         entity.setCreatedBy(userName);
+        entity.setUpdateTime(entity.getCreateTime());
+        entity.setUpdatedBy(userName);
+        entity.setMaintainedBy(Collections.singletonList(userName));
         entity.setLastRequestId(requestId.getRequestId());
         entity.setGUID(guid);
         entity.setVersion(1L);
 
         entity.setType(repositoryContentManager.getInstanceType(sourceName, TypeDefCategory.ENTITY_DEF, typeName, methodName));
         entity.setStatus(repositoryContentManager.getInitialStatus(sourceName, typeName, methodName));
-    }
-
-
-    /**
-     * Return a classification with the header and type information filled out.  The caller only needs to add properties
-     * and possibility origin information if it is propagated to complete the setup of the classification.
-     *
-     * @param sourceName             source of the request (used for logging)
-     * @param userName               name of the creator
-     * @param classificationTypeName name of the classification type
-     * @param entityTypeName         name of the type for the entity that this classification is to be attached to.
-     * @return partially filled out classification needs properties and possibly origin information
-     * @throws TypeErrorException the type name is not recognized as a classification type.
-     */
-    @Override
-    public Classification getSkeletonClassification(String                 sourceName,
-                                                    String                 userName,
-                                                    String                 classificationTypeName,
-                                                    String                 entityTypeName) throws TypeErrorException
-    {
-        return this.getSkeletonClassification(sourceName,
-                                              null,
-                                              null,
-                                              InstanceProvenanceType.LOCAL_COHORT,
-                                              userName,
-                                              classificationTypeName,
-                                              entityTypeName);
-    }
-
-
-    /**
-     * Return a classification with the header and type information filled out.  The caller only needs to add properties
-     * and possibility origin information if it is propagated to complete the setup of the classification.
-     *
-     * @param sourceName             source of the request (used for logging)
-     * @param metadataCollectionId   unique identifier for the home metadata collection
-     * @param provenanceType         origin of the classification
-     * @param userName               name of the creator
-     * @param classificationTypeName name of the classification type
-     * @param entityTypeName         name of the type for the entity that this classification is to be attached to.
-     * @return partially filled out classification needs properties and possibly origin information
-     * @throws TypeErrorException the type name is not recognized as a classification type.
-     */
-    @Override
-    public Classification getSkeletonClassification(String                 sourceName,
-                                                    String                 metadataCollectionId,
-                                                    InstanceProvenanceType provenanceType,
-                                                    String                 userName,
-                                                    String                 classificationTypeName,
-                                                    String                 entityTypeName) throws TypeErrorException
-    {
-        return this.getSkeletonClassification(sourceName,
-                                              metadataCollectionId,
-                                              null,
-                                              provenanceType,
-                                              userName,
-                                              classificationTypeName,
-                                              entityTypeName);
     }
 
 
@@ -1047,6 +888,9 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
                 classification.setName(classificationTypeName);
                 classification.setCreateTime(new Date());
                 classification.setCreatedBy(userName);
+                classification.setUpdateTime(classification.getCreateTime());
+                classification.setUpdatedBy(userName);
+                classification.setMaintainedBy(Collections.singletonList(userName));
                 classification.setLastRequestId(requestId.getRequestId());
                 classification.setVersion(1L);
                 classification.setType(repositoryContentManager.getInstanceType(sourceName,
@@ -1074,29 +918,6 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
                                          this.getClass().getName(),
                                          methodName);
         }
-    }
-
-
-    /**
-     * Return a relationship with the header and type information filled out.  The caller only needs to add properties
-     * to complete the setup of the relationship.
-     *
-     * @param sourceName           source of the request (used for logging)
-     * @param metadataCollectionId unique identifier for the home metadata collection
-     * @param provenanceType       origin type of the relationship
-     * @param userName             name of the creator
-     * @param typeName             name of the relationship's type
-     * @return partially filled out relationship needs properties
-     * @throws TypeErrorException the type name is not recognized as a relationship type.
-     */
-    @Override
-    public Relationship getSkeletonRelationship(String                 sourceName,
-                                                String                 metadataCollectionId,
-                                                InstanceProvenanceType provenanceType,
-                                                String                 userName,
-                                                String                 typeName) throws TypeErrorException
-    {
-        return this.getSkeletonRelationship(sourceName, metadataCollectionId, null, provenanceType, userName, typeName);
     }
 
 
@@ -1134,6 +955,9 @@ public class OMRSRepositoryContentHelper extends OMRSRepositoryPropertiesUtiliti
         relationship.setMetadataCollectionName(metadataCollectionName);
         relationship.setCreateTime(new Date());
         relationship.setCreatedBy(userName);
+        relationship.setUpdateTime(relationship.getCreateTime());
+        relationship.setUpdatedBy(userName);
+        relationship.setMaintainedBy(Collections.singletonList(userName));
         relationship.setLastRequestId(requestId.getRequestId());
         relationship.setGUID(guid);
         relationship.setVersion(1L);

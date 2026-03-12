@@ -121,6 +121,8 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
                                                                null,
                                                                null,
                                                                false,
+                                                               0,
+                                                               false,
                                                                null);
 
         if (validValueSetGUID != null)
@@ -141,10 +143,12 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
                                             facilityTypeDefinition.getDescription(),
                                             null,
                                             FacilityTypeDefinition.validValueSetUsage,
-                                            DataType.STRING.getName(),
+                                            DataType.STRING.getDisplayName(),
                                             FacilityTypeDefinition.validValueSetScope,
                                             facilityTypeDefinition.getPreferredValue(),
                                             null,
+                                            false,
+                                            facilityTypeDefinition.ordinal(),
                                             false,
                                             null);
             }
@@ -238,7 +242,7 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
 
             archiveHelper.addCommunityMembershipRelationship(communityQName,
                                                              roleDefinition.getQualifiedName(),
-                                                             AssignmentType.CONTRIBUTOR.getName());
+                                                             AssignmentType.CONTRIBUTOR.getDisplayName());
 
             if (roleDefinition.getBusinessArea() != null)
             {
@@ -276,10 +280,12 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
                                         domainDefinition.getDisplayName(),
                                         domainDefinition.getDescription(),
                                         OpenMetadataProperty.DOMAIN_IDENTIFIER.name,
-                                        DataType.INT.getName(),
+                                        DataType.INT.getDisplayName(),
                                         null,
                                         null,
                                         Integer.toString(domainDefinition.getDomainIdentifier()),
+                                        domainDefinition.getDomainIdentifier(),
+                                        (domainDefinition.getDomainIdentifier() == 0),
                                         null);
 
             String communityQName = "Community::" + domainDefinition.getQualifiedName();
@@ -517,7 +523,7 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
                 {
                     archiveHelper.addProjectTeamRelationship(projectDefinition.getQualifiedName(),
                                                              member.getQualifiedName(),
-                                                             AssignmentType.CONTRIBUTOR.getName());
+                                                             AssignmentType.CONTRIBUTOR.getDisplayName());
                 }
 
             }

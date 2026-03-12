@@ -139,7 +139,7 @@ public class GovernanceActionProcessMermaidGraphBuilder extends MermaidGraphBuil
             if (processStep.getProcessStepProperties().getActionStatus() != null)
             {
                 additionalProperties.put(OpenMetadataProperty.ACTIVITY_STATUS.name,
-                                         processStep.getProcessStepProperties().getActionStatus().getName());
+                                         processStep.getProcessStepProperties().getActionStatus().name());
             }
             if ((processStep.getProcessStepProperties().getCompletionGuards() != null) &&
                 (! processStep.getProcessStepProperties().getCompletionGuards().isEmpty()))

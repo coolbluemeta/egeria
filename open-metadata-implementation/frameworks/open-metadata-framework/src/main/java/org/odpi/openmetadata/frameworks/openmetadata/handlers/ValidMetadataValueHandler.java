@@ -9,6 +9,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.*;
 import org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.validvalues.*;
+import org.odpi.openmetadata.frameworks.openmetadata.refdata.SequencingOrder;
 import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
@@ -71,6 +72,7 @@ public class ValidMetadataValueHandler extends OpenMetadataHandlerBase
         validMetadataValueProperties.setPreferredValue(validMetadataValue.getPreferredValue());
         validMetadataValueProperties.setDataType(validMetadataValue.getDataType());
         validMetadataValueProperties.setIsCaseSensitive(validMetadataValue.getIsCaseSensitive());
+        validMetadataValueProperties.setOrdinal(validMetadataValue.getOrdinal());
         validMetadataValueProperties.setAdditionalProperties(validMetadataValue.getAdditionalProperties());
         validMetadataValueProperties.setEffectiveFrom(validMetadataValue.getEffectiveFrom());
         validMetadataValueProperties.setEffectiveTo(validMetadataValue.getEffectiveTo());
@@ -282,6 +284,10 @@ public class ValidMetadataValueHandler extends OpenMetadataHandlerBase
                                                                             OpenMetadataProperty.DATA_TYPE.name,
                                                                             openMetadataElement.getElementProperties(),
                                                                             methodName));
+            validMetadataValue.setOrdinal(propertyHelper.getIntProperty(localServiceName,
+                                                                        OpenMetadataProperty.ORDINAL.name,
+                                                                        openMetadataElement.getElementProperties(),
+                                                                        methodName));
 
             validMetadataValue.setIsCaseSensitive(propertyHelper.getBooleanProperty(localServiceName,
                                                                                     OpenMetadataProperty.IS_CASE_SENSITIVE.name,
@@ -363,6 +369,7 @@ public class ValidMetadataValueHandler extends OpenMetadataHandlerBase
             ValidValueMemberProperties memberProperties = new ValidValueMemberProperties();
 
             memberProperties.setIsDefaultValue(false);
+            memberProperties.setOrdinal(validMetadataValue.getOrdinal());
 
             validValueGUID = super.createNewElement(userId,
                                                     newElementOptions,
@@ -909,6 +916,8 @@ public class ValidMetadataValueHandler extends OpenMetadataHandlerBase
             queryOptions.setMetadataElementTypeName(OpenMetadataType.VALID_METADATA_VALUE.typeName);
             queryOptions.setStartFrom(startFrom);
             queryOptions.setPageSize(pageSize);
+            queryOptions.setSequencingOrder(SequencingOrder.PROPERTY_ASCENDING);
+            queryOptions.setSequencingProperty(OpenMetadataProperty.ORDINAL.name);
 
             RelatedMetadataElementList relatedMetadataElements = openMetadataClient.getRelatedMetadataElements(userId,
                                                                                                                parentSetGUID,

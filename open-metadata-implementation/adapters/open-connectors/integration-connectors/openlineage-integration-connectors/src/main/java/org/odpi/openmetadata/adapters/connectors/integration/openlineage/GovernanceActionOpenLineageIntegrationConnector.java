@@ -126,10 +126,10 @@ public class GovernanceActionOpenLineageIntegrationConnector extends Integration
                  */
                 if (! previousActionStatus.equals(currentActionStatus))
                 {
-                    if ((ActivityStatus.IN_PROGRESS.getName().equals(currentActionStatus)) ||
-                        (ActivityStatus.COMPLETED.getName().equals(currentActionStatus)) ||
-                        (ActivityStatus.FAILED.getName().equals(currentActionStatus)) ||
-                        (ActivityStatus.INVALID.getName().equals(currentActionStatus)))
+                    if ((ActivityStatus.IN_PROGRESS.name().equals(currentActionStatus)) ||
+                        (ActivityStatus.COMPLETED.name().equals(currentActionStatus)) ||
+                        (ActivityStatus.FAILED.name().equals(currentActionStatus)) ||
+                        (ActivityStatus.INVALID.name().equals(currentActionStatus)))
                     {
                         OpenMetadataRootElement engineAction = integrationContext.getAssetClient().getAssetByGUID(elementHeader.getGUID(),
                                                                                                                   integrationContext.getAssetClient().getGetOptions());
@@ -211,19 +211,19 @@ public class GovernanceActionOpenLineageIntegrationConnector extends Integration
             event.setProducer(producer);
             event.setEventTime(getTimeStamp(eventTime));
 
-            if (ActivityStatus.IN_PROGRESS.getName().equals(engineActionStatus))
+            if (ActivityStatus.IN_PROGRESS.name().equals(engineActionStatus))
             {
                 event.setEventType("START");
             }
-            else if (ActivityStatus.COMPLETED.getName().equals(engineActionStatus))
+            else if (ActivityStatus.COMPLETED.name().equals(engineActionStatus))
             {
                 event.setEventType("COMPLETE");
             }
-            else if (ActivityStatus.FAILED.getName().equals(engineActionStatus))
+            else if (ActivityStatus.FAILED.name().equals(engineActionStatus))
             {
                 event.setEventType("FAIL");
             }
-            else if (ActivityStatus.INVALID.getName().equals(engineActionStatus))
+            else if (ActivityStatus.INVALID.name().equals(engineActionStatus))
             {
                 event.setEventType("ABORT");
             }

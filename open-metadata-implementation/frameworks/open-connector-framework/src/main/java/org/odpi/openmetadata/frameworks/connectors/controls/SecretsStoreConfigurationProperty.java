@@ -19,7 +19,7 @@ public enum SecretsStoreConfigurationProperty
      */
     SECRETS_COLLECTION_NAME("secretsCollectionName",
                             "The name used to identify the collection of secrets that a particular connector is using.",
-                            DataType.STRING.getName(),
+                            DataType.STRING.getDisplayName(),
                             "DatabricksServerOne",
                             true),
 

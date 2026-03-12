@@ -45,7 +45,7 @@ public class AnnotationTest
 
         testObject.setAnnotationType("TestAnnotationType");
         testObject.setSummary("TestSummary");
-        testObject.setConfidenceLevel(5);
+        testObject.setConfidence(5);
         testObject.setExpression("TestExpression");
         testObject.setExplanation("TestExplanation");
         testObject.setAnalysisStep("TestAnalysisStep");
@@ -65,7 +65,7 @@ public class AnnotationTest
     {
         assertTrue(resultObject.getAnnotationType().equals("TestAnnotationType"));
         assertTrue(resultObject.getSummary().equals("TestSummary"));
-        assertTrue(resultObject.getConfidenceLevel() == 5);
+        assertTrue(resultObject.getConfidence() == 5);
         assertTrue(resultObject.getExpression().equals("TestExpression"));
         assertTrue(resultObject.getExplanation().equals("TestExplanation"));
         assertTrue(resultObject.getAnalysisStep().equals("TestAnalysisStep"));
@@ -83,7 +83,7 @@ public class AnnotationTest
 
         assertTrue(nullObject.getAnnotationType() == null);
         assertTrue(nullObject.getSummary() == null);
-        assertTrue(nullObject.getConfidenceLevel() == 0);
+        assertTrue(nullObject.getConfidence() == 0);
         assertTrue(nullObject.getExpression() == null);
         assertTrue(nullObject.getExplanation() == null);
         assertTrue(nullObject.getAnalysisStep() == null);
@@ -94,7 +94,7 @@ public class AnnotationTest
 
         assertTrue(nullObject.getAnnotationType() == null);
         assertTrue(nullObject.getSummary() == null);
-        assertTrue(nullObject.getConfidenceLevel() == 0);
+        assertTrue(nullObject.getConfidence() == 0);
         assertTrue(nullObject.getExpression() == null);
         assertTrue(nullObject.getExplanation() == null);
         assertTrue(nullObject.getAnalysisStep() == null);

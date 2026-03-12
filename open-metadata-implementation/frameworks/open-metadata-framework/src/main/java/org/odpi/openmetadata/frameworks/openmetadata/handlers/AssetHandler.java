@@ -346,7 +346,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
 
                     columnType.setQualifiedName(columnQualifiedName + ":columnType");
                     columnType.setSchemaTypeName(OpenMetadataType.PRIMITIVE_SCHEMA_TYPE.typeName);
-                    columnType.setDataType(DataType.STRING.getName());
+                    columnType.setDataType(DataType.STRING.getDisplayName());
 
                     Map<String, ClassificationProperties> initialClassifications = new HashMap<>();
 
@@ -601,11 +601,11 @@ public class AssetHandler extends OpenMetadataHandlerBase
                 metadataCollectionProperties.setQualifiedName(OpenMetadataType.METADATA_COLLECTION.typeName + "::" +  ownerName + " [" + ownerGUID + "]");
                 if (originCategory != null)
                 {
-                    metadataCollectionProperties.setDeployedImplementationType(originCategory.getName());
+                    metadataCollectionProperties.setDeployedImplementationType(originCategory.getDisplayName());
                 }
                 else
                 {
-                    metadataCollectionProperties.setDeployedImplementationType(ElementOriginCategory.EXTERNAL_SOURCE.getName());
+                    metadataCollectionProperties.setDeployedImplementationType(ElementOriginCategory.EXTERNAL_SOURCE.getDisplayName());
                 }
 
                 metadataCollectionProperties.setDisplayName("Metadata collection for " + ownerName);
@@ -706,7 +706,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
                                                                 makeAnchorOptions,
                                                                 new NewElementProperties(propertyHelper.addStringProperty(null,
                                                                                                                           OpenMetadataProperty.ASSIGNMENT_TYPE.name,
-                                                                                                                          AssignmentType.OWNER.getName())));
+                                                                                                                          AssignmentType.OWNER.getDisplayName())));
             }
 
             if (actionSponsorGUID != null)
@@ -718,7 +718,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
                                                                 makeAnchorOptions,
                                                                 new NewElementProperties(propertyHelper.addStringProperty(null,
                                                                                                                           OpenMetadataProperty.LABEL.name,
-                                                                                                                          AssignmentType.SPONSOR.getName())));
+                                                                                                                          AssignmentType.SPONSOR.getDisplayName())));
             }
 
             if (newActionTargets != null)
@@ -933,7 +933,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
                 {
                     relationshipProperties = new NewElementProperties(propertyHelper.addStringProperty(null,
                                                                                                        OpenMetadataProperty.ASSIGNMENT_TYPE.name,
-                                                                                                       assignmentType.getName()));
+                                                                                                       assignmentType.getDisplayName()));
                 }
 
                 openMetadataClient.createRelatedElementsInStore(userId,
@@ -1067,7 +1067,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
                                                                 makeAnchorOptions,
                                                                 new NewElementProperties(propertyHelper.addStringProperty(null,
                                                                                                                           OpenMetadataProperty.ASSIGNMENT_TYPE.name,
-                                                                                                                          AssignmentType.SPONSOR.getName())));
+                                                                                                                          AssignmentType.SPONSOR.getDisplayName())));
             }
 
             if (originatorGUID != null)
@@ -3816,7 +3816,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
 
         primitivePropertyValue.setPrimitiveTypeCategory(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING);
         primitivePropertyValue.setPrimitiveValue(assetGUID);
-        primitivePropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+        primitivePropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getDisplayName());
 
         propertyCondition.setProperty(OpenMetadataProperty.ANCHOR_GUID.name);
         propertyCondition.setOperator(PropertyComparisonOperator.EQ);
@@ -4040,7 +4040,7 @@ public class AssetHandler extends OpenMetadataHandlerBase
 
             primitivePropertyValue.setPrimitiveTypeCategory(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING);
             primitivePropertyValue.setPrimitiveValue(asset.getElementHeader().getGUID());
-            primitivePropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+            primitivePropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getDisplayName());
 
             propertyCondition.setProperty(OpenMetadataProperty.ANCHOR_GUID.name);
             propertyCondition.setOperator(PropertyComparisonOperator.EQ);

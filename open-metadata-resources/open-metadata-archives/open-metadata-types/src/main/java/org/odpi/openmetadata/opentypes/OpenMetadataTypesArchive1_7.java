@@ -669,7 +669,7 @@ public class OpenMetadataTypesArchive1_7
         for (BusinessCapabilityType enumValue : BusinessCapabilityType.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 
@@ -945,7 +945,7 @@ public class OpenMetadataTypesArchive1_7
         for (SolutionPortDirection enumValue : SolutionPortDirection.values())
         {
             elementDef = archiveHelper.getEnumElementDef(enumValue.getOrdinal(),
-                                                         enumValue.getName(),
+                                                         enumValue.name(),
                                                          enumValue.getDescription(),
                                                          enumValue.getDescriptionGUID());
 

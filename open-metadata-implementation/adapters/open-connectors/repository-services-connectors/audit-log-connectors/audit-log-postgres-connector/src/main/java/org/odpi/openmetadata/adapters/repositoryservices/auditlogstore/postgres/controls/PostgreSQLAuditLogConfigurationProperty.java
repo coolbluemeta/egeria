@@ -20,7 +20,7 @@ public enum PostgreSQLAuditLogConfigurationProperty
     /**
      * Provide a list of supported severities that should be logged to this destination. An empty list means all severities.
      */
-    SUPPORTED_SEVERITIES("supportedSeverities", "Provide a list of supported severities that should be logged to this destination. An empty list means all severities.", DataType.ARRAY_STRING.getName(), "[\"Error\", \"Exception\", \"Activity\", \"Action\", \"Decision\"]"),
+    SUPPORTED_SEVERITIES("supportedSeverities", "Provide a list of supported severities that should be logged to this destination. An empty list means all severities.", DataType.ARRAY_STRING.getDisplayName(), "[\"Error\", \"Exception\", \"Activity\", \"Action\", \"Decision\"]"),
 
     ;
 

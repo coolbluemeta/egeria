@@ -24,7 +24,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ContextEventImpactProperties extends LabeledRelationshipProperties
 {
-    private int    severityLevelIdentifier = 0;
+    private int severityLevel = 0;
 
 
     /**
@@ -48,7 +48,7 @@ public class ContextEventImpactProperties extends LabeledRelationshipProperties
 
         if (template != null)
         {
-            severityLevelIdentifier = template.getSeverityLevelIdentifier();
+            severityLevel = template.getSeverityLevel();
         }
     }
 
@@ -58,20 +58,20 @@ public class ContextEventImpactProperties extends LabeledRelationshipProperties
      *
      * @return int
      */
-    public int getSeverityLevelIdentifier()
+    public int getSeverityLevel()
     {
-        return severityLevelIdentifier;
+        return severityLevel;
     }
 
 
     /**
      * Set up the severity level identifier for the relationship.
      *
-     * @param severityLevelIdentifier int
+     * @param severityLevel int
      */
-    public void setSeverityLevelIdentifier(int severityLevelIdentifier)
+    public void setSeverityLevel(int severityLevel)
     {
-        this.severityLevelIdentifier = severityLevelIdentifier;
+        this.severityLevel = severityLevel;
     }
 
     /**
@@ -83,7 +83,7 @@ public class ContextEventImpactProperties extends LabeledRelationshipProperties
     public String toString()
     {
         return "ContextEventImpactProperties{" +
-                "severityLevelIdentifier=" + severityLevelIdentifier +
+                "severityLevelIdentifier=" + severityLevel +
                 "} " + super.toString();
     }
 
@@ -101,7 +101,7 @@ public class ContextEventImpactProperties extends LabeledRelationshipProperties
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         if (!super.equals(objectToCompare)) return false;
         ContextEventImpactProperties that = (ContextEventImpactProperties) objectToCompare;
-        return severityLevelIdentifier == that.severityLevelIdentifier;
+        return severityLevel == that.severityLevel;
     }
 
     /**
@@ -112,6 +112,6 @@ public class ContextEventImpactProperties extends LabeledRelationshipProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), severityLevelIdentifier);
+        return Objects.hash(super.hashCode(), severityLevel);
     }
 }

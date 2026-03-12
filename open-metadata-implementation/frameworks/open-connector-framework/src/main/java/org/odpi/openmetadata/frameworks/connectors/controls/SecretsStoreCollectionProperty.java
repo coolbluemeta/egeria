@@ -15,7 +15,7 @@ public enum SecretsStoreCollectionProperty
      */
     REFRESH_TIME_INTERVAL("refreshTimeInterval",
                           "The time interval in minutes that tokens should be kept.",
-                          DataType.LONG.getName(),
+                          DataType.LONG.getDisplayName(),
                           "360"),
 
 
@@ -24,7 +24,7 @@ public enum SecretsStoreCollectionProperty
      */
     USER_ID("userId",
             "The name used to identify the connector to the remote system.",
-            DataType.STRING.getName(),
+            DataType.STRING.getDisplayName(),
             "connectornpa"),
 
     /**
@@ -32,7 +32,7 @@ public enum SecretsStoreCollectionProperty
      */
     CLEAR_PASSWORD("clearPassword",
                    "A password used to prove a user's identity - in clear text.",
-                   DataType.STRING.getName(),
+                   DataType.STRING.getDisplayName(),
                    "secret"),
 
 
@@ -41,7 +41,7 @@ public enum SecretsStoreCollectionProperty
      */
     ENCRYPTED_PASSWORD("encryptedPassword",
                        "A password used to prove a user's identity - encrypted.",
-                       DataType.STRING.getName(),
+                       DataType.STRING.getDisplayName(),
                        null),
 
     /**
@@ -49,7 +49,7 @@ public enum SecretsStoreCollectionProperty
      */
     TOKEN("accessToken",
           "An encrypted token to provide access to a remote digital resource.",
-          DataType.STRING.getName(),
+          DataType.STRING.getDisplayName(),
           null),
 
 
@@ -58,7 +58,7 @@ public enum SecretsStoreCollectionProperty
      */
     TOKEN_URL("accessTokenURL",
           "A URL to retrieve an access token.",
-          DataType.STRING.getName(),
+          DataType.STRING.getDisplayName(),
           null),
 
     ;

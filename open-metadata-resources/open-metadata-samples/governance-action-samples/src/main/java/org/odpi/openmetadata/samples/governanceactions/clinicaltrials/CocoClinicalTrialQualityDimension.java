@@ -15,12 +15,12 @@ import java.util.List;
  */
 public enum CocoClinicalTrialQualityDimension implements SurveyMetric
 {
-    NO_OF_COLUMNS_MATCH ("matchingColumnCount", DataType.STRING.getName(), "Matching Column Count", "Do the number of columns described in the schema match the number of columns in the resource?  Zero means a perfect match.  A negative value means the resource has less columns and a positive value means that the resource has more columns."),
-    NAMES_OF_COLUMNS_MATCH ("matchingColumnNames", DataType.STRING.getName(),"Matching Column Names", "Do the column names in the schema match those in the resource.  The order is important. Zero means a perfect match.  A negative value means there are mismatched columns."),
-    VALID_PATIENT_ID ("patientIdInRange", DataType.STRING.getName(), "Patient Identifier In Range", "Is the patient identifier valid?  Zero means it is in range.  A negative value indicates the number of rows where it is out of range."),
-    VALID_DATE ("dateInRange", DataType.STRING.getName(), "Date In Range", "Is the date of the measurement in date for the clinical trial?  Zero means it is in range.  A negative value indicates the number of rows where it is out of range."),
-    VALID_LEFT_ANGLE ("leftFootAngleInRange", DataType.STRING.getName(), "Left FootAngle In Range", "Is the measured angle between -90 degrees and +90 degrees?  Zero means it is in range.  A negative value indicates the number of rows where it is out of range."),
-    VALID_RIGHT_ANGLE ("rightFootAngleInRange", DataType.STRING.getName(), "Right Foot Angle In Range", "Is the measured angle between -90 degrees and +90 degrees?  Zero means it is in range.  A negative value indicates the number of rows where it is out of range."),
+    NO_OF_COLUMNS_MATCH ("matchingColumnCount", DataType.STRING.getDisplayName(), "Matching Column Count", "Do the number of columns described in the schema match the number of columns in the resource?  Zero means a perfect match.  A negative value means the resource has less columns and a positive value means that the resource has more columns."),
+    NAMES_OF_COLUMNS_MATCH ("matchingColumnNames", DataType.STRING.getDisplayName(), "Matching Column Names", "Do the column names in the schema match those in the resource.  The order is important. Zero means a perfect match.  A negative value means there are mismatched columns."),
+    VALID_PATIENT_ID ("patientIdInRange", DataType.STRING.getDisplayName(), "Patient Identifier In Range", "Is the patient identifier valid?  Zero means it is in range.  A negative value indicates the number of rows where it is out of range."),
+    VALID_DATE ("dateInRange", DataType.STRING.getDisplayName(), "Date In Range", "Is the date of the measurement in date for the clinical trial?  Zero means it is in range.  A negative value indicates the number of rows where it is out of range."),
+    VALID_LEFT_ANGLE ("leftFootAngleInRange", DataType.STRING.getDisplayName(), "Left FootAngle In Range", "Is the measured angle between -90 degrees and +90 degrees?  Zero means it is in range.  A negative value indicates the number of rows where it is out of range."),
+    VALID_RIGHT_ANGLE ("rightFootAngleInRange", DataType.STRING.getDisplayName(), "Right Foot Angle In Range", "Is the measured angle between -90 degrees and +90 degrees?  Zero means it is in range.  A negative value indicates the number of rows where it is out of range."),
 
     ;
 

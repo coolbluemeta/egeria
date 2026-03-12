@@ -814,11 +814,11 @@ public class ClassificationManagerClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public void setImpactClassification(String                             elementGUID,
-                                        GovernanceClassificationProperties properties,
-                                        MetadataSourceOptions              metadataSourceOptions) throws InvalidParameterException,
-                                                                                                         UserNotAuthorizedException,
-                                                                                                         PropertyServerException
+    public void setImpactClassification(String                elementGUID,
+                                        ImpactProperties      properties,
+                                        MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
+                                                                                            UserNotAuthorizedException,
+                                                                                            PropertyServerException
     {
         stewardshipManagementHandler.setImpactClassification(connectorUserId, elementGUID, properties, metadataSourceOptions);
     }
@@ -856,9 +856,9 @@ public class ClassificationManagerClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public void setConfidenceClassification(String                             elementGUID,
-                                            GovernanceClassificationProperties properties,
-                                            MetadataSourceOptions              metadataSourceOptions) throws InvalidParameterException,
+    public void setConfidenceClassification(String                elementGUID,
+                                            ConfidenceProperties  properties,
+                                            MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
                                                                                                              UserNotAuthorizedException,
                                                                                                              PropertyServerException
     {
@@ -898,9 +898,9 @@ public class ClassificationManagerClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public void setCriticalityClassification(String                             elementGUID,
-                                             GovernanceClassificationProperties properties,
-                                             MetadataSourceOptions              metadataSourceOptions) throws InvalidParameterException,
+    public void setCriticalityClassification(String                elementGUID,
+                                             CriticalityProperties properties,
+                                             MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
                                                                                                               UserNotAuthorizedException,
                                                                                                               PropertyServerException
     {
@@ -942,11 +942,11 @@ public class ClassificationManagerClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public void setConfidentialityClassification(String                             elementGUID,
-                                                 GovernanceClassificationProperties properties,
-                                                 MetadataSourceOptions              metadataSourceOptions) throws InvalidParameterException,
-                                                                                                                  UserNotAuthorizedException,
-                                                                                                                  PropertyServerException
+    public void setConfidentialityClassification(String                    elementGUID,
+                                                 ConfidentialityProperties properties,
+                                                 MetadataSourceOptions     metadataSourceOptions) throws InvalidParameterException,
+                                                                                                         UserNotAuthorizedException,
+                                                                                                         PropertyServerException
     {
         stewardshipManagementHandler.setConfidentialityClassification(connectorUserId, elementGUID, properties, metadataSourceOptions);
     }
@@ -986,11 +986,11 @@ public class ClassificationManagerClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public void setRetentionClassification(String                            elementGUID,
-                                           RetentionProperties properties,
-                                           MetadataSourceOptions             metadataSourceOptions) throws InvalidParameterException,
-                                                                                                           UserNotAuthorizedException,
-                                                                                                           PropertyServerException
+    public void setRetentionClassification(String                elementGUID,
+                                           RetentionProperties   properties,
+                                           MetadataSourceOptions metadataSourceOptions) throws InvalidParameterException,
+                                                                                               UserNotAuthorizedException,
+                                                                                               PropertyServerException
     {
         stewardshipManagementHandler.setRetentionClassification(connectorUserId, elementGUID, properties, metadataSourceOptions);
     }

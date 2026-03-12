@@ -4,10 +4,8 @@ package org.odpi.openmetadata.frameworks.openmetadata.properties.surveyreports;
 
 import com.fasterxml.jackson.annotation.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.AuthoredReferenceableProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.OpenMetadataRootProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
-import java.util.Map;
 import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
@@ -35,7 +33,7 @@ public class AnnotationProperties extends AuthoredReferenceableProperties
     private long   sampleSize          = 0L;
     private int    samplePercent       = 0;
     private String samplingMethod      = null;
-    private int    confidenceLevel     = 0;
+    private int    confidence          = 0;
     private String units               = null;
     private long   absoluteUncertainty = 0L;
     private long   relativeUncertainty = 0L;
@@ -74,7 +72,7 @@ public class AnnotationProperties extends AuthoredReferenceableProperties
             this.units               = template.getUnits();
             this.absoluteUncertainty = template.getAbsoluteUncertainty();
             this.relativeUncertainty = template.getRelativeUncertainty();
-            this.confidenceLevel     = template.getConfidenceLevel();
+            this.confidence          = template.getConfidence();
             this.expression          = template.getExpression();
             this.explanation         = template.getExplanation();
             this.analysisStep        = template.getAnalysisStep();
@@ -198,20 +196,20 @@ public class AnnotationProperties extends AuthoredReferenceableProperties
      *
      * @return int confidence level
      */
-    public int getConfidenceLevel()
+    public int getConfidence()
     {
-        return confidenceLevel;
+        return confidence;
     }
 
 
     /**
      * Set up the confidence level of the survey action service that the annotation is correct.
      *
-     * @param confidenceLevel int confidence level
+     * @param confidence int confidence level
      */
-    public void setConfidenceLevel(int confidenceLevel)
+    public void setConfidence(int confidence)
     {
-        this.confidenceLevel = confidenceLevel;
+        this.confidence = confidence;
     }
 
 
@@ -382,7 +380,7 @@ public class AnnotationProperties extends AuthoredReferenceableProperties
                 ", sampleSize=" + sampleSize +
                 ", samplePercent=" + samplePercent +
                 ", samplingMethod='" + samplingMethod + '\'' +
-                ", confidenceLevel=" + confidenceLevel +
+                ", confidenceLevel=" + confidence +
                 ", units='" + units + '\'' +
                 ", absoluteUncertainty=" + absoluteUncertainty +
                 ", relativeUncertainty=" + relativeUncertainty +
@@ -408,7 +406,7 @@ public class AnnotationProperties extends AuthoredReferenceableProperties
         AnnotationProperties that = (AnnotationProperties) objectToCompare;
         return sampleSize == that.sampleSize &&
                 samplePercent == that.samplePercent &&
-                confidenceLevel == that.confidenceLevel &&
+                confidence == that.confidence &&
                 absoluteUncertainty == that.absoluteUncertainty &&
                 relativeUncertainty == that.relativeUncertainty &&
                 Objects.equals(annotationType, that.annotationType) &&
@@ -430,6 +428,6 @@ public class AnnotationProperties extends AuthoredReferenceableProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), annotationType, summary, sampleSize, samplePercent, samplingMethod, confidenceLevel, units, absoluteUncertainty, relativeUncertainty, expression, explanation, analysisStep, jsonProperties);
+        return Objects.hash(super.hashCode(), annotationType, summary, sampleSize, samplePercent, samplingMethod, confidence, units, absoluteUncertainty, relativeUncertainty, expression, explanation, analysisStep, jsonProperties);
     }
 }

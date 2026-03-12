@@ -26,7 +26,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.AssetProp
 import org.odpi.openmetadata.frameworks.openmetadata.properties.externalidentifiers.ExternalIdLinkProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.externalidentifiers.ExternalIdProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.DigitalResourceOriginProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.GovernanceClassificationBase;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.GovernedDataClassificationBase;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.OwnershipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.SchemaAttributeProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.TypeEmbeddedAttributeProperties;
@@ -2290,7 +2290,7 @@ public class HarvestOpenMetadataCatalogTargetProcessor extends CatalogTargetProc
      */
     private Integer getStatusIdentifier(ClassificationBeanProperties classificationProperties)
     {
-        if (classificationProperties instanceof GovernanceClassificationBase governanceClassification)
+        if (classificationProperties instanceof GovernedDataClassificationBase governanceClassification)
         {
             return governanceClassification.getStatusIdentifier();
         }
@@ -2502,11 +2502,11 @@ public class HarvestOpenMetadataCatalogTargetProcessor extends CatalogTargetProc
 
         if (metadataCollectionType != null)
         {
-            addValueToRow(openMetadataRecord, HarvestOpenMetadataColumn.PROVENANCE_TYPE, metadataCollectionType.getName());
+            addValueToRow(openMetadataRecord, HarvestOpenMetadataColumn.PROVENANCE_TYPE, metadataCollectionType.getDisplayName());
         }
         else
         {
-            addValueToRow(openMetadataRecord, HarvestOpenMetadataColumn.PROVENANCE_TYPE, ElementOriginCategory.UNKNOWN.getName());
+            addValueToRow(openMetadataRecord, HarvestOpenMetadataColumn.PROVENANCE_TYPE, ElementOriginCategory.UNKNOWN.getDisplayName());
         }
 
         addValueToRow(openMetadataRecord, HarvestOpenMetadataColumn.DEPLOYED_IMPLEMENTATION_TYPE, deployedImplementationType);
@@ -2836,7 +2836,7 @@ public class HarvestOpenMetadataCatalogTargetProcessor extends CatalogTargetProc
 
             propertyValue.setPrimitiveValue(userId);
             propertyValue.setPrimitiveTypeCategory(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING);
-            propertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+            propertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getDisplayName());
 
             propertyCondition.setProperty("userId");
             propertyCondition.setOperator(PropertyComparisonOperator.EQ);

@@ -600,29 +600,8 @@ Content-Type: application/json
 
 ###
 
-@relationshipTypeName=TermAnchor
-
-###
-# @name get GlossaryTerms linked to the Sustainability Glossary
-# Retrieve the metadata elements connected to the supplied element via a specific relationship type.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/related-elements/{{sustainabilityGlossaryGUID}}/type/{{relationshipTypeName}}?startingAtEnd=0
-Authorization: Bearer {{token}}
-Content-Type: application/json
-
-{
-  "class" : "ResultsRequestBody",
-  "effectiveTime" : "{{$isoTimestamp}}",
-  "limitResultsByStatus" : ["ACTIVE"],
-  "asOfTime" : "{{$isoTimestamp}}",
-  "sequencingOrder": "CREATION_DATE_RECENT",
-  "sequencingProperty": ""
-}
-
-
-###
-
-@metadataElementAtEnd1GUID=6204f340-d7fd-4cc8-922a-8851fb889dc2
-@metadataElementAtEnd2GUID=bd8de890-fa79-4c24-aab8-20b41b5893dd
+@metadataElementAtEnd1GUID=add guid here
+@metadataElementAtEnd2GUID=add guid here
 
 ###
 # @name getAllMetadataElementRelationships
@@ -656,6 +635,26 @@ Content-Type: application/json
   "sequencingOrder": "CREATION_DATE_RECENT",
   "sequencingProperty": ""
 }
+
+
+
+###
+# @name getMatchCriteriaList
+# Retrieve all the valid values for MatchCriteria
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-search/match-criteria-values
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
+
+###
+# @name getPropertyComparisonOperatorList
+# Retrieve all the valid values for ProeprtyComparisonOperator
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-search/property-comparison-operator-values
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+
 
 
 ###

@@ -95,7 +95,7 @@ public enum MediaUsage implements OpenMetadataEnum
      * @return String default name
      */
     @Override
-    public String getName()
+    public String getDisplayName()
     {
         return name;
     }

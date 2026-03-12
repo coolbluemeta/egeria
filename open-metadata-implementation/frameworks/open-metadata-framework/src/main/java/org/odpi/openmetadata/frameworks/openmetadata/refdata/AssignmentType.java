@@ -5,7 +5,6 @@ package org.odpi.openmetadata.frameworks.openmetadata.refdata;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.enums.OpenMetadataEnum;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
@@ -28,7 +27,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public enum AssignmentType implements OpenMetadataEnum
+public enum AssignmentType implements OpenMetadataRefData
 {
     CONTRIBUTOR       (0,  "959cae9b-218f-4254-8a79-721d568372bd",  "Contributor",       "Individual is a contributing member of the initiative.", true),
     ADMINISTRATOR     (1,  "35201771-3ca2-4b7a-9dd1-77aa0224abe8",  "Administrator",     "Individual administers the initiative.", false),
@@ -88,7 +87,7 @@ public enum AssignmentType implements OpenMetadataEnum
      *
      * @return String name
      */@Override
-    public String getName() { return name; }
+    public String getDisplayName() { return name; }
 
 
     /**

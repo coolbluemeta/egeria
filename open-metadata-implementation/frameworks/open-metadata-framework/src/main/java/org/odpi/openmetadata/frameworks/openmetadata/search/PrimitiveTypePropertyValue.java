@@ -111,7 +111,7 @@ public class PrimitiveTypePropertyValue extends PropertyValue
     {
         for (PrimitiveTypeCategory category : PrimitiveTypeCategory.values())
         {
-            if (category.getName().equals(typeName))
+            if (category.getDisplayName().equals(typeName))
             {
                 setPrimitiveTypeCategory(category);
             }
@@ -143,7 +143,7 @@ public class PrimitiveTypePropertyValue extends PropertyValue
         }
         else
         {
-            super.setTypeName(primitiveTypeCategory.getName());
+            super.setTypeName(primitiveTypeCategory.getDisplayName());
         }
     }
 
@@ -333,7 +333,7 @@ public class PrimitiveTypePropertyValue extends PropertyValue
                      */
                     throw new OMFRuntimeException(OMFErrorCode.INVALID_PRIMITIVE_VALUE.getMessageDefinition(primitiveTypeCategory.getJavaClassName(),
                                                                                                             primitiveValue.getClass().getName(),
-                                                                                                            primitiveTypeCategory.getName()),
+                                                                                                            primitiveTypeCategory.getDisplayName()),
                                                       this.getClass().getName(),
                                                       methodName);
                 }
@@ -346,7 +346,7 @@ public class PrimitiveTypePropertyValue extends PropertyValue
              * that needs a code fix in PrimitiveTypeCategory.
              */
             throw new OMFRuntimeException(OMFErrorCode.INVALID_PRIMITIVE_CLASS_NAME.getMessageDefinition(primitiveTypeCategory.getJavaClassName(),
-                                                                                                         primitiveTypeCategory.getName()),
+                                                                                                         primitiveTypeCategory.getDisplayName()),
                                               this.getClass().getName(),
                                               methodName,
                                               unknownPrimitiveClass);
@@ -356,7 +356,7 @@ public class PrimitiveTypePropertyValue extends PropertyValue
             /*
              * Some unexpected exception occurred when manipulating the Java Classes.  Probably a coding error.
              */
-            throw new OMFRuntimeException(OMFErrorCode.INVALID_PRIMITIVE_CATEGORY.getMessageDefinition(primitiveTypeCategory.getName()),
+            throw new OMFRuntimeException(OMFErrorCode.INVALID_PRIMITIVE_CATEGORY.getMessageDefinition(primitiveTypeCategory.getDisplayName()),
                                               this.getClass().getName(),
                                               methodName,
                                               invalidPrimitiveCategory);

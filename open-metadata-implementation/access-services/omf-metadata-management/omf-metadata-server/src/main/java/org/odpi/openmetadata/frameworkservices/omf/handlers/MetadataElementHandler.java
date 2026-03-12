@@ -1019,7 +1019,10 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
             }
         }
 
-        invalidParameterHandler.validateObject(omrsPropertyValue, propertyParameterName, methodName);
+        if (omrsPropertyValue == null)
+        {
+            invalidParameterHandler.throwInvalidParameter(symbolicName, typeDef.getName(), methodName);
+        }
         return omrsPropertyValue;
     }
 

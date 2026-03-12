@@ -18,27 +18,27 @@ public enum JDBCConfigurationProperty
     /**
      * Connection string for the database where the schema is located. This should set the current schema to your chosen schema.
      */
-    DATABASE_URL("databaseURL", "Connection string for the database where the schema is located. This should set the current schema to your chosen schema.", DataType.STRING.getName(), "~{postgreSQLDatabaseURL}~"),
+    DATABASE_URL("databaseURL", "Connection string for the database where the schema is located. This should set the current schema to your chosen schema.", DataType.STRING.getDisplayName(), "~{postgreSQLDatabaseURL}~"),
 
     /**
      * Provides a name to use in messages about the database.  If it is not set then the connection URL string is used.
      */
-    DATABASE_NAME("databaseName", "Provides a name to use in messages about the database.  If it is not set then the connection URL string is used.", DataType.STRING.getName(), null),
+    DATABASE_NAME("databaseName", "Provides a name to use in messages about the database.  If it is not set then the connection URL string is used.", DataType.STRING.getDisplayName(), null),
 
     /**
      * The name of the database schema used to store the data.  This should match the schema set up in the database URL.
      */
-    DATABASE_SCHEMA ("databaseSchema", "The name of the database schema used to store the data.  This should match the schema set up in the database URL.", DataType.STRING.getName(), null),
+    DATABASE_SCHEMA ("databaseSchema", "The name of the database schema used to store the data.  This should match the schema set up in the database URL.", DataType.STRING.getDisplayName(), null),
 
     /**
      * The file name of the secrets store containing the log on credentials to access the database.
      */
-    SECRETS_STORE ("secretsStore", "The file name of the secrets store containing the log on credentials to access the database.", DataType.STRING.getName(), "~{secretsStore}~"),
+    SECRETS_STORE ("secretsStore", "The file name of the secrets store containing the log on credentials to access the database.", DataType.STRING.getDisplayName(), "~{secretsStore}~"),
 
     /**
      * The name of the secrets collection within the secrets store to use for login credentials.
      */
-    SECRETS_COLLECTION_NAME ("secretsCollectionName", "The name of the secrets collection within the secrets store to use for login credentials.", DataType.STRING.getName(), "~{postgreSQLServerCollectionName}~"),
+    SECRETS_COLLECTION_NAME ("secretsCollectionName", "The name of the secrets collection within the secrets store to use for login credentials.", DataType.STRING.getDisplayName(), "~{postgreSQLServerCollectionName}~"),
 
 
     /**
@@ -46,13 +46,13 @@ public enum JDBCConfigurationProperty
      * This property only needs to be defined if the connector is experiencing exceptions related to a missing DriverManager class for
      * the database URL.
      */
-    JDBC_DRIVER_MANAGER_CLASS_NAME ("jdbcDriverManagerClassName", "An optional configuration property that causes the named class to be loaded and registered as a driver. This property only needs to be defined if the connector is experiencing exceptions related to a missing DriverManager class for the database URL.", DataType.STRING.getName(), null),
+    JDBC_DRIVER_MANAGER_CLASS_NAME ("jdbcDriverManagerClassName", "An optional configuration property that causes the named class to be loaded and registered as a driver. This property only needs to be defined if the connector is experiencing exceptions related to a missing DriverManager class for the database URL.", DataType.STRING.getDisplayName(), null),
 
     /**
      * Sets the maximum time in seconds that this data source will wait while attempting to connect to a database.
      * The default value is 0 which means use the system default timeout, if any; otherwise it means no timeout.
      */
-    JDBC_CONNECTION_TIMEOUT("jdbcConnectionTimeout", "Sets the maximum time in seconds that this data source will wait while attempting to connect to a database. The default value is 0 which means use the system default timeout, if any; otherwise it means no timeout.", DataType.INT.getName(), "10"),
+    JDBC_CONNECTION_TIMEOUT("jdbcConnectionTimeout", "Sets the maximum time in seconds that this data source will wait while attempting to connect to a database. The default value is 0 which means use the system default timeout, if any; otherwise it means no timeout.", DataType.INT.getDisplayName(), "10"),
 
 
     ;

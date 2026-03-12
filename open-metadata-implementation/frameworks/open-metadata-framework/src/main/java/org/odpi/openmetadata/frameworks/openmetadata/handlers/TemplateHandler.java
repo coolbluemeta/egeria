@@ -370,7 +370,7 @@ public class TemplateHandler extends OpenMetadataHandlerBase
         {
             requestedPropertyValue.setPrimitiveValue(searchValue);
         }
-        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getName());
+        requestedPropertyValue.setTypeName(PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.getDisplayName());
 
         PropertyCondition nameCondition = new PropertyCondition();
 
