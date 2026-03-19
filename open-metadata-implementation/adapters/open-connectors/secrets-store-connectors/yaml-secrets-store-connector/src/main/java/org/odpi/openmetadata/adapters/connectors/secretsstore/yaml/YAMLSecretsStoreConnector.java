@@ -6,16 +6,13 @@ package org.odpi.openmetadata.adapters.connectors.secretsstore.yaml;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.ffdc.YAMLAuditCode;
-import org.odpi.openmetadata.frameworks.connectors.properties.users.SecretsCollection;
-import org.odpi.openmetadata.frameworks.connectors.properties.users.SecretsStore;
-import org.odpi.openmetadata.frameworks.connectors.properties.users.TokenAPI;
+import org.odpi.openmetadata.frameworks.connectors.properties.users.*;
 import org.odpi.openmetadata.frameworks.connectors.SecretsStoreConnector;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStoreCollectionProperty;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedException;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
-import org.odpi.openmetadata.frameworks.connectors.properties.users.NamedList;
-import org.odpi.openmetadata.frameworks.connectors.properties.users.UserAccount;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
+import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.io.File;
 import java.net.URI;
@@ -24,8 +21,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * YAMLSecretsStoreConnector retrieves secrets from a YAML File
@@ -35,8 +31,9 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
     private static final ObjectMapper yamlObjectMapper = new ObjectMapper(new YAMLFactory());
     private static final ObjectMapper jsonObjectMapper = new ObjectMapper();
 
-    private File         secretsStoreFile = null;
-    private SecretsStore secretsStore     = null;
+    private File                     secretsStoreFile = null;
+    private SecretsStore             secretsStore     = null;
+    private Map<String, UserAccount> userAccountMap   = new HashMap<>();
 
 
     /**
@@ -47,7 +44,7 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
      * @throws ConnectorCheckedException  a problem within the connector.
      */
     @Override
-    public void initialize(String connectorInstanceId,
+    public void initialize(String     connectorInstanceId,
                            Connection connectionDetails) throws ConnectorCheckedException
     {
         super.initialize(connectorInstanceId, connectionDetails);
@@ -176,7 +173,7 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
         {
             SecretsCollection secretsCollection = secretsStore.getSecretsCollections().get(secretsCollectionName);
 
-            if ((secretsCollection != null) && (secretsCollection.getUsers() != null))
+            if ((secretsCollection != null) && (secretsCollection.getNamedLists() != null))
             {
                 return secretsCollection.getNamedLists().get(listName);
             }
@@ -211,6 +208,31 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
     }
 
 
+    /**
+     * Look up a particular named security access control in the collection.
+     *
+     * @param controlName name of the control
+     * @return corresponding named control or null
+     * @throws ConnectorCheckedException a problem with the connector
+     */
+    @Override
+    public SecurityAccessControl getSecurityAccessControl(String controlName) throws ConnectorCheckedException
+    {
+        super.checkSecretsStillValid();
+
+        if (secretsStore != null)
+        {
+            SecretsCollection secretsCollection = secretsStore.getSecretsCollections().get(secretsCollectionName);
+
+            if ((secretsCollection != null) && (secretsCollection.getSecurityAccessControls() != null))
+            {
+                return secretsCollection.getSecurityAccessControls().get(controlName);
+            }
+        }
+
+        return null;
+    }
+
 
     /**
      * Retrieve the requested user definitions stored in the secrets collection.
@@ -224,17 +246,211 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
     {
         super.checkSecretsStillValid();
 
+        /*
+         * If the user is already in the cache, return it.
+         */
+        if (userAccountMap.containsKey(userId))
+        {
+            return userAccountMap.get(userId);
+        }
+
         if (secretsStore != null)
         {
             SecretsCollection secretsCollection = secretsStore.getSecretsCollections().get(secretsCollectionName);
 
             if ((secretsCollection != null) && (secretsCollection.getUsers() != null))
             {
-                return secretsCollection.getUsers().get(userId);
+                UserAccount userAccount = secretsCollection.getUsers().get(userId);
+                if (userAccount != null)
+                {
+                    return populateUserAccount(userId, userAccount, secretsCollection.getNamedLists());
+                }
+            }
+        }
+
+        /*
+         * Unable to resolve user.  Refresh the secrets and try again because this may be a new user.
+         */
+        refreshSecrets();
+
+        if (secretsStore != null)
+        {
+            SecretsCollection secretsCollection = secretsStore.getSecretsCollections().get(secretsCollectionName);
+
+            if ((secretsCollection != null) && (secretsCollection.getUsers() != null))
+            {
+                UserAccount userAccount = secretsCollection.getUsers().get(userId);
+                if (userAccount != null)
+                {
+                    return populateUserAccount(userId, userAccount, secretsCollection.getNamedLists());
+                }
             }
         }
 
         return null;
+    }
+
+
+    /**
+     * Populate the user account with the security lists that the user is a member of.
+     *
+     * @param userId calling user
+     * @param userAccount user account to populate
+     * @param securityLists security lists
+     * @return populated user account
+     */
+    private UserAccount populateUserAccount(String                 userId,
+                                            UserAccount            userAccount,
+                                            Map<String, NamedList> securityLists)
+    {
+        if (userAccount != null)
+        {
+            UserAccount newUserAccount = new UserAccount(userAccount);
+
+            if (securityLists != null)
+            {
+                /*
+                 * Locate all the lists that the user is directly named in (memberLists).
+                 */
+                Set<String> memberLists = new HashSet<>();
+
+                for (String listName : securityLists.keySet())
+                {
+                    if ((listName != null) && (securityLists.get(listName) != null))
+                    {
+                        NamedList namedList = securityLists.get(listName);
+
+                        if (namedList.getUserMembers() != null)
+                        {
+                            if (namedList.getUserMembers().contains(userId))
+                            {
+                                memberLists.add(listName);
+                            }
+                        }
+                    }
+                }
+
+                /*
+                 * Navigate to find the parent lists.
+                 */
+                Set<String> parentLists = addParentLists(memberLists, securityLists);
+
+                /*
+                 * Gather the results.
+                 */
+                Set<String> securityRoles = new HashSet<>();
+                Set<String> securityGroups = new HashSet<>();
+
+                /*
+                 * Save any values that are explicitly set up in the user account.
+                 */
+                if (userAccount.getSecurityRoles() != null)
+                {
+                    securityRoles.addAll(userAccount.getSecurityRoles());
+                }
+                if (userAccount.getSecurityGroups() != null)
+                {
+                    securityGroups.addAll(userAccount.getSecurityGroups());
+                }
+
+                /*
+                 * Add both the user groups and roles that the user is directly connected to.
+                 */
+                for (String listName : memberLists)
+                {
+                    String listTypeName = securityLists.get(listName).getListTypeName();
+                    if (OpenMetadataType.SECURITY_ROLE.typeName.equals(listTypeName))
+                    {
+                        securityRoles.add(listName);
+                    }
+                    else if (OpenMetadataType.SECURITY_GROUP.typeName.equals(listTypeName))
+                    {
+                        securityGroups.add(listName);
+                    }
+                }
+
+                /*
+                 * Now add the groups and roles that the user is connected to through a parent list.
+                 */
+                for (String listName : parentLists)
+                {
+                    String listTypeName = securityLists.get(listName).getListTypeName();
+                    if (OpenMetadataType.SECURITY_ROLE.typeName.equals(listTypeName))
+                    {
+                        securityRoles.add(listName);
+                    }
+                    else if (OpenMetadataType.SECURITY_GROUP.typeName.equals(listTypeName))
+                    {
+                        securityGroups.add(listName);
+                    }
+                }
+
+                if (securityRoles.isEmpty())
+                {
+                    newUserAccount.setSecurityRoles(null);
+                }
+                else
+                {
+                    newUserAccount.setSecurityRoles(new ArrayList<>(securityRoles));
+                }
+
+                if (securityGroups.isEmpty())
+                {
+                    newUserAccount.setSecurityGroups(null);
+                }
+                else
+                {
+                    newUserAccount.setSecurityGroups(new ArrayList<>(securityGroups));
+                }
+            }
+
+            userAccountMap.put(userId, newUserAccount);
+            return newUserAccount;
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Navigate up the list hierarchy to find all lists.
+     *
+     * @param currentParentSecurityLists current list of parents
+     * @param securityLists full set of named lists
+     * @return set of grandparent lists
+     */
+    private Set<String> addParentLists(Set<String>            currentParentSecurityLists,
+                                       Map<String, NamedList> securityLists)
+    {
+        Set<String> grandParentLists = new HashSet<>();
+
+        /*
+         * For each of the current parent groups, find the groups
+         */
+        for (String currentParentListName : currentParentSecurityLists)
+        {
+            for (String listName : securityLists.keySet())
+            {
+                NamedList namedList = securityLists.get(listName);
+
+                if ((namedList != null) &&
+                        (namedList.getListMembers() != null) &&
+                        (namedList.getListMembers().contains(currentParentListName)))
+                {
+                    grandParentLists.add(listName);
+
+                    /*
+                     * Iterate to find great-grand parent.
+                     */
+                    HashSet<String> greatGrandParentGroups = new HashSet<>();;
+                    greatGrandParentGroups.add(listName);
+
+                    grandParentLists.addAll(addParentLists(greatGrandParentGroups, securityLists));
+                }
+            }
+        }
+
+        return grandParentLists;
     }
 
 
@@ -255,9 +471,81 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
 
             if (secretsCollection != null)
             {
+                /*
+                 * Set up the user account ...
+                 */
                 secretsCollection.getUsers().put(userId, userAccount);
+
+                /*
+                 * Add the user to any named security roles ...
+                 */
+                if (userAccount.getSecurityRoles() != null)
+                {
+                    for (String securityRole : userAccount.getSecurityRoles())
+                    {
+                        if (securityRole != null)
+                        {
+                            addUserToNamedList(userId, securityRole, OpenMetadataType.SECURITY_ROLE.typeName, secretsCollection);
+                        }
+                    }
+                }
+
+                /*
+                 * Add the user to any named security groups ...
+                 */
+                if (userAccount.getSecurityGroups() != null)
+                {
+                    for (String securityGroup : userAccount.getSecurityGroups())
+                    {
+                        if (securityGroup != null)
+                        {
+                            addUserToNamedList(userId, securityGroup, OpenMetadataType.SECURITY_GROUP.typeName, secretsCollection);
+                        }
+                    }
+                }
+
                 saveSecrets();
+                /*
+                 * Refresh the user cache.
+                 */
+                populateUserAccount(userId, userAccount, secretsCollection.getNamedLists());
             }
+        }
+    }
+
+
+    /**
+     * Update one of the requested named lists for a new user.
+     *
+     * @param userId            requesting user
+     * @param listName          name of the list to update
+     * @param listTypeName      type of list
+     * @param secretsCollection secrets collection
+     */
+    private void addUserToNamedList(String            userId,
+                                    String            listName,
+                                    String            listTypeName,
+                                    SecretsCollection secretsCollection)
+    {
+        NamedList namedList = secretsStore.getSecretsCollections().get(secretsCollectionName).getNamedLists().get(listName);
+
+        if (namedList != null)
+        {
+            if (namedList.getListMembers() == null)
+            {
+                namedList.setListMembers(Collections.singletonList(userId));
+            }
+            else if (! namedList.getListMembers().contains(userId))
+            {
+                namedList.getListMembers().add(userId);
+            }
+        }
+        else
+        {
+            namedList = new NamedList();
+            namedList.setListTypeName(listTypeName);
+            namedList.setUserMembers(Collections.singletonList(userId));
+            secretsCollection.getNamedLists().put(listName, namedList);
         }
     }
 
@@ -539,6 +827,7 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
             if (connectionBean.getEndpoint().getNetworkAddress() != null)
             {
                 secretsStoreFile = new File(connectionBean.getEndpoint().getNetworkAddress());
+                userAccountMap   = new HashMap<>();
             }
             else
             {

@@ -90,7 +90,7 @@ Content-Type: application/json
 {
   "class" : "SearchStringRequestBody",
   "searchString" : "Add search string here",
-  "includeOnlyClassifiedElements" : ["RootCollection"],
+  "includeOnlyClassifiedElements" : ["Anchors"],
   "startsWith" : false,
   "endsWith" : false,
   "ignoreCase" : true,
@@ -253,7 +253,7 @@ Content-Type: application/json
   "class" : "FilterRequestBody",
   "filter" : "Add collection category here",
   "metadataElementTypeName": "DataSpec",
-  "includeOnlyClassifiedElements" : ["ResultsSet"],
+  "includeOnlyClassifiedElements" : ["Anchors"],
   "startFrom" : 0,
   "pageSize": 0,
   "asOfTime" : "{{$isoTimestamp}}",
@@ -355,39 +355,23 @@ Content-Type: application/json
   "properties": {
     "class" : "CollectionProperties",
     "qualifiedName": "Must provide a unique name here",
+    "identifier" : "Add value here",
     "displayName" : "Add display name here",
+    "versionIdentifier" : "Add value here",
     "description" : "Add description of the collection here",
-    "category": "Add appropriate valid value for type"
-  }
-}
-
-
-###
-# @name createClassifiedCollection (own anchor)
-# Create a new generic collection.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections
-Authorization: Bearer {{token}}
-Content-Type: application/json
-
-{
-
-  "class" : "NewElementRequestBody",
-  "isOwnAnchor" : true,
-  "initialClassifications" : {
-    "Folder" : {
-      "class": "FolderProperties"
+    "category": "Add appropriate valid value for type",
+    "url" : "Add value here",
+    "authors" : ["author1", "author2"],
+    "contentStatus" : "DRAFT",
+    "userDefinedStatus" : "Add value here",
+    "purpose" : "Add value here",
+    "additionalProperties" : {
+      "property1" : "Add value here",
+      "property2" : "Add value here"
     }
-  },
-
-  "properties": {
-    "class" : "CollectionProperties",
-    "qualifiedName": "Folder::another",
-    "displayName" : "Another",
-    "description" : "Folder description",
-    "category": "Folder-Category"
   }
-
 }
+
 
 ###
 # @name createCollection (anchored to parent)
@@ -407,9 +391,20 @@ Content-Type: application/json
   "properties": {
     "class" : "CollectionProperties",
     "qualifiedName": "Must provide a unique name here",
+    "identifier" : "Add value here",
     "displayName" : "Add display name here",
+    "versionIdentifier" : "Add value here",
     "description" : "Add description of the collection here",
-    "category": "Add appropriate valid value for type"
+    "category": "Add appropriate valid value for type",
+    "url" : "Add value here",
+    "authors" : ["author1", "author2"],
+    "contentStatus" : "DRAFT",
+    "userDefinedStatus" : "Add value here",
+    "purpose" : "Add value here",
+    "additionalProperties" : {
+       "property1" : "Add value here",
+       "property2" : "Add value here"
+    }
   },
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
@@ -430,18 +425,69 @@ Content-Type: application/json
   "anchorGUID" : "anchor GUID, if set then isOwnAnchor=false",
   "isOwnAnchor" : false,
   "anchorScopeGUID" : "optional GUID of search scope",
-  "initialClassifications" : {
-    "RootCollection" : { "class" :  "RootCollectionProperties" }
-     },
   "parentGUID" : "parent GUID, if set, set all parameters beginning 'parent'",
   "parentRelationshipTypeName" : "open metadata type name",
   "parentAtEnd1": true,
   "properties": {
-    "class" : "CollectionProperties",
+    "class" : "RootCollectionProperties",
     "qualifiedName": "Must provide a unique name here",
+    "identifier" : "Add value here",
     "displayName" : "Add display name here",
+    "versionIdentifier" : "Add value here",
     "description" : "Add description of the collection here",
-    "category": "Add appropriate valid value for type"
+    "category": "Add appropriate valid value for type",
+    "url" : "Add value here",
+    "authors" : ["author1", "author2"],
+    "contentStatus" : "DRAFT",
+    "userDefinedStatus" : "Add value here",
+    "purpose" : "Add value here",
+    "additionalProperties" : {
+       "property1" : "Add value here",
+       "property2" : "Add value here"
+    }
+  },
+  "externalSourceGUID": "add guid here",
+  "externalSourceName": "add qualified name here",
+  "effectiveTime" : "{{$isoTimestamp}}",
+  "forLineage" : false,
+  "forDuplicateProcessing" : false
+}
+
+
+###
+# @name createGlossary
+# Create a new collection for a glossary.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/collection-manager/collections
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "NewElementRequestBody",
+  "anchorGUID" : "anchor GUID, if set then isOwnAnchor=false",
+  "isOwnAnchor" : false,
+  "anchorScopeGUID" : "optional GUID of search scope",
+  "parentGUID" : "parent GUID, if set, set all parameters beginning 'parent'",
+  "parentRelationshipTypeName" : "open metadata type name",
+  "parentAtEnd1": true,
+  "properties": {
+    "class" : "GlossaryProperties",
+    "qualifiedName": "Must provide a unique name here",
+    "identifier" : "Add value here",
+    "displayName" : "Add display name here",
+    "versionIdentifier" : "Add value here",
+    "description" : "Add description of the collection here",
+    "category": "Add appropriate valid value for type",
+    "url" : "Add value here",
+    "authors" : ["author1", "author2"],
+    "contentStatus" : "DRAFT",
+    "userDefinedStatus" : "Add value here",
+    "purpose" : "Add value here",
+    "language" : "Add value here",
+    "usage" : "Add value here",
+    "additionalProperties" : {
+       "property1" : "Add value here",
+       "property2" : "Add value here"
+    }
   },
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
@@ -470,9 +516,20 @@ Content-Type: application/json
   "properties": {
     "class" : "DataSpecProperties",
     "qualifiedName": "Must provide a unique name here",
+    "identifier" : "Add value here",
     "displayName" : "Add display name here",
+    "versionIdentifier" : "Add value here",
     "description" : "Add description of the collection here",
-    "category": "Add appropriate valid value for type"
+    "category": "Add appropriate valid value for type",
+    "url" : "Add value here",
+    "authors" : ["author1", "author2"],
+    "contentStatus" : "DRAFT",
+    "userDefinedStatus" : "Add value here",
+    "purpose" : "Add value here",
+    "additionalProperties" : {
+       "property1" : "Add value here",
+       "property2" : "Add value here"
+    }
   },
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
@@ -500,9 +557,20 @@ Content-Type: application/json
   "properties": {
     "class" : "DataDictionaryProperties",
     "qualifiedName": "Must provide a unique name here",
+    "identifier" : "Add value here",
     "displayName" : "Add display name here",
+    "versionIdentifier" : "Add value here",
     "description" : "Add description of the collection here",
-    "category": "Add appropriate valid value for type"
+    "category": "Add appropriate valid value for type",
+    "url" : "Add value here",
+    "authors" : ["author1", "author2"],
+    "contentStatus" : "DRAFT",
+    "userDefinedStatus" : "Add value here",
+    "purpose" : "Add value here",
+    "additionalProperties" : {
+       "property1" : "Add value here",
+       "property2" : "Add value here"
+    }
   },
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
@@ -523,20 +591,26 @@ Content-Type: application/json
   "anchorGUID" : "anchor GUID, if set then isOwnAnchor=false",
   "isOwnAnchor" : false,
   "anchorScopeGUID" : "optional GUID of search scope",
-  "initialClassifications" : {
-    "Folder" : {
-      "class": "FolderProperties"
-    }
-  },
   "parentGUID" : "parent GUID, if set, set all parameters beginning 'parent'",
   "parentRelationshipTypeName" : "open metadata type name",
   "parentAtEnd1": true,
   "properties": {
-    "class" : "CollectionProperties",
+    "class" : "FolderCollectionProperties",
     "qualifiedName": "Must provide a unique name here",
+    "identifier" : "Add value here",
     "displayName" : "Add display name here",
+    "versionIdentifier" : "Add value here",
     "description" : "Add description of the collection here",
-    "category": "Add appropriate valid value for type"
+    "category": "Add appropriate valid value for type",
+    "url" : "Add value here",
+    "authors" : ["author1", "author2"],
+    "contentStatus" : "DRAFT",
+    "userDefinedStatus" : "Add value here",
+    "purpose" : "Add value here",
+    "additionalProperties" : {
+       "property1" : "Add value here",
+       "property2" : "Add value here"
+    }
   },
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
@@ -591,14 +665,25 @@ Content-Type: application/json
 
 {
   "class" : "UpdateElementRequestBody",
+  "mergeUpdate": true,
   "properties": {
     "class" : "CollectionProperties",
     "qualifiedName": "Must provide a unique name here",
+    "identifier" : "Add value here",
     "displayName" : "Add display name here",
+    "versionIdentifier" : "Add value here",
     "description" : "Add description of the collection here",
-    "category": "Add appropriate valid value for type"
+    "category": "Add appropriate valid value for type",
+    "url" : "Add value here",
+    "authors" : ["author1", "author2"],
+    "contentStatus" : "DRAFT",
+    "userDefinedStatus" : "Add value here",
+    "purpose" : "Add value here",
+    "additionalProperties" : {
+       "property1" : "Add value here",
+       "property2" : "Add value here"
+    }
   },
-  "mergeUpdate": true,
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
   "effectiveTime" : "{{$isoTimestamp}}",
@@ -784,11 +869,6 @@ Content-Type: application/json
 
 {
   "class" : "NewRelationshipRequestBody",
-  "externalSourceGUID": "add guid here",
-  "externalSourceName": "add qualified name here",
-  "effectiveTime" : "{{$isoTimestamp}}",
-  "forLineage" : false,
-  "forDuplicateProcessing" : false,
   "properties": {
     "class": "AgreementItemProperties",
     "agreementItemId": "add label here",
@@ -812,7 +892,12 @@ Content-Type: application/json
     },
     "effectiveFrom": "{{$isoTimestamp}}",
     "effectiveTo": "{{$isoTimestamp}}"
-  }
+  },
+  "externalSourceGUID": "add guid here",
+  "externalSourceName": "add qualified name here",
+  "effectiveTime" : "{{$isoTimestamp}}",
+  "forLineage" : false,
+  "forDuplicateProcessing" : false
 }
 
 
@@ -1160,6 +1245,7 @@ Content-Type: application/json
 
 {
   "class" : "UpdateRelationshipRequestBody",
+  "mergeUpdate": true,
   "properties" : {
     "class": "CollectionMembershipProperties",
     "membershipRationale": "xxx",
@@ -1174,7 +1260,6 @@ Content-Type: application/json
     "source": "source of the member",
     "notes": "Add notes here"
   },
-  "mergeUpdate": true,
   "externalSourceGUID": "add guid here",
   "externalSourceName": "add qualified name here",
   "effectiveTime" : "{{$isoTimestamp}}",

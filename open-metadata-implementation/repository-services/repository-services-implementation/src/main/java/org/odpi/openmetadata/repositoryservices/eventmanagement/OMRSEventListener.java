@@ -27,7 +27,7 @@ public class OMRSEventListener implements OMRSTopicListener
     private final String                     cohortName;
     private final String                     localMetadataCollectionId;
 
-    private OpenMetadataEventsSecurity securityVerifier;
+    private org.odpi.openmetadata.metadatasecurity.OpenMetadataEventsSecurity securityVerifier;
 
     /*
      * There is an event processor for each category of event.  The OMRSEventListener passes appropriate events to these
@@ -54,7 +54,7 @@ public class OMRSEventListener implements OMRSTopicListener
                              String                       localMetadataCollectionId,
                              OMRSRegistryEventProcessor   registryEventProcessor,
                              OMRSRepositoryEventProcessor repositoryEventProcessor,
-                             OpenMetadataEventsSecurity   securityVerifier,
+                             org.odpi.openmetadata.metadatasecurity.OpenMetadataEventsSecurity securityVerifier,
                              AuditLog                     auditLog)
     {
         this.cohortName                = cohortName;

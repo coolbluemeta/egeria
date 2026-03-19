@@ -37,7 +37,6 @@ public class UserAccount
     private String                             distinguishedName = null;
     private List<String>                       securityRoles     = null;
     private List<String>                       securityGroups    = null;
-    private Map<String, List<AccessOperation>> zoneAccess        = null;
     private Map<String, Object>                otherProperties   = null;
     private UserAccountStatus                  userAccountStatus = UserAccountStatus.DISABLED;
     private Map<String, String>                secrets           = null;
@@ -72,7 +71,6 @@ public class UserAccount
             this.distinguishedName = template.getDistinguishedName();
             this.securityRoles = template.getSecurityRoles();
             this.securityGroups = template. getSecurityGroups();
-            this.zoneAccess = template.getZoneAccess();
             this.otherProperties = template.getOtherProperties();
             this.userAccountStatus = template.getUserAccountStatus();
             this.secrets = template.getSecrets();
@@ -302,7 +300,7 @@ public class UserAccount
 
 
     /**
-     * Return the list of security roles assigned to the user.
+     * Return the list of security roles assigned to the user.  This may be indirect via one or more groups.
      *
      * @return list of names
      */
@@ -313,7 +311,7 @@ public class UserAccount
 
 
     /**
-     * Set up the list of security roles assigned to the user.
+     * Set up the list of security roles assigned to the user.  This may be indirect via one or more groups.
      *
      * @param securityRoles list of names
      */
@@ -324,7 +322,7 @@ public class UserAccount
 
 
     /**
-     * Return the list of security roles assigned to the user.
+     * Return the list of security groups that the user is a direct member of.
      *
      * @return list of names
      */
@@ -335,35 +333,13 @@ public class UserAccount
 
 
     /**
-     * Set upi the list of security groups that the user belongs to.
+     * Set up the list of security groups that the user is a direct member of.
      *
      * @param securityGroups list of names
      */
     public void setSecurityGroups(List<String> securityGroups)
     {
         this.securityGroups = securityGroups;
-    }
-
-
-    /**
-     * Return details of the actions that are permitted on particular Governance Zones.
-     *
-     * @return map of accesses
-     */
-    public Map<String, List<AccessOperation>> getZoneAccess()
-    {
-        return zoneAccess;
-    }
-
-
-    /**
-     * Set up details of the actions that are permitted on particular Governance Zones.
-     *
-     * @param zoneAccess map of accesses
-     */
-    public void setZoneAccess(Map<String, List<AccessOperation>> zoneAccess)
-    {
-        this.zoneAccess = zoneAccess;
     }
 
 
@@ -454,7 +430,6 @@ public class UserAccount
                 ", distinguishedName='" + distinguishedName + '\'' +
                 ", securityRoles=" + securityRoles +
                 ", securityGroups=" + securityGroups +
-                ", zoneAccess=" + zoneAccess +
                 ", otherProperties=" + otherProperties +
                 ", userAccountStatus=" + userAccountStatus +
                 ", secrets=" + secrets +

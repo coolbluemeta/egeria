@@ -23,9 +23,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SecurityTagQueryProperties extends QueryOptions
 {
-    private List<String>              securityLabels     = null;
-    private Map<String, Object>       securityProperties = null;
-    private Map<String, List<String>> accessGroups       = null;
+    private List<String>        securityLabels     = null;
+    private Map<String, Object> securityProperties = null;
 
     /**
      * Default constructor
@@ -49,7 +48,6 @@ public class SecurityTagQueryProperties extends QueryOptions
         {
             this.securityLabels = template.getSecurityLabels();
             this.securityProperties = template.getSecurityProperties();
-            this.accessGroups = template.getAccessGroups();
         }
     }
 
@@ -98,26 +96,6 @@ public class SecurityTagQueryProperties extends QueryOptions
     }
 
 
-    /**
-     * Return the permissions for each access group.
-     *
-     * @return access groups
-     */
-    public Map<String, List<String>> getAccessGroups()
-    {
-        return accessGroups;
-    }
-
-    /**
-     * Set up the permissions for each access group.
-     *
-     * @param accessGroups access groups
-     */
-    public void setAccessGroups(Map<String, List<String>> accessGroups)
-    {
-        this.accessGroups = accessGroups;
-    }
-
 
     /**
      * Standard toString method.
@@ -130,7 +108,6 @@ public class SecurityTagQueryProperties extends QueryOptions
         return "SecurityTagsProperties{" +
                 "securityLabels=" + securityLabels +
                 ", securityProperties=" + securityProperties +
-                ", accessGroups=" + accessGroups +
                 "} " + super.toString();
     }
 
@@ -158,8 +135,7 @@ public class SecurityTagQueryProperties extends QueryOptions
         }
         SecurityTagQueryProperties that = (SecurityTagQueryProperties) objectToCompare;
         return Objects.equals(securityLabels, that.securityLabels) &&
-                Objects.equals(securityProperties, that.securityProperties) &&
-                Objects.equals(accessGroups, that.accessGroups);
+                Objects.equals(securityProperties, that.securityProperties);
     }
 
 
@@ -171,6 +147,6 @@ public class SecurityTagQueryProperties extends QueryOptions
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), securityLabels, securityProperties, accessGroups);
+        return Objects.hash(super.hashCode(), securityLabels, securityProperties);
     }
 }

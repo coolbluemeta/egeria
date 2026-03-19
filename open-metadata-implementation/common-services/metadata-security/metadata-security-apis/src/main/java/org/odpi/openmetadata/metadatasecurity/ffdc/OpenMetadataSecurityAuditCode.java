@@ -246,6 +246,15 @@ public enum OpenMetadataSecurityAuditCode implements AuditLogMessageSet
                  "Use the information in the exception to determine the cause of this error.  The user will not be granted access to the open metadata ecosystem."),
 
     /**
+     * OPEN-METADATA-SECURITY-0024 - User {0} has expired credentials
+     */
+    EXPIRED_USER("OPEN-METADATA-SECURITY-0024",
+                 AuditLogRecordSeverityLevel.SECURITY,
+                 "User {0} has expired credentials",
+                 "The security service has received a request from a user whose credentials have expired.",
+                 "Track down the source of the request and encourage the used to rest their credentials (probably password)."),
+
+    /**
      * OPEN-METADATA-SECURITY-0099 - The security connector {0} received an unexpected {1} exception during method {2}; the error message was: {3}
      */
     UNEXPECTED_EXCEPTION("OPEN-METADATA-SECURITY-0099",

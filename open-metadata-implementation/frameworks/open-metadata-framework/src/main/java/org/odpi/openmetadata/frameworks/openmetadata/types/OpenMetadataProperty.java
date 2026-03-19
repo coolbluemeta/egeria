@@ -214,6 +214,11 @@ public enum OpenMetadataProperty
     ZONE_MEMBERSHIP("zoneMembership", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getDisplayName(), "The list of governance zones that this asset belongs to.", null, "2af69520-6991-4097-aa94-543127b73066"),
 
     /**
+     * The statistics describing the types of the membership of the zone.
+     */
+    TYPE_MEMBERSHIP("zoneMembership", DataType.MAP_STRING_LONG, DataType.MAP_STRING_LONG.getDisplayName(), "The statistics describing the types of the membership of the zone.", null, "725bdba1-1b0a-4c9f-ae01-3eb69248f273"),
+
+    /**
      * Definition of the types of assets that belong in this zone.
      */
     CRITERIA("criteria", DataType.STRING, DataType.STRING.getDisplayName(), "Definition of the types of assets that belong in this zone.", "Incoming data that has not been checked.", "3e49feee-624f-41ab-beda-2f727edda93e"),
@@ -328,6 +333,11 @@ public enum OpenMetadataProperty
      * The user identifier for the person/system executing the request.
      */
     USER_ID("userId", DataType.STRING, DataType.STRING.getDisplayName(), "The user identifier for the person/system executing the request.", null, "c65a21dc-d1ae-4a8f-ba33-58ec401c1b42"),
+
+    /**
+     * A list of user identifies (userIds).
+     */
+    USER_IDS("userIds", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getDisplayName(), "A list of user identifies (userIds).", null, "82acf480-bdc9-41da-9399-73a94d0b31fc"),
 
     /**
      * The version number of the template element when the copy was created.
@@ -1135,9 +1145,9 @@ public enum OpenMetadataProperty
     EXT_INSTANCE_VERSION("externalInstanceVersion" , DataType.LONG, DataType.LONG.getDisplayName(), "The latest version of the element in the external system.", null, "349199e2-5781-4413-8550-c85241e20cc5"),
 
     /**
-     * Additional properties to aid the mapping to the element in an external metadata source.
+     * Additional properties to aid the mapping to the element in an external resource.
      */
-    MAPPING_PROPERTIES("mappingProperties", DataType.MAP_STRING_STRING, DataType.MAP_STRING_STRING.getDisplayName(), "Additional properties to aid the mapping to the the element in an external metadata source.", null, "8161e120-993b-490c-bf66-cb9fd85192fc"),
+    MAPPING_PROPERTIES("mappingProperties", DataType.MAP_STRING_STRING, DataType.MAP_STRING_STRING.getDisplayName(), "Additional properties to aid the mapping to the the element in an external resource.", null, "8161e120-993b-490c-bf66-cb9fd85192fc"),
 
     /**
      * Timestamp documenting the last time the metadata in the external metadata source was synchronized with open metadata element.
@@ -1352,7 +1362,7 @@ public enum OpenMetadataProperty
     /**
      * Defines the confidence in the assigned relationship.
      */
-    TERM_RELATIONSHIP_STATUS("status", DataType.STRING, TermRelationshipStatus.getOpenTypeName(), TermRelationshipStatus.getOpenTypeDescription(), TermRelationshipStatus.DRAFT.getDisplayName(), "5cc02a53-2428-434a-9b97-883eae896552"),
+    TERM_RELATIONSHIP_STATUS("termRelationshipStatus", DataType.STRING, TermRelationshipStatus.getOpenTypeName(), TermRelationshipStatus.getOpenTypeDescription(), TermRelationshipStatus.DRAFT.getDisplayName(), "5cc02a53-2428-434a-9b97-883eae896552"),
 
     /**
      * Defines the provenance and confidence of a semantic assignment.
@@ -2207,11 +2217,6 @@ public enum OpenMetadataProperty
     SECURITY_PROPERTIES("securityProperties", DataType.MAP_STRING_STRING, DataType.MAP_STRING_STRING.getDisplayName(), "Properties that apply to the referenceable.", null, "0d36a7b3-95f8-42bf-836b-4abd4a376ffc"),
 
     /**
-     * Map of access groups.
-     */
-    ACCESS_GROUPS("accessGroups", DataType.MAP_STRING_ARRAY_STRING, DataType.MAP_STRING_ARRAY_STRING.getDisplayName(), "Map of access groups.", null, "1b1f3661-8630-488d-89cd-b9692fad160d"),
-
-    /**
      * Description of how this governance control should be implemented.
      */
     IMPLEMENTATION_DESCRIPTION("implementationDescription", DataType.STRING, DataType.STRING.getDisplayName(), "Description of how this governance control should be implemented.", null, "cebf5cd8-60a2-402c-9216-b13ba16279d5"),
@@ -2278,9 +2283,9 @@ public enum OpenMetadataProperty
     CONNECTOR_USER_ID("connectorUserId", DataType.STRING, DataType.STRING.getDisplayName(), "UserId for the integration connector to use when working with open metadata.  The default userId comes from the hosting server if this value is blank.", null, "b0919bbe-e91e-4fc6-a9fe-80a674f7dbf7"),
 
     /**
-     * Describes how frequently the integration connector should run - in minutes.
+     * Describes how frequently the processing should run - in minutes.
      */
-    REFRESH_TIME_INTERVAL("refreshTimeInterval", DataType.LONG, DataType.LONG.getDisplayName(), "Describes how frequently the integration connector should run - in minutes.", null, "d261dc24-a26f-460f-808d-11b586c8ca7a"),
+    REFRESH_TIME_INTERVAL("refreshTimeInterval", DataType.LONG, DataType.LONG.getDisplayName(), "Describes how frequently the processing should run - in minutes.", null, "d261dc24-a26f-460f-808d-11b586c8ca7a"),
 
     /**
      * Latest time that the connector can run.
@@ -2340,7 +2345,7 @@ public enum OpenMetadataProperty
     /**
      * The reasons why some processing is occurring or some data is retained
      */
-    PURPOSES("purposes", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getDisplayName(), "The reasons why some processing is occurring or some data is retained", null, "33abef8e-5a15-43ca-9d44-2c191792f8dd"),
+    DATA_PROCESSING_PURPOSES("dataProcessingPurposes", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getDisplayName(), "The reasons why some processing is occurring or some data is retained", null, "33abef8e-5a15-43ca-9d44-2c191792f8dd"),
 
     /**
      * Mechanism to flow data and control along the segment.
@@ -2478,9 +2483,14 @@ public enum OpenMetadataProperty
     LEVEL_IDENTIFIER("levelIdentifier", DataType.INT, DataType.INT.getDisplayName(), "Numeric value for the classification level.", null, "07962ad3-a239-4207-bdd1-0ddfa085e0b9"),
 
     /**
-     * List of security group distinguished names.
+     * List of security group names.
      */
-    GROUPS("groups", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getDisplayName(), "List of security group distinguished names.", null, "71adcf56-bf50-4cbe-abcc-fc9157a545f0"),
+    SECURITY_GROUPS("securityGroups", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getDisplayName(), "List of security group names.", null, "71adcf56-bf50-4cbe-abcc-fc9157a545f0"),
+
+    /**
+     * List of security roles names.
+     */
+    SECURITY_ROLES("securityRoles", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getDisplayName(), "List of security role names.", null, "745ec75b-ee6e-46e8-b014-cc91029c3ff1"),
 
     /**
      * Descriptive type information about the policy management capability.

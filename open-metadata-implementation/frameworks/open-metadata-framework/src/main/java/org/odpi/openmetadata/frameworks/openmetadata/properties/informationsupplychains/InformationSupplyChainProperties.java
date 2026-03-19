@@ -27,9 +27,9 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class InformationSupplyChainProperties extends CollectionProperties
 {
-    private String              scope                = null;
-    private List<String>        purposes             = null;
-    private String              integrationStyle     = null;
+    private String       scope                  = null;
+    private List<String> dataProcessingPurposes = null;
+    private String       integrationStyle       = null;
     private Map<String, String> estimatedVolumetrics = null;
 
 
@@ -54,9 +54,9 @@ public class InformationSupplyChainProperties extends CollectionProperties
 
         if (template != null)
         {
-            this.scope                = template.getScope();
-            this.purposes             = template.getPurposes();
-            this.integrationStyle     = template.getIntegrationStyle();
+            this.scope                  = template.getScope();
+            this.dataProcessingPurposes = template.getDataProcessingPurposes();
+            this.integrationStyle       = template.getIntegrationStyle();
             this.estimatedVolumetrics = template.getEstimatedVolumetrics();
         }
     }
@@ -89,20 +89,20 @@ public class InformationSupplyChainProperties extends CollectionProperties
      *
      * @return list
      */
-    public List<String> getPurposes()
+    public List<String> getDataProcessingPurposes()
     {
-        return purposes;
+        return dataProcessingPurposes;
     }
 
 
     /**
      * Set up the list of purposes for the information supply chain.
      *
-     * @param purposes list
+     * @param dataProcessingPurposes list
      */
-    public void setPurposes(List<String> purposes)
+    public void setDataProcessingPurposes(List<String> dataProcessingPurposes)
     {
-        this.purposes = purposes;
+        this.dataProcessingPurposes = dataProcessingPurposes;
     }
 
 
@@ -161,7 +161,7 @@ public class InformationSupplyChainProperties extends CollectionProperties
     {
         return "InformationSupplyChainProperties{" +
                 "scope='" + scope + '\'' +
-                ", purposes='" + purposes + '\'' +
+                ", dataProcessingPurposes='" + dataProcessingPurposes + '\'' +
                 ", integrationStyle='" + integrationStyle + '\'' +
                 ", estimatedVolumetrics=" + estimatedVolumetrics +
                 "} " + super.toString();
@@ -190,7 +190,7 @@ public class InformationSupplyChainProperties extends CollectionProperties
             return false;
         }
         return Objects.equals(scope, that.scope) &&
-                Objects.equals(purposes, that.purposes) &&
+                Objects.equals(dataProcessingPurposes, that.dataProcessingPurposes) &&
                 Objects.equals(integrationStyle, that.integrationStyle) &&
                 Objects.equals(estimatedVolumetrics, that.estimatedVolumetrics);
     }
@@ -204,6 +204,6 @@ public class InformationSupplyChainProperties extends CollectionProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), scope, purposes, integrationStyle, estimatedVolumetrics);
+        return Objects.hash(super.hashCode(), scope, dataProcessingPurposes, integrationStyle, estimatedVolumetrics);
     }
 }

@@ -378,9 +378,9 @@ public class AttributedElementConverterBase<B> extends OpenMetadataConverterBase
             attributedMetadataElement.setSupportedGovernanceDefinitions(super.getRelatedElements(OpenMetadataType.GOVERNANCE_MECHANISM_RELATIONSHIP.typeName, relatedMetadataElements, true));
             processedRelationshipTypes.add(OpenMetadataType.GOVERNANCE_MECHANISM_RELATIONSHIP.typeName);
 
-            attributedMetadataElement.setAssociatedSecurityGroups(super.getRelatedElements(OpenMetadataType.ASSOCIATED_SECURITY_GROUP_RELATIONSHIP.typeName, relatedMetadataElements, false));
-            attributedMetadataElement.setUsedInAccessControls(super.getRelatedElements(OpenMetadataType.ASSOCIATED_SECURITY_GROUP_RELATIONSHIP.typeName, relatedMetadataElements, true));
-            processedRelationshipTypes.add(OpenMetadataType.ASSOCIATED_SECURITY_GROUP_RELATIONSHIP.typeName);
+            attributedMetadataElement.setAssociatedSecurityGroups(super.getRelatedElements(OpenMetadataType.ASSOCIATED_SECURITY_LIST_RELATIONSHIP.typeName, relatedMetadataElements, false));
+            attributedMetadataElement.setUsedInAccessControls(super.getRelatedElements(OpenMetadataType.ASSOCIATED_SECURITY_LIST_RELATIONSHIP.typeName, relatedMetadataElements, true));
+            processedRelationshipTypes.add(OpenMetadataType.ASSOCIATED_SECURITY_LIST_RELATIONSHIP.typeName);
 
             attributedMetadataElement.setControlsZones(super.getRelatedElements(OpenMetadataType.ZONE_HIERARCHY_RELATIONSHIP.typeName, relatedMetadataElements, false));
             attributedMetadataElement.setInheritsFromZone(super.getRelatedElement(OpenMetadataType.ZONE_HIERARCHY_RELATIONSHIP.typeName, relatedMetadataElements, true));

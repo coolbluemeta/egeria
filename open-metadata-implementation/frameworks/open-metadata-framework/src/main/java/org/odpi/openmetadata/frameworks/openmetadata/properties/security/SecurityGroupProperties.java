@@ -5,10 +5,7 @@ package org.odpi.openmetadata.frameworks.openmetadata.properties.security;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.governance.GovernanceControlProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
-
-import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
@@ -19,11 +16,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class SecurityGroupProperties extends GovernanceControlProperties
+public class SecurityGroupProperties extends SecurityListProperties
 {
-    private  String distinguishedName = null;
-
-
     /**
      * Default Constructor
      */
@@ -42,33 +36,6 @@ public class SecurityGroupProperties extends GovernanceControlProperties
     public SecurityGroupProperties(SecurityGroupProperties template)
     {
         super(template);
-
-        if (template != null)
-        {
-            this.distinguishedName = template.getImplementationDescription();
-        }
-    }
-
-
-    /**
-     * Return the specific distinguishedName of the security group.
-     *
-     * @return string description
-     */
-    public String getDistinguishedName()
-    {
-        return distinguishedName;
-    }
-
-
-    /**
-     * Set up the specific distinguishedName of the security group.
-     *
-     * @param distinguishedName string description
-     */
-    public void setDistinguishedName(String distinguishedName)
-    {
-        this.distinguishedName = distinguishedName;
     }
 
 
@@ -81,46 +48,6 @@ public class SecurityGroupProperties extends GovernanceControlProperties
     public String toString()
     {
         return "SecurityGroupProperties{" +
-                "distinguishedName='" + distinguishedName + '\'' +
                 "} " + super.toString();
-    }
-
-
-    /**
-     * Compare the values of the supplied object with those stored in the current object.
-     *
-     * @param objectToCompare supplied object
-     * @return boolean result of comparison
-     */
-    @Override
-    public boolean equals(Object objectToCompare)
-    {
-        if (this == objectToCompare)
-        {
-            return true;
-        }
-        if (objectToCompare == null || getClass() != objectToCompare.getClass())
-        {
-            return false;
-        }
-        if (!super.equals(objectToCompare))
-        {
-            return false;
-        }
-        SecurityGroupProperties that = (SecurityGroupProperties) objectToCompare;
-        return Objects.equals(distinguishedName, that.distinguishedName);
-    }
-
-
-
-    /**
-     * Return hash code based on properties.
-     *
-     * @return int
-     */
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(super.hashCode(), distinguishedName);
     }
 }

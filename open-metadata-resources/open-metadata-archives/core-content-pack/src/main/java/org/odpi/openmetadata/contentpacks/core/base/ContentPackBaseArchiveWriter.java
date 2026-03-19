@@ -169,7 +169,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
                                                                      informationSupplyChain.getDisplayName(),
                                                                      informationSupplyChain.getDescription(),
                                                                      informationSupplyChain.getScope().getPreferredValue(),
-                                                                     informationSupplyChain.getPurposes(),
+                                                                     informationSupplyChain.getDataProcessingPurposes(),
                                                                      null,
                                                                      informationSupplyChain.getOwner(),
                                                                      informationSupplyChain.getOwnerTypeName(),

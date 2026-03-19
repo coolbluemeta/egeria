@@ -10,6 +10,8 @@ import org.odpi.openmetadata.frameworks.connectors.properties.users.UserAccountS
 import org.odpi.openmetadata.metadatasecurity.properties.OpenMetadataUserAccount;
 import org.odpi.openmetadata.metadatasecurity.server.OpenMetadataPlatformSecurityVerifier;
 import org.odpi.openmetadata.userauthn.auth.LoginRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,8 +25,9 @@ import java.util.Map;
 
 
 /**
- * AuthController provides a simple token service that can be used to log a user into open metadata.
- * It uses the Spring framework to provide the authentication token.  The user
+ * LoginController provides a simple token service that can be used to log a user into open metadata.
+ * It uses the Spring framework to provide the authentication token.  The user details are managed by the
+ * metadata security connector.
  */
 @RestController
 
@@ -33,7 +36,9 @@ import java.util.Map;
 
 public class LoginController
 {
-    private final TokenService tokenService;
+    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+
+    private final TokenService          tokenService;
     private final AuthenticationManager authenticationManager;
 
 
@@ -67,17 +72,27 @@ public class LoginController
 
     public String platformToken(@RequestBody LoginRequest userLogin) throws AuthenticationException
     {
-        /*
-         * This will throw an exception if the user account is not valid or the password is not correct.
-         */
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.userId(), userLogin.password()));
+        Authentication authentication;
 
-        /*
-         * If the user has requested a new password, update their account and then create a new token with the new password.
-         */
         OpenMetadataUserAccount userAccount = OpenMetadataPlatformSecurityVerifier.getLogonUser(userLogin.userId());
         if (userAccount != null)
         {
+            /*
+             * This will throw an exception if the user account is not valid or the password is not correct.
+             */
+            try
+            {
+                authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.userId(), userLogin.password()));
+            }
+            catch (AuthenticationException error)
+            {
+                log.error("User authentication failed for user: {} - {}", userLogin.userId(), error.getMessage());
+                throw new AuthenticationServiceException("User authentication failed for user: " + userLogin.userId() + " - " + error.getMessage());
+            }
+
+            /*
+             * If the user has requested a new password, update their account and then create a new token with the new password.
+             */
             if (userLogin.newPassword() != null)
             {
                 Map<String, String> secrets = userAccount.getSecrets();
@@ -103,6 +118,7 @@ public class LoginController
                 }
                 catch (Exception error)
                 {
+                    log.error("Failed to update user account for user: {} - error message: {}", userLogin.userId(), error.getMessage(), error);
                     throw new AuthenticationServiceException("Failed to update user account: " + error.getMessage());
                 }
 
@@ -110,11 +126,13 @@ public class LoginController
             }
             else if (userAccount.getUserAccountStatus() == UserAccountStatus.CREDENTIALS_EXPIRED)
             {
+                log.error("Credentials expired for user: {}.", userLogin.userId());
                 throw new AuthenticationServiceException("Credentials expired for user: " + userLogin.userId() + ".");
             }
         }
         else
         {
+            log.error("User account not found for user: {}.", userLogin.userId());
             throw new AuthenticationServiceException("User account not found for user: " + userLogin.userId() + ".");
         }
 

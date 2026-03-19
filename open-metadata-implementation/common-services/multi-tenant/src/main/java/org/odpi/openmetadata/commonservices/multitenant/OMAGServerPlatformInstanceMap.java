@@ -42,9 +42,11 @@ public class OMAGServerPlatformInstanceMap
      * Return the platform origin string
      *
      * @param userId calling user
-     * @throws UserNotAuthorizedException calling user not allowed to use these services
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    public static String getPlatformOrigin(String userId) throws UserNotAuthorizedException
+    public static String getPlatformOrigin(String userId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         OpenMetadataPlatformSecurityVerifier.validateUserAsInvestigatorForPlatform(userId);
 
@@ -66,10 +68,12 @@ public class OMAGServerPlatformInstanceMap
      *
      * @param userId calling user
      * @param delegatingUserId external userId making request
-     * @throws UserNotAuthorizedException calling user not allowed to use these services
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public static String getOrganizationName(String userId,
-                                             String delegatingUserId) throws UserNotAuthorizedException
+                                             String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         OpenMetadataPlatformSecurityVerifier.validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -94,9 +98,11 @@ public class OMAGServerPlatformInstanceMap
      * Verify that the calling user is allowed to query the platform services.
      *
      * @param userId calling user
-     * @throws UserNotAuthorizedException calling user not allowed to use these services
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    public static void validateUserAsInvestigatorForPlatform(String userId) throws UserNotAuthorizedException
+    public static void validateUserAsInvestigatorForPlatform(String userId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         OpenMetadataPlatformSecurityVerifier.validateUserAsInvestigatorForPlatform(userId);
     }
@@ -107,9 +113,11 @@ public class OMAGServerPlatformInstanceMap
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue operator commands to this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    public static synchronized void  validateUserAsOperatorForPlatform(String   userId) throws UserNotAuthorizedException
+    public static synchronized void  validateUserAsOperatorForPlatform(String   userId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         OpenMetadataPlatformSecurityVerifier.validateUserAsOperatorForPlatform(userId);
     }
@@ -172,9 +180,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId name of the user making the request
      * @param delegatingUserId external userId making request
      * @return String description
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public String getServerPlatformOrganizationName(String userId,
-                                                    String delegatingUserId) throws UserNotAuthorizedException
+                                                    String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         return getOrganizationName(userId, delegatingUserId);
     }
@@ -198,10 +209,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of access service descriptions
-     * @throws UserNotAuthorizedException user not authorized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public List<RegisteredOMAGService> getRegisteredAccessServices(String userId,
-                                                                   String delegatingUserId) throws UserNotAuthorizedException
+                                                                   String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -258,10 +271,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of engine service descriptions
-     * @throws UserNotAuthorizedException user not authorized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public List<RegisteredOMAGService> getRegisteredEngineServices(String userId,
-                                                                   String delegatingUserId) throws UserNotAuthorizedException
+                                                                   String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -318,10 +333,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of view service descriptions
-     * @throws UserNotAuthorizedException user not authorized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public List<RegisteredOMAGService> getRegisteredViewServices(String userId,
-                                                                 String delegatingUserId) throws UserNotAuthorizedException
+                                                                 String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -378,10 +395,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of governance service descriptions
-     * @throws UserNotAuthorizedException user not authorized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public List<RegisteredOMAGService> getRegisteredGovernanceServices(String userId,
-                                                                       String delegatingUserId) throws UserNotAuthorizedException
+                                                                       String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -427,10 +446,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of service descriptions
-     * @throws UserNotAuthorizedException user not authorized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public List<RegisteredOMAGService> getRegisteredCommonServices(String userId,
-                                                                   String delegatingUserId) throws UserNotAuthorizedException
+                                                                   String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -475,10 +496,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of service descriptions
-     * @throws UserNotAuthorizedException user not authorized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public List<RegisteredOMAGService> getAllRegisteredServices(String userId,
-                                                                String delegatingUserId) throws UserNotAuthorizedException
+                                                                String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         List<RegisteredOMAGService> response = new ArrayList<>();
 
@@ -610,13 +633,15 @@ public class OMAGServerPlatformInstanceMap
      * @param serviceOperationName calling method
      *
      * @return boolean
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
-     * @throws InvalidParameterException the server name is not known
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     private static synchronized String getServerInstanceType(String  userId,
                                                              String  serverName,
                                                              String  serviceOperationName) throws InvalidParameterException,
-                                                                                                  UserNotAuthorizedException
+                                                                                                  UserNotAuthorizedException,
+                                                                                                  PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
 
@@ -647,14 +672,16 @@ public class OMAGServerPlatformInstanceMap
      * @param serviceOperationName calling method
      *
      * @return boolean
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
-     * @throws InvalidParameterException the server name is not known
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     private static synchronized ServerStatus getServerInstanceStatus(String  userId,
                                                                      String  delegatingUserId,
                                                                      String  serverName,
                                                                      String  serviceOperationName) throws InvalidParameterException,
-                                                                                                          UserNotAuthorizedException
+                                                                                                          UserNotAuthorizedException,
+                                                                                                          PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -705,11 +732,13 @@ public class OMAGServerPlatformInstanceMap
      * @param serverName name of the server
      *
      * @return boolean
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     private static synchronized boolean isServerInstanceActive(String  userId,
                                                                String  delegatingUserId,
-                                                               String  serverName) throws UserNotAuthorizedException
+                                                               String  serverName) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -731,11 +760,13 @@ public class OMAGServerPlatformInstanceMap
      * @param serverName name of the server
      *
      * @return boolean
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     private static synchronized boolean isServerInstanceKnown(String  userId,
                                                               String  delegatingUserId,
-                                                              String  serverName) throws UserNotAuthorizedException
+                                                              String  serverName) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -807,10 +838,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of OMAG server names
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     private static synchronized List<String> getActiveServerListForPlatform(String userId,
-                                                                            String delegatingUserId) throws UserNotAuthorizedException
+                                                                            String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         OpenMetadataPlatformSecurityVerifier.validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -837,10 +870,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of OMAG server names
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     private static synchronized List<String> getKnownServerListForPlatform(String userId,
-                                                                           String delegatingUserId) throws UserNotAuthorizedException
+                                                                           String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         OpenMetadataPlatformSecurityVerifier.validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -865,12 +900,16 @@ public class OMAGServerPlatformInstanceMap
     /**
      * Check that the user is allowed to query the active services.
      *
-     * @param userId calling user
+     * @param userId         calling user
      * @param serverInstance instance for the server
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    private static synchronized void validateUserAsServerInvestigator(String              userId,
-                                                                      OMAGServerInstance  serverInstance) throws UserNotAuthorizedException
+    private static synchronized void validateUserAsServerInvestigator(String userId,
+                                                                      OMAGServerInstance serverInstance) throws UserNotAuthorizedException,
+                                                                                                                PropertyServerException,
+                                                                                                                InvalidParameterException
     {
         if (serverInstance != null)
         {
@@ -888,10 +927,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user or null if it is an anonymous request
      * @param delegatingUserId external userId making request
      * @return start time
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     private static  Date getStartTimeFromPlatform(String  userId,
-                                                  String  delegatingUserId) throws UserNotAuthorizedException
+                                                  String  delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         validateUserAsInvestigatorForPlatform(userId);
         if (delegatingUserId != null)
@@ -910,13 +951,16 @@ public class OMAGServerPlatformInstanceMap
      * @param delegatingUserId external userId making request
      * @param serverName name of the server
      * @return start time
-     * @throws InvalidParameterException the serverName is not known.
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
+
      */
     private static synchronized  Date getServerStartTimeFromPlatform(String  userId,
                                                                      String  delegatingUserId,
                                                                      String  serverName) throws InvalidParameterException,
-                                                                                                UserNotAuthorizedException
+                                                                                                UserNotAuthorizedException,
+                                                                                                PropertyServerException
     {
         final String  methodName = "getServerStartTimeFromPlatform";
 
@@ -949,21 +993,23 @@ public class OMAGServerPlatformInstanceMap
     /**
      * Return the time this server instance last ended (or null if it is still running).
      *
-     * @param userId calling user or null if it is an anonymous request
+     * @param userId           calling user or null if it is an anonymous request
      * @param delegatingUserId external userId making request
-     * @param serverName name of the server
+     * @param serverName       name of the server
      * @return end time or null
-     * @throws InvalidParameterException the serverName is not known.
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    private static synchronized  Date getServerEndTimeFromPlatform(String  userId,
-                                                                   String  delegatingUserId,
-                                                                   String  serverName) throws InvalidParameterException,
-                                                                                              UserNotAuthorizedException
+    private static synchronized Date getServerEndTimeFromPlatform(String userId,
+                                                                  String delegatingUserId,
+                                                                  String serverName) throws InvalidParameterException,
+                                                                                            UserNotAuthorizedException,
+                                                                                            PropertyServerException
     {
-        final String  methodName = "getServerEndTimeFromPlatform";
+        final String methodName = "getServerEndTimeFromPlatform";
 
-        OMAGServerInstance  serverInstance = activeServerInstanceMap.get(serverName);
+        OMAGServerInstance serverInstance = activeServerInstanceMap.get(serverName);
 
         if (serverInstance == null)
         {
@@ -992,21 +1038,23 @@ public class OMAGServerPlatformInstanceMap
     /**
      * Return the time this server instance last started.
      *
-     * @param userId calling user or null if it is an anonymous request
+     * @param userId           calling user or null if it is an anonymous request
      * @param delegatingUserId external userId making request
-     * @param serverName name of the server
+     * @param serverName       name of the server
      * @return start time
-     * @throws InvalidParameterException the serverName is not known.
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    private static synchronized  List<OMAGServerInstanceHistory> getServerHistoryFromPlatform(String  userId,
-                                                                                              String  delegatingUserId,
-                                                                                              String  serverName) throws InvalidParameterException,
-                                                                                                                         UserNotAuthorizedException
+    private static synchronized List<OMAGServerInstanceHistory> getServerHistoryFromPlatform(String userId,
+                                                                                             String delegatingUserId,
+                                                                                             String serverName) throws InvalidParameterException,
+                                                                                                                       UserNotAuthorizedException,
+                                                                                                                       PropertyServerException
     {
-        final String  methodName = "getServerHistoryFromPlatform";
+        final String methodName = "getServerHistoryFromPlatform";
 
-        OMAGServerInstance  serverInstance = activeServerInstanceMap.get(serverName);
+        OMAGServerInstance serverInstance = activeServerInstanceMap.get(serverName);
 
         if (serverInstance == null)
         {
@@ -1038,13 +1086,15 @@ public class OMAGServerPlatformInstanceMap
      * @param delegatingUserId external userId making request
      * @param serverName name of the server
      * @return list on OMAG Services or null if the server is not
-     * @throws InvalidParameterException the server name is not known
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     private static synchronized List<String> getActiveServicesForServerOnPlatform(String userId,
                                                                                   String delegatingUserId,
                                                                                   String serverName) throws InvalidParameterException,
-                                                                                                            UserNotAuthorizedException
+                                                                                                            UserNotAuthorizedException,
+                                                                                                            PropertyServerException
     {
         final String  methodName = "getActiveServicesForServerOnPlatform";
 
@@ -1206,13 +1256,15 @@ public class OMAGServerPlatformInstanceMap
      * @param serviceOperationName name of the calling method/request
      *
      * @return string name
-     * @throws InvalidParameterException the serverName is not known.
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public String getServerType(String  userId,
                                 String  serverName,
                                 String  serviceOperationName) throws InvalidParameterException,
-                                                                     UserNotAuthorizedException
+                                                                     UserNotAuthorizedException,
+                                                                     PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.getServerInstanceType(userId, serverName, serviceOperationName);
     }
@@ -1227,14 +1279,16 @@ public class OMAGServerPlatformInstanceMap
      * @param serviceOperationName name of the calling method/request
      *
      * @return server status
-     * @throws InvalidParameterException the serverName is not known.
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public ServerStatus getServerStatus(String  userId,
                                         String  delegatingUserId,
                                         String  serverName,
                                         String  serviceOperationName) throws InvalidParameterException,
-                                                                             UserNotAuthorizedException
+                                                                             UserNotAuthorizedException,
+                                                                             PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.getServerInstanceStatus(userId, delegatingUserId, serverName, serviceOperationName);
     }
@@ -1249,11 +1303,13 @@ public class OMAGServerPlatformInstanceMap
      * @param serverName name of the server
      *
      * @return boolean
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public boolean isServerActive(String  userId,
                                   String  delegatingUserId,
-                                  String  serverName) throws UserNotAuthorizedException
+                                  String  serverName) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.isServerInstanceActive(userId, delegatingUserId, serverName);
     }
@@ -1268,11 +1324,13 @@ public class OMAGServerPlatformInstanceMap
      * @param serverName name of the server
      *
      * @return boolean
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public boolean isServerKnown(String  userId,
                                  String  delegatingUserId,
-                                 String  serverName) throws UserNotAuthorizedException
+                                 String  serverName) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.isServerInstanceKnown(userId, delegatingUserId,  serverName);
     }
@@ -1284,12 +1342,14 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user or null if it is an anonymous request
      * @param delegatingUserId external userId making request
      * @return start time
-     * @throws InvalidParameterException the serverName is not known.
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public  Date getPlatformStartTime(String  userId,
                                       String  delegatingUserId) throws InvalidParameterException,
-                                                                       UserNotAuthorizedException
+                                                                       UserNotAuthorizedException,
+                                                                       PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.getStartTimeFromPlatform(userId, delegatingUserId);
     }
@@ -1302,13 +1362,15 @@ public class OMAGServerPlatformInstanceMap
      * @param delegatingUserId external userId making request
      * @param serverName name of the server
      * @return start time
-     * @throws InvalidParameterException the serverName is not known.
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     public  Date getServerStartTime(String  userId,
                                     String  delegatingUserId,
                                     String  serverName) throws InvalidParameterException,
-                                                               UserNotAuthorizedException
+                                                               UserNotAuthorizedException,
+                                                               PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.getServerStartTimeFromPlatform(userId, delegatingUserId, serverName);
     }
@@ -1321,13 +1383,16 @@ public class OMAGServerPlatformInstanceMap
      * @param delegatingUserId external userId making request
      * @param serverName name of the server
      * @return end time or null
-     * @throws InvalidParameterException the serverName is not known.
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
+
      */
     public  Date getServerEndTime(String  userId,
                                   String  delegatingUserId,
                                   String  serverName) throws InvalidParameterException,
-                                                             UserNotAuthorizedException
+                                                             UserNotAuthorizedException,
+                                                             PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.getServerEndTimeFromPlatform(userId, delegatingUserId, serverName);
     }
@@ -1340,13 +1405,15 @@ public class OMAGServerPlatformInstanceMap
      * @param delegatingUserId external userId making request
      * @param serverName name of the server
      * @return start time
-     * @throws InvalidParameterException the serverName is not known.
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     public  List<OMAGServerInstanceHistory> getServerHistory(String  userId,
                                                              String  delegatingUserId,
                                                              String  serverName) throws InvalidParameterException,
-                                                                                        UserNotAuthorizedException
+                                                                                        UserNotAuthorizedException,
+                                                                                        PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.getServerHistoryFromPlatform(userId, delegatingUserId, serverName);
     }
@@ -1489,10 +1556,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of OMAG server names
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public List<String>   getActiveServerList(String userId,
-                                              String delegatingUserId) throws UserNotAuthorizedException
+                                              String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.getActiveServerListForPlatform(userId, delegatingUserId);
     }
@@ -1504,10 +1573,12 @@ public class OMAGServerPlatformInstanceMap
      * @param userId calling user
      * @param delegatingUserId external userId making request
      * @return list of OMAG server names
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public List<String>   getKnownServerList(String userId,
-                                             String delegatingUserId) throws UserNotAuthorizedException
+                                             String delegatingUserId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.getKnownServerListForPlatform(userId, delegatingUserId);
     }
@@ -1516,17 +1587,19 @@ public class OMAGServerPlatformInstanceMap
     /**
      * Return the list of services running in an OMAG Server that is running on this OMAG Server Platform.
      *
-     * @param userId calling user
+     * @param userId           calling user
      * @param delegatingUserId external userId making request
-     * @param serverName name of the server
+     * @param serverName       name of the server
      * @return list on OMAG Services
-     * @throws InvalidParameterException the server name is not known
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    public List<String> getActiveServicesForServer(String  userId,
-                                                   String  delegatingUserId,
-                                                   String  serverName) throws InvalidParameterException,
-                                                                              UserNotAuthorizedException
+    public List<String> getActiveServicesForServer(String userId,
+                                                   String delegatingUserId,
+                                                   String serverName) throws InvalidParameterException,
+                                                                             UserNotAuthorizedException,
+                                                                             PropertyServerException
     {
         return OMAGServerPlatformInstanceMap.getActiveServicesForServerOnPlatform(userId, delegatingUserId, serverName);
     }

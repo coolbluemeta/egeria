@@ -2,6 +2,8 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.metadatasecurity;
 
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.*;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.AttributeTypeDef;
@@ -14,8 +16,7 @@ import java.util.List;
 /**
  * OpenMetadataRepositorySecurity defines security checks for accessing and maintaining open metadata types
  * and instances in the local repository.
- *
- * An instance is an entity or a relationship.  There is also a special method for changing classifications
+ * An instance is an entity or a relationship.  There are also special methods for changing classifications
  * added to an entity.
  */
 public interface OpenMetadataRepositorySecurity
@@ -26,11 +27,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForTypeCreate(String  userId,
                                     String  metadataCollectionName,
-                                    TypeDef typeDef) throws UserNotAuthorizedException;
+                                    TypeDef typeDef) throws UserNotAuthorizedException,
+                                                            InvalidParameterException,
+                                                            PropertyServerException;
 
 
     /**
@@ -39,11 +44,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param attributeTypeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForTypeCreate(String           userId,
                                     String           metadataCollectionName,
-                                    AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException;
+                                    AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException,
+                                                                              InvalidParameterException,
+                                                                              PropertyServerException;
 
 
     /**
@@ -52,11 +61,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForTypeRead(String  userId,
                                   String  metadataCollectionName,
-                                  TypeDef typeDef) throws UserNotAuthorizedException;
+                                  TypeDef typeDef) throws UserNotAuthorizedException,
+                                                          InvalidParameterException,
+                                                          PropertyServerException;
 
 
     /**
@@ -65,11 +78,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param attributeTypeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForTypeRead(String           userId,
                                   String           metadataCollectionName,
-                                  AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException;
+                                  AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException,
+                                                                            InvalidParameterException,
+                                                                            PropertyServerException;
 
 
     /**
@@ -79,12 +96,16 @@ public interface OpenMetadataRepositorySecurity
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef current type details
      * @param patch proposed changes to type
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForTypeUpdate(String       userId,
                                     String       metadataCollectionName,
                                     TypeDef      typeDef,
-                                    TypeDefPatch patch) throws UserNotAuthorizedException;
+                                    TypeDefPatch patch) throws UserNotAuthorizedException,
+                                                               InvalidParameterException,
+                                                               PropertyServerException;
 
 
     /**
@@ -93,11 +114,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForTypeDelete(String  userId,
                                     String  metadataCollectionName,
-                                    TypeDef typeDef) throws UserNotAuthorizedException;
+                                    TypeDef typeDef) throws UserNotAuthorizedException,
+                                                            InvalidParameterException,
+                                                            PropertyServerException;
 
 
     /**
@@ -106,11 +131,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param attributeTypeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForTypeDelete(String           userId,
                                     String           metadataCollectionName,
-                                    AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException;
+                                    AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException,
+                                                                              InvalidParameterException,
+                                                                              PropertyServerException;
 
     /**
      * Tests for whether a specific user should have the right to change the identifiers for a type within a repository.
@@ -120,13 +149,17 @@ public interface OpenMetadataRepositorySecurity
      * @param originalTypeDef type details
      * @param newTypeDefGUID the new identifier for the type.
      * @param newTypeDefName new name for this type.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForTypeReIdentify(String  userId,
                                         String  metadataCollectionName,
                                         TypeDef originalTypeDef,
                                         String  newTypeDefGUID,
-                                        String  newTypeDefName) throws UserNotAuthorizedException;
+                                        String  newTypeDefName) throws UserNotAuthorizedException,
+                                                                       InvalidParameterException,
+                                                                       PropertyServerException;
 
     /**
      * Tests for whether a specific user should have the right to change the identifiers for a type within a repository.
@@ -136,13 +169,17 @@ public interface OpenMetadataRepositorySecurity
      * @param originalAttributeTypeDef type details
      * @param newTypeDefGUID the new identifier for the type.
      * @param newTypeDefName new name for this type.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForTypeReIdentify(String           userId,
                                         String           metadataCollectionName,
                                         AttributeTypeDef originalAttributeTypeDef,
                                         String           newTypeDefGUID,
-                                        String           newTypeDefName) throws UserNotAuthorizedException;
+                                        String           newTypeDefName) throws UserNotAuthorizedException,
+                                                                                InvalidParameterException,
+                                                                                PropertyServerException;
 
 
     /**
@@ -154,14 +191,18 @@ public interface OpenMetadataRepositorySecurity
      * @param initialProperties initial list of properties for the new entity null means no properties.
      * @param initialClassifications initial list of classifications for the new entity null means no classifications.
      * @param initialStatus initial status typically DRAFT, PREPARED or ACTIVE.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityCreate(String               userId,
                                       String               metadataCollectionName,
                                       String               entityTypeGUID,
                                       InstanceProperties   initialProperties,
                                       List<Classification> initialClassifications,
-                                      InstanceStatus       initialStatus) throws UserNotAuthorizedException;
+                                      InstanceStatus       initialStatus) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException;
 
 
     /**
@@ -171,11 +212,15 @@ public interface OpenMetadataRepositorySecurity
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @return entity to return (maybe altered by the connector)
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     EntityDetail validateUserForEntityRead(String       userId,
                                            String       metadataCollectionName,
-                                           EntityDetail instance) throws UserNotAuthorizedException;
+                                           EntityDetail instance) throws UserNotAuthorizedException,
+                                                                         InvalidParameterException,
+                                                                         PropertyServerException;
 
 
     /**
@@ -184,11 +229,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntitySummaryRead(String        userId,
                                            String        metadataCollectionName,
-                                           EntitySummary instance) throws UserNotAuthorizedException;
+                                           EntitySummary instance) throws UserNotAuthorizedException,
+                                                                          InvalidParameterException,
+                                                                          PropertyServerException;
 
 
     /**
@@ -197,11 +246,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityProxyRead(String      userId,
                                          String      metadataCollectionName,
-                                         EntityProxy instance) throws UserNotAuthorizedException;
+                                         EntityProxy instance) throws UserNotAuthorizedException,
+                                                                      InvalidParameterException,
+                                                                      PropertyServerException;
 
 
     /**
@@ -210,11 +263,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityUpdate(String       userId,
                                       String       metadataCollectionName,
-                                      EntityDetail instance) throws UserNotAuthorizedException;
+                                      EntityDetail instance) throws UserNotAuthorizedException,
+                                                                    InvalidParameterException,
+                                                                    PropertyServerException;
 
 
     /**
@@ -226,13 +283,17 @@ public interface OpenMetadataRepositorySecurity
      * @param instance instance details
      * @param classificationName String name for the classification.
      * @param properties list of properties for the classification.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityClassificationAdd(String               userId,
                                                  String               metadataCollectionName,
                                                  EntitySummary        instance,
                                                  String               classificationName,
-                                                 InstanceProperties   properties) throws UserNotAuthorizedException;
+                                                 InstanceProperties   properties) throws UserNotAuthorizedException,
+                                                                                         InvalidParameterException,
+                                                                                         PropertyServerException;
 
 
     /**
@@ -244,13 +305,17 @@ public interface OpenMetadataRepositorySecurity
      * @param instance instance details
      * @param classificationName String name for the classification.
      * @param properties list of properties for the classification.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityClassificationUpdate(String               userId,
                                                     String               metadataCollectionName,
                                                     EntitySummary        instance,
                                                     String               classificationName,
-                                                    InstanceProperties   properties) throws UserNotAuthorizedException;
+                                                    InstanceProperties   properties) throws UserNotAuthorizedException,
+                                                                                            InvalidParameterException,
+                                                                                            PropertyServerException;
 
 
     /**
@@ -261,12 +326,16 @@ public interface OpenMetadataRepositorySecurity
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param classificationName String name for the classification.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityClassificationDelete(String               userId,
                                                     String               metadataCollectionName,
                                                     EntitySummary        instance,
-                                                    String               classificationName) throws UserNotAuthorizedException;
+                                                    String               classificationName) throws UserNotAuthorizedException,
+                                                                                                    InvalidParameterException,
+                                                                                                    PropertyServerException;
 
 
     /**
@@ -275,11 +344,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityDelete(String       userId,
                                       String       metadataCollectionName,
-                                      EntityDetail instance) throws UserNotAuthorizedException;
+                                      EntityDetail instance) throws UserNotAuthorizedException,
+                                                                    InvalidParameterException,
+                                                                    PropertyServerException;
 
 
     /**
@@ -288,11 +361,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param deletedEntityGUID String unique identifier (guid) for the entity.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityRestore(String       userId,
                                        String       metadataCollectionName,
-                                       String       deletedEntityGUID) throws UserNotAuthorizedException;
+                                       String       deletedEntityGUID) throws UserNotAuthorizedException,
+                                                                              InvalidParameterException,
+                                                                              PropertyServerException;
 
 
     /**
@@ -302,12 +379,16 @@ public interface OpenMetadataRepositorySecurity
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newGUID the new guid for the instance.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityReIdentification(String       userId,
                                                 String       metadataCollectionName,
                                                 EntityDetail instance,
-                                                String       newGUID) throws UserNotAuthorizedException;
+                                                String       newGUID) throws UserNotAuthorizedException,
+                                                                             InvalidParameterException,
+                                                                             PropertyServerException;
 
 
     /**
@@ -317,12 +398,16 @@ public interface OpenMetadataRepositorySecurity
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newTypeDefSummary details of this instance's new TypeDef.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityReTyping(String         userId,
                                         String         metadataCollectionName,
                                         EntityDetail   instance,
-                                        TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException;
+                                        TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException;
 
 
     /**
@@ -333,13 +418,17 @@ public interface OpenMetadataRepositorySecurity
      * @param instance instance details
      * @param newHomeMetadataCollectionId unique identifier for the new home metadata collection/repository.
      * @param newHomeMetadataCollectionName display name for the new home metadata collection/repository.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForEntityReHoming(String         userId,
                                         String         metadataCollectionName,
                                         EntityDetail   instance,
                                         String         newHomeMetadataCollectionId,
-                                        String         newHomeMetadataCollectionName) throws UserNotAuthorizedException;
+                                        String         newHomeMetadataCollectionName) throws UserNotAuthorizedException,
+                                                                                             InvalidParameterException,
+                                                                                             PropertyServerException;
 
 
     /**
@@ -352,7 +441,9 @@ public interface OpenMetadataRepositorySecurity
      * @param entityOneSummary the unique identifier of one of the entities that the relationship is connecting together.
      * @param entityTwoSummary the unique identifier of the other entity that the relationship is connecting together.
      * @param initialStatus initial status typically DRAFT, PREPARED or ACTIVE.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForRelationshipCreate(String               userId,
                                             String               metadataCollectionName,
@@ -360,7 +451,9 @@ public interface OpenMetadataRepositorySecurity
                                             InstanceProperties   initialProperties,
                                             EntitySummary        entityOneSummary,
                                             EntitySummary        entityTwoSummary,
-                                            InstanceStatus       initialStatus) throws UserNotAuthorizedException;
+                                            InstanceStatus       initialStatus) throws UserNotAuthorizedException,
+                                                                                       InvalidParameterException,
+                                                                                       PropertyServerException;
 
 
     /**
@@ -370,11 +463,15 @@ public interface OpenMetadataRepositorySecurity
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @return relationship to return (maybe altered by the connector)
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     Relationship  validateUserForRelationshipRead(String       userId,
                                                   String       metadataCollectionName,
-                                                  Relationship instance) throws UserNotAuthorizedException;
+                                                  Relationship instance) throws UserNotAuthorizedException,
+                                                                                InvalidParameterException,
+                                                                                PropertyServerException;
 
 
     /**
@@ -383,11 +480,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForRelationshipUpdate(String       userId,
                                             String       metadataCollectionName,
-                                            Relationship instance) throws UserNotAuthorizedException;
+                                            Relationship instance) throws UserNotAuthorizedException,
+                                                                          InvalidParameterException,
+                                                                          PropertyServerException;
 
 
     /**
@@ -396,11 +497,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForRelationshipDelete(String       userId,
                                             String       metadataCollectionName,
-                                            Relationship instance) throws UserNotAuthorizedException;
+                                            Relationship instance) throws UserNotAuthorizedException,
+                                                                          InvalidParameterException,
+                                                                          PropertyServerException;
 
 
     /**
@@ -409,11 +514,15 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param deletedRelationshipGUID String unique identifier (guid) for the relationship.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForRelationshipRestore(String       userId,
                                              String       metadataCollectionName,
-                                             String       deletedRelationshipGUID) throws UserNotAuthorizedException;
+                                             String       deletedRelationshipGUID) throws UserNotAuthorizedException,
+                                                                                          InvalidParameterException,
+                                                                                          PropertyServerException;
 
 
     /**
@@ -423,12 +532,16 @@ public interface OpenMetadataRepositorySecurity
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newGUID the new guid for the instance.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForRelationshipReIdentification(String       userId,
                                                       String       metadataCollectionName,
                                                       Relationship instance,
-                                                      String       newGUID) throws UserNotAuthorizedException;
+                                                      String       newGUID) throws UserNotAuthorizedException,
+                                                                                   InvalidParameterException,
+                                                                                   PropertyServerException;
 
 
     /**
@@ -438,12 +551,16 @@ public interface OpenMetadataRepositorySecurity
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newTypeDefSummary details of this instance's new TypeDef.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForRelationshipReTyping(String         userId,
                                               String         metadataCollectionName,
                                               Relationship   instance,
-                                              TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException;
+                                              TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException,
+                                                                                       InvalidParameterException,
+                                                                                       PropertyServerException;
 
 
     /**
@@ -454,13 +571,17 @@ public interface OpenMetadataRepositorySecurity
      * @param instance instance details
      * @param newHomeMetadataCollectionId unique identifier for the new home metadata collection/repository.
      * @param newHomeMetadataCollectionName display name for the new home metadata collection/repository.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void  validateUserForRelationshipReHoming(String         userId,
                                               String         metadataCollectionName,
                                               Relationship   instance,
                                               String         newHomeMetadataCollectionId,
-                                              String         newHomeMetadataCollectionName) throws UserNotAuthorizedException;
+                                              String         newHomeMetadataCollectionName) throws UserNotAuthorizedException,
+                                                                                                   InvalidParameterException,
+                                                                                                   PropertyServerException;
 
 
     /**
@@ -469,10 +590,14 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param instance instance details
      * @return flag indicating whether the reference copy should be saved
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     boolean  validateEntityReferenceCopySave(String       userId,
-                                             EntityDetail instance) throws UserNotAuthorizedException;
+                                             EntityDetail instance) throws UserNotAuthorizedException,
+                                                                           InvalidParameterException,
+                                                                           PropertyServerException;
 
 
     /**
@@ -481,9 +606,13 @@ public interface OpenMetadataRepositorySecurity
      * @param userId identifier of user
      * @param instance instance details
      * @return flag indicating whether the reference copy should be saved
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     boolean  validateRelationshipReferenceCopySave(String       userId,
-                                                   Relationship instance) throws UserNotAuthorizedException;
+                                                   Relationship instance) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException;
 }
 

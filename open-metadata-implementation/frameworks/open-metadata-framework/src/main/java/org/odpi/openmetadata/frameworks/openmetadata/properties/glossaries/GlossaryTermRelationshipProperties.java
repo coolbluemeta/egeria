@@ -36,9 +36,9 @@ public class GlossaryTermRelationshipProperties extends RelationshipBeanProperti
 {
     private String                 expression  = null;
     private int                    confidence  = 0;
-    private String                 description = null;
-    private TermRelationshipStatus status      = null;
-    private String                 steward     = null;
+    private String                 description            = null;
+    private TermRelationshipStatus termRelationshipStatus = null;
+    private String                 steward                = null;
     private String                 source      = null;
 
 
@@ -64,9 +64,9 @@ public class GlossaryTermRelationshipProperties extends RelationshipBeanProperti
         {
             expression = template.getExpression();
             description = template.getDescription();
-            confidence = template.getConfidence();
-            status = template.getStatus();
-            steward = template.getSteward();
+            confidence             = template.getConfidence();
+            termRelationshipStatus = template.getTermRelationshipStatus();
+            steward                = template.getSteward();
             source = template.getSource();
         }
     }
@@ -144,11 +144,11 @@ public class GlossaryTermRelationshipProperties extends RelationshipBeanProperti
     /**
      * Set up whether this relationship should be used.
      *
-     * @param status status enum (draft, active, deprecated, obsolete, other)
+     * @param termRelationshipStatus status enum (draft, active, deprecated, obsolete, other)
      */
-    public void setStatus(TermRelationshipStatus status)
+    public void setTermRelationshipStatus(TermRelationshipStatus termRelationshipStatus)
     {
-        this.status = status;
+        this.termRelationshipStatus = termRelationshipStatus;
     }
 
 
@@ -157,9 +157,9 @@ public class GlossaryTermRelationshipProperties extends RelationshipBeanProperti
      *
      * @return status enum (draft, active, deprecated, obsolete, other)
      */
-    public TermRelationshipStatus getStatus()
+    public TermRelationshipStatus getTermRelationshipStatus()
     {
-        return status;
+        return termRelationshipStatus;
     }
 
 
@@ -218,7 +218,7 @@ public class GlossaryTermRelationshipProperties extends RelationshipBeanProperti
         return "GlossaryTermRelationshipProperties{" +
                 "expression='" + expression + '\'' +
                 ", description='" + description + '\'' +
-                ", status=" + status +
+                ", termRelationshipStatus=" + termRelationshipStatus +
                 ", confidence=" + confidence +
                 ", steward='" + steward + '\'' +
                 ", source='" + source + '\'' +
@@ -250,7 +250,7 @@ public class GlossaryTermRelationshipProperties extends RelationshipBeanProperti
         GlossaryTermRelationshipProperties that = (GlossaryTermRelationshipProperties) objectToCompare;
         return confidence == that.confidence &&
                        Objects.equals(expression, that.expression) &&
-                       Objects.equals(description, that.description) && status == that.status &&
+                       Objects.equals(description, that.description) && termRelationshipStatus == that.termRelationshipStatus &&
                        Objects.equals(steward, that.steward) && Objects.equals(source, that.source);
     }
 
@@ -263,6 +263,6 @@ public class GlossaryTermRelationshipProperties extends RelationshipBeanProperti
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), expression, confidence, description, status, steward, source);
+        return Objects.hash(super.hashCode(), expression, confidence, description, termRelationshipStatus, steward, source);
     }
 }

@@ -1,7 +1,10 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
-package org.odpi.openmetadata.repositoryservices.events;
+package org.odpi.openmetadata.repositoryservices.eventmanagement;
 
+
+import org.odpi.openmetadata.repositoryservices.events.OMRSInstanceEvent;
+import org.odpi.openmetadata.metadatasecurity.OpenMetadataEventsSecurity;
 
 /**
  * OMRSMetadataDefaultEventsSecurity provides a default instance events security filter that allows all events to

@@ -575,60 +575,6 @@ public class InvalidParameterHandler
 
 
     /**
-     * Compare the supported zones with the zones stored in the element.  If the element is not in
-     * one of the supported zones then throw an exception. Otherwise, return ok.
-     * Null values in either returns ok.
-     * Note the error message implies that the element does not exist.  This is because the consequence
-     * of not being in the visible zone is that the element is invisible - just like it does not exist.
-     *
-     * @param elementGUID unique identifier of the asset
-     * @param parameterName name of the parameter that passed the asset guid
-     * @param zoneMembership list of zone names from the element
-     * @param visibleZones list of zone names visible to the caller
-     * @param serviceName calling service
-     * @param methodName calling method
-     *
-     * @throws InvalidParameterException the asset is not in the supported zone.
-     */
-    public void validateElementInSupportedZone(String        elementGUID,
-                                               String        parameterName,
-                                               List<String>  zoneMembership,
-                                               List<String>  visibleZones,
-                                               String        serviceName,
-                                               String        methodName) throws InvalidParameterException
-    {
-        if ((visibleZones == null) || (visibleZones.isEmpty()))
-        {
-            return;
-        }
-
-        if ((zoneMembership == null) || (zoneMembership.isEmpty()))
-        {
-            return;
-        }
-
-        for (String    memberZone : zoneMembership)
-        {
-            if (memberZone != null)
-            {
-                for (String  supportedZoneName : visibleZones)
-                {
-                    if (memberZone.equals(supportedZoneName))
-                    {
-                        return;
-                    }
-                }
-            }
-        }
-
-        throw new InvalidParameterException(OMAGCommonErrorCode.NOT_IN_THE_ZONE.getMessageDefinition(elementGUID, serviceName),
-                                            this.getClass().getName(),
-                                            methodName,
-                                            parameterName);
-    }
-
-
-    /**
      * Throw an exception to indicate that the call to a method is not supported.
      * This is a temporary situation.
      *

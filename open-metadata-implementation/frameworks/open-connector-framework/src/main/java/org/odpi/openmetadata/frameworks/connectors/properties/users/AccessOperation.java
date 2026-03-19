@@ -87,6 +87,11 @@ public enum AccessOperation
      */
     PUBLISH(13, "Publish", "The user requests to publish the metadata element.  This is a special type of classification that potentially changes the governance zones."),
 
+    /**
+     * This means any possible operation.
+     */
+    DEFAULT(99, "Any", "This means any possible operation."),
+
     ;
 
     private  final int    ordinal;

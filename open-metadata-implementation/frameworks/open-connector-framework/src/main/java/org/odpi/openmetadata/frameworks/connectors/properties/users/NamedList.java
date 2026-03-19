@@ -26,6 +26,7 @@ public class NamedList
     private String              displayName       = null;
     private String              description       = null;
     private String              distinguishedName = null;
+    private String              listTypeName      = null;
     private List<String>        userMembers       = null;
     private List<String>        listMembers       = null;
     private Map<String, Object> otherProperties   = null;
@@ -49,6 +50,7 @@ public class NamedList
         if (template != null)
         {
             this.displayName       = template.getDisplayName();
+            this.listTypeName      = template.getListTypeName();
             this.description       = template.getDescription();
             this.distinguishedName = template.getDistinguishedName();
             this.userMembers       = template.getUserMembers();
@@ -77,6 +79,28 @@ public class NamedList
     public void setDisplayName(String displayName)
     {
         this.displayName = displayName;
+    }
+
+
+    /**
+     * Return the type name for this list.
+     *
+     * @return string
+     */
+    public String getListTypeName()
+    {
+        return listTypeName;
+    }
+
+
+    /**
+     * Set up the type name for this list.
+     *
+     * @param listTypeName string
+     */
+    public void setListTypeName(String listTypeName)
+    {
+        this.listTypeName = listTypeName;
     }
 
 
@@ -200,6 +224,7 @@ public class NamedList
     {
         return "NamedList{" +
                 "displayName='" + displayName + '\'' +
+                ", listTypeName='" + listTypeName + '\'' +
                 ", description='" + description + '\'' +
                 ", distinguishedName='" + distinguishedName + '\'' +
                 ", userMembers=" + userMembers +
@@ -222,6 +247,7 @@ public class NamedList
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         NamedList that = (NamedList) objectToCompare;
         return Objects.equals(displayName, that.displayName) &&
+                Objects.equals(listTypeName, that.listTypeName) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(distinguishedName, that.distinguishedName) &&
                 Objects.equals(userMembers, that.userMembers) &&
@@ -237,6 +263,6 @@ public class NamedList
     @Override
     public int hashCode()
     {
-        return Objects.hash(displayName, description, distinguishedName, userMembers, listMembers, otherProperties);
+        return Objects.hash(displayName, listTypeName, description, distinguishedName, userMembers, listMembers, otherProperties);
     }
 }

@@ -2097,16 +2097,6 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
                     // If these are all present, ensure that the types are as expected:
                     switch(operator)
                     {
-                        case IN:
-                            // For the IN operator, only an ArrayTypePropertyValue is allowed
-                            if (!(value instanceof ArrayPropertyValue))
-                            {
-                                throw new InvalidParameterException(OMRSErrorCode.INVALID_LIST_CONDITION.getMessageDefinition(),
-                                                                    this.getClass().getName(),
-                                                                    methodName,
-                                                                    parameterName);
-                            }
-                            break;
                         case LIKE:
                         case NOT_LIKE:
                         case CASE_INSENSITIVE_LIKE:
@@ -2179,12 +2169,12 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
      * {@inheritDoc}
      */
     @Override
-    public void validateSearchClassifications(String sourceName,
-                                              String parameterName,
+    public void validateSearchClassifications(String                sourceName,
+                                              String                parameterName,
                                               SearchClassifications matchClassifications,
-                                              String methodName) throws InvalidParameterException
+                                              String                methodName) throws InvalidParameterException
     {
-        if (matchClassifications == null)
+        if ((matchClassifications == null) || (matchClassifications.getConditions() == null))
         {
             return;
         }
@@ -4472,40 +4462,6 @@ public class OMRSRepositoryContentValidator implements OMRSRepositoryValidator
                         case GTE:
                             // Should only apply to number values and dates
                             matchesProperties = (actualBD != null && testBD != null && actualBD.compareTo(testBD) >= 0);
-                            break;
-                        case IN:
-                            // The value to test against must be a list (ArrayTypePropertyValue)
-                            if (testValue instanceof ArrayPropertyValue)
-                            {
-                                ArrayPropertyValue apv    = (ArrayPropertyValue) testValue;
-                                InstanceProperties values = apv.getArrayValues();
-                                if (values == null)
-                                {
-                                    // Impossible to match against an empty list, so always return false
-                                    matchesProperties = false;
-                                }
-                                else
-                                {
-                                    Iterator<String> names = values.getPropertyNames();
-                                    matchesProperties = false;
-                                    while (names.hasNext() && !matchesProperties)
-                                    {
-                                        String                index        = names.next();
-                                        InstancePropertyValue oneTestValue = values.getPropertyValue(index);
-                                        if (oneTestValue != null)
-                                        {
-                                            matchesProperties = oneTestValue.equals(actualValue);
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                throw new InvalidParameterException(OMRSErrorCode.INVALID_LIST_CONDITION.getMessageDefinition(),
-                                                                    this.getClass().getName(),
-                                                                    methodName,
-                                                                    "matchProperties");
-                            }
                             break;
                         case IS_NULL:
                             matchesProperties = (actualValue == null);

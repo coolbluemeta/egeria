@@ -3,6 +3,8 @@
 package org.odpi.openmetadata.metadatasecurity;
 
 
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 
 /**
@@ -26,10 +28,11 @@ public interface OpenMetadataPlatformSecurity
      * Check that the calling user is authorized to create new servers.
      *
      * @param userId calling user
-     *
-     * @throws UserNotAuthorizedException the user is not authorized to access this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    void  validateUserForNewServer(String userId) throws UserNotAuthorizedException;
+    void validateUserForNewServer(String userId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException;
 
 
     /**
@@ -37,9 +40,11 @@ public interface OpenMetadataPlatformSecurity
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue operator commands to this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    void  validateUserAsOperatorForPlatform(String userId) throws UserNotAuthorizedException;
+    void  validateUserAsOperatorForPlatform(String userId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException;
 
 
     /**
@@ -47,7 +52,9 @@ public interface OpenMetadataPlatformSecurity
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue diagnostic commands to this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    void  validateUserAsInvestigatorForPlatform(String userId) throws UserNotAuthorizedException;
+    void  validateUserAsInvestigatorForPlatform(String userId) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException;
 }

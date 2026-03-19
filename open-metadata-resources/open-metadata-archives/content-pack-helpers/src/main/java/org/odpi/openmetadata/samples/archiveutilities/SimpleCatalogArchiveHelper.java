@@ -7052,18 +7052,17 @@ public class SimpleCatalogArchiveHelper
         archiveBuilder.addClassification(archiveHelper.getClassificationEntityExtension(referenceableEntityProxy, classification));
     }
 
+
     /**
      * Add a SecurityTags classification to the requested element.
      *
      * @param assetGUID unique identifier for the element to classify
      * @param securityLabels list of security labels
      * @param securityProperties map of security properties
-     * @param accessGroups access group assignments
      */
     public void addSecurityTagsClassification(String                    assetGUID,
                                               List<String>              securityLabels,
-                                              Map<String, Object>       securityProperties,
-                                              Map<String, List<String>> accessGroups)
+                                              Map<String, Object>       securityProperties)
     {
         final String methodName = "addSecurityTagsClassification";
 
@@ -7073,7 +7072,6 @@ public class SimpleCatalogArchiveHelper
 
         InstanceProperties properties = archiveHelper.addStringArrayPropertyToInstance(archiveRootName, null, OpenMetadataProperty.SECURITY_LABELS.name, securityLabels, methodName);
         properties = archiveHelper.addMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.SECURITY_PROPERTIES.name, securityProperties, methodName);
-        properties = archiveHelper.addStringArrayStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ACCESS_GROUPS.name, accessGroups, methodName);
 
         Classification classification = archiveHelper.getClassification(OpenMetadataType.SECURITY_TAGS_CLASSIFICATION.typeName,
                                                                         properties,
@@ -7189,7 +7187,7 @@ public class SimpleCatalogArchiveHelper
      * @param name display name
      * @param description description
      * @param scope scope of responsibilities
-     * @param purposes why is it needed
+     * @param dataProcessingPurposes why is it needed
      * @param owner owner for the Ownership classification
      * @param ownerTypeName owner type for the Ownership classification
      * @param ownerPropertyName owner property name for the Ownership classification
@@ -7207,7 +7205,7 @@ public class SimpleCatalogArchiveHelper
                                              String              name,
                                              String              description,
                                              String              scope,
-                                             List<String>        purposes,
+                                             List<String>        dataProcessingPurposes,
                                              String              integrationStyle,
                                              String              owner,
                                              String              ownerTypeName,
@@ -7230,7 +7228,7 @@ public class SimpleCatalogArchiveHelper
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.VERSION_IDENTIFIER.name, versionName, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DESCRIPTION.name, description, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.SCOPE.name, scope, methodName);
-        properties = archiveHelper.addStringArrayPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.PURPOSES.name, purposes, methodName);
+        properties = archiveHelper.addStringArrayPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.DATA_PROCESSING_PURPOSES.name, dataProcessingPurposes, methodName);
         properties = archiveHelper.addStringPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.INTEGRATION_STYLE.name, integrationStyle, methodName);
         properties = archiveHelper.addStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ESTIMATED_VOLUMETRICS.name, estimatedVolumetrics, methodName);
         properties = archiveHelper.addStringMapPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ADDITIONAL_PROPERTIES.name, additionalProperties, methodName);

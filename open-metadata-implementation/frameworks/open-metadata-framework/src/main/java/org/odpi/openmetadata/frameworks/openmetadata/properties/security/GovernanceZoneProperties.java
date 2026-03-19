@@ -13,15 +13,15 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
 /**
- * GovernanceZoneProperties describes a governance zone which is a grouping of assets that are used for a specific
- * purpose.
+ * GovernanceZoneProperties describes a governance zone.  This describes the access permissions for a collection
+ * of open metadata elements that are members of the governance zone.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class GovernanceZoneProperties extends SecurityAccessControlProperties
 {
-    private String criteria         = null;
+    private String criteria = null;
 
 
     /**
@@ -51,7 +51,7 @@ public class GovernanceZoneProperties extends SecurityAccessControlProperties
 
 
     /**
-     * Return details of the criteria that Assets have when they are placed in these zones.
+     * Return details of the criteria that elements have when they are placed in these zones.
      *
      * @return text
      */
@@ -62,7 +62,7 @@ public class GovernanceZoneProperties extends SecurityAccessControlProperties
 
 
     /**
-     * Set up the details of the criteria that Assets have when they are placed in these zones.
+     * Set up the details of the criteria that elements have when they are placed in these zones.
      *
      * @param criteria text
      */

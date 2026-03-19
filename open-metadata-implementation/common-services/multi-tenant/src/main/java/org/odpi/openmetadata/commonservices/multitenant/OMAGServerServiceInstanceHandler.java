@@ -50,11 +50,13 @@ public abstract class OMAGServerServiceInstanceHandler
      * @param serverName name of the server
      *
      * @return boolean
-     * @throws UserNotAuthorizedException the user is not authorized to issue the request.
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public boolean isServerActive(String    userId,
                                   String    delegatingUserId,
-                                  String    serverName) throws UserNotAuthorizedException
+                                  String    serverName) throws UserNotAuthorizedException, InvalidParameterException, PropertyServerException
     {
         return platformInstanceMap.isServerActive(userId, delegatingUserId, serverName);
     }

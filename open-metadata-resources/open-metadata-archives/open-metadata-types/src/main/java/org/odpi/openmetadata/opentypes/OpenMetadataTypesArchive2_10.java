@@ -201,6 +201,7 @@ public class OpenMetadataTypesArchive2_10
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.OWNER));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.OWNER_TYPE_NAME));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.OWNER_PROPERTY_NAME));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.USER_IDS));
 
         classificationDef.setPropertiesDefinition(properties);
 

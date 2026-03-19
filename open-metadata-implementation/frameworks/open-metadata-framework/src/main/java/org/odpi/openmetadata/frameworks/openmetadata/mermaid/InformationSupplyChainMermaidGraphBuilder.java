@@ -257,9 +257,9 @@ public class InformationSupplyChainMermaidGraphBuilder extends MermaidGraphBuild
                                      VisualStyle.DESCRIPTION);
             }
 
-            if (informationSupplyChainProperties.getPurposes() != null)
+            if (informationSupplyChainProperties.getDataProcessingPurposes() != null)
             {
-                for (String purpose : informationSupplyChainProperties.getPurposes())
+                for (String purpose : informationSupplyChainProperties.getDataProcessingPurposes())
                 {
                     if (purpose != null)
                     {

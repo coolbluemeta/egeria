@@ -32,9 +32,9 @@ public interface OpenMetadataElementSecurity
      * @param repositoryHelper manipulates repository service objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws InvalidParameterException  one of the parameters is null or invalid.
-     * @throws PropertyServerException    a problem retrieving information from the property server(s).
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     void validateUserForElementCreate(String               userId,
                                       String               entityTypeGUID,
@@ -60,6 +60,7 @@ public interface OpenMetadataElementSecurity
      * @throws InvalidParameterException  one of the parameters is null or invalid.
      * @throws PropertyServerException    a problem retrieving information from the property server(s).
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementRead(String               userId,
                                     EntityDetail         requestedEntity,
@@ -80,13 +81,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementDetailUpdate(String               userId,
                                             EntityDetail         originalEntity,
                                             InstanceProperties   newEntityProperties,
                                             OMRSRepositoryHelper repositoryHelper,
                                             String               serviceName,
-                                            String               methodName) throws UserNotAuthorizedException;
+                                            String               methodName) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException;
 
 
     /**
@@ -99,13 +103,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementStatusUpdate(String               userId,
                                             EntityDetail         originalEntity,
                                             InstanceStatus       newStatus,
                                             OMRSRepositoryHelper repositoryHelper,
                                             String               serviceName,
-                                            String               methodName) throws UserNotAuthorizedException;
+                                            String               methodName) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException;
 
 
     /**
@@ -119,6 +126,7 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementAttach(String               userId,
                                       EntityDetail         startingEntity,
@@ -126,7 +134,9 @@ public interface OpenMetadataElementSecurity
                                       String               relationshipName,
                                       OMRSRepositoryHelper repositoryHelper,
                                       String               serviceName,
-                                      String               methodName) throws UserNotAuthorizedException;
+                                      String               methodName) throws UserNotAuthorizedException,
+                                                                              InvalidParameterException,
+                                                                              PropertyServerException;
 
 
     /**
@@ -140,6 +150,7 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementDetach(String               userId,
                                       EntityDetail         startingEntity,
@@ -147,7 +158,9 @@ public interface OpenMetadataElementSecurity
                                       String               relationshipName,
                                       OMRSRepositoryHelper repositoryHelper,
                                       String               serviceName,
-                                      String               methodName) throws UserNotAuthorizedException;
+                                      String               methodName) throws UserNotAuthorizedException,
+                                                                              InvalidParameterException,
+                                                                              PropertyServerException;
 
 
     /**
@@ -161,13 +174,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementAddFeedback(String               userId,
                                            EntityDetail         originalEntity,
                                            EntityDetail         feedbackEntity,
                                            OMRSRepositoryHelper repositoryHelper,
                                            String               serviceName,
-                                           String               methodName) throws UserNotAuthorizedException;
+                                           String               methodName) throws UserNotAuthorizedException,
+                                                                                   InvalidParameterException,
+                                                                                   PropertyServerException;
 
 
     /**
@@ -181,13 +197,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementDeleteFeedback(String               userId,
                                               EntityDetail         originalEntity,
                                               EntityDetail         feedbackEntity,
                                               OMRSRepositoryHelper repositoryHelper,
                                               String               serviceName,
-                                              String               methodName) throws UserNotAuthorizedException;
+                                              String               methodName) throws UserNotAuthorizedException,
+                                                                                      InvalidParameterException,
+                                                                                      PropertyServerException;
 
 
 
@@ -201,13 +220,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementClassify(String               userId,
                                         EntityDetail         originalEntity,
                                         String               classificationName,
                                         OMRSRepositoryHelper repositoryHelper,
                                         String               serviceName,
-                                        String               methodName) throws UserNotAuthorizedException;
+                                        String               methodName) throws UserNotAuthorizedException,
+                                                                                InvalidParameterException,
+                                                                                PropertyServerException;
 
 
     /**
@@ -220,13 +242,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementDeclassify(String               userId,
                                           EntityDetail         originalEntity,
                                           String               classificationName,
                                           OMRSRepositoryHelper repositoryHelper,
                                           String               serviceName,
-                                          String               methodName) throws UserNotAuthorizedException;
+                                          String               methodName) throws UserNotAuthorizedException,
+                                                                                  InvalidParameterException,
+                                                                                  PropertyServerException;
 
 
     /**
@@ -238,12 +263,15 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForElementDelete(String               userId,
                                       EntityDetail         entity,
                                       OMRSRepositoryHelper repositoryHelper,
                                       String               serviceName,
-                                      String               methodName) throws UserNotAuthorizedException;
+                                      String               methodName) throws UserNotAuthorizedException,
+                                                                              InvalidParameterException,
+                                                                              PropertyServerException;
 
 
     /**
@@ -258,6 +286,7 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorMemberAdd(String               userId,
                                         EntityDetail         anchorEntity,
@@ -265,7 +294,9 @@ public interface OpenMetadataElementSecurity
                                         String               relationshipName,
                                         OMRSRepositoryHelper repositoryHelper,
                                         String               serviceName,
-                                        String               methodName) throws UserNotAuthorizedException;
+                                        String               methodName) throws UserNotAuthorizedException,
+                                                                                InvalidParameterException,
+                                                                                PropertyServerException;
 
 
     /**
@@ -278,13 +309,36 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorMemberRead(String               userId,
                                          EntityDetail         anchorEntity,
                                          EntityDetail         requestedEntity,
                                          OMRSRepositoryHelper repositoryHelper,
                                          String               serviceName,
-                                         String               methodName) throws UserNotAuthorizedException;
+                                         String               methodName) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException;
+
+
+    /**
+     * Tests for whether a specific user should have the right to create new elements as members of an anchor.
+     *
+     * @param userId identifier of user
+     * @param anchorEntity anchor details
+     * @param repositoryHelper helper for OMRS objects
+     * @param serviceName calling service
+     * @param methodName calling method
+     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
+     */
+    void validateUserForAnchorMemberCreate(String               userId,
+                                           EntityDetail         anchorEntity,
+                                           OMRSRepositoryHelper repositoryHelper,
+                                           String               serviceName,
+                                           String               methodName) throws UserNotAuthorizedException,
+                                                                                   InvalidParameterException,
+                                                                                   PropertyServerException;
 
 
     /**
@@ -298,12 +352,15 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorMemberUpdate(String               userId,
                                            EntityDetail         anchorEntity,
                                            OMRSRepositoryHelper repositoryHelper,
                                            String               serviceName,
-                                           String               methodName) throws UserNotAuthorizedException;
+                                           String               methodName) throws UserNotAuthorizedException,
+                                                                                   InvalidParameterException,
+                                                                                   PropertyServerException;
 
 
     /**
@@ -317,6 +374,7 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorMemberStatusUpdate(String               userId,
                                                  EntityDetail         anchorEntity,
@@ -324,7 +382,9 @@ public interface OpenMetadataElementSecurity
                                                  InstanceStatus       newStatus,
                                                  OMRSRepositoryHelper repositoryHelper,
                                                  String               serviceName,
-                                                 String               methodName) throws UserNotAuthorizedException;
+                                                 String               methodName) throws UserNotAuthorizedException,
+                                                                                         InvalidParameterException,
+                                                                                         PropertyServerException;
 
 
     /**
@@ -338,6 +398,7 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorAttach(String               userId,
                                      EntityDetail         anchorEntity,
@@ -345,7 +406,9 @@ public interface OpenMetadataElementSecurity
                                      String               relationshipName,
                                      OMRSRepositoryHelper repositoryHelper,
                                      String               serviceName,
-                                     String               methodName) throws UserNotAuthorizedException;
+                                     String               methodName) throws UserNotAuthorizedException,
+                                                                             InvalidParameterException,
+                                                                             PropertyServerException;
 
 
     /**
@@ -359,6 +422,7 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorDetach(String               userId,
                                      EntityDetail         anchorEntity,
@@ -366,7 +430,9 @@ public interface OpenMetadataElementSecurity
                                      String               relationshipName,
                                      OMRSRepositoryHelper repositoryHelper,
                                      String               serviceName,
-                                     String               methodName) throws UserNotAuthorizedException;
+                                     String               methodName) throws UserNotAuthorizedException,
+                                                                             InvalidParameterException,
+                                                                             PropertyServerException;
 
 
     /**
@@ -380,13 +446,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorAddFeedback(String               userId,
                                           EntityDetail         anchorEntity,
                                           EntityDetail         feedbackEntity,
                                           OMRSRepositoryHelper repositoryHelper,
                                           String               serviceName,
-                                          String               methodName) throws UserNotAuthorizedException;
+                                          String               methodName) throws UserNotAuthorizedException,
+                                                                                  InvalidParameterException,
+                                                                                  PropertyServerException;
 
 
     /**
@@ -400,13 +469,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorDeleteFeedback(String               userId,
                                              EntityDetail         anchorEntity,
                                              EntityDetail         feedbackEntity,
                                              OMRSRepositoryHelper repositoryHelper,
                                              String               serviceName,
-                                             String               methodName) throws UserNotAuthorizedException;
+                                             String               methodName) throws UserNotAuthorizedException,
+                                                                                     InvalidParameterException,
+                                                                                     PropertyServerException;
 
 
 
@@ -420,13 +492,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorClassify(String               userId,
                                        EntityDetail         anchorEntity,
                                        String               classificationName,
                                        OMRSRepositoryHelper repositoryHelper,
                                        String               serviceName,
-                                       String               methodName) throws UserNotAuthorizedException;
+                                       String               methodName) throws UserNotAuthorizedException,
+                                                                               InvalidParameterException,
+                                                                               PropertyServerException;
 
 
     /**
@@ -439,13 +514,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorDeclassify(String               userId,
                                          EntityDetail         anchorEntity,
                                          String               classificationName,
                                          OMRSRepositoryHelper repositoryHelper,
                                          String               serviceName,
-                                         String               methodName) throws UserNotAuthorizedException;
+                                         String               methodName) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException;
 
 
     /**
@@ -457,13 +535,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
     void validateUserForAnchorMemberDelete(String               userId,
                                            EntityDetail         anchorEntity,
                                            EntityDetail         obsoleteEntity,
                                            OMRSRepositoryHelper repositoryHelper,
                                            String               serviceName,
-                                           String               methodName) throws UserNotAuthorizedException;
+                                           String               methodName) throws UserNotAuthorizedException,
+                                                                                   InvalidParameterException,
+                                                                                   PropertyServerException;
 
 
 
@@ -478,12 +559,16 @@ public interface OpenMetadataElementSecurity
      * @param serviceName calling service
      * @param methodName calling method
      * @return single connection entity, or null
-     * @throws UserNotAuthorizedException the user is not able to use any of the connections
+     * @throws InvalidParameterException none of the connections are visible to the user
+     * @throws UserNotAuthorizedException the user is not authorized to use any of the connections
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision
      */
-    public EntityDetail selectConnection(String               userId,
-                                         EntityDetail         assetEntity,
-                                         List<EntityDetail>   connectionEntities,
-                                         OMRSRepositoryHelper repositoryHelper,
-                                         String               serviceName,
-                                         String               methodName) throws UserNotAuthorizedException;
+    EntityDetail selectConnection(String               userId,
+                                  EntityDetail         assetEntity,
+                                  List<EntityDetail>   connectionEntities,
+                                  OMRSRepositoryHelper repositoryHelper,
+                                  String               serviceName,
+                                  String               methodName) throws UserNotAuthorizedException,
+                                                                          InvalidParameterException,
+                                                                          PropertyServerException;
 }

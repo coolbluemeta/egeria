@@ -106,11 +106,6 @@ public enum PropertyComparisonOperator
     GTE(5, "Greater than or equal", "Greater than or equal to."),
 
     /**
-     * In list
-     */
-    IN(6, "In list", "Has a value of at least one in the provided list of values."),
-
-    /**
      * Is null
      */
     IS_NULL(7, "Is null", "Has no value."),

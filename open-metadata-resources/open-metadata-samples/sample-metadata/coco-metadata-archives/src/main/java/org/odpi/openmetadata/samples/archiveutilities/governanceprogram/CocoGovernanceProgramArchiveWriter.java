@@ -228,15 +228,19 @@ public class CocoGovernanceProgramArchiveWriter extends EgeriaBaseArchiveWriter
     {
         for (CocoGovernanceZoneDefinition zoneDefinition : CocoGovernanceZoneDefinition.values())
         {
-            archiveHelper.addGovernanceZone(zoneDefinition.getQualifiedName(),
-                                            zoneDefinition.getZoneName(),
-                                            zoneDefinition.getDisplayName(),
-                                            zoneDefinition.getDescription(),
-                                            zoneDefinition.getCriteria(),
-                                            "Coco Pharmaceuticals",
-                                            0,
-                                            null
-                                            );
+            String zoneGUID = archiveHelper.addGovernanceZone(zoneDefinition.getQualifiedName(),
+                                                              zoneDefinition.getZoneName(),
+                                                              zoneDefinition.getDisplayName(),
+                                                              zoneDefinition.getDescription(),
+                                                              zoneDefinition.getCriteria(),
+                                                              "Coco Pharmaceuticals",
+                                                              0,
+                                                              null);
+
+            // todo add zone hierarchy
+            // todo add business system zones
+            //  archiveHelper.addZoneHierarchy(String broaderGovernanceZoneGUID,
+            //                                 String nestedGovernanceZoneGUID)
         }
     }
 

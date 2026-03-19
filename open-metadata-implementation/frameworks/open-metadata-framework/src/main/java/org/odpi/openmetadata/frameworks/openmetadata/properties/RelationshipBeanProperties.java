@@ -49,7 +49,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.apis.APIH
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.apis.APIOperationsProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.apis.APIRequestProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.apis.APIResponseProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.security.AssociatedSecurityGroupProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.AssociatedSecurityListProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.security.ZoneHierarchyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.softwarecapabilities.MetadataCohortPeerProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.softwarecapabilities.SupportedSoftwareCapabilityProperties;
@@ -88,7 +88,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = AssetConnectionProperties.class, name = "AssetConnectionProperties"),
                 @JsonSubTypes.Type(value = SchemaProperties.class, name = "AssetSchemaTypeProperties"),
                 @JsonSubTypes.Type(value = AssignmentScopeProperties.class, name = "AssignmentScopeProperties"),
-                @JsonSubTypes.Type(value = AssociatedSecurityGroupProperties.class, name = "AssociatedSecurityGroupProperties"),
+                @JsonSubTypes.Type(value = AssociatedSecurityListProperties.class, name = "AssociatedSecurityGroupProperties"),
                 @JsonSubTypes.Type(value = AttachedCommentProperties.class, name = "AttachedCommentProperties"),
                 @JsonSubTypes.Type(value = AttachedLikeProperties.class, name = "AttachedLikeProperties"),
                 @JsonSubTypes.Type(value = AttachedNoteLogProperties.class, name = "AttachedNoteLogProperties"),

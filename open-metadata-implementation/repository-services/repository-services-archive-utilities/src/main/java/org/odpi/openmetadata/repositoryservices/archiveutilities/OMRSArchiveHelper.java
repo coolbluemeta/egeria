@@ -1840,7 +1840,6 @@ public class OMRSArchiveHelper extends OMRSRepositoryPropertiesUtilities
         instanceAuditHeader.setVersion(versionNumber);
         instanceAuditHeader.setInstanceLicense(license);
         instanceAuditHeader.setInstanceProvenanceType(instanceProvenanceType);
-        instanceAuditHeader.setMaintainedBy(null);
         instanceAuditHeader.setMetadataCollectionId(archiveGUID);
         instanceAuditHeader.setMetadataCollectionName(archiveName);
         instanceAuditHeader.setReplicatedBy(null);

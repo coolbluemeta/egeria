@@ -23,7 +23,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 public class SearchProperties
 {
     private List<PropertyCondition> conditions     = null;
-    private MatchCriteria           matchCriteria  = MatchCriteria.ALL;
+    private MatchCriteria           matchCriteria  = MatchCriteria.ANY;
 
     /**
      * Typical constructor

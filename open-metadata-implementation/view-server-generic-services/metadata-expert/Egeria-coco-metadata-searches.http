@@ -3,7 +3,7 @@
 # It uses the metadata from the CocoComboArchive so make sure it is loaded befor running these requests.
 
 @baseURL=https://localhost:9443
-@viewServer=view-server
+@viewServer=qs-view-server
 
 ###
 # =====================================================================================================================
@@ -22,6 +22,8 @@ Content-Type: application/json
 
 ###
 # =====================================================================================================================
+# Retrieve individual elements
+
 # @name get the GUID for the Sustainability Glossary
 # Retrieve the metadata element using its unique identifier.
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/guid-by-unique-name
@@ -66,6 +68,28 @@ Content-Type: application/json
 }
 
 
+###
+# Retrieve the unique identifier for the active metadata store.  This metadata element is catalogued automatically
+# by the OMAG Server Platform cataloguer.   This is an integration connector that queries each of the catalogued
+# OMAG Server Platforms and builds a metadata representation of the servers running on it.  These representations are
+# then used by the Runtime Manager API to target operation commands to the right OMAG Server.
+###
+# @name get the GUID for active-metadata-store
+# Retrieve the metadata element using its unique identifier.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/metadata-elements/guid-by-unique-name
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "UniqueNameRequestBody",
+  "name" : "active-metadata-store",
+  "namePropertyName" : "resourceName"
+}
+
+> {% client.global.set("activeMetadataStoreGUID", response.body.guid); %}
+
+
+
 
 ###
 # @name getAnchoredElementsGraph (active metadata store)
@@ -92,30 +116,6 @@ Content-Type: application/json
   "name" : "active-metadata-store",
   "namePropertyName" : "resourceName"
 }
-
-
-###
-# =====================================================================================================================
-# Retrieve the unique identifier for the active metadata store.  This metadata element is catalogued automatically
-# by the OMAG Server Platform cataloguer.   This is an integration connector that queries each of the catalogued
-# OMAG Server Platforms and builds a metadata representation of the servers running on it.  These representations are
-# then used by the Runtime Manager API to target operation commands to the right OMAG Server.
-###
-# @name get the GUID for active-metadata-store
-# Retrieve the metadata element using its unique identifier.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/metadata-elements/guid-by-unique-name
-Authorization: Bearer {{token}}
-Content-Type: application/json
-
-{
-  "class" : "UniqueNameRequestBody",
-  "name" : "active-metadata-store",
-  "namePropertyName" : "resourceName"
-}
-
-> {% client.global.set("activeMetadataStoreGUID", response.body.guid); %}
-
-
 
 
 ###
@@ -162,6 +162,9 @@ Content-Type: application/json
   "oldestFirst": false
 }
 
+###
+# =====================================================================================================================
+# Search with strings
 
 ###
 # @name findMetadataElementsWithString (GlossaryTerm for CO2)
@@ -320,6 +323,9 @@ Content-Type: application/json
 }
 
 ###
+# =====================================================================================================================
+# Retrieve related elements - Starts from a specific element and retrieves other elements that are linked to it.
+###
 # @name getAllRelatedMetadataElements
 # Retrieve the metadata elements connected to the supplied element.
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/related-elements/{{sustainabilityGlossaryGUID}}/any-type?startingAtEnd=0
@@ -411,7 +417,9 @@ Content-Type: application/json
   "sequencingProperty": ""
 }
 
-
+###
+# =====================================================================================================================
+# Complex queries
 
 ###
 # @name getMatchCriteriaList
@@ -486,7 +494,7 @@ Content-Type: application/json
 ###
 # @name findMetadataElements anchored to the SoftwareServer entity for active-metadata-store
 # Return a list of metadata elements that match the supplied criteria.  The results can be returned over many pages.
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions?startFrom=0&pageSize=10
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -519,11 +527,9 @@ Content-Type: application/json
 
 
 ###
-
-###
 # @name find Glossary terms with an abbreviation that begins with "co" ignoring case
 # Returns the CO2 glossary term using a fuzzy search on the abbreviation property
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions?startFrom=0&pageSize=50
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -729,7 +735,7 @@ Content-Type: application/json
 
 
 ###
-# @name find an action where activityStatus = IN_PROGRESS - using a string
+# @name find an action where activityStatus = IN_PROGRESS - using a string ... and classification explorer
 # Return a list of metadata elements that match the supplied criteria.  The results can be returned over many pages.
 POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/classification-explorer/elements/by-complex-query
 Authorization: Bearer {{token}}
@@ -753,6 +759,68 @@ Content-Type: application/json
   "pageSize" : 2
 }
 
+###
+# @name find an element where the additionalProperties map includes a value of "Count of all columns in the tables/views."
+# Notice that although the additionalProperties is a map, we use a primitive to describe the leaf node value we want.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindRequestBody",
+  "searchProperties": {
+    "class" : "SearchProperties",
+    "conditions": [ {
+      "property" : "additionalProperties",
+      "operator": "EQ",
+      "value": {
+        "class" : "PrimitiveTypePropertyValue",
+        "typeName" : "string",
+        "primitiveValue" : "Count of all columns in the tables/views."
+      }}],
+    "matchCriteria": "ANY"
+  },
+  "pageSize" : 2
+}
+
+
+
+###
+# @name find an element that is in the "sustainability" zone.
+# Notice that although the additionalProperties is a map, we use a primitive to describe the leaf node value we want.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindRequestBody",
+  "matchClassifications": {
+    "class" : "SearchClassifications",
+    "conditions" : [
+      {
+        "class" : "ClassificationCondition",
+        "name" : "ZoneMembership",
+        "searchProperties" : {
+          "class" : "SearchProperties",
+          "conditions": [ {
+            "property" : "zoneMembership",
+            "operator": "EQ",
+            "value": {
+              "class" : "PrimitiveTypePropertyValue",
+              "typeName" : "string",
+              "primitiveValue" : "sustainability"
+            }}],
+          "matchCriteria": "ANY"
+        }
+      }
+    ],
+    "matchCriteria": "ANY"
+  },
+  "pageSize" : 2
+}
+
+
+
 
 ###
 # @name Work with arrays
@@ -768,7 +836,7 @@ Content-Type: application/json
     "class" : "SearchProperties",
     "conditions": [ {
       "property" : "activityStatus",
-      "operator": "IN",
+      "operator": "EQ",
       "value": {
         "class" : "ArrayTypePropertyValue",
         "typeName": "array<string>",
@@ -824,6 +892,11 @@ Content-Type: application/json
   "sequencingOrder": "CREATION_DATE_RECENT",
   "sequencingProperty": ""
 }
+
+
+###
+
+@relationshipGUID=add guid here
 
 ###
 # @name getRelationshipByGUID

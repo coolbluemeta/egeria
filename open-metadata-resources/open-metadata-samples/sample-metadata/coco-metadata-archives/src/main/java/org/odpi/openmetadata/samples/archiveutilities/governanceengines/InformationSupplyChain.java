@@ -183,19 +183,19 @@ public enum InformationSupplyChain
     ;
 
 
-    private final String          guid;
-    private final String          displayName;
-    private final String          description;
-    private final ScopeDefinition scope;
-    private final String[]        purposes;
-    private final String                          ownerGUID;
-    private final InformationSupplyChain          owningSupplyChain;
-    private final boolean         isOwningInformationSupplyChainAnchor;
+    private final String                 guid;
+    private final String                 displayName;
+    private final String                 description;
+    private final ScopeDefinition        scope;
+    private final String[]               dataProcessingPurposes;
+    private final String                 ownerGUID;
+    private final InformationSupplyChain owningSupplyChain;
+    private final boolean                isOwningInformationSupplyChainAnchor;
     private final InformationSupplyChain anchorScope;
 
-    private boolean               isTemplate = false;
-    private String                templateName = null;
-    private String                templateDescription = null;
+    private boolean isTemplate          = false;
+    private String  templateName        = null;
+    private String  templateDescription = null;
 
 
     /**
@@ -205,7 +205,7 @@ public enum InformationSupplyChain
      * @param displayName display name of information supply chain
      * @param description description of information supply chain
      * @param scope scope of information supply chain
-     * @param purposes purposes of information supply chain
+     * @param dataProcessingPurposes purposes of information supply chain
      * @param ownerGUID identifier of owner
      * @param owningSupplyChain the parent information supply chain
      * @param isOwningInformationSupplyChainAnchor should the parent supply chain (if any) bee this information supply chain's anchor?
@@ -215,7 +215,7 @@ public enum InformationSupplyChain
                            String                 displayName,
                            String                 description,
                            ScopeDefinition        scope,
-                           String[]               purposes,
+                           String[] dataProcessingPurposes,
                            String                 ownerGUID,
                            InformationSupplyChain owningSupplyChain,
                            boolean                isOwningInformationSupplyChainAnchor,
@@ -224,9 +224,9 @@ public enum InformationSupplyChain
         this.guid                                 = guid;
         this.displayName                          = displayName;
         this.description                          = description;
-        this.scope                                = scope;
-        this.purposes                             = purposes;
-        this.ownerGUID                            = ownerGUID;
+        this.scope                  = scope;
+        this.dataProcessingPurposes = dataProcessingPurposes;
+        this.ownerGUID              = ownerGUID;
         this.owningSupplyChain                    = owningSupplyChain;
         this.isOwningInformationSupplyChainAnchor = isOwningInformationSupplyChainAnchor;
         this.anchorScope                          = anchorScope;
@@ -240,7 +240,7 @@ public enum InformationSupplyChain
      * @param displayName display name of information supply chain
      * @param description description of information supply chain
      * @param scope scope of information supply chain
-     * @param purposes purposes of information supply chain
+     * @param dataProcessingPurposes purposes of information supply chain
      * @param ownerGUID identifier of owner
      * @param owningSupplyChain the parent information supply chain
      * @param isOwningInformationSupplyChainAnchor should the parent supply chain (if any) bee this information supply chain's anchor?
@@ -252,7 +252,7 @@ public enum InformationSupplyChain
                            String                 displayName,
                            String                 description,
                            ScopeDefinition        scope,
-                           String[]               purposes,
+                           String[] dataProcessingPurposes,
                            String                 ownerGUID,
                            InformationSupplyChain owningSupplyChain,
                            boolean                isOwningInformationSupplyChainAnchor,
@@ -263,9 +263,9 @@ public enum InformationSupplyChain
         this.guid                                 = guid;
         this.displayName                          = displayName;
         this.description                          = description;
-        this.scope                                = scope;
-        this.purposes                             = purposes;
-        this.ownerGUID                            = ownerGUID;
+        this.scope                  = scope;
+        this.dataProcessingPurposes = dataProcessingPurposes;
+        this.ownerGUID              = ownerGUID;
         this.owningSupplyChain                    = owningSupplyChain;
         this.isOwningInformationSupplyChainAnchor = isOwningInformationSupplyChainAnchor;
         this.anchorScope                          = anchorScope;
@@ -324,15 +324,15 @@ public enum InformationSupplyChain
      *
      * @return list of strings
      */
-    public List<String> getPurposes()
+    public List<String> getDataProcessingPurposes()
     {
-        if (purposes == null)
+        if (dataProcessingPurposes == null)
         {
             return null;
 
         }
 
-        return Arrays.asList(purposes);
+        return Arrays.asList(dataProcessingPurposes);
     }
 
 

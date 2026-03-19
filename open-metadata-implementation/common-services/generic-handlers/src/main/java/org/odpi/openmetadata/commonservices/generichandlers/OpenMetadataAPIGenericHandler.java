@@ -11,7 +11,6 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterExcept
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.AttachedClassification;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.security.ZoneMembershipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.metadataobservability.ffdc.OpenMetadataObservabilityAuditCode;
@@ -100,31 +99,19 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
     {
         if (anchorGUID != null)
         {
-            EntityDetail anchorEntity = this.setUpAnchorsClassificationFromAnchor(userId,
-                                                                     anchorGUID,
-                                                                     anchorGUIDParameterName,
-                                                                     null,
-                                                                     builder,
-                                                                     forLineage,
-                                                                     forDuplicateProcessing,
-                                                                     effectiveTime,
-                                                                     methodName);
-
-            if (anchorEntity != null)
-            {
-
-                /*
-                 * This method will throw an exception if the element is not in the supported zones - it will look like
-                 * the element is not known.
-                 */
-                invalidParameterHandler.validateElementInSupportedZone(anchorEntity.getGUID(),
-                                                                       anchorGUIDParameterName,
-                                                                       this.getEntityZones(anchorEntity),
-                                                                       securityVerifier.getSupportedZones(userId, anchorEntity.getType().getTypeDefName(), methodName),
-                                                                       serviceName,
-                                                                       methodName);
-
-            }
+            /*
+             * This method will validate the anchorGUID and ensure the usser has the right to add the element
+             * to the anchor.
+             */
+            this.setUpAnchorsClassificationFromAnchor(userId,
+                                                      anchorGUID,
+                                                      anchorGUIDParameterName,
+                                                      null,
+                                                      builder,
+                                                      forLineage,
+                                                      forDuplicateProcessing,
+                                                      effectiveTime,
+                                                      methodName);
         }
     }
 
@@ -176,16 +163,6 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
                                                                                   PropertyServerException,
                                                                                   UserNotAuthorizedException
     {
-        /*
-         * This first processing looks at the retrieved entity itself to ensure it is visible.
-         */
-        invalidParameterHandler.validateElementInSupportedZone(connectToEntity.getGUID(),
-                                                               connectToGUIDParameterName,
-                                                               this.getEntityZones(connectToEntity),
-                                                               securityVerifier.getSupportedZones(userId, connectToEntity.getType().getTypeDefName(), methodName),
-                                                               serviceName,
-                                                               methodName);
-
         /*
          * Even if the request is an update request, the security module is first called for read - the update
          * is validated once the properties have been updated.
@@ -683,18 +660,6 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
                                 (repositoryHelper.isTypeOf(serviceName, connectToType, OpenMetadataType.COMMENT.typeName)) ||
                                 (repositoryHelper.isTypeOf(serviceName, connectToType, OpenMetadataType.RATING.typeName)) ||
                                 (repositoryHelper.isTypeOf(serviceName, connectToType, OpenMetadataType.LIKE.typeName));
-
-
-                /*
-                 * This method will throw an exception if the element is not in the supported zones - it will look like
-                 * the asset is not known.
-                 */
-                invalidParameterHandler.validateElementInSupportedZone(anchorEntity.getGUID(),
-                                                                       anchorGUIDParameterName,
-                                                                       this.getEntityZones(anchorEntity),
-                                                                       securityVerifier.getSupportedZones(userId, anchorEntity.getType().getTypeDefName(), methodName),
-                                                                       serviceName,
-                                                                       methodName);
 
 
                 if (isFeedbackEntity)
@@ -8229,90 +8194,6 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
 
         return null;
     }
-
-
-    /**
-     * Creates a relationship between two elements.
-     * Both elements must be visible to the user to allow the link.
-     *
-     * @param userId                    userId of the user making the request
-     * @param externalSourceGUID        guid of the software capability entity that represented the external source - null for local
-     * @param externalSourceName        name of the software capability entity that represented the external source
-     * @param startingGUID              unique id for the starting element's entity
-     * @param startingGUIDParameterName name of the parameter supplying the startingGUID
-     * @param startingElementTypeName   type name of the starting element's entity
-     * @param attachingGUID             unique id of the entity for the element that is being attached
-     * @param attachingGUIDParameterName name of the parameter supplying the attachingGUID
-     * @param attachingElementTypeName  type name of the attaching element's entity
-     * @param forLineage                the request is to support lineage retrieval this means entities with the Memento classification can be returned
-     * @param forDuplicateProcessing    the request is for duplicate processing and so must not deduplicate
-     * @param relationshipTypeGUID      unique identifier of type of the relationship to create
-     * @param relationshipTypeName      unique name of type of the relationship to create
-     * @param effectiveFrom             the date when this element is active - null for active now
-     * @param effectiveTo               the date when this element becomes inactive - null for active until deleted
-     * @param relationshipProperties    properties to add to the relationship or null if no properties to add
-     * @param effectiveTime             the time that the retrieved elements must be effective for
-     * @param methodName                calling method
-     *
-     * @return unique identifier of the new relationship
-     * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws PropertyServerException a problem updating the repositories.
-     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
-
-    public String linkElementToElement(String              userId,
-                                       String              externalSourceGUID,
-                                       String              externalSourceName,
-                                       String              startingGUID,
-                                       String              startingGUIDParameterName,
-                                       String              startingElementTypeName,
-                                       String              attachingGUID,
-                                       String              attachingGUIDParameterName,
-                                       String              attachingElementTypeName,
-                                       boolean             forLineage,
-                                       boolean             forDuplicateProcessing,
-                                       String              relationshipTypeGUID,
-                                       String              relationshipTypeName,
-                                       Date                effectiveFrom,
-                                       Date                effectiveTo,
-                                       Map<String, Object> relationshipProperties,
-                                       Date                effectiveTime,
-                                       String              methodName) throws InvalidParameterException,
-                                                                              PropertyServerException,
-                                                                              UserNotAuthorizedException
-    {
-        InstanceProperties instanceProperties = null;
-
-        try
-        {
-            instanceProperties = repositoryHelper.addPropertyMapToInstance(serviceName, null, relationshipProperties, methodName);
-        }
-        catch (org.odpi.openmetadata.repositoryservices.ffdc.exception.InvalidParameterException error)
-        {
-            final String  propertyName = "relationshipProperties";
-
-            errorHandler.handleUnsupportedProperty(error, methodName, propertyName);
-        }
-
-        return this.linkElementToElement(userId,
-                                         externalSourceGUID,
-                                         externalSourceName,
-                                         startingGUID,
-                                         startingGUIDParameterName,
-                                         startingElementTypeName,
-                                         attachingGUID,
-                                         attachingGUIDParameterName,
-                                         attachingElementTypeName,
-                                         forLineage,
-                                         forDuplicateProcessing,
-                                         relationshipTypeGUID,
-                                         relationshipTypeName,
-                                         this.setUpEffectiveDates(instanceProperties, effectiveFrom, effectiveTo),
-                                         effectiveFrom,
-                                         effectiveTo,
-                                         effectiveTime,
-                                         methodName);
-    }
-    */
 
 
     /**

@@ -23,9 +23,9 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ProjectProperties extends AuthoredReferenceableProperties
 {
-    private String       mission               = null;
-    private List<String> purposes              = null;
-    private List<String> successCriteria       = null;
+    private String       mission                = null;
+    private List<String> dataProcessingPurposes = null;
+    private List<String> successCriteria        = null;
     private String       projectPhase          = null;
     private String       projectHealth         = null;
     private String       projectStatus         = null;
@@ -57,9 +57,9 @@ public class ProjectProperties extends AuthoredReferenceableProperties
 
         if (template != null)
         {
-            this.mission               = template.getMission();
-            this.purposes              = template.getPurposes();
-            this.successCriteria       = template.getSuccessCriteria();
+            this.mission                = template.getMission();
+            this.dataProcessingPurposes = template.getDataProcessingPurposes();
+            this.successCriteria        = template.getSuccessCriteria();
             this.projectPhase          = template.getProjectPhase();
             this.projectHealth         = template.getProjectHealth();
             this.projectStatus         = template.getProjectStatus();
@@ -99,20 +99,20 @@ public class ProjectProperties extends AuthoredReferenceableProperties
      *
      * @return list
      */
-    public List<String> getPurposes()
+    public List<String> getDataProcessingPurposes()
     {
-        return purposes;
+        return dataProcessingPurposes;
     }
 
 
     /**
      * Set up the processing purposes permitted on the project.
      *
-     * @param purposes list
+     * @param dataProcessingPurposes list
      */
-    public void setPurposes(List<String> purposes)
+    public void setDataProcessingPurposes(List<String> dataProcessingPurposes)
     {
-        this.purposes = purposes;
+        this.dataProcessingPurposes = dataProcessingPurposes;
     }
 
 
@@ -325,7 +325,7 @@ public class ProjectProperties extends AuthoredReferenceableProperties
     {
         return "ProjectProperties{" +
                 "mission='" + mission + '\'' +
-                ", purposes=" + purposes +
+                ", dataProcessingPurposes=" + dataProcessingPurposes +
                 ", successCriteria=" + successCriteria +
                 ", projectPhase='" + projectPhase + '\'' +
                 ", projectHealth='" + projectHealth + '\'' +
@@ -354,7 +354,7 @@ public class ProjectProperties extends AuthoredReferenceableProperties
         ProjectProperties that = (ProjectProperties) objectToCompare;
         return priority == that.priority &&
                 Objects.equals(mission, that.mission) &&
-                Objects.equals(purposes, that.purposes) &&
+                Objects.equals(dataProcessingPurposes, that.dataProcessingPurposes) &&
                 Objects.equals(successCriteria, that.successCriteria) &&
                 Objects.equals(projectPhase, that.projectPhase) &&
                 Objects.equals(projectHealth, that.projectHealth) &&
@@ -373,7 +373,7 @@ public class ProjectProperties extends AuthoredReferenceableProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), mission, purposes, successCriteria, projectPhase, projectHealth, projectStatus, priority,
+        return Objects.hash(super.hashCode(), mission, dataProcessingPurposes, successCriteria, projectPhase, projectHealth, projectStatus, priority,
                             plannedStartDate, actualStartDate, plannedCompletionDate, actualCompletionDate);
     }
 }
