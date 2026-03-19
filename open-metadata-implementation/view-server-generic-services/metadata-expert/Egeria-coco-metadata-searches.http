@@ -3,7 +3,7 @@
 # It uses the metadata from the CocoComboArchive so make sure it is loaded befor running these requests.
 
 @baseURL=https://localhost:9443
-@viewServer=qs-view-server
+@viewServer=view-server
 
 ###
 # =====================================================================================================================

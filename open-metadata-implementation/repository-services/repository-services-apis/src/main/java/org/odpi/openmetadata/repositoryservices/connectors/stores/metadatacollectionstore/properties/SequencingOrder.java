@@ -124,7 +124,7 @@ public enum SequencingOrder implements Serializable
      *
      * @return String name
      */
-    public String getName() { return name; }
+    public String getDisplayName() { return name; }
 
 
     /**

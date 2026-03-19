@@ -52,42 +52,42 @@ public class SequencingOrderTest
 
         testValue = SequencingOrder.ANY;
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = SequencingOrder.GUID;
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = SequencingOrder.CREATION_DATE_RECENT;
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = SequencingOrder.CREATION_DATE_OLDEST;
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = SequencingOrder.LAST_UPDATE_RECENT;
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = SequencingOrder.LAST_UPDATE_OLDEST;
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = SequencingOrder.PROPERTY_ASCENDING;
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
 
         testValue = SequencingOrder.PROPERTY_DESCENDING;
         assertTrue(isUniqueOrdinal(testValue.getOrdinal()));
-        assertTrue(testValue.getName() != null);
+        assertTrue(testValue.getDisplayName() != null);
         assertTrue(testValue.getDescription() != null);
     }
 

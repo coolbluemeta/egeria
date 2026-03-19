@@ -10,16 +10,21 @@ import org.odpi.openmetadata.adapters.connectors.governanceactions.stewardship.W
 import org.odpi.openmetadata.contentpacks.core.*;
 import org.odpi.openmetadata.contentpacks.core.base.ContentPackBaseArchiveWriter;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorProvider;
+import org.odpi.openmetadata.frameworks.connectors.properties.users.AccessOperation;
+import org.odpi.openmetadata.frameworks.connectors.properties.users.UserAccountStatus;
+import org.odpi.openmetadata.frameworks.connectors.properties.users.UserAccountType;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.*;
 import org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.*;
+import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.DataType;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.frameworks.opensurvey.controls.AnalysisStep;
 import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyDatabaseAnnotationType;
 import org.odpi.openmetadata.frameworks.opensurvey.controls.SurveyResourceManagerAnnotationType;
+import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.SequencingOrder;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.Classification;
 
 import java.util.*;
@@ -280,7 +285,6 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                        additionalProperties);
         }
 
-
         /*
          * Add the valid metadata values used in the projectStatus property of the Project entity.
          */
@@ -323,6 +327,142 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
         {
             this.addOpenMetadataProperty(openMetadataProperty);
         }
+
+        /*===========================================
+         * Add the open metadata enums for element headers
+         */
+        for (ElementStatus elementStatus : ElementStatus.values())
+        {
+            this.addValidMetadataValue(elementStatus.getDisplayName(),
+                                       elementStatus.getDescription(),
+                                       OpenMetadataProperty.STATUS.name,
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       elementStatus.name(),
+                                       elementStatus.ordinal());
+        }
+
+        for (ElementOriginCategory originCategory : ElementOriginCategory.values())
+        {
+            this.addValidMetadataValue(originCategory.getDisplayName(),
+                                       originCategory.getDescription(),
+                                       OpenMetadataProperty.ORIGIN_CATEGORY.name,
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       originCategory.name(),
+                                       originCategory.ordinal());
+        }
+
+        /*===========================================
+         * Add the open metadata API enums
+         */
+
+        for (SequencingOrder sequencingOrder : SequencingOrder.values())
+        {
+            this.addValidMetadataValue(sequencingOrder.getDisplayName(),
+                                       sequencingOrder.getDescription(),
+                                       OpenMetadataProperty.SEQUENCING_ORDER.name,
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       sequencingOrder.name(),
+                                       sequencingOrder.ordinal());
+        }
+
+        for (PropertyComparisonOperator operator : PropertyComparisonOperator.values())
+        {
+            this.addValidMetadataValue(operator.getDisplayName(),
+                                       operator.getDescription(),
+                                       OpenMetadataProperty.PROPERTY_COMPARISON_OPERATOR.name,
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       operator.name(),
+                                       operator.ordinal());
+        }
+
+        for (MatchCriteria matchCriteria : MatchCriteria.values())
+        {
+            this.addValidMetadataValue(matchCriteria.getDisplayName(),
+                                       matchCriteria.getDescription(),
+                                       OpenMetadataProperty.MATCH_CRITERIA.name,
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       matchCriteria.name(),
+                                       matchCriteria.ordinal());
+        }
+
+        for (EndMatchCriteria endMatchCriteria : EndMatchCriteria.values())
+        {
+            this.addValidMetadataValue(endMatchCriteria.getDisplayName(),
+                                       endMatchCriteria.getDescription(),
+                                       OpenMetadataProperty.END_MATCH_CRITERIA.name,
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       endMatchCriteria.name(),
+                                       endMatchCriteria.ordinal());
+        }
+
+
+        for (PrimitiveTypeCategory primitiveTypeCategory : PrimitiveTypeCategory.values())
+        {
+            this.addValidMetadataValue(primitiveTypeCategory.getDisplayName(),
+                                       primitiveTypeCategory.getDescription(),
+                                       OpenMetadataProperty.PRIMITIVE_TYPE_CATEGORY.name,
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       primitiveTypeCategory.name(),
+                                       primitiveTypeCategory.ordinal());
+        }
+
+        /*===========================================
+         * Add the open connector framework user account/secret store enums
+         */
+
+        for (AccessOperation accessOperation : AccessOperation.values())
+        {
+            this.addValidMetadataValue(accessOperation.getName(),
+                                       accessOperation.getDescription(),
+                                       OpenMetadataProperty.OPERATION_NAME.name,
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       accessOperation.name(),
+                                       accessOperation.ordinal());
+        }
+
+        for (UserAccountStatus userAccountStatus : UserAccountStatus.values())
+        {
+            this.addValidMetadataValue(userAccountStatus.getName(),
+                                       userAccountStatus.getDescription(),
+                                       "userAccountStatus",
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       userAccountStatus.name(),
+                                       userAccountStatus.ordinal());
+        }
+
+        for (UserAccountType userAccountType : UserAccountType.values())
+        {
+            this.addValidMetadataValue(userAccountType.getName(),
+                                       userAccountType.getDescription(),
+                                       "userAccountType",
+                                       DataType.STRING.getDisplayName(),
+                                       null,
+                                       null,
+                                       userAccountType.name(),
+                                       userAccountType.ordinal());
+        }
+
+        /*===========================================
+         * Add the report spec enums
+         */
 
         /*===========================================
          * Add the open metadata type enums

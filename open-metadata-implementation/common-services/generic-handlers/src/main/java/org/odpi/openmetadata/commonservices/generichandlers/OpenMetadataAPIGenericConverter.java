@@ -3,8 +3,8 @@
 package org.odpi.openmetadata.commonservices.generichandlers;
 
 import org.odpi.openmetadata.commonservices.generichandlers.ffdc.GenericHandlersErrorCode;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementOriginCategory;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementStatus;
+import org.odpi.openmetadata.frameworks.openmetadata.search.ElementOriginCategory;
+import org.odpi.openmetadata.frameworks.openmetadata.search.ElementStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.*;

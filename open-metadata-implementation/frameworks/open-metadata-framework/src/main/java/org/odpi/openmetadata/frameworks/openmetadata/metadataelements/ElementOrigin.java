@@ -5,7 +5,7 @@ package org.odpi.openmetadata.frameworks.openmetadata.metadataelements;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementOriginCategory;
+import org.odpi.openmetadata.frameworks.openmetadata.search.ElementOriginCategory;
 
 import java.util.Objects;
 

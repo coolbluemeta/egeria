@@ -34,7 +34,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderPropert
 import org.odpi.openmetadata.frameworks.openmetadata.enums.CapabilityAssetUseType;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.topics.TopicProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.lineage.DataFlowProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementOriginCategory;
+import org.odpi.openmetadata.frameworks.openmetadata.search.ElementOriginCategory;
 import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataEventListener;
 import org.odpi.openmetadata.frameworks.openmetadata.events.OpenMetadataOutTopicEvent;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;

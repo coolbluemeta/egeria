@@ -5,6 +5,7 @@ package org.odpi.openmetadata.frameworks.openmetadata.types;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.*;
 import org.odpi.openmetadata.frameworks.openmetadata.mapper.OpenMetadataValidValues;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.*;
+import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 
 
 /**
@@ -86,13 +87,47 @@ public enum OpenMetadataProperty
     /**
      * Status of this instance. Values from the Instance Status enum. (use only for ordering results),
      */
-    CURRENT_STATUS("currentStatus", DataType.STRING, DataType.STRING.getDisplayName(), "Status of this instance. Values from the Instance Status enum.", "Active", "de25c3fb-5061-4f3e-bd7d-29c1cd2c112f"),
+    STATUS("status", DataType.STRING, DataType.STRING.getDisplayName(), "Status of this instance. Values from the Instance Status enum.", ElementStatus.ACTIVE.name(), "de25c3fb-5061-4f3e-bd7d-29c1cd2c112f"),
 
     /**
      * Name of an open metadata type. (Use only for ordering results).
      */
     OPEN_METADATA_TYPE_NAME("typeName", DataType.STRING, DataType.STRING.getDisplayName(), "Name of an open metadata type.", "Asset", "a7eabe8c-d0c6-4785-86b3-f2bc310ec712"),
 
+
+    /* ======================================================
+     * These values are properties passed on the API
+     */
+
+    /**
+     * The order that the results should be sequenced.
+     */
+    SEQUENCING_ORDER("sequencingOrder", DataType.STRING, DataType.STRING.getDisplayName(), "The order that the results should be sequenced.", SequencingOrder.ANY.name(), "4a74e40e-5677-4406-a2b8-d6a0cf4fefa9"),
+
+    /**
+     * Defines how the properties should be compared to find a matching result.
+     */
+    PROPERTY_COMPARISON_OPERATOR("operator", DataType.STRING, DataType.STRING.getDisplayName(), "Defines how the properties should be compared to find a matching result.", PropertyComparisonOperator.CASE_INSENSITIVE_NOT_LIKE.name(), "808c5014-0f09-4f0e-80e7-d5b21f37a515"),
+
+    /**
+     * Defines how the results of the search should be combined.
+     */
+    MATCH_CRITERIA("matchCriteria", DataType.STRING, DataType.STRING.getDisplayName(), "Defines how the results of the search should be combined.", MatchCriteria.ALL.name(), "75bb801c-aa5a-4859-9b62-774c0c36a9cc"),
+
+    /**
+     * Defines how the results of the relationship end search should be combined.
+     */
+    END_MATCH_CRITERIA("endMatchCriteria", DataType.STRING, DataType.STRING.getDisplayName(), "Defines how the results of the relationship end search should be combined.", EndMatchCriteria.BOTH.name(), "486714aa-9f6d-404c-acdb-e9ca9d7a05d0"),
+
+    /**
+     * The type of origin for this element.
+     */
+    ORIGIN_CATEGORY("originCategory", DataType.STRING, DataType.STRING.getDisplayName(), "The type of origin for this element.", ElementOriginCategory.CONTENT_PACK.name(), "e596aeb5-c2d8-4a1b-91c0-0815b12ed5aa"),
+
+    /**
+     * The category of a primitive type.
+     */
+    PRIMITIVE_TYPE_CATEGORY("primitiveTypeCategory", DataType.STRING, DataType.STRING.getDisplayName(), "The category of a primitive type.", PrimitiveTypeCategory.OM_PRIMITIVE_TYPE_STRING.name(), "87618696-b6f7-4f91-84d7-a7cab55d00e2"),
 
     /* ======================================================
      * These values are attributes defined in the type system.
@@ -1142,7 +1177,7 @@ public enum OpenMetadataProperty
     /**
      * The latest version of the element in the external system.
      */
-    EXT_INSTANCE_VERSION("externalInstanceVersion" , DataType.LONG, DataType.LONG.getDisplayName(), "The latest version of the element in the external system.", null, "349199e2-5781-4413-8550-c85241e20cc5"),
+    EXT_INSTANCE_VERSION("externalInstanceVersion", DataType.LONG, DataType.LONG.getDisplayName(), "The latest version of the element in the external system.", null, "349199e2-5781-4413-8550-c85241e20cc5"),
 
     /**
      * Additional properties to aid the mapping to the element in an external resource.
@@ -1342,12 +1377,12 @@ public enum OpenMetadataProperty
     /**
      * Defines the current status of the content of an authored referenceable.
      */
-    CONTENT_STATUS("contentStatus", DataType.STRING, ContentStatus.getOpenTypeName(), ContentStatus.getOpenTypeDescription(), ContentStatus.ACTIVE.getDisplayName(), "c8e1b691-889d-467c-b551-df080cecf34f"),
+    CONTENT_STATUS("contentStatus", DataType.STRING, ContentStatus.getOpenTypeName(), ContentStatus.getOpenTypeDescription(), ContentStatus.ACTIVE.name(), "c8e1b691-889d-467c-b551-df080cecf34f"),
 
     /**
      * Defines the current status of the content of an infrastructure element.
      */
-    DEPLOYMENT_STATUS("deploymentStatus", DataType.STRING, DeploymentStatus.getOpenTypeName(), DeploymentStatus.getOpenTypeDescription(), DeploymentStatus.ACTIVE.getDisplayName(), "564a14c1-ff1b-45c7-a96c-caf632383e09"),
+    DEPLOYMENT_STATUS("deploymentStatus", DataType.STRING, DeploymentStatus.getOpenTypeName(), DeploymentStatus.getOpenTypeDescription(), DeploymentStatus.ACTIVE.name(), "564a14c1-ff1b-45c7-a96c-caf632383e09"),
 
     /**
      * The name to identify the action target to the actor that processes it.
@@ -1357,7 +1392,7 @@ public enum OpenMetadataProperty
     /**
      * Different types of activities.
      */
-    ACTIVITY_TYPE("type", DataType.STRING, ActivityType.getOpenTypeName(), ActivityType.getOpenTypeDescription(), ActivityType.PROJECT.getDisplayName(), "6949c588-d7ab-441f-be03-a97b1dc2900b"),
+    ACTIVITY_TYPE("type", DataType.STRING, ActivityType.getOpenTypeName(), ActivityType.getOpenTypeDescription(), ActivityType.PROJECT.name(), "6949c588-d7ab-441f-be03-a97b1dc2900b"),
 
     /**
      * Defines the confidence in the assigned relationship.
@@ -2063,7 +2098,7 @@ public enum OpenMetadataProperty
     /**
      * Locale for the translation.
      */
-    LOCALE("locale", DataType.STRING, DataType.STRING.getDisplayName(), "Locale for the translation." , null, "576520c5-0ac8-48dd-882c-4cd692bc84df"),
+    LOCALE("locale", DataType.STRING, DataType.STRING.getDisplayName(), "Locale for the translation.", null, "576520c5-0ac8-48dd-882c-4cd692bc84df"),
 
     /**
      * Translations of other string properties found in the linked entity.
@@ -2377,7 +2412,7 @@ public enum OpenMetadataProperty
      */
     TRANSFORMATION("transformation", DataType.STRING, DataType.STRING.getDisplayName(), "Transformation process used to create the refinement.", null, "b2fa3b21-a298-4007-992f-07b3215ba698"),
 
-   /**
+    /**
      * Which way is data flowing?
      */
     DIRECTION("direction", DataType.STRING, SolutionPortDirection.getOpenTypeName(), "Which way is data flowing?", SolutionPortDirection.INPUT.getDisplayName(), "0c42037e-0e69-40dc-b8f8-d9ccd4a0d315"),
@@ -2664,7 +2699,7 @@ public enum OpenMetadataProperty
     ORDINAL("ordinal", DataType.INT, DataType.INT.getDisplayName(), "A number used to provide an order to the values in a set.", null, "672c36b0-cea0-418c-ad57-fd26dfedd224"),
 
     /**
-     *  Is the member the default value in the set?
+     * Is the member the default value in the set?
      */
     IS_DEFAULT_VALUE("isDefaultValue", DataType.BOOLEAN, DataType.BOOLEAN.getDisplayName(), "Is the member the default value in the set?", null, "b6c3a286-dc8a-4a2f-a7ab-d9117f53ec9e"),
 
@@ -2681,7 +2716,7 @@ public enum OpenMetadataProperty
     /**
      * Brief description describing how they are related.
      */
-    ASSOCIATION_DESCRIPTION("associationDescription", DataType.STRING, DataType.STRING.getDisplayName(), "Brief description describing how they are related." , null, "61c19bbd-3603-498c-b03d-b9add5cdf2c4"),
+    ASSOCIATION_DESCRIPTION("associationDescription", DataType.STRING, DataType.STRING.getDisplayName(), "Brief description describing how they are related.", null, "61c19bbd-3603-498c-b03d-b9add5cdf2c4"),
 
     /**
      * Additional values for additional columns or fields in the reference data store.
@@ -2756,7 +2791,7 @@ public enum OpenMetadataProperty
     /**
      * The algorithm use to generate the hash.
      */
-    HASH_ALGORITHM("hashAlgorithm", DataType.STRING, DataType.STRING.getDisplayName(), "The algorithm use to generate the hash." , null, "d838386e-e1ad-4a9c-b33c-dde3240a7c08"),
+    HASH_ALGORITHM("hashAlgorithm", DataType.STRING, DataType.STRING.getDisplayName(), "The algorithm use to generate the hash.", null, "d838386e-e1ad-4a9c-b33c-dde3240a7c08"),
 
     /**
      * Description of the background cause or activity.
@@ -3016,12 +3051,12 @@ public enum OpenMetadataProperty
      * @param example         an example of a value for this property
      * @param descriptionGUID unique identifier of the valid value describing this property
      */
-    OpenMetadataProperty(String   name,
+    OpenMetadataProperty(String name,
                          DataType dataType,
-                         String   type,
-                         String   description,
-                         String   example,
-                         String   descriptionGUID)
+                         String type,
+                         String description,
+                         String example,
+                         String descriptionGUID)
     {
         this.name            = name;
         this.dataType        = dataType;

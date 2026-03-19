@@ -11,7 +11,7 @@ import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedExceptio
 import org.odpi.openmetadata.frameworks.openmetadata.connectorcontext.ClassificationManagerClient;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.OpenMetadataRootElement;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.SequencingOrder;
+import org.odpi.openmetadata.frameworks.openmetadata.search.SequencingOrder;
 import org.odpi.openmetadata.frameworks.openmetadata.search.SearchOptions;
 
 import java.util.ArrayList;
