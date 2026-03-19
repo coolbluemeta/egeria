@@ -565,31 +565,6 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
 
 
     /**
-     * Determine the appropriate setting for the supported zones depending on the user and the
-     * default supported zones set up for the service.  This is called whenever an element is accessed.
-     *
-     * @param supportedZones default setting of the supported zones
-     * @param typeName type of the element
-     * @param serviceName name of the called service
-     * @param userId name of the user
-     *
-     * @return list of supported zones for the user
-     * @throws InvalidParameterException one of the parameter values is invalid
-     * @throws PropertyServerException a problem calculating the zones
-     * @throws UserNotAuthorizedException unknown user
-     */
-    public List<String> getSupportedZonesForUser(List<String>  supportedZones,
-                                                 String        typeName,
-                                                 String        serviceName,
-                                                 String        userId) throws InvalidParameterException,
-                                                                              PropertyServerException,
-                                                                              UserNotAuthorizedException
-    {
-        return supportedZones;
-    }
-
-
-    /**
      * Determine the appropriate setting for the default zones depending on the user and the
      * default zones set up for the service.  This is called whenever an element is created.
      *
@@ -669,9 +644,13 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to access this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    public void  validateUserForNewServer(String   userId) throws UserNotAuthorizedException
+    public void  validateUserForNewServer(String userId) throws UserNotAuthorizedException,
+                                                                InvalidParameterException,
+                                                                PropertyServerException
     {
         final String methodName = "validateUserForNewServer";
         final String requestType = "NewServer";
@@ -685,9 +664,13 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue operator commands to this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    public void  validateUserAsOperatorForPlatform(String   userId) throws UserNotAuthorizedException
+    public void  validateUserAsOperatorForPlatform(String   userId) throws UserNotAuthorizedException,
+                                                                           InvalidParameterException,
+                                                                           PropertyServerException
     {
         final String methodName = "validateUserAsOperatorForPlatform";
         final String requestType = "Operator";
@@ -701,9 +684,13 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue diagnostic commands to this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    public void  validateUserAsInvestigatorForPlatform(String   userId) throws UserNotAuthorizedException
+    public void  validateUserAsInvestigatorForPlatform(String   userId) throws UserNotAuthorizedException,
+                                                                               InvalidParameterException,
+                                                                               PropertyServerException
     {
         final String methodName = "validateUserAsInvestigatorForPlatform";
         final String requestType = "Investigator";
@@ -717,9 +704,13 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to access this function
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    protected void validateUserForServer(String   userId) throws UserNotAuthorizedException
+    protected void validateUserForServer(String   userId) throws UserNotAuthorizedException,
+                                                                 InvalidParameterException,
+                                                                 PropertyServerException
     {
         final String  methodName = "validateUserForServer";
 
@@ -732,9 +723,13 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to change configuration
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    protected void  validateUserAsServerAdmin(String   userId) throws UserNotAuthorizedException
+    protected void  validateUserAsServerAdmin(String   userId) throws UserNotAuthorizedException,
+                                                                      InvalidParameterException,
+                                                                      PropertyServerException
     {
         final String  methodName = "validateUserAsServerAdmin";
         final String  serviceName = "Administration Services";
@@ -749,9 +744,13 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue operator commands to this server
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    protected void  validateUserAsServerOperator(String   userId) throws UserNotAuthorizedException
+    protected void  validateUserAsServerOperator(String   userId) throws UserNotAuthorizedException,
+                                                                         InvalidParameterException,
+                                                                         PropertyServerException
     {
         final String  methodName = "validateUserAsServerOperator";
         final String  serviceName = "Administration Services";
@@ -766,9 +765,13 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue diagnostic commands to this server
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    protected void  validateUserAsServerInvestigator(String   userId) throws UserNotAuthorizedException
+    protected void  validateUserAsServerInvestigator(String   userId) throws UserNotAuthorizedException,
+                                                                             PropertyServerException,
+                                                                             InvalidParameterException
     {
         final String  methodName = "validateUserAsServerInvestigator";
         final String  serviceName = "Administration Services";
@@ -784,10 +787,14 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId calling user
      * @param serviceName name of called service
      *
-     * @throws UserNotAuthorizedException the user is not authorized to access this service
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForService(String   userId,
-                                           String   serviceName) throws UserNotAuthorizedException
+                                           String   serviceName) throws UserNotAuthorizedException,
+                                                                        InvalidParameterException,
+                                                                        PropertyServerException
     {
         final String  methodName = "validateUserForService";
         final String  serviceOperationName = "any";
@@ -803,11 +810,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param serviceName name of called service
      * @param serviceOperationName name of called operation
      *
-     * @throws UserNotAuthorizedException the user is not authorized to access this service
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForServiceOperation(String   userId,
                                                     String   serviceName,
-                                                    String   serviceOperationName) throws UserNotAuthorizedException
+                                                    String   serviceOperationName) throws UserNotAuthorizedException,
+                                                                                          InvalidParameterException,
+                                                                                          PropertyServerException
     {
         final String  methodName = "validateUserForServiceOperation";
 
@@ -821,11 +832,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForTypeCreate(String     userId,
                                               String     metadataCollectionName,
-                                              TypeDef    typeDef) throws UserNotAuthorizedException
+                                              TypeDef    typeDef) throws UserNotAuthorizedException,
+                                                                         InvalidParameterException,
+                                                                         PropertyServerException
     {
         final String  methodName = "validateUserForTypeCreate";
 
@@ -850,11 +865,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param attributeTypeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForTypeCreate(String              userId,
                                               String              metadataCollectionName,
-                                              AttributeTypeDef    attributeTypeDef) throws UserNotAuthorizedException
+                                              AttributeTypeDef    attributeTypeDef) throws UserNotAuthorizedException,
+                                                                                           InvalidParameterException,
+                                                                                           PropertyServerException
     {
         final String  methodName = "validateUserForTypeCreate";
 
@@ -879,11 +898,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef  type details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForTypeRead(String       userId,
                                             String       metadataCollectionName,
-                                            TypeDef      typeDef) throws UserNotAuthorizedException
+                                            TypeDef      typeDef) throws UserNotAuthorizedException,
+                                                                         InvalidParameterException,
+                                                                         PropertyServerException
     {
         final String  methodName = "validateUserForTypeRead";
 
@@ -908,11 +931,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param attributeTypeDef  type details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForTypeRead(String                userId,
                                             String                metadataCollectionName,
-                                            AttributeTypeDef      attributeTypeDef) throws UserNotAuthorizedException
+                                            AttributeTypeDef      attributeTypeDef) throws UserNotAuthorizedException,
+                                                                                           InvalidParameterException,
+                                                                                           PropertyServerException
     {
         final String  methodName = "validateUserForTypeRead";
 
@@ -938,12 +965,16 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef current typeDef details
      * @param patch proposed changes to type
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForTypeUpdate(String       userId,
                                               String       metadataCollectionName,
                                               TypeDef      typeDef,
-                                              TypeDefPatch patch) throws UserNotAuthorizedException
+                                              TypeDefPatch patch) throws UserNotAuthorizedException,
+                                                                         InvalidParameterException,
+                                                                         PropertyServerException
     {
         final String  methodName = "validateUserForTypeUpdate";
 
@@ -968,11 +999,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForTypeDelete(String     userId,
                                               String     metadataCollectionName,
-                                              TypeDef    typeDef) throws UserNotAuthorizedException
+                                              TypeDef    typeDef) throws UserNotAuthorizedException,
+                                                                         InvalidParameterException,
+                                                                         PropertyServerException
     {
         final String  methodName = "validateUserForTypeDelete";
 
@@ -997,11 +1032,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param attributeTypeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForTypeDelete(String           userId,
                                               String           metadataCollectionName,
-                                              AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException
+                                              AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException,
+                                                                                        InvalidParameterException,
+                                                                                        PropertyServerException
     {
         final String  methodName = "validateUserForTypeDelete";
 
@@ -1028,13 +1067,17 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param originalTypeDef type details
      * @param newTypeDefGUID the new identifier for the type.
      * @param newTypeDefName new name for this type.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForTypeReIdentify(String  userId,
                                                   String  metadataCollectionName,
                                                   TypeDef originalTypeDef,
                                                   String  newTypeDefGUID,
-                                                  String  newTypeDefName) throws UserNotAuthorizedException
+                                                  String  newTypeDefName) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException
     {
         final String  methodName = "validateUserForTypeReIdentify";
 
@@ -1061,13 +1104,17 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param originalAttributeTypeDef type details
      * @param newTypeDefGUID the new identifier for the type.
      * @param newTypeDefName new name for this type.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForTypeReIdentify(String           userId,
                                                   String           metadataCollectionName,
                                                   AttributeTypeDef originalAttributeTypeDef,
                                                   String           newTypeDefGUID,
-                                                  String           newTypeDefName) throws UserNotAuthorizedException
+                                                  String           newTypeDefName) throws UserNotAuthorizedException,
+                                                                                          InvalidParameterException,
+                                                                                          PropertyServerException
     {
         final String  methodName = "validateUserForTypeReIdentify";
 
@@ -1098,14 +1145,18 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param initialProperties initial list of properties for the new entity null means no properties.
      * @param initialClassifications initial list of classifications for the new entity null means no classifications.
      * @param initialStatus initial status typically ACTIVE.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityCreate(String                     userId,
                                                 String                     metadataCollectionName,
                                                 String                     entityTypeGUID,
                                                 InstanceProperties         initialProperties,
                                                 List<Classification>       initialClassifications,
-                                                InstanceStatus             initialStatus) throws UserNotAuthorizedException
+                                                InstanceStatus             initialStatus) throws UserNotAuthorizedException,
+                                                                                                 InvalidParameterException,
+                                                                                                 PropertyServerException
     {
         final String  methodName = "validateUserForEntityCreate";
 
@@ -1120,11 +1171,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @return entity to return (maybe altered by the connector)
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected EntityDetail  validateUserForEntityRead(String          userId,
                                                       String          metadataCollectionName,
-                                                      EntityDetail    instance) throws UserNotAuthorizedException
+                                                      EntityDetail    instance) throws UserNotAuthorizedException,
+                                                                                       InvalidParameterException,
+                                                                                       PropertyServerException
     {
         final String  methodName = "validateUserForEntityRead";
 
@@ -1150,11 +1205,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntitySummaryRead(String        userId,
                                                      String        metadataCollectionName,
-                                                     EntitySummary instance) throws UserNotAuthorizedException
+                                                     EntitySummary instance) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException
     {
         final String  methodName = "validateUserForEntitySummaryRead";
 
@@ -1177,11 +1236,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityProxyRead(String      userId,
                                                    String      metadataCollectionName,
-                                                   EntityProxy instance) throws UserNotAuthorizedException
+                                                   EntityProxy instance) throws UserNotAuthorizedException,
+                                                                                InvalidParameterException,
+                                                                                PropertyServerException
     {
         final String  methodName = "validateUserForEntityProxyRead";
 
@@ -1205,11 +1268,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityUpdate(String          userId,
                                                 String          metadataCollectionName,
-                                                EntityDetail    instance) throws UserNotAuthorizedException
+                                                EntityDetail    instance) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException
     {
         final String  methodName = "validateUserForEntityUpdate";
 
@@ -1235,13 +1302,17 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param instance instance details
      * @param classificationName String name for the classification.
      * @param properties list of properties for the classification.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityClassificationAdd(String               userId,
                                                            String               metadataCollectionName,
                                                            EntitySummary        instance,
                                                            String               classificationName,
-                                                           InstanceProperties   properties) throws UserNotAuthorizedException
+                                                           InstanceProperties   properties) throws UserNotAuthorizedException,
+                                                                                                   InvalidParameterException,
+                                                                                                   PropertyServerException
     {
         final String  methodName = "validateUserForEntityClassificationAdd";
 
@@ -1267,13 +1338,17 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param instance instance details
      * @param classificationName String name for the classification.
      * @param properties list of properties for the classification.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityClassificationUpdate(String               userId,
                                                               String               metadataCollectionName,
                                                               EntitySummary        instance,
                                                               String               classificationName,
-                                                              InstanceProperties   properties) throws UserNotAuthorizedException
+                                                              InstanceProperties   properties) throws UserNotAuthorizedException,
+                                                                                                      InvalidParameterException,
+                                                                                                      PropertyServerException
     {
         final String  methodName = "validateUserForEntityClassificationUpdate";
 
@@ -1298,12 +1373,16 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param classificationName String name for the classification.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityClassificationDelete(String               userId,
                                                               String               metadataCollectionName,
                                                               EntitySummary        instance,
-                                                              String               classificationName) throws UserNotAuthorizedException
+                                                              String               classificationName) throws UserNotAuthorizedException,
+                                                                                                              InvalidParameterException,
+                                                                                                              PropertyServerException
     {
         final String  methodName = "validateUserForEntityClassificationDelete";
 
@@ -1326,11 +1405,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityDelete(String       userId,
                                                 String       metadataCollectionName,
-                                                EntityDetail instance) throws UserNotAuthorizedException
+                                                EntityDetail instance) throws UserNotAuthorizedException,
+                                                                              InvalidParameterException,
+                                                                              PropertyServerException
     {
         final String  methodName = "validateUserForEntityDelete";
 
@@ -1353,11 +1436,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param deletedEntityGUID String unique identifier (guid) for the entity.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityRestore(String       userId,
                                                  String       metadataCollectionName,
-                                                 String       deletedEntityGUID) throws UserNotAuthorizedException
+                                                 String       deletedEntityGUID) throws UserNotAuthorizedException,
+                                                                                        InvalidParameterException,
+                                                                                        PropertyServerException
     {
         final String  methodName = "validateUserForEntityRestore";
 
@@ -1372,12 +1459,16 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newGUID the new guid for the instance.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityReIdentification(String       userId,
                                                           String       metadataCollectionName,
                                                           EntityDetail instance,
-                                                          String       newGUID) throws UserNotAuthorizedException
+                                                          String       newGUID) throws UserNotAuthorizedException,
+                                                                                       InvalidParameterException,
+                                                                                       PropertyServerException
     {
         final String  methodName = "validateUserForEntityReIdentification";
 
@@ -1404,12 +1495,16 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newTypeDefSummary details of this instance's new TypeDef.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityReTyping(String         userId,
                                                   String         metadataCollectionName,
                                                   EntityDetail   instance,
-                                                  TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException
+                                                  TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException,
+                                                                                           InvalidParameterException,
+                                                                                           PropertyServerException
     {
         final String  methodName = "validateUserForEntityReTyping";
 
@@ -1437,13 +1532,17 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param instance instance details
      * @param newHomeMetadataCollectionId unique identifier for the new home metadata collection/repository.
      * @param newHomeMetadataCollectionName display name for the new home metadata collection/repository.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForEntityReHoming(String         userId,
                                                   String         metadataCollectionName,
                                                   EntityDetail   instance,
                                                   String         newHomeMetadataCollectionId,
-                                                  String         newHomeMetadataCollectionName) throws UserNotAuthorizedException
+                                                  String         newHomeMetadataCollectionName) throws UserNotAuthorizedException,
+                                                                                                       InvalidParameterException,
+                                                                                                       PropertyServerException
     {
         final String  methodName = "validateUserForEntityReHoming";
 
@@ -1473,7 +1572,9 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param entityOneSummary the unique identifier of one of the entities that the relationship is connecting together.
      * @param entityTwoSummary the unique identifier of the other entity that the relationship is connecting together.
      * @param initialStatus initial status typically ACTIVE.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForRelationshipCreate(String               userId,
                                                       String               metadataCollectionName,
@@ -1481,7 +1582,9 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
                                                       InstanceProperties   initialProperties,
                                                       EntitySummary        entityOneSummary,
                                                       EntitySummary        entityTwoSummary,
-                                                      InstanceStatus       initialStatus) throws UserNotAuthorizedException
+                                                      InstanceStatus       initialStatus) throws UserNotAuthorizedException,
+                                                                                                 InvalidParameterException,
+                                                                                                 PropertyServerException
     {
         final String  methodName = "validateUserForRelationshipCreate";
 
@@ -1496,11 +1599,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @return relationship
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected Relationship validateUserForRelationshipRead(String       userId,
                                                            String       metadataCollectionName,
-                                                           Relationship instance) throws UserNotAuthorizedException
+                                                           Relationship instance) throws UserNotAuthorizedException,
+                                                                                         InvalidParameterException,
+                                                                                         PropertyServerException
     {
         final String  methodName = "validateUserForRelationshipRead";
 
@@ -1525,11 +1632,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void validateUserForRelationshipUpdate(String        userId,
                                                      String        metadataCollectionName,
-                                                     Relationship  instance) throws UserNotAuthorizedException
+                                                     Relationship  instance) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException
     {
         final String  methodName = "validateUserForRelationshipUpdate";
 
@@ -1552,11 +1663,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForRelationshipDelete(String       userId,
                                                       String       metadataCollectionName,
-                                                      Relationship instance) throws UserNotAuthorizedException
+                                                      Relationship instance) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException
     {
         final String  methodName = "validateUserForRelationshipDelete";
 
@@ -1579,11 +1694,15 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param deletedRelationshipGUID String unique identifier (guid) for the relationship.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForRelationshipRestore(String       userId,
                                                        String       metadataCollectionName,
-                                                       String       deletedRelationshipGUID) throws UserNotAuthorizedException
+                                                       String       deletedRelationshipGUID) throws UserNotAuthorizedException,
+                                                                                                    InvalidParameterException,
+                                                                                                    PropertyServerException
     {
         final String  methodName = "validateUserForRelationshipRestore";
 
@@ -1598,12 +1717,16 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newGUID the new guid for the instance.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForRelationshipReIdentification(String       userId,
                                                                 String       metadataCollectionName,
                                                                 Relationship instance,
-                                                                String       newGUID) throws UserNotAuthorizedException
+                                                                String       newGUID) throws UserNotAuthorizedException,
+                                                                                             InvalidParameterException,
+                                                                                             PropertyServerException
     {
         final String  methodName = "validateUserForRelationshipReIdentification";
 
@@ -1630,12 +1753,16 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newTypeDefSummary details of this instance's new TypeDef.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForRelationshipReTyping(String         userId,
                                                         String         metadataCollectionName,
                                                         Relationship   instance,
-                                                        TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException
+                                                        TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException,
+                                                                                                 InvalidParameterException,
+                                                                                                 PropertyServerException
     {
         final String  methodName = "validateUserForRelationshipReTyping";
 
@@ -1663,13 +1790,17 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
      * @param instance instance details
      * @param newHomeMetadataCollectionId unique identifier for the new home metadata collection/repository.
      * @param newHomeMetadataCollectionName display name for the new home metadata collection/repository.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     protected void  validateUserForRelationshipReHoming(String         userId,
                                                         String         metadataCollectionName,
                                                         Relationship   instance,
                                                         String         newHomeMetadataCollectionId,
-                                                        String         newHomeMetadataCollectionName) throws UserNotAuthorizedException
+                                                        String         newHomeMetadataCollectionName) throws UserNotAuthorizedException,
+                                                                                                             InvalidParameterException,
+                                                                                                             PropertyServerException
     {
         final String  methodName = "validateUserForRelationshipReHoming";
 

@@ -10,16 +10,6 @@ package org.odpi.openmetadata.samples.archiveutilities.governanceprogram;
 public enum CocoGovernanceZoneDefinition
 {
     /**
-     * personal-files
-     */
-    PERSONAL(   "personal-files",
-                "Personal Files Zone",
-                "Assets that are for an individual's use.  Initially the creator of the asset is the owner. " +
-                      "This person can reassign the asset to additional zones to increase its visibility or " +
-                      "reassign the ownership.",
-                "Assets that should only be visible and editable to the owner."),
-
-    /**
      * quarantine
      */
     QUARANTINE( "quarantine",
@@ -27,7 +17,6 @@ public enum CocoGovernanceZoneDefinition
                 "Resources from third parties that are being evaluated by the onboarding team. " +
                         "The assets will move into the other zones once the asset has been catalogued and classified.",
                 "Data sets just received and have not yet been properly catalogued."),
-
 
     /**
      * landing-area
@@ -43,7 +32,7 @@ public enum CocoGovernanceZoneDefinition
      */
     DATA_LAKE( "data-lake",
                 "Data Lake Zone",
-                "Assets for sharing that are read only.",
+                "Resources for sharing that are read only.",
                 "These are production assets that can be used for business decisions."),
 
     /**
@@ -52,7 +41,7 @@ public enum CocoGovernanceZoneDefinition
     RESEARCH( "research",
                 "Research Zone",
                 "Research data sets and findings",
-                "Assets that are driving the development of new products and techniques."),
+                "Resources that are driving the development of new products and techniques."),
 
     /**
      * clinical-trials
@@ -62,14 +51,14 @@ public enum CocoGovernanceZoneDefinition
                 "Patient data, protocols, outcomes and analysis used within a clinical trial." +
                              "This data is highly confidential and has restricted access.  It is also subject " +
                              "to the data management requirements of the regulators.",
-                "Asset supporting the clinical trials."),
+                "Assets supporting the clinical trials."),
 
     /**
      * human-resources
      */
     HUMAN_RESOURCES( "human-resources",
                 "Human Resources (Personnel) Zone",
-                "Assets used to manage and support employees of Coco Pharmaceuticals.",
+                "Resources used to manage and support employees of Coco Pharmaceuticals.",
                 "Assets controlled by the HR and management teams."),
 
     /**
@@ -77,25 +66,25 @@ public enum CocoGovernanceZoneDefinition
      */
     FINANCE( "finance",
                 "Finance Zone",
-                "Assets that support the financial management of Coco Pharmaceuticals.",
-                "Assets controlled by the finance team."),
+                "Resources that support the financial management of Coco Pharmaceuticals.",
+                "Resources controlled by the finance team."),
 
     /**
      * infrastructure
      */
     INFRASTRUCTURE("infrastructure",
                 "IT Infrastructure Zone",
-                "Assets that describe the IT infrastructure such as hosts, servers, applications, " +
+                "Resources that describe the IT infrastructure such as hosts, servers, applications, " +
                             "databases and network infrastructure descriptions.",
-                "Assets controlled by the IT Infrastructure team."),
+                "Resources controlled by the IT Infrastructure team."),
 
     /**
      * development
      */
-    DEVELOPMENT("development",
-                "Development and DevOps Zone",
-                "Software development components and assets that support their ongoing development.",
-                "Software development and devops assets."),
+    DEVELOPMENT("it-development",
+                "IT Development and DevOps Zone",
+                "Software components and assets that support their ongoing development.",
+                "Software development and dev-ops resources."),
 
     /**
      * manufacturing
@@ -103,7 +92,7 @@ public enum CocoGovernanceZoneDefinition
     MANUFACTURING( "manufacturing",
                 "Supply, Manufacturing and Distribution Zone",
                 "Suppliers, manufacturing infrastructure, schedules and outputs.",
-                "These are the assets that support the production of Coco Pharmaceutical's products."),
+                "These are the resources that support the production of Coco Pharmaceutical's products."),
 
     /**
      * sales
@@ -111,7 +100,7 @@ public enum CocoGovernanceZoneDefinition
     SALES(      "sales",
                 "Sales Zone",
                 "Customers, sales plans, orders and fulfilment tracking.",
-                "Assets supported by the sales teams."),
+                "Resources supported by the sales teams."),
 
     /**
      * governance
@@ -119,22 +108,14 @@ public enum CocoGovernanceZoneDefinition
     GOVERNANCE( "governance",
                 "Governance Zone",
                 "Governance definitions, monitoring and reporting assets.",
-                "Assets that support the governance team"),
-
-    /**
-     * trash-can
-     */
-    TRASH_CAN(  "trash-can",
-                "Trash Can Zone",
-                "Asset that are in a holding zone ready to be deleted.",
-                "Assets that are no longer required."),
+                "Resources that support the governance team"),
 
     /**
      * sustainability
      */
     SUSTAINABILITY("sustainability",
                    "Sustainability Reporting",
-                   "Assets used to build reports that illustrate the status of Coco Pharmaceutical's greenhouse gas emissions and sustainability initiatives.",
+                   "Resources used to build reports that illustrate the status of Coco Pharmaceuticals' greenhouse gas emissions and sustainability initiatives.",
                    "Activity data that relates to sustainability"),
 ;
 

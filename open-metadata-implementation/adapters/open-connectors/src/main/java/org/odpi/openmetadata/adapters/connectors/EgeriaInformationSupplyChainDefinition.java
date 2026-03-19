@@ -79,7 +79,7 @@ public enum EgeriaInformationSupplyChainDefinition
     private final String                                 displayName;
     private final String                                 description;
     private final ScopeDefinition                        scope;
-    private final String[]                               purposes;
+    private final String[]                               dataProcessingPurposes;
     private final String                                 ownerGUID;
     private final EgeriaInformationSupplyChainDefinition owningSupplyChain;
     private final boolean                                isOwningInformationSupplyChainAnchor;
@@ -97,7 +97,7 @@ public enum EgeriaInformationSupplyChainDefinition
      * @param displayName display name of information supply chain
      * @param description description of information supply chain
      * @param scope scope of information supply chain
-     * @param purposes purposes of information supply chain
+     * @param dataProcessingPurposes purposes of information supply chain
      * @param ownerGUID identifier of owner
      * @param owningSupplyChain the parent information supply chain
      * @param isOwningInformationSupplyChainAnchor should the parent supply chain (if any) bee this information supply chain's anchor?
@@ -107,7 +107,7 @@ public enum EgeriaInformationSupplyChainDefinition
                                            String                 displayName,
                                            String                 description,
                                            ScopeDefinition        scope,
-                                           String[]               purposes,
+                                           String[]               dataProcessingPurposes,
                                            String                 ownerGUID,
                                            EgeriaInformationSupplyChainDefinition owningSupplyChain,
                                            boolean                isOwningInformationSupplyChainAnchor,
@@ -117,7 +117,7 @@ public enum EgeriaInformationSupplyChainDefinition
         this.displayName                          = displayName;
         this.description                          = description;
         this.scope                                = scope;
-        this.purposes                             = purposes;
+        this.dataProcessingPurposes               = dataProcessingPurposes;
         this.ownerGUID                            = ownerGUID;
         this.owningSupplyChain                    = owningSupplyChain;
         this.isOwningInformationSupplyChainAnchor = isOwningInformationSupplyChainAnchor;
@@ -132,7 +132,7 @@ public enum EgeriaInformationSupplyChainDefinition
      * @param displayName display name of information supply chain
      * @param description description of information supply chain
      * @param scope scope of information supply chain
-     * @param purposes purposes of information supply chain
+     * @param dataProcessingPurposes purposes of information supply chain
      * @param ownerGUID identifier of owner
      * @param owningSupplyChain the parent information supply chain
      * @param isOwningInformationSupplyChainAnchor should the parent supply chain (if any) bee this information supply chain's anchor?
@@ -144,7 +144,7 @@ public enum EgeriaInformationSupplyChainDefinition
                                            String                 displayName,
                                            String                 description,
                                            ScopeDefinition        scope,
-                                           String[]               purposes,
+                                           String[] dataProcessingPurposes,
                                            String                 ownerGUID,
                                            EgeriaInformationSupplyChainDefinition owningSupplyChain,
                                            boolean                isOwningInformationSupplyChainAnchor,
@@ -155,9 +155,9 @@ public enum EgeriaInformationSupplyChainDefinition
         this.guid                                 = guid;
         this.displayName                          = displayName;
         this.description                          = description;
-        this.scope                                = scope;
-        this.purposes                             = purposes;
-        this.ownerGUID                            = ownerGUID;
+        this.scope                  = scope;
+        this.dataProcessingPurposes = dataProcessingPurposes;
+        this.ownerGUID              = ownerGUID;
         this.owningSupplyChain                    = owningSupplyChain;
         this.isOwningInformationSupplyChainAnchor = isOwningInformationSupplyChainAnchor;
         this.anchorScope                          = anchorScope;
@@ -216,15 +216,15 @@ public enum EgeriaInformationSupplyChainDefinition
      *
      * @return list of strings
      */
-    public List<String> getPurposes()
+    public List<String> getDataProcessingPurposes()
     {
-        if (purposes == null)
+        if (dataProcessingPurposes == null)
         {
             return null;
 
         }
 
-        return Arrays.asList(purposes);
+        return Arrays.asList(dataProcessingPurposes);
     }
 
 

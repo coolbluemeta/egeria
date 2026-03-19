@@ -549,12 +549,6 @@ public class ReferenceableBuilder extends OpenMetadataAPIGenericBuilder
                                                                securityProperties,
                                                                methodName);
 
-        properties = repositoryHelper.addStringArrayStringMapPropertyToInstance(serviceName,
-                                                                                properties,
-                                                                                OpenMetadataProperty.ACCESS_GROUPS.name,
-                                                                                accessGroups,
-                                                                                methodName);
-
         setEffectivityDates(properties);
 
         return properties;

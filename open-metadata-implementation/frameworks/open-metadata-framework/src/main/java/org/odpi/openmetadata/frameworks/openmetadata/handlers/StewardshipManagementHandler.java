@@ -305,7 +305,6 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
      * @param userId calling user
      * @param securityLabels       description of the query
      * @param securityProperties    description of the query
-     * @param accessGroups       description of the query
      * @param queryOptions multiple options to control the query
      *
      * @return list of elements
@@ -317,7 +316,6 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
     public List<OpenMetadataRootElement> getSecurityTaggedElements(String                    userId,
                                                                    List<String>              securityLabels,
                                                                    Map<String, Object>       securityProperties,
-                                                                   Map<String, List<String>> accessGroups,
                                                                    QueryOptions              queryOptions) throws InvalidParameterException,
                                                                                                                   UserNotAuthorizedException,
                                                                                                                   PropertyServerException
@@ -332,11 +330,6 @@ public class StewardshipManagementHandler extends OpenMetadataHandlerBase
                                                                           OpenMetadataProperty.SECURITY_PROPERTIES.name,
                                                                           securityProperties,
                                                                           PropertyComparisonOperator.EQ);
-
-        propertyConditions = propertyHelper.addListStringMapToSearchCondition(propertyConditions,
-                                                                              OpenMetadataProperty.ACCESS_GROUPS.name,
-                                                                              accessGroups,
-                                                                              PropertyComparisonOperator.EQ);
 
         if (propertyConditions != null)
         {

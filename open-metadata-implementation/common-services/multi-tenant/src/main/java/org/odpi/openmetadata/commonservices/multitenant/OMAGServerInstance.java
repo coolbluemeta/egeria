@@ -208,12 +208,14 @@ class OMAGServerInstance
      *
      * @return instance object with runtime properties for the service
      * @throws UserNotAuthorizedException calling user not authorized to call the request
+     * @throws InvalidParameterException the services are invisible to the calling user
      * @throws PropertyServerException service is not running in this server
      */
     synchronized OMAGServerServiceInstance getRegisteredService(String userId,
                                                                 String delegatingUserId,
                                                                 String serviceName,
                                                                 String serviceOperationName) throws UserNotAuthorizedException,
+                                                                                                    InvalidParameterException,
                                                                                                     PropertyServerException
     {
         securityVerifier.validateUserForService(userId, serviceName);

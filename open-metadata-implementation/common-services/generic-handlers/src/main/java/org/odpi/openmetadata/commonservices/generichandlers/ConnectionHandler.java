@@ -620,26 +620,18 @@ public class ConnectionHandler<B> extends ReferenceableHandler<B>
 
         if (anchorGUID != null)
         {
-            EntityDetail anchorEntity = setUpAnchorsClassificationFromAnchor(userId,
-                                                                             anchorGUID,
-                                                                             anchorGUIDParameterName,
-                                                                             null,
-                                                                             connectionBuilder,
-                                                                             forLineage,
-                                                                             forDuplicateProcessing,
-                                                                             effectiveTime,
-                                                                             methodName);
-
             /*
-             * This method will throw an exception if the element is not in the supported zones - it will look like
-             * the element is not known.
+             * This will validate the anchorGUID and whether the user has access.
              */
-            invalidParameterHandler.validateElementInSupportedZone(anchorEntity.getGUID(),
-                                                                   anchorGUIDParameterName,
-                                                                   super.getEntityZones(anchorEntity),
-                                                                   securityVerifier.getSupportedZones(userId, anchorEntity.getType().getTypeDefName(), methodName),
-                                                                   serviceName,
-                                                                   methodName);
+            setUpAnchorsClassificationFromAnchor(userId,
+                                                 anchorGUID,
+                                                 anchorGUIDParameterName,
+                                                 null,
+                                                 connectionBuilder,
+                                                 forLineage,
+                                                 forDuplicateProcessing,
+                                                 effectiveTime,
+                                                 methodName);
         }
 
         String connectionGUID = this.createBeanInRepository(userId,
@@ -1060,28 +1052,18 @@ public class ConnectionHandler<B> extends ReferenceableHandler<B>
 
         if (assetGUID != null)
         {
-            EntityDetail assetEntity = this.setUpAnchorsClassificationFromAnchor(userId,
-                                                                                 assetGUID,
-                                                                                 assetGUIDParameterName,
-                                                                                 null,
-                                                                                 builder,
-                                                                                 forLineage,
-                                                                                 forDuplicateProcessing,
-                                                                                 effectiveTime,
-                                                                                 methodName);
             /*
-             * This method will throw an exception if the asset is not in the supported zones - it will look like
-             * the asset is not known.
+             * This will validate the assetGUID and whether the user has access.
              */
-            if (assetEntity != null)
-            {
-                invalidParameterHandler.validateElementInSupportedZone(assetEntity.getGUID(),
-                                                                       assetGUIDParameterName,
-                                                                       super.getEntityZones(assetEntity),
-                                                                       securityVerifier.getSupportedZones(userId, assetEntity.getType().getTypeDefName(), methodName),
-                                                                       serviceName,
-                                                                       methodName);
-            }
+            this.setUpAnchorsClassificationFromAnchor(userId,
+                                                      assetGUID,
+                                                      assetGUIDParameterName,
+                                                      null,
+                                                      builder,
+                                                      forLineage,
+                                                      forDuplicateProcessing,
+                                                      effectiveTime,
+                                                      methodName);
         }
 
         String connectionGUID = this.createBeanInRepository(userId,

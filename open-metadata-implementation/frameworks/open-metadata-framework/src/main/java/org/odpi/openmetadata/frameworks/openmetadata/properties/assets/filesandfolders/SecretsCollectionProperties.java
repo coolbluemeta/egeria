@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataSetProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
+import java.util.Objects;
+
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
@@ -20,6 +22,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SecretsCollectionProperties extends DataSetProperties
 {
+    private long refreshTimeInterval = 0;
+
     /**
      * Default constructor
      */
@@ -38,18 +42,33 @@ public class SecretsCollectionProperties extends DataSetProperties
     public SecretsCollectionProperties(SecretsCollectionProperties template)
     {
         super(template);
+
+        if (template != null)
+        {
+            refreshTimeInterval = template.getRefreshTimeInterval();
+        }
     }
 
 
     /**
-     * Copy/clone constructor.
+     * Return the time between refresh calls to load the secrets cache.
      *
-     * @param template object to copy
+     * @return long (minutes)
      */
-    public SecretsCollectionProperties(DataSetProperties template)
+    public long getRefreshTimeInterval()
     {
-        super(template);
-        super.typeName = OpenMetadataType.SECRETS_COLLECTION.typeName;
+        return refreshTimeInterval;
+    }
+
+
+    /**
+     * Set up the time between refresh calls to load the secrets cache.
+     *
+     * @param refreshTimeInterval long (minutes)
+     */
+    public void setRefreshTimeInterval(long refreshTimeInterval)
+    {
+        this.refreshTimeInterval = refreshTimeInterval;
     }
 
 
@@ -61,6 +80,38 @@ public class SecretsCollectionProperties extends DataSetProperties
     @Override
     public String toString()
     {
-        return "SecretsCollectionProperties{} " + super.toString();
+        return "SecretsCollectionProperties{" +
+                "refreshTimeInterval=" + refreshTimeInterval +
+                "} " + super.toString();
+    }
+
+
+
+    /**
+     * Compare the values of the supplied object with those stored in the current object.
+     *
+     * @param objectToCompare supplied object
+     * @return boolean result of comparison
+     */
+    @Override
+    public boolean equals(Object objectToCompare)
+    {
+        if (this == objectToCompare) return true;
+        if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
+        if (!super.equals(objectToCompare)) return false;
+        SecretsCollectionProperties that = (SecretsCollectionProperties) objectToCompare;
+        return refreshTimeInterval == that.refreshTimeInterval;
+    }
+
+
+    /**
+     * Return hash code for this object
+     *
+     * @return int hash code
+     */
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(super.hashCode(), refreshTimeInterval);
     }
 }

@@ -89,9 +89,9 @@ Content-Type: application/json
 
 ###
 # =====================================================================================================================
-# Setting up 5 valid values for the purposes property: "governance", "market-analysis", "product-development",
+# Setting up 5 valid values for the dataProcessingPurposes property: "governance", "market-analysis", "product-development",
 # "product-verification", "patient-treatment".  TypeName is is set to Project which means these are valid values for
-# the purposes attribute only in Project entities.
+# the dataProcessingPurposes attribute only in Project entities.
 #
 
 @typeName=Project
@@ -99,7 +99,7 @@ Content-Type: application/json
 ###
 # @name setUpValidMetadataValue - governance
 #
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/purposes?typeName={{typeName}}
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/dataProcessingPurposes?typeName={{typeName}}
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -114,7 +114,7 @@ Content-Type: application/json
 ###
 # @name setUpValidMetadataValue - market-analysis
 #
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/purposes?typeName={{typeName}}
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/dataProcessingPurposes?typeName={{typeName}}
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -130,7 +130,7 @@ Content-Type: application/json
 ###
 # @name setUpValidMetadataValue - product-development
 #
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/purposes?typeName={{typeName}}
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/dataProcessingPurposes?typeName={{typeName}}
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -146,7 +146,7 @@ Content-Type: application/json
 ###
 # @name setUpValidMetadataValue - product-verification
 #
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/purposes?typeName={{typeName}}
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/dataProcessingPurposes?typeName={{typeName}}
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -161,7 +161,7 @@ Content-Type: application/json
 ###
 # @name setUpValidMetadataValue - patient-treatment
 #
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/purposes?typeName={{typeName}}
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/setup-value/ dataProcessingPurposes?typeName={{typeName}}
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -332,10 +332,10 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ###
-# @name getValidMetadataValues - purposes
-# Retrieve all the valid values for the purposes property.
+# @name getValidMetadataValues - dataProcessingPurposes
+# Retrieve all the valid values for the dataProcessingPurposes property.
 #
-GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/get-valid-metadata-values/purposes?typeName={{typeName}}&startFrom=0&pageSize=0
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/get-valid-metadata-values/dataProcessingPurposes?typeName={{typeName}}&startFrom=0&pageSize=0
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -354,7 +354,7 @@ Content-Type: application/json
 # @name validateMetadataValue
 # Validate whether the value found in an open metadata property is valid.
 #
-GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/validate-value/purposes?typeName={{typeName}}&actualValue=marketing
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/validate-value/dataProcessingPurposes?typeName={{typeName}}&actualValue=marketing
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -390,10 +390,10 @@ Content-Type: application/json
 ###
 
 ###
-# @name setConsistentMetadataValues - clinical-trials (category) and product-verification (purposes)
+# @name setConsistentMetadataValues - clinical-trials (category) and product-verification (dataProcessingPurposes)
 # Set up consistent metadata values relationship between the two property values.
 #
-POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/category/consistent-metadata-values/purposes?preferredValue1=clinical-trial&typeName2={{typeName}}&preferredValue2=product-verification
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/valid-metadata/category/consistent-metadata-values/dataProcessingPurposes?preferredValue1=clinical-trial&typeName2={{typeName}}&preferredValue2=product-verification
 Authorization: Bearer {{token}}
 Content-Type: application/json
 

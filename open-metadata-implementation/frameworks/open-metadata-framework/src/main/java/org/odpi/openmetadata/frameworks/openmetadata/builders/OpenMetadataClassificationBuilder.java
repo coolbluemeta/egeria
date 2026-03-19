@@ -25,8 +25,9 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.Project
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.CalculatedValueProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.PrimaryKeyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.TypeEmbeddedAttributeProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityGroupMembershipProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityListMembershipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityTagsProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.ZoneMembershipProfileProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.security.ZoneMembershipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.templates.TemplateProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.ElementProperties;
@@ -492,6 +493,9 @@ public class OpenMetadataClassificationBuilder
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.OWNER_PROPERTY_NAME.name,
                                                                      ownershipProperties.getOwnerPropertyName());
+                elementProperties = propertyHelper.addStringArrayProperty(elementProperties,
+                                                                          OpenMetadataProperty.USER_IDS.name,
+                                                                          ownershipProperties.getUserIds());
             }
             else if (properties instanceof PrimaryKeyProperties primaryKeyProperties)
             {
@@ -535,11 +539,11 @@ public class OpenMetadataClassificationBuilder
                                                                      OpenMetadataProperty.LEVEL.name,
                                                                      secureLocationProperties.getLevel());
             }
-            else if (properties instanceof SecurityGroupMembershipProperties securityGroupMembershipProperties)
+            else if (properties instanceof SecurityListMembershipProperties securityListMembershipProperties)
             {
                 elementProperties = propertyHelper.addStringArrayProperty(elementProperties,
-                                                                          OpenMetadataProperty.GROUPS.name,
-                                                                          securityGroupMembershipProperties.getGroups());
+                                                                          OpenMetadataProperty.SECURITY_GROUPS.name,
+                                                                          securityListMembershipProperties.getSecurityGroups());
             }
             else if (properties instanceof SecurityTagsProperties securityTagsProperties)
             {
@@ -550,10 +554,6 @@ public class OpenMetadataClassificationBuilder
                 elementProperties = propertyHelper.addMapProperty(elementProperties,
                                                                   OpenMetadataProperty.SECURITY_PROPERTIES.name,
                                                                   securityTagsProperties.getSecurityProperties());
-
-                elementProperties = propertyHelper.addStringArrayStringMap(elementProperties,
-                                                                           OpenMetadataProperty.ACCESS_GROUPS.name,
-                                                                           securityTagsProperties.getAccessGroups());
             }
             else if (properties instanceof StagingCollectionProperties stagingCollectionProperties)
             {
@@ -630,6 +630,12 @@ public class OpenMetadataClassificationBuilder
                 elementProperties = propertyHelper.addStringArrayProperty(elementProperties,
                                                                           OpenMetadataProperty.ZONE_MEMBERSHIP.name,
                                                                           zoneMembershipProperties.getZoneMembership());
+            }
+            else if (properties instanceof ZoneMembershipProfileProperties zoneMembershipProperties)
+            {
+                elementProperties = propertyHelper.addLongMapProperty(elementProperties,
+                                                                      OpenMetadataProperty.TYPE_MEMBERSHIP.name,
+                                                                      zoneMembershipProperties.getTypeMembership());
             }
 
 

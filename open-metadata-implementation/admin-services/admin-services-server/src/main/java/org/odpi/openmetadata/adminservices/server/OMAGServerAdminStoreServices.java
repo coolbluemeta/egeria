@@ -20,6 +20,7 @@ import org.odpi.openmetadata.commonservices.ffdc.rest.VoidResponse;
 import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorBroker;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.metadatasecurity.server.OpenMetadataPlatformSecurityVerifier;
@@ -669,14 +670,15 @@ public class OMAGServerAdminStoreServices extends TokenController
     /**
      * Retrieve any saved configuration for this server.
      *
-     * @param userId     calling user
+     * @param userId           calling user
      * @param delegatingUserId external userId making request
-     * @param serverName name of the server
-     * @param updateConfigCall  flag to indicate whether the call is to change or just read the configuration
-     * @param methodName method requesting the server details
+     * @param serverName       name of the server
+     * @param updateConfigCall flag to indicate whether the call is to change or just read the configuration
+     * @param methodName       method requesting the server details
      * @return configuration properties
-     * @throws InvalidParameterException problem with the configuration file
-     * @throws UserNotAuthorizedException    user not authorized to make these changes
+     * @throws InvalidParameterException       problem with the configuration file
+     * @throws UserNotAuthorizedException      user not authorized to make these changes
+     * @throws PropertyServerException         problem accessing the secrets store
      * @throws OMAGConfigurationErrorException problem with the configuration document
      */
     OMAGServerConfig getServerConfig(String  userId,
@@ -684,8 +686,9 @@ public class OMAGServerAdminStoreServices extends TokenController
                                      String  serverName,
                                      boolean updateConfigCall,
                                      String  methodName) throws InvalidParameterException,
-                                                                UserNotAuthorizedException,
-                                                                OMAGConfigurationErrorException
+                                                               UserNotAuthorizedException,
+                                                               PropertyServerException,
+                                                               OMAGConfigurationErrorException
     {
         OMAGServerConfigStore serverConfigStore = getServerConfigStore(serverName, methodName);
         OMAGServerConfig      serverConfig      = null;
@@ -813,6 +816,7 @@ public class OMAGServerAdminStoreServices extends TokenController
      * @return configuration properties
      * @throws InvalidParameterException   problem with the configuration file
      * @throws UserNotAuthorizedException      user not authorized to make these changes
+     * @throws PropertyServerException problem accessing secrets store
      * @throws OMAGConfigurationErrorException unable to parse the OMAGServerConfig
      */
     public OMAGServerConfig getServerConfigForStartUp(String userId,
@@ -820,6 +824,7 @@ public class OMAGServerAdminStoreServices extends TokenController
                                                       String serverName,
                                                       String methodName) throws InvalidParameterException,
                                                                                 UserNotAuthorizedException,
+                                                                                PropertyServerException,
                                                                                 OMAGConfigurationErrorException
     {
         OMAGServerConfigStore serverConfigStore = getServerConfigStore(serverName, methodName);

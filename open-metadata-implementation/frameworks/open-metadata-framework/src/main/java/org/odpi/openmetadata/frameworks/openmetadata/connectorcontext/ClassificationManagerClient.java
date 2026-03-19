@@ -403,7 +403,6 @@ public class ClassificationManagerClient extends ConnectorContextClientBase
      *
      * @param securityLabels       description of the query
      * @param securityProperties    description of the query
-     * @param accessGroups       description of the query
      * @param queryOptions multiple options to control the query
      *
      * @return list of elements
@@ -414,12 +413,11 @@ public class ClassificationManagerClient extends ConnectorContextClientBase
      */
     public List<OpenMetadataRootElement> getSecurityTaggedElements(List<String>              securityLabels,
                                                                    Map<String, Object>       securityProperties,
-                                                                   Map<String, List<String>> accessGroups,
                                                                    QueryOptions              queryOptions) throws InvalidParameterException,
                                                                                                                   UserNotAuthorizedException,
                                                                                                                   PropertyServerException
     {
-        return stewardshipManagementHandler.getSecurityTaggedElements(connectorUserId, securityLabels, securityProperties, accessGroups, queryOptions);
+        return stewardshipManagementHandler.getSecurityTaggedElements(connectorUserId, securityLabels, securityProperties, queryOptions);
     }
 
 

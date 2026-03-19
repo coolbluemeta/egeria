@@ -820,7 +820,7 @@ public class OpenMetadataTypesArchive1_7
         List<TypeDefAttribute> properties = new ArrayList<>();
 
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SCOPE));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.PURPOSES));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DATA_PROCESSING_PURPOSES));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.INTEGRATION_STYLE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ESTIMATED_VOLUMETRICS));
 

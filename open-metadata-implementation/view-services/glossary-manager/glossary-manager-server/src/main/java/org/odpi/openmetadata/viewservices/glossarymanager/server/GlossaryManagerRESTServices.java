@@ -994,9 +994,9 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse clearTermAsAbstractConcept(String                    serverName,
-                                                   String                    glossaryTermGUID,
-                                                   MetadataSourceRequestBody requestBody)
+    public VoidResponse clearTermAsAbstractConcept(String                          serverName,
+                                                   String                          glossaryTermGUID,
+                                                   DeleteClassificationRequestBody requestBody)
     {
         final String methodName = "clearTermAsAbstractConcept";
 
@@ -1104,9 +1104,9 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse clearTermAsDataValue(String                    serverName,
-                                             String                    glossaryTermGUID,
-                                             MetadataSourceRequestBody requestBody)
+    public VoidResponse clearTermAsDataValue(String                          serverName,
+                                             String                          glossaryTermGUID,
+                                             DeleteClassificationRequestBody requestBody)
     {
         final String methodName = "clearTermAsDataValue";
 
@@ -1214,9 +1214,9 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse clearTermAsActivity(String                    serverName,
-                                            String                    glossaryTermGUID,
-                                            MetadataSourceRequestBody requestBody)
+    public VoidResponse clearTermAsActivity(String                          serverName,
+                                            String                          glossaryTermGUID,
+                                            DeleteClassificationRequestBody requestBody)
     {
         final String methodName = "clearTermAsActivity";
 
@@ -1324,9 +1324,9 @@ public class GlossaryManagerRESTServices extends TokenController
      * UserNotAuthorizedException the user is not authorized to issue this request
      * PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public VoidResponse clearTermAsContext(String                    serverName,
-                                           String                    glossaryTermGUID,
-                                           MetadataSourceRequestBody requestBody)
+    public VoidResponse clearTermAsContext(String                          serverName,
+                                           String                          glossaryTermGUID,
+                                           DeleteClassificationRequestBody requestBody)
     {
         final String methodName = "clearTermAsContext";
 

@@ -5,6 +5,7 @@ package org.odpi.openmetadata.metadatasecurity.server;
 import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorBroker;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.metadatasecurity.OpenMetadataPlatformSecurity;
@@ -31,14 +32,16 @@ public class OpenMetadataPlatformSecurityVerifier
      * @param serverPlatformURL URL Root of the server platform.
      * @param connection connection used to create and configure the connector that interacts with
      *                   the real store.
-     * @throws InvalidParameterException one of the properties is either null or invalid
-     * @throws UserNotAuthorizedException the user is not authorized to access this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     public static synchronized void setPlatformSecurityConnection(String       userId,
                                                                   String       delegatingUserId,
                                                                   String       serverPlatformURL,
                                                                   Connection   connection) throws InvalidParameterException,
-                                                                                                  UserNotAuthorizedException
+                                                                                                  UserNotAuthorizedException,
+                                                                                                  PropertyServerException
     {
         final String methodName = "setPlatformSecurityConnection";
 
@@ -86,11 +89,14 @@ public class OpenMetadataPlatformSecurityVerifier
      * @param userId           the identifier of the calling user
      * @param delegatingUserId the identifier of an external user making a request on behalf of the calling user;
      *                         can be null if no delegation is involved
-     * @throws UserNotAuthorizedException if either the calling user or the delegating user (if provided)
-     *                                    is not authorized to perform operator actions on the platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     private static void validatePlatformOperator(String userId,
-                                                 String delegatingUserId) throws UserNotAuthorizedException
+                                                 String delegatingUserId) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException
     {
         if (platformSecurityConnector != null)
         {
@@ -107,13 +113,17 @@ public class OpenMetadataPlatformSecurityVerifier
      * Return the connection object for the configuration store.  Null is returned if the server should
      * use the default store.
      *
-     * @param userId calling user
+     * @param userId           calling user
      * @param delegatingUserId external userId making request
      * @return connection response
-     * @throws UserNotAuthorizedException the user is not authorized to access this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     public static synchronized Connection getPlatformSecurityConnection(String userId,
-                                                                        String delegatingUserId) throws UserNotAuthorizedException
+                                                                        String delegatingUserId) throws UserNotAuthorizedException,
+                                                                                                        InvalidParameterException,
+                                                                                                        PropertyServerException
     {
         /*
          * Validate that someone has authority to retrieve the connector.
@@ -130,10 +140,14 @@ public class OpenMetadataPlatformSecurityVerifier
      *
      * @param userId           calling user
      * @param delegatingUserId external userId making request
-     * @throws UserNotAuthorizedException the user is not authorized to access this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     public static synchronized void clearPlatformSecurityConnection(String userId,
-                                                                    String delegatingUserId) throws UserNotAuthorizedException
+                                                                    String delegatingUserId) throws UserNotAuthorizedException,
+                                                                                                    InvalidParameterException,
+                                                                                                    PropertyServerException
     {
         /*
          * Validate that someone has authority to override the connector.
@@ -177,12 +191,16 @@ public class OpenMetadataPlatformSecurityVerifier
      * @param userId           calling user
      * @param delegatingUserId external userId making request
      * @param accountUserId user account identifier
-     * @throws UserNotAuthorizedException user not recognized
      * @return known details of the user
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    public static synchronized OpenMetadataUserAccount getUser(String userId,
-                                                               String delegatingUserId,
-                                                               String accountUserId) throws UserNotAuthorizedException
+    public static synchronized OpenMetadataUserAccount getUserAccount(String userId,
+                                                                      String delegatingUserId,
+                                                                      String accountUserId) throws UserNotAuthorizedException,
+                                                                                                   InvalidParameterException,
+                                                                                                   PropertyServerException
     {
         if (userSecurityConnector != null)
         {
@@ -243,11 +261,15 @@ public class OpenMetadataPlatformSecurityVerifier
      * @param userId           calling user
      * @param delegatingUserId external userId making request
      * @param userAccount security properties about the user
-     * @throws UserNotAuthorizedException user not recognized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     public static synchronized void updateUserAccount(String                  userId,
                                                       String                  delegatingUserId,
-                                                      OpenMetadataUserAccount userAccount) throws UserNotAuthorizedException
+                                                      OpenMetadataUserAccount userAccount) throws UserNotAuthorizedException,
+                                                                                                  InvalidParameterException,
+                                                                                                  PropertyServerException
     {
         if ((userSecurityConnector != null) && (userAccount != null))
         {
@@ -266,11 +288,15 @@ public class OpenMetadataPlatformSecurityVerifier
      * @param userId           calling user
      * @param delegatingUserId external userId making request
      * @param accountUserId      calling user
-     * @throws UserNotAuthorizedException user not recognized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     public static synchronized void deleteUserAccount(String userId,
                                                       String delegatingUserId,
-                                                      String accountUserId) throws UserNotAuthorizedException
+                                                      String accountUserId) throws UserNotAuthorizedException,
+                                                                                   InvalidParameterException,
+                                                                                   PropertyServerException
     {
         /*
          * Validate that someone has authority to delete the user's account details.
@@ -288,10 +314,13 @@ public class OpenMetadataPlatformSecurityVerifier
      * Check that the calling user is authorized to create new servers.
      *
      * @param userId calling user
-     *
-     * @throws UserNotAuthorizedException the user is not authorized to access this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    public static synchronized void  validateUserForNewServer(String   userId) throws UserNotAuthorizedException
+    public static synchronized void validateUserForNewServer(String userId) throws UserNotAuthorizedException,
+                                                                                   PropertyServerException,
+                                                                                   InvalidParameterException
     {
         if (platformSecurityConnector != null)
         {
@@ -305,9 +334,13 @@ public class OpenMetadataPlatformSecurityVerifier
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue operator commands to this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    public static synchronized void  validateUserAsOperatorForPlatform(String   userId) throws UserNotAuthorizedException
+    public static synchronized void  validateUserAsOperatorForPlatform(String   userId) throws UserNotAuthorizedException,
+                                                                                               InvalidParameterException,
+                                                                                               PropertyServerException
     {
         if (platformSecurityConnector != null)
         {
@@ -321,9 +354,13 @@ public class OpenMetadataPlatformSecurityVerifier
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue diagnostic commands to this platform
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    public static synchronized void  validateUserAsInvestigatorForPlatform(String   userId) throws UserNotAuthorizedException
+    public static synchronized void  validateUserAsInvestigatorForPlatform(String   userId) throws UserNotAuthorizedException,
+                                                                                                   InvalidParameterException,
+                                                                                                   PropertyServerException
     {
         if (platformSecurityConnector != null)
         {

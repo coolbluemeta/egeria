@@ -10,7 +10,7 @@ import org.odpi.openmetadata.commonservices.ffdc.rest.*;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.openmetadata.handlers.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.*;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityGroupMembershipProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityListMembershipProperties;
 import org.odpi.openmetadata.commonservices.ffdc.rest.GetRequestBody;
 import org.odpi.openmetadata.tokencontroller.TokenController;
 import org.slf4j.LoggerFactory;
@@ -1956,13 +1956,13 @@ public class ActorManagerRESTServices extends TokenController
 
             if (requestBody != null)
             {
-                if (requestBody.getProperties() instanceof SecurityGroupMembershipProperties properties)
+                if (requestBody.getProperties() instanceof SecurityListMembershipProperties properties)
                 {
                     handler.addSecurityGroupMembership(userId, userIdentityGUID, properties, requestBody);
                 }
                 else
                 {
-                    restExceptionHandler.handleInvalidPropertiesObject(SecurityGroupMembershipProperties.class.getName(), methodName);
+                    restExceptionHandler.handleInvalidPropertiesObject(SecurityListMembershipProperties.class.getName(), methodName);
                 }
             }
             else
@@ -2015,13 +2015,13 @@ public class ActorManagerRESTServices extends TokenController
 
             if (requestBody != null)
             {
-                if (requestBody.getProperties() instanceof SecurityGroupMembershipProperties properties)
+                if (requestBody.getProperties() instanceof SecurityListMembershipProperties properties)
                 {
                     handler.updateSecurityGroupMembership(userId, userIdentityGUID, requestBody, properties);
                 }
                 else
                 {
-                    restExceptionHandler.handleInvalidPropertiesObject(SecurityGroupMembershipProperties.class.getName(), methodName);
+                    restExceptionHandler.handleInvalidPropertiesObject(SecurityListMembershipProperties.class.getName(), methodName);
                 }
             }
             else

@@ -354,6 +354,8 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
                                                                           methodName);
             if (anchorEntity != null)
             {
+                securityVerifier.validateUserForAnchorMemberCreate(userId, anchorEntity, repositoryHelper, serviceName, methodName);
+
                 OpenMetadataAPIAnchorHandler.AnchorIdentifiers anchors = this.getAnchorsFromAnchorsClassification(anchorEntity, methodName);
 
                 if ((anchors == null) || (anchorScopeGUID != null))
@@ -432,7 +434,7 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
                                                     AnchorIdentifiers anchorIdentifiers,
                                                     boolean           forLineage,
                                                     boolean           forDuplicateProcessing,
-                                                    Date effectiveTime,
+                                                    Date              effectiveTime,
                                                     String            methodName) throws PropertyServerException
     {
         Classification     anchorsClassification;

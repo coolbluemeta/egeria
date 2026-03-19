@@ -43,7 +43,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.resources.Resour
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.DerivedSchemaTypeQueryTargetProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.ForeignKeyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.GraphEdgeLinkProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.security.AssociatedSecurityGroupProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.AssociatedSecurityListProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.softwarecapabilities.MetadataCohortPeerProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.softwarecapabilities.NetworkGatewayLinkProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.solutions.SolutionLinkingWireProperties;
@@ -437,11 +437,11 @@ public class OpenMetadataRelationshipBuilder
                                                                      OpenMetadataProperty.DESCRIPTION.name,
                                                                      assignmentScopeProperties.getDescription());
             }
-            else if (properties instanceof AssociatedSecurityGroupProperties associatedSecurityGroupProperties)
+            else if (properties instanceof AssociatedSecurityListProperties associatedSecurityListProperties)
             {
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.OPERATION_NAME.name,
-                                                                     associatedSecurityGroupProperties.getOperationName());
+                                                                     associatedSecurityListProperties.getOperationName());
             }
             else if (properties instanceof CatalogTargetProperties catalogTargetProperties)
             {
@@ -776,12 +776,12 @@ public class OpenMetadataRelationshipBuilder
                                                                      OpenMetadataProperty.DESCRIPTION.name,
                                                                      glossaryTermRelationshipProperties.getDescription());
 
-                if (glossaryTermRelationshipProperties.getStatus() != null)
+                if (glossaryTermRelationshipProperties.getTermRelationshipStatus() != null)
                 {
                     elementProperties = propertyHelper.addEnumProperty(elementProperties,
                                                                        OpenMetadataProperty.TERM_RELATIONSHIP_STATUS.name,
                                                                        TermRelationshipStatus.getOpenTypeName(),
-                                                                       glossaryTermRelationshipProperties.getStatus().name());
+                                                                       glossaryTermRelationshipProperties.getTermRelationshipStatus().name());
                 }
 
                 elementProperties = propertyHelper.addStringProperty(elementProperties,

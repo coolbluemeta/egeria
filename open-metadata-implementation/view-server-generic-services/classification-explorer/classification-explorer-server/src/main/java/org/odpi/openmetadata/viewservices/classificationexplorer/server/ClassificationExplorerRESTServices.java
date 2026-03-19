@@ -3162,13 +3162,11 @@ public class ClassificationExplorerRESTServices extends TokenController
                 response.setElements(handler.getSecurityTaggedElements(userId,
                                                                        requestBody.getSecurityLabels(),
                                                                        requestBody.getSecurityProperties(),
-                                                                       requestBody.getAccessGroups(),
                                                                        requestBody));
             }
             else
             {
                 response.setElements(handler.getSecurityTaggedElements(userId,
-                                                                       null,
                                                                        null,
                                                                        null,
                                                                        null));

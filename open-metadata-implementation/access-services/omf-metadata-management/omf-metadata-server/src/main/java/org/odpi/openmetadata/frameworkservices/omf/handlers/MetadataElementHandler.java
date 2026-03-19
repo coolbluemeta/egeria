@@ -1255,8 +1255,6 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                        org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.GT;
                                case GTE ->
                                        org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.GTE;
-                               case IN ->
-                                       org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.IN;
                                case IS_NULL ->
                                        org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.search.PropertyComparisonOperator.IS_NULL;
                                case NOT_NULL ->

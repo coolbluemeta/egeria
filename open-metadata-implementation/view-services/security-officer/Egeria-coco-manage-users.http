@@ -28,7 +28,7 @@ Content-Type: application/json
 
 {
   "userId" : "calliequartile",
-  "password" : "secret"
+  "password" : "blah"
 }
 
 > {% client.global.set("callieToken", response.body); %}
@@ -61,6 +61,13 @@ GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platfor
 Authorization: Bearer {{garyToken}}
 Content-Type: application/json
 
+###
+# @name getPlatformReport (callie)
+# Returns details about the running platform.
+
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{omagServerPlatformGUID}}/report
+Authorization: Bearer {{callieToken}}
+Content-Type: application/json
 
 ###
 # ========================================================================================
@@ -136,23 +143,7 @@ Content-Type: application/json
     "givenName": "Freddie",
     "surname": "Mercury",
     "email": "freddiemercury@queen.com",
-    "securityRoles": ["openMetadataMember"],
-    "zoneAccess": {
-      "music" : [
-        "READ",
-        "CREATE",
-        "UPDATE_PROPERTIES",
-        "DELETE",
-        "ATTACH",
-        "DETACH",
-        "ADD_MEMBER",
-        "DELETE_MEMBER",
-        "ADD_FEEDBACK",
-        "DELETE_FEEDBACK",
-        "CLASSIFY",
-        "DECLASSIFY",
-        "PUBLISH"]
-    },
+    "securityRoles": ["serverOperator", "serverInvestigator"],
     "userAccountStatus": "CREDENTIALS_EXPIRED",
     "secrets": {
       "clearPassword" : "itsakindofmagic"
@@ -206,6 +197,13 @@ Content-Type: application/json
 
 > {% client.global.set("freddieToken", response.body); %}
 
+###
+# @name getPlatformReport (freddie)
+# Returns details about the running platform.
+
+GET {{baseURL}}/servers/{{viewServer}}/api/open-metadata/runtime-manager/platforms/{{omagServerPlatformGUID}}/report
+Authorization: Bearer {{freddieToken}}
+Content-Type: application/json
 
 ###
 # @name Get Freddie's Profile (none returned)

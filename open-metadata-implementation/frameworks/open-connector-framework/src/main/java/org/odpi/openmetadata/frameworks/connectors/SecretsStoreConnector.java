@@ -8,6 +8,7 @@ import org.odpi.openmetadata.frameworks.auditlog.ComponentDescription;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStoreConfigurationProperty;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedException;
 import org.odpi.openmetadata.frameworks.connectors.properties.users.NamedList;
+import org.odpi.openmetadata.frameworks.connectors.properties.users.SecurityAccessControl;
 import org.odpi.openmetadata.frameworks.connectors.properties.users.UserAccount;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 
@@ -253,12 +254,25 @@ public abstract class SecretsStoreConnector extends ConnectorBase implements Aud
 
 
     /**
-     * Return all of the known named lists in this collection
+     * Return all the known named lists in this collection
      *
      * @return map of named lists in this collection
      * @throws ConnectorCheckedException a problem with the connector
      */
     public Map<String, NamedList> getNamedLists() throws ConnectorCheckedException
+    {
+        return null;
+    }
+
+
+    /**
+     * Look up a particular named security access control in the collection.
+     *
+     * @param controlName name of the control
+     * @return corresponding named control or null
+     * @throws ConnectorCheckedException a problem with the connector
+     */
+    public SecurityAccessControl getSecurityAccessControl(String controlName) throws ConnectorCheckedException
     {
         return null;
     }

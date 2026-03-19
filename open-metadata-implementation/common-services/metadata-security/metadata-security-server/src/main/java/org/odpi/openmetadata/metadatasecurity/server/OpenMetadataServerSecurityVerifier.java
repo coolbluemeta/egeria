@@ -10,8 +10,6 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterExcept
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.metadatasecurity.OpenMetadataElementSecurity;
 import org.odpi.openmetadata.metadatasecurity.OpenMetadataServerSecurity;
 import org.odpi.openmetadata.metadatasecurity.OpenMetadataServiceSecurity;
@@ -26,14 +24,14 @@ import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollec
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.typedefs.TypeDefSummary;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.repositoryconnector.OMRSRepositoryHelper;
 import org.odpi.openmetadata.repositoryservices.events.OMRSInstanceEvent;
-import org.odpi.openmetadata.repositoryservices.events.OpenMetadataEventsSecurity;
+import org.odpi.openmetadata.metadatasecurity.OpenMetadataEventsSecurity;
 
 import java.util.*;
 
 
 /**
  * OpenMetadataServerSecurityVerifier provides the plug-in point for the open metadata server connector.
- * It supports the same security interfaces, and handles the fact that the security connector is
+ * It supports the same security interfaces and handles that the security connector is
  * optional.
  */
 public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositorySecurity,
@@ -183,38 +181,6 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @throws PropertyServerException problem from the verifier
      * @throws UserNotAuthorizedException user not recognized
      */
-    public List<String> getSupportedZones(String userId,
-                                          String typeName,
-                                          String methodName) throws InvalidParameterException,
-                                                                    PropertyServerException,
-                                                                    UserNotAuthorizedException
-    {
-        /*
-         * The userId is always one of the supported zones
-         */
-        if (userSecurityConnector != null)
-        {
-            return userSecurityConnector.getSupportedZonesForUser(new ArrayList<>(Collections.singletonList(userId)),
-                                                                  typeName,
-                                                                  methodName,
-                                                                  userId);
-        }
-
-        return new ArrayList<>(Collections.singletonList(userId));
-    }
-
-
-    /**
-     * Return the list of visible zones for this user.
-     *
-     * @param userId calling user
-     * @param typeName type of the element
-     * @param methodName name of the called service
-     * @return list of zone names
-     * @throws InvalidParameterException invalid parameter
-     * @throws PropertyServerException problem from the verifier
-     * @throws UserNotAuthorizedException user not recognized
-     */
     public List<String> getDefaultZones(List<String> initialZones,
                                         String       userId,
                                         String       typeName,
@@ -275,10 +241,14 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to access this function
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void  validateUserForServer(String   userId) throws UserNotAuthorizedException
+    public void  validateUserForServer(String   userId) throws UserNotAuthorizedException,
+                                                               InvalidParameterException,
+                                                               PropertyServerException
     {
         if (serverSecurityConnector != null)
         {
@@ -292,10 +262,14 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to change configuration
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void  validateUserAsServerAdmin(String   userId) throws UserNotAuthorizedException
+    public void  validateUserAsServerAdmin(String   userId) throws UserNotAuthorizedException,
+                                                                   InvalidParameterException,
+                                                                   PropertyServerException
     {
         if (serverSecurityConnector != null)
         {
@@ -308,11 +282,14 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * Check that the calling user is authorized to issue operator requests to the OMAG Server.
      *
      * @param userId calling user
-     *
-     * @throws UserNotAuthorizedException the user is not authorized to issue operator commands to this server
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void  validateUserAsServerOperator(String   userId) throws UserNotAuthorizedException
+    public void  validateUserAsServerOperator(String   userId) throws UserNotAuthorizedException,
+                                                                      InvalidParameterException,
+                                                                      PropertyServerException
     {
         if (serverSecurityConnector != null)
         {
@@ -326,10 +303,14 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue diagnostic commands to this server
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void  validateUserAsServerInvestigator(String   userId) throws UserNotAuthorizedException
+    public void  validateUserAsServerInvestigator(String   userId) throws UserNotAuthorizedException,
+                                                                          InvalidParameterException,
+                                                                          PropertyServerException
     {
         if (serverSecurityConnector != null)
         {
@@ -344,11 +325,15 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId calling user
      * @param serviceName name of called service
      *
-     * @throws UserNotAuthorizedException the user is not authorized to access this service
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForService(String   userId,
-                                        String   serviceName) throws UserNotAuthorizedException
+                                        String   serviceName) throws UserNotAuthorizedException,
+                                                                     InvalidParameterException,
+                                                                     PropertyServerException
     {
         if (serviceSecurityConnector != null)
         {
@@ -364,12 +349,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param serviceName name of called service
      * @param serviceOperationName name of called operation
      *
-     * @throws UserNotAuthorizedException the user is not authorized to access this service
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForServiceOperation(String   userId,
                                                  String   serviceName,
-                                                 String   serviceOperationName) throws UserNotAuthorizedException
+                                                 String   serviceOperationName) throws UserNotAuthorizedException,
+                                                                                       InvalidParameterException,
+                                                                                       PropertyServerException
     {
         if (serviceSecurityConnector != null)
         {
@@ -392,7 +381,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param serviceName calling service
      * @param methodName calling method
      * @return single connection entity, or null
-     * @throws UserNotAuthorizedException the user is not able to use any of the connections
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public EntityDetail selectConnection(String               userId,
@@ -400,7 +391,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                          List<EntityDetail>   connectionEntities,
                                          OMRSRepositoryHelper repositoryHelper,
                                          String               serviceName,
-                                         String               methodName) throws UserNotAuthorizedException
+                                         String               methodName) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -466,66 +459,12 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                                                                                InvalidParameterException,
                                                                                                PropertyServerException
     {
-        this.elementVisibleToUser(userId, "<new>", entityTypeName, classifications, repositoryHelper, serviceName, methodName);
-
         if (elementSecurityConnector != null)
         {
             elementSecurityConnector.validateUserForElementCreate(userId, entityTypeGUID, entityTypeName, newProperties, classifications, instanceStatus, repositoryHelper, serviceName, methodName);
         }
     }
 
-
-    /**
-     * Validate that the user has visibility to the zones associated with the element.
-     *
-     * @param userId calling user
-     * @param elementGUID element to verify
-     * @param typeName name of type
-     * @param classifications element's classification where the ZoneMembership lies
-     * @param repositoryHelper repository helper
-     * @param serviceName calling service
-     * @param methodName calling method
-     * @throws InvalidParameterException  one of the parameters is null or invalid.
-     * @throws PropertyServerException    a problem retrieving information from the property server(s).
-     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    private void elementVisibleToUser(String               userId,
-                                      String               elementGUID,
-                                      String               typeName,
-                                      List<Classification> classifications,
-                                      OMRSRepositoryHelper repositoryHelper,
-                                      String               serviceName,
-                                      String               methodName) throws UserNotAuthorizedException,
-                                                                              InvalidParameterException,
-                                                                              PropertyServerException
-    {
-        if (classifications != null)
-        {
-            List<String> elementZoneMembership = null;
-
-            for (Classification classification : classifications)
-            {
-                if ((classification != null) && (OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName.equals(classification.getName())))
-                {
-                    elementZoneMembership = repositoryHelper.getStringArrayProperty(serviceName,
-                                                                                    OpenMetadataProperty.ZONE_MEMBERSHIP.name,
-                                                                                    classification.getProperties(),
-                                                                                    methodName);
-                    break;
-                }
-            }
-
-            if ((elementZoneMembership != null) && (! elementZoneMembership.isEmpty()))
-            {
-                invalidParameterHandler.validateElementInSupportedZone(elementGUID,
-                                                                       OpenMetadataProperty.ZONE_MEMBERSHIP.name,
-                                                                       elementZoneMembership,
-                                                                       this.getSupportedZones(userId, typeName, methodName),
-                                                                       serviceName,
-                                                                       methodName);
-            }
-        }
-    }
 
     /**
      * Tests for whether a specific user should have read access to a specific element and its contents.
@@ -548,14 +487,6 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                                                                    InvalidParameterException,
                                                                                    PropertyServerException
     {
-        this.elementVisibleToUser(userId,
-                                  requestedEntity.getGUID(),
-                                  requestedEntity.getType().getTypeDefName(),
-                                  requestedEntity.getClassifications(),
-                                  repositoryHelper,
-                                  serviceName,
-                                  methodName);
-
         if (elementSecurityConnector != null)
         {
             elementSecurityConnector.validateUserForElementRead(userId, requestedEntity, repositoryHelper, serviceName, methodName);
@@ -572,7 +503,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException the user is not authorized to issue this request
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void validateUserForAnchorMemberRead(String               userId,
@@ -580,7 +513,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                                 EntityDetail         requestedEntity,
                                                 OMRSRepositoryHelper repositoryHelper,
                                                 String               serviceName,
-                                                String               methodName) throws UserNotAuthorizedException
+                                                String               methodName) throws UserNotAuthorizedException,
+                                                                                        InvalidParameterException,
+                                                                                        PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -598,7 +533,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void validateUserForElementDetailUpdate(String               userId,
@@ -606,7 +543,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                                    InstanceProperties   newEntityProperties,
                                                    OMRSRepositoryHelper repositoryHelper,
                                                    String               serviceName,
-                                                   String               methodName) throws UserNotAuthorizedException
+                                                   String               methodName) throws UserNotAuthorizedException,
+                                                                                           InvalidParameterException,
+                                                                                           PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -616,23 +555,55 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
 
 
     /**
-     * Tests for whether a specific user should have the right to update elements attached directly
-     * to an anchor such as glossary terms and categories attached to an element.  These updates could be to their properties,
-     * classifications and relationships.
+     * Tests for whether a specific user should have the right to create new elements as members of an anchor.
      *
      * @param userId identifier of user
      * @param anchorEntity element details
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
+     */
+    @Override
+    public void validateUserForAnchorMemberCreate(String               userId,
+                                                  EntityDetail         anchorEntity,
+                                                  OMRSRepositoryHelper repositoryHelper,
+                                                  String               serviceName,
+                                                  String               methodName) throws UserNotAuthorizedException,
+                                                                                          InvalidParameterException,
+                                                                                          PropertyServerException
+    {
+        if (elementSecurityConnector != null)
+        {
+            elementSecurityConnector.validateUserForAnchorMemberCreate(userId, anchorEntity, repositoryHelper, serviceName, methodName);
+        }
+    }
+
+
+    /**
+     * Tests for whether a specific user should have the right to update elements attached directly
+     * to an anchor element.  These updates could be to their properties,
+     * classifications, and relationships.
+     *
+     * @param userId identifier of user
+     * @param anchorEntity element details
+     * @param repositoryHelper helper for OMRS objects
+     * @param serviceName calling service
+     * @param methodName calling method
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void validateUserForAnchorMemberUpdate(String               userId,
-                                                  EntityDetail anchorEntity,
+                                                  EntityDetail         anchorEntity,
                                                   OMRSRepositoryHelper repositoryHelper,
                                                   String               serviceName,
-                                                  String               methodName) throws UserNotAuthorizedException
+                                                  String               methodName) throws UserNotAuthorizedException,
+                                                                                          InvalidParameterException,
+                                                                                          PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -650,7 +621,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void validateUserForElementStatusUpdate(String               userId,
@@ -658,7 +631,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                                    InstanceStatus       newStatus,
                                                    OMRSRepositoryHelper repositoryHelper,
                                                    String               serviceName,
-                                                   String               methodName) throws UserNotAuthorizedException
+                                                   String               methodName) throws UserNotAuthorizedException,
+                                                                                           InvalidParameterException,
+                                                                                           PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -676,10 +651,20 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName      calling service
      * @param methodName       calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForElementAttach(String userId, EntityDetail startingEntity, EntityDetail attachingEntity, String relationshipName, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForElementAttach(String               userId,
+                                             EntityDetail         startingEntity,
+                                             EntityDetail         attachingEntity,
+                                             String               relationshipName,
+                                             OMRSRepositoryHelper repositoryHelper,
+                                             String               serviceName,
+                                             String               methodName) throws UserNotAuthorizedException,
+                                                                                     InvalidParameterException,
+                                                                                     PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -697,10 +682,20 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName      calling service
      * @param methodName       calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForElementDetach(String userId, EntityDetail startingEntity, EntityDetail detachingEntity, String relationshipName, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForElementDetach(String               userId,
+                                             EntityDetail         startingEntity,
+                                             EntityDetail         detachingEntity,
+                                             String               relationshipName,
+                                             OMRSRepositoryHelper repositoryHelper,
+                                             String               serviceName,
+                                             String               methodName) throws UserNotAuthorizedException,
+                                                                                     InvalidParameterException,
+                                                                                     PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -719,10 +714,19 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName      calling service
      * @param methodName       calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForElementAddFeedback(String userId, EntityDetail originalEntity, EntityDetail feedbackEntity, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForElementAddFeedback(String               userId,
+                                                  EntityDetail         originalEntity,
+                                                  EntityDetail         feedbackEntity,
+                                                  OMRSRepositoryHelper repositoryHelper,
+                                                  String               serviceName,
+                                                  String               methodName) throws UserNotAuthorizedException,
+                                                                                          InvalidParameterException,
+                                                                                          PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -741,10 +745,19 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName      calling service
      * @param methodName       calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForElementDeleteFeedback(String userId, EntityDetail originalEntity, EntityDetail feedbackEntity, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForElementDeleteFeedback(String               userId,
+                                                     EntityDetail         originalEntity,
+                                                     EntityDetail         feedbackEntity,
+                                                     OMRSRepositoryHelper repositoryHelper,
+                                                     String               serviceName,
+                                                     String               methodName) throws UserNotAuthorizedException,
+                                                                                             InvalidParameterException,
+                                                                                             PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -762,10 +775,19 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper   helper for OMRS objects
      * @param serviceName        calling service
      * @param methodName         calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForElementClassify(String userId, EntityDetail originalEntity, String classificationName, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForElementClassify(String               userId,
+                                               EntityDetail         originalEntity,
+                                               String               classificationName,
+                                               OMRSRepositoryHelper repositoryHelper,
+                                               String               serviceName,
+                                               String               methodName) throws UserNotAuthorizedException,
+                                                                                       InvalidParameterException,
+                                                                                       PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -783,10 +805,19 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper   helper for OMRS objects
      * @param serviceName        calling service
      * @param methodName         calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForElementDeclassify(String userId, EntityDetail originalEntity, String classificationName, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForElementDeclassify(String               userId,
+                                                 EntityDetail         originalEntity,
+                                                 String               classificationName,
+                                                 OMRSRepositoryHelper repositoryHelper,
+                                                 String               serviceName,
+                                                 String               methodName) throws UserNotAuthorizedException,
+                                                                                         InvalidParameterException,
+                                                                                         PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -805,7 +836,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void validateUserForAnchorMemberStatusUpdate(String               userId,
@@ -814,7 +847,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                                         InstanceStatus       newStatus,
                                                         OMRSRepositoryHelper repositoryHelper,
                                                         String               serviceName,
-                                                        String               methodName) throws UserNotAuthorizedException
+                                                        String               methodName) throws UserNotAuthorizedException,
+                                                                                                InvalidParameterException,
+                                                                                                PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -833,10 +868,20 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName      calling service
      * @param methodName       calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForAnchorAttach(String userId, EntityDetail anchorEntity, EntityDetail attachingEntity, String relationshipName, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForAnchorAttach(String               userId,
+                                            EntityDetail         anchorEntity,
+                                            EntityDetail         attachingEntity,
+                                            String               relationshipName,
+                                            OMRSRepositoryHelper repositoryHelper,
+                                            String               serviceName,
+                                            String               methodName) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -855,10 +900,20 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName      calling service
      * @param methodName       calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForAnchorDetach(String userId, EntityDetail anchorEntity, EntityDetail detachingEntity, String relationshipName, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForAnchorDetach(String               userId,
+                                            EntityDetail         anchorEntity,
+                                            EntityDetail         detachingEntity,
+                                            String               relationshipName,
+                                            OMRSRepositoryHelper repositoryHelper,
+                                            String               serviceName,
+                                            String               methodName) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -877,10 +932,19 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName      calling service
      * @param methodName       calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForAnchorAddFeedback(String userId, EntityDetail anchorEntity, EntityDetail feedbackEntity, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForAnchorAddFeedback(String               userId,
+                                                 EntityDetail         anchorEntity,
+                                                 EntityDetail         feedbackEntity,
+                                                 OMRSRepositoryHelper repositoryHelper,
+                                                 String               serviceName,
+                                                 String               methodName) throws UserNotAuthorizedException,
+                                                                                         InvalidParameterException,
+                                                                                         PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -899,10 +963,19 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName      calling service
      * @param methodName       calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForAnchorDeleteFeedback(String userId, EntityDetail anchorEntity, EntityDetail feedbackEntity, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForAnchorDeleteFeedback(String               userId,
+                                                    EntityDetail         anchorEntity,
+                                                    EntityDetail         feedbackEntity,
+                                                    OMRSRepositoryHelper repositoryHelper,
+                                                    String               serviceName,
+                                                    String               methodName) throws UserNotAuthorizedException,
+                                                                                            InvalidParameterException,
+                                                                                            PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -920,10 +993,19 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper   helper for OMRS objects
      * @param serviceName        calling service
      * @param methodName         calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForAnchorClassify(String userId, EntityDetail anchorEntity, String classificationName, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForAnchorClassify(String               userId,
+                                              EntityDetail         anchorEntity,
+                                              String               classificationName,
+                                              OMRSRepositoryHelper repositoryHelper,
+                                              String               serviceName,
+                                              String               methodName) throws UserNotAuthorizedException,
+                                                                                      InvalidParameterException,
+                                                                                      PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -941,10 +1023,19 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper   helper for OMRS objects
      * @param serviceName        calling service
      * @param methodName         calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForAnchorDeclassify(String userId, EntityDetail anchorEntity, String classificationName, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForAnchorDeclassify(String               userId,
+                                                EntityDetail         anchorEntity,
+                                                String               classificationName,
+                                                OMRSRepositoryHelper repositoryHelper,
+                                                String               serviceName,
+                                                String               methodName) throws UserNotAuthorizedException,
+                                                                                        InvalidParameterException,
+                                                                                        PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -961,7 +1052,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void validateUserForAnchorMemberDelete(String               userId,
@@ -969,7 +1062,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                                   EntityDetail         obsoleteEntity,
                                                   OMRSRepositoryHelper repositoryHelper,
                                                   String               serviceName,
-                                                  String               methodName) throws UserNotAuthorizedException
+                                                  String               methodName) throws UserNotAuthorizedException,
+                                                                                          InvalidParameterException,
+                                                                                          PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -986,14 +1081,18 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName calling service
      * @param methodName calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void validateUserForElementDelete(String               userId,
                                              EntityDetail         entity,
                                              OMRSRepositoryHelper repositoryHelper,
                                              String               serviceName,
-                                             String               methodName) throws UserNotAuthorizedException
+                                             String               methodName) throws UserNotAuthorizedException,
+                                                                                     InvalidParameterException,
+                                                                                     PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -1013,10 +1112,20 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param repositoryHelper helper for OMRS objects
      * @param serviceName      calling service
      * @param methodName       calling method
-     * @throws UserNotAuthorizedException the user is not authorized to change this element
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
-    public void validateUserForAnchorMemberAdd(String userId, EntityDetail anchorEntity, EntityDetail newMemberEntity, String relationshipName, OMRSRepositoryHelper repositoryHelper, String serviceName, String methodName) throws UserNotAuthorizedException
+    public void validateUserForAnchorMemberAdd(String               userId,
+                                               EntityDetail         anchorEntity,
+                                               EntityDetail         newMemberEntity,
+                                               String               relationshipName,
+                                               OMRSRepositoryHelper repositoryHelper,
+                                               String               serviceName,
+                                               String               methodName) throws UserNotAuthorizedException,
+                                                                                       InvalidParameterException,
+                                                                                       PropertyServerException
     {
         if (elementSecurityConnector != null)
         {
@@ -1036,12 +1145,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForTypeCreate(String  userId,
                                            String  metadataCollectionName,
-                                           TypeDef typeDef) throws UserNotAuthorizedException
+                                           TypeDef typeDef) throws UserNotAuthorizedException,
+                                                                   InvalidParameterException,
+                                                                   PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1056,12 +1169,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param attributeTypeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForTypeCreate(String           userId,
                                            String           metadataCollectionName,
-                                           AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException
+                                           AttributeTypeDef attributeTypeDef) throws UserNotAuthorizedException,
+                                                                                     InvalidParameterException,
+                                                                                     PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1076,12 +1193,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForTypeRead(String     userId,
                                          String     metadataCollectionName,
-                                         TypeDef    typeDef) throws UserNotAuthorizedException
+                                         TypeDef    typeDef) throws UserNotAuthorizedException,
+                                                                    InvalidParameterException,
+                                                                    PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1096,12 +1217,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param attributeTypeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForTypeRead(String              userId,
                                          String              metadataCollectionName,
-                                         AttributeTypeDef    attributeTypeDef) throws UserNotAuthorizedException
+                                         AttributeTypeDef    attributeTypeDef) throws UserNotAuthorizedException,
+                                                                                      InvalidParameterException,
+                                                                                      PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1117,13 +1242,17 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef type details
      * @param patch changes to the type
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForTypeUpdate(String       userId,
                                            String       metadataCollectionName,
                                            TypeDef      typeDef,
-                                           TypeDefPatch patch) throws UserNotAuthorizedException
+                                           TypeDefPatch patch) throws UserNotAuthorizedException,
+                                                                      InvalidParameterException,
+                                                                      PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1138,12 +1267,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param typeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForTypeDelete(String     userId,
                                            String     metadataCollectionName,
-                                           TypeDef    typeDef) throws UserNotAuthorizedException
+                                           TypeDef    typeDef) throws UserNotAuthorizedException,
+                                                                      InvalidParameterException,
+                                                                      PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1158,12 +1291,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param attributeTypeDef type details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForTypeDelete(String              userId,
                                            String              metadataCollectionName,
-                                           AttributeTypeDef    attributeTypeDef) throws UserNotAuthorizedException
+                                           AttributeTypeDef    attributeTypeDef) throws UserNotAuthorizedException,
+                                                                                        InvalidParameterException,
+                                                                                        PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1180,14 +1317,18 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param originalTypeDef type details
      * @param newTypeDefGUID the new identifier for the type.
      * @param newTypeDefName new name for this type.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForTypeReIdentify(String  userId,
                                                String  metadataCollectionName,
                                                TypeDef originalTypeDef,
                                                String  newTypeDefGUID,
-                                               String  newTypeDefName) throws UserNotAuthorizedException
+                                               String  newTypeDefName) throws UserNotAuthorizedException,
+                                                                              InvalidParameterException,
+                                                                              PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1204,14 +1345,18 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param originalAttributeTypeDef type details
      * @param newTypeDefGUID the new identifier for the type.
      * @param newTypeDefName new name for this type.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain types
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForTypeReIdentify(String           userId,
                                                String           metadataCollectionName,
                                                AttributeTypeDef originalAttributeTypeDef,
                                                String           newTypeDefGUID,
-                                               String           newTypeDefName) throws UserNotAuthorizedException
+                                               String           newTypeDefName) throws UserNotAuthorizedException,
+                                                                                       InvalidParameterException,
+                                                                                       PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1242,7 +1387,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param initialProperties initial list of properties for the new entity null means no properties.
      * @param initialClassifications initial list of classifications for the new entity null means no classifications.
      * @param initialStatus initial status typically ACTIVE.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityCreate(String                     userId,
@@ -1250,7 +1397,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                              String                     entityTypeGUID,
                                              InstanceProperties         initialProperties,
                                              List<Classification>       initialClassifications,
-                                             InstanceStatus             initialStatus) throws UserNotAuthorizedException
+                                             InstanceStatus             initialStatus) throws UserNotAuthorizedException,
+                                                                                              InvalidParameterException,
+                                                                                              PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1271,12 +1420,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @return entity to return (maybe altered by the connector)
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public EntityDetail  validateUserForEntityRead(String          userId,
                                                    String          metadataCollectionName,
-                                                   EntityDetail    instance) throws UserNotAuthorizedException
+                                                   EntityDetail    instance) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1293,12 +1446,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntitySummaryRead(String        userId,
                                                   String        metadataCollectionName,
-                                                  EntitySummary instance) throws UserNotAuthorizedException
+                                                  EntitySummary instance) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1313,12 +1470,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityProxyRead(String      userId,
                                                 String      metadataCollectionName,
-                                                EntityProxy instance) throws UserNotAuthorizedException
+                                                EntityProxy instance) throws UserNotAuthorizedException,
+                                                                             InvalidParameterException,
+                                                                             PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1333,12 +1494,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityUpdate(String          userId,
                                              String          metadataCollectionName,
-                                             EntityDetail    instance) throws UserNotAuthorizedException
+                                             EntityDetail    instance) throws UserNotAuthorizedException,
+                                                                              InvalidParameterException,
+                                                                              PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1356,14 +1521,18 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param instance instance details
      * @param classificationName String name for the classification.
      * @param properties list of properties for the classification.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityClassificationAdd(String               userId,
                                                         String               metadataCollectionName,
                                                         EntitySummary        instance,
                                                         String               classificationName,
-                                                        InstanceProperties   properties) throws UserNotAuthorizedException
+                                                        InstanceProperties   properties) throws UserNotAuthorizedException,
+                                                                                                InvalidParameterException,
+                                                                                                PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1385,14 +1554,18 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param instance instance details
      * @param classificationName String name for the classification.
      * @param properties list of properties for the classification.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityClassificationUpdate(String               userId,
                                                            String               metadataCollectionName,
                                                            EntitySummary        instance,
                                                            String               classificationName,
-                                                           InstanceProperties   properties) throws UserNotAuthorizedException
+                                                           InstanceProperties   properties) throws UserNotAuthorizedException,
+                                                                                                   InvalidParameterException,
+                                                                                                   PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1413,13 +1586,17 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param classificationName String name for the classification.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityClassificationDelete(String               userId,
                                                            String               metadataCollectionName,
                                                            EntitySummary        instance,
-                                                           String               classificationName) throws UserNotAuthorizedException
+                                                           String               classificationName) throws UserNotAuthorizedException,
+                                                                                                           InvalidParameterException,
+                                                                                                           PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1437,12 +1614,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityDelete(String       userId,
                                              String       metadataCollectionName,
-                                             EntityDetail instance) throws UserNotAuthorizedException
+                                             EntityDetail instance) throws UserNotAuthorizedException,
+                                                                           InvalidParameterException,
+                                                                           PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1457,12 +1638,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param deletedEntityGUID String unique identifier (guid) for the entity.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityRestore(String       userId,
                                               String       metadataCollectionName,
-                                              String       deletedEntityGUID) throws UserNotAuthorizedException
+                                              String       deletedEntityGUID) throws UserNotAuthorizedException,
+                                                                                     InvalidParameterException,
+                                                                                     PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1478,13 +1663,17 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newGUID the new guid for the instance.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityReIdentification(String       userId,
                                                        String       metadataCollectionName,
                                                        EntityDetail instance,
-                                                       String       newGUID) throws UserNotAuthorizedException
+                                                       String       newGUID) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1500,13 +1689,17 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newTypeDefSummary details of this instance's new TypeDef.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityReTyping(String         userId,
                                                String         metadataCollectionName,
                                                EntityDetail   instance,
-                                               TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException
+                                               TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException,
+                                                                                        InvalidParameterException,
+                                                                                        PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1523,14 +1716,18 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param instance instance details
      * @param newHomeMetadataCollectionId unique identifier for the new home metadata collection/repository.
      * @param newHomeMetadataCollectionName display name for the new home metadata collection/repository.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForEntityReHoming(String         userId,
                                                String         metadataCollectionName,
                                                EntityDetail   instance,
                                                String         newHomeMetadataCollectionId,
-                                               String         newHomeMetadataCollectionName) throws UserNotAuthorizedException
+                                               String         newHomeMetadataCollectionName) throws UserNotAuthorizedException,
+                                                                                                    InvalidParameterException,
+                                                                                                    PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1550,10 +1747,12 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param metadataCollectionName configurable name of the metadata collection
      * @param relationshipTypeGUID unique identifier (guid) for the new relationship's type.
      * @param initialProperties initial list of properties for the new entity null means no properties.
-     * @param entityOneSummary the unique identifier of one of the entities that the relationship is connecting together.
-     * @param entityTwoSummary the unique identifier of the other entity that the relationship is connecting together.
+     * @param entityOneSummary the unique identifier of one of the entities that the relationship is connecting.
+     * @param entityTwoSummary the unique identifier of the other entity that the relationship is connecting.
      * @param initialStatus initial status typically ACTIVE.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForRelationshipCreate(String               userId,
@@ -1562,7 +1761,9 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
                                                    InstanceProperties   initialProperties,
                                                    EntitySummary        entityOneSummary,
                                                    EntitySummary        entityTwoSummary,
-                                                   InstanceStatus       initialStatus) throws UserNotAuthorizedException
+                                                   InstanceStatus       initialStatus) throws UserNotAuthorizedException,
+                                                                                              InvalidParameterException,
+                                                                                              PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1583,12 +1784,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to retrieve instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public Relationship  validateUserForRelationshipRead(String          userId,
                                                          String          metadataCollectionName,
-                                                         Relationship    instance) throws UserNotAuthorizedException
+                                                         Relationship    instance) throws UserNotAuthorizedException,
+                                                                                          InvalidParameterException,
+                                                                                          PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1605,12 +1810,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForRelationshipUpdate(String          userId,
                                                    String          metadataCollectionName,
-                                                   Relationship    instance) throws UserNotAuthorizedException
+                                                   Relationship    instance) throws UserNotAuthorizedException,
+                                                                                    InvalidParameterException,
+                                                                                    PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1625,12 +1834,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForRelationshipDelete(String       userId,
                                                    String       metadataCollectionName,
-                                                   Relationship instance) throws UserNotAuthorizedException
+                                                   Relationship instance) throws UserNotAuthorizedException,
+                                                                                 InvalidParameterException,
+                                                                                 PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1645,12 +1858,16 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param metadataCollectionName configurable name of the metadata collection
      * @param deletedRelationshipGUID String unique identifier (guid) for the relationship.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForRelationshipRestore(String       userId,
                                                     String       metadataCollectionName,
-                                                    String       deletedRelationshipGUID) throws UserNotAuthorizedException
+                                                    String       deletedRelationshipGUID) throws UserNotAuthorizedException,
+                                                                                                 InvalidParameterException,
+                                                                                                 PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1666,13 +1883,17 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newGUID the new guid for the instance.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForRelationshipReIdentification(String       userId,
                                                              String       metadataCollectionName,
                                                              Relationship instance,
-                                                             String       newGUID) throws UserNotAuthorizedException
+                                                             String       newGUID) throws UserNotAuthorizedException,
+                                                                                          InvalidParameterException,
+                                                                                          PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1688,13 +1909,17 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param metadataCollectionName configurable name of the metadata collection
      * @param instance instance details
      * @param newTypeDefSummary details of this instance's new TypeDef.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForRelationshipReTyping(String         userId,
                                                      String         metadataCollectionName,
                                                      Relationship   instance,
-                                                     TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException
+                                                     TypeDefSummary newTypeDefSummary) throws UserNotAuthorizedException,
+                                                                                              InvalidParameterException,
+                                                                                              PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1711,14 +1936,18 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param instance instance details
      * @param newHomeMetadataCollectionId unique identifier for the new home metadata collection/repository.
      * @param newHomeMetadataCollectionName display name for the new home metadata collection/repository.
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public void  validateUserForRelationshipReHoming(String         userId,
                                                      String         metadataCollectionName,
                                                      Relationship   instance,
                                                      String         newHomeMetadataCollectionId,
-                                                     String         newHomeMetadataCollectionName) throws UserNotAuthorizedException
+                                                     String         newHomeMetadataCollectionName) throws UserNotAuthorizedException,
+                                                                                                          InvalidParameterException,
+                                                                                                          PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1737,11 +1966,15 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param instance instance details
      * @return flag indicating whether the reference copy should be saved
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public boolean  validateEntityReferenceCopySave(String       userId,
-                                                    EntityDetail instance) throws UserNotAuthorizedException
+                                                    EntityDetail instance) throws UserNotAuthorizedException,
+                                                                                  InvalidParameterException,
+                                                                                  PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1758,11 +1991,15 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param userId identifier of user
      * @param instance instance details
      * @return flag indicating whether the reference copy should be saved
-     * @throws UserNotAuthorizedException the user is not authorized to maintain instances
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
     @Override
     public boolean  validateRelationshipReferenceCopySave(String       userId,
-                                                          Relationship instance) throws UserNotAuthorizedException
+                                                          Relationship instance) throws UserNotAuthorizedException,
+                                                                                        InvalidParameterException,
+                                                                                        PropertyServerException
     {
         if (repositorySecurityConnector != null)
         {
@@ -1781,6 +2018,7 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param event event that has been received
      * @return inbound event to process (maybe updated) or null to indicate that the event should be ignored
      */
+    @Override
     public OMRSInstanceEvent validateInboundEvent(String            cohortName,
                                                   OMRSInstanceEvent event)
     {
@@ -1800,6 +2038,7 @@ public class OpenMetadataServerSecurityVerifier implements OpenMetadataRepositor
      * @param event event that has been received
      * @return outbound event to send (maybe updated) or null to indicate that the event should be ignored
      */
+    @Override
     public OMRSInstanceEvent validateOutboundEvent(String            cohortName,
                                                    OMRSInstanceEvent event)
     {

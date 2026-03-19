@@ -3335,7 +3335,7 @@ public class OpenMetadataTypesArchive1_2
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.PROJECT_HEALTH));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.PROJECT_PHASE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.MISSION));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.PURPOSES));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DATA_PROCESSING_PURPOSES));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SUCCESS_CRITERIA));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.PLANNED_COMPLETION_DATE));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ACTUAL_COMPLETION_DATE));
@@ -5193,8 +5193,19 @@ public class OpenMetadataTypesArchive1_2
 
     private EntityDef geSecretsCollectionEntity()
     {
-        return archiveHelper.getDefaultEntityDef(OpenMetadataType.SECRETS_COLLECTION,
-                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.DATA_SET.typeName));
+        EntityDef entityDef = archiveHelper.getDefaultEntityDef(OpenMetadataType.SECRETS_COLLECTION,
+                                                                this.archiveBuilder.getEntityDef(OpenMetadataType.DATA_SET.typeName));
+
+        /*
+         * Build the attributes
+         */
+        List<TypeDefAttribute> properties = new ArrayList<>();
+
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.REFRESH_TIME_INTERVAL));
+
+        entityDef.setPropertiesDefinition(properties);
+
+        return entityDef;
     }
 
 
@@ -7029,7 +7040,6 @@ public class OpenMetadataTypesArchive1_2
 
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SECURITY_LABELS));
         properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SECURITY_PROPERTIES));
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ACCESS_GROUPS));
 
         classificationDef.setPropertiesDefinition(properties);
 

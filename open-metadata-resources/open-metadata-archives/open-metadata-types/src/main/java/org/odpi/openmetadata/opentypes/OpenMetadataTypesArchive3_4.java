@@ -226,15 +226,40 @@ public class OpenMetadataTypesArchive3_4
      */
     private void extend0423SecurityDefinitions()
     {
+        this.archiveBuilder.addEntityDef(addSecurityListEntity());
         this.archiveBuilder.addEntityDef(addSecurityGroupEntity());
+        this.archiveBuilder.addEntityDef(addSecurityRoleEntity());
         this.archiveBuilder.addClassificationDef(addSecurityGroupMembershipClassification());
+        this.archiveBuilder.addClassificationDef(addZoneMembershipProfileClassification());
     }
 
+    private EntityDef addSecurityListEntity()
+    {
+        EntityDef entityDef = archiveHelper.getDefaultEntityDef(OpenMetadataType.SECURITY_LIST,
+                                                                this.archiveBuilder.getEntityDef(OpenMetadataType.COLLECTION.typeName));
+
+        /*
+         * Build the attributes
+         */
+        List<TypeDefAttribute> properties = new ArrayList<>();
+
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DISTINGUISHED_NAME));
+
+        entityDef.setPropertiesDefinition(properties);
+
+        return entityDef;
+    }
 
     private EntityDef addSecurityGroupEntity()
     {
-        EntityDef entityDef = archiveHelper.getDefaultEntityDef(OpenMetadataType.SECURITY_GROUP,
-                                                                this.archiveBuilder.getEntityDef(OpenMetadataType.GOVERNANCE_CONTROL.typeName));
+        return archiveHelper.getDefaultEntityDef(OpenMetadataType.SECURITY_GROUP,
+                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.SECURITY_LIST.typeName));
+    }
+
+    private EntityDef addSecurityRoleEntity()
+    {
+        EntityDef entityDef = archiveHelper.getDefaultEntityDef(OpenMetadataType.SECURITY_ROLE,
+                                                                this.archiveBuilder.getEntityDef(OpenMetadataType.SECURITY_LIST.typeName));
 
         /*
          * Build the attributes
@@ -251,7 +276,7 @@ public class OpenMetadataTypesArchive3_4
 
     private ClassificationDef addSecurityGroupMembershipClassification()
     {
-        ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.SECURITY_GROUP_MEMBERSHIP_CLASSIFICATION,
+        ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.SECURITY_LIST_MEMBERSHIP_CLASSIFICATION,
                                                                                  null,
                                                                                  this.archiveBuilder.getEntityDef(OpenMetadataType.USER_IDENTITY.typeName),
                                                                                  false);
@@ -261,7 +286,28 @@ public class OpenMetadataTypesArchive3_4
          */
         List<TypeDefAttribute> properties = new ArrayList<>();
 
-        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.GROUPS));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SECURITY_GROUPS));
+
+        classificationDef.setPropertiesDefinition(properties);
+
+        return classificationDef;
+    }
+
+
+
+    private ClassificationDef addZoneMembershipProfileClassification()
+    {
+        ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.ZONE_MEMBERSHIP_PROFILE_CLASSIFICATION,
+                                                                                 null,
+                                                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.GOVERNANCE_ZONE.typeName),
+                                                                                 false);
+
+        /*
+         * Build the attributes
+         */
+        List<TypeDefAttribute> properties = new ArrayList<>();
+
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.SECURITY_GROUPS));
 
         classificationDef.setPropertiesDefinition(properties);
 

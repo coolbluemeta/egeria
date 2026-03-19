@@ -6,6 +6,7 @@ package org.odpi.openmetadata.commonservices.ffdc;
 import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestId;
 import org.odpi.openmetadata.frameworks.auditlog.requestid.RequestIdService;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * RESTCallLogger provides standard logging for REST API method invocations.  It logs
@@ -14,6 +15,8 @@ import org.slf4j.Logger;
 public class RESTCallLogger
 {
     private static final RequestId requestId = new RequestId();
+
+    private final static Logger myLog = LoggerFactory.getLogger(RESTCallLogger.class);
 
     private final Logger log;
     private final String serviceName;
@@ -28,6 +31,11 @@ public class RESTCallLogger
     {
         this.log         = log;
         this.serviceName = serviceName;
+
+        if (myLog.isDebugEnabled())
+        {
+            myLog.debug("New RESTCallLogger registered for service: {}, use logging.level.{}=DEBUG", serviceName, log.getName());
+        }
     }
 
 

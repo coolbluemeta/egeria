@@ -451,26 +451,13 @@ public class QueryBuilder
                 }
                 else if (instancePropertyValue instanceof ArrayPropertyValue arrayPropertyValue)
                 {
-                    if (stringPropertyOperator == PropertyComparisonOperator.IN)
-                    {
-                        stringBuilder.append(getPropertyComparisonFromInstanceProperties(arrayPropertyValue.getArrayValues(),
-                                                                                         leafPropertyName,
-                                                                                         PropertyComparisonOperator.EQ,
-                                                                                         PropertyComparisonOperator.EQ,
-                                                                                         " or ",
-                                                                                         principleTableName,
-                                                                                         propertyTableName));
-                    }
-                    else
-                    {
-                        stringBuilder.append(getPropertyComparisonFromInstanceProperties(arrayPropertyValue.getArrayValues(),
-                                                                                         leafPropertyName,
-                                                                                         stringPropertyOperator,
-                                                                                         numericPropertyOperator,
-                                                                                         matchOperand,
-                                                                                         principleTableName,
-                                                                                         propertyTableName));
-                    }
+                    stringBuilder.append(getPropertyComparisonFromInstanceProperties(arrayPropertyValue.getArrayValues(),
+                                                                                     leafPropertyName,
+                                                                                     stringPropertyOperator,
+                                                                                     numericPropertyOperator,
+                                                                                     matchOperand,
+                                                                                     principleTableName,
+                                                                                     propertyTableName));
                 }
                 else if (instancePropertyValue instanceof StructPropertyValue structPropertyValue)
                 {
@@ -1050,36 +1037,27 @@ public class QueryBuilder
     {
         if ((matchClassifications != null) && (matchClassifications.getConditions() != null))
         {
-            String matchOperand = " and ";
-            PropertyComparisonOperator operator = PropertyComparisonOperator.EQ;
-
-            if (matchClassifications.getMatchCriteria() == MatchCriteria.ANY)
-            {
-                matchOperand = " or ";
-            }
-            else if (matchClassifications.getMatchCriteria() == MatchCriteria.NONE)
-            {
-                operator = PropertyComparisonOperator.NEQ;
-            }
-
             StringBuilder stringBuilder  = new StringBuilder();
 
             for (ClassificationCondition classificationCondition : matchClassifications.getConditions())
             {
                 if (classificationCondition != null)
                 {
-                    stringBuilder.append(matchOperand);
-                    stringBuilder.append(" (");
+                    /*
+                     * Add in a type clause for the classification, even if the classification name is null to
+                     * make the construction of the SQL easier.
+                     */
+                    stringBuilder.append(" and (");
                     stringBuilder.append(RepositoryColumn.TYPE_NAME.getColumnName(RepositoryTable.CLASSIFICATION.getTableName()));
-                    if (operator == PropertyComparisonOperator.EQ)
+                    stringBuilder.append(" like '%:");
+                    if (classificationCondition.getName() != null)
                     {
-                        stringBuilder.append(" like '%:");
+                        stringBuilder.append(classificationCondition.getName());
                     }
                     else
                     {
-                        stringBuilder.append(" not like '%:");
+                        stringBuilder.append("%");
                     }
-                    stringBuilder.append(classificationCondition.getName());
                     stringBuilder.append(":%' ");
 
                     if (classificationCondition.getMatchProperties() != null)

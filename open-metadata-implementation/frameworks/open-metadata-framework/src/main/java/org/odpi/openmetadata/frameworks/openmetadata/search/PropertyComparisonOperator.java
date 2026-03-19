@@ -107,11 +107,6 @@ public enum PropertyComparisonOperator implements OpenMetadataRefData
     GTE(5, "Greater than or equal", "Greater than or equal to.", "9f83955d-8bb1-4934-942a-b7464728bd31"),
 
     /**
-     * Has a value of at least one in the provided list of values.
-     */
-    IN(6, "In list", "Has a value of at least one in the provided list of values.", "6071271c-c845-48c7-8890-bd755736925d"),
-
-    /**
      * Has no value.
      */
     IS_NULL(7, "Is null", "Has no value.", "48ed1744-b601-485d-9cd3-d4f999696d39"),

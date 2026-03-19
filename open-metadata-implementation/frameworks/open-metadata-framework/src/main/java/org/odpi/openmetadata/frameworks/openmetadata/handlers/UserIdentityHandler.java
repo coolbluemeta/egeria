@@ -14,7 +14,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.EntityProperties
 import org.odpi.openmetadata.frameworks.openmetadata.properties.RelationshipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.ProfileIdentityProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.UserIdentityProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityGroupMembershipProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityListMembershipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
@@ -234,7 +234,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     @SuppressWarnings("DataFlowIssue")
     public void addSecurityGroupMembership(String                            userId,
                                            String                            userIdentityGUID,
-                                           SecurityGroupMembershipProperties properties,
+                                           SecurityListMembershipProperties properties,
                                            MetadataSourceOptions             metadataSourceOptions) throws InvalidParameterException,
                                                                                                            PropertyServerException,
                                                                                                            UserNotAuthorizedException
@@ -247,11 +247,11 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
         propertyHelper.validateUserId(userId, methodName);
         propertyHelper.validateGUID(userIdentityGUID, guidParameterName, methodName);
         propertyHelper.validateObject(properties, propertiesParameterName, methodName);
-        propertyHelper.validateObject(properties.getGroups(), groupsParameterName, methodName);
+        propertyHelper.validateObject(properties.getSecurityGroups(), groupsParameterName, methodName);
 
         openMetadataClient.classifyMetadataElementInStore(userId,
                                                           userIdentityGUID,
-                                                          OpenMetadataType.SECURITY_GROUP_MEMBERSHIP_CLASSIFICATION.typeName,
+                                                          OpenMetadataType.SECURITY_LIST_MEMBERSHIP_CLASSIFICATION.typeName,
                                                           metadataSourceOptions,
                                                           classificationBuilder.getNewElementProperties(properties));
     }
@@ -271,9 +271,9 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
     public void updateSecurityGroupMembership(String                            userId,
                                               String                            userIdentityGUID,
                                               UpdateOptions                     updateOptions,
-                                              SecurityGroupMembershipProperties properties) throws InvalidParameterException,
-                                                                                                   PropertyServerException,
-                                                                                                   UserNotAuthorizedException
+                                              SecurityListMembershipProperties properties) throws InvalidParameterException,
+                                                                                                  PropertyServerException,
+                                                                                                  UserNotAuthorizedException
     {
         final String methodName = "updateSecurityGroupMembership";
         final String guidParameterName = "userIdentityGUID";
@@ -283,17 +283,17 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
         propertyHelper.validateUserId(userId, methodName);
         propertyHelper.validateGUID(userIdentityGUID, guidParameterName, methodName);
         propertyHelper.validateObject(properties, propertiesParameterName, methodName);
-        propertyHelper.validateObject(properties.getGroups(), groupsParameterName, methodName);
+        propertyHelper.validateObject(properties.getSecurityGroups(), groupsParameterName, methodName);
 
         openMetadataClient.reclassifyMetadataElementInStore(userId,
                                                             userIdentityGUID,
-                                                            OpenMetadataType.SECURITY_GROUP_MEMBERSHIP_CLASSIFICATION.typeName,
+                                                            OpenMetadataType.SECURITY_LIST_MEMBERSHIP_CLASSIFICATION.typeName,
                                                             updateOptions,
                                                             classificationBuilder.getElementProperties(properties));
 
         openMetadataClient.updateClassificationEffectivityInStore(userId,
                                                                   userIdentityGUID,
-                                                                  OpenMetadataType.SECURITY_GROUP_MEMBERSHIP_CLASSIFICATION.typeName,
+                                                                  OpenMetadataType.SECURITY_LIST_MEMBERSHIP_CLASSIFICATION.typeName,
                                                                   updateOptions,
                                                                   properties.getEffectiveFrom(),
                                                                   properties.getEffectiveTo());
@@ -324,7 +324,7 @@ public class UserIdentityHandler extends OpenMetadataHandlerBase
 
         openMetadataClient.declassifyMetadataElementInStore(userId,
                                                             userIdentityGUID,
-                                                            OpenMetadataType.SECURITY_GROUP_MEMBERSHIP_CLASSIFICATION.typeName,
+                                                            OpenMetadataType.SECURITY_LIST_MEMBERSHIP_CLASSIFICATION.typeName,
                                                             metadataSourceOptions);
     }
 

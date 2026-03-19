@@ -2,35 +2,36 @@
 /* Copyright Contributors to the ODPi Egeria project. */
 package org.odpi.openmetadata.frameworks.openmetadata.properties.security;
 
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.RelationshipBeanProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
+import java.util.Map;
 import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
 
 /**
- * AssociatedSecurityGroupProperties identified an operation that the security groups map to.
+ * GovernanceZoneProperties describes a governance zone.  This describes the access permissions for a collection
+ * of open metadata elements that are members of the governance zone.
  */
 @JsonAutoDetect(getterVisibility=PUBLIC_ONLY, setterVisibility=PUBLIC_ONLY, fieldVisibility=NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class AssociatedSecurityGroupProperties extends RelationshipBeanProperties
+public class ServiceAccessControlProperties extends SecurityAccessControlProperties
 {
-    String operationName = null;
+    private Map<String, String> mappingProperties = null;
+
 
     /**
      * Default constructor
      */
-    public AssociatedSecurityGroupProperties()
+    public ServiceAccessControlProperties()
     {
         super();
-        super.typeName = OpenMetadataType.ASSOCIATED_SECURITY_GROUP_RELATIONSHIP.typeName;
+        super.typeName = OpenMetadataType.SERVICE_ACCESS_CONTROL.typeName;
     }
 
 
@@ -39,36 +40,36 @@ public class AssociatedSecurityGroupProperties extends RelationshipBeanPropertie
      *
      * @param template object to copy
      */
-    public AssociatedSecurityGroupProperties(AssociatedSecurityGroupProperties template)
+    public ServiceAccessControlProperties(ServiceAccessControlProperties template)
     {
         super(template);
 
         if (template != null)
         {
-            this.operationName = template.getOperationName();
+            this.mappingProperties = template.getMappingProperties();
         }
     }
 
 
     /**
-     * Return the name of the associated operation.
+     * Return the appropriate mapping properties used by the security service needed to map the control to the callable resource.
      *
-     * @return name
+     * @return text
      */
-    public String getOperationName()
+    public Map<String, String> getMappingProperties()
     {
-        return operationName;
+        return mappingProperties;
     }
 
 
     /**
-     * Set up the name of the associated operation.
+     * Set up the appropriate mapping properties used by the security service needed to map the control to the callable resource.
      *
-     * @param operationName name
+     * @param mappingProperties text
      */
-    public void setOperationName(String operationName)
+    public void setMappingProperties(Map<String, String> mappingProperties)
     {
-        this.operationName = operationName;
+        this.mappingProperties = mappingProperties;
     }
 
 
@@ -80,17 +81,17 @@ public class AssociatedSecurityGroupProperties extends RelationshipBeanPropertie
     @Override
     public String toString()
     {
-        return "AssociatedSecurityGroupProperties{" +
-                "operationName='" + operationName + '\'' +
+        return "ServiceAccessControlProperties{" +
+                "mappingProperties=" + mappingProperties +
                 "} " + super.toString();
     }
 
 
     /**
-     * Compare the values of the supplied object with those stored in the current object.
+     * Return comparison result based on the content of the properties.
      *
-     * @param objectToCompare supplied object
-     * @return boolean result of comparison
+     * @param objectToCompare test object
+     * @return result of comparison
      */
     @Override
     public boolean equals(Object objectToCompare)
@@ -103,23 +104,23 @@ public class AssociatedSecurityGroupProperties extends RelationshipBeanPropertie
         {
             return false;
         }
-        if (! super.equals(objectToCompare))
+        if (!super.equals(objectToCompare))
         {
             return false;
         }
-        AssociatedSecurityGroupProperties that = (AssociatedSecurityGroupProperties) objectToCompare;
-        return Objects.equals(operationName, that.operationName);
+        ServiceAccessControlProperties that = (ServiceAccessControlProperties) objectToCompare;
+        return Objects.equals(mappingProperties, that.mappingProperties);
     }
 
 
     /**
-     * Return hash code based on properties.
+     * Return hash code for this object
      *
-     * @return int
+     * @return int hash code
      */
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), operationName);
+        return Objects.hash(super.hashCode(), mappingProperties);
     }
 }

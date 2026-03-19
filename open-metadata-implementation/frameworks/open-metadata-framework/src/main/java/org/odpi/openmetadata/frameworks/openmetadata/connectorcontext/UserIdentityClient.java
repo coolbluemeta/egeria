@@ -15,7 +15,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.EntityProperties
 import org.odpi.openmetadata.frameworks.openmetadata.properties.RelationshipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.ProfileIdentityProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.actors.UserIdentityProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityGroupMembershipProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityListMembershipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
@@ -237,7 +237,7 @@ public class UserIdentityClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
      */
     public void addSecurityGroupMembership(String                            userIdentityGUID,
-                                           SecurityGroupMembershipProperties properties,
+                                           SecurityListMembershipProperties properties,
                                            MetadataSourceOptions             metadataSourceOptions) throws InvalidParameterException,
                                                                                                            PropertyServerException,
                                                                                                            UserNotAuthorizedException
@@ -258,9 +258,9 @@ public class UserIdentityClient extends ConnectorContextClientBase
      */
     public void updateSecurityGroupMembership(String                            userIdentityGUID,
                                               UpdateOptions                     updateOptions,
-                                              SecurityGroupMembershipProperties properties) throws InvalidParameterException,
-                                                                                                   PropertyServerException,
-                                                                                                   UserNotAuthorizedException
+                                              SecurityListMembershipProperties properties) throws InvalidParameterException,
+                                                                                                  PropertyServerException,
+                                                                                                  UserNotAuthorizedException
     {
         userIdentityHandler.updateSecurityGroupMembership(connectorUserId, userIdentityGUID, updateOptions, properties);
     }

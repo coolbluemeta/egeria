@@ -3,6 +3,8 @@
 package org.odpi.openmetadata.metadatasecurity;
 
 
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 
 /**
@@ -18,25 +20,31 @@ public interface OpenMetadataServiceSecurity
     /**
      * Check that the calling user is authorized to issue this request.
      *
-     * @param userId calling user
+     * @param userId      calling user
      * @param serviceName name of called service
-     *
-     * @throws UserNotAuthorizedException the user is not authorized to access this service
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    void  validateUserForService(String userId,
-                                 String serviceName) throws UserNotAuthorizedException;
+    void validateUserForService(String userId,
+                                String serviceName) throws UserNotAuthorizedException,
+                                                           InvalidParameterException,
+                                                           PropertyServerException;
 
 
     /**
      * Check that the calling user is authorized to issue this specific request.
      *
-     * @param userId calling user
-     * @param serviceName name of called service
+     * @param userId        calling user
+     * @param serviceName   name of called service
      * @param operationName name of called operation
-     *
-     * @throws UserNotAuthorizedException the user is not authorized to access this service
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException    unable to retrieve necessary information to make the decision.
      */
-    void  validateUserForServiceOperation(String userId,
-                                          String serviceName,
-                                          String operationName) throws UserNotAuthorizedException;
+    void validateUserForServiceOperation(String userId,
+                                         String serviceName,
+                                         String operationName) throws UserNotAuthorizedException,
+                                                                      InvalidParameterException,
+                                                                      PropertyServerException;
 }

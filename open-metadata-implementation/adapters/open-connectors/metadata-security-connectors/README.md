@@ -5,7 +5,9 @@
 
 The metadata security connectors manage authorization of requests to the open metadata and governance services.
 
-* [Open Metadata Access Security Connector](open-metadata-access-security-connector) - uses an embedded Secrets Store Connector to authorize requests.
+* [Open Metadata Access Security Connector](open-metadata-access-security-connector) - uses an embedded [Secrets Store Connector](../secrets-store-connectors) to authorize requests.
+
+See the [metadata security feature](https://egeria-project.org/features/metadata-security/overview/) for information about how these connectors operate.
 
 Return to [open-connectors](..).
 

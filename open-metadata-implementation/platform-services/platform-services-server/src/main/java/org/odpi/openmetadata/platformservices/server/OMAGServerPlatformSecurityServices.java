@@ -220,7 +220,7 @@ public class OMAGServerPlatformSecurityServices extends TokenController
 
             restCallLogger.setUserId(token, userId);
 
-            response.setUserAccount(OpenMetadataPlatformSecurityVerifier.getUser(userId, delegatingUserId, accountUserId));
+            response.setUserAccount(OpenMetadataPlatformSecurityVerifier.getUserAccount(userId, delegatingUserId, accountUserId));
         }
         catch (Throwable error)
         {

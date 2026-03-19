@@ -3308,24 +3308,44 @@ public enum OpenMetadataType
                           ImpactProperties.class),
 
     /**
-     * A collection of users that should be given the same, specific security privileges.
+     * A collection of users.
+     */
+    SECURITY_LIST("c0a59a52-8bb4-45b7-a386-96f8e3ef70c3",
+                   "SecurityList",
+                   OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
+                   "48b080bc-5d65-4557-9c8f-99f1cf77d47d",
+                   "A collection of users.",
+                   SecurityListProperties.class),
+
+    /**
+     * A collection of users that are similar.
      */
     SECURITY_GROUP("042d9b5c-677e-477b-811f-1c39bf716759",
                    "SecurityGroup",
                    OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
                    "711e2a43-e7f0-4124-8f91-abc2a86d7a0b",
-                   "A collection of users that should be given the same, specific  security privileges.",
+                   "A collection of users that are similar.",
                    SecurityGroupProperties.class),
 
     /**
-     * Identifies the set of user groups that this user identity is a member of.
+     * A collection of users that should be given the same, specific security privileges.
      */
-    SECURITY_GROUP_MEMBERSHIP_CLASSIFICATION("21a16f1e-9231-4983-b371-a0686d555273",
-                                             "SecurityGroupMembership",
-                                             OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
-                                             "74509737-6fe9-4c9b-90f7-8abf16f7ed59",
-                                             "Identifies the set of user groups that this user identity is a member of.",
-                                             SecurityGroupMembershipProperties.class),
+    SECURITY_ROLE("0aba2e71-a15f-438f-afcb-e08349427760",
+                   "SecurityRole",
+                   OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
+                   "ee6e17fc-3e98-4a70-91a6-86b7ce328ed0",
+                   "A collection of users that need the same permissions to perform one of their roles.",
+                   SecurityRoleProperties.class),
+
+    /**
+     * Identifies the set of user groups/roles that this user identity is a member of.
+     */
+    SECURITY_LIST_MEMBERSHIP_CLASSIFICATION("21a16f1e-9231-4983-b371-a0686d555273",
+                                            "SecurityListMembership",
+                                            OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
+                                            "74509737-6fe9-4c9b-90f7-8abf16f7ed59",
+                                            "Identifies the set of user roles/groups that this user identity is a member of.",
+                                            SecurityListMembershipProperties.class),
 
     /**
      * Defines labels and properties used by a security engine.
@@ -3347,16 +3367,25 @@ public enum OpenMetadataType
                             "A technical control that defines who has access to the attached element.",
                             SecurityAccessControlProperties.class),
 
+    /**
+     * Defines the security access controls for a particular callable service.
+     */
+    SERVICE_ACCESS_CONTROL("82a3d128-2ab8-4177-9fd3-4ff2803f5f90",
+                    "ServiceAccessControl",
+                    OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
+                    "df040e62-b6b0-4516-a6ce-a69a51e45798",
+                    "Defines the security access controls for a particular callable service.",
+                    ServiceAccessControlProperties.class),
 
     /**
-     * Links a security access control to a security group.
+     * Links a security access control to a security list.
      */
-    ASSOCIATED_SECURITY_GROUP_RELATIONSHIP("e47a19d0-7e12-4cf7-9ad7-50856da7faa2",
-                                           "AssociatedSecurityGroup",
-                                           OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
-                                           "de70d92a-ac47-4221-914b-bdb52bf1a161",
-                                           "Links a security access control to a security group.",
-                                           AssociatedSecurityGroupProperties.class),
+    ASSOCIATED_SECURITY_LIST_RELATIONSHIP("e47a19d0-7e12-4cf7-9ad7-50856da7faa2",
+                                          "AssociatedSecurityList",
+                                          OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
+                                          "de70d92a-ac47-4221-914b-bdb52bf1a161",
+                                          "Links a security access control to a security list.",
+                                          AssociatedSecurityListProperties.class),
 
     /**
      * Defines the element's membership of the governance zones.
@@ -3369,13 +3398,23 @@ public enum OpenMetadataType
                                    ZoneMembershipProperties.class),
 
     /**
-     * Defines a collection of assets that are suitable for a particular usage or are governed by a particular process.
+     * Statistics covering the membership of the governance zone.
+     */
+    ZONE_MEMBERSHIP_PROFILE_CLASSIFICATION("b01d574f-5987-4849-a6b3-1f27b79e8ed5",
+                                           "ZoneMembershipProfile",
+                                           OpenMetadataWikiPages.MODEL_0424_GOVERNANCE_ZONES,
+                                           "1d3983a0-a237-46fd-a07d-027a2a0cb5b1",
+                                           "Statistics covering the membership of the governance zone.",
+                                           ZoneMembershipProfileProperties.class),
+
+    /**
+     * Defines a collection of elements that are suitable for a particular usage or are governed by a particular process.
      */
     GOVERNANCE_ZONE("290a192b-42a7-449a-935a-269ca62cfdac",
                     "GovernanceZone",
                     OpenMetadataWikiPages.MODEL_0424_GOVERNANCE_ZONES,
                     "d748483f-7f63-46c2-ba08-765c0b1f82e4",
-                    "Defines a collection of assets that are suitable for a particular usage or are governed by a particular process.",
+                    "Defines a collection of elements that are suitable for a particular usage or are governed by a particular process.",
                     GovernanceZoneProperties.class),
 
     /**

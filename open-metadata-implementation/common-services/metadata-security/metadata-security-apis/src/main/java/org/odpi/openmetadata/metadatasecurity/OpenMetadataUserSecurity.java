@@ -21,49 +21,39 @@ public interface OpenMetadataUserSecurity
      *
      * @param userId calling user
      * @return security properties about the user
-     * @throws UserNotAuthorizedException user not recognized - or supplied an incorrect password
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-   OpenMetadataUserAccount getUserAccount(String userId) throws UserNotAuthorizedException;
+   OpenMetadataUserAccount getUserAccount(String userId) throws UserNotAuthorizedException,
+                                                                InvalidParameterException,
+                                                                PropertyServerException;
 
 
     /**
      * Create/update information about a specific user.  This is used to update user details nd reset the password.
      *
      * @param userAccount security properties about the user
-     * @throws UserNotAuthorizedException user not recognized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    void setUserAccount(OpenMetadataUserAccount userAccount) throws UserNotAuthorizedException;
+    void setUserAccount(OpenMetadataUserAccount userAccount) throws UserNotAuthorizedException,
+                                                                    InvalidParameterException,
+                                                                    PropertyServerException;
 
 
     /**
      * Delete information about a specific user.
      *
      * @param userId      calling user
-     * @throws UserNotAuthorizedException user not recognized
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    void deleteUserAccount(String userId) throws UserNotAuthorizedException;
-
-
-    /**
-     * Determine the appropriate setting for the supported zones depending on the user and the
-     * default supported zones set up for the service.  This is called whenever an element is accessed.
-     *
-     * @param supportedZones default setting of the supported zones
-     * @param typeName type of the element
-     * @param serviceName name of the called service
-     * @param userId name of the user
-     *
-     * @return list of supported zones for the user
-     * @throws InvalidParameterException one of the parameter values is invalid
-     * @throws PropertyServerException a problem calculating the zones
-     * @throws UserNotAuthorizedException unknown user
-     */
-    List<String> getSupportedZonesForUser(List<String>  supportedZones,
-                                          String        typeName,
-                                          String        serviceName,
-                                          String        userId) throws InvalidParameterException,
-                                                                       PropertyServerException,
-                                                                       UserNotAuthorizedException;
+    void deleteUserAccount(String userId) throws UserNotAuthorizedException,
+                                                 InvalidParameterException,
+                                                 PropertyServerException;
 
 
     /**

@@ -5,7 +5,7 @@ package org.odpi.openmetadata.repositoryservices.metadatahighway;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.cohortregistrystore.properties.MemberRegistration;
-import org.odpi.openmetadata.repositoryservices.events.OpenMetadataEventsSecurity;
+import org.odpi.openmetadata.metadatasecurity.OpenMetadataEventsSecurity;
 import org.odpi.openmetadata.repositoryservices.properties.CohortConnectionStatus;
 import org.odpi.openmetadata.repositoryservices.properties.CohortDescription;
 import org.slf4j.Logger;

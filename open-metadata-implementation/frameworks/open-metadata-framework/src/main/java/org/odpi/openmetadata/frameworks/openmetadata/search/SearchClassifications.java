@@ -23,7 +23,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 public class SearchClassifications
 {
     private List<ClassificationCondition> conditions;
-    private MatchCriteria matchCriteria;
+    private MatchCriteria                 matchCriteria = MatchCriteria.ANY;
 
     /**
      * Typical constructor
@@ -31,8 +31,6 @@ public class SearchClassifications
     public SearchClassifications()
     {
         super();
-        // Setup defaults
-        matchCriteria = MatchCriteria.ALL;
     }
 
 
@@ -49,8 +47,12 @@ public class SearchClassifications
         if (templateProperties != null)
         {
             this.matchCriteria = templateProperties.getMatchCriteria();
-            this.conditions = new ArrayList<>();
-            this.conditions.addAll(templateProperties.getConditions());
+
+            if (templateProperties.getConditions() != null)
+            {
+                this.conditions = new ArrayList<>();
+                this.conditions.addAll(templateProperties.getConditions());
+            }
         }
     }
 
@@ -123,11 +125,10 @@ public class SearchClassifications
         {
             return true;
         }
-        if (!(objectToCompare instanceof SearchClassifications))
+        if (!(objectToCompare instanceof SearchClassifications that))
         {
             return false;
         }
-        SearchClassifications that = (SearchClassifications) objectToCompare;
         return getMatchCriteria() == that.getMatchCriteria() &&
                 Objects.equals(getConditions(), that.getConditions());
     }

@@ -26,8 +26,9 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.CalculatedValueProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.PrimaryKeyProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.TypeEmbeddedAttributeProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityGroupMembershipProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityListMembershipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityTagsProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.security.ZoneMembershipProfileProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.security.ZoneMembershipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.templates.TemplateProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.templates.TemplateSubstituteProperties;
@@ -89,7 +90,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = ReferenceListProperties.class, name = "ReferenceListProperties"),
                 @JsonSubTypes.Type(value = RequestResponseInterfaceProperties.class, name = "RequestResponseInterfaceProperties"),
                 @JsonSubTypes.Type(value = SecureLocationProperties.class, name = "SecureLocationProperties"),
-                @JsonSubTypes.Type(value = SecurityGroupMembershipProperties.class, name = "SecurityGroupMembershipProperties"),
+                @JsonSubTypes.Type(value = SecurityListMembershipProperties.class, name = "SecurityGroupMembershipProperties"),
                 @JsonSubTypes.Type(value = SecurityTagsProperties.class, name = "SecurityTagsProperties"),
                 @JsonSubTypes.Type(value = StudyProjectProperties.class, name = "StudyProjectProperties"),
                 @JsonSubTypes.Type(value = TaskProperties.class, name = "TaskProperties"),
@@ -97,6 +98,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = TemplateSubstituteProperties.class, name = "TemplateSubstituteProperties"),
                 @JsonSubTypes.Type(value = TypeEmbeddedAttributeProperties.class, name = "TypeEmbeddedAttributeProperties"),
                 @JsonSubTypes.Type(value = ZoneMembershipProperties.class, name = "ZoneMembershipProperties"),
+                @JsonSubTypes.Type(value = ZoneMembershipProfileProperties.class, name = "ZoneMembershipProfileProperties"),
         })
 public class ClassificationBeanProperties extends ClassificationProperties
 {

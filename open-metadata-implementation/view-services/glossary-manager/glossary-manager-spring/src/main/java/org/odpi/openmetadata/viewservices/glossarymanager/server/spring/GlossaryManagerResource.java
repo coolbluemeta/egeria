@@ -55,8 +55,8 @@ public class GlossaryManagerResource
 
 
     /* ========================================================
-     * The glossary is the root object for a glossary.  All the glossary's categories and terms are anchored
-     * to it so that if the glossary is deleted, all the categories and terms within it are also deleted.
+     * The glossary is the root object for a glossary.  It is created through the Collection Manager API.
+     * The following classifications are used to describe the purpose of the glossary.
      */
 
 
@@ -192,13 +192,20 @@ public class GlossaryManagerResource
      */
 
     /**
-     * Return the list of glossary term status enum values.
+     * Return the list of glossary term status enum values.  These are of type ContentStatus and are added to
+     * the contentStatus attribute of GlossaryTerm.
      *
      * @param serverName name of the server to route the request to
      * @return list of enum values
      */
     @GetMapping(path = "/glossaries/terms/status-list")
     @SecurityRequirement(name = "BearerAuthorization")
+
+    @Operation(summary="getGlossaryTermStatuses",
+            description="Return the list of glossary term status enum values.  " +
+                    "These are of type ContentStatus and are added to the 'contentStatus' attribute of GlossaryTerm.",
+            externalDocs=@ExternalDocumentation(description="Further Information",
+                    url="https://egeria-project.org/concepts/glossary-term"))
 
     public GlossaryTermStatusListResponse getGlossaryTermStatuses(@PathVariable String serverName)
     {
@@ -222,7 +229,7 @@ public class GlossaryManagerResource
 
 
     /**
-     * Return the list of glossary term relationship status enum values.
+     * Return the list of glossary term activity types enum values.
      *
      * @param serverName name of the server to route the request to
      * @return list of enum values
@@ -496,7 +503,7 @@ public class GlossaryManagerResource
     public VoidResponse clearTermAsAbstractConcept(@PathVariable String                    serverName,
                                                    @PathVariable String                    glossaryTermGUID,
                                                    @RequestBody(required = false)
-                                                                 MetadataSourceRequestBody requestBody)
+                                                                 DeleteClassificationRequestBody requestBody)
     {
         return restAPI.clearTermAsAbstractConcept(serverName, glossaryTermGUID, requestBody);
     }
@@ -545,7 +552,7 @@ public class GlossaryManagerResource
     public VoidResponse clearTermAsDataValue(@PathVariable String                    serverName,
                                              @PathVariable String                    glossaryTermGUID,
                                              @RequestBody(required = false)
-                                                           MetadataSourceRequestBody requestBody)
+                                                 DeleteClassificationRequestBody requestBody)
     {
         return restAPI.clearTermAsDataValue(serverName, glossaryTermGUID, requestBody);
     }
@@ -592,7 +599,7 @@ public class GlossaryManagerResource
     public VoidResponse clearTermAsActivity(@PathVariable String                    serverName,
                                             @PathVariable String                    glossaryTermGUID,
                                             @RequestBody(required = false)
-                                                          MetadataSourceRequestBody requestBody)
+                                                DeleteClassificationRequestBody requestBody)
     {
         return restAPI.clearTermAsActivity(serverName, glossaryTermGUID, requestBody);
     }
@@ -639,9 +646,9 @@ public class GlossaryManagerResource
     public VoidResponse clearTermAsContext(@PathVariable String                   serverName,
                                            @PathVariable String                   glossaryTermGUID,
                                            @RequestBody(required = false)
-                                                         MetadataSourceRequestBody requestBody)
+                                               DeleteClassificationRequestBody requestBody)
     {
-        return restAPI.clearTermAsContext(serverName, glossaryTermGUID,requestBody);
+        return restAPI.clearTermAsContext(serverName, glossaryTermGUID, requestBody);
     }
 
 

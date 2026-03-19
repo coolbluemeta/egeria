@@ -23,11 +23,14 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SecretsCollection
 {
-    private long                     refreshTimeInterval = 60L;
-    private Map<String, String>      secrets             = null;
-    private TokenAPI                 tokenAPI            = null;
-    private Map<String, UserAccount> users               = null;
-    private Map<String, NamedList>   namedLists          = null;
+    private String                             displayName            = null;
+    private String                             description            = null;
+    private long                               refreshTimeInterval    = 60L;
+    private Map<String, String>                secrets                = null;
+    private TokenAPI                           tokenAPI               = null;
+    private Map<String, UserAccount>           users                  = null;
+    private Map<String, NamedList>             namedLists             = null;
+    private Map<String, SecurityAccessControl> securityAccessControls = null;
 
 
     /**
@@ -35,6 +38,68 @@ public class SecretsCollection
      */
     public SecretsCollection()
     {
+    }
+
+
+    /**
+     * Default constructor
+     */
+    public SecretsCollection(SecretsCollection template)
+    {
+        if (template != null)
+        {
+            this.displayName            = template.getDisplayName();
+            this.description            = template.getDescription();
+            this.refreshTimeInterval    = template.getRefreshTimeInterval();
+            this.secrets                = template.getSecrets();
+            this.tokenAPI               = template.getTokenAPI();
+            this.users                  = template.getUsers();
+            this.namedLists             = template.getNamedLists();
+        }
+    }
+
+
+    /**
+     * Return the display name for this collection.
+     *
+     * @return string
+     */
+    public String getDisplayName()
+    {
+        return displayName;
+    }
+
+
+    /**
+     * Set up the display name for this collection.
+     *
+     * @param displayName string
+     */
+    public void setDisplayName(String displayName)
+    {
+        this.displayName = displayName;
+    }
+
+
+    /**
+     * Return the description for this collection.
+     *
+     * @return string
+     */
+    public String getDescription()
+    {
+        return description;
+    }
+
+
+    /**
+     * Set up the description for this collection.
+     *
+     * @param description string
+     */
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 
 
@@ -128,7 +193,7 @@ public class SecretsCollection
 
     /**
      * Return the named lists in this collection.  The named lists can represent organization units,
-     * security groups and roles.
+     * security groups, and roles.
      *
      * @return map of named lists
      */
@@ -140,13 +205,37 @@ public class SecretsCollection
 
     /**
      * Set up the named lists in this collection.  The named lists can represent organization units,
-     * security groups and roles.
+     * security groups, and roles.
      *
      * @param namedLists map of named lists
      */
     public void setNamedLists(Map<String, NamedList> namedLists)
     {
         this.namedLists = namedLists;
+    }
+
+
+    /**
+     * Return the security access controls in this collection.  The security access controls can represent
+     * organization units, security groups, and roles.
+     *
+     * @return map of security access controls
+     */
+    public Map<String, SecurityAccessControl> getSecurityAccessControls()
+    {
+        return securityAccessControls;
+    }
+
+
+    /**
+     * Set up the security access controls in this collection.  The security access controls can represent
+     * organization units, security groups, and roles.
+     *
+     * @param securityAccessControls map of security access controls
+     */
+    public void setSecurityAccessControls(Map<String, SecurityAccessControl> securityAccessControls)
+    {
+        this.securityAccessControls = securityAccessControls;
     }
 
 
@@ -159,14 +248,16 @@ public class SecretsCollection
     public String toString()
     {
         return "SecretsCollection{" +
-                "refreshTimeInterval=" + refreshTimeInterval +
+                "displayName='" + displayName + '\'' +
+                ", description='" + description + '\'' +
+                ", refreshTimeInterval=" + refreshTimeInterval +
                 ", secrets=" + secrets +
                 ", tokenAPI=" + tokenAPI +
                 ", users=" + users +
                 ", namedLists=" + namedLists +
+                ", securityAccessControls=" + securityAccessControls +
                 '}';
     }
-
 
 
     /**
@@ -182,10 +273,13 @@ public class SecretsCollection
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         SecretsCollection that = (SecretsCollection) objectToCompare;
         return refreshTimeInterval == that.refreshTimeInterval &&
+                Objects.equals(displayName, that.displayName) &&
+                Objects.equals(description, that.description) &&
                 Objects.equals(users, that.users) &&
                 Objects.equals(secrets, that.secrets) &&
                 Objects.equals(tokenAPI, that.tokenAPI) &&
-                Objects.equals(namedLists, that.namedLists);
+                Objects.equals(namedLists, that.namedLists) &&
+                Objects.equals(securityAccessControls, that.securityAccessControls);
     }
 
     /**
@@ -196,6 +290,6 @@ public class SecretsCollection
     @Override
     public int hashCode()
     {
-        return Objects.hash(refreshTimeInterval, users, secrets, tokenAPI, namedLists);
+        return Objects.hash(displayName, description, refreshTimeInterval, users, secrets, tokenAPI, namedLists, securityAccessControls);
     }
 }

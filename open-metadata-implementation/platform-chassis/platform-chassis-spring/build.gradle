@@ -17,6 +17,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.apache.tomcat.embed:tomcat-embed-core'
     implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'org.springframework:spring-web'
     implementation 'jakarta.servlet:jakarta.servlet-api'
 
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'

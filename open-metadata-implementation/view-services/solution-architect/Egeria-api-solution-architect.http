@@ -57,7 +57,7 @@ Content-Type: application/json
     "displayName": "add short name here",
     "description": "add description here",
     "scope": "add scope of this information supply chain's applicability.",
-    "purposes": ["purpose1", "purpose2"],
+    "dataProcessingPurposes": ["purpose1", "purpose2"],
     "additionalProperties": {
       "property1" : "propertyValue1",
       "property2" : "propertyValue2"
@@ -135,7 +135,7 @@ Content-Type: application/json
     "displayName": "add short name here",
     "description": "add description here",
     "scope": "add scope of this information supply chain's applicability.",
-    "purposes": ["purpose1", "purpose2"],
+    "dataProcessingPurposes": ["purpose1", "purpose2"],
     "additionalProperties": {
       "property1" : "propertyValue1",
       "property2" : "propertyValue2"

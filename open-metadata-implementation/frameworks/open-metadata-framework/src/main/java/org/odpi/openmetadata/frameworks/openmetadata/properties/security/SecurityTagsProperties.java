@@ -25,9 +25,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SecurityTagsProperties extends ClassificationBeanProperties
 {
-    private List<String>              securityLabels     = null;
-    private Map<String, Object>       securityProperties = null;
-    private Map<String, List<String>> accessGroups       = null;
+    private List<String>        securityLabels     = null;
+    private Map<String, Object> securityProperties = null;
 
     /**
      * Default constructor
@@ -50,9 +49,8 @@ public class SecurityTagsProperties extends ClassificationBeanProperties
 
         if (template != null)
         {
-            this.securityLabels = template.getSecurityLabels();
+            this.securityLabels     = template.getSecurityLabels();
             this.securityProperties = template.getSecurityProperties();
-            this.accessGroups = template.getAccessGroups();
         }
     }
 
@@ -101,26 +99,6 @@ public class SecurityTagsProperties extends ClassificationBeanProperties
     }
 
 
-    /**
-     * Return the permissions for each access group.
-     *
-     * @return access groups
-     */
-    public Map<String, List<String>> getAccessGroups()
-    {
-        return accessGroups;
-    }
-
-    /**
-     * Set up the permissions for each access group.
-     *
-     * @param accessGroups access groups
-     */
-    public void setAccessGroups(Map<String, List<String>> accessGroups)
-    {
-        this.accessGroups = accessGroups;
-    }
-
 
     /**
      * Standard toString method.
@@ -133,7 +111,6 @@ public class SecurityTagsProperties extends ClassificationBeanProperties
         return "SecurityTagsProperties{" +
                 "securityLabels=" + securityLabels +
                 ", securityProperties=" + securityProperties +
-                ", accessGroups=" + accessGroups +
                 "} " + super.toString();
     }
 
@@ -161,8 +138,7 @@ public class SecurityTagsProperties extends ClassificationBeanProperties
         }
         SecurityTagsProperties that = (SecurityTagsProperties) objectToCompare;
         return Objects.equals(securityLabels, that.securityLabels) &&
-                Objects.equals(securityProperties, that.securityProperties) &&
-                Objects.equals(accessGroups, that.accessGroups);
+                Objects.equals(securityProperties, that.securityProperties);
     }
 
 
@@ -174,6 +150,6 @@ public class SecurityTagsProperties extends ClassificationBeanProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), securityLabels, securityProperties, accessGroups);
+        return Objects.hash(super.hashCode(), securityLabels, securityProperties);
     }
 }

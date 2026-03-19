@@ -73,7 +73,6 @@ public class DataSetProperties extends DataAssetProperties
     }
 
 
-
     /**
      * Return the description of the processing performed by this process.
      *
@@ -113,7 +112,6 @@ public class DataSetProperties extends DataAssetProperties
     {
         this.formulaType = formulaType;
     }
-
 
 
     /**

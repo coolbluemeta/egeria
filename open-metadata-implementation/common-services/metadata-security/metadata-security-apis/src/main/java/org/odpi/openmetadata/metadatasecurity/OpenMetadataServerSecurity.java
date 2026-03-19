@@ -3,6 +3,8 @@
 package org.odpi.openmetadata.metadatasecurity;
 
 
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
+import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
 
 /**
@@ -19,9 +21,13 @@ public interface OpenMetadataServerSecurity
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to access this function
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    void  validateUserForServer(String userId) throws UserNotAuthorizedException;
+    void  validateUserForServer(String userId) throws UserNotAuthorizedException,
+                                                      InvalidParameterException,
+                                                      PropertyServerException;
 
 
     /**
@@ -29,9 +35,13 @@ public interface OpenMetadataServerSecurity
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to change configuration
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    void  validateUserAsServerAdmin(String userId) throws UserNotAuthorizedException;
+    void  validateUserAsServerAdmin(String userId) throws UserNotAuthorizedException,
+                                                          InvalidParameterException,
+                                                          PropertyServerException;
 
 
     /**
@@ -39,9 +49,13 @@ public interface OpenMetadataServerSecurity
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue operator commands to this server
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    void  validateUserAsServerOperator(String userId) throws UserNotAuthorizedException;
+    void  validateUserAsServerOperator(String userId) throws UserNotAuthorizedException,
+                                                             InvalidParameterException,
+                                                             PropertyServerException;
 
 
     /**
@@ -49,7 +63,11 @@ public interface OpenMetadataServerSecurity
      *
      * @param userId calling user
      *
-     * @throws UserNotAuthorizedException the user is not authorized to issue diagnostic commands to this server
+     * @throws InvalidParameterException  one of the elements is invisible to the requesting user.
+     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
+     * @throws PropertyServerException unable to retrieve necessary information to make the decision.
      */
-    void  validateUserAsServerInvestigator(String userId) throws UserNotAuthorizedException;
+    void  validateUserAsServerInvestigator(String userId) throws UserNotAuthorizedException,
+                                                                 InvalidParameterException,
+                                                                 PropertyServerException;
 }

@@ -14,187 +14,103 @@ import java.util.List;
 public enum OpenMetadataSecurityConfigurationProperty
 {
     /**
-     * Provide a comma-separated list of zone names that should be added to an Asset when it is created.
-     */
-    DEFAULT_ZONE_MEMBERSHIP ("defaultZoneMembership",
-                             "Provide a comma-separated list of zone names that should be added to an Asset when it is created.",
-                             "array<string>",
-                             "quarantine",
-                             false),
-
-    /**
      * Name of the list of users/roles that are permitted to configure OMAG servers using the OMAG Server Platform's administration services.
      */
-    SERVER_ADMINISTRATOR_GROUP ("serverAdministratorGroup",
-                                "Name of the list of users/roles that are permitted to configure OMAG servers using the OMAG Server Platform's administration services.",
-                                "string",
-                                "group server administrators",
-                                false),
+    SERVER_ADMINISTRATOR_CONTROL("serverAdministratorControlName",
+                                 "Name of the list of users/roles that are permitted to configure OMAG servers using the OMAG Server Platform's administration services.",
+                                 "string",
+                                 "admin-services",
+                                 false),
 
     /**
      * Name of the list of users/roles that are permitted to start and stop OMAG Servers on an OMAG Server Platform.
      */
-    SERVER_OPERATORS_GROUP ("serverOperatorsGroup",
-                            "Name of the list of users/roles that are permitted to start and stop OMAG Servers on an OMAG Server Platform through the Server Operations Services.",
-                            "string",
-                            "group server operators",
-                            false),
+    SERVER_OPERATORS_CONTROL("serverOperatorsControlName",
+                             "Name of the list of users/roles that are permitted to start and stop OMAG Servers on an OMAG Server Platform through the Server Operations Services.",
+                             "string",
+                             "platform-services",
+                             false),
 
     /**
      * Name of the list of users/roles that are permitted to start and stop OMAG Servers on an OMAG Server Platform.
      */
-    SERVER_INVESTIGATORS_GROUP ("serverInvestigatorsGroup",
-                                "Name of the list of users/roles that are permitted to query the status of OMAG Servers on an OMAG Server Platform through the Server Operations Services.",
-                                "string",
-                                "group server investigators",
-                                false),
+    SERVER_INVESTIGATORS_CONTROL("serverInvestigatorsControlName",
+                                 "Name of the list of users/roles that are permitted to query the status of OMAG Servers on an OMAG Server Platform through the Server Operations Services.",
+                                 "string",
+                                 "server-operations",
+                                 false),
 
     /**
-     * Name of the list of users/roles that are permitted to modify the open metadata type definitions in a Metadata Access Server.
+     * A dynamic group that includes all users with an active account.
      */
-    DYNAMIC_TYPE_AUTHOR_GROUP("dynamicTypeAuthorGroupName",
-                                "Name of the list of users/roles that are permitted to modify the open metadata type definitions in a Metadata Access Server.",
-                                "string",
-                                "group dynamic type author",
-                                false),
+    ALL_USERS_GROUP("allUsersGroupName",
+                    "A dynamic group that includes all users with an active account.",
+                    "string",
+                    "allUsers",
+                    false),
 
     /**
-     * Name of the list of users/roles that are permitted to modify the header information for an existing open metadata instance in the Open Metadata Ecosystem.
+     * A dynamic group that includes the owners of the element.
      */
-    INSTANCE_HEADER_AUTHOR_GROUP("instanceHeaderAuthorGroupName",
-                              "Name of the list of users/roles that are permitted to modify the header information for an existing open metadata instance in the Open Metadata Ecosystem.",
-                              "string",
-                              "group instance header author",
-                              false),
-
-    /**
-     * Provide a string pattern (for MessageFormat.format()) to convert a server name {0} into the group name to use to look up whether a user has access to a server's functions.
-     */
-    SERVER_GROUP_NAME_PATTERN("serverGroupNamePattern",
-                              "Provide a string pattern (for MessageFormat.format()) to convert a server name {0} into the group name to use to look up whether a user has access to a server's functions.",
-                              "string",
-                              "group omag-server {0}",
-                              false),
-
-    /**
-     * Provide a string pattern (for MessageFormat.format()) Provide a string pattern (for MessageFormat.format()) to convert a server name {0} and service name {1} into the group name to use to look up whether a user has access to a specific server's service.
-     */
-    SERVER_SERVICE_GROUP_NAME_PATTERN("serverServiceGroupNamePattern",
-                                      "Provide a string pattern (for MessageFormat.format()) to convert a server name {0} and service name {1} into the group name to use to look up whether a user has access to a specific server's service.",
-                                      "string",
-                                      "group server service {0} - {1}",
-                                      false),
-
-    /**
-     * Provide a string pattern (for MessageFormat.format()) to convert a server name {0}, a service name {1} and an operation {2} into the group name to use to look up whether a user has access to a specific server's service operation (method).
-     */
-    SERVER_SERVICE_OPERATION_GROUP_NAME_PATTERN("serverServiceOperationGroupNamePattern",
-                                      "Provide a string pattern (for MessageFormat.format()) to convert a server name {0}, a service name {1} and an operation {2} into the group name to use to look up whether a user has access to a specific server's service operation (method).",
-                                      "string",
-                                      "group server service operation {0} - {1} - {2}",
-                                      false),
-
-
-    /**
-     * Provide a string pattern (for MessageFormat.format()) to convert a governance zone name into the group name to use to look up whether a user has access to assets in the zone.
-     */
-    ZONE_GROUP_NAME_PATTERN("zoneGroupNamePattern",
-                              "Provide a string pattern (for MessageFormat.format()) to convert a governance zone name {0} and operation {1} into the group name to use to look up whether a user has access to assets in the zone.",
-                              "string",
-                              "group {0} zone",
-                              false),
-
-    /**
-     * Provide a string pattern (for MessageFormat.format()) to convert an element's type {0}, qualified name {1} and the operation {2} into the group name to use to look up whether a user has access to the element.
-     */
-    ELEMENT_GROUP_NAME_PATTERN("elementGroupNamePattern",
-                               "Provide a string pattern (for MessageFormat.format()) to convert an element's type {0}, qualified name {1} and the operation {2} into the group name to use to look up whether a user has access to the element.",
-                               "string",
-                               "group element {1} - {2}",
-                               false),
-
-    /**
-     * Provide a string pattern (for MessageFormat.format()) to convert an owner's name {0}, type name {1} and property name {2} into the group name to use to look up whether a user is the owner of an element.
-     */
-    OWNER_GROUP_NAME_PATTERN("ownerGroupNamePattern",
-                             "Provide a string pattern (for MessageFormat.format()) to convert an owner's name {0}, type name {1} and property name {2} into the group name to use to look up whether a user is the owner of an element.",
-                             "string",
-                             "group owner {0}",
-                             false),
-
-    /**
-     * A list of governance zones that require a different user from the creator to move a member asset out of the zone.
-     */
-    VALIDATION_ZONES_GROUP("validationZonesGroupName",
-                           "A list of governance zones that require a different user from the creator to move a member asset out of the zone.",
-                           "string",
-                           "policy group validation zones",
-                           false),
-
-    /**
-     * A list of governance zones that only allow update and access to the creator of the member assets.
-     */
-    PERSONAL_ZONES_GROUP("personalZonesGroupName",
-                         "A list of governance zones that only allow update and access to the creator of the member assets.",
+    INSTANCE_OWNER_GROUP("instanceOwnerGroupName",
+                         "A dynamic group that includes the owners of the element.",
                          "string",
-                         "policy group personal zones",
+                         "instanceOwner",
                          false),
 
     /**
-     * A list of governance zones where only the owner of a member asset may read or maintain the asset.
+     * Name of a dynamic group that includes all the existing maintainers of the element.
      */
-    STEWARDSHIP_ZONES_GROUP("stewardshipZonesGroupName",
-                            "A list of governance zones where only the owner of a member asset may read or maintain the asset.",
-                            "string",
-                            "policy group stewardship zones",
-                            false),
-
-    /**
-     * A list of governance zones where all user have read access.  Maintenance (create, update, delete) requires explicit access.
-     */
-    READABLE_ZONES_GROUP("readableZonesAccessGroupName",
-                         "A list of governance zones where all user have read access.",
-                         "string",
-                         "access group data lake zones",
-                         false),
-
-    /**
-     * A list of governance zones where only automated processes may read or maintain the member assets.
-     */
-    AUTOMATED_ZONES_GROUP("automatedZonesAccessGroupName",
-                          "A list of governance zones where only automated processes may read or maintain the member assets.",
-                          "string",
-                          "access group automated zones",
-                          false),
-
-    /**
-     * A list of governance zones where any defined user may read the member assets.
-     */
-    ALL_USER_ZONES_GROUP("allUsersZonesAccessGroupName",
-                          "A list of governance zones where any defined user may read the member assets.",
-                          "string",
-                          "access group all user zones",
-                          false),
-
-
-    /**
-     * A list of governance zones where defined user with an account type of EMPLOYEE may read or maintain the member assets.
-     */
-    EMPLOYEE_ONLY_ZONES_GROUP("employeeOnlyZonesAccessGroupName",
-                              "A list of governance zones where any defined user with an account type of EMPLOYEE may read the member assets.",
+    EXISTING_MAINTAINER_GROUP("existingMaintainerGroupName",
+                              "Name of a dynamic group that includes all the existing maintainers of the element.",
                               "string",
-                              "access group employee only user zones",
+                              "existingMaintainer",
                               false),
 
+    /**
+     * Name of the dynamic group that supports the policy that the user must not be in the existing list of maintainers for the element.
+     */
+    NEW_MAINTAINER_GROUP("newMaintainerGroupName",
+                         "Name of the dynamic group that supports the policy that the user must not be in the existing list of maintainers for the element.",
+                         "string",
+                         "newMaintainer",
+                         false),
+    /**
+     * Name of the dynamic group that includes all contactors with a valid account.
+     */
+    CONTRACTORS_GROUP("contractorsGroupName",
+                      "Name of the dynamic group that includes all contactors with a valid account.",
+                      "string",
+                      "contractUsers",
+                      false),
 
     /**
-     * A list of governance zones where defined user with an account type of EMPLOYEE or CONTRACTOR may read the member assets.
+     * Name of the dynamic group that includes all digital (automated process) users with a valid account.
      */
-    NOT_EXTERNAL_ZONES_GROUP("notExternalZonesAccessGroupName",
-                             "A list of governance zones where any defined user with an account type of EMPLOYEE or CONTRACTOR may read the member assets.",
-                             "string",
-                             "access group non external user zones",
-                             false),
+    DIGITAL_USERS_GROUP("digitalUsersGroupName",
+                        "Name of the dynamic group that includes all digital (automated process) users with a valid account.",
+                        "string",
+                        "digitalUsers",
+                        false),
+
+    /**
+     * Name of the dynamic group that includes all employees with a valid account.
+     */
+    EMPLOYEES_GROUP("employeeOnlyZonesAccessGroupName",
+                    "Name of the dynamic group that includes all employees with a valid account.",
+                    "string",
+                    "employeeUsers",
+                    false),
+
+
+    /**
+     * Name of the dynamic group that includes all external users with a valid account.
+     */
+    EXTERNAL_USERS_GROUP("externalUsersGroupName",
+                         "Name of the dynamic group that includes all external users with a valid account.",
+                         "string",
+                         "externalUsers",
+                         false),
 
     ;
 
@@ -210,7 +126,7 @@ public enum OpenMetadataSecurityConfigurationProperty
      *
      * @param name name of the request parameter
      * @param description description of the request parameter
-     * @param dataType type of value of the request parameter
+     * @param dataType data type of the request parameter
      * @param defaultValue example of the request parameter - this is also its default value
      * @param isPlaceholder is this also used as a placeholder property?
      */
