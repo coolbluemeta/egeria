@@ -4,9 +4,9 @@ package org.odpi.openmetadata.frameworks.openmetadata.client;
 
 import org.odpi.openmetadata.frameworks.openmetadata.api.*;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.*;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.ElementStatus;
+import org.odpi.openmetadata.frameworks.openmetadata.search.ElementStatus;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.*;
-import org.odpi.openmetadata.frameworks.openmetadata.refdata.SequencingOrder;
+import org.odpi.openmetadata.frameworks.openmetadata.search.SequencingOrder;
 import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.SpecificationProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;

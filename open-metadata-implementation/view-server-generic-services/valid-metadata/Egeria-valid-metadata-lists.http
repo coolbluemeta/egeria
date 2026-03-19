@@ -417,3 +417,22 @@ Content-Type: application/json
 ###
 
 ###
+# @name find properties that have a valid values list - the property name is in the identifier attribute.
+# Return a list of metadata elements that match the supplied criteria.  The results can be returned over many pages.
+POST {{baseURL}}/servers/{{viewServer}}/api/open-metadata/metadata-expert/metadata-elements/by-search-conditions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class" : "FindRequestBody",
+  "metadataElementTypeName": "ValidMetadataValue",
+  "searchProperties": {
+    "class" : "SearchProperties",
+    "conditions": [ {
+      "property" : "preferredValue",
+      "operator": "IS_NULL"}],
+    "matchCriteria": "ANY"
+  }
+}
+
+###

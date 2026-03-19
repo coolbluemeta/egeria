@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 /* Copyright Contributors to the ODPi Egeria project. */
-package org.odpi.openmetadata.frameworks.openmetadata.refdata;
+package org.odpi.openmetadata.frameworks.openmetadata.search;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -60,7 +60,7 @@ public enum SequencingOrder
     GUID                 (1, "GUID",                            "Order by GUID."),
 
     /**
-     * Order by creation date, most recently created first."
+     * Order by creation date, most recently created first.
      */
     CREATION_DATE_RECENT (2, "Creation Date (Recent First)",    "Order by creation date, most recently created first."),
 

@@ -330,8 +330,8 @@ public enum ProductDataFieldDefinition
      */
     ELEMENT_STATUS("Element Status",
                    "Element Status",
-                   OpenMetadataProperty.CURRENT_STATUS.description,
-                   OpenMetadataProperty.CURRENT_STATUS.dataType,
+                   OpenMetadataProperty.STATUS.description,
+                   OpenMetadataProperty.STATUS.dataType,
                    null,
                    null,
                    false,

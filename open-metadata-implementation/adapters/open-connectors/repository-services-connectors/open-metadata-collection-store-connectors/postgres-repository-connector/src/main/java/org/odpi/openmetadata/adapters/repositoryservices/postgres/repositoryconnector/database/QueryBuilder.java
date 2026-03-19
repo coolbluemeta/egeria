@@ -1434,7 +1434,7 @@ public class QueryBuilder
         {
             return RepositoryColumn.UPDATED_BY.getColumnName();
         }
-        else if (OpenMetadataProperty.CURRENT_STATUS.name.equals(propertyName))
+        else if (OpenMetadataProperty.STATUS.name.equals(propertyName))
         {
             return RepositoryColumn.CURRENT_STATUS.getColumnName();
         }
