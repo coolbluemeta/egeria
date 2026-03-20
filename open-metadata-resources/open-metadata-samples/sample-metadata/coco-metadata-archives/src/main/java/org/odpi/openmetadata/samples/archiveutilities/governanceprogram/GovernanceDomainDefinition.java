@@ -53,11 +53,11 @@ public enum GovernanceDomainDefinition
     /**
      * IT Governance
      */
-    IT_INFRASTRUCTURE( 4,
-                "IT Governance",
-                "Management of IT infrastructure such as hosts, servers, applications, databases and network infrastructure descriptions.",
-                       "IT Governance Community",
-                       PersonDefinition.GARY_GEEKE),
+    IT_GOVERNANCE(4,
+                  "IT Governance",
+                  "Management of IT infrastructure such as hosts, servers, applications, databases and network infrastructure descriptions.",
+                  "IT Governance Community",
+                  PersonDefinition.GARY_GEEKE),
 
     /**
      * Software Development Assurance

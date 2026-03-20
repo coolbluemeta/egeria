@@ -3403,7 +3403,7 @@ public enum OpenMetadataType
     ZONE_MEMBERSHIP_PROFILE_CLASSIFICATION("b01d574f-5987-4849-a6b3-1f27b79e8ed5",
                                            "ZoneMembershipProfile",
                                            OpenMetadataWikiPages.MODEL_0424_GOVERNANCE_ZONES,
-                                           "1d3983a0-a237-46fd-a07d-027a2a0cb5b1",
+                                           "a992f9e9-5f75-4dae-9959-34ab4b2f70f5",
                                            "Statistics covering the membership of the governance zone.",
                                            ZoneMembershipProfileProperties.class),
 
@@ -4163,7 +4163,7 @@ public enum OpenMetadataType
     INCIDENT_REPORT("072f252b-dea7-4b88-bb2e-8f741c9ca7f6e",
                     "IncidentReport",
                     OpenMetadataWikiPages.MODEL_0470_INCIDENT_REPORTING,
-                    "56c76116-1b1c-447c-b74d-ff860a2e41c6",
+                    "5cbce410-6f34-4744-8cbb-b0b4b1636815",
                     "A description of an adverse situation or activity.",
                     IncidentReportProperties.class),
 
@@ -4536,7 +4536,7 @@ public enum OpenMetadataType
     LINKED_EXTERNAL_SCHEMA_TYPE_RELATIONSHIP("9a5d78c2-1716-4783-bfc6-c300a9e2d092",
                                              "LinkedExternalSchemaType",
                                              OpenMetadataWikiPages.MODEL_0507_EXTERNAL_SCHEMA_TYPE,
-                                             "43cd44fd-dbb4-464d-bd9f-4be0a369fc60",
+                                             "a3e17d0f-ec0d-40ff-9d60-12cb48b240b9",
                                              "Links to a reusable schema type that is external to this schema.",
                                              LinkedExternalSchemaTypeProperties.class),
 
@@ -4637,7 +4637,7 @@ public enum OpenMetadataType
     DOCUMENT_SCHEMA_TYPE("33da99cd-8d04-490c-9457-c58908da7794",
                          "DocumentSchemaType",
                          OpenMetadataWikiPages.MODEL_0531_DOCUMENT_SCHEMAS,
-                         "ecf0f3e5-11ec-4eec-a61f-67ec888384ca",
+                         "6db7db38-4622-479a-a35e-ef65818eaa7a",
                          "A schema type for a structured document."),
 
     /**
@@ -4646,7 +4646,7 @@ public enum OpenMetadataType
     DOCUMENT_SCHEMA_ATTRIBUTE("b5cefb7e-b198-485f-a1d7-8e661012499b",
                               "DocumentSchemaAttribute",
                               OpenMetadataWikiPages.MODEL_0531_DOCUMENT_SCHEMAS,
-                              "2a55428f-2bfe-40bd-83dd-10eaae19a8f9",
+                              "41040ff7-1114-471a-948d-ea93fcf57773",
                               "A schema attribute for a structured document."),
 
     /**
@@ -4655,7 +4655,7 @@ public enum OpenMetadataType
     OBJECT_SCHEMA_TYPE("6920fda1-7c07-47c7-84f1-9fb044ae153e",
                        "ObjectSchemaType",
                        OpenMetadataWikiPages.MODEL_0532_OBJECT_SCHEMAS,
-                       "9012cd30-4164-49a8-9faa-fa5affd2965b",
+                       "9e4f83bed-5ff0-4665-9fea-9cf435a14698",
                        "A schema root for an object."),
 
     /**
@@ -4664,7 +4664,7 @@ public enum OpenMetadataType
     OBJECT_ATTRIBUTE("ccb408c0-582e-4a3a-a926-7082d53bb669",
                      "ObjectAttribute",
                      OpenMetadataWikiPages.MODEL_0532_OBJECT_SCHEMAS,
-                     "3df5b152-d786-4fb6-8e74-3be9448f44ac",
+                     "4c55dd4f-d28d-4074-b946-5776b966cc18",
                      "An attribute in an object schema type."),
 
     /**

@@ -286,6 +286,7 @@ public class CocoSustainabilityArchiveWriter extends EgeriaBaseArchiveWriter
                                         Integer.toString(domainDefinition.getDomainIdentifier()),
                                         domainDefinition.getDomainIdentifier(),
                                         (domainDefinition.getDomainIdentifier() == 0),
+                                        false,
                                         null);
 
             String communityQName = "Community::" + domainDefinition.getQualifiedName();

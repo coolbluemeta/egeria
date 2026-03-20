@@ -656,7 +656,7 @@ public enum OpenMetadataProperty
     /**
      * Provides additional reasons, or expectations from the results.
      */
-    PURPOSE("purpose", DataType.STRING, DataType.STRING.getDisplayName(), "Provides additional reasons, or expectations from the results.  This is typically expressed in business terms", null, "be802acc-3324-4c32-9b4a-69746a9b3018"),
+    PURPOSE("purpose", DataType.STRING, DataType.STRING.getDisplayName(), "Provides additional reasons, or expectations from the results.  This is typically expressed in business terms", null, "753304d0-d264-480e-bbc0-3113ed3d4f1c"),
 
     /**
      * Name of the type of annotation.
@@ -1082,17 +1082,17 @@ public enum OpenMetadataProperty
     /**
      * Language used in the encoding.
      */
-    ENCODING_LANGUAGE("encodingLanguage", DataType.STRING, DataType.STRING.getDisplayName(), "Language used in the encoding.", null, "7ebb8847-5ed3-4881-bee4-0e28c16613b8"),
+    ENCODING_LANGUAGE("encodingLanguage", DataType.STRING, DataType.STRING.getDisplayName(), "Language used in the encoding.", null, "c8e23dd7-b5b7-4b6c-8062-4f81a62346a8"),
 
     /**
      * Description of the encoding.
      */
-    ENCODING_DESCRIPTION("encodingDescription", DataType.STRING, DataType.STRING.getDisplayName(), "Description of the encoding.", null, "7ebb8847-5ed3-4881-bee4-0e28c16613b8"),
+    ENCODING_DESCRIPTION("encodingDescription", DataType.STRING, DataType.STRING.getDisplayName(), "Description of the encoding.", null, "59b27710-00d1-4b21-91da-39f3fff4e2da"),
 
     /**
      * Additional properties describing the encoding.
      */
-    ENCODING_PROPERTIES("encodingProperties", DataType.MAP_STRING_STRING, DataType.MAP_STRING_STRING.getDisplayName(), "Additional properties describing the encoding.", null, "7ebb8847-5ed3-4881-bee4-0e28c16613b8"),
+    ENCODING_PROPERTIES("encodingProperties", DataType.MAP_STRING_STRING, DataType.MAP_STRING_STRING.getDisplayName(), "Additional properties describing the encoding.", null, "60be0aa0-4eb8-4807-b552-29297a38ada2"),
 
     /**
      * Identifier that describes the type of resource use.
@@ -1107,17 +1107,17 @@ public enum OpenMetadataProperty
     /**
      * Type name of deployer.
      */
-    DEPLOYER_TYPE_NAME("deployerTypeName", DataType.STRING, DataType.STRING.getDisplayName(), "Type name of deployer.", null, "cb027494-8de7-43cc-845c-57d4f0bbf6d5"),
+    DEPLOYER_TYPE_NAME("deployerTypeName", DataType.STRING, DataType.STRING.getDisplayName(), "Type name of deployer.", null, "61a091e8-873d-4b60-a78f-b31d7a816d41"),
 
     /**
      * Identifying property name of deployer.
      */
-    DEPLOYER_PROPERTY_NAME("deployerPropertyName", DataType.STRING, DataType.STRING.getDisplayName(), "Identifying property name of deployer.", null, "152aafd9-57c4-4341-82bb-945d213a686e"),
+    DEPLOYER_PROPERTY_NAME("deployerPropertyName", DataType.STRING, DataType.STRING.getDisplayName(), "Identifying property name of deployer.", null, "95ba33ee-8260-420d-8329-1734b1e96fa1"),
 
     /**
-     * Person, organization or engine that deployed the IT Infrastructure.
+     * Person, organization, or engine that deployed the IT Infrastructure.
      */
-    DEPLOYER("deployer", DataType.STRING, DataType.STRING.getDisplayName(), "Person, organization or engine that deployed the IT Infrastructure.", null, "c579fd34-4144-4968-b0d9-fa17bd81ca9c"),
+    DEPLOYER("deployer", DataType.STRING, DataType.STRING.getDisplayName(), "Person, organization, or engine that deployed the IT Infrastructure.", null, "c579fd34-4144-4968-b0d9-fa17bd81ca9c"),
 
     /**
      * "Time that the software was installed on the IT Infrastructure."
@@ -1192,7 +1192,7 @@ public enum OpenMetadataProperty
     /**
      * Defines the permitted directions of flow of metadata updates between open metadata and a third party technology.
      */
-    PERMITTED_SYNCHRONIZATION("permittedSynchronization", DataType.STRING, PermittedSynchronization.getOpenTypeName(), "Defines the permitted directions of flow of metadata updates between open metadata and a third party technology.", null, "45f5f2fc-17ec-4f02-8d7a-8cfe8f1557fe"),
+    PERMITTED_SYNCHRONIZATION("permittedSynchronization", DataType.STRING, PermittedSynchronization.getOpenTypeName(), "Defines the permitted directions of flow of metadata updates between open metadata and a third party technology.", null, "a1c8581e-ed5d-457d-a069-f847f28597d6"),
 
     /**
      * The third party system identifier.
@@ -1222,7 +1222,7 @@ public enum OpenMetadataProperty
     /**
      * Deployed version number for this software.
      */
-    SOFTWARE_VERSION("softwareVersion", DataType.STRING, DataType.STRING.getDisplayName(), "Deployed version number for this software.", null, "1386c460-d28e-4c19-ba32-b61ba11c8038"),
+    SOFTWARE_VERSION("softwareVersion", DataType.STRING, DataType.STRING.getDisplayName(), "Deployed version number for this software.", null, "910807aa-db57-4471-bf5b-a3ef59e78b16"),
 
     /**
      * Level of confidence in the correctness of the element.
@@ -1392,7 +1392,7 @@ public enum OpenMetadataProperty
     /**
      * Different types of activities.
      */
-    ACTIVITY_TYPE("type", DataType.STRING, ActivityType.getOpenTypeName(), ActivityType.getOpenTypeDescription(), ActivityType.PROJECT.name(), "6949c588-d7ab-441f-be03-a97b1dc2900b"),
+    ACTIVITY_TYPE("activityType", DataType.STRING, ActivityType.getOpenTypeName(), ActivityType.getOpenTypeDescription(), ActivityType.PROJECT.name(), "6949c588-d7ab-441f-be03-a97b1dc2900b"),
 
     /**
      * Defines the confidence in the assigned relationship.
@@ -1528,7 +1528,7 @@ public enum OpenMetadataProperty
     /**
      * Specific media usage by the consumer that overrides the default media usage documented in the related media.
      */
-    MEDIA_USAGE("mediaUsage", DataType.STRING, MediaUsage.getOpenTypeName(), "Specific media usage by the consumer that overrides the default media usage documented in the related media.", null, "483bbce1-e070-46ad-8636-f813c9309e56"),
+    MEDIA_USAGE("mediaUsage", DataType.STRING, MediaUsage.getOpenTypeName(), "Specific media usage by the consumer that overrides the default media usage documented in the related media.", MediaUsage.ICON.name(), "483bbce1-e070-46ad-8636-f813c9309e56"),
 
     /**
      * Unique identifier of the code (typically a valid value definition) that defines the media use.
@@ -1538,7 +1538,7 @@ public enum OpenMetadataProperty
     /**
      * The most common, or expected use of this media resource.
      */
-    DEFAULT_MEDIA_USAGE("defaultMediaUsage", DataType.STRING, MediaUsage.getOpenTypeName(), "The most common, or expected use of this media resource.", null, "279f1eb4-e60c-4ebc-9568-cc545c2fe491"),
+    DEFAULT_MEDIA_USAGE("defaultMediaUsage", DataType.STRING, MediaUsage.getOpenTypeName(), "The most common, or expected use of this media resource.", MediaUsage.ICON.name(), "279f1eb4-e60c-4ebc-9568-cc545c2fe491"),
 
     /**
      * Unique identifier of the code (typically a valid value definition) that defines the media use.
