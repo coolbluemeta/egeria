@@ -56,6 +56,44 @@ POST {{baseURL}}/open-metadata/admin-services/servers/simple-metadata-store/acce
 Authorization: Bearer {{token}}
 
 ###
+# Set up the connection for the server security connector.  This connector verifies the authorization of any user calling the server's services.
+POST {{baseURL}}/open-metadata/admin-services/servers/simple-metadata-store/security/connection
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class": "VirtualConnection",
+  "connectorType": {
+    "class": "ConnectorType",
+    "connectorProviderClassName": "org.odpi.openmetadata.metadatasecurity.accessconnector.OpenMetadataAccessSecurityProvider"
+  },
+  "embeddedConnections" : [{
+    "class": "EmbeddedConnection",
+    "embeddedConnection" :
+    {
+      "class" : "Connection",
+      "connectorType" :
+      {
+        "class" : "ConnectorType",
+        "connectorProviderClassName" : "~{secretsStoreProvider}~"
+      },
+      "endpoint" :
+      {
+        "class" : "Endpoint",
+        "networkAddress" : "~{userDirectorySecretsStore}~"
+      },
+      "configurationProperties" :
+      {
+        "secretsCollectionName" : "~{userDirectorySecretsCollectionName}~"
+      }
+    }
+  }
+  ]
+}
+
+
+
+###
 # Add the file name for an open Metadata Archive that should be loaded each time the server starts.
 POST {{baseURL}}/open-metadata/admin-services/servers/simple-metadata-store/open-metadata-archives/file
 Authorization: Bearer {{token}}
@@ -125,6 +163,43 @@ Content-Type: application/json
 POST {{baseURL}}/open-metadata/admin-services/servers/active-metadata-store/access-services
 Authorization: Bearer {{token}}
 Content-Type: application/json
+
+###
+# Set up the connection for the server security connector.  This connector verifies the authorization of any user calling the server's services.
+POST {{baseURL}}/open-metadata/admin-services/servers/active-metadata-store/security/connection
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class": "VirtualConnection",
+  "connectorType": {
+    "class": "ConnectorType",
+    "connectorProviderClassName": "org.odpi.openmetadata.metadatasecurity.accessconnector.OpenMetadataAccessSecurityProvider"
+  },
+  "embeddedConnections" : [{
+    "class": "EmbeddedConnection",
+    "embeddedConnection" :
+    {
+      "class" : "Connection",
+      "connectorType" :
+      {
+        "class" : "ConnectorType",
+        "connectorProviderClassName" : "~{secretsStoreProvider}~"
+      },
+      "endpoint" :
+      {
+        "class" : "Endpoint",
+        "networkAddress" : "~{userDirectorySecretsStore}~"
+      },
+      "configurationProperties" :
+      {
+        "secretsCollectionName" : "~{userDirectorySecretsCollectionName}~"
+      }
+    }
+  }
+  ]
+}
+
 
 
 ###
@@ -251,6 +326,44 @@ Content-Type: application/json
 }
 
 ###
+# Set up the connection for the server security connector.  This connector verifies the authorization of any user calling the server's services.
+POST {{baseURL}}/open-metadata/admin-services/servers/view-server/security/connection
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class": "VirtualConnection",
+  "connectorType": {
+    "class": "ConnectorType",
+    "connectorProviderClassName": "org.odpi.openmetadata.metadatasecurity.accessconnector.OpenMetadataAccessSecurityProvider"
+  },
+  "embeddedConnections" : [{
+    "class": "EmbeddedConnection",
+    "embeddedConnection" :
+    {
+      "class" : "Connection",
+      "connectorType" :
+      {
+        "class" : "ConnectorType",
+        "connectorProviderClassName" : "~{secretsStoreProvider}~"
+      },
+      "endpoint" :
+      {
+        "class" : "Endpoint",
+        "networkAddress" : "~{userDirectorySecretsStore}~"
+      },
+      "configurationProperties" :
+      {
+        "secretsCollectionName" : "~{userDirectorySecretsCollectionName}~"
+      }
+    }
+  }
+  ]
+}
+
+
+
+###
 # -------------------------
 # Engine Host: engine-host
 #
@@ -298,6 +411,42 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ["Error", "Exception", "Activity", "Action", "Decision", "Security", "Cohort"]
+
+###
+# Set up the connection for the server security connector.  This connector verifies the authorization of any user calling the server's services.
+POST {{baseURL}}/open-metadata/admin-services/servers/engine-host/security/connection
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class": "VirtualConnection",
+  "connectorType": {
+    "class": "ConnectorType",
+    "connectorProviderClassName": "org.odpi.openmetadata.metadatasecurity.accessconnector.OpenMetadataAccessSecurityProvider"
+  },
+  "embeddedConnections" : [{
+    "class": "EmbeddedConnection",
+    "embeddedConnection" :
+    {
+      "class" : "Connection",
+      "connectorType" :
+      {
+        "class" : "ConnectorType",
+        "connectorProviderClassName" : "~{secretsStoreProvider}~"
+      },
+      "endpoint" :
+      {
+        "class" : "Endpoint",
+        "networkAddress" : "~{userDirectorySecretsStore}~"
+      },
+      "configurationProperties" :
+      {
+        "secretsCollectionName" : "~{userDirectorySecretsCollectionName}~"
+      }
+    }
+  }
+  ]
+}
 
 
 
@@ -467,7 +616,7 @@ Content-Type: application/json
       "class": "EngineConfig",
       "engineId": "c49e4fbf-a6e2-48c8-985c-b4949616b2c4",
       "engineQualifiedName": "EgeriaWatchdog",
-      "engineUserId": "watchdoggovernanceengine",
+      "engineUserId": "egeriawatchdogengine",
       "omagserverPlatformRootURL": "~{egeriaEndpoint}~",
       "omagserverName": "active-metadata-store",
       "secretsStoreProvider" : "~{secretsStoreProvider}~",
@@ -536,6 +685,42 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ["Error", "Exception", "Activity", "Action", "Decision", "Security", "Cohort"]
+
+###
+# Set up the connection for the server security connector.  This connector verifies the authorization of any user calling the server's services.
+POST {{baseURL}}/open-metadata/admin-services/servers/integration-daemon/security/connection
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "class": "VirtualConnection",
+  "connectorType": {
+    "class": "ConnectorType",
+    "connectorProviderClassName": "org.odpi.openmetadata.metadatasecurity.accessconnector.OpenMetadataAccessSecurityProvider"
+  },
+  "embeddedConnections" : [{
+    "class": "EmbeddedConnection",
+    "embeddedConnection" :
+    {
+      "class" : "Connection",
+      "connectorType" :
+      {
+        "class" : "ConnectorType",
+        "connectorProviderClassName" : "~{secretsStoreProvider}~"
+      },
+      "endpoint" :
+      {
+        "class" : "Endpoint",
+        "networkAddress" : "~{userDirectorySecretsStore}~"
+      },
+      "configurationProperties" :
+      {
+        "secretsCollectionName" : "~{userDirectorySecretsCollectionName}~"
+      }
+    }
+  }
+  ]
+}
 
 
 

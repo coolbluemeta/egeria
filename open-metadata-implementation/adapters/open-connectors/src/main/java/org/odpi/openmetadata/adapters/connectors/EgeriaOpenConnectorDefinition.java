@@ -950,6 +950,18 @@ public enum EgeriaOpenConnectorDefinition implements OpenConnectorDefinition
                           ComponentDevelopmentStatus.STABLE,
                           DeployedImplementationType.SURVEY_ACTION_SERVICE_CONNECTOR.getAssociatedTypeName(),
                           DeployedImplementationType.SURVEY_ACTION_SERVICE_CONNECTOR.getDeployedImplementationType()),
+
+    OM_SECRETS_FILES_MONITOR_INTEGRATION_CONNECTOR(533,
+                                                   "7c58a1ae-32ee-46f6-a651-a569579151d7",
+                                                   "Egeria::IntegrationConnector::Files::SecretsKeyStoreFilesMonitor",
+                                                   "Open Metadata Secrets Key Store Files Monitor Integration Connector",
+                                                   "Connector supports cataloguing of Secrets Store files under a specific directory (folder) in the file system.",
+                                                   "https://github.com/odpi/egeria/tree/main/open-metadata-implementation/adapters/open-connectors/integration-connectors/files-integration-connectors",
+                                                   "org.odpi.openmetadata.adapters.connectors.integration.basicfiles.OMSecretsFilesMonitorIntegrationProvider",
+                                                   ComponentDevelopmentStatus.STABLE,
+                                                   DeployedImplementationType.INTEGRATION_CONNECTOR.getAssociatedTypeName(),
+                                                   DeployedImplementationType.INTEGRATION_CONNECTOR.getDeployedImplementationType()),
+
     ;
 
 
