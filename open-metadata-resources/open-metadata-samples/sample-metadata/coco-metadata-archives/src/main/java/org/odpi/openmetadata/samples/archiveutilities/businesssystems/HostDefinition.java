@@ -24,7 +24,7 @@ public enum HostDefinition
                               "Ubuntu",
                               "23.04",
                               null,
-                              new String[]{"machines"},
+                              new String[]{"it-machines"},
                               0),
 
     /**
@@ -38,7 +38,7 @@ public enum HostDefinition
                               "Ubuntu",
                               "23.04",
                               null,
-                              new String[]{"machines"},
+                              new String[]{"it-machines"},
                               0),
 
     /**
@@ -52,7 +52,7 @@ public enum HostDefinition
                              "Ubuntu",
                              "23.04",
                              null,
-                             new String[]{"machines"},
+                             new String[]{"it-machines"},
                              0),
 
     /**
@@ -66,7 +66,7 @@ public enum HostDefinition
                                 "Ubuntu",
                                 "23.04",
                                 null,
-                                new String[]{"machines"},
+                                new String[]{"it-machines"},
                                 34),
 
     /**
@@ -80,7 +80,7 @@ public enum HostDefinition
                                 "Ubuntu",
                                 "23.04",
                                 null,
-                                new String[]{"machines"},
+                                new String[]{"it-machines"},
                                 500),
 
     /**
@@ -94,7 +94,7 @@ public enum HostDefinition
                                 "Ubuntu",
                                 "23.04",
                                 null,
-                                new String[]{"machines"},
+                                new String[]{"it-machines"},
                                 510),
 
     /**
@@ -108,7 +108,7 @@ public enum HostDefinition
                               "Linux",
                               "21.1",
                               null,
-                              new String[]{"machines"},
+                              new String[]{"it-machines"},
                               1001),
 
     /**
@@ -122,7 +122,7 @@ public enum HostDefinition
                              "Ubuntu",
                              "22.04",
                              null,
-                             new String[]{"machines"},
+                             new String[]{"it-machines"},
                              1501),
 
     /**
@@ -136,7 +136,7 @@ public enum HostDefinition
                                 "Ubuntu",
                                 "23.04",
                                 null,
-                                new String[]{"machines"},
+                                new String[]{"it-machines"},
                                 520),
 
     /**
@@ -150,7 +150,7 @@ public enum HostDefinition
                         "Ubuntu",
                         "23.04",
                         null,
-                        new String[]{"machines"},
+                        new String[]{"it-machines"},
                         0),
 
     /**
@@ -164,7 +164,7 @@ public enum HostDefinition
                       "Ubuntu",
                       "23.04",
                       null,
-                      new String[]{"machines"},
+                      new String[]{"it-machines"},
                       500),
 
     /**
@@ -178,7 +178,7 @@ public enum HostDefinition
                    "Ubuntu",
                    "23.04",
                    null,
-                   new String[]{"machines"},
+                   new String[]{"it-machines"},
                    0),
 
     /**
@@ -192,7 +192,7 @@ public enum HostDefinition
                     "Ubuntu",
                     "23.04",
                     null,
-                    new String[]{"machines"},
+                    new String[]{"it-machines"},
                     0),
 
     /**
@@ -206,7 +206,7 @@ public enum HostDefinition
                    "Ubuntu",
                    "23.04",
                    null,
-                   new String[]{"machines"},
+                   new String[]{"it-machines"},
                    0),
 
     /**
@@ -220,7 +220,7 @@ public enum HostDefinition
                     "Ubuntu",
                     "23.04",
                     null,
-                    new String[]{"machines"},
+                    new String[]{"it-machines"},
                     0),
 
     /**
@@ -234,7 +234,7 @@ public enum HostDefinition
                     "Ubuntu",
                     "23.04",
                     null,
-                    new String[]{"machines"},
+                    new String[]{"it-machines"},
                     0),
 
     /**
@@ -248,7 +248,7 @@ public enum HostDefinition
                     "Ubuntu",
                     "23.04",
                     null,
-                    new String[]{"machines"},
+                    new String[]{"it-machines"},
                     0),
 
     /**
@@ -262,7 +262,7 @@ public enum HostDefinition
                                    "Linux",
                                    "21.1",
                                    null,
-                                   new String[]{"machines"},
+                                   new String[]{"it-machines"},
                                    1900),
 
     /**
@@ -276,7 +276,7 @@ public enum HostDefinition
                        "Ubuntu",
                        "22.04",
                        null,
-                       new String[]{"machines"},
+                       new String[]{"it-machines"},
                        2000),
 
     /**
@@ -290,7 +290,7 @@ public enum HostDefinition
                                      "Ubuntu",
                                      "22.04",
                                      null,
-                                     new String[]{"machines"},
+                                     new String[]{"it-machines"},
                                      1000),
 
     /**
@@ -304,7 +304,7 @@ public enum HostDefinition
                        "Ubuntu",
                        "22.04",
                        null,
-                       new String[]{"machines"},
+                       new String[]{"it-machines"},
                        2000),
 
 
@@ -319,7 +319,7 @@ public enum HostDefinition
                                   "Ubuntu",
                                   "23.04",
                                   null,
-                                  new String[]{"machines"},
+                                  new String[]{"it-machines"},
                                   1000),
 
     /**
@@ -333,7 +333,7 @@ public enum HostDefinition
                     "Ubuntu",
                     "23.04",
                     null,
-                    new String[]{"machines"},
+                    new String[]{"it-machines"},
                     2005),
 
     /**
@@ -347,7 +347,7 @@ public enum HostDefinition
                  "Ubuntu",
                  "23.04",
                  null,
-                 new String[]{"machines"},
+                 new String[]{"it-machines"},
                  1000),
     ;
 

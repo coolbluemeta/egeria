@@ -2316,20 +2316,7 @@ Content-Type: application/json
 
 {
   "class" : "ContentStatusSearchString",
-  "searchString" : "xxx",
-  "contentStatusList" : ["ACTIVE"],
-  "startsWith" : false,
-  "endsWith" : false,
-  "ignoreCase" : true,
-  "startFrom" : 0,
-  "pageSize": 0,
-  "asOfTime" : "{{$isoTimestamp}}",
-  "effectiveTime" : "{{$isoTimestamp}}",
-  "forLineage" : false,
-  "forDuplicateProcessing" : false,
-  "limitResultsByStatus" : ["ACTIVE"],
-  "sequencingOrder" : "PROPERTY_ASCENDING",
-  "sequencingProperty" : "qualifiedName"
+  "searchString" : "mediaUsage"
 }
 
 ###

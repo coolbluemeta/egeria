@@ -250,6 +250,7 @@ public class FilesArchiveWriter extends ContentPackBaseArchiveWriter
                                     fileTypeName,
                                     0,
                                     false,
+                                    false,
                                     additionalProperties);
 
         if (deployedImplementationType != null)

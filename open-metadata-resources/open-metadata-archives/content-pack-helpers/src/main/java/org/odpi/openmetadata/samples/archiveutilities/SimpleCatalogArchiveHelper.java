@@ -6685,6 +6685,11 @@ public class SimpleCatalogArchiveHelper
         }
         else
         {
+            if (setGUID != null)
+            {
+                this.addValidValueMembershipRelationshipByGUID(setGUID, validValueGUID, ordinal, isDefaultValue);
+            }
+
             return validValueGUID;
         }
     }
@@ -6750,12 +6755,16 @@ public class SimpleCatalogArchiveHelper
         InstanceProperties properties = archiveHelper.addBooleanPropertyToInstance(archiveRootName, null, OpenMetadataProperty.IS_DEFAULT_VALUE.name, isDefaultValue, methodName);
         properties = archiveHelper.addIntPropertyToInstance(archiveRootName, properties, OpenMetadataProperty.ORDINAL.name, ordinal, methodName);
 
-        archiveBuilder.addRelationship(archiveHelper.getRelationship(OpenMetadataType.VALID_VALUE_MEMBER_RELATIONSHIP.typeName,
-                                                                     idToGUIDMap.getGUID(setGUID + "_to_" + memberGUID + "_valid_value_member_relationship"),
-                                                                     properties,
-                                                                     InstanceStatus.ACTIVE,
-                                                                     end1,
-                                                                     end2));
+        String relationshipGUID = idToGUIDMap.getGUID(setGUID + "_to_" + memberGUID + "_valid_value_member_relationship");
+        if (archiveBuilder.queryRelationship(relationshipGUID) == null)
+        {
+            archiveBuilder.addRelationship(archiveHelper.getRelationship(OpenMetadataType.VALID_VALUE_MEMBER_RELATIONSHIP.typeName,
+                                                                         relationshipGUID,
+                                                                         properties,
+                                                                         InstanceStatus.ACTIVE,
+                                                                         end1,
+                                                                         end2));
+        }
     }
 
 

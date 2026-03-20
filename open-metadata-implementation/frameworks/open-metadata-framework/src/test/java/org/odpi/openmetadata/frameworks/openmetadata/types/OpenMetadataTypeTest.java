@@ -34,9 +34,10 @@ public class OpenMetadataTypeTest
                                                                                                 this.getClass().getName());
 
     private final PropertyHelper propertyHelper = new PropertyHelper();
-    private final Map<String, TypeDef>                 typeMap          = new HashMap<>();
+    private final Map<String, TypeDef>                typeMap          = new HashMap<>();
     private final Map<String, String>                 typeSuperTypeMap = new HashMap<>();
     private final Map<String, List<TypeDefAttribute>> typePropertyMap  = new HashMap<>();
+    private final Map<String, String>                 usedGUIDMap      = new HashMap<>();
 
     private void setUpTypeMaps()
     {
@@ -95,6 +96,7 @@ public class OpenMetadataTypeTest
         return typeDefAttributes;
     }
 
+
     /**
      * Set up the type - including super types.
      *
@@ -127,6 +129,24 @@ public class OpenMetadataTypeTest
        return elementType;
    }
 
+
+   @Test public void testAllGUIDs()
+   {
+       for (OpenMetadataType openMetadataType: OpenMetadataType.values())
+       {
+           String existingName = usedGUIDMap.put(openMetadataType.typeGUID, "Type::" + openMetadataType.typeName);
+           assertNull(existingName, openMetadataType.typeName + " is using an already used GUID of " + openMetadataType.typeGUID + " that is shared with " + existingName);
+
+           existingName = usedGUIDMap.put(openMetadataType.descriptionGUID, "TypeDescription::" + openMetadataType.typeName);
+           assertNull(existingName, openMetadataType.typeName + " is using an already used GUID of " + openMetadataType.descriptionGUID + " that is shared with " + existingName);
+       }
+
+       for (OpenMetadataProperty openMetadataProperty: OpenMetadataProperty.values())
+       {
+           String existingName = usedGUIDMap.put(openMetadataProperty.descriptionGUID, "Property::" + openMetadataProperty.name);
+           assertNull(existingName, openMetadataProperty.name + " is using an already used GUID of " + openMetadataProperty.descriptionGUID + " that is shared with " + existingName);
+       }
+   }
 
     /**
      * Validated the values of the enum.

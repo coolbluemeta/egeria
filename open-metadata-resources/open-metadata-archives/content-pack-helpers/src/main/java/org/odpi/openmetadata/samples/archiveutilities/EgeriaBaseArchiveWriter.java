@@ -252,6 +252,7 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                    annotationType.getName(),
                                    0,
                                    false,
+                                   true,
                                    additionalProperties);
 
 
@@ -285,7 +286,7 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                          String mapName,
                                          String preferredValue)
     {
-        this.addValidMetadataValue(null, displayName, description, propertyName, DataType.STRING.getDisplayName(), typeName, mapName, preferredValue, 0, false, null);
+        this.addValidMetadataValue(null, displayName, description, propertyName, DataType.STRING.getDisplayName(), typeName, mapName, preferredValue, 0, false, true, null);
     }
 
 
@@ -310,7 +311,7 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                          String preferredValue,
                                          int    ordinal)
     {
-        this.addValidMetadataValue(null, displayName, description, propertyName, dataType, typeName, mapName, preferredValue, ordinal, false, null);
+        this.addValidMetadataValue(null, displayName, description, propertyName, dataType, typeName, mapName, preferredValue, ordinal, false, true, null);
     }
 
 
@@ -327,6 +328,7 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
      * @param preferredValue preferred value to use
      * @param ordinal ordinal value for the valid value
      * @param isDefaultValue is this the default value?
+     * @param isCaseSensitive is this case sensitive?
      * @param additionalProperties additional properties or null
      */
     protected void addValidMetadataValue(String             suppliedGUID,
@@ -339,6 +341,7 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                          String             preferredValue,
                                          int                ordinal,
                                          boolean            isDefaultValue,
+                                         boolean            isCaseSensitive,
                                          Map<String,String> additionalProperties)
     {
         String validValueSetGUID = this.getParentSet(propertyName);
@@ -368,7 +371,7 @@ public abstract class EgeriaBaseArchiveWriter extends OMRSArchiveWriter
                                              OpenMetadataValidValues.OPEN_METADATA_ECOSYSTEM_SCOPE,
                                              preferredValue,
                                              null,
-                                             false,
+                                             isCaseSensitive,
                                              ordinal,
                                              isDefaultValue,
                                              additionalProperties);

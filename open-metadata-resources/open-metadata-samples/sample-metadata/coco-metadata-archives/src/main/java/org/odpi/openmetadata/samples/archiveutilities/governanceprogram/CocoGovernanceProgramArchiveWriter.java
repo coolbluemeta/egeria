@@ -12,6 +12,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
 import org.odpi.openmetadata.samples.archiveutilities.EgeriaBaseArchiveWriter;
 import org.odpi.openmetadata.samples.archiveutilities.organization.CocoOrganizationArchiveWriter;
+import org.odpi.openmetadata.samples.archiveutilities.organization.OrganizationDefinition;
 import org.odpi.openmetadata.samples.archiveutilities.organization.PersonDefinition;
 
 import java.util.Date;
@@ -85,6 +86,7 @@ public class CocoGovernanceProgramArchiveWriter extends EgeriaBaseArchiveWriter
                                         Integer.toString(domainDefinition.getDomainIdentifier()),
                                         domainDefinition.getDomainIdentifier(),
                                         (domainDefinition.getDomainIdentifier() == 0),
+                                        false,
                                         null);
 
             String communityQName = "Community: " + domainDefinition.getQualifiedName();
@@ -228,19 +230,22 @@ public class CocoGovernanceProgramArchiveWriter extends EgeriaBaseArchiveWriter
     {
         for (CocoGovernanceZoneDefinition zoneDefinition : CocoGovernanceZoneDefinition.values())
         {
+            archiveHelper.setGUID(zoneDefinition.getQualifiedName(), zoneDefinition.getGUID());
+
             String zoneGUID = archiveHelper.addGovernanceZone(zoneDefinition.getQualifiedName(),
                                                               zoneDefinition.getZoneName(),
                                                               zoneDefinition.getDisplayName(),
                                                               zoneDefinition.getDescription(),
                                                               zoneDefinition.getCriteria(),
-                                                              "Coco Pharmaceuticals",
-                                                              0,
+                                                              OrganizationDefinition.COCO.getDisplayName(),
+                                                              zoneDefinition.getDomainIdentifier(),
                                                               null);
 
-            // todo add zone hierarchy
-            // todo add business system zones
-            //  archiveHelper.addZoneHierarchy(String broaderGovernanceZoneGUID,
-            //                                 String nestedGovernanceZoneGUID)
+            assert (zoneDefinition.getGUID().equals(zoneGUID));
+
+            if (zoneDefinition.getParentZoneGUID() != null)
+
+              archiveHelper.addZoneHierarchy(zoneDefinition.getParentZoneGUID(), zoneDefinition.getGUID());
         }
     }
 

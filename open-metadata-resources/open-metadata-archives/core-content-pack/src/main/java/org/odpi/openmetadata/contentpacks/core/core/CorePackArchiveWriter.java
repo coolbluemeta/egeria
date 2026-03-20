@@ -106,6 +106,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                        resourceUse.getResourceUse(),
                                        resourceUse.ordinal(),
                                        false,
+                                       true,
                                        additionalProperties);
         }
 
@@ -281,7 +282,8 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                        null,
                                        projectHealth.getName(),
                                        projectHealth.ordinal(),
-                                      false,
+                                       false,
+                                       true,
                                        additionalProperties);
         }
 
@@ -750,7 +752,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
             additionalProperties.put(OpenMetadataProperty.IS_DEFAULT_VALUE.name, Boolean.toString(enumValue.isDefault()));
             additionalProperties.put(OpenMetadataProperty.OPEN_METADATA_TYPE_NAME.name, enumTypeName);
 
-            super.addValidMetadataValue(enumValue.getDescriptionGUID(),
+            super.addValidMetadataValue(null,
                                         enumValue.getDisplayName(),
                                         enumValue.getDescription(),
                                         enumConsumingProperty,
@@ -760,6 +762,7 @@ public class CorePackArchiveWriter extends ContentPackBaseArchiveWriter
                                         enumValue.name(),
                                         enumValue.getOrdinal(),
                                         enumValue.isDefault(),
+                                        true,
                                         additionalProperties);
         }
     }
