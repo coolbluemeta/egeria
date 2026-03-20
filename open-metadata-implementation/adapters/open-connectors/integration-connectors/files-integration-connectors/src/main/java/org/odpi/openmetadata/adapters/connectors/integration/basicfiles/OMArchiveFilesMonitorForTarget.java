@@ -12,6 +12,7 @@ import org.odpi.openmetadata.frameworks.connectors.ffdc.*;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
 import org.odpi.openmetadata.frameworks.connectors.properties.beans.Endpoint;
 import org.odpi.openmetadata.frameworks.openmetadata.metadataelements.OpenMetadataRootElement;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataAssetEncodingProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.ElementProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.DeleteMethod;
@@ -79,17 +80,19 @@ public class OMArchiveFilesMonitorForTarget extends DataFilesMonitorForTarget
     /**
      * Return the unique identifier of a new metadata element describing the file.
      *
+     * @param typeName subtype name for file
      * @param properties basic properties to use
+     * @param encodingProperties properties for DataAssetEncoding classification
      * @return unique identifier (guid)
-     * @throws ConnectorCheckedException connector has been shut down
      * @throws InvalidParameterException invalid parameter
      * @throws PropertyServerException unable to communicate with the repository
      * @throws UserNotAuthorizedException access problem for userId
      */
-    protected String addDataFileToCatalog(DataFileProperties properties) throws ConnectorCheckedException,
-                                                                                InvalidParameterException,
-                                                                                PropertyServerException,
-                                                                                UserNotAuthorizedException
+    protected String addDataFileToCatalog(String                      typeName,
+                                          DataFileProperties          properties,
+                                          DataAssetEncodingProperties encodingProperties) throws InvalidParameterException,
+                                                                                                 PropertyServerException,
+                                                                                                 UserNotAuthorizedException
     {
         final String methodName = "addDataFileToCatalog";
 
@@ -185,9 +188,15 @@ public class OMArchiveFilesMonitorForTarget extends DataFilesMonitorForTarget
     }
 
 
+    /**
+     *
+     * @param pathName              full name of file
+     * @param replacementProperties properties to replace over the template
+     * @return propertied for call to OMF
+     * @throws UserNotAuthorizedException security problems
+     */
     private ElementProperties updateReplacementProperties(String            pathName,
-                                                          ElementProperties replacementProperties) throws ConnectorCheckedException,
-                                                                                                          UserNotAuthorizedException
+                                                          ElementProperties replacementProperties) throws UserNotAuthorizedException
     {
         final String methodName = "updateReplacementProperties";
 
@@ -204,7 +213,7 @@ public class OMArchiveFilesMonitorForTarget extends DataFilesMonitorForTarget
             endpoint.setNetworkAddress(pathName);
             connection.setEndpoint(endpoint);
 
-            FileBasedOpenMetadataArchiveStoreConnector connector = (FileBasedOpenMetadataArchiveStoreConnector)connectorBroker.getConnector(connection);
+            FileBasedOpenMetadataArchiveStoreConnector connector = (FileBasedOpenMetadataArchiveStoreConnector) connectorBroker.getConnector(connection);
 
             OpenMetadataArchive openMetadataArchive = connector.getArchiveContents();
 
@@ -261,7 +270,8 @@ public class OMArchiveFilesMonitorForTarget extends DataFilesMonitorForTarget
                 }
             }
         }
-        catch (ClassCastException | RepositoryErrorException | ConnectionCheckedException error)
+        catch (ClassCastException | RepositoryErrorException | ConnectionCheckedException |
+               ConnectorCheckedException error)
         {
             auditLog.logMessage(methodName,
                                 BasicFilesIntegrationConnectorsAuditCode.UNEXPECTED_EXCEPTION.getMessageDefinition(connectorName,

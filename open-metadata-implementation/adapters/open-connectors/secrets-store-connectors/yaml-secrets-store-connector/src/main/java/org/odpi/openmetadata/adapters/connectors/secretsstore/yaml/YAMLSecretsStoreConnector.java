@@ -31,9 +31,10 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
     private static final ObjectMapper yamlObjectMapper = new ObjectMapper(new YAMLFactory());
     private static final ObjectMapper jsonObjectMapper = new ObjectMapper();
 
-    private File                     secretsStoreFile = null;
-    private SecretsStore             secretsStore     = null;
-    private Map<String, UserAccount> userAccountMap   = new HashMap<>();
+    private File                               secretsStoreFile         = null;
+    private SecretsStore                       secretsStore             = null;
+    private Map<String, UserAccount>           userAccountMap           = new HashMap<>();
+    private Map<String, SecurityAccessControl> securityAccessControlMap = new HashMap<>();
 
 
     /**
@@ -220,17 +221,114 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
     {
         super.checkSecretsStillValid();
 
+        if (securityAccessControlMap.containsKey(controlName))
+        {
+            return securityAccessControlMap.get(controlName);
+        }
+
         if (secretsStore != null)
         {
             SecretsCollection secretsCollection = secretsStore.getSecretsCollections().get(secretsCollectionName);
 
             if ((secretsCollection != null) && (secretsCollection.getSecurityAccessControls() != null))
             {
-                return secretsCollection.getSecurityAccessControls().get(controlName);
+                return populateSecurityAccessControl(controlName, secretsCollection.getSecurityAccessControls().get(controlName), secretsCollection.getNamedLists());
             }
         }
 
         return null;
+    }
+
+
+    /**
+     * Populate the security access control details with the linked named lists.  The result is cached before
+     * returning to speed this process for future requests.  This is important
+     * because some access secuirty controls are used on many requests.
+     *
+     * @param controlName           name of the security access control
+     * @param securityAccessControl security access control details
+     * @param securityLists         security lists
+     * @return populated security access control details
+     */
+    private SecurityAccessControl populateSecurityAccessControl(String                 controlName,
+                                                                SecurityAccessControl  securityAccessControl,
+                                                                Map<String, NamedList> securityLists)
+    {
+        if (securityAccessControl != null)
+        {
+            SecurityAccessControl newSecurityAccessControl = new SecurityAccessControl(securityAccessControl);
+
+            if ((securityLists != null) && (newSecurityAccessControl.getAssociatedSecurityList() != null))
+            {
+                Map<String, List<String>> associatedSecurityList = new HashMap<>();
+
+                for (String operation : newSecurityAccessControl.getAssociatedSecurityList().keySet())
+                {
+                    if (newSecurityAccessControl.getAssociatedSecurityList().get(operation) != null)
+                    {
+                        List<String> permissionList = new ArrayList<>(newSecurityAccessControl.getAssociatedSecurityList().get(operation));
+
+                        for (String permission : newSecurityAccessControl.getAssociatedSecurityList().get(operation))
+                        {
+                            if (securityLists.containsKey(permission))
+                            {
+                                NamedList namedList = securityLists.get(permission);
+
+                                if (namedList != null)
+                                {
+                                    if (namedList.getListMembers() != null)
+                                    {
+                                        permissionList.addAll(namedList.getListMembers());
+
+                                        for (String nestedPermission : namedList.getListMembers())
+                                        {
+                                            permissionList.addAll(getNestedPermissions(nestedPermission, securityLists));
+                                        }
+                                    }
+
+                                    if (namedList.getUserMembers() != null)
+                                    {
+                                        permissionList.addAll(namedList.getUserMembers());
+                                    }
+                                }
+                            }
+                        }
+
+                        associatedSecurityList.put(operation, permissionList);
+                    }
+                }
+
+                newSecurityAccessControl.setAssociatedSecurityList(associatedSecurityList);
+            }
+
+            securityAccessControlMap.put(controlName, newSecurityAccessControl);
+            return newSecurityAccessControl;
+        }
+
+        return null;
+    }
+
+
+    private Set<String> getNestedPermissions(String                 permissionName,
+                                             Map<String, NamedList> securityLists)
+    {
+        List<String> nestedPermissions = new ArrayList<>();
+
+        NamedList namedList = securityLists.get(permissionName);
+        if (namedList != null)
+        {
+            if (namedList.getListMembers() != null)
+            {
+                nestedPermissions.addAll(namedList.getListMembers());
+
+                for (String nestedPermission : namedList.getListMembers())
+                {
+                    nestedPermissions.addAll(getNestedPermissions(nestedPermission, securityLists));
+                }
+            }
+        }
+
+        return new HashSet<>(nestedPermissions);
     }
 
 
@@ -826,8 +924,9 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
         {
             if (connectionBean.getEndpoint().getNetworkAddress() != null)
             {
-                secretsStoreFile = new File(connectionBean.getEndpoint().getNetworkAddress());
-                userAccountMap   = new HashMap<>();
+                secretsStoreFile         = new File(connectionBean.getEndpoint().getNetworkAddress());
+                userAccountMap           = new HashMap<>();
+                securityAccessControlMap = new HashMap<>();
             }
             else
             {

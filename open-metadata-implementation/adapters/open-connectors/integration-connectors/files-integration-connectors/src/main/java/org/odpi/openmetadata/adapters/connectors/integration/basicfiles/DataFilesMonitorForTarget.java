@@ -173,8 +173,8 @@ public class DataFilesMonitorForTarget extends DirectoryToMonitor
      * @param directory starting directory
      * @param methodName calling method
      */
-    private void catalogDirectory(File   directory,
-                                  String methodName)
+    private synchronized void catalogDirectory(File   directory,
+                                               String methodName)
     {
         final String localMethodName = "catalogDirectory";
 
@@ -213,8 +213,8 @@ public class DataFilesMonitorForTarget extends DirectoryToMonitor
      * @param file Java File accessor
      * @param methodName calling method
      */
-    private void catalogFile(File   file,
-                             String methodName)
+    private synchronized void catalogFile(File   file,
+                                          String methodName)
     {
         if (integrationConnector.isActive())
         {
@@ -400,7 +400,7 @@ public class DataFilesMonitorForTarget extends DirectoryToMonitor
      *
      * @param file file object from operating system
      */
-    private void updateFileInCatalog(File   file)
+    private synchronized void updateFileInCatalog(File   file)
     {
         if (integrationConnector.isActive())
         {
