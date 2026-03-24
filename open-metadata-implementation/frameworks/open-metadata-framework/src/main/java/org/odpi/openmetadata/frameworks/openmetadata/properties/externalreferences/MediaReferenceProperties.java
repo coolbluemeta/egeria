@@ -22,8 +22,8 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class MediaReferenceProperties extends RelationshipBeanProperties
 {
-    private String mediaId     = null;
-    private String description = null;
+    private String     mediaId           = null;
+    private String     description       = null;
     private MediaUsage mediaUsage        = null;
     private String     mediaUsageOtherId = null;
 
@@ -49,8 +49,8 @@ public class MediaReferenceProperties extends RelationshipBeanProperties
 
         if (template != null)
         {
-            this.mediaId     = template.getMediaId();
-            this.description = template.getDescription();
+            this.mediaId           = template.getMediaId();
+            this.description       = template.getDescription();
             this.mediaUsage        = template.getMediaUsage();
             this.mediaUsageOtherId = template.getMediaUsageOtherId();
         }

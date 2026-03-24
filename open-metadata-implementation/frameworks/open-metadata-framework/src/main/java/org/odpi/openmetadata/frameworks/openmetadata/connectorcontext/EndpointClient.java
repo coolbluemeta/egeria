@@ -105,15 +105,16 @@ public class EndpointClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public String createEndpointFromTemplate(TemplateOptions        templateOptions,
-                                             String                 templateGUID,
-                                             EntityProperties       replacementProperties,
-                                             Map<String, String>    placeholderProperties,
-                                             RelationshipProperties parentRelationshipProperties) throws InvalidParameterException,
-                                                                                                         UserNotAuthorizedException,
-                                                                                                         PropertyServerException
+    public String createEndpointFromTemplate(TemplateOptions                       templateOptions,
+                                             String                                templateGUID,
+                                             EntityProperties                      replacementProperties,
+                                             Map<String, ClassificationProperties> replacementClassifications,
+                                             Map<String, String>                   placeholderProperties,
+                                             RelationshipProperties                parentRelationshipProperties) throws InvalidParameterException,
+                                                                                                                        UserNotAuthorizedException,
+                                                                                                                        PropertyServerException
     {
-        String elementGUID = endpointHandler.createEndpointFromTemplate(connectorUserId, templateOptions, templateGUID, replacementProperties, placeholderProperties, parentRelationshipProperties);
+        String elementGUID = endpointHandler.createEndpointFromTemplate(connectorUserId, templateOptions, templateGUID, replacementProperties, replacementClassifications, placeholderProperties, parentRelationshipProperties);
 
         if (parentContext.getIntegrationReportWriter() != null)
         {

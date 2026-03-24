@@ -24,6 +24,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.enums.PermittedSynchronizat
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -425,7 +426,7 @@ public class OSSUnityCatalogInsideCatalogSyncSchema extends OSSUnityCatalogInsid
 
         templateOptions.setAnchorGUID(catalogGUID);
         templateOptions.setIsOwnAnchor(false);
-        templateOptions.setAnchorScopeGUID(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID());
+        templateOptions.setAnchorScopeGUIDs(Collections.singletonList(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID()));
 
         templateOptions.setParentGUID(catalogGUID);
         templateOptions.setParentAtEnd1(true);
@@ -433,6 +434,7 @@ public class OSSUnityCatalogInsideCatalogSyncSchema extends OSSUnityCatalogInsid
 
         String ucSchemaGUID = assetClient.createAssetFromTemplate(templateOptions,
                                                                   templateGUID,
+                                                                  null,
                                                                   null,
                                                                   this.getPlaceholderProperties(schemaInfo),
                                                                   relationshipProperties);

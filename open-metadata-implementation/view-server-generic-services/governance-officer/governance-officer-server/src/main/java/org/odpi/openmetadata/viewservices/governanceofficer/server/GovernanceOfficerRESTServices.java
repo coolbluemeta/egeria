@@ -20,12 +20,10 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.implementations.
 import org.odpi.openmetadata.tokencontroller.TokenController;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
-
 
 /**
  * The GovernanceOfficerRESTServices provides the server-side implementation of the Governance Officer Open Metadata
- * View Service (OMVS).  This interface provides access to a person's profile, roles and network.
+ * View Service (OMVS).  This interface provides access to a person's profile, roles, and network.
  */
 public class GovernanceOfficerRESTServices extends TokenController
 {
@@ -147,6 +145,7 @@ public class GovernanceOfficerRESTServices extends TokenController
                                                                                 requestBody,
                                                                                 requestBody.getTemplateGUID(),
                                                                                 requestBody.getReplacementProperties(),
+                                                                                requestBody.getReplacementClassifications(),
                                                                                 requestBody.getPlaceholderPropertyValues(),
                                                                                 requestBody.getParentRelationshipProperties()));
             }

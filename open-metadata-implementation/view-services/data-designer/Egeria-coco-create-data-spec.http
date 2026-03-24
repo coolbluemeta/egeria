@@ -21,7 +21,7 @@ Content-Type: application/json
 
 ###
 # =====================================================================================================================
-# Create a data dictionary for the data fields/classes. Also provides the anchorScopeGUID for
+# Create a data dictionary for the data fields/classes. Also provides an anchorScopeGUID for
 # subsequent elements.
 
 ###
@@ -58,7 +58,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
   "isOwnAnchor" : false,
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID" : "{{ctDataDictionaryGUID}}",
   "parentRelationshipTypeName" : "CollectionMembership",
   "parentAtEnd1": true,
@@ -85,7 +85,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
   "isOwnAnchor" : false,
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID" : "{{ctDataDictionaryGUID}}",
   "parentRelationshipTypeName" : "CollectionMembership",
   "parentAtEnd1": true,
@@ -112,7 +112,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
   "isOwnAnchor" : false,
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID" : "{{ctDataDictionaryGUID}}",
   "parentRelationshipTypeName" : "CollectionMembership",
   "parentAtEnd1": true,
@@ -143,7 +143,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID": "{{ctPersonDataDictionaryFolderGUID}}",
   "parentRelationshipTypeName": "CollectionMembership",
   "parentAtEnd1": true,
@@ -175,7 +175,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID": "{{ctGeneralDataDictionaryFolderGUID}}",
   "parentRelationshipTypeName": "CollectionMembership",
   "parentAtEnd1": true,
@@ -205,7 +205,7 @@ Content-Type: application/json
     "class" : "NewElementRequestBody",
     "isOwnAnchor": false,
     "anchorGUID" : "{{ctDataDictionaryGUID}}",
-    "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+    "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
     "parentGUID": "{{ctAddressDataFieldGUID}}",
     "parentRelationshipTypeName": "NestedDataField",
     "parentRelationshipProperties": {
@@ -254,7 +254,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID": "{{ctAddressDataFieldGUID}}",
   "parentRelationshipTypeName": "NestedDataField",
   "parentRelationshipProperties": {
@@ -304,7 +304,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID": "{{ctAddressDataFieldGUID}}",
   "parentRelationshipTypeName": "NestedDataField",
   "parentRelationshipProperties": {
@@ -355,7 +355,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID": "{{ctAddressDataFieldGUID}}",
   "parentRelationshipTypeName": "NestedDataField",
   "parentRelationshipProperties": {
@@ -404,7 +404,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID": "{{ctAddressDataFieldGUID}}",
   "parentRelationshipTypeName": "NestedDataField",
   "parentRelationshipProperties": {
@@ -453,7 +453,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID": "{{ctAddressDataFieldGUID}}",
   "parentRelationshipTypeName": "NestedDataField",
   "parentRelationshipProperties": {
@@ -503,7 +503,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "{{ctDataDictionaryGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "parentGUID": "{{ctAddressDataFieldGUID}}",
   "parentRelationshipTypeName": "NestedDataField",
   "parentRelationshipProperties": {
@@ -560,7 +560,7 @@ Content-Type: application/json
 {
   "class" : "NewAgreementRequestBody",
   "isOwnAnchor" : true,
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "properties": {
     "class" : "AgreementProperties",
     "qualifiedName": "Agreement::ClinicalTrial::PROJ_CT_TBDF::OakDene::DataSharingAgreement",
@@ -595,7 +595,7 @@ Content-Type: application/json
 {
   "class" : "NewElementRequestBody",
   "anchorGUID" : "{{ctDataSharingAgreementGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "isOwnAnchor": false,
   "parentGUID": "{{ctDataSharingAgreementGUID}}",
   "parentRelationshipTypeName": "CollectionMembership",
@@ -622,7 +622,7 @@ Content-Type: application/json
 {
   "class" : "NewElementRequestBody",
   "anchorGUID" : "{{ctDataSharingAgreementGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : "{{ctDataDictionaryGUID}}",
   "isOwnAnchor": false,
   "parentGUID": "{{ctDataSharingAgreementGUID}}",
   "parentRelationshipTypeName": "CollectionMembership",
@@ -654,7 +654,7 @@ Content-Type: application/json
 {
   "class" : "NewElementRequestBody",
   "anchorGUID" : "{{ctOnboardingDataSpecGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "isOwnAnchor": false,
   "parentGUID": "{{ctOnboardingDataSpecGUID}}",
   "parentRelationshipTypeName": "CollectionMembership",
@@ -687,7 +687,7 @@ Content-Type: application/json
 {
   "class" : "NewElementRequestBody",
   "anchorGUID" : "{{ctWeeklyDataSpecGUID}}",
-  "anchorScopeGUID" : "{{ctDataDictionaryGUID}}",
+  "anchorScopeGUIDs" : ["{{ctDataDictionaryGUID}}"],
   "isOwnAnchor": false,
   "parentGUID": "{{ctWeeklyDataSpecGUID}}",
   "parentRelationshipTypeName": "CollectionMembership",

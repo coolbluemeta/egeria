@@ -8,14 +8,13 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterExcept
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstanceProperties;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstancePropertyValue;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.properties.instances.InstanceStatus;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.repositoryconnector.OMRSRepositoryHelper;
 
 import java.util.Date;
 import java.util.Map;
 
 /**
- * MetadataElementBuilder is able to build the properties for an entity that extends OpenMetadataRoot.  It works with property maps for the
+ * MetadataElementBuilder builds the properties for an entity that extends OpenMetadataRoot.  It works with property maps for the
  * properties and relies on the validation in the repository services to ensure that only valid properties are stored.
  */
 public class MetadataElementBuilder extends OpenMetadataAPIGenericBuilder

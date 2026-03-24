@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
@@ -20,9 +21,9 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class AnchorOptions extends MetadataSourceOptions
 {
-    private String  anchorGUID      = null;
-    private boolean isOwnAnchor     = true;
-    private String  anchorScopeGUID = null;
+    private String       anchorGUID      = null;
+    private boolean      isOwnAnchor      = true;
+    private List<String> anchorScopeGUIDs = null;
 
 
 
@@ -47,8 +48,8 @@ public class AnchorOptions extends MetadataSourceOptions
         if (template != null)
         {
             anchorGUID = template.getAnchorGUID();
-            isOwnAnchor = template.getIsOwnAnchor();
-            anchorScopeGUID = template.getAnchorScopeGUID();
+            isOwnAnchor      = template.getIsOwnAnchor();
+            anchorScopeGUIDs = template.getAnchorScopeGUIDs();
         }
     }
 
@@ -111,26 +112,26 @@ public class AnchorOptions extends MetadataSourceOptions
 
 
     /**
-     * Return the unique identifier of the anchor's scope.
+     * Return the unique identifiers of the anchor's scope.
      * If this is not supplied, the value set in the anchor entity's Anchors classification is used.
      *
      * @return string guid
      */
-    public String getAnchorScopeGUID()
+    public List<String> getAnchorScopeGUIDs()
     {
-        return anchorScopeGUID;
+        return anchorScopeGUIDs;
     }
 
 
     /**
-     * Set up the unique identifier of the anchor's scope.
+     * Set up the unique identifiers of the anchor's scope.
      * If this is not supplied, the value set in the anchor entity's Anchors classification is used.
      *
-     * @param anchorScopeGUID string guid
+     * @param anchorScopeGUIDs string guid
      */
-    public void setAnchorScopeGUID(String anchorScopeGUID)
+    public void setAnchorScopeGUIDs(List<String> anchorScopeGUIDs)
     {
-        this.anchorScopeGUID = anchorScopeGUID;
+        this.anchorScopeGUIDs = anchorScopeGUIDs;
     }
 
 
@@ -145,7 +146,7 @@ public class AnchorOptions extends MetadataSourceOptions
         return "AnchorOptions{" +
                 "anchorGUID='" + anchorGUID + '\'' +
                 ", isOwnAnchor=" + isOwnAnchor +
-                ", anchorScopeGUID='" + anchorScopeGUID + '\'' +
+                ", anchorScopeGUIDs='" + anchorScopeGUIDs + '\'' +
                 "} " + super.toString();
     }
 
@@ -173,7 +174,7 @@ public class AnchorOptions extends MetadataSourceOptions
         }
         return isOwnAnchor == that.isOwnAnchor &&
                        Objects.equals(anchorGUID, that.anchorGUID) &&
-                       Objects.equals(anchorScopeGUID, that.anchorScopeGUID);
+                       Objects.equals(anchorScopeGUIDs, that.anchorScopeGUIDs);
     }
 
 
@@ -185,6 +186,6 @@ public class AnchorOptions extends MetadataSourceOptions
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), anchorGUID, isOwnAnchor, anchorScopeGUID);
+        return Objects.hash(super.hashCode(), anchorGUID, isOwnAnchor, anchorScopeGUIDs);
     }
 }

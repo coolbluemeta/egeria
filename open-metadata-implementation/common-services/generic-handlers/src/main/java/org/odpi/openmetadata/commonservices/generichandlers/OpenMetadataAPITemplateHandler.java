@@ -200,7 +200,7 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
         String              beanAnchorGUID             = null; /* value of the anchor to set into the new beans */
         String              beanAnchorTypeName         = null; /* value of the anchor to set into the new beans */
         String              beanAnchorDomainName       = null; /* value of the anchor to set into the new beans */
-        String              beanAnchorScopeGUID        = null; /* value of the anchor to set into the new beans */
+        List<String>        beanAnchorScopeGUIDs       = null; /* value of the anchor to set into the new beans */
         List<String>        beanZoneMembership         = null; /* value of the anchor to set into the new beans */
 
         /**
@@ -307,7 +307,7 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
         if ((firstIteration) && (templateEntity != null))
         {
             /*
-             * If the element is a template substitute then use the entity that it is sourced from.
+             * If the element is a template substitute, then use the entity that it is sourced from.
              */
             Classification templateSubstituteClassification = this.getExistingClassification(templateEntity, OpenMetadataType.TEMPLATE_SUBSTITUTE_CLASSIFICATION.typeName);
 
@@ -369,8 +369,8 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
                     templateProgress.beanAnchorGUID = templateAnchorEntity.getGUID();
                     templateProgress.beanAnchorTypeName = templateAnchorEntity.getType().getTypeDefName();
                     templateProgress.beanAnchorDomainName = this.getDomainName(templateAnchorEntity);
-                    templateProgress.beanAnchorScopeGUID = this.getAnchorScopeGUIDFromAnchorsClassification(templateAnchorEntity, methodName);
-                    templateProgress.beanZoneMembership = this.getZoneMembershipFromClassification(templateAnchorEntity, methodName);
+                    templateProgress.beanAnchorScopeGUIDs = this.getAnchorScopeGUIDFromAnchorsClassification(templateAnchorEntity, methodName);
+                    templateProgress.beanZoneMembership   = this.getZoneMembershipFromClassification(templateAnchorEntity, methodName);
                 }
 
                 templateProgress.templateAnchorGUIDs.add(templateAnchorEntity.getGUID());
@@ -386,7 +386,7 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
                                            templateProgress.beanAnchorGUID,
                                            templateProgress.beanAnchorTypeName,
                                            templateProgress.beanAnchorDomainName,
-                                           templateProgress.beanAnchorScopeGUID,
+                                           templateProgress.beanAnchorScopeGUIDs,
                                            templateProgress.beanZoneMembership,
                                            methodName);
             }
@@ -464,9 +464,10 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
              */
             Map<String, Classification> newClassificationMap = new HashMap<>();
 
-            if (templateEntity.getClassifications() != null)
+            List<Classification> templateClassifications = propertyBuilder.getTemplateClassifications();
+            if (templateClassifications != null)
             {
-                for (Classification templateClassification : templateEntity.getClassifications())
+                for (Classification templateClassification : templateClassifications)
                 {
                     if (templateClassification != null)
                     {
@@ -479,6 +480,9 @@ public class OpenMetadataAPITemplateHandler<B> extends OpenMetadataAPIGenericHan
                 }
             }
 
+            /*
+             * These classifications are from the caller (replacement classifications).
+             */
             List<Classification> builderClassifications = propertyBuilder.getEntityClassifications();
             if (builderClassifications != null)
             {

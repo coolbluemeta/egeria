@@ -32,6 +32,9 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Catalog target monitor for cataloguing OMARCHIVE files.
+ */
 public class OMArchiveFilesMonitorForTarget extends DataFilesMonitorForTarget
 {
     private static final Logger log = LoggerFactory.getLogger(OMArchiveFilesMonitorForTarget.class);

@@ -925,6 +925,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                                                                               null,
                                                                               templateGUID,
                                                                               elementProperties,
+                                                                              null,
                                                                               placeholderProperties,
                                                                               null,
                                                                               null,
@@ -1073,6 +1074,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                                                                               null,
                                                                               templateGUID,
                                                                               elementProperties,
+                                                                              null,
                                                                               placeholderProperties,
                                                                               null,
                                                                               null,
@@ -1338,7 +1340,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
 
                         templateOptions.setAnchorGUID(null);
                         templateOptions.setIsOwnAnchor(true);
-                        templateOptions.setAnchorScopeGUID(null);
+                        templateOptions.setAnchorScopeGUIDs(null);
 
                         templateOptions.setParentGUID(softwareServer.getElementHeader().getGUID());
                         templateOptions.setParentAtEnd1(true);
@@ -1356,6 +1358,7 @@ public class OMAGServerPlatformCatalogConnector extends IntegrationConnectorBase
                         placementProperties.put(KafkaPlaceholderProperty.EVENT_DIRECTION.getName(), "inOut");
                         topicGUID = assetClient.createAssetFromTemplate(templateOptions,
                                                                         KafkaTemplateType.KAFKA_TOPIC_TEMPLATE.getTemplateGUID(),
+                                                                        null,
                                                                         null,
                                                                         placementProperties,
                                                                         dataFlowProperties);

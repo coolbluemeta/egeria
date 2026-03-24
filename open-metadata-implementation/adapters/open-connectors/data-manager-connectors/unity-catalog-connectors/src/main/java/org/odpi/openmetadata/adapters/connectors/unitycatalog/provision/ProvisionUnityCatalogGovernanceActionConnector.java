@@ -29,6 +29,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -249,6 +250,7 @@ public class ProvisionUnityCatalogGovernanceActionConnector extends GeneralGover
                                                                                        null,
                                                                                        templateGUID,
                                                                                        null,
+                                                                                       null,
                                                                                        governanceContext.getRequestParameters(),
                                                                                        serverGUID,
                                                                                        OpenMetadataType.SUPPORTED_SOFTWARE_CAPABILITY_RELATIONSHIP.typeName,
@@ -284,7 +286,7 @@ public class ProvisionUnityCatalogGovernanceActionConnector extends GeneralGover
 
         templateOptions.setAnchorGUID(catalogGUID);
         templateOptions.setIsOwnAnchor(false);
-        templateOptions.setAnchorScopeGUID(catalogGUID);
+        templateOptions.setAnchorScopeGUIDs(Collections.singletonList(catalogGUID));
         templateOptions.setParentGUID(catalogGUID);
         templateOptions.setParentAtEnd1(true);
         templateOptions.setParentRelationshipTypeName(OpenMetadataType.CAPABILITY_ASSET_USE_RELATIONSHIP.typeName);
@@ -292,6 +294,7 @@ public class ProvisionUnityCatalogGovernanceActionConnector extends GeneralGover
         return governanceContext.getOpenMetadataStore().createMetadataElementFromTemplate(UnityCatalogDeployedImplementationType.OSS_UC_SCHEMA.getAssociatedTypeName(),
                                                                                           templateOptions,
                                                                                           templateGUID,
+                                                                                          null,
                                                                                           null,
                                                                                           governanceContext.getRequestParameters(),
                                                                                           new NewElementProperties(propertyHelper.addEnumProperty(null,
@@ -335,7 +338,7 @@ public class ProvisionUnityCatalogGovernanceActionConnector extends GeneralGover
         templateOptions.setAllowRetrieve(true);
         templateOptions.setAnchorGUID(schemaGUID);
         templateOptions.setIsOwnAnchor(false);
-        templateOptions.setAnchorScopeGUID(catalogGUID);
+        templateOptions.setAnchorScopeGUIDs(Collections.singletonList(catalogGUID));
         templateOptions.setParentGUID(schemaGUID);
         templateOptions.setParentAtEnd1(true);
         templateOptions.setParentRelationshipTypeName(OpenMetadataType.DATA_SET_CONTENT_RELATIONSHIP.typeName);
@@ -343,6 +346,7 @@ public class ProvisionUnityCatalogGovernanceActionConnector extends GeneralGover
         String elementGUID = governanceContext.getOpenMetadataStore().createMetadataElementFromTemplate(openMetadataTypeName,
                                                                                                         templateOptions,
                                                                                                         templateGUID,
+                                                                                                        null,
                                                                                                         null,
                                                                                                         governanceContext.getRequestParameters(),
                                                                                                         null);

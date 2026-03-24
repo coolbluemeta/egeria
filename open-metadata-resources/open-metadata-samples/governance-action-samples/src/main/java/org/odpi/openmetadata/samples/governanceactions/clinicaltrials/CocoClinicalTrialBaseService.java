@@ -20,6 +20,8 @@ import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.samples.governanceactions.ffdc.GovernanceActionSamplesErrorCode;
 
+import java.util.Collections;
+
 
 /**
  * Provides shared functions for the clinical trial services.
@@ -378,7 +380,7 @@ public class CocoClinicalTrialBaseService extends GeneralGovernanceActionService
                                                                                      null,
                                                                                      null,
                                                                                      true,
-                                                                                     topLevelProjectGUID,
+                                                                                     Collections.singletonList(topLevelProjectGUID),
                                                                                      new NewElementProperties(properties),
                                                                                      null,
                                                                                      null,
@@ -401,10 +403,11 @@ public class CocoClinicalTrialBaseService extends GeneralGovernanceActionService
         return governanceContext.getOpenMetadataStore().createMetadataElementFromTemplate(OpenMetadataType.DEPLOYED_DATABASE_SCHEMA.typeName,
                                                                                           null,
                                                                                           true,
-                                                                                          topLevelProjectGUID,
+                                                                                          Collections.singletonList(topLevelProjectGUID),
                                                                                           null,
                                                                                           null,
                                                                                           PostgreSQLTemplateType.POSTGRES_SCHEMA_TEMPLATE.getTemplateGUID(),
+                                                                                          null,
                                                                                           null,
                                                                                           governanceContext.getRequestParameters(),
                                                                                           null,

@@ -38,12 +38,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.search.NewElementOptions;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * AtlasIntegrationModuleBase defines the interface that classes that support the synchronization of particular types of metadata with Apache Atlas.
@@ -763,9 +758,9 @@ public abstract class AtlasIntegrationModuleBase
         ExternalIdLinkProperties externalIdLinkProperties = this.getExternalIdLink(atlasName, egeriaDisplayName, PermittedSynchronization.TO_THIRD_PARTY);
 
         externalIdClient.createExternalId(egeriaElement.getElementHeader().getGUID(),
-                                          AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID(),
-                                          externalIdLinkProperties,
-                                          externalIdentifierProperties);
+                                          Collections.singletonList(AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID()),
+                                                                    externalIdLinkProperties,
+                                                                    externalIdentifierProperties);
     }
 
 
@@ -1179,7 +1174,7 @@ public abstract class AtlasIntegrationModuleBase
                                                                        null);
 
                 externalIdClient.createExternalId(egeriaDataSetGUID,
-                                                  AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID(),
+                                                  Collections.singletonList(AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID()),
                                                   externalIdLinkProperties,
                                                   externalIdentifierProperties);
 

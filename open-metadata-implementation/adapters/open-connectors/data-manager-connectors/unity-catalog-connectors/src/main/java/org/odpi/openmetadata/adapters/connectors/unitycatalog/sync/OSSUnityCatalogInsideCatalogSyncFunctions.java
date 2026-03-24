@@ -23,6 +23,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.enums.PermittedSynchronizat
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -284,7 +285,7 @@ public class OSSUnityCatalogInsideCatalogSyncFunctions extends OSSUnityCatalogIn
 
         templateOptions.setAnchorGUID(schemaGUID);
         templateOptions.setIsOwnAnchor(false);
-        templateOptions.setAnchorScopeGUID(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID());
+        templateOptions.setAnchorScopeGUIDs(Collections.singletonList(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID()));
 
         templateOptions.setParentGUID(schemaGUID);
         templateOptions.setParentAtEnd1(parentAtEnd1);
@@ -293,6 +294,7 @@ public class OSSUnityCatalogInsideCatalogSyncFunctions extends OSSUnityCatalogIn
         String ucFunctionGUID = openMetadataStore.createMetadataElementFromTemplate(deployedImplementationType.getAssociatedTypeName(),
                                                                                     templateOptions,
                                                                                     templateGUID,
+                                                                                    null,
                                                                                     null,
                                                                                     this.getPlaceholderProperties(functionInfo),
                                                                                     null);
@@ -530,7 +532,7 @@ public class OSSUnityCatalogInsideCatalogSyncFunctions extends OSSUnityCatalogIn
 
         newElementOptions.setAnchorGUID(functionGUID);
         newElementOptions.setIsOwnAnchor(false);
-        newElementOptions.setAnchorScopeGUID(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID());
+        newElementOptions.setAnchorScopeGUIDs(Collections.singletonList(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID()));
 
         newElementOptions.setParentGUID(functionGUID);
         newElementOptions.setParentAtEnd1(true);

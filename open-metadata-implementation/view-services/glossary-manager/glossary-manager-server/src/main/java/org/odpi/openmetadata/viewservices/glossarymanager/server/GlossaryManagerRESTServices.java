@@ -495,6 +495,7 @@ public class GlossaryManagerRESTServices extends TokenController
                                                                         requestBody,
                                                                         templateGUID,
                                                                         requestBody.getReplacementProperties(),
+                                                                        requestBody.getReplacementClassifications(),
                                                                         requestBody.getPlaceholderPropertyValues(),
                                                                         requestBody.getParentRelationshipProperties()));
             }

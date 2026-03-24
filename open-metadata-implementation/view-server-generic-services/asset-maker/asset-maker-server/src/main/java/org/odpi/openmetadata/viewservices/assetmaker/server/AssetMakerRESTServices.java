@@ -148,6 +148,7 @@ public class AssetMakerRESTServices extends TokenController
                                                                  requestBody,
                                                                  requestBody.getTemplateGUID(),
                                                                  requestBody.getReplacementProperties(),
+                                                                 requestBody.getReplacementClassifications(),
                                                                  requestBody.getPlaceholderPropertyValues(),
                                                                  requestBody.getParentRelationshipProperties()));
             }

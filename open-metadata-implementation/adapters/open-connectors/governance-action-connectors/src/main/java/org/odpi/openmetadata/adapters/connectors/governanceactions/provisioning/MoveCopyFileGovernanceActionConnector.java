@@ -921,6 +921,7 @@ public class MoveCopyFileGovernanceActionConnector extends GeneralGovernanceActi
                                                                        null,
                                                                        assetTemplateGUID,
                                                                        null,
+                                                                       null,
                                                                        placeholderProperties,
                                                                        parentGUID,
                                                                        OpenMetadataType.NESTED_FILE_RELATIONSHIP.typeName,

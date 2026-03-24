@@ -1618,8 +1618,8 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
      * @param anchorGUID unique identifier of the element that should be the anchor for the new element. Set to null if no anchor,
      *                   or the Anchors classification is included in the initial classifications.
      * @param isOwnAnchor flag to indicate if the new entity should be anchored to itself
-     * @param anchorScopeGUID unique identifier of the element that represents a broader scope that the anchor belongs to.
-     *                        If anchorScopeGUID is null, the value is taken from the anchor element.
+     * @param anchorScopeGUIDs unique identifiers of the element that represents a broader scope that the anchor belongs to.
+     *                        If anchorScopeGUIDs is null, the value is taken from the anchor element.
      * @param properties properties of the new metadata element
      * @param parentGUID unique identifier of optional parent entity
      * @param parentRelationshipTypeName type of relationship to connect the new element to the parent
@@ -1643,7 +1643,7 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                                Map<String, NewElementProperties> initialClassifications,
                                                String                            anchorGUID,
                                                boolean                           isOwnAnchor,
-                                               String                            anchorScopeGUID,
+                                               List<String>                      anchorScopeGUIDs,
                                                NewElementProperties              properties,
                                                String                            parentGUID,
                                                String                            parentRelationshipTypeName,
@@ -1813,7 +1813,7 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                                                  builder,
                                                                  isOwnAnchor,
                                                                  anchorGUID,
-                                                                 anchorScopeGUID,
+                                                                 anchorScopeGUIDs,
                                                                  effectiveTime,
                                                                  methodName);
 
@@ -1922,14 +1922,14 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
      * @param anchorGUID unique identifier of the element that should be the anchor for the new element. Set to null if no anchor,
      *                   or the Anchors classification is included in the initial classifications.
      * @param isOwnAnchor flag to indicate if the new entity should be anchored to itself
-     * @param anchorScopeGUID unique identifier of the element that represents a broader scope that the anchor belongs to.
-     *                        If anchorScopeGUID is null, the value is taken from the anchor element.
+     * @param anchorScopeGUIDs unique identifier of the element that represents a broader scope that the anchor belongs to.
+     *                        If anchorScopeGUIDs is null, the value is taken from the anchor element.
      * @param allowRetrieve can an existing element be returned if it exists
      * @param effectiveFrom the date when this element is active - null for active on creation
      * @param effectiveTo the date when this element becomes inactive - null for active until deleted
-     * @param templateGUID the unique identifier of the existing asset to copy (this will copy all the attachments such as nested content, schema
-     *                     connection etc.)
-     * @param templateProperties properties of the new metadata element
+     * @param templateGUID the unique identifier of the existing element to copy
+     * @param replacementProperties overlay properties of the new metadata element
+     * @param replacementClassifications overlay properties of the new metadata element
      * @param placeholderPropertyValues values to override placeholder variables in the template
      * @param parentGUID unique identifier of optional parent entity
      * @param parentRelationshipTypeName type of relationship to connect the new element to the parent
@@ -1938,37 +1938,42 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
      * @param forLineage             the retrieved elements are for lineage processing so include archived elements
      * @param forDuplicateProcessing the retrieved element is for duplicate processing so do not combine results from known duplicates.
      * @param effectiveTime the time that the retrieved elements must be effective for
+     * @param deepCopy is the a deepCopy (default = true)
+     *
      * @param methodName calling method
      *
      * @return unique identifier of the new metadata element
      *
-     * @throws InvalidParameterException the type name, status or one of the properties is invalid
-     * @throws UserNotAuthorizedException the governance action service is not authorized to create this type of element
+     * @throws InvalidParameterException the type name, status, or one of the properties is invalid
+     * @throws UserNotAuthorizedException the service is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
-    public String createMetadataElementFromTemplate(String                         userId,
-                                                    String                         externalSourceGUID,
-                                                    String                         externalSourceName,
-                                                    String                         suppliedMetadataElementTypeName,
-                                                    String                         anchorGUID,
-                                                    boolean                        isOwnAnchor,
-                                                    String                         anchorScopeGUID,
-                                                    boolean                        allowRetrieve,
-                                                    Date                           effectiveFrom,
-                                                    Date                           effectiveTo,
-                                                    String                         templateGUID,
-                                                    ElementProperties              templateProperties,
-                                                    Map<String, String>            placeholderPropertyValues,
-                                                    String                         parentGUID,
-                                                    String                         parentRelationshipTypeName,
-                                                    NewElementProperties           parentRelationshipProperties,
-                                                    boolean                        parentAtEnd1,
-                                                    boolean                        forLineage,
-                                                    boolean                        forDuplicateProcessing,
-                                                    Date                           effectiveTime,
-                                                    String                         methodName) throws InvalidParameterException,
-                                                                                                      UserNotAuthorizedException,
-                                                                                                      PropertyServerException
+    public String createMetadataElementFromTemplate(String                            userId,
+                                                    String                            externalSourceGUID,
+                                                    String                            externalSourceName,
+                                                    String                            suppliedMetadataElementTypeName,
+                                                    String                            anchorGUID,
+                                                    boolean                           isOwnAnchor,
+                                                    List<String>                      anchorScopeGUIDs,
+                                                    boolean                           allowRetrieve,
+                                                    Date                              effectiveFrom,
+                                                    Date                              effectiveTo,
+                                                    String                            templateGUID,
+                                                    ElementProperties                 replacementProperties,
+                                                    Map<String, NewElementProperties> replacementClassifications,
+                                                    Map<String, String>               placeholderPropertyValues,
+                                                    String                            parentGUID,
+                                                    String                            parentRelationshipTypeName,
+                                                    NewElementProperties              parentRelationshipProperties,
+                                                    boolean                           parentAtEnd1,
+                                                    boolean                           forLineage,
+                                                    boolean                           forDuplicateProcessing,
+                                                    Date                              effectiveTime,
+                                                    boolean                           deepCopy,
+                                                    boolean                           templateSubstitute,
+                                                    String                            methodName) throws InvalidParameterException,
+                                                                                                         UserNotAuthorizedException,
+                                                                                                         PropertyServerException
     {
         final String templateGUIDParameterName = "templateGUID";
         final String anchorGUIDParameterName = "anchorGUID";
@@ -2020,12 +2025,31 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
 
         MetadataElementBuilder builder = new MetadataElementBuilder(metadataElementTypeGUID,
                                                                     metadataElementTypeName,
-                                                                    getElementPropertiesAsOMRSMap(templateProperties),
+                                                                    getElementPropertiesAsOMRSMap(replacementProperties),
                                                                     effectiveFrom,
                                                                     effectiveTo,
                                                                     repositoryHelper,
                                                                     serviceName,
                                                                     serverName);
+
+        if (replacementClassifications != null)
+        {
+            for (String classificationName : replacementClassifications.keySet())
+            {
+                if (classificationName != null)
+                {
+                    NewElementProperties classificationProperties = replacementClassifications.get(classificationName);
+                    builder.setClassification(userId,
+                                              externalSourceGUID,
+                                              externalSourceName,
+                                              classificationName,
+                                              getElementPropertiesAsOMRSMap(classificationProperties),
+                                              classificationProperties.getEffectiveFrom(),
+                                              classificationProperties.getEffectiveTo(),
+                                              methodName);
+                }
+            }
+        }
 
         /*
          * If an anchor entity is supplied, make sure it is saved in the builder
@@ -2035,7 +2059,7 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
             setUpAnchorsClassificationFromAnchor(userId,
                                                  anchorGUID,
                                                  anchorGUIDParameterName,
-                                                 anchorScopeGUID,
+                                                 anchorScopeGUIDs,
                                                  builder,
                                                  forLineage,
                                                  forDuplicateProcessing,
@@ -2051,7 +2075,7 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                null,
                                metadataElementTypeName,
                                this.getDomainName(metadataElementTypeName),
-                               anchorScopeGUID,
+                               anchorScopeGUIDs,
                                builder.getInitialGovernanceZones(),
                                methodName);
         }
@@ -2069,8 +2093,8 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                                                  null,
                                                                  null,
                                                                  builder,
-                                                                 true,
-                                                                 false,
+                                                                 deepCopy,
+                                                                 templateSubstitute,
                                                                  allowRetrieve,
                                                                  placeholderPropertyValues,
                                                                  methodName);
@@ -2774,7 +2798,7 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
      * @param metadataElement1GUID unique identifier of the metadata element at end 1 of the relationship
      * @param metadataElement2GUID unique identifier of the metadata element at end 2 of the relationship
      * @param makeAnchor should metadata element 2 become anchored to metadata element 1?
-     * @param anchorScopeGUID if makeAnchor=true then use this value in anchorScopeGUID
+     * @param anchorScopeGUIDs if makeAnchor=true then use this value in anchorScopeGUIDs
      * @param forLineage the query is to support lineage retrieval
      * @param forDuplicateProcessing the query is for duplicate processing and so must not deduplicate
      * @param properties the properties of the relationship
@@ -2795,7 +2819,7 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                                String               metadataElement1GUID,
                                                String               metadataElement2GUID,
                                                boolean              makeAnchor,
-                                               String               anchorScopeGUID,
+                                               List<String>         anchorScopeGUIDs,
                                                boolean              forLineage,
                                                boolean              forDuplicateProcessing,
                                                NewElementProperties properties,
@@ -2902,7 +2926,7 @@ public class MetadataElementHandler<B> extends ReferenceableHandler<B>
                                                parent.getGUID(),
                                                parent.getType().getTypeDefName(),
                                                this.getDomainName(child),
-                                               anchorScopeGUID,
+                                               anchorScopeGUIDs,
                                                forLineage,
                                                forDuplicateProcessing,
                                                effectiveTime,

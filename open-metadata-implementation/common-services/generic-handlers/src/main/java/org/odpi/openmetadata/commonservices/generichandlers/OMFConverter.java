@@ -393,6 +393,7 @@ public abstract class OMFConverter<B> extends OpenMetadataAPIGenericConverter<B>
         connection.setQualifiedName(this.removeQualifiedName(instanceProperties));
         connection.setAdditionalProperties(this.removeAdditionalProperties(instanceProperties));
         connection.setDisplayName(this.removeDisplayName(instanceProperties));
+        connection.setURL(this.removeURL(instanceProperties));
         connection.setVersionIdentifier(this.removeVersionIdentifier(instanceProperties));
         connection.setDescription(this.removeDescription(instanceProperties));
         connection.setSecuredProperties(this.removeSecuredProperties(instanceProperties));
@@ -500,6 +501,7 @@ public abstract class OMFConverter<B> extends OpenMetadataAPIGenericConverter<B>
         endpoint.setAdditionalProperties(this.removeAdditionalProperties(instanceProperties));
         endpoint.setDisplayName(this.removeName(instanceProperties));
         endpoint.setDescription(this.removeDescription(instanceProperties));
+        endpoint.setURL(this.removeURL(instanceProperties));
         endpoint.setVersionIdentifier(this.removeVersionIdentifier(instanceProperties));
         endpoint.setNetworkAddress(this.removeNetworkAddress(instanceProperties));
         endpoint.setProtocol(this.removeProtocol(instanceProperties));
@@ -536,6 +538,7 @@ public abstract class OMFConverter<B> extends OpenMetadataAPIGenericConverter<B>
         connectorType.setAdditionalProperties(this.removeAdditionalProperties(instanceProperties));
         connectorType.setDisplayName(this.removeDisplayName(instanceProperties));
         connectorType.setDescription(this.removeDescription(instanceProperties));
+        connectorType.setURL(this.removeURL(instanceProperties));
         connectorType.setVersionIdentifier(this.removeVersionIdentifier(instanceProperties));
         connectorType.setSupportedAssetTypeName(this.removeSupportedAssetTypeName(instanceProperties));
         connectorType.setSupportedDeployedImplementationType(this.removeSupportedDeployedImplementationType(instanceProperties));

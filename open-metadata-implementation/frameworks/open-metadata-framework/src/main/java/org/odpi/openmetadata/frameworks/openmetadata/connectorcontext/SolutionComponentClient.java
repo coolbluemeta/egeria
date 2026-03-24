@@ -93,8 +93,7 @@ public class SolutionComponentClient extends ConnectorContextClientBase
      * The template defines additional classifications and relationships that should be added to the new solutionComponent.
      *
      * @param templateOptions details of the element to create
-     * @param templateGUID the unique identifier of the existing solutionComponent to copy (this will copy all the attachments such as nested content, schema
-     *                     connection etc)
+     * @param templateGUID the unique identifier of the existing solutionComponent to copy
      * @param replacementProperties properties of the new metadata element.  These override the template values
      * @param placeholderProperties property name-to-property value map to replace any placeholder values in the
      *                              template element - and their anchored elements, which are also copied as part of this operation.
@@ -104,15 +103,16 @@ public class SolutionComponentClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public String createSolutionComponentFromTemplate(TemplateOptions        templateOptions,
-                                                      String                 templateGUID,
-                                                      EntityProperties       replacementProperties,
-                                                      Map<String, String>    placeholderProperties,
-                                                      RelationshipProperties parentRelationshipProperties) throws InvalidParameterException,
-                                                                                                                  UserNotAuthorizedException,
-                                                                                                                  PropertyServerException
+    public String createSolutionComponentFromTemplate(TemplateOptions                       templateOptions,
+                                                      String                                templateGUID,
+                                                      EntityProperties                      replacementProperties,
+                                                      Map<String, ClassificationProperties> replacementClassifications,
+                                                      Map<String, String>                   placeholderProperties,
+                                                      RelationshipProperties                parentRelationshipProperties) throws InvalidParameterException,
+                                                                                                                                 UserNotAuthorizedException,
+                                                                                                                                 PropertyServerException
     {
-        String elementGUID = solutionComponentHandler.createSolutionComponentFromTemplate(connectorUserId, templateOptions, templateGUID, replacementProperties, placeholderProperties, parentRelationshipProperties);
+        String elementGUID = solutionComponentHandler.createSolutionComponentFromTemplate(connectorUserId, templateOptions, templateGUID, replacementProperties, replacementClassifications, placeholderProperties, parentRelationshipProperties);
 
         if (parentContext.getIntegrationReportWriter() != null)
         {

@@ -84,7 +84,7 @@ public class ConnectorActivityReportClient
 
         newElementOptions.setAnchorGUID(elementGUID);
         newElementOptions.setIsOwnAnchor(false);
-        newElementOptions.setAnchorScopeGUID(null);
+        newElementOptions.setAnchorScopeGUIDs(null);
         newElementOptions.setParentGUID(elementGUID);
         newElementOptions.setParentAtEnd1(true);
         newElementOptions.setParentRelationshipTypeName(OpenMetadataType.REPORT_SUBJECT_RELATIONSHIP.typeName);

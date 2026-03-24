@@ -21,6 +21,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatfor
 import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatforms.CloudProviderProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatforms.CloudServiceProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.operatingplatforms.CloudTenantProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ExperimentProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.projects.ProjectClassificationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.CalculatedValueProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.schema.PrimaryKeyProperties;
@@ -150,9 +151,9 @@ public class OpenMetadataClassificationBuilder
                                                                      OpenMetadataProperty.ANCHOR_DOMAIN_NAME.name,
                                                                      anchorsProperties.getAnchorDomainName());
 
-                elementProperties = propertyHelper.addStringProperty(elementProperties,
-                                                                     OpenMetadataProperty.ANCHOR_SCOPE_GUID.name,
-                                                                     anchorsProperties.getAnchorScopeGUID());
+                elementProperties = propertyHelper.addStringArrayProperty(elementProperties,
+                                                                          OpenMetadataProperty.ANCHOR_SCOPE_GUIDS.name,
+                                                                          anchorsProperties.getAnchorScopeGUIDs());
             }
             else if (properties instanceof BusinessSignificantProperties businessSignificantProperties)
             {
@@ -326,6 +327,12 @@ public class OpenMetadataClassificationBuilder
                 elementProperties = propertyHelper.addStringProperty(elementProperties,
                                                                      OpenMetadataProperty.DESCRIPTION.name,
                                                                      editingCollectionProperties.getDescription());
+            }
+            else if (properties instanceof ExperimentProperties experimentProperties)
+            {
+                elementProperties = propertyHelper.addStringProperty(elementProperties,
+                                                                     OpenMetadataProperty.HYPOTHESIS.name,
+                                                                     experimentProperties.getHypothesis());
             }
             else if (properties instanceof FixedLocationProperties fixedLocationProperties)
             {

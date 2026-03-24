@@ -305,7 +305,7 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
                                                                                                       genericHospitalNominationGUID,
                                                                                                       governanceContext.getRequestParameters(),
                                                                                                       null,
-                                                                                                      projectMap.get(CocoClinicalTrialActionTarget.PROJECT.getName()));
+                                                                                                      Collections.singletonList(projectMap.get(CocoClinicalTrialActionTarget.PROJECT.getName())));
 
                 addSolutionComponentImplementedByRelationship(ClinicalTrialSolutionComponent.NOMINATE_HOSPITAL.getGUID(), nominateHospitalGUID, null, "Supports clinical trial " + clinicalTrialId);
                 addResourceListRelationship(projectMap.get(CocoClinicalTrialActionTarget.HOSPITAL_MANAGEMENT_PROJECT.getName()), nominateHospitalGUID, ResourceUse.SUPPORTING_PROCESS);
@@ -322,7 +322,7 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
                                                                                                      genericHospitalCertificationGUID,
                                                                                                      governanceContext.getRequestParameters(),
                                                                                                      null,
-                                                                                                     projectMap.get(CocoClinicalTrialActionTarget.PROJECT.getName()));
+                                                                                                     Collections.singletonList(projectMap.get(CocoClinicalTrialActionTarget.PROJECT.getName())));
 
                 addSolutionComponentImplementedByRelationship(ClinicalTrialSolutionComponent.CERTIFY_HOSPITAL.getGUID(), certifyHospitalGUID, null, "Supports clinical trial " + clinicalTrialId);
                 addResourceListRelationship(projectMap.get(CocoClinicalTrialActionTarget.HOSPITAL_MANAGEMENT_PROJECT.getName()), certifyHospitalGUID, ResourceUse.SUPPORTING_PROCESS);
@@ -338,7 +338,7 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
                                                                                                      genericHospitalOnboardingGUID,
                                                                                                      governanceContext.getRequestParameters(),
                                                                                                      null,
-                                                                                                     projectMap.get(CocoClinicalTrialActionTarget.PROJECT.getName()));
+                                                                                                     Collections.singletonList(projectMap.get(CocoClinicalTrialActionTarget.PROJECT.getName())));
 
                 addSolutionComponentImplementedByRelationship(ClinicalTrialSolutionComponent.ONBOARD_HOSPITAL.getGUID(), onboardHospitalGUID, null, "Supports clinical trial " + clinicalTrialId);
                 addResourceListRelationship(projectMap.get(CocoClinicalTrialActionTarget.ONBOARD_PIPELINE_PROJECT.getName()), onboardHospitalGUID, ResourceUse.SUPPORTING_PROCESS);
@@ -357,7 +357,7 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
                                                                                                           genericSetUpDataLakeGUID,
                                                                                                           governanceContext.getRequestParameters(),
                                                                                                           null,
-                                                                                                          projectMap.get(CocoClinicalTrialActionTarget.PROJECT.getName()));
+                                                                                                          Collections.singletonList(projectMap.get(CocoClinicalTrialActionTarget.PROJECT.getName())));
 
                 addSolutionComponentImplementedByRelationship(ClinicalTrialSolutionComponent.SET_UP_DATA_LAKE.getGUID(), setUpDataLakeProcessGUID, null, "Supports clinical trial " + clinicalTrialId);
                 addResourceListRelationship(projectMap.get(CocoClinicalTrialActionTarget.ONBOARD_PIPELINE_PROJECT.getName()), setUpDataLakeProcessGUID, ResourceUse.SUPPORTING_PROCESS);
@@ -466,10 +466,11 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
         String informationSupplyChainGUID = governanceContext.getOpenMetadataStore().createMetadataElementFromTemplate(OpenMetadataType.INFORMATION_SUPPLY_CHAIN.typeName,
                                                                                                                        null,
                                                                                                                        true,
-                                                                                                                       clinicalTrialProjectGUID,
+                                                                                                                       Collections.singletonList(clinicalTrialProjectGUID),
                                                                                                                        null,
                                                                                                                        null,
                                                                                                                        informationSupplyChainTemplateGUID,
+                                                                                                                       null,
                                                                                                                        null,
                                                                                                                        placeholderProperties,
                                                                                                                        clinicalTrialProjectGUID,
@@ -512,10 +513,11 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
         return governanceContext.getOpenMetadataStore().createMetadataElementFromTemplate(OpenMetadataType.CERTIFICATION_TYPE.typeName,
                                                                                           null,
                                                                                           true,
-                                                                                          clinicalTrialProjectGUID,
+                                                                                          Collections.singletonList(clinicalTrialProjectGUID),
                                                                                           null,
                                                                                           null,
                                                                                           certificationTypeTemplateGUID,
+                                                                                          null,
                                                                                           null,
                                                                                           placeholderProperties,
                                                                                           clinicalTrialProjectGUID,
@@ -984,7 +986,7 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
                                                                                                    initialClassifications,
                                                                                                    topLevelProjectGUID,
                                                                                                    false,
-                                                                                                   topLevelProjectGUID,
+                                                                                                   Collections.singletonList(topLevelProjectGUID),
                                                                                                    new NewElementProperties(properties),
                                                                                                    devProjectGUID,
                                                                                                    OpenMetadataType.PROJECT_HIERARCHY_RELATIONSHIP.typeName,
@@ -1037,7 +1039,7 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
                                                                                                    initialClassifications,
                                                                                                    topLevelProjectGUID,
                                                                                                    false,
-                                                                                                   topLevelProjectGUID,
+                                                                                                   Collections.singletonList(topLevelProjectGUID),
                                                                                                    new NewElementProperties(properties),
                                                                                                    topLevelProjectGUID,
                                                                                                    OpenMetadataType.PROJECT_HIERARCHY_RELATIONSHIP.typeName,
@@ -1096,7 +1098,7 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
                                                                                                    initialClassifications,
                                                                                                    topLevelProjectGUID,
                                                                                                    false,
-                                                                                                   topLevelProjectGUID,
+                                                                                                   Collections.singletonList(topLevelProjectGUID),
                                                                                                    new NewElementProperties(properties),
                                                                                                    topLevelProjectGUID,
                                                                                                    OpenMetadataType.PROJECT_HIERARCHY_RELATIONSHIP.typeName,
@@ -1155,7 +1157,7 @@ public class CocoClinicalTrialSetUpService extends CocoClinicalTrialBaseService
                                                                                                    initialClassifications,
                                                                                                    topLevelProjectGUID,
                                                                                                    false,
-                                                                                                   topLevelProjectGUID,
+                                                                                                   Collections.singletonList(topLevelProjectGUID),
                                                                                                    new NewElementProperties(properties),
                                                                                                    topLevelProjectGUID,
                                                                                                    OpenMetadataType.PROJECT_HIERARCHY_RELATIONSHIP.typeName,

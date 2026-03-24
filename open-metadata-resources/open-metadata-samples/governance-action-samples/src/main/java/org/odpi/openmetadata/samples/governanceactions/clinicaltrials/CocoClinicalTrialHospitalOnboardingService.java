@@ -671,10 +671,11 @@ public class CocoClinicalTrialHospitalOnboardingService extends CocoClinicalTria
         return governanceContext.getOpenMetadataStore().getMetadataElementFromTemplate(OpenMetadataType.DATA_FOLDER.typeName,
                                                                                        null,
                                                                                        true,
-                                                                                       topLevelProjectGUID,
+                                                                                       Collections.singletonList(topLevelProjectGUID),
                                                                                        null,
                                                                                        null,
                                                                                        landingAreaDirectoryTemplateGUID,
+                                                                                       null,
                                                                                        null,
                                                                                        placeholderPropertyValues,
                                                                                        null,
@@ -725,10 +726,11 @@ public class CocoClinicalTrialHospitalOnboardingService extends CocoClinicalTria
         String templateGUID = governanceContext.getOpenMetadataStore().getMetadataElementFromTemplate(OpenMetadataType.CSV_FILE.typeName,
                                                                                                       null,
                                                                                                       true,
-                                                                                                      topLevelProjectGUID,
+                                                                                                      Collections.singletonList(topLevelProjectGUID),
                                                                                                       null,
                                                                                                       null,
                                                                                                       rawTemplateGUID,
+                                                                                                      null,
                                                                                                       null,
                                                                                                       placeholderProperties,
                                                                                                       null,
@@ -795,7 +797,7 @@ public class CocoClinicalTrialHospitalOnboardingService extends CocoClinicalTria
                                                                                  "Onboard " + hospitalName + " Landing Area Files for " + clinicalTrialName,
                                                                                  null,
                                                                                  null,
-                                                                                 clinicalTrialGUID);
+                                                                                 Collections.singletonList(clinicalTrialGUID));
 
             addSolutionComponentImplementedByRelationship(ClinicalTrialSolutionComponent.WEEKLY_MEASUREMENTS_ONBOARDING_PIPELINE.getGUID(), processGUID, informationSupplyChainQualifiedName, "Supports clinical trial " + clinicalTrialId);
             governanceContext.createLineageRelationship(OpenMetadataType.DATA_FLOW_RELATIONSHIP.typeName,

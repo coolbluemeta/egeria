@@ -9,6 +9,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.security.Securit
 import org.odpi.openmetadata.frameworks.openmetadata.properties.security.SecurityGroupProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
+import javax.swing.*;
 import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
@@ -25,15 +26,17 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
         property = "class")
 @JsonSubTypes(
         {
+                @JsonSubTypes.Type(value = DataProcessingPurposeProperties.class, name = "DataProcessingPurposeProperties"),
                 @JsonSubTypes.Type(value = DataLensProperties.class, name = "DataLensProperties"),
                 @JsonSubTypes.Type(value = GovernanceRuleProperties.class, name = "GovernanceRuleProperties"),
                 @JsonSubTypes.Type(value = GovernanceMetricProperties.class, name = "GovernanceMetricProperties"),
                 @JsonSubTypes.Type(value = GovernanceActionProperties.class, name = "GovernanceActionProperties"),
-                @JsonSubTypes.Type(value = NotificationTypeProperties.class, name = "NotificationTypeProperties"),
-                @JsonSubTypes.Type(value = SecurityAccessControlProperties.class, name = "SecurityAccessControlProperties"),
-                @JsonSubTypes.Type(value = DataProcessingPurposeProperties.class, name = "DataProcessingPurposeProperties"),
                 @JsonSubTypes.Type(value = GovernanceProcedureProperties.class, name = "GovernanceProcedureProperties"),
                 @JsonSubTypes.Type(value = GovernanceResponsibilityProperties.class, name = "GovernanceResponsibilityProperties"),
+                @JsonSubTypes.Type(value = NotificationTypeProperties.class, name = "NotificationTypeProperties"),
+                @JsonSubTypes.Type(value = RequirementProperties.class, name = "RequirementProperties"),
+                @JsonSubTypes.Type(value = ResearchQuestionProperties.class, name = "ResearchQuestionProperties"),
+                @JsonSubTypes.Type(value = SecurityAccessControlProperties.class, name = "SecurityAccessControlProperties"),
                 @JsonSubTypes.Type(value = TermsAndConditionsProperties.class, name = "TermsAndConditionsProperties"),
         })
 public class GovernanceControlProperties extends GovernanceDefinitionProperties

@@ -3980,7 +3980,14 @@ public class PropertyHelper
 
                 if (actualPropertyValue instanceof PrimitiveTypePropertyValue primitiveTypePropertyValue)
                 {
-                    resultingArray.add(primitiveTypePropertyValue.getPrimitiveValue().toString());
+                    if (primitiveTypePropertyValue.getPrimitiveValue() != null)
+                    {
+                        resultingArray.add(primitiveTypePropertyValue.getPrimitiveValue().toString());
+                    }
+                    else
+                    {
+                        resultingArray.add(null);
+                    }
                 }
             }
 

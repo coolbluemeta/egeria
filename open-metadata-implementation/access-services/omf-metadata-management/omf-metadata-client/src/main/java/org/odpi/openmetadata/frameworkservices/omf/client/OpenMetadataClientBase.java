@@ -1292,7 +1292,6 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
     }
 
 
-
     /**
      * Create a new metadata element in the metadata store.  The type name comes from the open metadata types.
      * The selected type also controls the names and types of the properties that are allowed.
@@ -1302,9 +1301,9 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
      * @param userId caller's userId
      * @param metadataElementTypeName expected type name for the new element
      * @param templateOptions details of the element to create
-     * @param templateGUID the unique identifier of the existing asset to copy (this will copy all the attachments such as nested content, schema
-     *                     connection etc)
+     * @param templateGUID the unique identifier of the existing element to copy
      * @param replacementProperties properties of the new metadata element.  These override the template values
+     * @param replacementClassifications map of classification names to classification properties to include in the entity creation request. These override the template values.
      * @param placeholderProperties property name-to-property value map to replace any placeholder values in the
      *                              template element - and their anchored elements, which are also copied as part of this operation.
      *
@@ -1315,15 +1314,16 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
      * @throws PropertyServerException a problem with the metadata store
      */
     @Override
-    public String createMetadataElementFromTemplate(String               userId,
-                                                    String metadataElementTypeName,
-                                                    TemplateOptions      templateOptions,
-                                                    String               templateGUID,
-                                                    ElementProperties    replacementProperties,
-                                                    Map<String, String>  placeholderProperties,
-                                                    NewElementProperties parentRelationshipProperties) throws InvalidParameterException,
-                                                                                                              UserNotAuthorizedException,
-                                                                                                              PropertyServerException
+    public String createMetadataElementFromTemplate(String                            userId,
+                                                    String                            metadataElementTypeName,
+                                                    TemplateOptions                   templateOptions,
+                                                    String                            templateGUID,
+                                                    ElementProperties                 replacementProperties,
+                                                    Map<String, NewElementProperties> replacementClassifications,
+                                                    Map<String, String>               placeholderProperties,
+                                                    NewElementProperties              parentRelationshipProperties) throws InvalidParameterException,
+                                                                                                                           UserNotAuthorizedException,
+                                                                                                                           PropertyServerException
     {
         final String methodName                = "createMetadataElementFromTemplate";
         final String templateGUIDParameterName = "templateGUID";
@@ -1345,6 +1345,7 @@ public abstract class OpenMetadataClientBase extends OpenMetadataClient
         requestBody.setTypeName(metadataElementTypeName);
         requestBody.setTemplateGUID(templateGUID);
         requestBody.setReplacementProperties(replacementProperties);
+        requestBody.setReplacementClassifications(replacementClassifications);
         requestBody.setPlaceholderPropertyValues(placeholderProperties);
         requestBody.setParentRelationshipProperties(parentRelationshipProperties);
 

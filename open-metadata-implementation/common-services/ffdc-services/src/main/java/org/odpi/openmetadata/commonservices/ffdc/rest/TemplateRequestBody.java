@@ -6,6 +6,7 @@ package org.odpi.openmetadata.commonservices.ffdc.rest;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.ClassificationProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.EntityProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.RelationshipProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.search.TemplateOptions;
@@ -25,10 +26,11 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TemplateRequestBody extends TemplateOptions
 {
-    private String                 templateGUID                 = null;
-    private EntityProperties       replacementProperties        = null;
-    private Map<String, String>    placeholderPropertyValues    = null;
-    private RelationshipProperties parentRelationshipProperties = null;
+    private String                                templateGUID                 = null;
+    private EntityProperties                      replacementProperties        = null;
+    private Map<String, ClassificationProperties> replacementClassifications   = null;
+    private Map<String, String>                   placeholderPropertyValues    = null;
+    private RelationshipProperties                parentRelationshipProperties = null;
 
 
     /**
@@ -52,6 +54,7 @@ public class TemplateRequestBody extends TemplateOptions
         if (template != null)
         {
             replacementProperties        = template.getReplacementProperties();
+            replacementClassifications   = template.getReplacementClassifications();
             templateGUID                 = template.getTemplateGUID();
             placeholderPropertyValues    = template.getPlaceholderPropertyValues();
             parentRelationshipProperties = template.getParentRelationshipProperties();
@@ -89,6 +92,28 @@ public class TemplateRequestBody extends TemplateOptions
     public void setReplacementProperties(EntityProperties replacementProperties)
     {
         this.replacementProperties = replacementProperties;
+    }
+
+
+    /**
+     * Return the map of classification names to classification properties to include in the entity creation request.
+     *
+     * @return map
+     */
+    public Map<String, ClassificationProperties> getReplacementClassifications()
+    {
+        return replacementClassifications;
+    }
+
+
+    /**
+     * Set up map of classification names to classification properties to include in the entity creation request.
+     *
+     * @param replacementClassifications map
+     */
+    public void setReplacementClassifications(Map<String, ClassificationProperties> replacementClassifications)
+    {
+        this.replacementClassifications = replacementClassifications;
     }
 
 
@@ -169,6 +194,7 @@ public class TemplateRequestBody extends TemplateOptions
         return "TemplateRequestBody{" +
                 "templateGUID='" + templateGUID + '\'' +
                 ", replacementProperties=" + replacementProperties +
+                ", replacementClassifications=" + replacementClassifications +
                 ", placeholderPropertyValues=" + placeholderPropertyValues +
                 ", parentRelationshipProperties=" + parentRelationshipProperties +
                 "} " + super.toString();
@@ -197,6 +223,7 @@ public class TemplateRequestBody extends TemplateOptions
             return false;
         }
         return Objects.equals(replacementProperties, that.replacementProperties) &&
+                Objects.equals(replacementClassifications, that.replacementClassifications) &&
                 Objects.equals(placeholderPropertyValues, that.placeholderPropertyValues) &&
                 Objects.equals(templateGUID, that.templateGUID)&&
                 Objects.equals(parentRelationshipProperties, that.parentRelationshipProperties);
@@ -211,7 +238,7 @@ public class TemplateRequestBody extends TemplateOptions
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), replacementProperties, templateGUID,
+        return Objects.hash(super.hashCode(), replacementProperties, replacementClassifications, templateGUID,
                             placeholderPropertyValues, parentRelationshipProperties);
     }
 }

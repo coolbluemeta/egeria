@@ -70,10 +70,10 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
     public static class AnchorIdentifiers
     {
         public String anchorGUID = null;
-        String       anchorTypeName   = null;
-        String       anchorDomainName = null;
-        String       anchorScopeGUID  = null;
-        List<String> zoneMembership   = null;
+        String        anchorTypeName   = null;
+        String        anchorDomainName = null;
+        List<String>  anchorScopeGUIDs = null;
+        List<String>  zoneMembership   = null;
     }
 
     /**
@@ -103,7 +103,7 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
             if (anchorsClassification != null)
             {
                 /*
-                 * If the connectTo entity has the Anchors classification then this should contain the anchor guid
+                 * If the connectTo entity has the Anchors classification, then this should contain the anchor guid
                  */
                 if (anchorsClassification.getProperties() != null)
                 {
@@ -124,10 +124,10 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
                                                                                             anchorsClassification.getProperties(),
                                                                                             methodName);
 
-                    anchorIdentifiers.anchorScopeGUID = repositoryHelper.getStringProperty(serviceName,
-                                                                                            OpenMetadataProperty.ANCHOR_SCOPE_GUID.name,
-                                                                                            anchorsClassification.getProperties(),
-                                                                                            methodName);
+                    anchorIdentifiers.anchorScopeGUIDs = repositoryHelper.getStringArrayProperty(serviceName,
+                                                                                                 OpenMetadataProperty.ANCHOR_SCOPE_GUIDS.name,
+                                                                                                 anchorsClassification.getProperties(),
+                                                                                                 methodName);
 
                     anchorIdentifiers.zoneMembership = repositoryHelper.getStringArrayProperty(serviceName,
                                                                                                OpenMetadataProperty.ZONE_MEMBERSHIP.name,
@@ -313,13 +313,13 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
      * Provide a standard approach to setting the anchors for a new element based on the supplied anchor.
      * If there is no anchorGUID, no anchor is added.  An invalid anchorGUID results in an exception.
      * If the anchor entity has no Anchors classification, a default anchors classification is constructed.
-     * Otherwise the default anchors classification is supplemented with the anchorScopeGUID from
+     * Otherwise the default anchors classification is supplemented with the anchorScopeGUIDs from
      * the retrieved Anchors classification is used.
      *
      * @param userId calling user
      * @param anchorGUID required anchor
      * @param anchorGUIDParameterName parameter passing the anchorGUID
-     * @param anchorScopeGUID optional scope of the anchor
+     * @param anchorScopeGUIDs optional scope of the anchor
      * @param builder builder to set up the anchor
      * @param forLineage is this a lineage request?
      * @param forDuplicateProcessing is this part of de-duplicate processing?
@@ -333,7 +333,7 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
     public EntityDetail setUpAnchorsClassificationFromAnchor(String                        userId,
                                                              String                        anchorGUID,
                                                              String                        anchorGUIDParameterName,
-                                                             String                        anchorScopeGUID,
+                                                             List<String>                  anchorScopeGUIDs,
                                                              OpenMetadataAPIGenericBuilder builder,
                                                              boolean                       forLineage,
                                                              boolean                       forDuplicateProcessing,
@@ -358,13 +358,13 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
 
                 OpenMetadataAPIAnchorHandler.AnchorIdentifiers anchors = this.getAnchorsFromAnchorsClassification(anchorEntity, methodName);
 
-                if ((anchors == null) || (anchorScopeGUID != null))
+                if ((anchors == null) || (anchorScopeGUIDs != null))
                 {
                     builder.setAnchors(userId,
                                        anchorGUID,
                                        anchorEntity.getType().getTypeDefName(),
                                        this.getDomainName(anchorEntity),
-                                       anchorScopeGUID,
+                                       anchorScopeGUIDs,
                                        this.getZoneMembershipFromClassification(anchorEntity, methodName),
                                        methodName);
                 }
@@ -374,7 +374,7 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
                                        anchorGUID,
                                        anchorEntity.getType().getTypeDefName(),
                                        this.getDomainName(anchorEntity),
-                                       anchors.anchorScopeGUID,
+                                       anchors.anchorScopeGUIDs,
                                        anchors.zoneMembership,
                                        methodName);
                 }
@@ -394,8 +394,8 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
      * @param anchorEntity required anchor
      * @param methodName calling method
      */
-    public String getAnchorScopeGUIDFromAnchorsClassification(EntitySummary anchorEntity,
-                                                              String        methodName)
+    public List<String> getAnchorScopeGUIDFromAnchorsClassification(EntitySummary anchorEntity,
+                                                                    String        methodName)
     {
         if (anchorEntity != null)
         {
@@ -403,7 +403,7 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
 
             if (anchors != null)
             {
-                return anchors.anchorScopeGUID;
+                return anchors.anchorScopeGUIDs;
             }
         }
 
@@ -536,11 +536,11 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
                                                                                      anchorIdentifiers.anchorDomainName,
                                                                                      methodName);
 
-                    anchorsProperties = repositoryHelper.addStringPropertyToInstance(serviceName,
-                                                                                     anchorsProperties,
-                                                                                     OpenMetadataProperty.ANCHOR_SCOPE_GUID.name,
-                                                                                     anchorIdentifiers.anchorScopeGUID,
-                                                                                     methodName);
+                    anchorsProperties = repositoryHelper.addStringArrayPropertyToInstance(serviceName,
+                                                                                          anchorsProperties,
+                                                                                          OpenMetadataProperty.ANCHOR_SCOPE_GUIDS.name,
+                                                                                          anchorIdentifiers.anchorScopeGUIDs,
+                                                                                          methodName);
                 }
 
                 if (anchorsClassification == null)
@@ -2316,7 +2316,7 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
      * @param anchorGUID unique identifier of the anchor
      * @param anchorTypeName unique name of the type of the anchor
      * @param anchorDomainName unique name of the type of the anchor
-     * @param anchorScopeGUID unique identifier of the anchor's scope
+     * @param anchorScopeGUIDs unique identifiers of the anchor's scope
      * @param forLineage the request is to support lineage retrieval this means entities with the Memento classification can be returned
      * @param forDuplicateProcessing the request is for duplicate processing and so must not deduplicate
      * @param effectiveTime the time that the retrieved elements must be effective for (null for any time, new Date() for now)
@@ -2332,7 +2332,7 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
                                          String       anchorGUID,
                                          String       anchorTypeName,
                                          String       anchorDomainName,
-                                         String       anchorScopeGUID,
+                                         List<String> anchorScopeGUIDs,
                                          boolean      forLineage,
                                          boolean      forDuplicateProcessing,
                                          Date         effectiveTime,
@@ -2361,7 +2361,7 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
                                              OpenMetadataType.ANCHORS_CLASSIFICATION.typeName,
                                              ClassificationOrigin.ASSIGNED,
                                              null,
-                                             builder.getAnchorsProperties(anchorGUID, anchorTypeName, anchorDomainName, anchorScopeGUID, this.getZoneMembershipFromClassification(anchoredElement, methodName), methodName),
+                                             builder.getAnchorsProperties(anchorGUID, anchorTypeName, anchorDomainName, anchorScopeGUIDs, this.getZoneMembershipFromClassification(anchoredElement, methodName), methodName),
                                              forLineage,
                                              forDuplicateProcessing,
                                              effectiveTime,
@@ -2378,7 +2378,7 @@ public class OpenMetadataAPIAnchorHandler<B> extends OpenMetadataAPIRootHandler<
                                                OpenMetadataType.ANCHORS_CLASSIFICATION.typeGUID,
                                                OpenMetadataType.ANCHORS_CLASSIFICATION.typeName,
                                                null,
-                                               builder.getAnchorsProperties(anchorIdentifiers.anchorGUID, anchorIdentifiers.anchorTypeName, anchorIdentifiers.anchorDomainName, anchorIdentifiers.anchorScopeGUID, anchorIdentifiers.zoneMembership, methodName),
+                                               builder.getAnchorsProperties(anchorIdentifiers.anchorGUID, anchorIdentifiers.anchorTypeName, anchorIdentifiers.anchorDomainName, anchorIdentifiers.anchorScopeGUIDs, anchorIdentifiers.zoneMembership, methodName),
                                                forLineage,
                                                forDuplicateProcessing,
                                                effectiveTime,

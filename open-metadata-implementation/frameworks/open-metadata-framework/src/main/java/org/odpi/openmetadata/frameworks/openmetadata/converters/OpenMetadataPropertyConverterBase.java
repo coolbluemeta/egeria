@@ -3277,7 +3277,29 @@ public class OpenMetadataPropertyConverterBase
 
 
     /**
-     * Extract and delete the owner property from the supplied element properties.
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return string text or null
+     */
+    protected String removeHypothesis(ElementProperties elementProperties)
+    {
+        final String methodName = "removeHypothesis";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeStringProperty(localServiceName,
+                                                       OpenMetadataProperty.HYPOTHESIS.name,
+                                                       elementProperties,
+                                                       methodName);
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
      *
      * @param elementProperties properties from element
      * @return string text or null
@@ -4644,16 +4666,16 @@ public class OpenMetadataPropertyConverterBase
      * @param elementProperties properties from element
      * @return string name or null
      */
-    protected String removeAnchorScopeGUID(ElementProperties  elementProperties)
+    protected List<String> removeAnchorScopeGUIDs(ElementProperties  elementProperties)
     {
-        final String methodName = "removeAnchorScopeGUID";
+        final String methodName = "removeAnchorScopeGUIDs";
 
         if (elementProperties != null)
         {
-            return propertyHelper.removeStringProperty(localServiceName,
-                                                       OpenMetadataProperty.ANCHOR_SCOPE_GUID.name,
-                                                       elementProperties,
-                                                       methodName);
+            return propertyHelper.removeStringArrayProperty(localServiceName,
+                                                            OpenMetadataProperty.ANCHOR_SCOPE_GUIDS.name,
+                                                            elementProperties,
+                                                            methodName);
         }
 
         return null;
@@ -11891,7 +11913,7 @@ public class OpenMetadataPropertyConverterBase
                 ((AnchorsProperties)beanProperties).setAnchorGUID(this.removeAnchorGUID(elementProperties));
                 ((AnchorsProperties)beanProperties).setAnchorTypeName(this.removeAnchorTypeName(elementProperties));
                 ((AnchorsProperties)beanProperties).setAnchorDomainName(this.removeAnchorDomainName(elementProperties));
-                ((AnchorsProperties)beanProperties).setAnchorScopeGUID(this.removeAnchorScopeGUID(elementProperties));
+                ((AnchorsProperties)beanProperties).setAnchorScopeGUIDs(this.removeAnchorScopeGUIDs(elementProperties));
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.BUSINESS_SIGNIFICANT_CLASSIFICATION.typeName))
             {
@@ -12084,6 +12106,13 @@ public class OpenMetadataPropertyConverterBase
             {
                 beanProperties = new ElementSupplementProperties();
             }
+            else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.EXPERIMENT_CLASSIFICATION.typeName))
+            {
+                beanProperties = new ExperimentProperties();
+
+                ((ExperimentProperties)beanProperties).setHypothesis(this.removeHypothesis(elementProperties));
+
+            }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.FIXED_LOCATION_CLASSIFICATION.typeName))
             {
                 beanProperties = new FixedLocationProperties();
@@ -12116,6 +12145,10 @@ public class OpenMetadataPropertyConverterBase
                 ((GovernanceMeasurementsProperties)beanProperties).setValues(this.removeValues(elementProperties));
                 ((GovernanceMeasurementsProperties)beanProperties).setDates(this.removeDates(elementProperties));
                 ((GovernanceMeasurementsProperties)beanProperties).setCounts(this.removeCounts(elementProperties));
+            }
+            else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.GOVERNANCE_PROJECT_CLASSIFICATION.typeName))
+            {
+                beanProperties = new GovernanceProjectProperties();
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.IMPACT_CLASSIFICATION.typeName))
             {
@@ -14358,6 +14391,14 @@ public class OpenMetadataPropertyConverterBase
                                 ((NotificationTypeProperties) beanProperties).setNotificationCount(this.removeNotificationCount(elementProperties));
                                 ((NotificationTypeProperties) beanProperties).setPlannedCompletionDate(this.removePlannedCompletionDate(elementProperties));
 
+                            }
+                            else if (propertyHelper.isTypeOf(openMetadataElement, OpenMetadataType.REQUIREMENT.typeName))
+                            {
+                                beanProperties = new RequirementProperties();
+                            }
+                            else if (propertyHelper.isTypeOf(openMetadataElement, OpenMetadataType.RESEARCH_QUESTION.typeName))
+                            {
+                                beanProperties = new ResearchQuestionProperties();
                             }
                             else if (propertyHelper.isTypeOf(openMetadataElement, OpenMetadataType.SECURITY_ACCESS_CONTROL.typeName))
                             {

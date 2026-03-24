@@ -833,8 +833,8 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *                   or the Anchors classification is included in the initial classifications.
      * @param isOwnAnchor boolean flag to day that the element should be classified as its own anchor once its element
      *                    is created in the repository.
-     * @param anchorScopeGUID unique identifier of the element that represents a broader scope that the anchor belongs to.
-     *                        If anchorScopeGUID is null, the value is taken from the anchor element.
+     * @param anchorScopeGUIDs unique identifier of the element that represents a broader scope that the anchor belongs to.
+     *                        If anchorScopeGUIDs is null, the value is taken from the anchor element.
      * @param properties properties of the new metadata element
      * @param parentGUID unique identifier of optional parent entity
      * @param parentRelationshipTypeName type of relationship to connect the new element to the parent
@@ -851,7 +851,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
                                                Map<String, NewElementProperties> initialClassifications,
                                                String                            anchorGUID,
                                                boolean                           isOwnAnchor,
-                                               String                            anchorScopeGUID,
+                                               List<String>                      anchorScopeGUIDs,
                                                NewElementProperties              properties,
                                                String                            parentGUID,
                                                String                            parentRelationshipTypeName,
@@ -864,7 +864,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
 
         newElementOptions.setAnchorGUID(anchorGUID);
         newElementOptions.setIsOwnAnchor(isOwnAnchor);
-        newElementOptions.setAnchorScopeGUID(anchorScopeGUID);
+        newElementOptions.setAnchorScopeGUIDs(anchorScopeGUIDs);
         newElementOptions.setParentGUID(parentGUID);
         newElementOptions.setParentAtEnd1(parentAtEnd1);
         newElementOptions.setParentRelationshipTypeName(parentRelationshipTypeName);
@@ -884,7 +884,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      * This version of the method allows access to advanced features such as multiple states and
      * effectivity dates.
      *
-     * @param metadataElementTypeName type name of new element
+     * @param metadataElementTypeName type name of the new element
      * @param newElementOptions details of the element to create
      * @param initialClassifications map of classification names to classification properties to include in the entity creation request
      * @param properties properties of the new metadata element
@@ -932,47 +932,48 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *                   or the Anchors classification is included in the initial classifications.
      * @param isOwnAnchor boolean flag to day that the element should be classified as its own anchor once its element
      *                    is created in the repository.
-     * @param anchorScopeGUID unique identifier of the element that represents a broader scope that the anchor belongs to.
-     *                        If anchorScopeGUID is null, the value is taken from the anchor element.
+     * @param anchorScopeGUIDs unique identifier of the element that represents a broader scope that the anchor belongs to.
+     *                        If anchorScopeGUIDs is null, the value is taken from the anchor element.
      * @param effectiveFrom the date when this element is active - null for active on creation
      * @param effectiveTo the date when this element becomes inactive - null for active until deleted
-     * @param templateGUID the unique identifier of the existing asset to copy (this will copy all the attachments such as nested content, schema
-     *                     connection etc)
+     * @param templateGUID the unique identifier of the existing element to copy
      * @param replacementProperties properties of the new metadata element.  These override the placeholder values
+     * @param replacementClassifications map of classification names to classification properties to include in the entity creation request. These override the template values.
      * @param placeholderProperties property name-to-property value map to replace any placeholder values in the
      *                              template element - and their anchored elements, which are also copied as part of this operation.
      * @param parentGUID unique identifier of optional parent entity
      * @param parentRelationshipTypeName type of relationship to connect the new element to the parent
      * @param parentRelationshipProperties properties to include in parent relationship
-     * @param parentAtEnd1 which end should the parent GUID go in the relationship
+     * @param parentAtEnd1 which end should the parent GUID go in the parent relationship?
      *
      * @return unique identifier of the new metadata element
      *
-     * @throws InvalidParameterException the type name, status or one of the properties is invalid
+     * @throws InvalidParameterException the type name, status, or one of the properties is invalid
      * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
-    public String createMetadataElementFromTemplate(String                         metadataElementTypeName,
-                                                    String                         anchorGUID,
-                                                    boolean                        isOwnAnchor,
-                                                    String                         anchorScopeGUID,
-                                                    Date                           effectiveFrom,
-                                                    Date                           effectiveTo,
-                                                    String                         templateGUID,
-                                                    ElementProperties              replacementProperties,
-                                                    Map<String, String>            placeholderProperties,
-                                                    String                         parentGUID,
-                                                    String                         parentRelationshipTypeName,
-                                                    ElementProperties              parentRelationshipProperties,
-                                                    boolean                        parentAtEnd1) throws InvalidParameterException,
-                                                                                                        UserNotAuthorizedException,
-                                                                                                        PropertyServerException
+    public String createMetadataElementFromTemplate(String                            metadataElementTypeName,
+                                                    String                            anchorGUID,
+                                                    boolean                           isOwnAnchor,
+                                                    List<String>                      anchorScopeGUIDs,
+                                                    Date                              effectiveFrom,
+                                                    Date                              effectiveTo,
+                                                    String                            templateGUID,
+                                                    ElementProperties                 replacementProperties,
+                                                    Map<String, NewElementProperties> replacementClassifications,
+                                                    Map<String, String>               placeholderProperties,
+                                                    String                            parentGUID,
+                                                    String                            parentRelationshipTypeName,
+                                                    ElementProperties                 parentRelationshipProperties,
+                                                    boolean                           parentAtEnd1) throws InvalidParameterException,
+                                                                                                           UserNotAuthorizedException,
+                                                                                                           PropertyServerException
     {
         TemplateOptions templateOptions = new TemplateOptions(this.getMetadataSourceOptions());
 
         templateOptions.setAnchorGUID(anchorGUID);
         templateOptions.setIsOwnAnchor(isOwnAnchor);
-        templateOptions.setAnchorScopeGUID(anchorScopeGUID);
+        templateOptions.setAnchorScopeGUIDs(anchorScopeGUIDs);
         templateOptions.setAllowRetrieve(false);
         templateOptions.setParentGUID(parentGUID);
         templateOptions.setParentAtEnd1(parentAtEnd1);
@@ -982,6 +983,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
                                                       templateOptions,
                                                       templateGUID,
                                                       replacementProperties,
+                                                      replacementClassifications,
                                                       placeholderProperties,
                                                       this.getNewElementProperties(effectiveFrom,
                                                                                    effectiveTo,
@@ -998,33 +1000,35 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *
      * @param metadataElementTypeName expected type name of the new metadata element
      * @param templateOptions details of the element to create
-     * @param templateGUID the unique identifier of the existing asset to copy (this will copy all the attachments such as nested content, schema
-     *                     connection etc)
+     * @param templateGUID the unique identifier of the existing element to copy
      * @param replacementProperties properties of the new metadata element.  These override the template values
+     * @param replacementClassifications map of classification names to classification properties to include in the entity creation request. These override the template values.
      * @param placeholderProperties property name-to-property value map to replace any placeholder values in the
      *                              template element - and their anchored elements, which are also copied as part of this operation.
      * @param parentRelationshipProperties properties to include in parent relationship
      *
      * @return unique identifier of the new metadata element
      *
-     * @throws InvalidParameterException the type name, status or one of the properties is invalid
+     * @throws InvalidParameterException the type name, status, or one of the properties is invalid
      * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
-    public String createMetadataElementFromTemplate(String               metadataElementTypeName,
-                                                    TemplateOptions      templateOptions,
-                                                    String               templateGUID,
-                                                    ElementProperties    replacementProperties,
-                                                    Map<String, String>  placeholderProperties,
-                                                    NewElementProperties parentRelationshipProperties) throws InvalidParameterException,
-                                                                                                              UserNotAuthorizedException,
-                                                                                                              PropertyServerException
+    public String createMetadataElementFromTemplate(String                            metadataElementTypeName,
+                                                    TemplateOptions                   templateOptions,
+                                                    String                            templateGUID,
+                                                    ElementProperties                 replacementProperties,
+                                                    Map<String, NewElementProperties> replacementClassifications,
+                                                    Map<String, String>               placeholderProperties,
+                                                    NewElementProperties              parentRelationshipProperties) throws InvalidParameterException,
+                                                                                                                           UserNotAuthorizedException,
+                                                                                                                           PropertyServerException
     {
         String metadataElementGUID = openMetadataClient.createMetadataElementFromTemplate(connectorUserId,
                                                                                           metadataElementTypeName,
                                                                                           templateOptions,
                                                                                           templateGUID,
                                                                                           replacementProperties,
+                                                                                          replacementClassifications,
                                                                                           placeholderProperties,
                                                                                           parentRelationshipProperties);
 
@@ -1049,47 +1053,48 @@ public class OpenMetadataStore extends ConnectorContextClientBase
      *                   or the Anchors classification is included in the initial classifications.
      * @param isOwnAnchor boolean flag to day that the element should be classified as its own anchor once its element
      *                    is created in the repository.
-     * @param anchorScopeGUID unique identifier of the element that represents a broader scope that the anchor belongs to.
-     *                        If anchorScopeGUID is null, the value is taken from the anchor element.
+     * @param anchorScopeGUIDs unique identifiers of the elements that represent a broader scope that the anchor belongs to.
+     *                        If anchorScopeGUIDs == null, the value is taken from the anchor element.
      * @param effectiveFrom the date when this element is active - null for active on creation
      * @param effectiveTo the date when this element becomes inactive - null for active until deleted
-     * @param templateGUID the unique identifier of the existing asset to copy (this will copy all the attachments such as nested content, schema
-     *                     connection etc)
+     * @param templateGUID the unique identifier of the existing element to copy
      * @param replacementProperties properties of the new metadata element.  These override the placeholder values
+     * @param replacementClassifications map of classification names to classification properties to include in the entity creation request. These override the template values.
      * @param placeholderProperties property name-to-property value map to replace any placeholder values in the
      *                              template element - and their anchored elements, which are also copied as part of this operation.
      * @param parentGUID unique identifier of optional parent entity
      * @param parentRelationshipTypeName type of relationship to connect the new element to the parent
      * @param parentRelationshipProperties properties to include in parent relationship
-     * @param parentAtEnd1 which end should the parent GUID go in the relationship
+     * @param parentAtEnd1 which end should the parent GUID go in the relationship?
      *
      * @return unique identifier of the new metadata element
      *
-     * @throws InvalidParameterException the type name, status or one of the properties is invalid
+     * @throws InvalidParameterException the type name, status, or one of the properties is invalid
      * @throws UserNotAuthorizedException the connector is not authorized to create this type of element
      * @throws PropertyServerException a problem with the metadata store
      */
-    public String getMetadataElementFromTemplate(String                         metadataElementTypeName,
-                                                 String                         anchorGUID,
-                                                 boolean                        isOwnAnchor,
-                                                 String                         anchorScopeGUID,
-                                                 Date                           effectiveFrom,
-                                                 Date                           effectiveTo,
-                                                 String                         templateGUID,
-                                                 ElementProperties              replacementProperties,
-                                                 Map<String, String>            placeholderProperties,
-                                                 String                         parentGUID,
-                                                 String                         parentRelationshipTypeName,
-                                                 ElementProperties              parentRelationshipProperties,
-                                                 boolean                        parentAtEnd1) throws InvalidParameterException,
-                                                                                                     UserNotAuthorizedException,
-                                                                                                     PropertyServerException
+    public String getMetadataElementFromTemplate(String                            metadataElementTypeName,
+                                                 String                            anchorGUID,
+                                                 boolean                           isOwnAnchor,
+                                                 List<String>                      anchorScopeGUIDs,
+                                                 Date                              effectiveFrom,
+                                                 Date                              effectiveTo,
+                                                 String                            templateGUID,
+                                                 ElementProperties                 replacementProperties,
+                                                 Map<String, NewElementProperties> replacementClassifications,
+                                                 Map<String, String>               placeholderProperties,
+                                                 String                            parentGUID,
+                                                 String                            parentRelationshipTypeName,
+                                                 ElementProperties                 parentRelationshipProperties,
+                                                 boolean                           parentAtEnd1) throws InvalidParameterException,
+                                                                                                        UserNotAuthorizedException,
+                                                                                                        PropertyServerException
     {
         TemplateOptions templateOptions = new TemplateOptions(this.getMetadataSourceOptions());
 
         templateOptions.setAnchorGUID(anchorGUID);
         templateOptions.setIsOwnAnchor(isOwnAnchor);
-        templateOptions.setAnchorScopeGUID(anchorScopeGUID);
+        templateOptions.setAnchorScopeGUIDs(anchorScopeGUIDs);
         templateOptions.setAllowRetrieve(true);
         templateOptions.setParentGUID(parentGUID);
         templateOptions.setParentAtEnd1(parentAtEnd1);
@@ -1099,6 +1104,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
                                                       templateOptions,
                                                       templateGUID,
                                                       replacementProperties,
+                                                      replacementClassifications,
                                                       placeholderProperties,
                                                       this.getNewElementProperties(effectiveFrom,
                                                                                    effectiveTo,
@@ -1132,7 +1138,7 @@ public class OpenMetadataStore extends ConnectorContextClientBase
 
     /**
      * Update the properties of a specific metadata element.  The properties must match the type definition associated with the
-     * metadata element when it was created.  However, it is possible to update a few properties, or replace all them by
+     * metadata element when it was created.  However, it is possible to update a few properties, or replace all them, by
      * the value used in the replaceProperties flag.
      *
      * @param metadataElementGUID unique identifier of the metadata element to update

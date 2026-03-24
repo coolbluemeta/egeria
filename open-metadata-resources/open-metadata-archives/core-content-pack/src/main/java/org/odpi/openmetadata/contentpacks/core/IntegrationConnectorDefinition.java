@@ -8,6 +8,7 @@ import org.odpi.openmetadata.adapters.connectors.apacheatlas.integration.ApacheA
 import org.odpi.openmetadata.adapters.connectors.apachekafka.integration.KafkaTopicIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.babbage.BabbageAnalyticalEngineProvider;
 import org.odpi.openmetadata.adapters.connectors.controls.PostgresDeployedImplementationType;
+import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.OMSecretsFilesMonitorIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.jacquard.solutionblueprint.ProductSolutionComponent;
 import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.YAMLSecretsStoreProvider;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStorePurpose;
@@ -17,11 +18,8 @@ import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.DataFile
 import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.DataFolderMonitorIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.OMArchiveFilesMonitorIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.jdbc.JDBCIntegrationConnectorProvider;
-import org.odpi.openmetadata.adapters.connectors.integration.kafkaaudit.DistributeAuditEventsFromKafkaProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.openapis.OpenAPIMonitorIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.integration.openlineage.*;
-import org.odpi.openmetadata.adapters.connectors.externalharvesters.harvestopenmetadata.HarvestOpenMetadataProvider;
-import org.odpi.openmetadata.adapters.connectors.externalharvesters.harvestsurveys.HarvestSurveysProvider;
 import org.odpi.openmetadata.adapters.connectors.postgres.catalog.PostgresServerIntegrationProvider;
 import org.odpi.openmetadata.adapters.connectors.postgres.controls.PostgresConfigurationProperty;
 import org.odpi.openmetadata.adapters.connectors.jacquard.JacquardIntegrationConnectorProvider;
@@ -83,6 +81,27 @@ public enum IntegrationConnectorDefinition
                             "c67172bb-bd66-4d22-9ed7-ee6dc9c99b38",
                             "Content Packs Monitor",
                             "Catalogs open metadata archive files located in the 'content-packs' directory.  This includes cataloguing the header information from the archive file.  This includes a description of its content.  The resulting open metadata elements are used to list the content packs that are available to load into the Open Metadata Ecosystem.",
+                            true,
+                            null,
+                            null,
+                            null,
+                            null,
+                            ContentPackDefinition.FILES_CONTENT_PACK),
+
+    SECRETS_STORE_CATALOGUER("75e55161-4633-49f4-9358-77b6810aa2d1",
+                            "SecretsStoreMonitorIntegrationConnector",
+                            "Catalogs Secrets Stores found under the loading-bay/secrets directory (folder) and any other folder added as a catalog target.",
+                            OMSecretsFilesMonitorIntegrationProvider.class.getName(),
+                            "SecretsStoreCataloguer",
+                            "secretsstorecatnpa",
+                            null,
+                            "loading-bay/secrets",
+                            getFileCataloguerConfigProperties(),
+                            60,
+                            new DeployedImplementationTypeDefinition[]{DeployedImplementationType.FILE_SYSTEM_DIRECTORY},
+                            "469ccdaf-17b8-4c6d-8713-5f66004f1cff",
+                            "Secrets Store Monitor",
+                            "Catalogs secrets store files located in the 'loading-bay/secrets' directory.  This includes cataloguing the secrets collections and security access controls.  User accounts are linked to UserIdentity elements if defined in open metadata.",
                             true,
                             null,
                             null,
@@ -153,27 +172,6 @@ public enum IntegrationConnectorDefinition
                     null,
                     ContentPackDefinition.CORE_CONTENT_PACK),
 
-    /*Seems obsolete
-    POSTGRES_DB_CATALOGUER("ef301220-7dfe-4c6c-bb9d-8f92d9f63823",
-                           "PostgreSQLDatabaseIntegrationConnector",
-                           "Catalogs JDBC database schemas, tables and columns attached as catalog targets.",
-                           JDBCIntegrationConnectorProvider.class.getName(),
-                           "PostgreSQLDatabaseCataloguer",
-                           "postgresdbcatnpa",
-                           null,
-                           null,
-                           null,
-                           60,
-                           new DeployedImplementationTypeDefinition[]{PostgresDeployedImplementationType.POSTGRESQL_DATABASE},
-                           "b33fcf90-575f-4384-9ccd-07780688dc28",
-                           "PostgreSQL Database Cataloguer",
-                           "Maintains the open metadata elements that represent the schemas, tables and columns in a PostgreSQL relational database.",
-                           true,
-                           null,
-                           null,
-                           null,
-                           null,
-                           ContentPackDefinition.POSTGRES_CONTENT_PACK), */
 
     POSTGRES_SERVER_CATALOGUER("36f69fd0-54ba-4f59-8a44-11ccf2687a34",
                                "PostgreSQLServerIntegrationConnector",
@@ -317,7 +315,7 @@ public enum IntegrationConnectorDefinition
                                     "OMAG Server Platform Cataloguer",
                                     "Monitors the running OMAG Server Platform instances that are catalogued in the open metadata ecosystem and maintains the metadata that describes the servers and their configuration.",
                                     true,
-                                    "OMAGConnector",
+                                    "OMAGServerPlatformCataloguer",
                                     SecretsStorePurpose.REST_BEARER_TOKEN.getName(),
                                     new YAMLSecretsStoreProvider().getConnectorType().getGUID(),
                                     "loading-bay/secrets/egeria-servers.omsecrets",
@@ -432,7 +430,7 @@ public enum IntegrationConnectorDefinition
                                 ContentPackDefinition.OPEN_LINEAGE_CONTENT_PACK),
 
     PRODUCT_HARVESTER("8a3d91da-05a0-49ca-83e0-77f5c48bdf0c",
-                      "JacquardHarvesterIntegrationConnector",
+                      "JacquardDigitalProductLoomIntegrationConnector",
                       "Defines and maintains digital products based on the content of the open metadata repositories.",
                       JacquardIntegrationConnectorProvider.class.getName(),
                       "JacquardDigitalProductLoom",

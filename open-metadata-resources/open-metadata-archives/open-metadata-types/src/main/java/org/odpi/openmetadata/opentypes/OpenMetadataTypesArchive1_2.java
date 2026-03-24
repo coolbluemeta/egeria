@@ -7132,6 +7132,8 @@ public class OpenMetadataTypesArchive1_2
     private void add0430TechnicalControls()
     {
         this.archiveBuilder.addEntityDef(getDataLensEntity());
+        this.archiveBuilder.addEntityDef(getRequirementEntity());
+        this.archiveBuilder.addEntityDef(getResearchQuestionEntity());
         this.archiveBuilder.addEntityDef(getGovernanceRuleEntity());
         this.archiveBuilder.addEntityDef(getGovernanceActionEntity());
         this.archiveBuilder.addEntityDef(getNotificationTypeEntity());
@@ -7139,6 +7141,18 @@ public class OpenMetadataTypesArchive1_2
         this.archiveBuilder.addRelationshipDef(getNotificationSubscriberRelationship());
     }
 
+
+    private EntityDef getRequirementEntity()
+    {
+        return archiveHelper.getDefaultEntityDef(OpenMetadataType.REQUIREMENT,
+                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.GOVERNANCE_CONTROL.typeName));
+    }
+
+    private EntityDef getResearchQuestionEntity()
+    {
+        return archiveHelper.getDefaultEntityDef(OpenMetadataType.RESEARCH_QUESTION,
+                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.GOVERNANCE_CONTROL.typeName));
+    }
 
     private EntityDef getGovernanceRuleEntity()
     {

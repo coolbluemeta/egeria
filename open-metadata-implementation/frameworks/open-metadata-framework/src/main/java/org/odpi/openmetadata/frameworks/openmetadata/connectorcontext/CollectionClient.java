@@ -118,9 +118,9 @@ public class CollectionClient extends ConnectorContextClientBase
      * The template defines additional classifications and relationships that should be added to the new collection.
      *
      * @param templateOptions details of the element to create
-     * @param templateGUID the unique identifier of the existing collection to copy (this will copy all the attachments such as nested content, schema
-     *                     connection etc)
+     * @param templateGUID the unique identifier of the existing element to copy
      * @param replacementProperties properties of the new metadata element.  These override the template values
+     * @param replacementClassifications map of classification names to classification properties to include in the entity creation request. These override the template values.
      * @param placeholderProperties property name-to-property value map to replace any placeholder values in the
      *                              template element - and their anchored elements, which are also copied as part of this operation.
      * @param parentRelationshipProperties properties to include in parent relationship
@@ -129,15 +129,16 @@ public class CollectionClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public String createCollectionFromTemplate(TemplateOptions        templateOptions,
-                                               String                 templateGUID,
-                                               EntityProperties       replacementProperties,
-                                               Map<String, String>    placeholderProperties,
-                                               RelationshipProperties parentRelationshipProperties) throws InvalidParameterException,
-                                                                                                           UserNotAuthorizedException,
-                                                                                                           PropertyServerException
+    public String createCollectionFromTemplate(TemplateOptions                       templateOptions,
+                                               String                                templateGUID,
+                                               EntityProperties                      replacementProperties,
+                                               Map<String, ClassificationProperties> replacementClassifications,
+                                               Map<String, String>                   placeholderProperties,
+                                               RelationshipProperties                parentRelationshipProperties) throws InvalidParameterException,
+                                                                                                                          UserNotAuthorizedException,
+                                                                                                                          PropertyServerException
     {
-        String elementGUID = collectionHandler.createCollectionFromTemplate(connectorUserId, templateOptions, templateGUID, replacementProperties, placeholderProperties, parentRelationshipProperties);
+        String elementGUID = collectionHandler.createCollectionFromTemplate(connectorUserId, templateOptions, templateGUID, replacementProperties, replacementClassifications, placeholderProperties, parentRelationshipProperties);
 
         if (parentContext.getIntegrationReportWriter() != null)
         {
@@ -1014,8 +1015,8 @@ public class CollectionClient extends ConnectorContextClientBase
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
     public OpenMetadataRootElement getGlossaryForTerm(OpenMetadataRootElement glossaryTerm) throws InvalidParameterException,
-                                                                                                    PropertyServerException,
-                                                                                                    UserNotAuthorizedException
+                                                                                                   PropertyServerException,
+                                                                                                   UserNotAuthorizedException
     {
         final String methodName = "getGlossaryFromTerm";
         final String parameterName = "glossaryTerm";
@@ -1027,9 +1028,15 @@ public class CollectionClient extends ConnectorContextClientBase
          */
         if ((glossaryTerm.getElementHeader().getAnchor() != null) &&
                 (glossaryTerm.getElementHeader().getAnchor().getClassificationProperties() instanceof AnchorsProperties anchorsProperties) &&
-                (anchorsProperties.getAnchorScopeGUID() != null))
+                (anchorsProperties.getAnchorScopeGUIDs() != null))
         {
-            return this.getCollectionByGUID(anchorsProperties.getAnchorScopeGUID(), this.getGetOptions());
+            for (String anchorScopeGUID : anchorsProperties.getAnchorScopeGUIDs())
+            {
+                if (anchorScopeGUID != null)
+                {
+                    return this.getCollectionByGUID(anchorScopeGUID, this.getGetOptions());
+                }
+            }
         }
 
         /*

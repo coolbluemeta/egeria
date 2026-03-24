@@ -32,56 +32,6 @@ public class ConnectedAssetContext
 
 
     /**
-     * Returns the unique identifier corresponding to the supplied connection.
-     *
-     * @param connection   the connection object that contains the properties needed to create the connection.
-     *
-     * @return guid
-     *
-     * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws PropertyServerException a problem retrieving the asset properties from the property servers.
-     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     * @throws ConnectionCheckedException there are errors in the configuration of the connection which is preventing
-     *                                      the creation of a connector.
-     * @throws ConnectorCheckedException there are errors in the initialization of the connector.
-     */
-    public String saveConnection(Connection connection) throws InvalidParameterException,
-                                                               PropertyServerException,
-                                                               UserNotAuthorizedException,
-                                                               ConnectionCheckedException,
-                                                               ConnectorCheckedException
-    {
-        return connectedAssetClient.saveConnection(userId, connection);
-    }
-
-
-    /**
-     * Returns the unique identifier corresponding to the supplied connection.
-     *
-     * @param assetGUID the unique identifier of an asset to attach the connection to
-     * @param connection   the connection object that contains the properties needed to create the connection.
-     *
-     * @return guid
-     *
-     * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws PropertyServerException a problem retrieving the asset properties from the property servers.
-     * @throws UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     * @throws ConnectionCheckedException there are errors in the configuration of the connection which is preventing
-     *                                      the creation of a connector.
-     * @throws ConnectorCheckedException there are errors in the initialization of the connector.
-     */
-    public String saveConnection(String     assetGUID,
-                                 Connection connection) throws InvalidParameterException,
-                                                               PropertyServerException,
-                                                               UserNotAuthorizedException,
-                                                               ConnectionCheckedException,
-                                                               ConnectorCheckedException
-    {
-        return connectedAssetClient.saveConnection(userId, assetGUID, connection);
-    }
-
-
-    /**
      * Return the connector to the requested asset.
      *
      * @param assetGUID the unique identifier of an asset to attach the connection to

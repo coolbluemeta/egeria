@@ -1064,7 +1064,7 @@ public class OpenMetadataStoreRESTServices
                     response.setElements(this.findAnchoredElements(userId,
                                                                    requestBody.getSearchString(),
                                                                    requestBody,
-                                                                   OpenMetadataProperty.ANCHOR_SCOPE_GUID.name,
+                                                                   OpenMetadataProperty.ANCHOR_SCOPE_GUIDS.name,
                                                                    requestBody.getAnchorScopeGUID(),
                                                                    handler));
                 }
@@ -1515,7 +1515,7 @@ public class OpenMetadataStoreRESTServices
             {
                 SearchProperties      searchProperties = getOMRSSearchPropertiesByName(null, requestBody.getSearchString(), requestBody);
                 SearchClassifications searchClassifications = getAnchorSearchClassifications(anchorScopeGUID,
-                                                                                             OpenMetadataProperty.ANCHOR_SCOPE_GUID.name);
+                                                                                             OpenMetadataProperty.ANCHOR_SCOPE_GUIDS.name);
 
                 List<EntityDetail> anchoredEntities = handler.findEntities(userId,
                                                                            requestBody.getMetadataElementTypeName(),
@@ -2532,7 +2532,7 @@ public class OpenMetadataStoreRESTServices
                                                                       requestBody.getInitialClassifications(),
                                                                       requestBody.getAnchorGUID(),
                                                                       requestBody.getIsOwnAnchor(),
-                                                                      requestBody.getAnchorScopeGUID(),
+                                                                      requestBody.getAnchorScopeGUIDs(),
                                                                       requestBody.getProperties(),
                                                                       requestBody.getParentGUID(),
                                                                       requestBody.getParentRelationshipTypeName(),
@@ -2596,12 +2596,13 @@ public class OpenMetadataStoreRESTServices
                                                                            requestBody.getTypeName(),
                                                                            requestBody.getAnchorGUID(),
                                                                            requestBody.getIsOwnAnchor(),
-                                                                           requestBody.getAnchorScopeGUID(),
+                                                                           requestBody.getAnchorScopeGUIDs(),
                                                                            requestBody.getAllowRetrieve(),
                                                                            requestBody.getEffectiveFrom(),
                                                                            requestBody.getEffectiveTo(),
                                                                            requestBody.getTemplateGUID(),
                                                                            requestBody.getReplacementProperties(),
+                                                                           requestBody.getReplacementClassifications(),
                                                                            requestBody.getPlaceholderPropertyValues(),
                                                                            requestBody.getParentGUID(),
                                                                            requestBody.getParentRelationshipTypeName(),
@@ -2610,6 +2611,8 @@ public class OpenMetadataStoreRESTServices
                                                                            requestBody.getForLineage(),
                                                                            requestBody.getForDuplicateProcessing(),
                                                                            requestBody.getEffectiveTime(),
+                                                                           requestBody.getDeepCopy(),
+                                                                           requestBody.getIsTemplateSubstitute(),
                                                                            methodName));
             }
             else
@@ -3298,7 +3301,7 @@ public class OpenMetadataStoreRESTServices
                                                                       requestBody.getMetadataElement1GUID(),
                                                                       requestBody.getMetadataElement2GUID(),
                                                                       requestBody.getMakeAnchor(),
-                                                                      requestBody.getAnchorScopeGUID(),
+                                                                      requestBody.getAnchorScopeGUIDs(),
                                                                       requestBody.getForLineage(),
                                                                       requestBody.getForDuplicateProcessing(),
                                                                       requestBody.getProperties(),

@@ -506,7 +506,7 @@ public class CSVSurveyService extends SurveyActionServiceConnector
 
             newElementOptions.setAnchorGUID(assetElement.getElementHeader().getGUID());
             newElementOptions.setIsOwnAnchor(false);
-            newElementOptions.setAnchorScopeGUID(null);
+            newElementOptions.setAnchorScopeGUIDs(null);
             newElementOptions.setParentGUID(schemaTypeGUID);
             newElementOptions.setParentAtEnd1(true);
             newElementOptions.setParentRelationshipTypeName(OpenMetadataType.ATTRIBUTE_FOR_SCHEMA_RELATIONSHIP.typeName);
