@@ -1094,9 +1094,9 @@ public class AssetHandler extends OpenMetadataHandlerBase
      *
      * @param userId                       calling user
      * @param templateOptions details of the element to create
-     * @param templateGUID the unique identifier of the existing asset to copy (this will copy all the attachments such as nested content, schema
-     *                     connection etc)
+     * @param templateGUID the unique identifier of the existing element to copy
      * @param replacementProperties properties of the new metadata element.  These override the template values
+     * @param replacementClassifications map of classification names to classification properties to include in the entity creation request. These override the template values.
      * @param placeholderProperties property name-to-property value map to replace any placeholder values in the
      *                              template element - and their anchored elements, which are also copied as part of this operation.
      * @param parentRelationshipProperties properties to include in parent relationship
@@ -1106,19 +1106,21 @@ public class AssetHandler extends OpenMetadataHandlerBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public String createAssetFromTemplate(String                 userId,
-                                          TemplateOptions        templateOptions,
-                                          String                 templateGUID,
-                                          EntityProperties       replacementProperties,
-                                          Map<String, String>    placeholderProperties,
-                                          RelationshipProperties parentRelationshipProperties) throws InvalidParameterException,
-                                                                                                      UserNotAuthorizedException,
-                                                                                                      PropertyServerException
+    public String createAssetFromTemplate(String                                userId,
+                                          TemplateOptions                       templateOptions,
+                                          String                                templateGUID,
+                                          EntityProperties                      replacementProperties,
+                                          Map<String, ClassificationProperties> replacementClassifications,
+                                          Map<String, String>                   placeholderProperties,
+                                          RelationshipProperties                parentRelationshipProperties) throws InvalidParameterException,
+                                                                                                                     UserNotAuthorizedException,
+                                                                                                                     PropertyServerException
     {
         return super.createElementFromTemplate(userId,
                                                templateOptions,
                                                templateGUID,
                                                replacementProperties,
+                                               replacementClassifications,
                                                placeholderProperties,
                                                parentRelationshipProperties);
     }

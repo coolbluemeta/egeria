@@ -184,9 +184,9 @@ public enum OpenMetadataProperty
     ANCHOR_DOMAIN_NAME("anchorDomainName", DataType.STRING, DataType.STRING.getDisplayName(), "Unique name of the domain of the anchor.  This is an Open Metadata Type Name that either directly inherits from OpenMetadataRoot or Referenceable.", "Asset", "00ba532f-792f-4b78-8940-b5a9fd72f854"),
 
     /**
-     * Unique identifier of the scope of the anchor.  This is an Open Metadata GUID of an element that represents a scope/ownership of an anchor element.  It is used to restrict searches.
+     * Unique identifier of the scope of the anchor.  These are the Open Metadata GUID of elements that represents a scope/ownership of an anchor element.  It is used to restrict searches.
      */
-    ANCHOR_SCOPE_GUID("anchorScopeGUID", DataType.STRING, DataType.STRING.getDisplayName(), "Unique identifier of the scope of the anchor.  This is an Open Metadata GUID of an element that represents a scope/ownership of an anchor element.  It is used to restrict searches.", "0ba61188-a5db-4e98-af1a-31505660363e", "65afae9b-54d5-440f-b955-6ebe9c0eba21"),
+    ANCHOR_SCOPE_GUIDS("anchorScopeGUIDs", DataType.ARRAY_STRING, DataType.ARRAY_STRING.getDisplayName(), "Unique identifiers of the scope of the anchor.  These are the Open Metadata GUID of elements that represents a scope/ownership of an anchor element.  It is used to restrict searches.", "0ba61188-a5db-4e98-af1a-31505660363e", "65afae9b-54d5-440f-b955-6ebe9c0eba21"),
 
     /**
      * Unique name for the element.
@@ -1260,9 +1260,14 @@ public enum OpenMetadataProperty
     PROJECT_HEALTH("projectHealth", DataType.STRING, DataType.STRING.getDisplayName(), "Indicator on how well the project is tracking to plan.", "On Track", "eabe799d-72d7-46a2-aa56-5ceaf723a65f"),
 
     /**
-     * Short description on current status of the project.
+     * Short description of the current status of the project.
      */
-    PROJECT_STATUS("projectStatus", DataType.STRING, DataType.STRING.getDisplayName(), "Short description on current status of the project.", "Active", "39643f86-185b-465e-9e84-3f74905bad82"),
+    PROJECT_STATUS("projectStatus", DataType.STRING, DataType.STRING.getDisplayName(), "Short description of the current status of the project.", "Active", "39643f86-185b-465e-9e84-3f74905bad82"),
+
+    /**
+     * Description of the hypothesis being tested.
+     */
+    HYPOTHESIS("hypothesis", DataType.STRING, DataType.STRING.getDisplayName(), "Description of the hypothesis being tested.", "Administration of Drug X at a dosage of 50 mg daily will significantly reduce systolic blood pressure in adults with stage 1 hypertension compared to a placebo over a 12-week period.", "f41422a8-d023-4fcb-976f-edb2bbf50a06"),
 
     /**
      * Display name of the product.
@@ -1275,9 +1280,9 @@ public enum OpenMetadataProperty
     INTRODUCTION_DATE("introductionDate", DataType.DATE, DataType.DATE.getDisplayName(), "Date that the product was made available.", null, "9fffa5e8-f2d2-4184-be1d-482d7e093ec0"),
 
     /**
-     * Date when is the next version is expected to be released.
+     * Date when the next version is expected to be released.
      */
-    NEXT_VERSION_DATE("nextVersionDate", DataType.DATE, DataType.DATE.getDisplayName(), "Date when is the next version is expected to be released.", null, "5866d607-157f-41f2-8875-00b60f534e99"),
+    NEXT_VERSION_DATE("nextVersionDate", DataType.DATE, DataType.DATE.getDisplayName(), "Date when the next version is expected to be released.", null, "5866d607-157f-41f2-8875-00b60f534e99"),
 
     /**
      * Date when the product is expected to be (or has been) withdrawn, preventing new consumers from subscribing.

@@ -411,8 +411,8 @@ public class DataFilesMonitorForTarget extends DirectoryToMonitor
                 AssetClient fileClient = integrationConnector.integrationContext.getAssetClient(OpenMetadataType.DATA_FILE.typeName);
 
                 OpenMetadataRootElement dataFileInCatalog = fileClient.getAssetByUniqueName(file.getCanonicalPath(),
-                                                                                 OpenMetadataProperty.PATH_NAME.name,
-                                                                                 null);
+                                                                                            OpenMetadataProperty.PATH_NAME.name,
+                                                                                            null);
 
                 if ((dataFileInCatalog != null) && (dataFileInCatalog.getProperties() instanceof DataFileProperties dataFileProperties))
                 {
@@ -530,6 +530,7 @@ public class DataFilesMonitorForTarget extends DirectoryToMonitor
                                                                  null,
                                                                  fileTemplateGUID,
                                                                  replacementProperties,
+                                                                 null,
                                                                  placeholderProperties,
                                                                  null,
                                                                  null,

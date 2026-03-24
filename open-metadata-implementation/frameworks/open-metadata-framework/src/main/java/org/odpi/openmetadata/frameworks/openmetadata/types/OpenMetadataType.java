@@ -172,7 +172,6 @@ public enum OpenMetadataType
                            "An open metadata entity that has lifecycle states to support an authoring workflow.",
                            AuthoredReferenceableProperties.class),
 
-
     /**
      * The description of an asset that needs to be catalogued and governed.
      */
@@ -192,7 +191,6 @@ public enum OpenMetadataType
                "8661a98b-1a2e-4a33-bb71-078f48532385",
                "The description of a collection of data.",
                DataAssetProperties.class),
-
 
     /**
      * Well-defined sequence of activities performed by digital resources.
@@ -584,13 +582,13 @@ public enum OpenMetadataType
 
 
     /**
-     * Defines a list of activities such as ToDos, Tasks etc...
+     * Defines a list of activities such as ToDos, Tasks, etc...
      */
     WORK_ITEM_LIST_COLLECTION("9d958a7c-5fca-4acc-83b3-f59b70e73f54",
                               "WorkItemList",
                               OpenMetadataWikiPages.MODEL_0021_COLLECTIONS,
                               "2ee49f29-da72-490f-a6c4-e7525516e6f0",
-                              "Defines a list of activities such as ToDos, Tasks etc...",
+                              "Defines a list of activities such as ToDos, Tasks, etc...",
                               WorkItemListProperties.class),
 
     /**
@@ -1697,14 +1695,24 @@ public enum OpenMetadataType
                                     PersonalProjectProperties.class),
 
     /**
-     * A focused analysis of a topic, person, object or situation.
+     * A focused analysis of a topic, person, object, or situation.
      */
     STUDY_PROJECT_CLASSIFICATION("e68ae56a-7567-4c6a-9bff-04076bcc0b3b",
                                  "StudyProject",
                                  OpenMetadataWikiPages.MODEL_0130_PROJECTS,
                                  "04b9427e-b6cc-45d4-b880-6eaa9a47f063",
-                                 "A focused analysis of a topic, person, object or situation.",
+                                 "A focused analysis of a topic, person, object, or situation.",
                                  StudyProjectProperties.class),
+
+    /**
+     * A project conducting an experiment that is testing a hypothesis (documented in the hypothesis attribute). This hypothesis is typically based on a research question.
+     */
+    EXPERIMENT_CLASSIFICATION("2528c28c-55ab-40f2-b76d-d5bd6185a64f",
+                              "Experiment",
+                              OpenMetadataWikiPages.MODEL_0130_PROJECTS,
+                              "0b409e21-9c99-4a44-b4df-f34ecd011014",
+                              "A project conducting an experiment that is testing a hypothesis (documented in the hypothesis attribute). This hypothesis is typically based on a research question.",
+                              ExperimentProperties.class),
 
     /**
      * Two or more people come together to discuss a topic, agree and action or exchange information.
@@ -3193,7 +3201,8 @@ public enum OpenMetadataType
                                       "GovernanceProject",
                                       OpenMetadataWikiPages.MODEL_0417_GOVERNANCE_PROJECTS,
                                       "b35e995c-94b5-46eb-bd29-99d51ab294be",
-                                      "Identifies that a project is rolling out capability to support the governance program."),
+                                      "Identifies that a project is rolling out capability to support the governance program.",
+                                      GovernanceProjectProperties.class),
 
     /**
      * An implementation of a governance capability.
@@ -3311,11 +3320,11 @@ public enum OpenMetadataType
      * A collection of users.
      */
     SECURITY_LIST("c0a59a52-8bb4-45b7-a386-96f8e3ef70c3",
-                   "SecurityList",
-                   OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
-                   "48b080bc-5d65-4557-9c8f-99f1cf77d47d",
-                   "A collection of users.",
-                   SecurityListProperties.class),
+                  "SecurityList",
+                  OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
+                  "48b080bc-5d65-4557-9c8f-99f1cf77d47d",
+                  "A collection of users.",
+                  SecurityListProperties.class),
 
     /**
      * A collection of users that are similar.
@@ -3331,11 +3340,11 @@ public enum OpenMetadataType
      * A collection of users that should be given the same, specific security privileges.
      */
     SECURITY_ROLE("0aba2e71-a15f-438f-afcb-e08349427760",
-                   "SecurityRole",
-                   OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
-                   "ee6e17fc-3e98-4a70-91a6-86b7ce328ed0",
-                   "A collection of users that need the same permissions to perform one of their roles.",
-                   SecurityRoleProperties.class),
+                  "SecurityRole",
+                  OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
+                  "ee6e17fc-3e98-4a70-91a6-86b7ce328ed0",
+                  "A collection of users that need the same permissions to perform one of their roles.",
+                  SecurityRoleProperties.class),
 
     /**
      * Identifies the set of user groups/roles that this user identity is a member of.
@@ -3371,11 +3380,11 @@ public enum OpenMetadataType
      * Defines the security access controls for a particular callable service.
      */
     SERVICE_ACCESS_CONTROL("82a3d128-2ab8-4177-9fd3-4ff2803f5f90",
-                    "ServiceAccessControl",
-                    OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
-                    "df040e62-b6b0-4516-a6ce-a69a51e45798",
-                    "Defines the security access controls for a particular callable service.",
-                    ServiceAccessControlProperties.class),
+                           "ServiceAccessControl",
+                           OpenMetadataWikiPages.MODEL_0423_SECURITY_DEFINITIONS,
+                           "df040e62-b6b0-4516-a6ce-a69a51e45798",
+                           "Defines the security access controls for a particular callable service.",
+                           ServiceAccessControlProperties.class),
 
     /**
      * Links a security access control to a security list.
@@ -3452,27 +3461,48 @@ public enum OpenMetadataType
      */
     GOVERNANCE_RULE("8f954380-12ce-4a2d-97c6-9ebe250fecf8",
                     "GovernanceRule",
-                    OpenMetadataWikiPages.MODEL_0430_TECHNICAL_CONTROLS,
+                    OpenMetadataWikiPages.MODEL_0450_GOVERNANCE_ROLLOUT,
                     "d9ed4134-cad6-4d47-9613-68325fca3430",
                     "Technical control expressed as a logic expression.",
                     GovernanceRuleProperties.class),
 
     /**
-     * Technical control identifies the scope of data for a particular type of processing. The attributes of this governance definition identify the scope of the data in space and time.
+     * Identifies the scope of data for a particular type of processing. The attributes of this governance definition identify the scope of the data in space and time.
      */
     DATA_LENS("bd9a8c9b-5434-46be-bbd7-71081475a36d",
               "DataLens",
-              OpenMetadataWikiPages.MODEL_0430_TECHNICAL_CONTROLS,
+              OpenMetadataWikiPages.MODEL_0430_DEVELOPMENT_CONTROLS,
               "c46593aa-692d-4315-953b-6765b9152a3b",
-              "identifies the scope of data for a particular type of processing. The attributes of this governance definition identify the scope of the data in space and time.",
+              "Identifies the scope of data for a particular type of processing. The attributes of this governance definition identify the scope of the data in space and time.",
               DataLensProperties.class),
+
+    /**
+     * Defines a requirement of the organization.
+     */
+    REQUIREMENT("089c8d12-a296-497b-b43b-49f7aeba49d8",
+              "Requirement",
+              OpenMetadataWikiPages.MODEL_0430_DEVELOPMENT_CONTROLS,
+              "927dd0dc-5c18-43c0-ad91-0d795a8c9f3a",
+              "Defines a requirement of the organization.",
+              RequirementProperties.class),
+
+    /**
+     * Defines a research question of the organization.
+     */
+    RESEARCH_QUESTION("8d98f08c-f6db-41a8-87ae-3a81d796605d",
+              "ResearchQuestion",
+              OpenMetadataWikiPages.MODEL_0430_DEVELOPMENT_CONTROLS,
+              "07279fef-02aa-4ba5-b94f-5dc1335ee6e4",
+              ".",
+              ResearchQuestionProperties.class),
+
 
     /**
      * The set of behaviour-related objectives that an asset or capability seeks to achieve.
      */
     SERVICE_LEVEL_OBJECTIVE("22c4e433-1b87-4446-840a-03f83d2dc113",
                             "ServiceLevelObjective",
-                            OpenMetadataWikiPages.MODEL_0430_TECHNICAL_CONTROLS,
+                            OpenMetadataWikiPages.MODEL_0440_ORG_CONTROLS,
                             "6eac0c8f-1265-43b2-8307-c270053bc800",
                             "The set of behaviour-related objectives that an asset or capability seeks to achieve.",
                             ServiceLevelObjectiveProperties.class),
@@ -3482,7 +3512,7 @@ public enum OpenMetadataType
      */
     GOVERNANCE_ACTION("b68b5d9d-6b79-4f3a-887f-ec0f81c54aea",
                       "GovernanceAction",
-                      OpenMetadataWikiPages.MODEL_0430_TECHNICAL_CONTROLS,
+                      OpenMetadataWikiPages.MODEL_0462_GOVERNANCE_ACTION_PROCESSES,
                       "2e184032-436b-48ff-b5a2-93cc1bec250b",
                       "Technical control expressed as one or more actions.",
                       GovernanceActionProperties.class),
@@ -3492,7 +3522,7 @@ public enum OpenMetadataType
      */
     NOTIFICATION_TYPE("7eac2b07-9942-4d9b-9c5c-899289b0b1a5",
                       "NotificationType",
-                      OpenMetadataWikiPages.MODEL_0430_TECHNICAL_CONTROLS,
+                      OpenMetadataWikiPages.MODEL_0451_NOTIFICATIONS,
                       "44440e36-3fc0-4b27-81a7-2baa89eb93a3",
                       "A definition of a situation that should be detected and acted upon.",
                       NotificationTypeProperties.class),

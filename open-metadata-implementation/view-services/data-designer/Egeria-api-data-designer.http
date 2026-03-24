@@ -367,7 +367,7 @@ Content-Type: application/json
   "class" : "NewElementRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "add guid here",
-  "anchorScopeGUID" : "add guid here",
+  "anchorScopeGUIDs" : ["add guid here"],
   "parentGUID": "add guid here",
   "parentRelationshipTypeName": "add type name here",
   "parentRelationshipProperties": {
@@ -425,7 +425,7 @@ Content-Type: application/json
   "class" : "TemplateRequestBody",
   "isOwnAnchor": false,
   "anchorGUID" : "add guid here",
-  "anchorScopeGUID" : "add guid here",
+  "anchorScopeGUIDs" : ["add guid here"],
   "parentGUID": "add guid here",
   "parentRelationshipTypeName": "add type name here",
   "parentRelationshipProperties": {
@@ -888,7 +888,7 @@ Content-Type: application/json
   "openMetadataTypeName": "DataClass",
   "anchorGUID" : "add guid here",
   "isOwnAnchor": false,
-  "anchorScopeGUID": "add guid here",
+  "anchorScopeGUIDs": ["add guid here"],
   "parentGUID": "add guid here",
   "parentRelationshipTypeName": "add type name here",
   "parentRelationshipProperties": {

@@ -62,6 +62,17 @@ public interface OpenConnectorDefinition
 
 
     /**
+     * Return the link to the version for this connector.
+     *
+     * @return string
+     */
+    default String getVersionIdentifier()
+    {
+        return "6.0-SNAPSHOT";
+    }
+
+
+    /**
      * Return the class name of the connector provider that implements this connector.
      *
      * @return string

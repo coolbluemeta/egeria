@@ -32,10 +32,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.search.*;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Provides the specialist methods for working with Unity Catalog (UC) Tables.
@@ -295,7 +292,7 @@ public class OSSUnityCatalogInsideCatalogSyncTables extends OSSUnityCatalogInsid
 
         templateOptions.setAnchorGUID(schemaGUID);
         templateOptions.setIsOwnAnchor(false);
-        templateOptions.setAnchorScopeGUID(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID());
+        templateOptions.setAnchorScopeGUIDs(Collections.singletonList(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID()));
 
         templateOptions.setParentGUID(schemaGUID);
         templateOptions.setParentAtEnd1(true);
@@ -304,6 +301,7 @@ public class OSSUnityCatalogInsideCatalogSyncTables extends OSSUnityCatalogInsid
         String ucTableGUID = openMetadataStore.createMetadataElementFromTemplate(deployedImplementationType.getAssociatedTypeName(),
                                                                           templateOptions,
                                                                           templateGUID,
+                                                                          null,
                                                                           null,
                                                                           this.getPlaceholderProperties(tableInfo),
                                                                           null);
@@ -616,7 +614,7 @@ public class OSSUnityCatalogInsideCatalogSyncTables extends OSSUnityCatalogInsid
 
         newElementOptions.setAnchorGUID(tableGUID);
         newElementOptions.setIsOwnAnchor(false);
-        newElementOptions.setAnchorScopeGUID(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID());
+        newElementOptions.setAnchorScopeGUIDs(Collections.singletonList(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID()));
 
         newElementOptions.setParentGUID(tableGUID);
         newElementOptions.setParentAtEnd1(true);

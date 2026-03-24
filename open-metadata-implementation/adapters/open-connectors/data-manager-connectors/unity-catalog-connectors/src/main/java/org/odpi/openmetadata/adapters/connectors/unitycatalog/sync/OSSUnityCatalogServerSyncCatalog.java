@@ -34,6 +34,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.search.UpdateOptions;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -346,7 +347,7 @@ public class OSSUnityCatalogServerSyncCatalog extends OSSUnityCatalogInsideCatal
 
         templateOptions.setAnchorGUID(ucServerGUID);
         templateOptions.setIsOwnAnchor(false);
-        templateOptions.setAnchorScopeGUID(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID());
+        templateOptions.setAnchorScopeGUIDs(Collections.singletonList(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID()));
 
         templateOptions.setParentGUID(parentGUID);
         templateOptions.setParentAtEnd1(true);
@@ -355,6 +356,7 @@ public class OSSUnityCatalogServerSyncCatalog extends OSSUnityCatalogInsideCatal
         ucCatalogGUID = assetClient.createAssetFromTemplate(templateOptions,
                                                             templateGUID,
                                                             this.getReplacementProperties(qualifiedName, catalogInfo),
+                                                            null,
                                                             this.getPlaceholderProperties(catalogInfo),
                                                             relationshipProperties);
 

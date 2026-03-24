@@ -430,9 +430,9 @@ public class OpenMetadataWikiPages
     public static final String MODEL_0425_SUBJECT_AREAS                = "https://egeria-project.org/types/4/0425-Subject-Areas/";
 
     /**
-     * <a href="https://egeria-project.org/types/4/0430-Technical-Controls/">...</a>
+     * <a href="https://egeria-project.org/types/4/0430-Development-Controls/">...</a>
      */
-    public static final String MODEL_0430_TECHNICAL_CONTROLS           = "https://egeria-project.org/types/4/0430-Technical-Controls/";
+    public static final String MODEL_0430_DEVELOPMENT_CONTROLS = "https://egeria-project.org/types/4/0430-Development-Controls/";
 
     /**
      * <a href="https://egeria-project.org/types/4/0435-Policy-Management-Capabilities/">...</a>

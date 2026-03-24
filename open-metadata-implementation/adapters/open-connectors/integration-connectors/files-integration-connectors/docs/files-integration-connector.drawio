@@ -33,6 +33,64 @@
         <mxCell id="q71tbvMJfNP-TKd7K6Cw-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;" value="Open Metadata Framework&lt;div&gt;Service&lt;/div&gt;" vertex="1">
           <mxGeometry height="90" width="206" x="532" y="220" as="geometry" />
         </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Integration Daemon" vertex="1">
+          <mxGeometry height="300" width="250" x="220" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="Integration Group" vertex="1">
+          <mxGeometry height="150" width="206" x="244" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-3" edge="1" parent="1" source="yH4UC5O1HsPglOhi0crn-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="yH4UC5O1HsPglOhi0crn-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="OM Archive Files Monitor&lt;br&gt;Integration Connector" vertex="1">
+          <mxGeometry height="60" width="150" x="270" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="" vertex="1">
+          <mxGeometry height="25" width="50" x="40" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Monitored&lt;br&gt;Folder" vertex="1">
+          <mxGeometry height="60" width="120" x="40" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Metadata Access Server" vertex="1">
+          <mxGeometry height="300" width="250" x="510" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-8" edge="1" parent="1" source="yH4UC5O1HsPglOhi0crn-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="532" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;" value="Open Metadata Framework&lt;div&gt;Service&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="206" x="532" y="555" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Integration Daemon" vertex="1">
+          <mxGeometry height="300" width="250" x="220" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" value="Integration Group" vertex="1">
+          <mxGeometry height="150" width="206" x="244" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-12" edge="1" parent="1" source="yH4UC5O1HsPglOhi0crn-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="yH4UC5O1HsPglOhi0crn-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Secrets Store Files Monitor&lt;br&gt;Integration Connector" vertex="1">
+          <mxGeometry height="60" width="150" x="270" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="" vertex="1">
+          <mxGeometry height="25" width="50" x="40" y="895" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Monitored&lt;br&gt;Folder" vertex="1">
+          <mxGeometry height="60" width="120" x="40" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="Metadata Access Server" vertex="1">
+          <mxGeometry height="300" width="250" x="510" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-17" edge="1" parent="1" source="yH4UC5O1HsPglOhi0crn-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="532" y="935" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yH4UC5O1HsPglOhi0crn-18" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;" value="Open Metadata Framework&lt;div&gt;Service&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="206" x="532" y="890" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

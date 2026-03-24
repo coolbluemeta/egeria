@@ -28,7 +28,7 @@ public class AuthenticationExceptionHandler
      * including parsing and input value coercion problems.
      *
      * @param authenticationException the exception that occurred during parsing
-     * @return 400 Bad Request
+     * @return 401 Unauthorized response
      */
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<FFDCResponseBase> handleAuthenticationException(AuthenticationException authenticationException)

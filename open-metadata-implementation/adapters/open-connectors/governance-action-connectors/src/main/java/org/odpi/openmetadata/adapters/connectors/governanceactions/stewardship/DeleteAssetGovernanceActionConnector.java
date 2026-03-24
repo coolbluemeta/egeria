@@ -69,6 +69,7 @@ public class DeleteAssetGovernanceActionConnector extends GeneralGovernanceActio
                                                                                                             null,
                                                                                                             templateGUID,
                                                                                                             null,
+                                                                                                            null,
                                                                                                             governanceContext.getRequestParameters(),
                                                                                                             null,
                                                                                                             null,

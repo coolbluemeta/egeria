@@ -36,7 +36,7 @@ Content-Type: application/json
 {
   "class" : "NewElementRequestBody",
   "isOwnAnchor" : true,
-  "anchorScopeGUID" : "optional GUID of search scope",
+  "anchorScopeGUIDs" : ["optional GUID of search scope"],
   "parentGUID" : "xxx",
   "parentRelationshipTypeName" : "CollectionMembership",
   "parentAtEnd1": true,

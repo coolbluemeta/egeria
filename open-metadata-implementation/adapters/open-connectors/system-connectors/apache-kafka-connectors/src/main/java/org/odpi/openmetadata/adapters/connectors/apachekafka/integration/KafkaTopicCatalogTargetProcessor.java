@@ -280,6 +280,7 @@ public class KafkaTopicCatalogTargetProcessor extends CatalogTargetProcessorBase
                     String topicGUID = assetClient.createAssetFromTemplate(templateOptions,
                                                                            templateGUID,
                                                                            null,
+                                                                           null,
                                                                            placeholderProperties,
                                                                            capabilityAssetUseProperties);
 

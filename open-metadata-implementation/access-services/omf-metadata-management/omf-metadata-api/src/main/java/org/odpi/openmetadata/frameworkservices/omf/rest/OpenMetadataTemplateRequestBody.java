@@ -25,11 +25,12 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class OpenMetadataTemplateRequestBody extends TemplateOptions
 {
-    private String                 typeName                     = null;
-    private String                 templateGUID                 = null;
-    private ElementProperties      replacementProperties        = null;
-    private Map<String, String>    placeholderPropertyValues    = null;
-    private NewElementProperties   parentRelationshipProperties = null;
+    private String                            typeName                     = null;
+    private String                            templateGUID                 = null;
+    private ElementProperties                 replacementProperties        = null;
+    private Map<String, NewElementProperties> replacementClassifications   = null;
+    private Map<String, String>               placeholderPropertyValues    = null;
+    private NewElementProperties              parentRelationshipProperties = null;
 
 
     /**
@@ -54,6 +55,7 @@ public class OpenMetadataTemplateRequestBody extends TemplateOptions
         {
             typeName                     = template.getTypeName();
             replacementProperties        = template.getReplacementProperties();
+            replacementClassifications   = template.getReplacementClassifications();
             templateGUID                 = template.getTemplateGUID();
             placeholderPropertyValues    = template.getPlaceholderPropertyValues();
             parentRelationshipProperties = template.getParentRelationshipProperties();
@@ -113,6 +115,28 @@ public class OpenMetadataTemplateRequestBody extends TemplateOptions
     public void setReplacementProperties(ElementProperties replacementProperties)
     {
         this.replacementProperties = replacementProperties;
+    }
+
+
+    /**
+     * Return the map of classification names to classification properties to include in the entity creation request.
+     *
+     * @return map
+     */
+    public Map<String, NewElementProperties> getReplacementClassifications()
+    {
+        return replacementClassifications;
+    }
+
+
+    /**
+     * Set up map of classification names to classification properties to include in the entity creation request.
+     *
+     * @param replacementClassifications map
+     */
+    public void setReplacementClassifications(Map<String, NewElementProperties> replacementClassifications)
+    {
+        this.replacementClassifications = replacementClassifications;
     }
 
 
@@ -194,6 +218,7 @@ public class OpenMetadataTemplateRequestBody extends TemplateOptions
                 "typeName='" + typeName + '\'' +
                 ", templateGUID='" + templateGUID + '\'' +
                 ", replacementProperties=" + replacementProperties +
+                ", replacementClassifications=" + replacementClassifications +
                 ", placeholderPropertyValues=" + placeholderPropertyValues +
                 ", parentRelationshipProperties=" + parentRelationshipProperties +
                 "} " + super.toString();
@@ -223,6 +248,7 @@ public class OpenMetadataTemplateRequestBody extends TemplateOptions
         }
         return Objects.equals(typeName, that.typeName) &&
                 Objects.equals(replacementProperties, that.replacementProperties) &&
+                Objects.equals(replacementClassifications, that.replacementClassifications) &&
                 Objects.equals(placeholderPropertyValues, that.placeholderPropertyValues) &&
                 Objects.equals(templateGUID, that.templateGUID)&&
                 Objects.equals(parentRelationshipProperties, that.parentRelationshipProperties);
@@ -237,7 +263,7 @@ public class OpenMetadataTemplateRequestBody extends TemplateOptions
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), typeName, replacementProperties, templateGUID,
+        return Objects.hash(super.hashCode(), typeName, replacementProperties, replacementClassifications, templateGUID,
                             placeholderPropertyValues, parentRelationshipProperties);
     }
 }

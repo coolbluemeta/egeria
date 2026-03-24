@@ -88,7 +88,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
      * It will result in NPEs.  This is not expected.
      */
     private String              solutionBlueprintGUID = null;
-    private String              anchorScopeGUID       = null;
+    private List<String>        anchorScopeGUIDs      = null;
     private Map<String, String> productFolders        = null;
     private Map<String, String> productRoles          = null;
     private Map<String, String> governanceDefinitions = null;
@@ -502,7 +502,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         NewElementOptions newElementOptions = new NewElementOptions(collectionClient.getMetadataSourceOptions());
 
         newElementOptions.setIsOwnAnchor(true);
-        newElementOptions.setAnchorScopeGUID(this.anchorScopeGUID);
+        newElementOptions.setAnchorScopeGUIDs(this.anchorScopeGUIDs);
 
         if (productDefinition.getFolder() != null)
         {
@@ -544,7 +544,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
 
         roleOptions.setIsOwnAnchor(false);
         roleOptions.setAnchorGUID(productGUID);
-        roleOptions.setAnchorScopeGUID(this.anchorScopeGUID);
+        roleOptions.setAnchorScopeGUIDs(this.anchorScopeGUIDs);
 
         roleOptions.setParentGUID(productGUID);
         roleOptions.setParentAtEnd1(false);
@@ -696,7 +696,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
             NewElementOptions newElementOptions = new NewElementOptions(collectionClient.getMetadataSourceOptions());
 
             newElementOptions.setIsOwnAnchor(false);
-            newElementOptions.setAnchorScopeGUID(this.anchorScopeGUID);
+            newElementOptions.setAnchorScopeGUIDs(this.anchorScopeGUIDs);
             newElementOptions.setAnchorGUID(productGUID);
             newElementOptions.setParentAtEnd1(true);
             newElementOptions.setParentGUID(productGUID);
@@ -934,7 +934,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         NewElementOptions newElementOptions = new NewElementOptions(notificationTypeClient.getMetadataSourceOptions());
 
         newElementOptions.setAnchorGUID(productHeader.getGUID());
-        newElementOptions.setAnchorScopeGUID(productHeader.getGUID());
+        newElementOptions.setAnchorScopeGUIDs(Collections.singletonList(productHeader.getGUID()));
         newElementOptions.setIsOwnAnchor(false);
 
         String notificationTypeGUID = notificationTypeClient.createGovernanceDefinition(newElementOptions,
@@ -1054,7 +1054,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
                                                                                                       GovernanceActionTypeDefinition.CREATE_SUBSCRIPTION.getGovernanceActionTypeGUID(),
                                                                                                       additionalRequestParameters,
                                                                                                       productGUID,
-                                                                                                      productGUID);
+                                                                                                      Collections.singletonList(productGUID));
 
         OpenMetadataStore openMetadataStore = integrationContext.getOpenMetadataStore();
         List<String> actionTargetNames = new ArrayList<>();
@@ -1645,7 +1645,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         String topLevelGUID = getProductFolder(ProductFolderDefinition.TOP_LEVEL, productFolderMap);
 
         productFolderMap.put(ProductFolderDefinition.TOP_LEVEL.getQualifiedName(), topLevelGUID);
-        this.anchorScopeGUID = topLevelGUID;
+        this.anchorScopeGUIDs = Collections.singletonList(topLevelGUID);
 
 
         /*
@@ -1757,7 +1757,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         }
 
         NewElementOptions newElementOptions = new NewElementOptions(collectionClient.getMetadataSourceOptions());
-        newElementOptions.setAnchorScopeGUID(this.anchorScopeGUID);
+        newElementOptions.setAnchorScopeGUIDs(this.anchorScopeGUIDs);
 
         if (productFolderDefinition.getParent() != null)
         {
@@ -1867,7 +1867,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         glossaryTermProperties.setAbbreviation(glossaryTermDefinition.getAbbreviation());
 
         NewElementOptions newElementOptions = new NewElementOptions(glossaryTermClient.getMetadataSourceOptions());
-        newElementOptions.setAnchorScopeGUID(this.anchorScopeGUID);
+        newElementOptions.setAnchorScopeGUIDs(this.anchorScopeGUIDs);
 
         if (glossaryTermDefinition.getFolder() != null)
         {
@@ -1976,7 +1976,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         communityProperties.setDescription(productCommunityDefinition.getDescription());
 
         NewElementOptions newElementOptions = new NewElementOptions(communityClient.getMetadataSourceOptions());
-        newElementOptions.setAnchorScopeGUID(this.anchorScopeGUID);
+        newElementOptions.setAnchorScopeGUIDs(this.anchorScopeGUIDs);
         newElementOptions.setIsOwnAnchor(true);
 
         /*
@@ -2086,7 +2086,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         noteLogProperties.setDescription("Notifications received for products associated with this community.");
 
         NewElementOptions newElementOptions = new NewElementOptions(noteLogClient.getMetadataSourceOptions());
-        newElementOptions.setAnchorScopeGUID(this.anchorScopeGUID);
+        newElementOptions.setAnchorScopeGUIDs(this.anchorScopeGUIDs);
         newElementOptions.setIsOwnAnchor(false);
         newElementOptions.setAnchorGUID(communityGUID);
 
@@ -2188,7 +2188,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         String parentGUID = productFolders.get(ProductFolderDefinition.DATA_DICTIONARY.getQualifiedName());
 
         newElementOptions.setIsOwnAnchor(false);
-        newElementOptions.setAnchorScopeGUID(this.anchorScopeGUID);
+        newElementOptions.setAnchorScopeGUIDs(this.anchorScopeGUIDs);
         newElementOptions.setAnchorGUID(parentGUID);
         newElementOptions.setParentGUID(parentGUID);
         newElementOptions.setParentRelationshipTypeName(OpenMetadataType.COLLECTION_MEMBERSHIP_RELATIONSHIP.typeName);
@@ -2418,7 +2418,7 @@ public class JacquardIntegrationConnector extends DynamicIntegrationConnectorBas
         CollectionClient solutionBlueprintClient = integrationContext.getCollectionClient(OpenMetadataType.SOLUTION_BLUEPRINT.typeName);
 
         NewElementOptions newElementOptions = new NewElementOptions(solutionBlueprintClient.getMetadataSourceOptions());
-        newElementOptions.setAnchorScopeGUID(this.anchorScopeGUID);
+        newElementOptions.setAnchorScopeGUIDs(this.anchorScopeGUIDs);
         newElementOptions.setIsOwnAnchor(true);
 
         String blueprintGUID = findSolutionBlueprint(ProductSolutionBlueprint.ALL, newElementOptions);

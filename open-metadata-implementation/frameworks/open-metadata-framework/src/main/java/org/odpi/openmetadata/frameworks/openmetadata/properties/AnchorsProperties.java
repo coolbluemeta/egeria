@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
@@ -21,10 +22,10 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class AnchorsProperties extends ClassificationBeanProperties
 {
-    private String anchorGUID       = null;
-    private String anchorTypeName   = null;
-    private String anchorDomainName = null;
-    private String anchorScopeGUID  = null;
+    private String       anchorGUID       = null;
+    private String       anchorTypeName   = null;
+    private String       anchorDomainName = null;
+    private List<String> anchorScopeGUIDs = null;
 
 
     /**
@@ -51,7 +52,7 @@ public class AnchorsProperties extends ClassificationBeanProperties
             this.anchorGUID       = template.getAnchorGUID();
             this.anchorTypeName   = template.getAnchorTypeName();
             this.anchorDomainName = template.getAnchorDomainName();
-            this.anchorScopeGUID  = template.getAnchorScopeGUID();
+            this.anchorScopeGUIDs = template.getAnchorScopeGUIDs();
         }
     }
 
@@ -127,20 +128,20 @@ public class AnchorsProperties extends ClassificationBeanProperties
      *
      * @return string guid
      */
-    public String getAnchorScopeGUID()
+    public List<String> getAnchorScopeGUIDs()
     {
-        return anchorScopeGUID;
+        return anchorScopeGUIDs;
     }
 
 
     /**
      * Set up the unique identifier of the anchor's scope.
      *
-     * @param anchorScopeGUID string guid
+     * @param anchorScopeGUIDs string guid
      */
-    public void setAnchorScopeGUID(String anchorScopeGUID)
+    public void setAnchorScopeGUIDs(List<String> anchorScopeGUIDs)
     {
-        this.anchorScopeGUID = anchorScopeGUID;
+        this.anchorScopeGUIDs = anchorScopeGUIDs;
     }
 
 
@@ -156,7 +157,7 @@ public class AnchorsProperties extends ClassificationBeanProperties
                 "anchorGUID='" + anchorGUID + '\'' +
                 ", anchorTypeName='" + anchorTypeName + '\'' +
                 ", anchorDomainName='" + anchorDomainName + '\'' +
-                ", anchorScopeGUID='" + anchorScopeGUID + '\'' +
+                ", anchorScopeGUID='" + anchorScopeGUIDs + '\'' +
                 "} " + super.toString();
     }
 
@@ -177,7 +178,7 @@ public class AnchorsProperties extends ClassificationBeanProperties
         return Objects.equals(anchorGUID, that.anchorGUID) &&
                 Objects.equals(anchorTypeName, that.anchorTypeName) &&
                 Objects.equals(anchorDomainName, that.anchorDomainName) &&
-                Objects.equals(anchorScopeGUID, that.anchorScopeGUID);
+                Objects.equals(anchorScopeGUIDs, that.anchorScopeGUIDs);
     }
 
     /**
@@ -188,6 +189,6 @@ public class AnchorsProperties extends ClassificationBeanProperties
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), anchorGUID, anchorTypeName, anchorDomainName, anchorScopeGUID);
+        return Objects.hash(super.hashCode(), anchorGUID, anchorTypeName, anchorDomainName, anchorScopeGUIDs);
     }
 }

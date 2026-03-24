@@ -578,8 +578,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
      * Create an asset such as a data file, database, API or server.
      * This interface includes an optional templateGUID to copy the structure of an existing asset of the same type.
      *
-     * @param templateGUID the unique identifier of the existing asset to copy (this will copy all the attachments
-     *                     such as nested content, schema, connection etc)
+     * @param templateGUID the unique identifier of the existing element to copy
      * @param qualifiedName the unique name of the new asset
      * @param name the technical display name of the asset
      * @param description the description of the asset
@@ -587,7 +586,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
      * @return unique identifier of the new asset
      *
      * @throws InvalidParameterException the type name or qualified name is null or invalid
-     * @throws UserNotAuthorizedException this governance action service is not authorized to create an asset
+     * @throws UserNotAuthorizedException this service is not authorized to create an asset
      * @throws PropertyServerException a problem connecting to the metadata store
      */
     @Override
@@ -617,6 +616,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
                                                                     templateGUID,
                                                                     properties,
                                                                     null,
+                                                                    null,
                                                                     null);
     }
 
@@ -627,8 +627,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
      * This interface includes an optional templateGUID to copy the structure of an existing asset of the same type.
      *
      * @param assetTypeName      the type name of the asset.  This is the name of an open metadata type that inherits from "Asset".
-     * @param templateGUID       the unique identifier of the existing asset to copy (this will copy all the attachments
-     *                           such as nested content, schema, connection etc)
+     * @param templateGUID       the unique identifier of the existing element to copy
      * @param qualifiedName      the unique name of the new asset
      * @param name               the technical display name of the asset
      * @param versionIdentifier  version of the resource
@@ -671,6 +670,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
                                                                     templateOptions,
                                                                     templateGUID,
                                                                     properties,
+                                                                    null,
                                                                     null,
                                                                     null);
     }
@@ -785,6 +785,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
                                                                     templateGUID,
                                                                     properties,
                                                                     null,
+                                                                    null,
                                                                     null);
     }
 
@@ -834,6 +835,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
                                                                     templateGUID,
                                                                     properties,
                                                                     null,
+                                                                    null,
                                                                     null);
     }
 
@@ -876,7 +878,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
         newElementOptions.setForLineage(true);
         newElementOptions.setAnchorGUID(parentGUID);
         newElementOptions.setIsOwnAnchor(false);
-        newElementOptions.setAnchorScopeGUID(null);
+        newElementOptions.setAnchorScopeGUIDs(null);
         newElementOptions.setParentGUID(parentGUID);
         newElementOptions.setParentAtEnd1(true);
         newElementOptions.setParentRelationshipTypeName(OpenMetadataType.PROCESS_HIERARCHY_RELATIONSHIP.typeName);
@@ -937,7 +939,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
         newElementOptions.setForLineage(true);
         newElementOptions.setAnchorGUID(parentGUID);
         newElementOptions.setIsOwnAnchor(false);
-        newElementOptions.setAnchorScopeGUID(null);
+        newElementOptions.setAnchorScopeGUIDs(null);
         newElementOptions.setParentGUID(parentGUID);
         newElementOptions.setParentAtEnd1(true);
         newElementOptions.setParentRelationshipTypeName(OpenMetadataType.PROCESS_HIERARCHY_RELATIONSHIP.typeName);
@@ -991,7 +993,7 @@ public class GovernanceActionContext extends ConnectorContextBase implements Gov
         newElementOptions.setForLineage(true);
         newElementOptions.setAnchorGUID(processGUID);
         newElementOptions.setIsOwnAnchor(false);
-        newElementOptions.setAnchorScopeGUID(null);
+        newElementOptions.setAnchorScopeGUIDs(null);
         newElementOptions.setParentGUID(processGUID);
         newElementOptions.setParentAtEnd1(true);
         newElementOptions.setParentRelationshipTypeName(OpenMetadataType.PROCESS_PORT_RELATIONSHIP.typeName);

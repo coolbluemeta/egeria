@@ -405,7 +405,14 @@ public class OMRSRepositoryPropertiesUtilities implements OMRSRepositoryProperti
 
                 if (actualPropertyValue instanceof PrimitivePropertyValue primitiveTypePropertyValue)
                 {
-                    resultingArray.add(primitiveTypePropertyValue.getPrimitiveValue().toString());
+                    if (primitiveTypePropertyValue.getPrimitiveValue() != null)
+                    {
+                        resultingArray.add(primitiveTypePropertyValue.getPrimitiveValue().toString());
+                    }
+                    else
+                    {
+                        resultingArray.add(null);
+                    }
                 }
                 else
                 {

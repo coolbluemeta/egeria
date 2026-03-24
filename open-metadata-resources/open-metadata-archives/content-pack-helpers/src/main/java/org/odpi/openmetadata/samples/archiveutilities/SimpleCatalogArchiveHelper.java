@@ -5303,25 +5303,25 @@ public class SimpleCatalogArchiveHelper
      *
      * @return id for the connector type
      */
-    protected String addConnectorType(String              qualifiedName,
-                                      String              displayName,
-                                      String              description,
-                                      String              url,
-                                      String              deployedImplementationType,
-                                      String              supportedAssetTypeName,
-                                      String              expectedDataFormat,
-                                      String              connectorProviderClassName,
-                                      String              connectorFrameworkName,
-                                      String              connectorInterfaceLanguage,
-                                      List<String>        connectorInterfaces,
-                                      String              targetTechnologySource,
-                                      String              targetTechnologyName,
-                                      List<String>        targetTechnologyInterfaces,
-                                      List<String>        targetTechnologyVersions,
-                                      List<String>        recognizedSecuredProperties,
-                                      List<String>        recognizedConfigurationProperties,
-                                      List<String>        recognizedAdditionalProperties,
-                                      Map<String, String> additionalProperties)
+    private String addConnectorType(String              qualifiedName,
+                                    String              displayName,
+                                    String              description,
+                                    String              url,
+                                    String              deployedImplementationType,
+                                    String              supportedAssetTypeName,
+                                    String              expectedDataFormat,
+                                    String              connectorProviderClassName,
+                                    String              connectorFrameworkName,
+                                    String              connectorInterfaceLanguage,
+                                    List<String>        connectorInterfaces,
+                                    String              targetTechnologySource,
+                                    String              targetTechnologyName,
+                                    List<String>        targetTechnologyInterfaces,
+                                    List<String>        targetTechnologyVersions,
+                                    List<String>        recognizedSecuredProperties,
+                                    List<String>        recognizedConfigurationProperties,
+                                    List<String>        recognizedAdditionalProperties,
+                                    Map<String, String> additionalProperties)
     {
         final String methodName = "addConnectorType";
 
@@ -6725,10 +6725,13 @@ public class SimpleCatalogArchiveHelper
                                                                              anchorDomainName,
                                                                              methodName);
 
-        classificationProperties = archiveHelper.addStringPropertyToInstance(archiveRootName, classificationProperties,
-                                                                             OpenMetadataProperty.ANCHOR_SCOPE_GUID.name,
-                                                                             anchorScopeGUID,
-                                                                             methodName);
+        if (anchorScopeGUID != null)
+        {
+            classificationProperties = archiveHelper.addStringArrayPropertyToInstance(archiveRootName, classificationProperties,
+                                                                                      OpenMetadataProperty.ANCHOR_SCOPE_GUIDS.name,
+                                                                                      Collections.singletonList(anchorScopeGUID),
+                                                                                      methodName);
+        }
 
         return archiveHelper.getClassification(OpenMetadataType.ANCHORS_CLASSIFICATION.typeName,
                                                classificationProperties, InstanceStatus.ACTIVE);

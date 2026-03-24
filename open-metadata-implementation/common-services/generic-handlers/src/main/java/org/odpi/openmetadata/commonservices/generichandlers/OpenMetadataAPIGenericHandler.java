@@ -1680,7 +1680,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
      * @param propertyBuilder builder pre-populated with the properties and classifications of the new entity
      * @param isOwnAnchor flag to indicate if the new entity should be anchored to itself
      * @param anchorGUID optional anchor guid
-     * @param anchorScopeGUID unique identifier of the scope of this element
+     * @param anchorScopeGUIDs unique identifiers of the scope of this element
      * @param effectiveTime the time that the retrieved elements must be effective for
      * @param methodName calling method
      * @return unique identifier of new entity
@@ -1696,7 +1696,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
                                          OpenMetadataAPIGenericBuilder propertyBuilder,
                                          boolean                       isOwnAnchor,
                                          String                        anchorGUID,
-                                         String                        anchorScopeGUID,
+                                         List<String>                  anchorScopeGUIDs,
                                          Date                          effectiveTime,
                                          String                        methodName) throws InvalidParameterException,
                                                                                           PropertyServerException,
@@ -1715,7 +1715,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
              * A null anchorGUID meant that the element is its own Anchor.  The default governance zones are set up in
              * both the Anchors classification and the ZoneMembership classification.
              */
-            propertyBuilder.setAnchors(userId, null, entityTypeName, this.getDomainName(entityTypeName), anchorScopeGUID, governanceZones, methodName);
+            propertyBuilder.setAnchors(userId, null, entityTypeName, this.getDomainName(entityTypeName), anchorScopeGUIDs, governanceZones, methodName);
             propertyBuilder.setGovernanceZones(userId, governanceZones, methodName);
         }
         else if ((anchorGUID != null) || (propertyBuilder.isClassificationSet(OpenMetadataType.ANCHORS_CLASSIFICATION.typeName)))
@@ -1742,7 +1742,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
                                            null,
                                            entityTypeName,
                                            this.getDomainName(entityTypeName),
-                                           anchorScopeGUID,
+                                           anchorScopeGUIDs,
                                            governanceZones,
                                            methodName);
             }
@@ -1796,7 +1796,7 @@ public class OpenMetadataAPIGenericHandler<B> extends OpenMetadataAPIAnchorHandl
                     propertyBuilder.setAnchors(userId, anchorEntity.getGUID(),
                                                anchorEntity.getType().getTypeDefName(),
                                                this.getDomainName(anchorEntity.getType().getTypeDefName()),
-                                               anchorScopeGUID,
+                                               anchorScopeGUIDs,
                                                anchorZones,
                                                methodName);
 

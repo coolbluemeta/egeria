@@ -260,6 +260,7 @@ public class TechnologyTypeHandler extends OpenMetadataHandlerBase
                                         catalogTemplate = new CatalogTemplate();
                                     }
 
+                                    catalogTemplate.setTemplateGUID(relatedMetadataElement.getElement().getElementGUID());
                                     catalogTemplate.setRelatedElement(propertyHelper.getMetadataElementSummary(relatedMetadataElement.getElement()));
                                     catalogTemplate.setSpecification(openMetadataClient.getSpecification(userId, relatedMetadataElement.getElement().getElementGUID()));
                                     setUpSpecificationGraph(catalogTemplate);

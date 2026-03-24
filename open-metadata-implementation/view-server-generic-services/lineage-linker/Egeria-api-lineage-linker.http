@@ -55,7 +55,7 @@ Content-Type: application/json
   "effectiveTime" : "{{$isoTimestamp}}",
   "forLineage" : false,
   "forDuplicateProcessing" : false,
-  "anchorScopeGUID" : "add guid here",
+  "anchorScopeGUIDs" : ["add guid here"],
   "makeAnchor": false,
   "properties": {
     "class" : "DataFlowProperties",
@@ -99,7 +99,7 @@ Content-Type: application/json
   "effectiveTime" : "{{$isoTimestamp}}",
   "forLineage" : false,
   "forDuplicateProcessing" : false,
-  "anchorScopeGUID" : "add guid here",
+  "anchorScopeGUIDs" : ["add guid here"],
   "makeAnchor": false,
   "properties": {
     "class" : "ControlFlowProperties",
@@ -143,7 +143,7 @@ Content-Type: application/json
   "effectiveTime" : "{{$isoTimestamp}}",
   "forLineage" : false,
   "forDuplicateProcessing" : false,
-  "anchorScopeGUID" : "add guid here",
+  "anchorScopeGUIDs" : ["add guid here"],
   "makeAnchor": false,
   "properties": {
     "class" : "ProcessCallProperties",
@@ -187,7 +187,7 @@ Content-Type: application/json
   "effectiveTime" : "{{$isoTimestamp}}",
   "forLineage" : false,
   "forDuplicateProcessing" : false,
-  "anchorScopeGUID" : "add guid here",
+  "anchorScopeGUIDs" : ["add guid here"],
   "makeAnchor": false,
   "properties": {
     "class" : "LineageMappingProperties",
@@ -229,7 +229,7 @@ Content-Type: application/json
   "effectiveTime" : "{{$isoTimestamp}}",
   "forLineage" : false,
   "forDuplicateProcessing" : false,
-  "anchorScopeGUID" : "add guid here",
+  "anchorScopeGUIDs" : ["add guid here"],
   "makeAnchor": false,
   "properties": {
     "class" : "DataMappingProperties",
@@ -277,7 +277,7 @@ Content-Type: application/json
   "effectiveTime" : "{{$isoTimestamp}}",
   "forLineage" : false,
   "forDuplicateProcessing" : false,
-  "anchorScopeGUID" : "add guid here",
+  "anchorScopeGUIDs" : ["add guid here"],
   "makeAnchor": false,
   "properties": {
     "class" : "UltimateSourceProperties",
@@ -321,7 +321,7 @@ Content-Type: application/json
   "effectiveTime" : "{{$isoTimestamp}}",
   "forLineage" : false,
   "forDuplicateProcessing" : false,
-  "anchorScopeGUID" : "add guid here",
+  "anchorScopeGUIDs" : ["add guid here"],
   "makeAnchor": false,
   "properties": {
     "class" : "UltimateDestinationProperties",

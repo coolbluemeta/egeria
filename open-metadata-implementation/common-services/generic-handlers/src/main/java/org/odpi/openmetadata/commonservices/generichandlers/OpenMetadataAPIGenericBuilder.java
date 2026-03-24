@@ -39,6 +39,7 @@ public class OpenMetadataAPIGenericBuilder
     protected Map<String, Classification> newClassifications = new HashMap<>();
 
     protected InstanceProperties          templateProperties = null;
+    protected Map<String, Classification> templateClassifications = new HashMap<>();
 
 
     /**
@@ -50,11 +51,11 @@ public class OpenMetadataAPIGenericBuilder
      * @param serviceName name of this OMAS
      * @param serverName name of local server
      */
-    public OpenMetadataAPIGenericBuilder(String typeGUID,
-                                         String typeName,
+    public OpenMetadataAPIGenericBuilder(String               typeGUID,
+                                         String               typeName,
                                          OMRSRepositoryHelper repositoryHelper,
-                                         String serviceName,
-                                         String serverName)
+                                         String               serviceName,
+                                         String               serverName)
     {
         this(typeGUID,
              typeName,
@@ -156,6 +157,67 @@ public class OpenMetadataAPIGenericBuilder
     public void setClassification(Classification  newClassification)
     {
         newClassifications.put(newClassification.getName(), newClassification);
+    }
+
+
+    /**
+     * Set up a new classification in the builder.
+     *
+     * @param userId calling user
+     * @param externalSourceGUID      guid of the software capability entity that represented the external source - null for local
+     * @param externalSourceName      name of the software capability entity that represented the external source
+     * @param propertyMap list of properties for the classification
+     * @param effectiveFrom date to make the element active in the governance program (null for now)
+     * @param effectiveTo date to remove the element from the governance program (null = until deleted)
+     * @param methodName calling method
+     * @throws InvalidParameterException unknown classification name
+     */
+    public void setClassification(String                             userId,
+                                  String                             externalSourceGUID,
+                                  String                             externalSourceName,
+                                  String                             classificationName,
+                                  Map<String, InstancePropertyValue> propertyMap,
+                                  Date                               effectiveFrom,
+                                  Date                               effectiveTo,
+                                  String                             methodName) throws InvalidParameterException
+    {
+        InstanceProvenanceType instanceProvenanceType = InstanceProvenanceType.LOCAL_COHORT;
+
+        if (externalSourceGUID != null)
+        {
+            instanceProvenanceType = InstanceProvenanceType.EXTERNAL_SOURCE;
+        }
+
+        InstanceProperties properties = null;
+
+        if ((propertyMap != null) || (effectiveFrom != null) || (effectiveTo != null))
+        {
+            properties = new InstanceProperties();
+
+            properties.setInstanceProperties(propertyMap);
+            properties.setEffectiveFromTime(effectiveFrom);
+            properties.setEffectiveToTime(effectiveTo);
+        }
+
+        try
+        {
+            Classification classification = repositoryHelper.getNewClassification(serviceName,
+                                                                                  externalSourceGUID,
+                                                                                  externalSourceName,
+                                                                                  instanceProvenanceType,
+                                                                                  userId,
+                                                                                  classificationName,
+                                                                                  typeName,
+                                                                                  ClassificationOrigin.ASSIGNED,
+                                                                                  null,
+                                                                                  properties);
+            this.setClassification(classification);
+        }
+        catch (TypeErrorException error)
+        {
+            errorHandler.handleUnsupportedType(error, methodName, classificationName);
+        }
+
     }
 
 
@@ -273,28 +335,24 @@ public class OpenMetadataAPIGenericBuilder
 
 
     /**
-     * Set up the list of classifications from a template entity.
+     * Set up the list of classifications from a template entity.  This resolves any placeholders in the properties.
      *
-     * @param userId calling user
-     * @param externalSourceGUID guid of the software capability entity that represented the external source - null for local
-     * @param externalSourceName name of the software capability entity that represented the external source
+     * @param userId                  calling user
+     * @param externalSourceGUID      guid of the software capability entity that represented the external source - null for local
+     * @param externalSourceName      name of the software capability entity that represented the external source
      * @param templateClassifications list of classifications from the template
-     * @param placeholderProperties map of placeholder names to placeholder values to substitute into the template properties
-     * @param methodName calling method
+     * @param placeholderProperties   map of placeholder names to placeholder values to substitute into the template properties
+     * @param methodName              calling method
      * @throws InvalidParameterException the type of one of the classifications is not supported
      */
-    public void setTemplateClassifications(String                userId,
-                                           String                externalSourceGUID,
-                                           String                externalSourceName,
-                                           List<Classification>  templateClassifications,
-                                           Map<String, String>   placeholderProperties,
-                                           String                methodName) throws InvalidParameterException
+    public void setTemplateClassifications(String               userId,
+                                           String               externalSourceGUID,
+                                           String               externalSourceName,
+                                           List<Classification> templateClassifications,
+                                           Map<String, String>  placeholderProperties,
+                                           String               methodName) throws InvalidParameterException
     {
-        if (templateClassifications == null)
-        {
-            this.newClassifications = new HashMap<>();
-        }
-        else
+        if (templateClassifications != null)
         {
             InstanceProvenanceType instanceProvenanceType = InstanceProvenanceType.LOCAL_COHORT;
 
@@ -312,8 +370,8 @@ public class OpenMetadataAPIGenericBuilder
                  * placeholders have been resolved.
                  */
                 if ((templateClassification != null) &&
-                        (! OpenMetadataType.ANCHORS_CLASSIFICATION.typeName.equals(templateClassification.getName())) &&
-                        (! OpenMetadataType.TEMPLATE_CLASSIFICATION.typeName.equals(templateClassification.getName())))
+                        (!OpenMetadataType.ANCHORS_CLASSIFICATION.typeName.equals(templateClassification.getName())) &&
+                        (!OpenMetadataType.TEMPLATE_CLASSIFICATION.typeName.equals(templateClassification.getName())))
                 {
                     try
                     {
@@ -354,7 +412,7 @@ public class OpenMetadataAPIGenericBuilder
                                                                                    classificationProperties);
                         }
 
-                        this.newClassifications.put(classification.getName(), classification);
+                        this.templateClassifications.put(classification.getName(), classification);
                     }
                     catch (TypeErrorException error)
                     {
@@ -417,7 +475,7 @@ public class OpenMetadataAPIGenericBuilder
                        anchorIdentifiers.anchorGUID,
                        anchorIdentifiers.anchorTypeName,
                        anchorIdentifiers.anchorDomainName,
-                       anchorIdentifiers.anchorScopeGUID,
+                       anchorIdentifiers.anchorScopeGUIDs,
                        anchorIdentifiers.zoneMembership,
                        methodName);
         }
@@ -432,7 +490,7 @@ public class OpenMetadataAPIGenericBuilder
      * @param anchorGUID unique identifier of the anchor entity that this entity is linked to directly or indirectly
      * @param anchorTypeName unique name of the anchor entity's type
      * @param anchorDomainName unique name of the anchor entity's domain
-     * @param anchorScopeGUID unique identifier of the anchor's scope
+     * @param anchorScopeGUIDs unique identifiers of the anchor's scope
      * @param zoneMembership zone membership from the anchor
      * @param methodName calling method
      * @throws PropertyServerException a null anchors GUID has been supplied
@@ -441,7 +499,7 @@ public class OpenMetadataAPIGenericBuilder
                            String       anchorGUID,
                            String       anchorTypeName,
                            String       anchorDomainName,
-                           String       anchorScopeGUID,
+                           List<String> anchorScopeGUIDs,
                            List<String> zoneMembership,
                            String       methodName) throws PropertyServerException
     {
@@ -470,7 +528,7 @@ public class OpenMetadataAPIGenericBuilder
                                                                                   typeName,
                                                                                   ClassificationOrigin.ASSIGNED,
                                                                                   null,
-                                                                                  getAnchorsProperties(anchorGUID, anchorTypeName, anchorDomainName, anchorScopeGUID, zoneMembership, methodName));
+                                                                                  getAnchorsProperties(anchorGUID, anchorTypeName, anchorDomainName, anchorScopeGUIDs, zoneMembership, methodName));
             newClassifications.put(classification.getName(), classification);
         }
         catch (Exception error)
@@ -486,14 +544,14 @@ public class OpenMetadataAPIGenericBuilder
      * @param anchorGUID unique identifier of the anchor entity that this entity is linked to directly or indirectly
      * @param anchorTypeName unique name of the anchor entity's type
      * @param anchorDomainName unique name of the anchor entity's domain
-     * @param anchorScopeGUID unique identifier of the anchor entity's scope
+     * @param anchorScopeGUIDs unique identifiers of the anchor entity's scope
      * @param methodName name of the calling method
      * @return InstanceProperties object
      */
     InstanceProperties getAnchorsProperties(String       anchorGUID,
                                             String       anchorTypeName,
                                             String       anchorDomainName,
-                                            String       anchorScopeGUID,
+                                            List<String> anchorScopeGUIDs,
                                             List<String> zoneMembership,
                                             String       methodName)
     {
@@ -515,11 +573,11 @@ public class OpenMetadataAPIGenericBuilder
                                                                   anchorDomainName,
                                                                   methodName);
 
-        properties = repositoryHelper.addStringPropertyToInstance(serviceName,
-                                                                  properties,
-                                                                  OpenMetadataProperty.ANCHOR_SCOPE_GUID.name,
-                                                                  anchorScopeGUID,
-                                                                  methodName);
+        properties = repositoryHelper.addStringArrayPropertyToInstance(serviceName,
+                                                                       properties,
+                                                                       OpenMetadataProperty.ANCHOR_SCOPE_GUIDS.name,
+                                                                       anchorScopeGUIDs,
+                                                                       methodName);
 
         properties = repositoryHelper.addStringArrayPropertyToInstance(serviceName,
                                                                        properties,
@@ -948,8 +1006,8 @@ public class OpenMetadataAPIGenericBuilder
      * @return augmented instance properties
      */
     InstanceProperties setEffectivityDates(InstanceProperties properties,
-                                           Date effectiveFrom,
-                                           Date effectiveTo)
+                                           Date               effectiveFrom,
+                                           Date               effectiveTo)
     {
         if ((effectiveFrom != null) || (effectiveTo != null))
         {
@@ -1024,5 +1082,21 @@ public class OpenMetadataAPIGenericBuilder
         }
 
         return entityClassifications;
+    }
+
+
+    /**
+     * Return the transformed classifications from the template entity.
+     *
+     * @return list of classification objects from the template entity
+     */
+    public List<Classification> getTemplateClassifications()
+    {
+        if ((templateClassifications != null) && (!templateClassifications.isEmpty()))
+        {
+            return new ArrayList<>(templateClassifications.values());
+        }
+
+        return null;
     }
 }

@@ -295,6 +295,7 @@ public class OpenMetadataTypesArchive5_0
     {
         this.archiveBuilder.addClassificationDef(getPersonalProjectClassification());
         this.archiveBuilder.addClassificationDef(getStudyProjectClassification());
+        this.archiveBuilder.addClassificationDef(getExperimentClassification());
     }
 
 
@@ -324,6 +325,31 @@ public class OpenMetadataTypesArchive5_0
                                                   this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_KIND_CLASSIFICATION.typeName),
                                                   this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
                                                   false);
+    }
+
+
+    /**
+     * Add StudyProject classification to allow specific types of investigations to be characterized.
+     *
+     * @return classification def
+     */
+    private ClassificationDef getExperimentClassification()
+    {
+        ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.EXPERIMENT_CLASSIFICATION,
+                                                                                 this.archiveBuilder.getClassificationDef(OpenMetadataType.PROJECT_KIND_CLASSIFICATION.typeName),
+                                                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.PROJECT.typeName),
+                                                                                 false);
+
+        /*
+         * Build the attributes
+         */
+        List<TypeDefAttribute> properties = new ArrayList<>();
+
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.HYPOTHESIS));
+
+        classificationDef.setPropertiesDefinition(properties);
+
+        return classificationDef;
     }
 
 

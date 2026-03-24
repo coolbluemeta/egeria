@@ -48,7 +48,7 @@ dependencies {
     runtimeOnly project(':open-metadata-implementation:adapters:open-connectors:metadata-security-connectors:open-metadata-access-security-connector')
     runtimeOnly project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:csv-lineage-import-integration-connector')
     implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:files-integration-connectors')
-    implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:kafka-audit-integration-connector')
+    runtimeOnly project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:kafka-audit-integration-connector')
     implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:jdbc-integration-connector')
     implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:openapi-integration-connector')
     implementation project(':open-metadata-implementation:adapters:open-connectors:integration-connectors:openlineage-integration-connectors')

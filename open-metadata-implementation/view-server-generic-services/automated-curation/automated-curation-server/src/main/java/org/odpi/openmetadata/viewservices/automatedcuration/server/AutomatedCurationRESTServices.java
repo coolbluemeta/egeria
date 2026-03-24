@@ -9,6 +9,7 @@ import org.odpi.openmetadata.commonservices.ffdc.RESTExceptionHandler;
 import org.odpi.openmetadata.commonservices.ffdc.rest.*;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
 import org.odpi.openmetadata.frameworks.opengovernance.client.OpenGovernanceClient;
+import org.odpi.openmetadata.frameworks.openmetadata.builders.OpenMetadataClassificationBuilder;
 import org.odpi.openmetadata.frameworks.openmetadata.builders.OpenMetadataElementBuilder;
 import org.odpi.openmetadata.frameworks.openmetadata.builders.OpenMetadataRelationshipBuilder;
 import org.odpi.openmetadata.frameworks.openmetadata.client.OpenMetadataClient;
@@ -37,8 +38,9 @@ public class AutomatedCurationRESTServices extends TokenController
     private static final RESTCallLogger restCallLogger = new RESTCallLogger(LoggerFactory.getLogger(AutomatedCurationRESTServices.class),
                                                                             instanceHandler.getServiceName());
 
-    private final OpenMetadataElementBuilder      entityBuilder = new OpenMetadataElementBuilder();
-    private final OpenMetadataRelationshipBuilder relationshipBuilder = new OpenMetadataRelationshipBuilder();
+    private final OpenMetadataElementBuilder        entityBuilder         = new OpenMetadataElementBuilder();
+    private final OpenMetadataRelationshipBuilder   relationshipBuilder   = new OpenMetadataRelationshipBuilder();
+    private final OpenMetadataClassificationBuilder classificationBuilder = new OpenMetadataClassificationBuilder();
 
     /**
      * Default constructor
@@ -403,6 +405,7 @@ public class AutomatedCurationRESTServices extends TokenController
                                                                                requestBody,
                                                                                requestBody.getTemplateGUID(),
                                                                                entityBuilder.getElementProperties(requestBody.getReplacementProperties()),
+                                                                               classificationBuilder.getInitialClassifications(requestBody.getReplacementClassifications()),
                                                                                requestBody.getPlaceholderPropertyValues(),
                                                                                relationshipBuilder.getNewElementProperties(requestBody.getParentRelationshipProperties())));
             }

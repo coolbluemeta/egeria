@@ -51,49 +51,6 @@ public abstract class ConnectedAssetClient implements ConnectorFactoryInterface
     }
 
 
-    /**
-     * Returns the unique identifier corresponding to the supplied connection.
-     *
-     * @param userId calling user
-     * @param connection   the connection object that contains the properties needed to create the connection.
-     *
-     * @return guid
-     *
-     * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws ConnectionCheckedException there are errors in the configuration of the connection which is preventing
-     *                                      the creation of a connector.
-     * @throws ConnectorCheckedException there are errors in the initialization of the connector.
-     */
-    public abstract String saveConnection(String     userId,
-                                          Connection connection) throws InvalidParameterException,
-                                                                        PropertyServerException,
-                                                                        UserNotAuthorizedException,
-                                                                        ConnectionCheckedException,
-                                                                        ConnectorCheckedException;
-
-
-    /**
-     * Returns the unique identifier corresponding to the supplied connection.
-     *
-     * @param userId calling user
-     * @param assetGUID the unique identifier of an asset to attach the connection to
-     * @param connection   the connection object that contains the properties needed to create the connection.
-     *
-     * @return guid
-     *
-     * @throws InvalidParameterException one of the parameters is null or invalid.
-     * @throws ConnectionCheckedException there are errors in the configuration of the connection which is preventing
-     *                                      the creation of a connector.
-     * @throws ConnectorCheckedException there are errors in the initialization of the connector.
-     */
-    public abstract String saveConnection(String     userId,
-                                          String     assetGUID,
-                                          Connection connection) throws InvalidParameterException,
-                                                                        PropertyServerException,
-                                                                        UserNotAuthorizedException,
-                                                                        ConnectionCheckedException,
-                                                                        ConnectorCheckedException;
-
 
     /*
      * ===============================================

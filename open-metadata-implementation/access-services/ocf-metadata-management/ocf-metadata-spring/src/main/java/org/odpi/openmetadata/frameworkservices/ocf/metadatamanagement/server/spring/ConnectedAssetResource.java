@@ -105,39 +105,6 @@ public class ConnectedAssetResource
 
 
     /**
-     * Save the connection optionally linked to the supplied asset GUID.
-     *
-     * @param serverName  name of the server instances for this request
-     * @param userId      userId of the user making the request.
-     * @param assetGUID   the unique id for the asset within the metadata repository. This optional.
-     *                    However, if specified then the new connection is attached to the asset
-     * @param connection connection to save
-     *
-     * @return connection object or
-     * InvalidParameterException one of the parameters is null or invalid or
-     * UnrecognizedConnectionNameException there is no connection defined for this name or
-     * PropertyServerException a problem retrieving information from the property (metadata) server or
-     * UserNotAuthorizedException the requesting user is not authorized to issue this request.
-     */
-    @PostMapping(path = "/connections")
-    @SecurityRequirement(name = "BearerAuthorization")
-
-    @Operation(summary="saveConnectionForAsset",
-            description="Save the connection optionally linked to the supplied asset GUID.",
-            externalDocs=@ExternalDocumentation(description="Further Information",
-                    url="https://egeria-project.org/concepts/connection"))
-
-    public GUIDResponse saveConnectionForAsset(@PathVariable String     serverName,
-                                               @PathVariable String     userId,
-                                               @RequestParam(required = false)
-                                               String     assetGUID,
-                                               @RequestBody  Connection connection)
-    {
-        return restAPI.saveConnectionForAsset(serverName, userId, assetGUID, connection);
-    }
-
-
-    /**
      * Returns the connection corresponding to the supplied asset GUID.
      *
      * @param serverName  name of the server instances for this request

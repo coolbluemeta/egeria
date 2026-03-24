@@ -5,15 +5,8 @@ package org.odpi.openmetadata.commonservices.generichandlers;
 import org.odpi.openmetadata.commonservices.ffdc.InvalidParameterHandler;
 import org.odpi.openmetadata.commonservices.repositoryhandler.RepositoryHandler;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.PropertyServerException;
-import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedException;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 import org.odpi.openmetadata.metadatasecurity.server.OpenMetadataServerSecurityVerifier;
 import org.odpi.openmetadata.repositoryservices.connectors.stores.metadatacollectionstore.repositoryconnector.OMRSRepositoryHelper;
-
-import java.util.Date;
-import java.util.Map;
 
 /**
  * SoftwareCapabilityHandler provides the support for managing software capabilities.

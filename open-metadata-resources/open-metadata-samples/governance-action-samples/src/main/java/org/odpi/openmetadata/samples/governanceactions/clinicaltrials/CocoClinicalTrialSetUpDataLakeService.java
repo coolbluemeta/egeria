@@ -33,10 +33,7 @@ import org.odpi.openmetadata.samples.governanceactions.ffdc.GovernanceActionSamp
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Responsible for setting up the mechanisms that support the smooth operation of a clinical trial.
@@ -506,7 +503,7 @@ public class CocoClinicalTrialSetUpDataLakeService extends CocoClinicalTrialBase
         templateOptions.setExternalSourceName(externalSourceName);
         templateOptions.setIsOwnAnchor(false);
         templateOptions.setAnchorGUID(catalogGUID);
-        templateOptions.setAnchorScopeGUID(topLevelProjectGUID);
+        templateOptions.setAnchorScopeGUIDs(Collections.singletonList(topLevelProjectGUID));
         templateOptions.setAllowRetrieve(true);
         templateOptions.setParentGUID(catalogGUID);
         templateOptions.setParentAtEnd1(true);
@@ -515,6 +512,7 @@ public class CocoClinicalTrialSetUpDataLakeService extends CocoClinicalTrialBase
         return openMetadataStore.createMetadataElementFromTemplate(UnityCatalogDeployedImplementationType.OSS_UC_SCHEMA.getAssociatedTypeName(),
                                                                    templateOptions,
                                                                    templateGUID,
+                                                                   null,
                                                                    null,
                                                                    placeholderProperties,
                                                                    new NewElementProperties(propertyHelper.addEnumProperty(null,
@@ -576,7 +574,7 @@ public class CocoClinicalTrialSetUpDataLakeService extends CocoClinicalTrialBase
         templateOptions.setExternalSourceName(externalSourceName);
         templateOptions.setIsOwnAnchor(false);
         templateOptions.setAnchorGUID(schemaGUID);
-        templateOptions.setAnchorScopeGUID(null);
+        templateOptions.setAnchorScopeGUIDs(null);
         templateOptions.setAllowRetrieve(true);
         templateOptions.setParentGUID(schemaGUID);
         templateOptions.setParentAtEnd1(true);
@@ -585,6 +583,7 @@ public class CocoClinicalTrialSetUpDataLakeService extends CocoClinicalTrialBase
         String volumeGUID =  governanceContext.getOpenMetadataStore().createMetadataElementFromTemplate(UnityCatalogDeployedImplementationType.OSS_UC_VOLUME.getAssociatedTypeName(),
                                                                                                         templateOptions,
                                                                                                         templateGUID,
+                                                                                                        null,
                                                                                                         null,
                                                                                                         placeholderProperties,
                                                                                                         null);
@@ -626,10 +625,11 @@ public class CocoClinicalTrialSetUpDataLakeService extends CocoClinicalTrialBase
         return governanceContext.getOpenMetadataStore().getMetadataElementFromTemplate(OpenMetadataType.DATA_FILE_COLLECTION.typeName,
                                                                                        null,
                                                                                        true,
-                                                                                       topLevelProjectGUID,
+                                                                                       Collections.singletonList(topLevelProjectGUID),
                                                                                        null,
                                                                                        null,
                                                                                        validatedWeeklyFilesTemplateGUID,
+                                                                                       null,
                                                                                        null,
                                                                                        placeholderProperties,
                                                                                        null,

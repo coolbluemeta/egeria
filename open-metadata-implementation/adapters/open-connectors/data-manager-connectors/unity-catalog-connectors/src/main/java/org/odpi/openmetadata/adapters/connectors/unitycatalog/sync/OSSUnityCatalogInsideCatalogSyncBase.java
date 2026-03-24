@@ -316,9 +316,8 @@ public abstract class OSSUnityCatalogInsideCatalogSyncBase
                                                                                         elementName,
                                                                                         instanceSynchronizationDirection);
 
-
         externalIdClient.createExternalId(openMetadataElementGUID,
-                                          UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID(),
+                                          Collections.singletonList(UnityCatalogDeployedImplementationType.OSS_UNITY_CATALOG_SERVER.getGUID()),
                                           externalIdLinkProperties,
                                           externalIdProperties);
     }

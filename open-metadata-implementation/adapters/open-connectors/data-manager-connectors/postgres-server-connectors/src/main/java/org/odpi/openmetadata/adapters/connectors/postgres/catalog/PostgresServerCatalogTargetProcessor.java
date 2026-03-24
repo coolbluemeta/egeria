@@ -212,7 +212,7 @@ public class PostgresServerCatalogTargetProcessor extends CatalogTargetProcessor
 
                 newElementOptions.setAnchorGUID(databaseServerGUID);
                 newElementOptions.setIsOwnAnchor(false);
-                newElementOptions.setAnchorScopeGUID(null);
+                newElementOptions.setAnchorScopeGUIDs(null);
                 newElementOptions.setParentGUID(databaseServerGUID);
                 newElementOptions.setParentAtEnd1(true);
                 newElementOptions.setParentRelationshipTypeName(OpenMetadataType.SUPPORTED_SOFTWARE_CAPABILITY_RELATIONSHIP.typeName);
@@ -397,6 +397,7 @@ public class PostgresServerCatalogTargetProcessor extends CatalogTargetProcessor
                                                                                     null,
                                                                                     null,
                                                                                     databaseTemplateGUID,
+                                                                                    null,
                                                                                     null,
                                                                                     placeholderProperties,
                                                                                     databaseManagerGUID,

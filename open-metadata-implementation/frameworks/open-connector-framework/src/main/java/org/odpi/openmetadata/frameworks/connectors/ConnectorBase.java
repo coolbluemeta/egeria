@@ -1039,7 +1039,7 @@ public abstract class ConnectorBase extends Connector implements SecureConnector
 
     /**
      * Provide a common implementation of hashCode for all OCF Connector objects.  The UUID is unique and
-     * is randomly assigned and so its hashCode is as good as anything to describe the hash code of the connector
+     * is randomly assigned, and so its hashCode is as good as anything to describe the hash code of the connector
      * object.
      *
      * @return random UUID as hashcode

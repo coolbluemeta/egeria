@@ -108,9 +108,9 @@ public class AnnotationClient extends ConnectorContextClientBase
      * The template defines additional classifications and relationships that should be added to the new annotation.
      *
      * @param templateOptions              details of the element to create
-     * @param templateGUID                 the unique identifier of the existing annotation to copy (this will copy all the attachments such as nested content, schema
-     *                                     connection etc)
+     * @param templateGUID                 the unique identifier of the existing element to copy
      * @param replacementProperties        properties of the new metadata element.  These override the template values
+     * @param replacementClassifications   map of classification names to classification properties to include in the entity creation request. These override the template values.
      * @param placeholderProperties        property name-to-property value map to replace any placeholder values in the
      *                                     template element - and their anchored elements, which are also copied as part of this operation.
      * @param parentRelationshipProperties properties to include in parent relationship
@@ -119,15 +119,16 @@ public class AnnotationClient extends ConnectorContextClientBase
      * @throws UserNotAuthorizedException the user is not authorized to issue this request
      * @throws PropertyServerException    a problem reported in the open metadata server(s)
      */
-    public String createAnnotationFromTemplate(TemplateOptions        templateOptions,
-                                               String                 templateGUID,
-                                               EntityProperties       replacementProperties,
-                                               Map<String, String>    placeholderProperties,
-                                               RelationshipProperties parentRelationshipProperties) throws InvalidParameterException,
-                                                                                                           UserNotAuthorizedException,
-                                                                                                           PropertyServerException
+    public String createAnnotationFromTemplate(TemplateOptions                       templateOptions,
+                                               String                                templateGUID,
+                                               EntityProperties                      replacementProperties,
+                                               Map<String, ClassificationProperties> replacementClassifications,
+                                               Map<String, String>                   placeholderProperties,
+                                               RelationshipProperties                parentRelationshipProperties) throws InvalidParameterException,
+                                                                                                                          UserNotAuthorizedException,
+                                                                                                                          PropertyServerException
     {
-        String elementGUID = annotationHandler.createAnnotationFromTemplate(connectorUserId, templateOptions, templateGUID, replacementProperties, placeholderProperties, parentRelationshipProperties);
+        String elementGUID = annotationHandler.createAnnotationFromTemplate(connectorUserId, templateOptions, templateGUID, replacementProperties, replacementClassifications, placeholderProperties, parentRelationshipProperties);
 
         if (parentContext.getIntegrationReportWriter() != null)
         {

@@ -140,6 +140,7 @@ public class SchemaMakerRESTServices extends TokenController
                                                                       requestBody,
                                                                       requestBody.getTemplateGUID(),
                                                                       requestBody.getReplacementProperties(),
+                                                                      requestBody.getReplacementClassifications(),
                                                                       requestBody.getPlaceholderPropertyValues(),
                                                                       requestBody.getParentRelationshipProperties()));
             }
@@ -526,6 +527,7 @@ public class SchemaMakerRESTServices extends TokenController
                                                                            requestBody,
                                                                            requestBody.getTemplateGUID(),
                                                                            requestBody.getReplacementProperties(),
+                                                                           requestBody.getReplacementClassifications(),
                                                                            requestBody.getPlaceholderPropertyValues(),
                                                                            requestBody.getParentRelationshipProperties()));
             }

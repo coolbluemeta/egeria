@@ -1915,7 +1915,7 @@ public class ConnectorContextBase
      * @param governanceActionTypeGUID the unique identifier of the governance action type
      * @param additionalRequestParameters the additional, predefined request parameters to add to the
      *                                   GovernanceActionProcessFlow relationship
-     * @param anchorScopeGUID unique identifier for the top level project - used as a search scope
+     * @param anchorScopeGUIDs unique identifier for the top level project - used as a search scope
      * @return unique identifier of new governance action process
      * @throws InvalidParameterException parameter error
      * @throws PropertyServerException repository error
@@ -1927,11 +1927,11 @@ public class ConnectorContextBase
                                                         String              governanceActionTypeGUID,
                                                         Map<String, String> additionalRequestParameters,
                                                         String              anchorGUID,
-                                                        String              anchorScopeGUID) throws InvalidParameterException,
-                                                                                                    PropertyServerException,
-                                                                                                    UserNotAuthorizedException
+                                                        List<String>        anchorScopeGUIDs) throws InvalidParameterException,
+                                                                                                     PropertyServerException,
+                                                                                                     UserNotAuthorizedException
     {
-        String processGUID = this.createGovernanceActionProcess(processQualifiedName, processName, processDescription, anchorGUID, anchorScopeGUID);
+        String processGUID = this.createGovernanceActionProcess(processQualifiedName, processName, processDescription, anchorGUID, anchorScopeGUIDs);
 
         OpenMetadataElement governanceActionType = openMetadataStore.getMetadataElementByGUID(governanceActionTypeGUID);
 
@@ -1958,7 +1958,7 @@ public class ConnectorContextBase
                                                                                          null,
                                                                                          processGUID,
                                                                                          false,
-                                                                                         anchorScopeGUID,
+                                                                                         anchorScopeGUIDs,
                                                                                          new NewElementProperties(processStepProperties),
                                                                                          processGUID,
                                                                                          OpenMetadataType.GOVERNANCE_ACTION_PROCESS_FLOW_RELATIONSHIP.typeName,
@@ -2034,19 +2034,19 @@ public class ConnectorContextBase
      * @param processName new name for the process
      * @param processDescription new description for the process
      * @param anchorGUID unique identifier for the anchor = may be null
-     * @param anchorScopeGUID unique identifier for the top level folder - used as a search scope
+     * @param anchorScopeGUIDs unique identifiers for the top level folders - used as a search scope
      * @return unique identifier of new governance action process
      * @throws InvalidParameterException parameter error
      * @throws PropertyServerException repository error
      * @throws UserNotAuthorizedException authorization error
      */
-    public String createGovernanceActionProcess(String processQualifiedName,
-                                                String processName,
-                                                String processDescription,
-                                                String anchorGUID,
-                                                String anchorScopeGUID) throws InvalidParameterException,
-                                                                               PropertyServerException,
-                                                                               UserNotAuthorizedException
+    public String createGovernanceActionProcess(String       processQualifiedName,
+                                                String       processName,
+                                                String       processDescription,
+                                                String       anchorGUID,
+                                                List<String> anchorScopeGUIDs) throws InvalidParameterException,
+                                                                                      PropertyServerException,
+                                                                                      UserNotAuthorizedException
     {
 
         ElementProperties processProperties = propertyHelper.addStringProperty(null,
@@ -2065,7 +2065,7 @@ public class ConnectorContextBase
                                                               null,
                                                               anchorGUID,
                                                               (anchorGUID == null),
-                                                              anchorScopeGUID,
+                                                              anchorScopeGUIDs,
                                                               new NewElementProperties(processProperties),
                                                               null,
                                                               null,

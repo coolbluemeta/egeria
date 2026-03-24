@@ -474,6 +474,7 @@ public abstract class BasicFilesMonitorIntegrationConnectorBase extends Integrat
                     String folderGUID = fileFolderClient.createAssetFromTemplate(templateOptions,
                                                                                  defaultTemplates.get(deployedImplementationType),
                                                                                  null,
+                                                                                 null,
                                                                                  placeholderProperties,
                                                                                  null);
 

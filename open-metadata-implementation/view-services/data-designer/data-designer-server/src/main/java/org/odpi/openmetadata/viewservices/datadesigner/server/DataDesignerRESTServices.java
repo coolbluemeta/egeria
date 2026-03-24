@@ -144,6 +144,7 @@ public class DataDesignerRESTServices extends TokenController
                                                                          requestBody,
                                                                          requestBody.getTemplateGUID(),
                                                                          requestBody.getReplacementProperties(),
+                                                                         requestBody.getReplacementClassifications(),
                                                                          requestBody.getPlaceholderPropertyValues(),
                                                                          requestBody.getParentRelationshipProperties()));
             }
@@ -648,6 +649,7 @@ public class DataDesignerRESTServices extends TokenController
                                                                      requestBody,
                                                                      requestBody.getTemplateGUID(),
                                                                      requestBody.getReplacementProperties(),
+                                                                     requestBody.getReplacementClassifications(),
                                                                      requestBody.getPlaceholderPropertyValues(),
                                                                      requestBody.getParentRelationshipProperties()));
             }
@@ -1151,6 +1153,7 @@ public class DataDesignerRESTServices extends TokenController
                                                                                   requestBody,
                                                                                   requestBody.getTemplateGUID(),
                                                                                   requestBody.getReplacementProperties(),
+                                                                                  requestBody.getReplacementClassifications(),
                                                                                   requestBody.getPlaceholderPropertyValues(),
                                                                                   requestBody.getParentRelationshipProperties()));
             }

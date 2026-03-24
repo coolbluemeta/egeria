@@ -22,6 +22,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
 public class CatalogTemplate extends RefDataElementBase
 {
     private String versionIdentifier  = null;
+    private String templateGUID       = null;
 
 
     /**
@@ -45,6 +46,7 @@ public class CatalogTemplate extends RefDataElementBase
         if (template != null)
         {
             versionIdentifier = template.getVersionIdentifier();
+            templateGUID = template.getTemplateGUID();
         }
     }
 
@@ -52,18 +54,21 @@ public class CatalogTemplate extends RefDataElementBase
     /**
      * Copy/clone constructor
      *
-     * @param template object to copy
+     * @param templateClassificationProperties object to copy
      */
-    public CatalogTemplate(TemplateProperties template)
+    public CatalogTemplate(TemplateProperties templateClassificationProperties)
     {
         super();
 
-        if (template != null)
+        if (templateClassificationProperties != null)
         {
-            displayName = template.getDisplayName();
-            description = template.getDescription();
-            versionIdentifier = template.getVersionIdentifier();
-            additionalProperties = template.getAdditionalProperties();
+            /*
+             * Extract from the template classification properties (rather than the super type).
+             */
+            displayName = templateClassificationProperties.getDisplayName();
+            description = templateClassificationProperties.getDescription();
+            versionIdentifier = templateClassificationProperties.getVersionIdentifier();
+            additionalProperties = templateClassificationProperties.getAdditionalProperties();
         }
     }
 
@@ -91,6 +96,28 @@ public class CatalogTemplate extends RefDataElementBase
 
 
     /**
+     * Return the templateGUID from the related element.
+     *
+     * @return string
+     */
+    public String getTemplateGUID()
+    {
+        return templateGUID;
+    }
+
+
+    /**
+     * Set up the templateGUID from the related element.
+     *
+     * @param templateGUID string
+     */
+    public void setTemplateGUID(String templateGUID)
+    {
+        this.templateGUID = templateGUID;
+    }
+
+
+    /**
      * Generate a string containing the properties.
      *
      * @return string value
@@ -100,6 +127,7 @@ public class CatalogTemplate extends RefDataElementBase
     {
         return "CatalogTemplate{" +
                 "versionIdentifier='" + versionIdentifier + '\'' +
+                ", templateGUID='" + templateGUID + '\'' +
                 "} " + super.toString();
     }
 
@@ -117,7 +145,8 @@ public class CatalogTemplate extends RefDataElementBase
         if (objectToCompare == null || getClass() != objectToCompare.getClass()) return false;
         if (!super.equals(objectToCompare)) return false;
         CatalogTemplate that = (CatalogTemplate) objectToCompare;
-        return Objects.equals(versionIdentifier, that.versionIdentifier);
+        return Objects.equals(versionIdentifier, that.versionIdentifier) &&
+                Objects.equals(templateGUID, that.templateGUID);
     }
 
 
@@ -129,6 +158,6 @@ public class CatalogTemplate extends RefDataElementBase
     @Override
     public int hashCode()
     {
-        return Objects.hash(super.hashCode(), versionIdentifier);
+        return Objects.hash(super.hashCode(), versionIdentifier, templateGUID);
     }
 }

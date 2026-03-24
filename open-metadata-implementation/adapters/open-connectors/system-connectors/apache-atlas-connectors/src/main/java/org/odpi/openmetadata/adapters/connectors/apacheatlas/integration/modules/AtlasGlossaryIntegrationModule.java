@@ -34,10 +34,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.glossaries.Gloss
 import org.odpi.openmetadata.frameworks.openmetadata.search.NewElementOptions;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 
@@ -945,7 +942,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
                                                                                        PermittedSynchronization.TO_THIRD_PARTY);
 
             externalIdClient.createExternalId(egeriaGlossary.getElementHeader().getGUID(),
-                                              AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID(),
+                                              Collections.singletonList(AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID()),
                                               externalIdLinkProperties,
                                               externalIdentifierProperties);
 
@@ -1134,9 +1131,9 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
                                                                                    PermittedSynchronization.TO_THIRD_PARTY);
 
         externalIdClient.createExternalId(egeriaGlossaryTerm.getElementHeader().getGUID(),
-                                          AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID(),
-                                          externalIdLinkProperties,
-                                          externalIdentifierProperties);
+                                          Collections.singletonList(AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID()),
+                                                                    externalIdLinkProperties,
+                                                                    externalIdentifierProperties);
 
         return atlasGlossaryTerm;
     }
@@ -1315,7 +1312,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
                                                                             null);
 
                 externalIdClient.createExternalId(egeriaGlossaryGUID,
-                                                  AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID(),
+                                                  Collections.singletonList(AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID()),
                                                   externalIdLinkProperties,
                                                   externalIdentifierProperties);
 
@@ -1430,13 +1427,9 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
                                                                               glossaryTermProperties);
 
                 externalIdClient.createExternalId(egeriaTermGUID,
-                                                  AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID(),
+                                                  Collections.singletonList(AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID()),
                                                   externalIdLinkProperties,
                                                   externalIdentifierProperties);
-
-                /*
-                 * Todo set up external identifier
-                 */
 
                 auditLog.logMessage(methodName,
                                     AtlasIntegrationAuditCode.CREATING_EGERIA_ENTITY.getMessageDefinition(connectorName,
@@ -1694,7 +1687,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
 
                 newElementOptions.setIsOwnAnchor(false);
                 newElementOptions.setAnchorGUID(destinationGlossary.getElementHeader().getGUID());
-                newElementOptions.setAnchorScopeGUID(destinationGlossary.getElementHeader().getGUID());
+                newElementOptions.setAnchorScopeGUIDs(Collections.singletonList(destinationGlossary.getElementHeader().getGUID()));
                 newElementOptions.setParentGUID(destinationGlossary.getElementHeader().getGUID());
                 newElementOptions.setParentAtEnd1(true);
                 newElementOptions.setParentRelationshipTypeName(OpenMetadataType.COLLECTION_MEMBERSHIP_RELATIONSHIP.typeName);
@@ -1705,7 +1698,7 @@ public class AtlasGlossaryIntegrationModule extends AtlasRegisteredIntegrationMo
                                                                             null);
 
                 externalIdClient.createExternalId(egeriaCategoryGUID,
-                                                  AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID(),
+                                                  Collections.singletonList(AtlasDeployedImplementationType.APACHE_ATLAS_SERVER.getGUID()),
                                                   externalIdLinkProperties,
                                                   externalIdentifierProperties);
 

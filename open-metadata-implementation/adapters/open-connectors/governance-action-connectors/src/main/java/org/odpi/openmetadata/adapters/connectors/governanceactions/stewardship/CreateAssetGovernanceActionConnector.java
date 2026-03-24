@@ -72,6 +72,7 @@ public class CreateAssetGovernanceActionConnector extends GeneralGovernanceActio
                                                                                                             null,
                                                                                                             templateGUID,
                                                                                                             null,
+                                                                                                            null,
                                                                                                             governanceContext.getRequestParameters(),
                                                                                                             null,
                                                                                                             null,

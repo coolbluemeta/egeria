@@ -68,7 +68,7 @@ Content-Type: application/json
 
 {
   "class" : "SearchStringRequestBody",
-  "searchString": "and serch value here",
+  "searchString": "and search value here",
   "startsWith" : false,
   "endsWith" : false,
   "ignoreCase" : true,

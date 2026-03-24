@@ -71,12 +71,11 @@ public interface ProvisioningGovernanceContext extends GovernanceContext
 
 
     /**
-     * Create an asset such as a data file, database, API or server.  This is used if the provisioning
+     * Create an asset such as a data file, database, API, or server.  This is used if the provisioning
      * governance action service has created a new asset as part of the provisioning process.
      * This interface includes an optional templateGUID to copy the structure of an existing asset of the same type.
      *
-     * @param templateGUID the unique identifier of the existing asset to copy (this will copy all the attachments
-     *                     such as nested content, schema, connection etc)
+     * @param templateGUID the unique identifier of the existing element to copy
      * @param qualifiedName the unique name of the new asset
      * @param name the technical display name of the asset
      * @param description the description of the asset
@@ -101,8 +100,7 @@ public interface ProvisioningGovernanceContext extends GovernanceContext
      * This interface includes an optional templateGUID to copy the structure of an existing asset of the same type.
      *
      * @param assetTypeName      the type name of the asset.  This is the name of an open metadata type that inherits from "Asset".
-     * @param templateGUID the unique identifier of the existing asset to copy (this will copy all the attachments
-     *                     such as nested content, schema, connection etc)
+     * @param templateGUID the unique identifier of the existing element to copy
      * @param qualifiedName the unique name of the new asset
      * @param name the technical display name of the asset
      * @param versionIdentifier version of the resource

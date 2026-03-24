@@ -138,6 +138,7 @@ public class ActorManagerRESTServices extends TokenController
                                                                         requestBody,
                                                                         requestBody.getTemplateGUID(),
                                                                         requestBody.getReplacementProperties(),
+                                                                        requestBody.getReplacementClassifications(),
                                                                         requestBody.getPlaceholderPropertyValues(),
                                                                         requestBody.getParentRelationshipProperties()));
             }
@@ -982,6 +983,7 @@ public class ActorManagerRESTServices extends TokenController
                                                                      requestBody,
                                                                      requestBody.getTemplateGUID(),
                                                                      requestBody.getReplacementProperties(),
+                                                                     requestBody.getReplacementClassifications(),
                                                                      requestBody.getPlaceholderPropertyValues(),
                                                                      requestBody.getParentRelationshipProperties()));
             }
@@ -1723,6 +1725,7 @@ public class ActorManagerRESTServices extends TokenController
                                                                         requestBody,
                                                                         requestBody.getTemplateGUID(),
                                                                         requestBody.getReplacementProperties(),
+                                                                        requestBody.getReplacementClassifications(),
                                                                         requestBody.getPlaceholderPropertyValues(),
                                                                         requestBody.getParentRelationshipProperties()));
             }
@@ -2517,6 +2520,7 @@ public class ActorManagerRESTServices extends TokenController
                                                                           requestBody,
                                                                           requestBody.getTemplateGUID(),
                                                                           requestBody.getReplacementProperties(),
+                                                                          requestBody.getReplacementClassifications(),
                                                                           requestBody.getPlaceholderPropertyValues(),
                                                                           requestBody.getParentRelationshipProperties()));
             }
