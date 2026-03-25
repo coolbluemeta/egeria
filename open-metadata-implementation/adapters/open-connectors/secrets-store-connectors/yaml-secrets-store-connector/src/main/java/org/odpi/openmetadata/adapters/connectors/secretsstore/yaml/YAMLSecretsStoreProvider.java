@@ -9,7 +9,8 @@ import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStoreConfigur
 
 
 /**
- * YAMLSecretsStoreProvider is the connector provider for the Apache Atlas integration connector that publishes glossary terms to Apache Atlas.
+ * YAMLSecretsStoreProvider is the connector provider for the Secrets Store Connector based on a YAML File.
+ * This connector can only access a single secrets collection. The name of this secrets collection is specified in the configuration properties.
  */
 public class YAMLSecretsStoreProvider extends OpenConnectorProviderBase
 {

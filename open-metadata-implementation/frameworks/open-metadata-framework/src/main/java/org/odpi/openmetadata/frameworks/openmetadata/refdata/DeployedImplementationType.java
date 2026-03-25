@@ -119,6 +119,17 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
                         OpenMetadataWikiPages.MODEL_0225_METADATA_REPOSITORIES),
 
     /**
+     * A data set containing user accounts, groups, roles, and security controls.
+     */
+    SECRETS_COLLECTION("60e38b0c-9220-4a83-9c9e-e83cb5a6c19a",
+                        "Secrets Collection",
+                        DeployedImplementationType.DATA_SET,
+                        OpenMetadataType.SECRETS_COLLECTION.typeName,
+                        null,
+                        OpenMetadataType.SECRETS_COLLECTION.description,
+                        OpenMetadataWikiPages.MODEL_0227_KEYSTORES),
+
+    /**
      * A data store containing cohort membership registration details.
      */
     COHORT_REGISTRY_STORE("6602791d-eb14-4bb6-ae91-7430018b312d",
@@ -508,6 +519,17 @@ public enum DeployedImplementationType implements DeployedImplementationTypeDefi
                   OpenMetadataType.KEY_STORE_FILE.description,
                   OpenMetadataWikiPages.MODEL_0226_ARCHIVE_FILES),
 
+
+    /**
+     * A data file containing user accounts, groups, roles, and security controls, encoded in YAML format.
+     */
+    YAML_SECRETS_COLLECTION_FILE("6480544e-bf2e-4024-90ac-dcd166f17248",
+                                 "YAML File Secrets Collection",
+                                 DeployedImplementationType.KEYSTORE_FILE,
+                                 OpenMetadataType.KEY_STORE_FILE.typeName,
+                                 null,
+                                 "A data file containing user accounts, groups, roles, and security controls, encoded in YAML format.",
+                                 OpenMetadataWikiPages.MODEL_0227_KEYSTORES),
 
     /**
      * A directory (folder) that holds files that are potential data sources.

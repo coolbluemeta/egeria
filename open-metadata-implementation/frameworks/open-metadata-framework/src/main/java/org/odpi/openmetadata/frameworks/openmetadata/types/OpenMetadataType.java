@@ -2619,7 +2619,18 @@ public enum OpenMetadataType
                        "SecretsCollection",
                        OpenMetadataWikiPages.MODEL_0227_KEYSTORES,
                        "4aa6aae8-a0d6-4e05-8b93-6bab1962c3a6",
-                       "A data set containing authentication and related security information."),
+                       "A data set containing authentication and related security information.",
+                       SecretsCollectionProperties.class),
+
+    /**
+     * A description of the types of user accounts and their status found in the attached secrets collection.
+     */
+    USER_ACCOUNT_PROFILE_CLASSIFICATION("131d849f-f3c4-4ec8-b130-47a5e32affa8",
+                                        "UserAccountProfile",
+                                        OpenMetadataWikiPages.MODEL_0227_KEYSTORES,
+                                        "22ab9862-1a53-4893-888e-39bab3be839e",
+                                        "A description of the types of user accounts and their status found in the attached secrets collection.",
+                                        UserAccountProfileProperties.class),
 
     /**
      * A data set containing code values and their translations.

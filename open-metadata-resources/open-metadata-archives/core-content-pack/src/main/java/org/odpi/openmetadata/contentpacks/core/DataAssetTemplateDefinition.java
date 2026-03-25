@@ -16,8 +16,10 @@ import org.odpi.openmetadata.adapters.connectors.postgres.controls.PostgreSQLTem
 import org.odpi.openmetadata.adapters.connectors.postgres.controls.PostgresPlaceholderProperty;
 import org.odpi.openmetadata.adapters.connectors.resource.jdbc.JDBCResourceConnectorProvider;
 import org.odpi.openmetadata.adapters.connectors.resource.jdbc.controls.JDBCConfigurationProperty;
+import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.YAMLSecretsFileProvider;
 import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.YAMLSecretsStoreProvider;
 import org.odpi.openmetadata.adapters.eventbus.topic.kafka.KafkaOpenMetadataTopicProvider;
+import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStoreConfigurationProperty;
 import org.odpi.openmetadata.frameworks.connectors.controls.SecretsStorePurpose;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.specificationproperties.PlaceholderPropertyType;
@@ -445,6 +447,25 @@ public enum DataAssetTemplateDefinition implements TemplateDefinition
                            PlaceholderProperty.getDataFilesPlaceholderPropertyTypes(),
                            ContentPackDefinition.FILES_CONTENT_PACK),
 
+    OMSECRETS_FILE_TEMPLATE(FilesTemplateType.OMSECRETS_FILE_TEMPLATE.getTemplateGUID(),
+                           DeployedImplementationType.YAML_SECRETS_COLLECTION_FILE,
+                           PlaceholderProperty.FILE_NAME.getPlaceholder(),
+                           PlaceholderProperty.DESCRIPTION.getPlaceholder(),
+                           DeployedImplementationType.YAML_SECRETS_COLLECTION_FILE.getDeployedImplementationType() + "::" + PlaceholderProperty.FILE_SYSTEM_NAME.getPlaceholder() + ":" + PlaceholderProperty.FILE_PATH_NAME.getPlaceholder(),
+                           getDataFileExtendedProperties(DeployedImplementationType.YAML_SECRETS_COLLECTION_FILE),
+                           PlaceholderProperty.FILE_ENCODING.getPlaceholder(),
+                           null,
+                           new YAMLSecretsFileProvider().getConnectorType().getGUID(),
+                           PlaceholderProperty.FILE_PATH_NAME.getPlaceholder(),
+                            getOMSecretsConfigurationProperties(),
+                           null,
+                           null,
+                           null,
+                           null,
+                           null,
+                           PlaceholderProperty.getDataFilesPlaceholderPropertyTypes(),
+                           ContentPackDefinition.FILES_CONTENT_PACK),
+
     PROGRAM_FILE_TEMPLATE(FilesTemplateType.PROGRAM_FILE_TEMPLATE.getTemplateGUID(),
                           DeployedImplementationType.PROGRAM_FILE,
                           PlaceholderProperty.FILE_NAME.getPlaceholder(),
@@ -603,6 +624,23 @@ public enum DataAssetTemplateDefinition implements TemplateDefinition
         return configurationProperties;
     }
 
+
+    /**
+     * Build the configuration properties for OMSecretsFileConnector.  This is
+     *
+     * @return configuration properties
+     */
+    static Map<String, Object> getOMSecretsConfigurationProperties()
+    {
+        Map<String, Object> configurationProperties = new HashMap<>();
+
+        /*
+         * This value must be a non-null string
+         */
+        configurationProperties.put(SecretsStoreConfigurationProperty.SECRETS_COLLECTION_NAME.getName(), "default");
+
+        return configurationProperties;
+    }
 
     /**
      * Build the configuration properties for a kafka topic.

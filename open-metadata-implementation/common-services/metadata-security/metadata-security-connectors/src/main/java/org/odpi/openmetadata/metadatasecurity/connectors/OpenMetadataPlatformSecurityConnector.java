@@ -25,7 +25,7 @@ public class OpenMetadataPlatformSecurityConnector extends OpenMetadataSecurityC
     /**
      * Log an audit log record for an event, decision, error, or exception detected by the OMRS.
      *
-     * @param severity is this an event, decision, error or exception?
+     * @param severity is this an event, decision, error, or exception?
      * @param logMessage description of the audit log record including specific resources involved
      */
     protected void logRecord(AuditLogRecordSeverity severity,
@@ -41,7 +41,7 @@ public class OpenMetadataPlatformSecurityConnector extends OpenMetadataSecurityC
      */
     protected void logConnectorStarting()
     {
-        AuditLogMessageDefinition messageDefinition = OpenMetadataSecurityAuditCode.PLATFORM_INITIALIZING.getMessageDefinition(connectorName, serverRootURL);
+        AuditLogMessageDefinition messageDefinition = OpenMetadataSecurityAuditCode.PLATFORM_INITIALIZING.getMessageDefinition(connectorName, platformName);
         this.logRecord(messageDefinition.getSeverity(),
                        messageFormatter.getFormattedMessage(messageDefinition));
     }
@@ -52,7 +52,7 @@ public class OpenMetadataPlatformSecurityConnector extends OpenMetadataSecurityC
      */
     protected void logConnectorDisconnecting()
     {
-        AuditLogMessageDefinition messageDefinition = OpenMetadataSecurityAuditCode.PLATFORM_SHUTDOWN.getMessageDefinition(connectorName, serverRootURL);
+        AuditLogMessageDefinition messageDefinition = OpenMetadataSecurityAuditCode.PLATFORM_SHUTDOWN.getMessageDefinition(connectorName, platformName);
         this.logRecord(messageDefinition.getSeverity(),
                        messageFormatter.getFormattedMessage(messageDefinition));
 

@@ -62,7 +62,7 @@ public class OpenMetadataPlatformSecurityVerifier
                 userSecurityConnector     = openMetadataUserSecurity;
             }
 
-            platformSecurityConnector.setServerPlatformURL(serverPlatformURL);
+            platformSecurityConnector.setPlatformName(serverPlatformURL);
             newConnector.start();
             platformSecurityConnection = connection;
         }

@@ -879,7 +879,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
      * @param templateGUID fixed unique identifier
      * @param templateVersion version of the template
      * @param deployedImplementationType deployed implementation type for the technology
-     * @param assetName name for the asset
+     * @param assetDisplayName name for the asset
      * @param assetDescription description
      * @param qualifiedName optional server name
      * @param versionIdentifier version identifier
@@ -899,7 +899,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
     protected void createDataAssetCatalogTemplate(String                               templateGUID,
                                                   String                               templateVersion,
                                                   DeployedImplementationTypeDefinition deployedImplementationType,
-                                                  String                               assetName,
+                                                  String                               assetDisplayName,
                                                   String                               assetDescription,
                                                   String                               qualifiedName,
                                                   String                               versionIdentifier,
@@ -946,7 +946,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
         archiveHelper.setGUID(qualifiedName, templateGUID);
         String assetGUID = archiveHelper.addAsset(deployedImplementationType.getAssociatedTypeName(),
                                                   qualifiedName,
-                                                  assetName,
+                                                  assetDisplayName,
                                                   deployedImplementationType.getDeployedImplementationType(),
                                                   versionIdentifier,
                                                   assetDescription,
@@ -958,7 +958,7 @@ public abstract class  ContentPackBaseArchiveWriter extends EgeriaBaseArchiveWri
         String connectionGUID = addTechnologyConnection(assetGUID,
                                                         deployedImplementationType,
                                                         qualifiedName,
-                                                        assetName,
+                                                        assetDisplayName,
                                                         connectorTypeGUID,
                                                         networkAddress,
                                                         configurationProperties,

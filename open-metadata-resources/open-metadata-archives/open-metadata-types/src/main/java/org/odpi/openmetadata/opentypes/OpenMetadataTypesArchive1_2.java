@@ -5181,6 +5181,7 @@ public class OpenMetadataTypesArchive1_2
     {
         this.archiveBuilder.addEntityDef(getKeystoreFileEntity());
         this.archiveBuilder.addEntityDef(geSecretsCollectionEntity());
+        this.archiveBuilder.addClassificationDef(getUserAccountProfileClassification());
     }
 
 
@@ -5208,6 +5209,33 @@ public class OpenMetadataTypesArchive1_2
         return entityDef;
     }
 
+
+    private ClassificationDef getUserAccountProfileClassification()
+    {
+        ClassificationDef classificationDef = archiveHelper.getClassificationDef(OpenMetadataType.USER_ACCOUNT_PROFILE_CLASSIFICATION,
+                                                                                 null,
+                                                                                 this.archiveBuilder.getEntityDef(OpenMetadataType.SECRETS_COLLECTION.typeName),
+                                                                                 false);
+        /*
+         * Build the attributes
+         */
+        List<TypeDefAttribute> properties = new ArrayList<>();
+
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.USER_ACCOUNT_COUNT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.EMPLOYEE_ACCOUNT_COUNT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.CONTRACTOR_ACCOUNT_COUNT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.EXTERNAL_ACCOUNT_COUNT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DIGITAL_ACCOUNT_COUNT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ACTIVE_ACCOUNT_COUNT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.EXPIRED_ACCOUNT_COUNT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.LOCKED_ACCOUNT_COUNT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.DISABLED_ACCOUNT_COUNT));
+        properties.add(archiveHelper.getTypeDefAttribute(OpenMetadataProperty.ADDITIONAL_PROPERTIES));
+
+        classificationDef.setPropertiesDefinition(properties);
+
+        return classificationDef;
+    }
 
     /*
      * -------------------------------------------------------------------------------------------------------

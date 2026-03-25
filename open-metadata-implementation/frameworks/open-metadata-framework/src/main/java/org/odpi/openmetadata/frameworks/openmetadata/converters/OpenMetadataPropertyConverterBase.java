@@ -1485,7 +1485,7 @@ public class OpenMetadataPropertyConverterBase
      * Extract and delete the property from the supplied element properties.
      *
      * @param elementProperties properties from element
-     * @return string text or null
+     * @return date
      */
     protected Date removeExternalInstanceLastUpdateTime(ElementProperties  elementProperties)
     {
@@ -1507,7 +1507,7 @@ public class OpenMetadataPropertyConverterBase
      * Extract and delete the property from the supplied element properties.
      *
      * @param elementProperties properties from element
-     * @return string text or null
+     * @return long
      */
     protected long removeExternalInstanceVersion(ElementProperties  elementProperties)
     {
@@ -1517,6 +1517,206 @@ public class OpenMetadataPropertyConverterBase
         {
             return propertyHelper.removeLongProperty(localServiceName,
                                                      OpenMetadataProperty.EXT_INSTANCE_VERSION.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeUserAccountCount(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeUserAccountCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.USER_ACCOUNT_COUNT.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeEmployeeAccountCount(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeEmployeeAccountCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.EMPLOYEE_ACCOUNT_COUNT.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeContractorAccountCount(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeContractorAccountCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.CONTRACTOR_ACCOUNT_COUNT.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeExternalAccountCount(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeExternalAccountCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.EXTERNAL_ACCOUNT_COUNT.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeDigitalAccountCount(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeDigitalAccountCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.DIGITAL_ACCOUNT_COUNT.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeActiveAccountCount(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeActiveAccountCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.ACTIVE_ACCOUNT_COUNT.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeExpiredAccountCount(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeExpiredAccountCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.EXPIRED_ACCOUNT_COUNT.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeLockedAccountCount(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeLockedAccountCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.LOCKED_ACCOUNT_COUNT.name,
+                                                     elementProperties,
+                                                     methodName);
+        }
+
+        return 0L;
+    }
+
+
+    /**
+     * Extract and delete the property from the supplied element properties.
+     *
+     * @param elementProperties properties from element
+     * @return long
+     */
+    protected long removeDisabledAccountCount(ElementProperties  elementProperties)
+    {
+        final String methodName = "removeDisabledAccountCount";
+
+        if (elementProperties != null)
+        {
+            return propertyHelper.removeLongProperty(localServiceName,
+                                                     OpenMetadataProperty.DISABLED_ACCOUNT_COUNT.name,
                                                      elementProperties,
                                                      methodName);
         }
@@ -12310,6 +12510,21 @@ public class OpenMetadataPropertyConverterBase
                 ((TypeEmbeddedAttributeProperties)beanProperties).setDefaultValue(this.removeDefaultValue(elementProperties));
                 ((TypeEmbeddedAttributeProperties)beanProperties).setFixedValue(this.removeFixedValue(elementProperties));
                 ((TypeEmbeddedAttributeProperties)beanProperties).setAdditionalProperties(this.removeAdditionalProperties(elementProperties));
+            }
+            else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.USER_ACCOUNT_PROFILE_CLASSIFICATION.typeName))
+            {
+                beanProperties = new UserAccountProfileProperties();
+
+                ((UserAccountProfileProperties)beanProperties).setUserAccountCount(this.removeUserAccountCount(elementProperties));
+                ((UserAccountProfileProperties)beanProperties).setEmployeeAccountCount(this.removeEmployeeAccountCount(elementProperties));
+                ((UserAccountProfileProperties)beanProperties).setContractorAccountCount(this.removeContractorAccountCount(elementProperties));
+                ((UserAccountProfileProperties)beanProperties).setExternalAccountCount(this.removeExternalAccountCount(elementProperties));
+                ((UserAccountProfileProperties)beanProperties).setDigitalAccountCount(this.removeDigitalAccountCount(elementProperties));
+                ((UserAccountProfileProperties)beanProperties).setActiveAccountCount(this.removeActiveAccountCount(elementProperties));
+                ((UserAccountProfileProperties)beanProperties).setExpiredAccountCount(this.removeExpiredAccountCount(elementProperties));
+                ((UserAccountProfileProperties)beanProperties).setLockedAccountCount(this.removeLockedAccountCount(elementProperties));
+                ((UserAccountProfileProperties)beanProperties).setDisabledAccountCount(this.removeDisabledAccountCount(elementProperties));
+                ((UserAccountProfileProperties)beanProperties).setAdditionalProperties(this.removeAdditionalProperties(elementProperties));
             }
             else if (propertyHelper.isTypeOf(attachedClassification, OpenMetadataType.ZONE_MEMBERSHIP_CLASSIFICATION.typeName))
             {

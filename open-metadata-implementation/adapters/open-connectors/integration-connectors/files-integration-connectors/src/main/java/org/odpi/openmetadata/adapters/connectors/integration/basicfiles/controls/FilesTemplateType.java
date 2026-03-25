@@ -183,6 +183,15 @@ public enum FilesTemplateType implements TemplateDefinition
                            PlaceholderProperty.getDataFilesPlaceholderPropertyTypes(),
                            null),
 
+    OMSECRETS_FILE_TEMPLATE(DeployedImplementationType.YAML_SECRETS_COLLECTION_FILE.getDeployedImplementationType(),
+                           "Create a " + DeployedImplementationType.YAML_SECRETS_COLLECTION_FILE.getAssociatedTypeName() + " asset.",
+                           DeployedImplementationType.YAML_SECRETS_COLLECTION_FILE.getAssociatedTypeName(),
+                           false,
+                           "130d819e-e17d-46bf-bfea-d09d862e341f",
+                           DeployedImplementationType.YAML_SECRETS_COLLECTION_FILE,
+                           PlaceholderProperty.getDataFilesPlaceholderPropertyTypes(),
+                           null),
+
     PROGRAM_FILE_TEMPLATE(DeployedImplementationType.PROGRAM_FILE.getDeployedImplementationType(),
                           "Create a " + DeployedImplementationType.PROGRAM_FILE.getAssociatedTypeName() + " asset.",
                           DeployedImplementationType.PROGRAM_FILE.getAssociatedTypeName(),

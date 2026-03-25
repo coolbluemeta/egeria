@@ -33,8 +33,8 @@ import java.util.List;
 public class OpenMetadataSecurityConnector extends ConnectorBase implements AuditLoggingComponent
 
 {
-    protected       String           serverRootURL     = null;
-    protected       String           serverName        = "platform";
+    protected       String platformName = null;
+    protected       String serverName   = "platform";
     protected       String           localServerUserId = null;
     protected       String           connectorName     = null;
 
@@ -76,11 +76,11 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
     /**
      * Set up the URL Root for the platform where this is running.
      *
-     * @param serverURLRoot url root
+     * @param platformName url root
      */
-    public void setServerPlatformURL(String    serverURLRoot)
+    public void setPlatformName(String platformName)
     {
-        this.serverRootURL = serverURLRoot;
+        this.platformName = platformName;
     }
 
 
@@ -97,11 +97,11 @@ public class OpenMetadataSecurityConnector extends ConnectorBase implements Audi
                                                    String   requestType,
                                                    String   methodName) throws UserNotAuthorizedException
     {
-        AuditLogMessageDefinition messageDefinition = OpenMetadataSecurityAuditCode.UNAUTHORIZED_PLATFORM_ACCESS.getMessageDefinition(userId, requestType, serverRootURL);
+        AuditLogMessageDefinition messageDefinition = OpenMetadataSecurityAuditCode.UNAUTHORIZED_PLATFORM_ACCESS.getMessageDefinition(userId, requestType, platformName);
 
         this.logRecord(methodName, messageDefinition);
 
-        throw new UserNotAuthorizedException(OpenMetadataSecurityErrorCode.UNAUTHORIZED_PLATFORM_ACCESS.getMessageDefinition(userId, requestType, serverRootURL),
+        throw new UserNotAuthorizedException(OpenMetadataSecurityErrorCode.UNAUTHORIZED_PLATFORM_ACCESS.getMessageDefinition(userId, requestType, platformName),
                                              this.getClass().getName(),
                                              methodName,
                                              userId);

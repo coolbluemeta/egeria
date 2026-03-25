@@ -17,11 +17,11 @@ import org.odpi.openmetadata.frameworks.openmetadata.ffdc.UserNotAuthorizedExcep
 public interface OpenMetadataPlatformSecurity
 {
     /**
-     * Set up the URL Root for the platform where this is running.
+     * Set up the name for the platform where this is running.  This is used in log messages.
      *
-     * @param serverURLRoot url root
+     * @param platformName name
      */
-     void setServerPlatformURL(String    serverURLRoot);
+     void setPlatformName(String    platformName);
 
 
     /**

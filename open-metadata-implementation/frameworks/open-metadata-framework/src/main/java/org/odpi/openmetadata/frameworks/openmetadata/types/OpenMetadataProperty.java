@@ -330,6 +330,51 @@ public enum OpenMetadataProperty
     COURTESY_TITLE("courtesyTitle", DataType.STRING, DataType.STRING.getDisplayName(), "The honorific title for the person.", "Dr", "c669dc73-3ae3-4350-95b7-4508a85bfc94"),
 
     /**
+     * Count of the user accounts in the secrets store.
+     */
+    USER_ACCOUNT_COUNT("userAccountCount", DataType.LONG, DataType.LONG.getDisplayName(), "Count of the user accounts in the secrets store.", "25", "77c9fc43-a5cb-4a3a-9f66-f024a7ecbb3c"),
+
+    /**
+     * Count of the employee user accounts in the secrets store.
+     */
+    EMPLOYEE_ACCOUNT_COUNT("employeeAccountCount", DataType.LONG, DataType.LONG.getDisplayName(), "Count of the employee user accounts in the secrets store.", "25", "5e7c8eee-6ebe-4b60-9cc9-e3397c89a9fb"),
+
+    /**
+     * Count of the contractor user accounts in the secrets store.
+     */
+    CONTRACTOR_ACCOUNT_COUNT("contractorAccountCount", DataType.LONG, DataType.LONG.getDisplayName(), "Count of the contractor user accounts in the secrets store.", "25", "1332d1ae-6fd6-4552-8be6-ebdf4d671d66"),
+
+    /**
+     * Count of the external user accounts in the secrets store.
+     */
+    EXTERNAL_ACCOUNT_COUNT("externalAccountCount", DataType.LONG, DataType.LONG.getDisplayName(), "Count of the external user accounts in the secrets store.", "25", "09806719-e33e-4f94-9b83-f18473908012"),
+
+    /**
+     * Count of the digital user accounts in the secrets store.
+     */
+    DIGITAL_ACCOUNT_COUNT("digitalAccountCount", DataType.LONG, DataType.LONG.getDisplayName(), "Count of the digital user accounts in the secrets store.", "25", "2f55b2c7-f359-4558-9ed5-d320190cecbc"),
+
+    /**
+     * Count of the active user accounts in the secrets store.
+     */
+    ACTIVE_ACCOUNT_COUNT("activeAccountCount", DataType.LONG, DataType.LONG.getDisplayName(), "Count of the active user accounts in the secrets store.", "25", "273bc6fd-ce3a-43af-88b3-76f80ad1e10b"),
+
+    /**
+     * Count of the user accounts with expired credentials in the secrets store.
+     */
+    EXPIRED_ACCOUNT_COUNT("expiredAccountCount", DataType.LONG, DataType.LONG.getDisplayName(), "Count of the user accounts with expired credentials in the secrets store.", "25", "828cf91e-9b79-4c77-8f70-2865debaee81"),
+
+    /**
+     * Count of the locked user accounts in the secrets store.
+     */
+    LOCKED_ACCOUNT_COUNT("lockedAccountCount", DataType.LONG, DataType.LONG.getDisplayName(), "Count of the locked user accounts in the secrets store.", "25", "7f9e3063-ce61-4e53-a45e-2a3fbda0bd43"),
+
+    /**
+     * Count of the disabled user accounts in the secrets store.
+     */
+    DISABLED_ACCOUNT_COUNT("disabledAccountCount", DataType.LONG, DataType.LONG.getDisplayName(), "Count of the disabled user accounts in the secrets store.", "25", "dc692ffb-8973-4583-8f2e-9437b4a1d4af"),
+
+    /**
      * Count of elements in the sample.
      */
     SAMPLE_SIZE("sampleSize", DataType.LONG, DataType.LONG.getDisplayName(), "Count of elements in the sample.", null, "25f87465-5777-48b7-bd21-f94fe370af3d"),

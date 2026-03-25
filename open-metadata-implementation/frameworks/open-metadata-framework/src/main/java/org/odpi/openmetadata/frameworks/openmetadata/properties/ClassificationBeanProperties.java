@@ -8,6 +8,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataScope
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.apis.ListenerInterfaceProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.apis.PublisherInterfaceProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.apis.RequestResponseInterfaceProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.filesandfolders.UserAccountProfileProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.referencedata.ReferenceDataProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.collections.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.datadictionaries.ObjectIdentifierProperties;
@@ -98,6 +99,7 @@ import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_
                 @JsonSubTypes.Type(value = TemplateProperties.class, name = "TemplateProperties"),
                 @JsonSubTypes.Type(value = TemplateSubstituteProperties.class, name = "TemplateSubstituteProperties"),
                 @JsonSubTypes.Type(value = TypeEmbeddedAttributeProperties.class, name = "TypeEmbeddedAttributeProperties"),
+                @JsonSubTypes.Type(value = UserAccountProfileProperties.class, name = "UserAccountProfileProperties"),
                 @JsonSubTypes.Type(value = ZoneMembershipProperties.class, name = "ZoneMembershipProperties"),
                 @JsonSubTypes.Type(value = ZoneMembershipProfileProperties.class, name = "ZoneMembershipProfileProperties"),
         })

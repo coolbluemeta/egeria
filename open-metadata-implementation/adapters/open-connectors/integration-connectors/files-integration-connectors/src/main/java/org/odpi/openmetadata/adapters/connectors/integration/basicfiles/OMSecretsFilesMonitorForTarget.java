@@ -4,14 +4,14 @@
 package org.odpi.openmetadata.adapters.connectors.integration.basicfiles;
 
 import org.odpi.openmetadata.adapters.connectors.integration.basicfiles.ffdc.BasicFilesIntegrationConnectorsAuditCode;
-import org.odpi.openmetadata.adapters.repositoryservices.archiveconnector.file.FileBasedOpenMetadataArchiveStoreConnector;
-import org.odpi.openmetadata.adapters.repositoryservices.archiveconnector.file.FileBasedOpenMetadataArchiveStoreProvider;
+import org.odpi.openmetadata.adapters.connectors.secretsstore.yaml.YAMLSecretsFileConnector;
 import org.odpi.openmetadata.frameworks.auditlog.AuditLog;
+import org.odpi.openmetadata.frameworks.connectors.Connector;
 import org.odpi.openmetadata.frameworks.connectors.ConnectorBroker;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectionCheckedException;
 import org.odpi.openmetadata.frameworks.connectors.ffdc.ConnectorCheckedException;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.Connection;
-import org.odpi.openmetadata.frameworks.connectors.properties.beans.Endpoint;
+import org.odpi.openmetadata.frameworks.connectors.properties.users.SecretsCollection;
+import org.odpi.openmetadata.frameworks.connectors.properties.users.SecretsStore;
 import org.odpi.openmetadata.frameworks.openmetadata.controls.PlaceholderProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.enums.DeleteMethod;
 import org.odpi.openmetadata.frameworks.openmetadata.ffdc.InvalidParameterException;
@@ -22,15 +22,11 @@ import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataAsset
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.filesandfolders.DataFileProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.refdata.FileExtension;
 import org.odpi.openmetadata.frameworks.openmetadata.search.ElementProperties;
-import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataProperty;
 import org.odpi.openmetadata.frameworks.openmetadata.types.OpenMetadataType;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchive;
-import org.odpi.openmetadata.repositoryservices.connectors.stores.archivestore.properties.OpenMetadataArchiveProperties;
 import org.odpi.openmetadata.repositoryservices.ffdc.exception.RepositoryErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -96,59 +92,20 @@ public class OMSecretsFilesMonitorForTarget extends DataFilesMonitorForTarget
                                                                                                  PropertyServerException,
                                                                                                  UserNotAuthorizedException
     {
-        final String methodName = "addDataFileToCatalog";
+        String fileAssetGUID = super.addDataFileToCatalog(OpenMetadataType.ARCHIVE_FILE.typeName,
+                                                          properties,
+                                                          null);
 
         if (FileExtension.OM_SECRETS.getFileExtension().equals(properties.getFileExtension()))
         {
-            ElementProperties replacementProperties = this.updateReplacementProperties(properties.getPathName(),
-                                                                                       null);
-
-            String propertyValue = propertyHelper.getStringProperty(connectorName,
-                                                                    OpenMetadataProperty.DISPLAY_NAME.name,
-                                                                    replacementProperties,
-                                                                    methodName);
-
-            if (propertyValue != null)
-            {
-                properties.setDisplayName(propertyValue);
-            }
-
-            propertyValue = propertyHelper.getStringProperty(connectorName,
-                                                             OpenMetadataProperty.DESCRIPTION.name,
-                                                             replacementProperties,
-                                                             methodName);
-
-            if (propertyValue != null)
-            {
-                properties.setDescription(propertyValue);
-            }
-
-            Map<String, String> additionalProperties = properties.getAdditionalProperties();
-            Map<String, String> propertyMap = propertyHelper.getStringMapFromProperty(connectorName,
-                                                                                      OpenMetadataProperty.ADDITIONAL_PROPERTIES.name,
-                                                                                      replacementProperties,
-                                                                                      methodName);
-
-            if (additionalProperties == null)
-            {
-                properties.setAdditionalProperties(propertyMap);
-            }
-            else if (propertyMap != null)
-            {
-                additionalProperties.putAll(propertyMap);
-                properties.setAdditionalProperties(additionalProperties);
-            }
-
-            return super.addDataFileToCatalog(OpenMetadataType.ARCHIVE_FILE.typeName,
-                                              properties,
-                                              null);
+            this.catalogSecretsCollections(fileAssetGUID);
         }
         else
         {
             log.debug("ignoring file " + properties);
         }
 
-        return null;
+        return fileAssetGUID;
     }
 
 
@@ -173,107 +130,54 @@ public class OMSecretsFilesMonitorForTarget extends DataFilesMonitorForTarget
                                                                                               PropertyServerException,
                                                                                               UserNotAuthorizedException
     {
-        if (FileExtension.OM_ARCHIVE_FILE.getFileExtension().equals(placeholderProperties.get(PlaceholderProperty.FILE_EXTENSION.getName())))
+        String fileGUID = super.addDataFileViaTemplate(assetTypeName, fileTemplateGUID, replacementProperties, placeholderProperties);
+
+        if (FileExtension.OM_SECRETS.getFileExtension().equals(placeholderProperties.get(PlaceholderProperty.FILE_EXTENSION.getName())))
         {
-            return super.addDataFileViaTemplate(assetTypeName,
-                                                fileTemplateGUID,
-                                                this.updateReplacementProperties(placeholderProperties.get(PlaceholderProperty.FILE_PATH_NAME.getName()),
-                                                                                 replacementProperties),
-                                                placeholderProperties);
+            this.catalogSecretsCollections(fileGUID);
         }
         else
         {
             log.debug("ignoring file " + placeholderProperties);
         }
 
-        return null;
+        return fileGUID;
     }
 
 
     /**
+     * Catalog the secrets collections in the archive file.
      *
-     * @param pathName              full name of file
-     * @param replacementProperties properties to replace over the template
-     * @return propertied for call to OMF
+     * @param fileAssetGUID unique identifier of the file to open
      * @throws UserNotAuthorizedException security problems
      */
-    private ElementProperties updateReplacementProperties(String            pathName,
-                                                          ElementProperties replacementProperties) throws UserNotAuthorizedException
+    private void catalogSecretsCollections(String fileAssetGUID) throws UserNotAuthorizedException,
+                                                                        InvalidParameterException,
+                                                                        PropertyServerException
     {
-        final String methodName = "updateReplacementProperties";
-
-        ElementProperties archiveElementProperties = replacementProperties;
+        final String methodName = "catalogSecretsCollections";
 
         try
         {
-            FileBasedOpenMetadataArchiveStoreProvider provider = new FileBasedOpenMetadataArchiveStoreProvider();
+            Connector connector = integrationConnector.integrationContext.getConnectedAssetContext().getConnectorForAsset(fileAssetGUID, auditLog);
 
-            Connection connection = new Connection();
-            connection.setConnectorType(provider.getConnectorType());
-
-            Endpoint endpoint = new Endpoint();
-            endpoint.setNetworkAddress(pathName);
-            connection.setEndpoint(endpoint);
-
-            FileBasedOpenMetadataArchiveStoreConnector connector = (FileBasedOpenMetadataArchiveStoreConnector) connectorBroker.getConnector(connection);
-
-            OpenMetadataArchive openMetadataArchive = connector.getArchiveContents();
-
-            if (openMetadataArchive != null)
+            if (connector instanceof YAMLSecretsFileConnector yamlSecretsFileConnector)
             {
-                OpenMetadataArchiveProperties properties = openMetadataArchive.getArchiveProperties();
+                yamlSecretsFileConnector.start();
+                SecretsStore secretsStore = yamlSecretsFileConnector.getSecretsStore();
 
-                if (properties != null)
+                if (secretsStore != null)
                 {
-                    archiveElementProperties = propertyHelper.addStringProperty(archiveElementProperties,
-                                                                                OpenMetadataProperty.DISPLAY_NAME.name,
-                                                                                properties.getArchiveName());
-                    archiveElementProperties = propertyHelper.addStringProperty(archiveElementProperties,
-                                                                                OpenMetadataProperty.DESCRIPTION.name,
-                                                                                properties.getArchiveDescription());
-                    archiveElementProperties = propertyHelper.addStringProperty(archiveElementProperties,
-                                                                                OpenMetadataProperty.VERSION_IDENTIFIER.name,
-                                                                                properties.getArchiveVersion());
+                    for (SecretsCollection secretsCollection : secretsStore.getSecretsCollections().values())
+                    {
+                        yamlSecretsFileConnector.setSecretsCollectionName(secretsCollection.getDisplayName());
 
-                    Map<String, String> additionalProperties = new HashMap<>();
 
-                    additionalProperties.put("archiveGUID", properties.getArchiveGUID());
-                    if (properties.getArchiveType() != null)
-                    {
-                        additionalProperties.put("archiveType", properties.getArchiveType().getName());
                     }
-                    else
-                    {
-                        additionalProperties.put("archiveType", null);
-                    }
-                    additionalProperties.put("originatorName", properties.getOriginatorName());
-                    additionalProperties.put("originatorOrganization", properties.getOriginatorOrganization());
-                    additionalProperties.put("originatorLicense", properties.getOriginatorLicense());
-                    if (properties.getDependsOnArchives() != null)
-                    {
-                        additionalProperties.put("dependsOnArchives", properties.getDependsOnArchives().toString());
-                    }
-                    else
-                    {
-                        additionalProperties.put("dependsOnArchives", "[]");
-                    }
-                    if (properties.getCreationDate() != null)
-                    {
-                        additionalProperties.put("creationDate", properties.getCreationDate().toString());
-                    }
-                    else
-                    {
-                        additionalProperties.put("creationDate", null);
-                    }
-
-                    archiveElementProperties = propertyHelper.addStringMapProperty(archiveElementProperties,
-                                                                                   OpenMetadataProperty.ADDITIONAL_PROPERTIES.name,
-                                                                                   additionalProperties);
                 }
             }
         }
-        catch (ClassCastException | RepositoryErrorException | ConnectionCheckedException |
-               ConnectorCheckedException error)
+        catch (ClassCastException | RepositoryErrorException | ConnectionCheckedException | ConnectorCheckedException error)
         {
             auditLog.logMessage(methodName,
                                 BasicFilesIntegrationConnectorsAuditCode.UNEXPECTED_EXCEPTION.getMessageDefinition(connectorName,
@@ -281,7 +185,5 @@ public class OMSecretsFilesMonitorForTarget extends DataFilesMonitorForTarget
                                                                                                                    methodName,
                                                                                                                    error.getMessage()));
         }
-
-        return archiveElementProperties;
     }
 }
