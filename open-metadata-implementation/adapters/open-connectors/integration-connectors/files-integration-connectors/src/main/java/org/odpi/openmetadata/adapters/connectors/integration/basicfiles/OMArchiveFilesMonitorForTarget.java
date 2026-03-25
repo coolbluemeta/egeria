@@ -217,6 +217,7 @@ public class OMArchiveFilesMonitorForTarget extends DataFilesMonitorForTarget
             connection.setEndpoint(endpoint);
 
             FileBasedOpenMetadataArchiveStoreConnector connector = (FileBasedOpenMetadataArchiveStoreConnector) connectorBroker.getConnector(connection);
+            connector.start();
 
             OpenMetadataArchive openMetadataArchive = connector.getArchiveContents();
 

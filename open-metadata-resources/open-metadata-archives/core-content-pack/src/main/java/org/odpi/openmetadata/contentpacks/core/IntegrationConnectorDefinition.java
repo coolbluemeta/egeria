@@ -444,7 +444,7 @@ public enum IntegrationConnectorDefinition
                       ProductSolutionComponent.JACQUARD_HARVESTER.getDisplayName(),
                       ProductSolutionComponent.JACQUARD_HARVESTER.getDescription(),
                       true,
-                      "JacquardHarvester",
+                      "JacquardDigitalProductLoom",
                       SecretsStorePurpose.REST_BEARER_TOKEN.getName(),
                       new YAMLSecretsStoreProvider().getConnectorType().getGUID(),
                       "loading-bay/secrets/egeria-servers.omsecrets",
@@ -465,10 +465,10 @@ public enum IntegrationConnectorDefinition
                               "Babbage Analytical Engine",
                               "Initiates analytical processing that generates statistics on the content and operation of the open metadata ecosystem.  The analytical processors are called lovelace analytical services.",
                               true,
-                              "BabbageAnalyticalEngine",
-                              SecretsStorePurpose.REST_BEARER_TOKEN.getName(),
-                              new YAMLSecretsStoreProvider().getConnectorType().getGUID(),
-                              "loading-bay/secrets/egeria-servers.omsecrets",
+                              null,
+                              null,
+                              null,
+                              null,
                               ContentPackDefinition.CORE_CONTENT_PACK),
     ;
 

@@ -11,7 +11,8 @@ import java.util.Map;
 
 
 /**
- * DataFilesMonitorIntegrationConnector monitors a file directory and catalogues the files it finds.
+ * OMSecretsFilesMonitorIntegrationConnector monitors a file directory and catalogues the files it finds.
+ * It has additional
  */
 public class OMSecretsFilesMonitorIntegrationConnector extends DataFilesMonitorIntegrationConnector
 {

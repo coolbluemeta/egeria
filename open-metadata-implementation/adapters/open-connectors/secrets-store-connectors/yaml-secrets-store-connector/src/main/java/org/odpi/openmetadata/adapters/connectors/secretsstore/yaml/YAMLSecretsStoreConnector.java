@@ -31,10 +31,10 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
     private static final ObjectMapper yamlObjectMapper = new ObjectMapper(new YAMLFactory());
     private static final ObjectMapper jsonObjectMapper = new ObjectMapper();
 
-    private File                               secretsStoreFile         = null;
-    private SecretsStore                       secretsStore             = null;
-    private Map<String, UserAccount>           userAccountMap           = new HashMap<>();
-    private Map<String, SecurityAccessControl> securityAccessControlMap = new HashMap<>();
+    protected File                               secretsStoreFile         = null;
+    protected SecretsStore                       secretsStore             = null;
+    protected Map<String, UserAccount>           userAccountMap           = new HashMap<>();
+    protected Map<String, SecurityAccessControl> securityAccessControlMap = new HashMap<>();
 
 
     /**
@@ -50,7 +50,6 @@ public class YAMLSecretsStoreConnector extends SecretsStoreConnector
     {
         super.initialize(connectorInstanceId, connectionDetails);
     }
-
 
 
     /**

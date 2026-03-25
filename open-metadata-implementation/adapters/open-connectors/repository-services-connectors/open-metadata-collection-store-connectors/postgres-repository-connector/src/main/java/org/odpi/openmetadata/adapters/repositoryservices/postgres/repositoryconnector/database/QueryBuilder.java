@@ -1189,7 +1189,7 @@ public class QueryBuilder
                 stringBuffer.append(RepositoryColumn.TYPE_NAME.getColumnName());
                 stringBuffer.append(" like '%:");
                 stringBuffer.append(this.lookUpTypeName(subTypeGUID, subTypeGUIDsParameterName));
-                stringBuffer.append(":%')");
+                stringBuffer.append(":%' ");
             }
             stringBuffer.append(")");
 

@@ -8,6 +8,7 @@ import org.odpi.openmetadata.frameworks.openmetadata.enums.KeyPattern;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.*;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataAssetEncodingProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.DataScopeProperties;
+import org.odpi.openmetadata.frameworks.openmetadata.properties.assets.filesandfolders.UserAccountProfileProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.collections.EditingCollectionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.collections.ScopingCollectionProperties;
 import org.odpi.openmetadata.frameworks.openmetadata.properties.collections.StagingCollectionProperties;
@@ -630,6 +631,40 @@ public class OpenMetadataClassificationBuilder
                 elementProperties = propertyHelper.addStringMapProperty(elementProperties,
                                                                         OpenMetadataProperty.ADDITIONAL_PROPERTIES.name,
                                                                         typeEmbeddedAttributeProperties.getAdditionalProperties());
+
+            }
+            else if (properties instanceof UserAccountProfileProperties userAccountProfileProperties)
+            {
+                elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                   OpenMetadataProperty.USER_ACCOUNT_COUNT.name,
+                                                                   userAccountProfileProperties.getUserAccountCount());
+                elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                   OpenMetadataProperty.EMPLOYEE_ACCOUNT_COUNT.name,
+                                                                   userAccountProfileProperties.getEmployeeAccountCount());
+                elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                   OpenMetadataProperty.CONTRACTOR_ACCOUNT_COUNT.name,
+                                                                   userAccountProfileProperties.getContractorAccountCount());
+                elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                   OpenMetadataProperty.EXTERNAL_ACCOUNT_COUNT.name,
+                                                                   userAccountProfileProperties.getExternalAccountCount());
+                elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                   OpenMetadataProperty.DIGITAL_ACCOUNT_COUNT.name,
+                                                                   userAccountProfileProperties.getDigitalAccountCount());
+                elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                   OpenMetadataProperty.ACTIVE_ACCOUNT_COUNT.name,
+                                                                   userAccountProfileProperties.getActiveAccountCount());
+                elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                   OpenMetadataProperty.EXPIRED_ACCOUNT_COUNT.name,
+                                                                   userAccountProfileProperties.getExpiredAccountCount());
+                elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                   OpenMetadataProperty.LOCKED_ACCOUNT_COUNT.name,
+                                                                   userAccountProfileProperties.getLockedAccountCount());
+                elementProperties = propertyHelper.addLongProperty(elementProperties,
+                                                                   OpenMetadataProperty.DISABLED_ACCOUNT_COUNT.name,
+                                                                   userAccountProfileProperties.getDisabledAccountCount());
+                elementProperties = propertyHelper.addStringMapProperty(elementProperties,
+                                                                   OpenMetadataProperty.ADDITIONAL_PROPERTIES.name,
+                                                                   userAccountProfileProperties.getAdditionalProperties());
 
             }
             else if (properties instanceof ZoneMembershipProperties zoneMembershipProperties)
